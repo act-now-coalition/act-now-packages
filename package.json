@@ -1,0 +1,26 @@
+{
+  "name": "act-now-packages",
+  "version": "1.0.0",
+  "description": "NPM Packages for Act Now Coalition",
+  "main": "index.js",
+  "repository": "git@github.com:covid-projections/act-now-packages.git",
+  "author": "Act Now Coalition",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --max-warnings=0",
+    "*": "prettier --write --ignore-unknown"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "eslint-plugin-react": "^7.29.4",
+    "husky": "^8.0.1",
+    "lint-staged": "^12.4.1",
+    "prettier": "2.6.2"
+  }
+}
