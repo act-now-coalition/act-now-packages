@@ -14,7 +14,9 @@
     "prepare": "husky install",
     "run-script": "yarn ts-node-script",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:ci": "CI=true yarn test",
+    "lint": "eslint ."
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --max-warnings=0",
