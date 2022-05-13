@@ -9,6 +9,7 @@
   "author": "Act Now Coalition",
   "license": "MIT",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "build": "tsc src/index.ts --outDir lib --declaration"
   },
