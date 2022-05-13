@@ -22,3 +22,4 @@ yarn add --dev -W jest
 ## Links
 
 - [Act Now - Frontend file naming convention](https://www.dropbox.com/scl/fi/yhy2bpjivak53tn1dbd53/Frontend-file-naming-convention.paper?dl=0&rlkey=j2kwhzm2gajced4t5lv9hzffc)
+- [Yarn Workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
