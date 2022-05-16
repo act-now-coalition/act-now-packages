@@ -13,7 +13,7 @@ cd packages/date-utils
 yarn add luxon
 ```
 
-or alternatively (see the [`yarn worksapce`](https://classic.yarnpkg.com/en/docs/cli/workspace) documentation)
+or alternatively (see the [`yarn worksapce`](https://classic.yarnpkg.com/en/docs/cli/workspace) documentation):
 
 ```sh
 yarn workspace @covid-projections/date-utils add luxon
