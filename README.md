@@ -19,10 +19,27 @@ or alternatively (see the [`yarn worksapce`](https://classic.yarnpkg.com/en/docs
 yarn workspace @covid-projections/date-utils add luxon
 ```
 
+Dependencies only used for linting or testing that are shares across packages can be installed at the root level, but other development dependencies need to be installed for each package. In particular, if the dependency adds a binary executable (such as `tsc`, from `typescript`), it needs to be added as dev. dependency for each package.
+
 For dependencies only used to support the development workflow (testing, linting, etc.) that are shared across packages, install them at the root level. To install a dependency at the root level, we need to pass the `-W` (`--ignore-workspace-root-check`) option. Example:
 
 ```sh
 yarn add --dev jest -W
+```
+
+## Building a package
+
+Packages can be build by running:
+
+```sh
+cd packages/assert
+yarn build
+```
+
+or alternatively
+
+```sh
+yarn workspace @covid-projections/assert build
 ```
 
 ## Links
