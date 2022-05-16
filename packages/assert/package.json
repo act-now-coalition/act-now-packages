@@ -15,5 +15,8 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
   }
 }
