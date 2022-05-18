@@ -24,4 +24,4 @@ jobs:
           scope: "@actnowcoalition"
           cache: "yarn"
       - run: yarn workspace ${{ env.PACKAGE_NAME }} build
-      - run: yarn workspace ${{ env.PACKAGE_NAME }} publish
+      - run: yarn workspace ${{ env.PACKAGE_NAME }} publish --access public
