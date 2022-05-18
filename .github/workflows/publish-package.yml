@@ -1,4 +1,4 @@
-name: Publish NPM Package
+name: Publish Package
 
 on:
   workflow_dispatch:
@@ -6,13 +6,13 @@ on:
       description: "Name of the package to publish (e.g. assert)"
       required: true
     version_number:
-      description: "Version number"
+      description: "Version number (e.g. 1.0.1)"
       required: true
 
 env:
   NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   PACKAGE_NAME: "@covid-projections/${{ github.event.inputs.package_name }}"
-  ENV_VERSION: ${{ github.event.inputs.version_number }}
+  PACKAGE_VERSION: ${{ github.event.inputs.version_number }}
 
 jobs:
   publish:
@@ -24,5 +24,5 @@ jobs:
         with:
           node-version: 16
           cache: "yarn"
-      - run: yarn workspace {{name}} build
-      - run: yarn workspace ${{ env.PACKAGE_NAME }} publish --new-version ${{ env.VERSION_NUMBER }}
+      - run: yarn workspace ${{ env.PACKAGE_NAME }} build
+      - run: yarn workspace ${{ env.PACKAGE_NAME }} publish --new-version ${{ env.PACKAGE_VERSION }}
