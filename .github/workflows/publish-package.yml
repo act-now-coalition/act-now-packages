@@ -1,0 +1,27 @@
+name: Publish Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      package_name:
+        description: "Name of the package to publish (e.g. assert)"
+        required: true
+
+env:
+  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  PACKAGE_NAME: "@covid-projections/${{ github.event.inputs.package_name }}"
+
+jobs:
+  publish:
+    name: "Publish package"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@covid-projections"
+          cache: "yarn"
+      - run: yarn workspace ${{ env.PACKAGE_NAME }} build
+      - run: yarn workspace ${{ env.PACKAGE_NAME }} publish
