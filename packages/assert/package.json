@@ -1,5 +1,5 @@
 {
-  "name": "@covid-projections/assert",
+  "name": "@actnowcoalition/assert",
   "version": "1.0.0",
   "description": "Assertion functions",
   "repository": {
@@ -14,7 +14,7 @@
     "build": "tsc src/index.ts --outDir lib --declaration"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org"
   },
   "devDependencies": {
     "typescript": "^4.6.4"

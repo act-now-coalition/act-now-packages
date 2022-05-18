@@ -8,8 +8,8 @@ on:
         required: true
 
 env:
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  PACKAGE_NAME: "@covid-projections/${{ github.event.inputs.package_name }}"
+  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+  PACKAGE_NAME: "@actnowcoalition/${{ github.event.inputs.package_name }}"
 
 jobs:
   publish:
@@ -20,8 +20,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@covid-projections"
+          registry-url: "https://registry.npmjs.org"
+          scope: "@actnowcoalition"
           cache: "yarn"
       - run: yarn workspace ${{ env.PACKAGE_NAME }} build
       - run: yarn workspace ${{ env.PACKAGE_NAME }} publish
