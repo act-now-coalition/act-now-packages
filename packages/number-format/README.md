@@ -1,3 +1,3 @@
-# number-formatting-utils
+# number-format
 
 Number formatting utility functions
