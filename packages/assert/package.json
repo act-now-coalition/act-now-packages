@@ -13,9 +13,6 @@
   "scripts": {
     "build": "tsc src/index.ts --outDir lib --declaration"
   },
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org"
-  },
   "devDependencies": {
     "typescript": "^4.6.4"
   }
