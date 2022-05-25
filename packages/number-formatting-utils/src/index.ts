@@ -27,11 +27,11 @@ export function formatInteger(value: number): string {
  * @param places Number of decimal places to round to (defaults to 2)
  * @returns Formatted decimal (as string)
  */
-export const formatDecimal = (value: number, places = 2): string => {
+export function formatDecimal(value: number, places = 2): string {
   return new Intl.NumberFormat(undefined, {
     maximumFractionDigits: places,
   }).format(value);
-};
+}
 
 /**
  * Format a percentage representation of a number, rounding to the amount of decimal places specified
