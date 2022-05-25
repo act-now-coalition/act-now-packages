@@ -1,0 +1,19 @@
+{
+  "name": "@actnowcoalition/number-formatting-utils",
+  "version": "1.0.0",
+  "description": "Number formatting utility functions",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:covid-projections/act-now-packages.git"
+  },
+  "author": "Act Now Coalition",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc src/index.ts --outDir lib --declaration"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}
