@@ -23,7 +23,7 @@ describe("numberFormatUtils", () => {
       expect(formatDecimal(0)).toBe("0");
     });
     test("Value to decimal string with decimal places specified", () => {
-      expect(formatDecimal(1.2345, 3)).toBe("1.234"); // is this right?
+      expect(formatDecimal(1.2345, 3)).toBe("1.235");
       expect(formatDecimal(0)).toBe("0");
       expect(formatDecimal(1.9)).toBe("1.9");
     });
@@ -31,10 +31,10 @@ describe("numberFormatUtils", () => {
 
   describe("formatPercent", () => {
     test("Value to percentage string", () => {
-      expect(formatPercent(0.1234)).toBe("12.34%");
-      expect(formatPercent(1.2345)).toBe("123.45%");
-      expect(formatPercent(-0.4321)).toBe("-43.21%");
-      expect(formatPercent(0)).toBe("0.0%");
+      expect(formatPercent(0.1234)).toBe("12%");
+      expect(formatPercent(1.2345)).toBe("123%");
+      expect(formatPercent(-0.4321)).toBe("-43%");
+      expect(formatPercent(0)).toBe("0%");
     });
     test("Value to percentage string with decimal places specified", () => {
       expect(formatPercent(0.1234, 1)).toBe("12.3%");

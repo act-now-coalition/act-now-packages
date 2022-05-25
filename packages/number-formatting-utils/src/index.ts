@@ -21,7 +21,7 @@ export function formatInteger(value: number): string {
  *
  * @example
  * formatDecimal(1.2345)    // "1.23"
- * formatDecimal(1.2345, 3) // "1.234"
+ * formatDecimal(1.2345, 3) // "1.235"
  *
  * @param value Number to format
  * @param places Number of decimal places to round to (defaults to 2)
@@ -39,6 +39,7 @@ export const formatDecimal = (value: number, places = 2): string => {
  *
  * @example
  * formatPercent(0.85)      // 85%
+ * formatPercent(0.1234)    // 12%
  * formatPercent(0.8567, 2) // 85.67%
  *
  * @param value Number to format
