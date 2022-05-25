@@ -36,14 +36,13 @@ const templatePackage = prepareTemplate(`
 
 export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
   /**
-   * Sets a custom action type to run `yarn` on the new package folder. Note
-   * that it will only include typescript, any other dependencies will still
+   * Sets a custom action type to run `yarn` on the root directory, which
+   * will install the new package dependencies on its directory. Note that
+   * it will only include typescript, any other dependencies will still
    * need to be added after creating the package.
    */
-  plop.setActionType("yarn", function (answers, config, plop) {
-    const dashCase = plop.getHelper("dashCase");
-    const command = `cd packages/${dashCase(answers.name)}; yarn; cd ../..;`;
-    exec(command, function (error, stdout) {
+  plop.setActionType("yarn", function () {
+    exec(`yarn`, function (error, stdout) {
       if (error) {
         console.error(`Error: ${error}`);
         return;
