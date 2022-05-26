@@ -24,8 +24,8 @@ describe("numberFormatUtils", () => {
     });
     test("Value to decimal string with decimal places specified", () => {
       expect(formatDecimal(1.2345, 3)).toBe("1.235");
-      expect(formatDecimal(0)).toBe("0");
-      expect(formatDecimal(1.9)).toBe("1.9");
+      expect(formatDecimal(1.2345, 1)).toBe("1.2");
+      expect(formatDecimal(0, 3)).toBe("0");
     });
   });
 

@@ -37,6 +37,8 @@ export function formatDecimal(value: number, places = 2): string {
  * Format a percentage representation of a number, rounding to the amount of decimal places specified
  * by the places param, or rounded to the nearest whole integer if no places param is provided.
  *
+ * The number is multiplied by 100 to create a percentage.
+ *
  * @example
  * formatPercent(0.85)      // 85%
  * formatPercent(0.1234)    // 12%
