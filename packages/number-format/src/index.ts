@@ -35,11 +35,10 @@ export function formatDecimal(
   value: number,
   placesOrOptions: number | Intl.NumberFormatOptions = 2
 ): string {
-  return typeof placesOrOptions === "number"
-    ? new Intl.NumberFormat(undefined, {
-        maximumFractionDigits: placesOrOptions,
-      }).format(value)
-    : new Intl.NumberFormat(undefined, placesOrOptions).format(value);
+  return new Intl.NumberFormat(
+    undefined,
+    getOptionsFromPlacesOrOptions(placesOrOptions)
+  ).format(value);
 }
 
 /**
@@ -67,15 +66,10 @@ export function formatPercent(
   value: number,
   placesOrOptions: number | Intl.NumberFormatOptions = 0
 ): string {
-  return typeof placesOrOptions === "number"
-    ? new Intl.NumberFormat(undefined, {
-        style: "percent",
-        maximumFractionDigits: placesOrOptions,
-      }).format(value)
-    : new Intl.NumberFormat(undefined, {
-        style: "percent",
-        ...placesOrOptions,
-      }).format(value);
+  return new Intl.NumberFormat(
+    undefined,
+    getOptionsFromPlacesOrOptions(placesOrOptions, "percent")
+  ).format(value);
 }
 
 /**
@@ -101,11 +95,10 @@ export function formatMillions(
   placesOrOptions: number | Intl.NumberFormatOptions = 2
 ): string {
   const millifiedValue = value / 1_000_000;
-  return typeof placesOrOptions === "number"
-    ? new Intl.NumberFormat(undefined, {
-        maximumFractionDigits: placesOrOptions,
-      }).format(millifiedValue)
-    : new Intl.NumberFormat(undefined, placesOrOptions).format(millifiedValue);
+  return new Intl.NumberFormat(
+    undefined,
+    getOptionsFromPlacesOrOptions(placesOrOptions)
+  ).format(millifiedValue);
 }
 
 /**
@@ -131,9 +124,24 @@ export function formatBillions(
   placesOrOptions: number | Intl.NumberFormatOptions = 2
 ): string {
   const billifiedValue = value / 1_000_000_000;
+  return new Intl.NumberFormat(
+    undefined,
+    getOptionsFromPlacesOrOptions(placesOrOptions)
+  ).format(billifiedValue);
+}
+
+/* Helper function to get NumberFormatOptions from utils params */
+function getOptionsFromPlacesOrOptions(
+  placesOrOptions?: number | Intl.NumberFormatOptions,
+  formattingStyle?: string
+): Intl.NumberFormatOptions | undefined {
+  const formattingStyleForOptions = formattingStyle
+    ? { style: formattingStyle }
+    : {};
   return typeof placesOrOptions === "number"
-    ? new Intl.NumberFormat(undefined, {
+    ? {
         maximumFractionDigits: placesOrOptions,
-      }).format(billifiedValue)
-    : new Intl.NumberFormat(undefined, placesOrOptions).format(billifiedValue);
+        ...formattingStyleForOptions,
+      }
+    : { ...placesOrOptions, ...formattingStyleForOptions };
 }
