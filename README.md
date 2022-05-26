@@ -1,46 +1,82 @@
 # act-now-packages
 
-NPM Packages for Act Now Coalition
+> NPM Packages for Act Now Coalition
 
-## Getting started
+This is a multi-package repository to host NPM packages for the [Act Now Coalition](https://actnowcoalition.org).
 
-## Installing package dependencies
+https://www.npmjs.com/search?q=keywords:actnowcoalition
 
-Each package should have its own set of dependencies. For example, if the package `date-utils` needs `luxon`, the `luxon` library should be added as dependency on the `date-utils/package.json` file, and not on the root `package.json` file.
+## Setup
 
-```sh
-cd packages/date-utils
-yarn add luxon
-```
-
-or alternatively (see the [`yarn worksapce`](https://classic.yarnpkg.com/en/docs/cli/workspace) documentation):
+Make sure you have [Node.js](https://nodejs.org/en/) installed. We recommend using [nvm](https://github.com/nvm-sh/nvm) to quickly install and use different versions of node via the command line. In this project, we use Node 16 (the latest LTS version).
 
 ```sh
-yarn workspace @covid-projections/date-utils add luxon
+nvm install v16
+nvm use v16
 ```
 
-Dependencies only used for linting or testing that are shares across packages can be installed at the root level, but other development dependencies need to be installed for each package. In particular, if the dependency adds a binary executable (such as `tsc`, from `typescript`), it needs to be added as dev. dependency for each package.
+## Worflow
 
-For dependencies only used to support the development workflow (testing, linting, etc.) that are shared across packages, install them at the root level. To install a dependency at the root level, we need to pass the `-W` (`--ignore-workspace-root-check`) option. Example:
+### Creating a package
+
+In order to keep packages consitent with each other, we implemented the yarn command `create-package` to scaffold the initial package structure. To create a package, run:
 
 ```sh
-yarn add --dev jest -W
+yarn create-package
 ```
 
-## Building a package
+The command will prompt for the package name and description. Package names should be short and descriptive (see [npm package.json#name](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#name) for more details). The `create-package` command will normalize the package name and description for you.
 
-Packages can be build by running:
+```
+yarn create-package
+yarn run v1.22.17
+$ yarn plop package
+? name: date format
+? description: utility functions to format dates
+✔  ++ /packages/date-format/README.md
+✔  ++ /packages/date-format/src/index.ts
+✔  ++ /packages/date-format/package.json
+✔  ++ /packages/date-format/LICENSE
+✔  yarn
+[1/4] Resolving packages...
+[2/4] Fetching packages...
+[3/4] Linking dependencies...
+[4/4] Building fresh packages...
+$ husky install
+husky - Git hooks installed
+```
+
+This will create the initial directory structure and starter files, and install the initial package dependencies. EXAMPLE
+
+You can now add more files, dependencies, and update the README file. Make sure to export the package functionality from the `index.ts` file in the package. We strongly recommend to include unit tests in your package before publishing.
+
+### Publishing
+
+Once the code is merged to `develop`, we can publish the package using GitHub actions. To publish your package
+
+1. Go to _[GitHub Actions → Publish Package](https://github.com/covid-projections/act-now-packages/actions/workflows/publish-package.yml)_ and click _Run workflow_
+2. Complete the name of the package
+3. Click _Run workflow_
+
+This will publish the package to NPM, you should be able to see it in [NPM](https://www.npmjs.com/search?q=keywords:actnowcoalition).
+
+### Installing the package
+
+If you want to use the package on a different project, you can install it as you would normally do with any other package. For example, to install `assert` on a different repository, just go to that project and run:
 
 ```sh
-cd packages/assert
-yarn build
+yarn add @actnowcoalition/assert
 ```
 
-or alternatively
+If you need a specific version, you can install
 
 ```sh
-yarn workspace @covid-projections/assert build
+yarn add @actnowcoalition/assert@1.0.1
 ```
+
+### Updating a package
+
+WIP
 
 ## Links
 

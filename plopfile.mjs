@@ -11,6 +11,10 @@ const templateReadme = prepareTemplate(`
 # {{dashCase name}}
 
 {{sentenceCase description}}
+
+## License
+
+[MIT](./LICENSE)
 `);
 
 const templatePackage = prepareTemplate(`
@@ -20,8 +24,12 @@ const templatePackage = prepareTemplate(`
   "description": "{{sentenceCase description}}",
   "repository": {
     "type": "git",
-    "url": "git@github.com:covid-projections/act-now-packages.git"
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/{{dashCase name}}"
   },
+  "keywords": [
+    "actnowcoalition"
+  ],
   "author": "Act Now Coalition",
   "license": "MIT",
   "main": "lib/index.js",
