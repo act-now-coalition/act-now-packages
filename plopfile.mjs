@@ -8,9 +8,15 @@ import _ from "lodash";
 import { exec } from "child_process";
 
 const templateReadme = prepareTemplate(`
-# {{dashCase name}}
+# @actnowcoalition/{{dashCase name}}
 
-{{sentenceCase description}}
+> {{sentenceCase description}}
+
+## Installing
+
+\`\`\`sh
+yarn add @actnowcoalition/number-format
+\`\`\`
 
 ## License
 
