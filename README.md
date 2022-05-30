@@ -4,7 +4,7 @@
 
 This is a multi-package repository to host NPM packages for the [Act Now Coalition](https://actnowcoalition.org).
 
-https://www.npmjs.com/search?q=keywords:actnowcoalition
+See all the [Act Now Coalition packages](https://www.npmjs.com/search?q=keywords:actnowcoalition)
 
 ## Setup
 
@@ -46,7 +46,7 @@ $ husky install
 husky - Git hooks installed
 ```
 
-This will create the initial directory structure and starter files, and install the initial package dependencies. EXAMPLE
+This will create the initial directory structure and starter files, and install the initial package dependencies, see [`packages/assert`](https://github.com/covid-projections/act-now-packages/tree/develop/packages/assert) to see an example of a package.
 
 You can now add more files, dependencies, and update the README file. Make sure to export the package functionality from the `index.ts` file in the package. We strongly recommend to include unit tests in your package before publishing.
 
@@ -76,10 +76,11 @@ yarn add @actnowcoalition/assert@1.0.1
 
 ### Updating a package
 
-WIP
+If you change the code on a package, you will need to update its version number and re-publish the package. We use [semantic versioning](https://semver.org/) to determine what the new version number should be.
 
 ## Links
 
+- [Semantic Versioning 2.0](https://semver.org/)
 - [Act Now - Frontend file naming convention](https://www.dropbox.com/scl/fi/yhy2bpjivak53tn1dbd53/Frontend-file-naming-convention.paper?dl=0&rlkey=j2kwhzm2gajced4t5lv9hzffc)
 - [Yarn Workspaces](https://classic.yarnpkg.com/lang/en/docs/workspaces/)
 - [Yarn CLI - Workspace](https://classic.yarnpkg.com/en/docs/cli/workspace)
