@@ -1,0 +1,23 @@
+{
+  "name": "@actnowcoalition/time-utils",
+  "version": "1.0.0",
+  "description": "Utility functions to handle and format time",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/time-utils"
+  },
+  "keywords": [
+    "actnowcoalition"
+  ],
+  "author": "Act Now Coalition",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "tsc src/index.ts --outDir lib --declaration"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  }
+}
