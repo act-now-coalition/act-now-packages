@@ -13,7 +13,7 @@
   "scripts": {
     "prepare": "husky install",
     "run-script": "yarn ts-node-script",
-    "test": "jest",
+    "test": "TZ=America/Los_Angeles jest",
     "test:watch": "jest --watch",
     "test:ci": "CI=true yarn test",
     "lint": "eslint .",
