@@ -8,9 +8,19 @@ import _ from "lodash";
 import { exec } from "child_process";
 
 const templateReadme = prepareTemplate(`
-# {{dashCase name}}
+# @actnowcoalition/{{dashCase name}}
 
-{{sentenceCase description}}
+> {{sentenceCase description}}
+
+## Installing
+
+\`\`\`sh
+yarn add @actnowcoalition/number-format
+\`\`\`
+
+## License
+
+[MIT](./LICENSE)
 `);
 
 const templatePackage = prepareTemplate(`
@@ -20,8 +30,12 @@ const templatePackage = prepareTemplate(`
   "description": "{{sentenceCase description}}",
   "repository": {
     "type": "git",
-    "url": "git@github.com:covid-projections/act-now-packages.git"
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/{{dashCase name}}"
   },
+  "keywords": [
+    "actnowcoalition"
+  ],
   "author": "Act Now Coalition",
   "license": "MIT",
   "main": "lib/index.js",

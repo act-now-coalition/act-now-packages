@@ -4,8 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       package_name:
-        description: "Name of the package to publish (e.g. assert)"
+        type: choice
+        description: "Package to publish"
         required: true
+        options:
+          - assert
+          - number-format
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

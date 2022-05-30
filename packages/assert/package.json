@@ -4,8 +4,12 @@
   "description": "Assertion functions",
   "repository": {
     "type": "git",
-    "url": "git@github.com:covid-projections/act-now-packages.git"
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/assert"
   },
+  "keywords": [
+    "actnowcoalition"
+  ],
   "author": "Act Now Coalition",
   "license": "MIT",
   "main": "lib/index.js",
