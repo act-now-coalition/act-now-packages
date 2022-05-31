@@ -15,7 +15,7 @@ const templateReadme = prepareTemplate(`
 ## Installing
 
 \`\`\`sh
-yarn add @actnowcoalition/number-format
+yarn add @actnowcoalition/{{dashCase name}}
 \`\`\`
 
 ## License

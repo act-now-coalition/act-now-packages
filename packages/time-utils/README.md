@@ -5,7 +5,7 @@
 ## Installing
 
 ```sh
-yarn add @actnowcoalition/number-format
+yarn add @actnowcoalition/time-utils
 ```
 
 ## License
