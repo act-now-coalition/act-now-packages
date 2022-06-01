@@ -25,8 +25,11 @@ export enum TimeUnit {
 
 /**
  * Parse date string to JS date object.
+ *
  * Date string can be in any ISO 8601 format: https://moment.github.io/luxon/docs/manual/parsing.html
- * Example: parseDateString('2020-03-01') // Return JS date object for March 1st 2020.
+ *
+ * @example
+ * parseDateString('2020-03-01')  // "2020-03-01T08:00:00.000Z"
  */
 export function parseDateString(dateString: string): Date {
   const parsedDate = DateTime.fromISO(dateString);
@@ -36,7 +39,8 @@ export function parseDateString(dateString: string): Date {
 
 /**
  * Parse unix timestamp (in milliseconds) to JS date object.
- * Example: parseDateUnix(1616612130826) // Return JS date object for March 24th 2021 18:55:30 UTC.
+ *
+ * @example: parseDateUnix(1616612130826) // "2021-03-24T18:55:30.826Z"
  */
 export function parseDateUnix(unixTimestamp: number): Date {
   return DateTime.fromMillis(unixTimestamp).toJSDate();
@@ -44,9 +48,11 @@ export function parseDateUnix(unixTimestamp: number): Date {
 
 /**
  * Format the date object according to the specified string token.
+ *
  * Current string tokens are specified in DateFormat enum.
  * More info about tokens: https://moment.github.io/luxon/docs/manual/formatting
- * Example: formatDateTime(new Date(2020, 2, 1), DateFormat.YYYY_MM_DD) // '2020-03-01'
+ *
+ * @example: formatDateTime(new Date(2020, 2, 1), DateFormat.YYYY_MM_DD)  // "2020-03-01"
  */
 export function formatDateTime(date: Date, format: DateFormat): string {
   return DateTime.fromJSDate(date).toFormat(format);
@@ -54,10 +60,12 @@ export function formatDateTime(date: Date, format: DateFormat): string {
 
 /**
  * Format the date object to UTC and according to the specified string token.
+ *
  * Current string tokens are specified in DateFormat enum.
  * More info about tokens: https://moment.github.io/luxon/docs/manual/formatting
- * Example: formatUTCDateTime(new Date(2020, 1, 1, 20), DateFormat.YYYY_MM_DD) // '2020-02-02'
- *  Feb 1st 2020 at 8 pm. Pacific when converted to UTC will become Feb 2nd.
+ *
+ * @example: formatUTCDateTime(new Date(2020, 1, 1, 20), DateFormat.YYYY_MM_DD) // "2020-02-02"
+ * (Feb 1st 2020 at 8 pm. Pacific when converted to UTC will become Feb 2nd)
  */
 export function formatUTCDateTime(date: Date, format: DateFormat): string {
   return DateTime.fromJSDate(date).toUTC().toFormat(format);
@@ -65,7 +73,8 @@ export function formatUTCDateTime(date: Date, format: DateFormat): string {
 
 /**
  * Add a specified amount of time (in units) to date object.
- * Example: addTime(new Date(2020, 2, 1), 5, TimeUnit.DAYS) // Return JS date object for March 6th 2020.
+ *
+ * @example: addTime(new Date(2020, 2, 1), 5, TimeUnit.DAYS)  // "2020-03-06T08:00:00.000Z"
  */
 export function addTime(date: Date, amount: number, unit: TimeUnit): Date {
   return DateTime.fromJSDate(date)
@@ -74,8 +83,9 @@ export function addTime(date: Date, amount: number, unit: TimeUnit): Date {
 }
 
 /**
- * Subtract a specified amount of time (in units) to date object.
- * Example: subtractTime(new Date(2020, 2, 10), 5, TimeUnit.DAYS) // Return JS date object for March 5th 2020.
+ * Subtract a specified amount of time (in units) from date object.
+ *
+ * @example: subtractTime(new Date(2020, 2, 10), 5, TimeUnit.DAYS)  // "2020-03-05T08:00:00.000Z"
  */
 export function subtractTime(date: Date, amount: number, unit: TimeUnit): Date {
   return DateTime.fromJSDate(date)
@@ -83,7 +93,14 @@ export function subtractTime(date: Date, amount: number, unit: TimeUnit): Date {
     .toJSDate();
 }
 
-// Some Luxon functions accept a DurationObject instead of a string as parameter.
+/**
+ * Convert a TimeUnit enum to a luxon Duration object.
+ *
+ * Some luxon functions accept a Duration object instead of a string as parameter.
+ * So we must convert a TimeUnit enum to a luxon Duration object first before using these functions.
+ *
+ * @example: getTimeUnitOption(5, TimeUnit.HOURS) // Duration {values: { hours: 5 }, ... }
+ */
 function getTimeUnitOption(amount: number, unit: TimeUnit): Duration {
   switch (unit) {
     case TimeUnit.HOURS:
@@ -99,7 +116,8 @@ function getTimeUnitOption(amount: number, unit: TimeUnit): Duration {
 
 /**
  * Get the starting point of a timeframe based on specified time unit.
- * Example: getStartOf(new Date(2020, 2, 1, 8, 30), TimeUnit.HOURS) // Return JS date object for March 1st 2020 at 8:00 am.
+ *
+ * @example: getStartOf(new Date(2020, 2, 1, 8, 30), TimeUnit.HOURS)  // "2020-03-01T16:00:00.000Z"
  */
 export function getStartOf(date: Date, unit: TimeUnit): Date {
   return DateTime.fromJSDate(date).startOf(unit).toJSDate();
@@ -107,7 +125,8 @@ export function getStartOf(date: Date, unit: TimeUnit): Date {
 
 /**
  * Calculate the difference between 2 dates in the given time unit.
- * Example: getTimeDiff(dateTomorrow, dateToday, TimeUnit.DAYS)); // 1
+ *
+ * @example: getTimeDiff(dateTomorrow, dateToday, TimeUnit.DAYS)) // 1
  */
 export function getTimeDiff(date1: Date, date2: Date, unit: TimeUnit) {
   return DateTime.fromJSDate(date1)

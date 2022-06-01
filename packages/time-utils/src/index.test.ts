@@ -38,8 +38,17 @@ function createDate(
   } else return new Date(year, month - 1, day);
 }
 
+/**
+ * Test date to use in tests.  Note that our tests are configured in the
+ * package.json to always run in the Pacific timezone, for testing consistency.
+ * So this Date represents 2020/03/01 8AM in UTC but 2020/03/01 12AM (or 1AM
+ * depending on daylight savings) in local (Pacific) timezone. So depending which
+ * formatting function you use, you'll get back a different date.
+ */
+const MARCH_1_2020_8AM_UTC = createDate(2020, 3, 1, 0, 0);
+
 describe("date/time formatting", () => {
-  const testDate = createDate(2020, 3, 1);
+  const testDate = MARCH_1_2020_8AM_UTC;
 
   test("Date in ISO format", () => {
     expect(formatDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe("2020-03-01");
@@ -67,8 +76,7 @@ describe("date/time formatting", () => {
 });
 
 describe("utc time formatting", () => {
-  // Pacific timezone is set as the default in package.json for testing consistency.
-  const testDate = createDate(2020, 3, 1);
+  const testDate = MARCH_1_2020_8AM_UTC;
 
   test("Date in ISO format", () => {
     expect(formatUTCDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe(
@@ -117,7 +125,7 @@ describe("date string parsing", () => {
 
 // Unix time are expressed in milliseconds.
 describe("unix time parsing", () => {
-  test("unix time at midnight", () => {
+  test("unix time at 8AM UTC", () => {
     expect(parseDateUnix(1583049600000).toISOString()).toBe(
       "2020-03-01T08:00:00.000Z"
     );
@@ -184,8 +192,8 @@ describe("subtract time", () => {
 
 describe("get start of time", () => {
   test("Start of hour", () => {
-    expect(getStartOf(createDate(2020, 3, 1, 0, 30), TimeUnit.HOURS)).toEqual(
-      createDate(2020, 3, 1, 0, 0)
+    expect(getStartOf(createDate(2020, 3, 1, 2, 30), TimeUnit.HOURS)).toEqual(
+      createDate(2020, 3, 1, 2, 0)
     );
   });
 
