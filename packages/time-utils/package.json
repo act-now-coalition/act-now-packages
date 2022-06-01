@@ -14,10 +14,18 @@
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "tsc src/index.ts --outDir lib --declaration"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@actnowcoalition/assert": "^1.0.0",
+    "@types/luxon": "^2.3.2",
+    "luxon": "^2.4.0"
   }
 }

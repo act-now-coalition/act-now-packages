@@ -40,6 +40,7 @@ const templatePackage = prepareTemplate(`
   "license": "MIT",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": ["lib"],
   "scripts": {
     "build": "tsc src/index.ts --outDir lib --declaration"
   },

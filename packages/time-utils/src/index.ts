@@ -1,5 +1,5 @@
 import { DateTime, Duration } from "luxon";
-import { assert } from "@actnowcoalition/assert/src";
+import { assert } from "@actnowcoalition/assert";
 
 export enum DateFormat {
   YYYY_MM_DD = "yyyy-MM-dd", // 2020-03-01

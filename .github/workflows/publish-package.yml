@@ -10,6 +10,7 @@ on:
         options:
           - assert
           - number-format
+          - time-utils
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
