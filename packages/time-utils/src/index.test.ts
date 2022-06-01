@@ -12,16 +12,16 @@ import {
 } from "./index";
 
 /**
- * Helper to create Date instances from a numeric year, month, and day.
+ * Helper to create Date instances from a numeric year, month, day, and optional hour and minute.
  *
  * This mostly exists because the Date constructor expects 0-indexed months,
  * which is pretty unnatural.
  *
- * The resulting Date will be set to midnight local (Pacific) time.
- *
  * @param year Numeric year (e.g. 2020)
  * @param month The 1-indexed month (e.g. 3 for March)
- * @param day 1-indexed day (e.g. 25 for the 25th of March).
+ * @param day 1-indexed day (e.g. 25 for the 25th of March)
+ * @param hour 1-indexed hour (e.g. 13 for 1 pm.)
+ * @param minute 1-indexed minute (e.g. 15 for 1.15 pm.)
  * @returns The created Date object.
  */
 function createDate(
@@ -31,52 +31,47 @@ function createDate(
   hour?: number,
   minute?: number
 ) {
-  if (hour && minute) {
-    return new Date(year, month - 1, day, hour, minute);
-  } else if (hour) {
-    return new Date(year, month - 1, day, hour);
-  } else return new Date(year, month - 1, day);
+  return new Date(year, month - 1, day, hour ?? 0, minute ?? 0);
 }
 
 /**
  * Test date to use in tests.  Note that our tests are configured in the
  * package.json to always run in the Pacific timezone, for testing consistency.
- * So this Date represents 2020/03/01 8AM in UTC but 2020/03/01 12AM (or 1AM
- * depending on daylight savings) in local (Pacific) timezone. So depending which
- * formatting function you use, you'll get back a different date.
+ * So this Date represents 2020/03/01 3.15 AM in UTC but 2020/02/29 7.15 PM in local (Pacific) timezone.
+ * So depending which formatting function you use, you'll get back a different date.
  */
-const MARCH_1_2020_8AM_UTC = createDate(2020, 3, 1, 0, 0);
+const MARCH_1_2020_3_15_AM_UTC = new Date("2020-03-01T03:15:00Z");
 
-describe("date/time formatting", () => {
-  const testDate = MARCH_1_2020_8AM_UTC;
+describe("date formatting", () => {
+  const testDate = MARCH_1_2020_3_15_AM_UTC;
 
   test("Date in ISO format", () => {
-    expect(formatDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe("2020-03-01");
+    expect(formatDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe("2020-02-29");
   });
 
   test("Slash separated date", () => {
-    expect(formatDateTime(testDate, DateFormat.MM_DD_YYYY)).toBe("03/01/2020");
+    expect(formatDateTime(testDate, DateFormat.MM_DD_YYYY)).toBe("02/29/2020");
   });
 
   test("Date in full month, day, year", () => {
     expect(formatDateTime(testDate, DateFormat.MMMM_D_YYYY)).toBe(
-      "March 1, 2020"
+      "February 29, 2020"
     );
   });
 
   test("Date in shorthand month, day, year", () => {
     expect(formatDateTime(testDate, DateFormat.MMM_DD_YYYY)).toBe(
-      "Mar 01, 2020"
+      "Feb 29, 2020"
     );
   });
 
   test("Date in full month and unpadded day", () => {
-    expect(formatDateTime(testDate, DateFormat.MMMM_D)).toBe("March 1");
+    expect(formatDateTime(testDate, DateFormat.MMMM_D)).toBe("February 29");
   });
 });
 
 describe("utc time formatting", () => {
-  const testDate = MARCH_1_2020_8AM_UTC;
+  const testDate = MARCH_1_2020_3_15_AM_UTC;
 
   test("Date in ISO format", () => {
     expect(formatUTCDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe(
@@ -109,8 +104,8 @@ describe("utc time formatting", () => {
 
 describe("date string parsing", () => {
   test("ISO format to date object", () => {
-    expect(parseDateString("2020-03-01T00:00:00.000")).toEqual(
-      createDate(2020, 3, 1)
+    expect(parseDateString("2020-03-01T03:15:00.000")).toEqual(
+      createDate(2020, 3, 1, 3, 15)
     );
   });
 
@@ -125,12 +120,6 @@ describe("date string parsing", () => {
 
 // Unix time are expressed in milliseconds.
 describe("unix time parsing", () => {
-  test("unix time at 8AM UTC", () => {
-    expect(parseDateUnix(1583049600000).toISOString()).toBe(
-      "2020-03-01T08:00:00.000Z"
-    );
-  });
-
   test("unix time with non-zero minutes and seconds", () => {
     expect(parseDateUnix(1583080230000).toISOString()).toBe(
       "2020-03-01T16:30:30.000Z"
@@ -143,6 +132,12 @@ describe("add time", () => {
     expect(
       addTime(createDate(2020, 3, 1), 8, TimeUnit.HOURS).toISOString()
     ).toBe("2020-03-01T16:00:00.000Z");
+  });
+
+  test("Add minutes", () => {
+    expect(
+      addTime(createDate(2020, 3, 1), 10, TimeUnit.MINUTES).toISOString()
+    ).toBe("2020-03-01T08:10:00.000Z");
   });
 
   test("Add days", () => {
@@ -169,6 +164,12 @@ describe("subtract time", () => {
     expect(
       subtractTime(createDate(2020, 3, 1), 8, TimeUnit.HOURS).toISOString()
     ).toBe("2020-03-01T00:00:00.000Z");
+  });
+
+  test("Subtract minutes", () => {
+    expect(
+      subtractTime(createDate(2020, 3, 1), 10, TimeUnit.MINUTES).toISOString()
+    ).toBe("2020-03-01T07:50:00.000Z");
   });
 
   test("Subtract days", () => {
