@@ -40,65 +40,65 @@ function createDate(
  * So this Date represents 2020/03/01 3.15 AM in UTC but 2020/02/29 7.15 PM in local (Pacific) timezone.
  * So depending which formatting function you use, you'll get back a different date.
  */
-const MARCH_1_2020_3_15_AM_UTC = new Date("2020-03-01T03:15:00Z");
+const MARCH_2_2020_3_AM_UTC = new Date("2020-03-02T03:00:00Z");
 
 describe("date formatting", () => {
-  const testDate = MARCH_1_2020_3_15_AM_UTC;
+  const testDate = MARCH_2_2020_3_AM_UTC;
 
   test("Date in ISO format", () => {
-    expect(formatDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe("2020-02-29");
+    expect(formatDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe("2020-03-01");
   });
 
   test("Slash separated date", () => {
-    expect(formatDateTime(testDate, DateFormat.MM_DD_YYYY)).toBe("02/29/2020");
+    expect(formatDateTime(testDate, DateFormat.MM_DD_YYYY)).toBe("03/01/2020");
   });
 
   test("Date in full month, day, year", () => {
     expect(formatDateTime(testDate, DateFormat.MMMM_D_YYYY)).toBe(
-      "February 29, 2020"
-    );
-  });
-
-  test("Date in shorthand month, day, year", () => {
-    expect(formatDateTime(testDate, DateFormat.MMM_DD_YYYY)).toBe(
-      "Feb 29, 2020"
-    );
-  });
-
-  test("Date in full month and unpadded day", () => {
-    expect(formatDateTime(testDate, DateFormat.MMMM_D)).toBe("February 29");
-  });
-});
-
-describe("utc time formatting", () => {
-  const testDate = MARCH_1_2020_3_15_AM_UTC;
-
-  test("Date in ISO format", () => {
-    expect(formatUTCDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe(
-      "2020-03-01"
-    );
-  });
-
-  test("Slash separated date", () => {
-    expect(formatUTCDateTime(testDate, DateFormat.MM_DD_YYYY)).toBe(
-      "03/01/2020"
-    );
-  });
-
-  test("Date in full month, day, year", () => {
-    expect(formatUTCDateTime(testDate, DateFormat.MMMM_D_YYYY)).toBe(
       "March 1, 2020"
     );
   });
 
   test("Date in shorthand month, day, year", () => {
-    expect(formatUTCDateTime(testDate, DateFormat.MMM_DD_YYYY)).toBe(
+    expect(formatDateTime(testDate, DateFormat.MMM_DD_YYYY)).toBe(
       "Mar 01, 2020"
     );
   });
 
   test("Date in full month and unpadded day", () => {
-    expect(formatUTCDateTime(testDate, DateFormat.MMMM_D)).toBe("March 1");
+    expect(formatDateTime(testDate, DateFormat.MMMM_D)).toBe("March 1");
+  });
+});
+
+describe("utc time formatting", () => {
+  const testDate = MARCH_2_2020_3_AM_UTC;
+
+  test("Date in ISO format", () => {
+    expect(formatUTCDateTime(testDate, DateFormat.YYYY_MM_DD)).toBe(
+      "2020-03-02"
+    );
+  });
+
+  test("Slash separated date", () => {
+    expect(formatUTCDateTime(testDate, DateFormat.MM_DD_YYYY)).toBe(
+      "03/02/2020"
+    );
+  });
+
+  test("Date in full month, day, year", () => {
+    expect(formatUTCDateTime(testDate, DateFormat.MMMM_D_YYYY)).toBe(
+      "March 2, 2020"
+    );
+  });
+
+  test("Date in shorthand month, day, year", () => {
+    expect(formatUTCDateTime(testDate, DateFormat.MMM_DD_YYYY)).toBe(
+      "Mar 02, 2020"
+    );
+  });
+
+  test("Date in full month and unpadded day", () => {
+    expect(formatUTCDateTime(testDate, DateFormat.MMMM_D)).toBe("March 2");
   });
 });
 
