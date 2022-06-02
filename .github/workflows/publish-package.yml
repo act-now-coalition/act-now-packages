@@ -26,6 +26,7 @@ jobs:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
           scope: "@actnowcoalition"
-          cache: "yarn"
-      - run: yarn workspace ${{ env.PACKAGE_NAME }} build
+          cache: yarn
+      - run: yarn install
+      - run: yarn workspaces run build
       - run: yarn workspace ${{ env.PACKAGE_NAME }} publish --access public
