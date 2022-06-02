@@ -19,7 +19,7 @@ nvm use v16
 
 ### Creating a package
 
-In order to keep packages consitent with each other, we implemented the yarn command `create-package` to scaffold the initial package structure. To create a package, run:
+In order to keep packages consistent with each other, we implemented the yarn command `create-package` to scaffold the initial package structure. To create a package, run:
 
 ```sh
 yarn create-package

@@ -1,11 +1,11 @@
 {
-  "name": "@actnowcoalition/assert",
+  "name": "@actnowcoalition/time-utils",
   "version": "1.0.0",
-  "description": "Assertion functions",
+  "description": "Utility functions to handle and format time",
   "repository": {
     "type": "git",
     "url": "https://github.com/covid-projections/act-now-packages.git",
-    "directory": "packages/assert"
+    "directory": "packages/time-utils"
   },
   "keywords": [
     "actnowcoalition"
@@ -22,5 +22,10 @@
   },
   "devDependencies": {
     "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@actnowcoalition/assert": "^1.0.0",
+    "@types/luxon": "^2.3.2",
+    "luxon": "^2.4.0"
   }
 }
