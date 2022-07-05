@@ -1,0 +1,31 @@
+{
+  "name": "@actnowcoalition/regions",
+  "version": "1.0.0",
+  "description": "Regions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/regions"
+  },
+  "keywords": [
+    "actnowcoalition"
+  ],
+  "author": "Act Now Coalition",
+  "license": "MIT",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "@actnowcoalition/assert": "^1.0.0",
+    "lodash": "^4.17.21"
+  }
+}

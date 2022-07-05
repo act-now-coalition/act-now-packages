@@ -17,6 +17,7 @@
     "test:watch": "jest --watch",
     "test:ci": "CI=true yarn test",
     "lint": "eslint .",
+    "build:all": "yarn workspaces run build",
     "create-package": "yarn plop package"
   },
   "lint-staged": {
