@@ -1,5 +1,6 @@
 import toLower from "lodash/toLower";
 import { Region } from "../../Region";
+import { County } from "./County";
 
 export class State extends Region {
   constructor(
@@ -31,8 +32,10 @@ export class State extends Region {
     return `/us/${this.urlSegment}`;
   }
 
-  contains(): boolean {
-    // TODO: Implement for counties, metro areas, etc.
+  contains(subregion: Region): boolean {
+    if (subregion instanceof County) {
+      return subregion.state.regionId === this.regionId;
+    }
     return false;
   }
 }

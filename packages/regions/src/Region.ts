@@ -1,5 +1,5 @@
+import lowerCase from "lodash/lowerCase";
 import deburr from "lodash/deburr";
-import words from "lodash/words";
 
 export abstract class Region {
   constructor(
@@ -20,8 +20,12 @@ export abstract class Region {
     return `${this.name} (regionId=${this.regionId})`;
   }
 
+  /**
+   * - deburr: Replace accents, tilde, punctuation, etc.
+   * - lowerCase: Split by capitalization, spaces, punctuation
+   */
   static toSlug(name: string): string {
-    return words(deburr(name)).join("_").toLowerCase();
+    return lowerCase(deburr(name)).split(" ").join("_");
   }
 
   // toJSON
