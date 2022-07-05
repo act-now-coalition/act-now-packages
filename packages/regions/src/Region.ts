@@ -1,18 +1,11 @@
 import deburr from "lodash/deburr";
 import words from "lodash/words";
 
-export enum RegionType {
-  NATION,
-  STATE,
-  COUNTY,
-}
-
 export abstract class Region {
   constructor(
     public readonly name: string,
     public readonly regionId: string,
-    public readonly population: number,
-    public readonly regionType: RegionType
+    public readonly population: number
   ) {}
 
   abstract get fullName(): string;

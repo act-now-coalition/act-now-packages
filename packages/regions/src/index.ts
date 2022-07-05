@@ -1,6 +1,6 @@
-import { Region, RegionType } from "./Region";
+import { Region } from "./Region";
 import RegionDB from "./RegionDB";
 
-export { Region, RegionType, RegionDB };
+export { Region, RegionDB };
 
 export * from "./datasets/us";

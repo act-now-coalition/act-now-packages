@@ -1,5 +1,5 @@
 import toLower from "lodash/toLower";
-import { Region, RegionType } from "../../Region";
+import { Region } from "../../Region";
 
 export class State extends Region {
   constructor(
@@ -8,7 +8,7 @@ export class State extends Region {
     population: number,
     public readonly stateCode: string
   ) {
-    super(name, regionId, population, RegionType.STATE);
+    super(name, regionId, population);
   }
 
   get fullName(): string {
