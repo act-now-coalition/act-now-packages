@@ -2,15 +2,13 @@ import countiesDB from "./counties_db";
 import { County } from "./County";
 import { State } from "./State";
 
-const counties = countiesDB.all as County[];
-
 describe("counties_db", () => {
   test("`all` includes all counties", () => {
-    expect(counties).toHaveLength(3224);
+    expect(countiesDB.all).toHaveLength(3224);
   });
 
   test("each county is correctly initialized", () => {
-    counties.forEach((county) => {
+    (countiesDB.all as County[]).forEach((county) => {
       expect(county).toBeTruthy();
       expect(county instanceof County).toBe(true);
       expect(county.state instanceof State).toBe(true);
