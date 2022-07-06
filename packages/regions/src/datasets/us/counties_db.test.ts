@@ -23,6 +23,8 @@ describe("counties_db", () => {
   });
 
   test("findRegionByIdStrict", () => {
+    expect(countiesDB.findByRegionIdStrict("53033")).toBeDefined();
+    expect(countiesDB.findByRegionIdStrict("53033")).not.toBeNull();
     expect(() => countiesDB.findByRegionIdStrict("53033")).not.toThrow();
     expect(() => countiesDB.findByRegionIdStrict("NO_COUNTY")).toThrow();
   });
