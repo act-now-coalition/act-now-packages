@@ -8,7 +8,7 @@ describe("counties_db", () => {
   });
 
   test("each county is correctly initialized", () => {
-    (countiesDB.all as County[]).forEach((county) => {
+    countiesDB.all.filter(County.isCounty).forEach((county) => {
       expect(county).toBeTruthy();
       expect(county instanceof County).toBe(true);
       expect(county.state instanceof State).toBe(true);

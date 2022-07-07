@@ -34,6 +34,10 @@ export class County extends Region {
   contains() {
     return false;
   }
+
+  static isCounty(region: Region): region is County {
+    return region instanceof County;
+  }
 }
 
 /**
