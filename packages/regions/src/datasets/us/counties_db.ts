@@ -9,7 +9,7 @@ const counties = countiesJSON.map((county) => {
   return new County(
     county.name,
     county.fipsCode,
-    county.population || 0,
+    county.population,
     state as State
   );
 });
