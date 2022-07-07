@@ -21,8 +21,14 @@ export abstract class Region {
   }
 
   /**
-   * - deburr: Replace accents, tilde, punctuation, etc.
-   * - lowerCase: Split by capitalization, spaces, punctuation
+   * Generates a slug from the input string by replacing accented characters
+   * with their basic Latin equivalents, replacing whitespaces with lodash
+   * and splitting words when capitalization changes.
+   *
+   * @example
+   *
+   *   Region.toSlug("Río Grande")    // rio_grande
+   *   Region.toSlug("DeSoto County") // de_soto_county
    */
   static toSlug(name: string): string {
     return lowerCase(deburr(name)).split(" ").join("_");
