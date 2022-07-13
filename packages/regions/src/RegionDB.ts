@@ -5,12 +5,12 @@ import { Region } from "./Region";
 export class RegionDB {
   private regionsById: { [regionId: string]: Region };
 
-  constructor(public readonly regions: Region[]) {
+  constructor(private regions: Region[]) {
     this.regionsById = keyBy(regions, (region: Region) => region.regionId);
   }
 
   findByRegionId(regionId: string): Region | null {
-    return this.regionsById[regionId] || null;
+    return this.regionsById[regionId] ?? null;
   }
 
   findByRegionIdStrict(regionId: string): Region {

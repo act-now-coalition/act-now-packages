@@ -1,4 +1,3 @@
-import { State } from "./State";
 import statesDB from "./states_db";
 
 describe("states_db", () => {
@@ -9,7 +8,6 @@ describe("states_db", () => {
   test("each state is correctly initialized", () => {
     statesDB.all.forEach((state) => {
       expect(state).toBeTruthy();
-      expect(state instanceof State).toBe(true);
     });
   });
 

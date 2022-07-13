@@ -1,6 +1,4 @@
 import countiesDB from "./counties_db";
-import { County } from "./County";
-import { State } from "./State";
 
 describe("counties_db", () => {
   test("`all` includes all counties", () => {
@@ -8,10 +6,8 @@ describe("counties_db", () => {
   });
 
   test("each county is correctly initialized", () => {
-    countiesDB.all.filter(County.isCounty).forEach((county) => {
+    countiesDB.all.forEach((county) => {
       expect(county).toBeTruthy();
-      expect(county instanceof County).toBe(true);
-      expect(county.state instanceof State).toBe(true);
     });
   });
 
