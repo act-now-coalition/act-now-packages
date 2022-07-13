@@ -10,6 +10,7 @@ export class Region {
     public readonly abbreviation: string,
     public readonly urlFragment: string,
     public readonly parent: Region | null,
+    // TODO: transfrom population into a Metric
     public readonly population: number
   ) {}
 
