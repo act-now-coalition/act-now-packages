@@ -47,6 +47,7 @@ export class Region {
   }
 }
 
+// TODO: Use url-join or simplify this code
 // https://github.com/jfromaniello/url-join/blob/main/lib/url-join.js
 function normalize(strArray: string[]): string {
   const resultArray = [];
