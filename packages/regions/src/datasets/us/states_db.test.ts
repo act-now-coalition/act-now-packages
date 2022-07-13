@@ -19,7 +19,6 @@ describe("states_db", () => {
   test("findByRegionIdStrict", () => {
     expect(statesDB.findByRegionIdStrict("53")).toBeDefined();
     expect(statesDB.findByRegionIdStrict("53")).not.toBeNull();
-    expect(() => statesDB.findByRegionIdStrict("53")).not.toThrow();
     expect(() => statesDB.findByRegionIdStrict("NO_STATE")).toThrow();
   });
 });
