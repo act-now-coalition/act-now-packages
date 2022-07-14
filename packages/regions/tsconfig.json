@@ -1,11 +1,16 @@
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
+    "composite": true,
     "declaration": true,
     "declarationDir": "lib",
+    "listEmittedFiles": true,
+    "listFiles": true,
+    "noEmit": false,
     "outDir": "lib",
     "rootDir": "src"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.json"],
+  "exclude": ["node_modules", "src/**/*.test.*"]
 }
