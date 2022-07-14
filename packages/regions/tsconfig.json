@@ -2,15 +2,12 @@
   "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": "src",
-    "composite": true,
     "declaration": true,
     "declarationDir": "lib",
-    "listEmittedFiles": true,
-    "listFiles": true,
     "noEmit": false,
     "outDir": "lib",
     "rootDir": "src"
   },
   "include": ["src/**/*.ts", "src/**/*.json"],
-  "exclude": ["node_modules", "src/**/*.test.*"]
+  "exclude": ["node_modules", "**/*.test.*"]
 }
