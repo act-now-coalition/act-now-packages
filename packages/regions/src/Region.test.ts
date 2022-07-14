@@ -7,8 +7,13 @@ describe("Region", () => {
   });
 
   test("joinUrlPath", () => {
-    expect(Region.urlJoin("/a")).toBe("/a");
-    expect(Region.urlJoin("a")).toBe("a");
-    expect(Region.urlJoin("/a/", "/b")).toBe("/a/b");
+    expect(Region.urlPathJoin("/a")).toBe("/a");
+    expect(Region.urlPathJoin("a")).toBe("a");
+    expect(Region.urlPathJoin("a/")).toBe("a/");
+    expect(Region.urlPathJoin("///a")).toBe("/a");
+    expect(Region.urlPathJoin("///a/")).toBe("/a/");
+    expect(Region.urlPathJoin("a///")).toBe("a/");
+    expect(Region.urlPathJoin("/a", "/b//c/d/e/", "/f")).toBe("/a/b/c/d/e/f");
+    expect(Region.urlPathJoin("a/", "/b/c/", "/d/")).toBe("a/b/c/d/");
   });
 });
