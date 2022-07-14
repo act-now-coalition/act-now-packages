@@ -1,6 +1,6 @@
 import lowerCase from "lodash/lowerCase";
 import deburr from "lodash/deburr";
-import { assert } from "@actnowcoalition/assert";
+import { urlJoin } from "./utils";
 
 export class Region {
   constructor(
@@ -20,8 +20,8 @@ export class Region {
 
   get relativeUrl(): string {
     return this.parent
-      ? Region.urlPathJoin(this.parent.relativeUrl, this.urlFragment)
-      : Region.urlPathJoin("/", this.urlFragment);
+      ? Region.urlJoin(this.parent.relativeUrl, this.urlFragment)
+      : Region.urlJoin("/", this.urlFragment);
   }
 
   toString() {
@@ -43,20 +43,14 @@ export class Region {
   }
 
   /**
-   * Joins url path sections, de-duplicating '/' characters.
-   *
-   * Note that it doesn't handle the protocol section of a
-   * URL well. It preserves initial and final '/'
+   * Join URL paths, de-duplicating slash where needed.
    *
    * @example
    *
-   *   Region.urlPathJoin("/a/", "/b/")     // /a/b/
-   *   Region.urlPathJoin("/a/b/", "/c/d")  // /a/b/c/d
+   *   Region.urlJoin("/a/", "/b/")     // /a/b/
+   *   Region.urlJoin("/a/b/", "/c/d")  // /a/b/c/d
    */
-  static urlPathJoin(...urlParts: string[]): string {
-    assert(urlParts.length > 0, `URL parts should have elements`);
-    // Join each part with slash and then replaces any sequence
-    // of 2 or more slash characters with a single one.
-    return urlParts.join("/").replace(/\/(\/+)/g, "/");
+  static urlJoin(...urlParts: string[]): string {
+    return urlJoin(...urlParts);
   }
 }
