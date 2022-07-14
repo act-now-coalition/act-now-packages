@@ -29,9 +29,9 @@ export class Region {
   }
 
   /**
-   * Generates a slug from the input string by replacing accented characters
-   * with their basic Latin equivalents, replacing whitespaces with underscores
-   * and splitting words when capitalization changes.
+   * Generates a slug from the input string by replacing accented
+   * characters with their basic Latin equivalents, replacing whitespaces
+   * with underscores and splitting words when capitalization changes.
    *
    * @example
    *
@@ -45,8 +45,8 @@ export class Region {
   /**
    * Joins url path sections, de-duplicating '/' characters.
    *
-   * Note that it doesn't handle the protocol section of a URL well.
-   * Preserves initial and final '/'
+   * Note that it doesn't handle the protocol section of a
+   * URL well. It preserves initial and final '/'
    *
    * @example
    *
@@ -55,8 +55,8 @@ export class Region {
    */
   static urlPathJoin(...urlParts: string[]): string {
     assert(urlParts.length > 0, `URL parts should have elements`);
-    // Join each part with slash and then replaces any sequence of 2 or more
-    // slash characters with a single one
+    // Join each part with slash and then replaces any sequence
+    // of 2 or more slash characters with a single one.
     return urlParts.join("/").replace(/\/(\/+)/g, "/");
   }
 }
