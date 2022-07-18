@@ -2,13 +2,13 @@ import lowerCase from "lodash/lowerCase";
 import deburr from "lodash/deburr";
 import { urlJoin } from "./utils";
 
-interface RegionJSON {
+export interface RegionJSON {
   regionId: string;
   fullName: string;
   shortName: string;
   abbreviation: string;
   urlFragment: string;
-  parent: Region | null;
+  parent: RegionJSON | null;
   population: number;
 }
 
@@ -73,7 +73,7 @@ export class Region {
       regionJSON.shortName,
       regionJSON.abbreviation,
       regionJSON.urlFragment,
-      regionJSON.parent,
+      regionJSON.parent ? Region.fromJSON(regionJSON.parent) : null,
       regionJSON.population
     );
   }
@@ -85,7 +85,7 @@ export class Region {
       shortName: this.shortName,
       abbreviation: this.abbreviation,
       urlFragment: this.urlFragment,
-      parent: this.parent,
+      parent: this.parent ? this.parent.toJSON() : null,
       population: this.population,
     };
   }
