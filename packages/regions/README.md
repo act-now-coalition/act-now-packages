@@ -1,6 +1,61 @@
 # @actnowcoalition/regions
 
-> Regions
+> A package containing classes and datasets to represent geographic areas and administrative divisions with a uniform interface.
+
+## Usage
+
+The `Region` class defines the main elements that represent an administrative division.
+
+```tsx
+const washingtonState = new Region(
+  "53", // regionId
+  "Washington", // fullName
+  "Washington", // shorName
+  "WA", // abbreviation
+  "washington-wa", // urlFragment
+  null, // parent
+  7614893 // population
+);
+```
+
+Using the `parent` property we can represent hierarchy between regions and use it to check if one contains the other, or to obtain properties of the parent region
+
+```tsx
+const kingCountyWA = new Region(
+  "53033",
+  "King County"
+  // ...
+  washingtonState,
+  2252782
+);
+
+console.log(kingCountyWA.parent)                     // washingtonState
+console.log(washingtonState.contains(kingCountyWA))  // true
+```
+
+### Datasets
+
+Datasets contain pre-constructed lists of regions such as U.S. states, counties or metropolitan areas. The datasets are exported as instances of [`RegionDB`](src/RegionDB.ts), which
+contain the full list of regions and utility methods to find regions by ID, among others. Note that the `regionId` must be unique for each `RegionDB`.
+
+#### `Unites States`
+
+This dataset contains states and counties in the U.S. We use [FIPS Codes](https://www.census.gov/library/reference/code-lists/ansi.html) as `regionId` for states, and we concatenate state and county FIPS codes to generate a unique 5-digit `regionId` for each county.
+
+See [`src/datasets/us/states.json`](src/datasets/us/states.json) and [`src/datasets/us/counties.json`](src/datasets/us/counties.json) for a full list of states and counties.
+
+##### Example
+
+```tsx
+import { states, counties } from "@actnowcoalition/regions";
+
+const ny = states.findByRegionId("36");
+console.log(ny.fullName); // New York
+console.log(ny.abbreviation); // NY
+
+const kingCountyWA = counties.findRegionById("53033");
+console.log(kingCountyWA.population); // 2252782
+```
 
 ## Installing
 

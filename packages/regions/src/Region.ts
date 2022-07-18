@@ -10,7 +10,9 @@ export class Region {
     public readonly abbreviation: string,
     public readonly urlFragment: string,
     public readonly parent: Region | null,
-    // TODO: transfrom population into a Metric
+    // TODO: transfrom population and potentially other attributes to Metric.
+    // This will allow us to leverage on more advanced Metric functionality,
+    // such as display sources, number formatting options, etc.
     public readonly population: number
   ) {}
 
