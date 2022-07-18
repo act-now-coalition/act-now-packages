@@ -13,28 +13,28 @@ describe("Region serialization", () => {
     fullName: "Florida",
     shortName: "Florida",
     abbreviation: "FL",
-    urlFragment: "us/fl-florida",
+    urlFragment: "us/florida-fl",
     parent: null,
-    population: 100_000,
+    population: 21_477_737,
   };
 
   const regionJSON: RegionJSON = {
     regionId: "12089",
     fullName: "Miami-Dade County, Florida",
-    shortName: "Miami-Dade, FL",
+    shortName: "Miami-Dade County, FL",
     abbreviation: "Miami-Dade Co.",
-    urlFragment: "us/fl-miami-dade",
+    urlFragment: "miami_dade_co",
     parent: parentJSON,
-    population: 50_000,
+    population: 2_716_940,
   };
   const region = new Region(
     "12089",
     "Miami-Dade County, Florida",
-    "Miami-Dade, FL",
+    "Miami-Dade County, FL",
     "Miami-Dade Co.",
-    "us/fl-miami-dade",
+    "miami_dade_co",
     Region.fromJSON(parentJSON),
-    50_000
+    2_716_940
   );
 
   test("toJSON", () => {
