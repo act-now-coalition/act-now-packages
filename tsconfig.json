@@ -20,7 +20,7 @@
     "incremental": true,
     "downlevelIteration": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "exclude": ["node_modules"],
   "ts-node": {
     "require": ["tsconfig-paths/register"],

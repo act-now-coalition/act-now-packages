@@ -17,6 +17,7 @@
     "test:watch": "jest --watch",
     "test:ci": "CI=true yarn test",
     "lint": "eslint .",
+    "build:all": "yarn workspaces run build",
     "create-package": "yarn plop package"
   },
   "lint-staged": {
@@ -40,5 +41,6 @@
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^4.0.0",
     "typescript": "^4.6.4"
-  }
+  },
+  "dependencies": {}
 }
