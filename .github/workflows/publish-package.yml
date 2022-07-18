@@ -11,6 +11,7 @@ on:
           - assert
           - number-format
           - time-utils
+          - regions
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
