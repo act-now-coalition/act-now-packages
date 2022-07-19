@@ -1,6 +1,6 @@
 import metrosDB from "./metros_db";
 
-describe("states_db", () => {
+describe("metros_db", () => {
   test("`all` includes all metros", () => {
     expect(metrosDB.all).toHaveLength(392);
   });
@@ -13,7 +13,7 @@ describe("states_db", () => {
 
   test("findByRegionId", () => {
     expect(metrosDB.findByRegionId("10420")).toBeDefined();
-    expect(metrosDB.findByRegionId("NO_STATE")).toBeNull();
+    expect(metrosDB.findByRegionId("NO_METRO")).toBeNull();
   });
 
   test("findByRegionIdStrict", () => {

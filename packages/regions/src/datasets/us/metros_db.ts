@@ -3,7 +3,7 @@ import { Region } from "../../Region";
 import metrosJson from "./metros.json";
 import statesDB from "./states_db";
 
-const counties = metrosJson.map((metro) => {
+const metros = metrosJson.map((metro) => {
   const metroUrlFragment = Region.toSlug(metro.name);
   const stateCodes = metro.stateCode.map((fips) => {
     return statesDB.findByRegionIdStrict(fips).abbreviation;
@@ -19,5 +19,5 @@ const counties = metrosJson.map((metro) => {
   );
 });
 
-const metrosDb = new RegionDB(counties);
+const metrosDb = new RegionDB(metros);
 export default metrosDb;
