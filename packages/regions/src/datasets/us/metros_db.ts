@@ -11,8 +11,8 @@ const metros = metrosJson.map((metro) => {
   return new Region(
     metro.fipsCode,
     `${metro.name} metro area, ${stateAbbrevs.join("-")}`,
-    `${metro.name} metro}`,
-    `${metro.name} metro}`,
+    `${metro.name} metro`,
+    `${metro.name} metro`,
     metroUrlFragment,
     null,
     metro.population
