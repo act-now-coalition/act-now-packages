@@ -6,7 +6,8 @@
     "declarationDir": "lib",
     "noEmit": false,
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
+    "module": "commonjs"
   },
   "include": ["src/**/*.ts", "src/**/*.json"],
   "exclude": ["node_modules", "**/*.test.*"]
