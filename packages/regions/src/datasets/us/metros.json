@@ -1,0 +1,3155 @@
+[
+  {
+    "name": "Abilene",
+    "fipsCode": "10180",
+    "population": 172060,
+    "stateCode": ["48"],
+    "counties": ["48059", "48253", "48441"]
+  },
+  {
+    "name": "Aguadilla-Isabela",
+    "fipsCode": "10380",
+    "population": 289289,
+    "stateCode": ["72"],
+    "counties": [
+      "72003",
+      "72005",
+      "72011",
+      "72071",
+      "72081",
+      "72099",
+      "72117",
+      "72131",
+      "72141"
+    ]
+  },
+  {
+    "name": "Akron",
+    "fipsCode": "10420",
+    "population": 703479,
+    "stateCode": ["39"],
+    "counties": ["39133", "39153"]
+  },
+  {
+    "name": "Albany",
+    "fipsCode": "10500",
+    "population": 146726,
+    "stateCode": ["13"],
+    "counties": ["13095", "13177", "13273", "13321"]
+  },
+  {
+    "name": "Albany-Lebanon",
+    "fipsCode": "10540",
+    "population": 129749,
+    "stateCode": ["41"],
+    "counties": ["41043"]
+  },
+  {
+    "name": "Albany-Schenectady-Troy",
+    "fipsCode": "10580",
+    "population": 880381,
+    "stateCode": ["36"],
+    "counties": ["36001", "36083", "36091", "36093", "36095"]
+  },
+  {
+    "name": "Albuquerque",
+    "fipsCode": "10740",
+    "population": 918018,
+    "stateCode": ["35"],
+    "counties": ["35001", "35043", "35057", "35061"]
+  },
+  {
+    "name": "Alexandria",
+    "fipsCode": "10780",
+    "population": 152037,
+    "stateCode": ["22"],
+    "counties": ["22043", "22079"]
+  },
+  {
+    "name": "Allentown-Bethlehem-Easton",
+    "fipsCode": "10900",
+    "population": 844052,
+    "stateCode": ["42", "34"],
+    "counties": ["34041", "42025", "42077", "42095"]
+  },
+  {
+    "name": "Altoona",
+    "fipsCode": "11020",
+    "population": 121829,
+    "stateCode": ["42"],
+    "counties": ["42013"]
+  },
+  {
+    "name": "Amarillo",
+    "fipsCode": "11100",
+    "population": 265053,
+    "stateCode": ["48"],
+    "counties": ["48011", "48065", "48359", "48375", "48381"]
+  },
+  {
+    "name": "Ames",
+    "fipsCode": "11180",
+    "population": 123351,
+    "stateCode": ["19"],
+    "counties": ["19015", "19169"]
+  },
+  {
+    "name": "Anchorage",
+    "fipsCode": "11260",
+    "population": 396317,
+    "stateCode": ["02"],
+    "counties": ["02020", "02170"]
+  },
+  {
+    "name": "Ann Arbor",
+    "fipsCode": "11460",
+    "population": 367601,
+    "stateCode": ["26"],
+    "counties": ["26161"]
+  },
+  {
+    "name": "Anniston-Oxford",
+    "fipsCode": "11500",
+    "population": 113605,
+    "stateCode": ["01"],
+    "counties": ["01015"]
+  },
+  {
+    "name": "Appleton",
+    "fipsCode": "11540",
+    "population": 237974,
+    "stateCode": ["55"],
+    "counties": ["55015", "55087"]
+  },
+  {
+    "name": "Arecibo",
+    "fipsCode": "11640",
+    "population": 174606,
+    "stateCode": ["72"],
+    "counties": ["72013", "72027", "72065", "72115"]
+  },
+  {
+    "name": "Asheville",
+    "fipsCode": "11700",
+    "population": 462680,
+    "stateCode": ["37"],
+    "counties": ["37021", "37087", "37089", "37115"]
+  },
+  {
+    "name": "Athens-Clarke County",
+    "fipsCode": "12020",
+    "population": 213750,
+    "stateCode": ["13"],
+    "counties": ["13059", "13195", "13219", "13221"]
+  },
+  {
+    "name": "Atlanta-Sandy Springs-Alpharetta",
+    "fipsCode": "12060",
+    "population": 6020364,
+    "stateCode": ["13"],
+    "counties": [
+      "13013",
+      "13015",
+      "13035",
+      "13045",
+      "13057",
+      "13063",
+      "13067",
+      "13077",
+      "13085",
+      "13089",
+      "13097",
+      "13113",
+      "13117",
+      "13121",
+      "13135",
+      "13143",
+      "13149",
+      "13151",
+      "13159",
+      "13171",
+      "13199",
+      "13211",
+      "13217",
+      "13223",
+      "13227",
+      "13231",
+      "13247",
+      "13255",
+      "13297"
+    ]
+  },
+  {
+    "name": "Atlantic City-Hammonton",
+    "fipsCode": "12100",
+    "population": 263670,
+    "stateCode": ["34"],
+    "counties": ["34001"]
+  },
+  {
+    "name": "Auburn-Opelika",
+    "fipsCode": "12220",
+    "population": 164542,
+    "stateCode": ["01"],
+    "counties": ["01081"]
+  },
+  {
+    "name": "Augusta-Richmond County",
+    "fipsCode": "12260",
+    "population": 608980,
+    "stateCode": ["13", "45"],
+    "counties": ["13033", "13073", "13181", "13189", "13245", "45003", "45037"]
+  },
+  {
+    "name": "Austin-Round Rock-Georgetown",
+    "fipsCode": "12420",
+    "population": 2227083,
+    "stateCode": ["48"],
+    "counties": ["48021", "48055", "48209", "48453", "48491"]
+  },
+  {
+    "name": "Bakersfield",
+    "fipsCode": "12540",
+    "population": 900202,
+    "stateCode": ["06"],
+    "counties": ["06029"]
+  },
+  {
+    "name": "Baltimore-Columbia-Towson",
+    "fipsCode": "12580",
+    "population": 2800053,
+    "stateCode": ["24"],
+    "counties": ["24003", "24005", "24013", "24025", "24027", "24035", "24510"]
+  },
+  {
+    "name": "Bangor",
+    "fipsCode": "12620",
+    "population": 152148,
+    "stateCode": ["23"],
+    "counties": ["23019"]
+  },
+  {
+    "name": "Barnstable Town",
+    "fipsCode": "12700",
+    "population": 212990,
+    "stateCode": ["25"],
+    "counties": ["25001"]
+  },
+  {
+    "name": "Baton Rouge",
+    "fipsCode": "12940",
+    "population": 854884,
+    "stateCode": ["22"],
+    "counties": [
+      "22005",
+      "22007",
+      "22033",
+      "22037",
+      "22047",
+      "22063",
+      "22077",
+      "22091",
+      "22121",
+      "22125"
+    ]
+  },
+  {
+    "name": "Battle Creek",
+    "fipsCode": "12980",
+    "population": 134159,
+    "stateCode": ["26"],
+    "counties": ["26025"]
+  },
+  {
+    "name": "Bay City",
+    "fipsCode": "13020",
+    "population": 103126,
+    "stateCode": ["26"],
+    "counties": ["26017"]
+  },
+  {
+    "name": "Beaumont-Port Arthur",
+    "fipsCode": "13140",
+    "population": 392563,
+    "stateCode": ["48"],
+    "counties": ["48199", "48245", "48361"]
+  },
+  {
+    "name": "Beckley",
+    "fipsCode": "13220",
+    "population": 115767,
+    "stateCode": ["54"],
+    "counties": ["54019", "54081"]
+  },
+  {
+    "name": "Bellingham",
+    "fipsCode": "13380",
+    "population": 229247,
+    "stateCode": ["53"],
+    "counties": ["53073"]
+  },
+  {
+    "name": "Bend",
+    "fipsCode": "13460",
+    "population": 197692,
+    "stateCode": ["41"],
+    "counties": ["41017"]
+  },
+  {
+    "name": "Billings",
+    "fipsCode": "13740",
+    "population": 181667,
+    "stateCode": ["30"],
+    "counties": ["30009", "30095", "30111"]
+  },
+  {
+    "name": "Binghamton",
+    "fipsCode": "13780",
+    "population": 238691,
+    "stateCode": ["36"],
+    "counties": ["36007", "36107"]
+  },
+  {
+    "name": "Birmingham-Hoover",
+    "fipsCode": "13820",
+    "population": 1090435,
+    "stateCode": ["01"],
+    "counties": ["01007", "01009", "01021", "01073", "01115", "01117"]
+  },
+  {
+    "name": "Bismarck",
+    "fipsCode": "13900",
+    "population": 128949,
+    "stateCode": ["38"],
+    "counties": ["38015", "38059", "38065"]
+  },
+  {
+    "name": "Blacksburg-Christiansburg",
+    "fipsCode": "13980",
+    "population": 167531,
+    "stateCode": ["51"],
+    "counties": ["51071", "51121", "51155", "51750"]
+  },
+  {
+    "name": "Bloomington",
+    "fipsCode": "14010",
+    "population": 171517,
+    "stateCode": ["17"],
+    "counties": ["17113"]
+  },
+  {
+    "name": "Bloomington",
+    "fipsCode": "14020",
+    "population": 169230,
+    "stateCode": ["18"],
+    "counties": ["18105", "18119"]
+  },
+  {
+    "name": "Bloomsburg-Berwick",
+    "fipsCode": "14100",
+    "population": 83194,
+    "stateCode": ["42"],
+    "counties": ["42037", "42093"]
+  },
+  {
+    "name": "Boise City",
+    "fipsCode": "14260",
+    "population": 749202,
+    "stateCode": ["16"],
+    "counties": ["16001", "16015", "16027", "16045", "16073"]
+  },
+  {
+    "name": "Boston-Cambridge-Newton",
+    "fipsCode": "14460",
+    "population": 4873019,
+    "stateCode": ["25", "33"],
+    "counties": ["25021", "25023", "25025", "25009", "25017", "33015", "33017"]
+  },
+  {
+    "name": "Boulder",
+    "fipsCode": "14500",
+    "population": 326196,
+    "stateCode": ["08"],
+    "counties": ["08013"]
+  },
+  {
+    "name": "Bowling Green",
+    "fipsCode": "14540",
+    "population": 179240,
+    "stateCode": ["21"],
+    "counties": ["21003", "21031", "21061", "21227"]
+  },
+  {
+    "name": "Bremerton-Silverdale-Port Orchard",
+    "fipsCode": "14740",
+    "population": 271473,
+    "stateCode": ["53"],
+    "counties": ["53035"]
+  },
+  {
+    "name": "Bridgeport-Stamford-Norwalk",
+    "fipsCode": "14860",
+    "population": 943332,
+    "stateCode": ["09"],
+    "counties": ["09001"]
+  },
+  {
+    "name": "Brownsville-Harlingen",
+    "fipsCode": "15180",
+    "population": 423163,
+    "stateCode": ["48"],
+    "counties": ["48061"]
+  },
+  {
+    "name": "Brunswick",
+    "fipsCode": "15260",
+    "population": 118779,
+    "stateCode": ["13"],
+    "counties": ["13025", "13127", "13191"]
+  },
+  {
+    "name": "Buffalo-Cheektowaga",
+    "fipsCode": "15380",
+    "population": 1127983,
+    "stateCode": ["36"],
+    "counties": ["36029", "36063"]
+  },
+  {
+    "name": "Burlington",
+    "fipsCode": "15500",
+    "population": 169509,
+    "stateCode": ["37"],
+    "counties": ["37001"]
+  },
+  {
+    "name": "Burlington-South Burlington",
+    "fipsCode": "15540",
+    "population": 220411,
+    "stateCode": ["50"],
+    "counties": ["50007", "50011", "50013"]
+  },
+  {
+    "name": "California-Lexington Park",
+    "fipsCode": "15680",
+    "population": 113510,
+    "stateCode": ["24"],
+    "counties": ["24037"]
+  },
+  {
+    "name": "Canton-Massillon",
+    "fipsCode": "15940",
+    "population": 397520,
+    "stateCode": ["39"],
+    "counties": ["39019", "39151"]
+  },
+  {
+    "name": "Cape Coral-Fort Myers",
+    "fipsCode": "15980",
+    "population": 770577,
+    "stateCode": ["12"],
+    "counties": ["12071"]
+  },
+  {
+    "name": "Cape Girardeau",
+    "fipsCode": "16020",
+    "population": 96765,
+    "stateCode": ["29", "17"],
+    "counties": ["17003", "29017", "29031"]
+  },
+  {
+    "name": "Carbondale-Marion",
+    "fipsCode": "16060",
+    "population": 135764,
+    "stateCode": ["17"],
+    "counties": ["17077", "17087", "17199"]
+  },
+  {
+    "name": "Carson City",
+    "fipsCode": "16180",
+    "population": 55916,
+    "stateCode": ["32"],
+    "counties": ["32510"]
+  },
+  {
+    "name": "Casper",
+    "fipsCode": "16220",
+    "population": 79858,
+    "stateCode": ["56"],
+    "counties": ["56025"]
+  },
+  {
+    "name": "Cedar Rapids",
+    "fipsCode": "16300",
+    "population": 273032,
+    "stateCode": ["19"],
+    "counties": ["19011", "19105", "19113"]
+  },
+  {
+    "name": "Chambersburg-Waynesboro",
+    "fipsCode": "16540",
+    "population": 155027,
+    "stateCode": ["42"],
+    "counties": ["42055"]
+  },
+  {
+    "name": "Champaign-Urbana",
+    "fipsCode": "16580",
+    "population": 226033,
+    "stateCode": ["17"],
+    "counties": ["17019", "17147"]
+  },
+  {
+    "name": "Charleston",
+    "fipsCode": "16620",
+    "population": 257074,
+    "stateCode": ["54"],
+    "counties": ["54005", "54015", "54035", "54039", "54043"]
+  },
+  {
+    "name": "Charleston-North Charleston",
+    "fipsCode": "16700",
+    "population": 802122,
+    "stateCode": ["45"],
+    "counties": ["45015", "45019", "45035"]
+  },
+  {
+    "name": "Charlotte-Concord-Gastonia",
+    "fipsCode": "16740",
+    "population": 2636883,
+    "stateCode": ["37", "45"],
+    "counties": [
+      "37007",
+      "37025",
+      "37071",
+      "37097",
+      "37109",
+      "37119",
+      "37159",
+      "37179",
+      "45023",
+      "45057",
+      "45091"
+    ]
+  },
+  {
+    "name": "Charlottesville",
+    "fipsCode": "16820",
+    "population": 218615,
+    "stateCode": ["51"],
+    "counties": ["51003", "51065", "51079", "51125", "51540"]
+  },
+  {
+    "name": "Chattanooga",
+    "fipsCode": "16860",
+    "population": 565194,
+    "stateCode": ["47", "13"],
+    "counties": ["13047", "13083", "13295", "47065", "47115", "47153"]
+  },
+  {
+    "name": "Cheyenne",
+    "fipsCode": "16940",
+    "population": 99500,
+    "stateCode": ["56"],
+    "counties": ["56021"]
+  },
+  {
+    "name": "Chicago-Naperville-Elgin",
+    "fipsCode": "16980",
+    "population": 9458539,
+    "stateCode": ["17", "18", "55"],
+    "counties": [
+      "17031",
+      "17043",
+      "17063",
+      "17111",
+      "17197",
+      "17037",
+      "17089",
+      "17093",
+      "18073",
+      "18089",
+      "18111",
+      "18127",
+      "17097",
+      "55059"
+    ]
+  },
+  {
+    "name": "Chico",
+    "fipsCode": "17020",
+    "population": 219186,
+    "stateCode": ["06"],
+    "counties": ["06007"]
+  },
+  {
+    "name": "Cincinnati",
+    "fipsCode": "17140",
+    "population": 2221208,
+    "stateCode": ["39", "21", "18"],
+    "counties": [
+      "18029",
+      "18047",
+      "18115",
+      "18161",
+      "21015",
+      "21023",
+      "21037",
+      "21077",
+      "21081",
+      "21117",
+      "21191",
+      "39015",
+      "39017",
+      "39025",
+      "39061",
+      "39165"
+    ]
+  },
+  {
+    "name": "Clarksville",
+    "fipsCode": "17300",
+    "population": 307820,
+    "stateCode": ["47", "21"],
+    "counties": ["21047", "21221", "47125", "47161"]
+  },
+  {
+    "name": "Cleveland",
+    "fipsCode": "17420",
+    "population": 124942,
+    "stateCode": ["47"],
+    "counties": ["47011", "47139"]
+  },
+  {
+    "name": "Cleveland-Elyria",
+    "fipsCode": "17460",
+    "population": 2048449,
+    "stateCode": ["39"],
+    "counties": ["39035", "39055", "39085", "39093", "39103"]
+  },
+  {
+    "name": "Coeur d'Alene",
+    "fipsCode": "17660",
+    "population": 165697,
+    "stateCode": ["16"],
+    "counties": ["16055"]
+  },
+  {
+    "name": "College Station-Bryan",
+    "fipsCode": "17780",
+    "population": 264728,
+    "stateCode": ["48"],
+    "counties": ["48041", "48051", "48395"]
+  },
+  {
+    "name": "Colorado Springs",
+    "fipsCode": "17820",
+    "population": 745791,
+    "stateCode": ["08"],
+    "counties": ["08041", "08119"]
+  },
+  {
+    "name": "Columbia",
+    "fipsCode": "17860",
+    "population": 208173,
+    "stateCode": ["29"],
+    "counties": ["29019", "29053", "29089"]
+  },
+  {
+    "name": "Columbia",
+    "fipsCode": "17900",
+    "population": 838433,
+    "stateCode": ["45"],
+    "counties": ["45017", "45039", "45055", "45063", "45079", "45081"]
+  },
+  {
+    "name": "Columbus",
+    "fipsCode": "17980",
+    "population": 321048,
+    "stateCode": ["13", "01"],
+    "counties": ["01113", "13053", "13145", "13197", "13215", "13259", "13263"]
+  },
+  {
+    "name": "Columbus",
+    "fipsCode": "18020",
+    "population": 83779,
+    "stateCode": ["18"],
+    "counties": ["18005"]
+  },
+  {
+    "name": "Columbus",
+    "fipsCode": "18140",
+    "population": 2122271,
+    "stateCode": ["39"],
+    "counties": [
+      "39041",
+      "39045",
+      "39049",
+      "39073",
+      "39089",
+      "39097",
+      "39117",
+      "39127",
+      "39129",
+      "39159"
+    ]
+  },
+  {
+    "name": "Corpus Christi",
+    "fipsCode": "18580",
+    "population": 429024,
+    "stateCode": ["48"],
+    "counties": ["48355", "48409"]
+  },
+  {
+    "name": "Corvallis",
+    "fipsCode": "18700",
+    "population": 93053,
+    "stateCode": ["41"],
+    "counties": ["41003"]
+  },
+  {
+    "name": "Crestview-Fort Walton Beach-Destin",
+    "fipsCode": "18880",
+    "population": 284809,
+    "stateCode": ["12"],
+    "counties": ["12091", "12131"]
+  },
+  {
+    "name": "Cumberland",
+    "fipsCode": "19060",
+    "population": 97284,
+    "stateCode": ["24", "54"],
+    "counties": ["24001", "54057"]
+  },
+  {
+    "name": "Dallas-Fort Worth-Arlington",
+    "fipsCode": "19100",
+    "population": 7573136,
+    "stateCode": ["48"],
+    "counties": [
+      "48085",
+      "48113",
+      "48121",
+      "48139",
+      "48231",
+      "48257",
+      "48397",
+      "48251",
+      "48367",
+      "48439",
+      "48497"
+    ]
+  },
+  {
+    "name": "Dalton",
+    "fipsCode": "19140",
+    "population": 144724,
+    "stateCode": ["13"],
+    "counties": ["13213", "13313"]
+  },
+  {
+    "name": "Danville",
+    "fipsCode": "19180",
+    "population": 75758,
+    "stateCode": ["17"],
+    "counties": ["17183"]
+  },
+  {
+    "name": "Daphne-Fairhope-Foley",
+    "fipsCode": "19300",
+    "population": 223234,
+    "stateCode": ["01"],
+    "counties": ["01003"]
+  },
+  {
+    "name": "Davenport-Moline-Rock Island",
+    "fipsCode": "19340",
+    "population": 379172,
+    "stateCode": ["19", "17"],
+    "counties": ["17073", "17131", "17161", "19163"]
+  },
+  {
+    "name": "Dayton-Kettering",
+    "fipsCode": "19430",
+    "population": 807611,
+    "stateCode": ["39"],
+    "counties": ["39057", "39109", "39113"]
+  },
+  {
+    "name": "Decatur",
+    "fipsCode": "19460",
+    "population": 152603,
+    "stateCode": ["01"],
+    "counties": ["01079", "01103"]
+  },
+  {
+    "name": "Decatur",
+    "fipsCode": "19500",
+    "population": 104009,
+    "stateCode": ["17"],
+    "counties": ["17115"]
+  },
+  {
+    "name": "Deltona-Daytona Beach-Ormond Beach",
+    "fipsCode": "19660",
+    "population": 668365,
+    "stateCode": ["12"],
+    "counties": ["12035", "12127"]
+  },
+  {
+    "name": "Denver-Aurora-Lakewood",
+    "fipsCode": "19740",
+    "population": 2967239,
+    "stateCode": ["08"],
+    "counties": [
+      "08001",
+      "08005",
+      "08014",
+      "08019",
+      "08031",
+      "08035",
+      "08039",
+      "08047",
+      "08059",
+      "08093"
+    ]
+  },
+  {
+    "name": "Des Moines-West Des Moines",
+    "fipsCode": "19780",
+    "population": 699292,
+    "stateCode": ["19"],
+    "counties": ["19049", "19077", "19099", "19121", "19153", "19181"]
+  },
+  {
+    "name": "Detroit-Warren-Dearborn",
+    "fipsCode": "19820",
+    "population": 4319629,
+    "stateCode": ["26"],
+    "counties": ["26163", "26087", "26093", "26099", "26125", "26147"]
+  },
+  {
+    "name": "Dothan",
+    "fipsCode": "20020",
+    "population": 149358,
+    "stateCode": ["01"],
+    "counties": ["01061", "01067", "01069"]
+  },
+  {
+    "name": "Dover",
+    "fipsCode": "20100",
+    "population": 180786,
+    "stateCode": ["10"],
+    "counties": ["10001"]
+  },
+  {
+    "name": "Dubuque",
+    "fipsCode": "20220",
+    "population": 97311,
+    "stateCode": ["19"],
+    "counties": ["19061"]
+  },
+  {
+    "name": "Duluth",
+    "fipsCode": "20260",
+    "population": 288732,
+    "stateCode": ["27", "55"],
+    "counties": ["27017", "27075", "27137", "55031"]
+  },
+  {
+    "name": "Durham-Chapel Hill",
+    "fipsCode": "20500",
+    "population": 644367,
+    "stateCode": ["37"],
+    "counties": ["37037", "37063", "37077", "37135", "37145"]
+  },
+  {
+    "name": "East Stroudsburg",
+    "fipsCode": "20700",
+    "population": 170271,
+    "stateCode": ["42"],
+    "counties": ["42089"]
+  },
+  {
+    "name": "Eau Claire",
+    "fipsCode": "20740",
+    "population": 169304,
+    "stateCode": ["55"],
+    "counties": ["55017", "55035"]
+  },
+  {
+    "name": "El Centro",
+    "fipsCode": "20940",
+    "population": 181215,
+    "stateCode": ["06"],
+    "counties": ["06025"]
+  },
+  {
+    "name": "Elizabethtown-Fort Knox",
+    "fipsCode": "21060",
+    "population": 153928,
+    "stateCode": ["21"],
+    "counties": ["21093", "21123", "21163"]
+  },
+  {
+    "name": "Elkhart-Goshen",
+    "fipsCode": "21140",
+    "population": 206341,
+    "stateCode": ["18"],
+    "counties": ["18039"]
+  },
+  {
+    "name": "Elmira",
+    "fipsCode": "21300",
+    "population": 83456,
+    "stateCode": ["36"],
+    "counties": ["36015"]
+  },
+  {
+    "name": "El Paso",
+    "fipsCode": "21340",
+    "population": 844124,
+    "stateCode": ["48"],
+    "counties": ["48141", "48229"]
+  },
+  {
+    "name": "Enid",
+    "fipsCode": "21420",
+    "population": 61056,
+    "stateCode": ["40"],
+    "counties": ["40047"]
+  },
+  {
+    "name": "Erie",
+    "fipsCode": "21500",
+    "population": 269728,
+    "stateCode": ["42"],
+    "counties": ["42049"]
+  },
+  {
+    "name": "Eugene-Springfield",
+    "fipsCode": "21660",
+    "population": 382067,
+    "stateCode": ["41"],
+    "counties": ["41039"]
+  },
+  {
+    "name": "Evansville",
+    "fipsCode": "21780",
+    "population": 315086,
+    "stateCode": ["18", "21"],
+    "counties": ["18129", "18163", "18173", "21101"]
+  },
+  {
+    "name": "Fairbanks",
+    "fipsCode": "21820",
+    "population": 96849,
+    "stateCode": ["02"],
+    "counties": ["02090"]
+  },
+  {
+    "name": "Fargo",
+    "fipsCode": "22020",
+    "population": 246145,
+    "stateCode": ["38", "27"],
+    "counties": ["27027", "38017"]
+  },
+  {
+    "name": "Farmington",
+    "fipsCode": "22140",
+    "population": 123958,
+    "stateCode": ["35"],
+    "counties": ["35045"]
+  },
+  {
+    "name": "Fayetteville",
+    "fipsCode": "22180",
+    "population": 526719,
+    "stateCode": ["37"],
+    "counties": ["37051", "37085", "37093"]
+  },
+  {
+    "name": "Fayetteville-Springdale-Rogers",
+    "fipsCode": "22220",
+    "population": 534904,
+    "stateCode": ["05"],
+    "counties": ["05007", "05087", "05143"]
+  },
+  {
+    "name": "Flagstaff",
+    "fipsCode": "22380",
+    "population": 143476,
+    "stateCode": ["04"],
+    "counties": ["04005"]
+  },
+  {
+    "name": "Flint",
+    "fipsCode": "22420",
+    "population": 405813,
+    "stateCode": ["26"],
+    "counties": ["26049"]
+  },
+  {
+    "name": "Florence",
+    "fipsCode": "22500",
+    "population": 204911,
+    "stateCode": ["45"],
+    "counties": ["45031", "45041"]
+  },
+  {
+    "name": "Florence-Muscle Shoals",
+    "fipsCode": "22520",
+    "population": 147970,
+    "stateCode": ["01"],
+    "counties": ["01033", "01077"]
+  },
+  {
+    "name": "Fond du Lac",
+    "fipsCode": "22540",
+    "population": 103403,
+    "stateCode": ["55"],
+    "counties": ["55039"]
+  },
+  {
+    "name": "Fort Collins",
+    "fipsCode": "22660",
+    "population": 356899,
+    "stateCode": ["08"],
+    "counties": ["08069"]
+  },
+  {
+    "name": "Fort Smith",
+    "fipsCode": "22900",
+    "population": 250368,
+    "stateCode": ["05", "40"],
+    "counties": ["05033", "05047", "05131", "40135"]
+  },
+  {
+    "name": "Fort Wayne",
+    "fipsCode": "23060",
+    "population": 413263,
+    "stateCode": ["18"],
+    "counties": ["18003", "18183"]
+  },
+  {
+    "name": "Fresno",
+    "fipsCode": "23420",
+    "population": 999101,
+    "stateCode": ["06"],
+    "counties": ["06019"]
+  },
+  {
+    "name": "Gadsden",
+    "fipsCode": "23460",
+    "population": 102268,
+    "stateCode": ["01"],
+    "counties": ["01055"]
+  },
+  {
+    "name": "Gainesville",
+    "fipsCode": "23540",
+    "population": 329128,
+    "stateCode": ["12"],
+    "counties": ["12001", "12041", "12075"]
+  },
+  {
+    "name": "Gainesville",
+    "fipsCode": "23580",
+    "population": 204441,
+    "stateCode": ["13"],
+    "counties": ["13139"]
+  },
+  {
+    "name": "Gettysburg",
+    "fipsCode": "23900",
+    "population": 103009,
+    "stateCode": ["42"],
+    "counties": ["42001"]
+  },
+  {
+    "name": "Glens Falls",
+    "fipsCode": "24020",
+    "population": 125148,
+    "stateCode": ["36"],
+    "counties": ["36113", "36115"]
+  },
+  {
+    "name": "Goldsboro",
+    "fipsCode": "24140",
+    "population": 123131,
+    "stateCode": ["37"],
+    "counties": ["37191"]
+  },
+  {
+    "name": "Grand Forks",
+    "fipsCode": "24220",
+    "population": 100815,
+    "stateCode": ["38", "27"],
+    "counties": ["27119", "38035"]
+  },
+  {
+    "name": "Grand Island",
+    "fipsCode": "24260",
+    "population": 75553,
+    "stateCode": ["31"],
+    "counties": ["31079", "31093", "31121"]
+  },
+  {
+    "name": "Grand Junction",
+    "fipsCode": "24300",
+    "population": 154210,
+    "stateCode": ["08"],
+    "counties": ["08077"]
+  },
+  {
+    "name": "Grand Rapids-Kentwood",
+    "fipsCode": "24340",
+    "population": 1077370,
+    "stateCode": ["26"],
+    "counties": ["26067", "26081", "26117", "26139"]
+  },
+  {
+    "name": "Grants Pass",
+    "fipsCode": "24420",
+    "population": 87487,
+    "stateCode": ["41"],
+    "counties": ["41033"]
+  },
+  {
+    "name": "Great Falls",
+    "fipsCode": "24500",
+    "population": 81366,
+    "stateCode": ["30"],
+    "counties": ["30013"]
+  },
+  {
+    "name": "Greeley",
+    "fipsCode": "24540",
+    "population": 324492,
+    "stateCode": ["08"],
+    "counties": ["08123"]
+  },
+  {
+    "name": "Green Bay",
+    "fipsCode": "24580",
+    "population": 322906,
+    "stateCode": ["55"],
+    "counties": ["55009", "55061", "55083"]
+  },
+  {
+    "name": "Greensboro-High Point",
+    "fipsCode": "24660",
+    "population": 771851,
+    "stateCode": ["37"],
+    "counties": ["37081", "37151", "37157"]
+  },
+  {
+    "name": "Greenville",
+    "fipsCode": "24780",
+    "population": 180742,
+    "stateCode": ["37"],
+    "counties": ["37147"]
+  },
+  {
+    "name": "Greenville-Anderson",
+    "fipsCode": "24860",
+    "population": 920477,
+    "stateCode": ["45"],
+    "counties": ["45007", "45045", "45059", "45077"]
+  },
+  {
+    "name": "Guayama",
+    "fipsCode": "25020",
+    "population": 72914,
+    "stateCode": ["72"],
+    "counties": ["72015", "72057", "72109"]
+  },
+  {
+    "name": "Gulfport-Biloxi",
+    "fipsCode": "25060",
+    "population": 417665,
+    "stateCode": ["28"],
+    "counties": ["28045", "28047", "28059", "28131"]
+  },
+  {
+    "name": "Hagerstown-Martinsburg",
+    "fipsCode": "25180",
+    "population": 288104,
+    "stateCode": ["24", "54"],
+    "counties": ["24043", "54003", "54065"]
+  },
+  {
+    "name": "Hammond",
+    "fipsCode": "25220",
+    "population": 134758,
+    "stateCode": ["22"],
+    "counties": ["22105"]
+  },
+  {
+    "name": "Hanford-Corcoran",
+    "fipsCode": "25260",
+    "population": 152940,
+    "stateCode": ["06"],
+    "counties": ["06031"]
+  },
+  {
+    "name": "Harrisburg-Carlisle",
+    "fipsCode": "25420",
+    "population": 577941,
+    "stateCode": ["42"],
+    "counties": ["42041", "42043", "42099"]
+  },
+  {
+    "name": "Harrisonburg",
+    "fipsCode": "25500",
+    "population": 134964,
+    "stateCode": ["51"],
+    "counties": ["51165", "51660"]
+  },
+  {
+    "name": "Hartford-East Hartford-Middletown",
+    "fipsCode": "25540",
+    "population": 1204877,
+    "stateCode": ["09"],
+    "counties": ["09003", "09007", "09013"]
+  },
+  {
+    "name": "Hattiesburg",
+    "fipsCode": "25620",
+    "population": 168849,
+    "stateCode": ["28"],
+    "counties": ["28031", "28035", "28073", "28111"]
+  },
+  {
+    "name": "Hickory-Lenoir-Morganton",
+    "fipsCode": "25860",
+    "population": 369711,
+    "stateCode": ["37"],
+    "counties": ["37003", "37023", "37027", "37035"]
+  },
+  {
+    "name": "Hilton Head Island-Bluffton",
+    "fipsCode": "25940",
+    "population": 222195,
+    "stateCode": ["45"],
+    "counties": ["45013", "45053"]
+  },
+  {
+    "name": "Hinesville",
+    "fipsCode": "25980",
+    "population": 80994,
+    "stateCode": ["13"],
+    "counties": ["13179", "13183"]
+  },
+  {
+    "name": "Homosassa Springs",
+    "fipsCode": "26140",
+    "population": 149657,
+    "stateCode": ["12"],
+    "counties": ["12017"]
+  },
+  {
+    "name": "Hot Springs",
+    "fipsCode": "26300",
+    "population": 99386,
+    "stateCode": ["05"],
+    "counties": ["05051"]
+  },
+  {
+    "name": "Houma-Thibodaux",
+    "fipsCode": "26380",
+    "population": 208075,
+    "stateCode": ["22"],
+    "counties": ["22057", "22109"]
+  },
+  {
+    "name": "Houston-The Woodlands-Sugar Land",
+    "fipsCode": "26420",
+    "population": 7066141,
+    "stateCode": ["48"],
+    "counties": [
+      "48015",
+      "48039",
+      "48071",
+      "48157",
+      "48167",
+      "48201",
+      "48291",
+      "48339",
+      "48473"
+    ]
+  },
+  {
+    "name": "Huntington-Ashland",
+    "fipsCode": "26580",
+    "population": 355873,
+    "stateCode": ["54", "21", "39"],
+    "counties": ["21019", "21043", "21089", "39087", "54011", "54079", "54099"]
+  },
+  {
+    "name": "Huntsville",
+    "fipsCode": "26620",
+    "population": 471824,
+    "stateCode": ["01"],
+    "counties": ["01083", "01089"]
+  },
+  {
+    "name": "Idaho Falls",
+    "fipsCode": "26820",
+    "population": 151530,
+    "stateCode": ["16"],
+    "counties": ["16019", "16023", "16051"]
+  },
+  {
+    "name": "Indianapolis-Carmel-Anderson",
+    "fipsCode": "26900",
+    "population": 2074537,
+    "stateCode": ["18"],
+    "counties": [
+      "18011",
+      "18013",
+      "18057",
+      "18059",
+      "18063",
+      "18081",
+      "18095",
+      "18097",
+      "18109",
+      "18133",
+      "18145"
+    ]
+  },
+  {
+    "name": "Iowa City",
+    "fipsCode": "26980",
+    "population": 173105,
+    "stateCode": ["19"],
+    "counties": ["19103", "19183"]
+  },
+  {
+    "name": "Ithaca",
+    "fipsCode": "27060",
+    "population": 102180,
+    "stateCode": ["36"],
+    "counties": ["36109"]
+  },
+  {
+    "name": "Jackson",
+    "fipsCode": "27100",
+    "population": 158510,
+    "stateCode": ["26"],
+    "counties": ["26075"]
+  },
+  {
+    "name": "Jackson",
+    "fipsCode": "27140",
+    "population": 594806,
+    "stateCode": ["28"],
+    "counties": ["28029", "28049", "28051", "28089", "28121", "28127", "28163"]
+  },
+  {
+    "name": "Jackson",
+    "fipsCode": "27180",
+    "population": 178644,
+    "stateCode": ["47"],
+    "counties": ["47023", "47033", "47053", "47113"]
+  },
+  {
+    "name": "Jacksonville",
+    "fipsCode": "27260",
+    "population": 1559514,
+    "stateCode": ["12"],
+    "counties": ["12003", "12019", "12031", "12089", "12109"]
+  },
+  {
+    "name": "Jacksonville",
+    "fipsCode": "27340",
+    "population": 197938,
+    "stateCode": ["37"],
+    "counties": ["37133"]
+  },
+  {
+    "name": "Janesville-Beloit",
+    "fipsCode": "27500",
+    "population": 163354,
+    "stateCode": ["55"],
+    "counties": ["55105"]
+  },
+  {
+    "name": "Jefferson City",
+    "fipsCode": "27620",
+    "population": 151235,
+    "stateCode": ["29"],
+    "counties": ["29027", "29051", "29135", "29151"]
+  },
+  {
+    "name": "Johnson City",
+    "fipsCode": "27740",
+    "population": 203649,
+    "stateCode": ["47"],
+    "counties": ["47019", "47171", "47179"]
+  },
+  {
+    "name": "Johnstown",
+    "fipsCode": "27780",
+    "population": 130192,
+    "stateCode": ["42"],
+    "counties": ["42021"]
+  },
+  {
+    "name": "Jonesboro",
+    "fipsCode": "27860",
+    "population": 133860,
+    "stateCode": ["05"],
+    "counties": ["05031", "05111"]
+  },
+  {
+    "name": "Joplin",
+    "fipsCode": "27900",
+    "population": 179564,
+    "stateCode": ["29"],
+    "counties": ["29097", "29145"]
+  },
+  {
+    "name": "Kahului-Wailuku-Lahaina",
+    "fipsCode": "27980",
+    "population": 167417,
+    "stateCode": ["15"],
+    "counties": ["15009"]
+  },
+  {
+    "name": "Kalamazoo-Portage",
+    "fipsCode": "28020",
+    "population": 265066,
+    "stateCode": ["26"],
+    "counties": ["26077"]
+  },
+  {
+    "name": "Kankakee",
+    "fipsCode": "28100",
+    "population": 109862,
+    "stateCode": ["17"],
+    "counties": ["17091"]
+  },
+  {
+    "name": "Kansas City",
+    "fipsCode": "28140",
+    "population": 2157990,
+    "stateCode": ["29", "20"],
+    "counties": [
+      "20091",
+      "20103",
+      "20107",
+      "20121",
+      "20209",
+      "29013",
+      "29025",
+      "29037",
+      "29047",
+      "29049",
+      "29095",
+      "29107",
+      "29165",
+      "29177"
+    ]
+  },
+  {
+    "name": "Kennewick-Richland",
+    "fipsCode": "28420",
+    "population": 299612,
+    "stateCode": ["53"],
+    "counties": ["53005", "53021"]
+  },
+  {
+    "name": "Killeen-Temple",
+    "fipsCode": "28660",
+    "population": 460303,
+    "stateCode": ["48"],
+    "counties": ["48027", "48099", "48281"]
+  },
+  {
+    "name": "Kingsport-Bristol",
+    "fipsCode": "28700",
+    "population": 307202,
+    "stateCode": ["47", "51"],
+    "counties": ["47073", "47163", "51169", "51191", "51520"]
+  },
+  {
+    "name": "Kingston",
+    "fipsCode": "28740",
+    "population": 177573,
+    "stateCode": ["36"],
+    "counties": ["36111"]
+  },
+  {
+    "name": "Knoxville",
+    "fipsCode": "28940",
+    "population": 869046,
+    "stateCode": ["47"],
+    "counties": [
+      "47001",
+      "47009",
+      "47013",
+      "47093",
+      "47105",
+      "47129",
+      "47145",
+      "47173"
+    ]
+  },
+  {
+    "name": "Kokomo",
+    "fipsCode": "29020",
+    "population": 82544,
+    "stateCode": ["18"],
+    "counties": ["18067"]
+  },
+  {
+    "name": "La Crosse-Onalaska",
+    "fipsCode": "29100",
+    "population": 136616,
+    "stateCode": ["55", "27"],
+    "counties": ["27055", "55063"]
+  },
+  {
+    "name": "Lafayette",
+    "fipsCode": "29180",
+    "population": 489207,
+    "stateCode": ["22"],
+    "counties": ["22001", "22045", "22055", "22099", "22113"]
+  },
+  {
+    "name": "Lafayette-West Lafayette",
+    "fipsCode": "29200",
+    "population": 233002,
+    "stateCode": ["18"],
+    "counties": ["18007", "18015", "18157", "18171"]
+  },
+  {
+    "name": "Lake Charles",
+    "fipsCode": "29340",
+    "population": 210409,
+    "stateCode": ["22"],
+    "counties": ["22019", "22023"]
+  },
+  {
+    "name": "Lake Havasu City-Kingman",
+    "fipsCode": "29420",
+    "population": 212181,
+    "stateCode": ["04"],
+    "counties": ["04015"]
+  },
+  {
+    "name": "Lakeland-Winter Haven",
+    "fipsCode": "29460",
+    "population": 724777,
+    "stateCode": ["12"],
+    "counties": ["12105"]
+  },
+  {
+    "name": "Lancaster",
+    "fipsCode": "29540",
+    "population": 545724,
+    "stateCode": ["42"],
+    "counties": ["42071"]
+  },
+  {
+    "name": "Lansing-East Lansing",
+    "fipsCode": "29620",
+    "population": 550391,
+    "stateCode": ["26"],
+    "counties": ["26037", "26045", "26065", "26155"]
+  },
+  {
+    "name": "Laredo",
+    "fipsCode": "29700",
+    "population": 276652,
+    "stateCode": ["48"],
+    "counties": ["48479"]
+  },
+  {
+    "name": "Las Cruces",
+    "fipsCode": "29740",
+    "population": 218195,
+    "stateCode": ["35"],
+    "counties": ["35013"]
+  },
+  {
+    "name": "Las Vegas-Henderson-Paradise",
+    "fipsCode": "29820",
+    "population": 2266715,
+    "stateCode": ["32"],
+    "counties": ["32003"]
+  },
+  {
+    "name": "Lawrence",
+    "fipsCode": "29940",
+    "population": 122259,
+    "stateCode": ["20"],
+    "counties": ["20045"]
+  },
+  {
+    "name": "Lawton",
+    "fipsCode": "30020",
+    "population": 126415,
+    "stateCode": ["40"],
+    "counties": ["40031", "40033"]
+  },
+  {
+    "name": "Lebanon",
+    "fipsCode": "30140",
+    "population": 141793,
+    "stateCode": ["42"],
+    "counties": ["42075"]
+  },
+  {
+    "name": "Lewiston",
+    "fipsCode": "30300",
+    "population": 62990,
+    "stateCode": ["16", "53"],
+    "counties": ["16069", "53003"]
+  },
+  {
+    "name": "Lewiston-Auburn",
+    "fipsCode": "30340",
+    "population": 108277,
+    "stateCode": ["23"],
+    "counties": ["23001"]
+  },
+  {
+    "name": "Lexington-Fayette",
+    "fipsCode": "30460",
+    "population": 517056,
+    "stateCode": ["21"],
+    "counties": ["21017", "21049", "21067", "21113", "21209", "21239"]
+  },
+  {
+    "name": "Lima",
+    "fipsCode": "30620",
+    "population": 102351,
+    "stateCode": ["39"],
+    "counties": ["39003"]
+  },
+  {
+    "name": "Lincoln",
+    "fipsCode": "30700",
+    "population": 336374,
+    "stateCode": ["31"],
+    "counties": ["31109", "31159"]
+  },
+  {
+    "name": "Little Rock-North Little Rock-Conway",
+    "fipsCode": "30780",
+    "population": 742384,
+    "stateCode": ["05"],
+    "counties": ["05045", "05053", "05085", "05105", "05119", "05125"]
+  },
+  {
+    "name": "Logan",
+    "fipsCode": "30860",
+    "population": 142165,
+    "stateCode": ["49", "16"],
+    "counties": ["16041", "49005"]
+  },
+  {
+    "name": "Longview",
+    "fipsCode": "30980",
+    "population": 286657,
+    "stateCode": ["48"],
+    "counties": ["48183", "48203", "48401", "48459"]
+  },
+  {
+    "name": "Longview",
+    "fipsCode": "31020",
+    "population": 110593,
+    "stateCode": ["53"],
+    "counties": ["53015"]
+  },
+  {
+    "name": "Los Angeles-Long Beach-Anaheim",
+    "fipsCode": "31080",
+    "population": 13214799,
+    "stateCode": ["06"],
+    "counties": ["06059", "06037"]
+  },
+  {
+    "name": "Louisville/Jefferson County",
+    "fipsCode": "31140",
+    "population": 1265108,
+    "stateCode": ["21", "18"],
+    "counties": [
+      "18019",
+      "18043",
+      "18061",
+      "18175",
+      "21029",
+      "21103",
+      "21111",
+      "21185",
+      "21211",
+      "21215"
+    ]
+  },
+  {
+    "name": "Lubbock",
+    "fipsCode": "31180",
+    "population": 322257,
+    "stateCode": ["48"],
+    "counties": ["48107", "48303", "48305"]
+  },
+  {
+    "name": "Lynchburg",
+    "fipsCode": "31340",
+    "population": 263566,
+    "stateCode": ["51"],
+    "counties": ["51009", "51011", "51019", "51031", "51680"]
+  },
+  {
+    "name": "Macon-Bibb County",
+    "fipsCode": "31420",
+    "population": 229996,
+    "stateCode": ["13"],
+    "counties": ["13021", "13079", "13169", "13207", "13289"]
+  },
+  {
+    "name": "Madera",
+    "fipsCode": "31460",
+    "population": 157327,
+    "stateCode": ["06"],
+    "counties": ["06039"]
+  },
+  {
+    "name": "Madison",
+    "fipsCode": "31540",
+    "population": 664865,
+    "stateCode": ["55"],
+    "counties": ["55021", "55025", "55045", "55049"]
+  },
+  {
+    "name": "Manchester-Nashua",
+    "fipsCode": "31700",
+    "population": 417025,
+    "stateCode": ["33"],
+    "counties": ["33011"]
+  },
+  {
+    "name": "Manhattan",
+    "fipsCode": "31740",
+    "population": 130285,
+    "stateCode": ["20"],
+    "counties": ["20061", "20149", "20161"]
+  },
+  {
+    "name": "Mankato",
+    "fipsCode": "31860",
+    "population": 101927,
+    "stateCode": ["27"],
+    "counties": ["27013", "27103"]
+  },
+  {
+    "name": "Mansfield",
+    "fipsCode": "31900",
+    "population": 121154,
+    "stateCode": ["39"],
+    "counties": ["39139"]
+  },
+  {
+    "name": "Mayag\\u00fcez",
+    "fipsCode": "32420",
+    "population": 94975,
+    "stateCode": ["72"],
+    "counties": ["72067", "72083", "72097"]
+  },
+  {
+    "name": "McAllen-Edinburg-Mission",
+    "fipsCode": "32580",
+    "population": 868707,
+    "stateCode": ["48"],
+    "counties": ["48215"]
+  },
+  {
+    "name": "Medford",
+    "fipsCode": "32780",
+    "population": 220944,
+    "stateCode": ["41"],
+    "counties": ["41029"]
+  },
+  {
+    "name": "Memphis",
+    "fipsCode": "32820",
+    "population": 1346045,
+    "stateCode": ["47", "28", "05"],
+    "counties": [
+      "05035",
+      "28033",
+      "28093",
+      "28137",
+      "28143",
+      "47047",
+      "47157",
+      "47167"
+    ]
+  },
+  {
+    "name": "Merced",
+    "fipsCode": "32900",
+    "population": 277680,
+    "stateCode": ["06"],
+    "counties": ["06047"]
+  },
+  {
+    "name": "Miami-Fort Lauderdale-Pompano Beach",
+    "fipsCode": "33100",
+    "population": 6166488,
+    "stateCode": ["12"],
+    "counties": ["12011", "12086", "12099"]
+  },
+  {
+    "name": "Michigan City-La Porte",
+    "fipsCode": "33140",
+    "population": 109888,
+    "stateCode": ["18"],
+    "counties": ["18091"]
+  },
+  {
+    "name": "Midland",
+    "fipsCode": "33220",
+    "population": 83156,
+    "stateCode": ["26"],
+    "counties": ["26111"]
+  },
+  {
+    "name": "Midland",
+    "fipsCode": "33260",
+    "population": 182603,
+    "stateCode": ["48"],
+    "counties": ["48317", "48329"]
+  },
+  {
+    "name": "Milwaukee-Waukesha",
+    "fipsCode": "33340",
+    "population": 1575179,
+    "stateCode": ["55"],
+    "counties": ["55079", "55089", "55131", "55133"]
+  },
+  {
+    "name": "Minneapolis-St. Paul-Bloomington",
+    "fipsCode": "33460",
+    "population": 3640043,
+    "stateCode": ["27", "55"],
+    "counties": [
+      "27003",
+      "27019",
+      "27025",
+      "27037",
+      "27053",
+      "27059",
+      "27079",
+      "27095",
+      "27123",
+      "27139",
+      "27141",
+      "27163",
+      "27171",
+      "55093",
+      "55109"
+    ]
+  },
+  {
+    "name": "Missoula",
+    "fipsCode": "33540",
+    "population": 119600,
+    "stateCode": ["30"],
+    "counties": ["30063"]
+  },
+  {
+    "name": "Mobile",
+    "fipsCode": "33660",
+    "population": 429536,
+    "stateCode": ["01"],
+    "counties": ["01097", "01129"]
+  },
+  {
+    "name": "Modesto",
+    "fipsCode": "33700",
+    "population": 550660,
+    "stateCode": ["06"],
+    "counties": ["06099"]
+  },
+  {
+    "name": "Monroe",
+    "fipsCode": "33740",
+    "population": 200261,
+    "stateCode": ["22"],
+    "counties": ["22067", "22073", "22111"]
+  },
+  {
+    "name": "Monroe",
+    "fipsCode": "33780",
+    "population": 150500,
+    "stateCode": ["26"],
+    "counties": ["26115"]
+  },
+  {
+    "name": "Montgomery",
+    "fipsCode": "33860",
+    "population": 373290,
+    "stateCode": ["01"],
+    "counties": ["01001", "01051", "01085", "01101"]
+  },
+  {
+    "name": "Morgantown",
+    "fipsCode": "34060",
+    "population": 139044,
+    "stateCode": ["54"],
+    "counties": ["54061", "54077"]
+  },
+  {
+    "name": "Morristown",
+    "fipsCode": "34100",
+    "population": 142749,
+    "stateCode": ["47"],
+    "counties": ["47057", "47063", "47089"]
+  },
+  {
+    "name": "Mount Vernon-Anacortes",
+    "fipsCode": "34580",
+    "population": 129205,
+    "stateCode": ["53"],
+    "counties": ["53057"]
+  },
+  {
+    "name": "Muncie",
+    "fipsCode": "34620",
+    "population": 114135,
+    "stateCode": ["18"],
+    "counties": ["18035"]
+  },
+  {
+    "name": "Muskegon",
+    "fipsCode": "34740",
+    "population": 173566,
+    "stateCode": ["26"],
+    "counties": ["26121"]
+  },
+  {
+    "name": "Myrtle Beach-Conway-North Myrtle Beach",
+    "fipsCode": "34820",
+    "population": 496901,
+    "stateCode": ["45", "37"],
+    "counties": ["37019", "45051"]
+  },
+  {
+    "name": "Napa",
+    "fipsCode": "34900",
+    "population": 137744,
+    "stateCode": ["06"],
+    "counties": ["06055"]
+  },
+  {
+    "name": "Naples-Marco Island",
+    "fipsCode": "34940",
+    "population": 384902,
+    "stateCode": ["12"],
+    "counties": ["12021"]
+  },
+  {
+    "name": "Nashville-Davidson--Murfreesboro--Franklin",
+    "fipsCode": "34980",
+    "population": 1934317,
+    "stateCode": ["47"],
+    "counties": [
+      "47015",
+      "47021",
+      "47037",
+      "47043",
+      "47111",
+      "47119",
+      "47147",
+      "47149",
+      "47159",
+      "47165",
+      "47169",
+      "47187",
+      "47189"
+    ]
+  },
+  {
+    "name": "New Bern",
+    "fipsCode": "35100",
+    "population": 124284,
+    "stateCode": ["37"],
+    "counties": ["37049", "37103", "37137"]
+  },
+  {
+    "name": "New Haven-Milford",
+    "fipsCode": "35300",
+    "population": 854757,
+    "stateCode": ["09"],
+    "counties": ["09009"]
+  },
+  {
+    "name": "New Orleans-Metairie",
+    "fipsCode": "35380",
+    "population": 1270530,
+    "stateCode": ["22"],
+    "counties": [
+      "22051",
+      "22071",
+      "22075",
+      "22087",
+      "22089",
+      "22093",
+      "22095",
+      "22103"
+    ]
+  },
+  {
+    "name": "New York-Newark-Jersey City",
+    "fipsCode": "35620",
+    "population": 19216182,
+    "stateCode": ["36", "34", "42"],
+    "counties": [
+      "36059",
+      "36103",
+      "34013",
+      "34019",
+      "34027",
+      "34037",
+      "34039",
+      "42103",
+      "34023",
+      "34025",
+      "34029",
+      "34035",
+      "34003",
+      "34017",
+      "34031",
+      "36005",
+      "36047",
+      "36061",
+      "36079",
+      "36081",
+      "36085",
+      "36087",
+      "36119"
+    ]
+  },
+  {
+    "name": "Niles",
+    "fipsCode": "35660",
+    "population": 153401,
+    "stateCode": ["26"],
+    "counties": ["26021"]
+  },
+  {
+    "name": "North Port-Sarasota-Bradenton",
+    "fipsCode": "35840",
+    "population": 836995,
+    "stateCode": ["12"],
+    "counties": ["12081", "12115"]
+  },
+  {
+    "name": "Norwich-New London",
+    "fipsCode": "35980",
+    "population": 265206,
+    "stateCode": ["09"],
+    "counties": ["09011"]
+  },
+  {
+    "name": "Ocala",
+    "fipsCode": "36100",
+    "population": 365579,
+    "stateCode": ["12"],
+    "counties": ["12083"]
+  },
+  {
+    "name": "Ocean City",
+    "fipsCode": "36140",
+    "population": 92039,
+    "stateCode": ["34"],
+    "counties": ["34009"]
+  },
+  {
+    "name": "Odessa",
+    "fipsCode": "36220",
+    "population": 166223,
+    "stateCode": ["48"],
+    "counties": ["48135"]
+  },
+  {
+    "name": "Ogden-Clearfield",
+    "fipsCode": "36260",
+    "population": 683864,
+    "stateCode": ["49"],
+    "counties": ["49003", "49011", "49029", "49057"]
+  },
+  {
+    "name": "Oklahoma City",
+    "fipsCode": "36420",
+    "population": 1408950,
+    "stateCode": ["40"],
+    "counties": ["40017", "40027", "40051", "40081", "40083", "40087", "40109"]
+  },
+  {
+    "name": "Olympia-Lacey-Tumwater",
+    "fipsCode": "36500",
+    "population": 290536,
+    "stateCode": ["53"],
+    "counties": ["53067"]
+  },
+  {
+    "name": "Omaha-Council Bluffs",
+    "fipsCode": "36540",
+    "population": 949442,
+    "stateCode": ["31", "19"],
+    "counties": [
+      "19085",
+      "19129",
+      "19155",
+      "31025",
+      "31055",
+      "31153",
+      "31155",
+      "31177"
+    ]
+  },
+  {
+    "name": "Orlando-Kissimmee-Sanford",
+    "fipsCode": "36740",
+    "population": 2608147,
+    "stateCode": ["12"],
+    "counties": ["12069", "12095", "12097", "12117"]
+  },
+  {
+    "name": "Oshkosh-Neenah",
+    "fipsCode": "36780",
+    "population": 171907,
+    "stateCode": ["55"],
+    "counties": ["55139"]
+  },
+  {
+    "name": "Owensboro",
+    "fipsCode": "36980",
+    "population": 119440,
+    "stateCode": ["21"],
+    "counties": ["21059", "21091", "21149"]
+  },
+  {
+    "name": "Oxnard-Thousand Oaks-Ventura",
+    "fipsCode": "37100",
+    "population": 846006,
+    "stateCode": ["06"],
+    "counties": ["06111"]
+  },
+  {
+    "name": "Palm Bay-Melbourne-Titusville",
+    "fipsCode": "37340",
+    "population": 601942,
+    "stateCode": ["12"],
+    "counties": ["12009"]
+  },
+  {
+    "name": "Panama City",
+    "fipsCode": "37460",
+    "population": 174705,
+    "stateCode": ["12"],
+    "counties": ["12005"]
+  },
+  {
+    "name": "Parkersburg-Vienna",
+    "fipsCode": "37620",
+    "population": 89339,
+    "stateCode": ["54"],
+    "counties": ["54105", "54107"]
+  },
+  {
+    "name": "Pensacola-Ferry Pass-Brent",
+    "fipsCode": "37860",
+    "population": 502629,
+    "stateCode": ["12"],
+    "counties": ["12033", "12113"]
+  },
+  {
+    "name": "Peoria",
+    "fipsCode": "37900",
+    "population": 400561,
+    "stateCode": ["17"],
+    "counties": ["17057", "17123", "17143", "17175", "17179", "17203"]
+  },
+  {
+    "name": "Philadelphia-Camden-Wilmington",
+    "fipsCode": "37980",
+    "population": 6102434,
+    "stateCode": ["42", "34", "10", "24"],
+    "counties": [
+      "34005",
+      "34007",
+      "34015",
+      "42017",
+      "42029",
+      "42091",
+      "42045",
+      "42101",
+      "10003",
+      "24015",
+      "34033"
+    ]
+  },
+  {
+    "name": "Phoenix-Mesa-Chandler",
+    "fipsCode": "38060",
+    "population": 4948203,
+    "stateCode": ["04"],
+    "counties": ["04013", "04021"]
+  },
+  {
+    "name": "Pine Bluff",
+    "fipsCode": "38220",
+    "population": 87804,
+    "stateCode": ["05"],
+    "counties": ["05025", "05069", "05079"]
+  },
+  {
+    "name": "Pittsburgh",
+    "fipsCode": "38300",
+    "population": 2317600,
+    "stateCode": ["42"],
+    "counties": ["42003", "42005", "42007", "42019", "42051", "42125", "42129"]
+  },
+  {
+    "name": "Pittsfield",
+    "fipsCode": "38340",
+    "population": 124944,
+    "stateCode": ["25"],
+    "counties": ["25003"]
+  },
+  {
+    "name": "Pocatello",
+    "fipsCode": "38540",
+    "population": 95489,
+    "stateCode": ["16"],
+    "counties": ["16005", "16077"]
+  },
+  {
+    "name": "Ponce",
+    "fipsCode": "38660",
+    "population": 215295,
+    "stateCode": ["72"],
+    "counties": ["72001", "72075", "72113", "72149"]
+  },
+  {
+    "name": "Portland-South Portland",
+    "fipsCode": "38860",
+    "population": 538500,
+    "stateCode": ["23"],
+    "counties": ["23005", "23023", "23031"]
+  },
+  {
+    "name": "Portland-Vancouver-Hillsboro",
+    "fipsCode": "38900",
+    "population": 2492412,
+    "stateCode": ["41", "53"],
+    "counties": ["41005", "41009", "41051", "41067", "41071", "53011", "53059"]
+  },
+  {
+    "name": "Port St. Lucie",
+    "fipsCode": "38940",
+    "population": 489297,
+    "stateCode": ["12"],
+    "counties": ["12085", "12111"]
+  },
+  {
+    "name": "Poughkeepsie-Newburgh-Middletown",
+    "fipsCode": "39100",
+    "population": 679158,
+    "stateCode": ["36"],
+    "counties": ["36027", "36071"]
+  },
+  {
+    "name": "Prescott Valley-Prescott",
+    "fipsCode": "39150",
+    "population": 235099,
+    "stateCode": ["04"],
+    "counties": ["04025"]
+  },
+  {
+    "name": "Providence-Warwick",
+    "fipsCode": "39300",
+    "population": 1624578,
+    "stateCode": ["44", "25"],
+    "counties": ["25005", "44001", "44003", "44005", "44007", "44009"]
+  },
+  {
+    "name": "Provo-Orem",
+    "fipsCode": "39340",
+    "population": 648252,
+    "stateCode": ["49"],
+    "counties": ["49023", "49049"]
+  },
+  {
+    "name": "Pueblo",
+    "fipsCode": "39380",
+    "population": 168424,
+    "stateCode": ["08"],
+    "counties": ["08101"]
+  },
+  {
+    "name": "Punta Gorda",
+    "fipsCode": "39460",
+    "population": 188910,
+    "stateCode": ["12"],
+    "counties": ["12015"]
+  },
+  {
+    "name": "Racine",
+    "fipsCode": "39540",
+    "population": 196311,
+    "stateCode": ["55"],
+    "counties": ["55101"]
+  },
+  {
+    "name": "Raleigh-Cary",
+    "fipsCode": "39580",
+    "population": 1390785,
+    "stateCode": ["37"],
+    "counties": ["37069", "37101", "37183"]
+  },
+  {
+    "name": "Rapid City",
+    "fipsCode": "39660",
+    "population": 142107,
+    "stateCode": ["46"],
+    "counties": ["46093", "46103"]
+  },
+  {
+    "name": "Reading",
+    "fipsCode": "39740",
+    "population": 421164,
+    "stateCode": ["42"],
+    "counties": ["42011"]
+  },
+  {
+    "name": "Redding",
+    "fipsCode": "39820",
+    "population": 180080,
+    "stateCode": ["06"],
+    "counties": ["06089"]
+  },
+  {
+    "name": "Reno",
+    "fipsCode": "39900",
+    "population": 475642,
+    "stateCode": ["32"],
+    "counties": ["32029", "32031"]
+  },
+  {
+    "name": "Richmond",
+    "fipsCode": "40060",
+    "population": 1291900,
+    "stateCode": ["51"],
+    "counties": [
+      "51007",
+      "51036",
+      "51041",
+      "51053",
+      "51075",
+      "51085",
+      "51087",
+      "51097",
+      "51101",
+      "51127",
+      "51145",
+      "51149",
+      "51183",
+      "51570",
+      "51670",
+      "51730",
+      "51760"
+    ]
+  },
+  {
+    "name": "Riverside-San Bernardino-Ontario",
+    "fipsCode": "40140",
+    "population": 4650631,
+    "stateCode": ["06"],
+    "counties": ["06065", "06071"]
+  },
+  {
+    "name": "Roanoke",
+    "fipsCode": "40220",
+    "population": 313222,
+    "stateCode": ["51"],
+    "counties": ["51023", "51045", "51067", "51161", "51770", "51775"]
+  },
+  {
+    "name": "Rochester",
+    "fipsCode": "40340",
+    "population": 221921,
+    "stateCode": ["27"],
+    "counties": ["27039", "27045", "27109", "27157"]
+  },
+  {
+    "name": "Rochester",
+    "fipsCode": "40380",
+    "population": 1069644,
+    "stateCode": ["36"],
+    "counties": ["36051", "36055", "36069", "36073", "36117", "36123"]
+  },
+  {
+    "name": "Rockford",
+    "fipsCode": "40420",
+    "population": 336116,
+    "stateCode": ["17"],
+    "counties": ["17007", "17201"]
+  },
+  {
+    "name": "Rocky Mount",
+    "fipsCode": "40580",
+    "population": 145770,
+    "stateCode": ["37"],
+    "counties": ["37065", "37127"]
+  },
+  {
+    "name": "Rome",
+    "fipsCode": "40660",
+    "population": 98498,
+    "stateCode": ["13"],
+    "counties": ["13115"]
+  },
+  {
+    "name": "Sacramento-Roseville-Folsom",
+    "fipsCode": "40900",
+    "population": 2363730,
+    "stateCode": ["06"],
+    "counties": ["06017", "06061", "06067", "06113"]
+  },
+  {
+    "name": "Saginaw",
+    "fipsCode": "40980",
+    "population": 190539,
+    "stateCode": ["26"],
+    "counties": ["26145"]
+  },
+  {
+    "name": "St. Cloud",
+    "fipsCode": "41060",
+    "population": 201964,
+    "stateCode": ["27"],
+    "counties": ["27009", "27145"]
+  },
+  {
+    "name": "St. George",
+    "fipsCode": "41100",
+    "population": 177556,
+    "stateCode": ["49"],
+    "counties": ["49053"]
+  },
+  {
+    "name": "St. Joseph",
+    "fipsCode": "41140",
+    "population": 125223,
+    "stateCode": ["29", "20"],
+    "counties": ["20043", "29003", "29021", "29063"]
+  },
+  {
+    "name": "St. Louis",
+    "fipsCode": "41180",
+    "population": 2803228,
+    "stateCode": ["29", "17"],
+    "counties": [
+      "17005",
+      "17013",
+      "17027",
+      "17083",
+      "17117",
+      "17119",
+      "17133",
+      "17163",
+      "29071",
+      "29099",
+      "29113",
+      "29183",
+      "29189",
+      "29219",
+      "29510"
+    ]
+  },
+  {
+    "name": "Salem",
+    "fipsCode": "41420",
+    "population": 433903,
+    "stateCode": ["41"],
+    "counties": ["41047", "41053"]
+  },
+  {
+    "name": "Salinas",
+    "fipsCode": "41500",
+    "population": 434061,
+    "stateCode": ["06"],
+    "counties": ["06053"]
+  },
+  {
+    "name": "Salisbury",
+    "fipsCode": "41540",
+    "population": 415726,
+    "stateCode": ["24", "10"],
+    "counties": ["10005", "24039", "24045", "24047"]
+  },
+  {
+    "name": "Salt Lake City",
+    "fipsCode": "41620",
+    "population": 1232696,
+    "stateCode": ["49"],
+    "counties": ["49035", "49045"]
+  },
+  {
+    "name": "San Angelo",
+    "fipsCode": "41660",
+    "population": 122027,
+    "stateCode": ["48"],
+    "counties": ["48235", "48431", "48451"]
+  },
+  {
+    "name": "San Antonio-New Braunfels",
+    "fipsCode": "41700",
+    "population": 2550960,
+    "stateCode": ["48"],
+    "counties": [
+      "48013",
+      "48019",
+      "48029",
+      "48091",
+      "48187",
+      "48259",
+      "48325",
+      "48493"
+    ]
+  },
+  {
+    "name": "San Diego-Chula Vista-Carlsbad",
+    "fipsCode": "41740",
+    "population": 3338330,
+    "stateCode": ["06"],
+    "counties": ["06073"]
+  },
+  {
+    "name": "San Francisco-Oakland-Berkeley",
+    "fipsCode": "41860",
+    "population": 4731803,
+    "stateCode": ["06"],
+    "counties": ["06001", "06013", "06075", "06081", "06041"]
+  },
+  {
+    "name": "San Germ\\u00e1n",
+    "fipsCode": "41900",
+    "population": 121464,
+    "stateCode": ["72"],
+    "counties": ["72023", "72079", "72121", "72125"]
+  },
+  {
+    "name": "San Jose-Sunnyvale-Santa Clara",
+    "fipsCode": "41940",
+    "population": 1990660,
+    "stateCode": ["06"],
+    "counties": ["06069", "06085"]
+  },
+  {
+    "name": "San Juan-Bayam\\u00f3n-Caguas",
+    "fipsCode": "41980",
+    "population": 2023227,
+    "stateCode": ["72"],
+    "counties": [
+      "72007",
+      "72009",
+      "72017",
+      "72019",
+      "72021",
+      "72025",
+      "72029",
+      "72031",
+      "72033",
+      "72035",
+      "72037",
+      "72039",
+      "72041",
+      "72045",
+      "72047",
+      "72051",
+      "72053",
+      "72054",
+      "72061",
+      "72063",
+      "72069",
+      "72077",
+      "72085",
+      "72087",
+      "72089",
+      "72091",
+      "72095",
+      "72101",
+      "72103",
+      "72105",
+      "72107",
+      "72119",
+      "72127",
+      "72129",
+      "72135",
+      "72137",
+      "72139",
+      "72143",
+      "72145",
+      "72151"
+    ]
+  },
+  {
+    "name": "San Luis Obispo-Paso Robles",
+    "fipsCode": "42020",
+    "population": 283111,
+    "stateCode": ["06"],
+    "counties": ["06079"]
+  },
+  {
+    "name": "Santa Cruz-Watsonville",
+    "fipsCode": "42100",
+    "population": 273213,
+    "stateCode": ["06"],
+    "counties": ["06087"]
+  },
+  {
+    "name": "Santa Fe",
+    "fipsCode": "42140",
+    "population": 150358,
+    "stateCode": ["35"],
+    "counties": ["35049"]
+  },
+  {
+    "name": "Santa Maria-Santa Barbara",
+    "fipsCode": "42200",
+    "population": 446499,
+    "stateCode": ["06"],
+    "counties": ["06083"]
+  },
+  {
+    "name": "Santa Rosa-Petaluma",
+    "fipsCode": "42220",
+    "population": 494336,
+    "stateCode": ["06"],
+    "counties": ["06097"]
+  },
+  {
+    "name": "Savannah",
+    "fipsCode": "42340",
+    "population": 393353,
+    "stateCode": ["13"],
+    "counties": ["13029", "13051", "13103"]
+  },
+  {
+    "name": "Scranton--Wilkes-Barre",
+    "fipsCode": "42540",
+    "population": 553885,
+    "stateCode": ["42"],
+    "counties": ["42069", "42079", "42131"]
+  },
+  {
+    "name": "Seattle-Tacoma-Bellevue",
+    "fipsCode": "42660",
+    "population": 3979845,
+    "stateCode": ["53"],
+    "counties": ["53033", "53061", "53053"]
+  },
+  {
+    "name": "Sebastian-Vero Beach",
+    "fipsCode": "42680",
+    "population": 159923,
+    "stateCode": ["12"],
+    "counties": ["12061"]
+  },
+  {
+    "name": "Sebring-Avon Park",
+    "fipsCode": "42700",
+    "population": 106221,
+    "stateCode": ["12"],
+    "counties": ["12055"]
+  },
+  {
+    "name": "Sheboygan",
+    "fipsCode": "43100",
+    "population": 115340,
+    "stateCode": ["55"],
+    "counties": ["55117"]
+  },
+  {
+    "name": "Sherman-Denison",
+    "fipsCode": "43300",
+    "population": 136212,
+    "stateCode": ["48"],
+    "counties": ["48181"]
+  },
+  {
+    "name": "Shreveport-Bossier City",
+    "fipsCode": "43340",
+    "population": 394706,
+    "stateCode": ["22"],
+    "counties": ["22015", "22017", "22031"]
+  },
+  {
+    "name": "Sierra Vista-Douglas",
+    "fipsCode": "43420",
+    "population": 125922,
+    "stateCode": ["04"],
+    "counties": ["04003"]
+  },
+  {
+    "name": "Sioux City",
+    "fipsCode": "43580",
+    "population": 144701,
+    "stateCode": ["19", "31", "46"],
+    "counties": ["19193", "31043", "31051", "46127"]
+  },
+  {
+    "name": "Sioux Falls",
+    "fipsCode": "43620",
+    "population": 268232,
+    "stateCode": ["46"],
+    "counties": ["46083", "46087", "46099", "46125"]
+  },
+  {
+    "name": "South Bend-Mishawaka",
+    "fipsCode": "43780",
+    "population": 323613,
+    "stateCode": ["18", "26"],
+    "counties": ["18141", "26027"]
+  },
+  {
+    "name": "Spartanburg",
+    "fipsCode": "43900",
+    "population": 319785,
+    "stateCode": ["45"],
+    "counties": ["45083"]
+  },
+  {
+    "name": "Spokane-Spokane Valley",
+    "fipsCode": "44060",
+    "population": 568521,
+    "stateCode": ["53"],
+    "counties": ["53063", "53065"]
+  },
+  {
+    "name": "Springfield",
+    "fipsCode": "44100",
+    "population": 206868,
+    "stateCode": ["17"],
+    "counties": ["17129", "17167"]
+  },
+  {
+    "name": "Springfield",
+    "fipsCode": "44140",
+    "population": 697382,
+    "stateCode": ["25"],
+    "counties": ["25011", "25013", "25015"]
+  },
+  {
+    "name": "Springfield",
+    "fipsCode": "44180",
+    "population": 470300,
+    "stateCode": ["29"],
+    "counties": ["29043", "29059", "29077", "29167", "29225"]
+  },
+  {
+    "name": "Springfield",
+    "fipsCode": "44220",
+    "population": 134083,
+    "stateCode": ["39"],
+    "counties": ["39023"]
+  },
+  {
+    "name": "State College",
+    "fipsCode": "44300",
+    "population": 162385,
+    "stateCode": ["42"],
+    "counties": ["42027"]
+  },
+  {
+    "name": "Staunton",
+    "fipsCode": "44420",
+    "population": 123120,
+    "stateCode": ["51"],
+    "counties": ["51015", "51790", "51820"]
+  },
+  {
+    "name": "Stockton",
+    "fipsCode": "44700",
+    "population": 762148,
+    "stateCode": ["06"],
+    "counties": ["06077"]
+  },
+  {
+    "name": "Sumter",
+    "fipsCode": "44940",
+    "population": 140466,
+    "stateCode": ["45"],
+    "counties": ["45027", "45085"]
+  },
+  {
+    "name": "Syracuse",
+    "fipsCode": "45060",
+    "population": 648593,
+    "stateCode": ["36"],
+    "counties": ["36053", "36067", "36075"]
+  },
+  {
+    "name": "Tallahassee",
+    "fipsCode": "45220",
+    "population": 387227,
+    "stateCode": ["12"],
+    "counties": ["12039", "12065", "12073", "12129"]
+  },
+  {
+    "name": "Tampa-St. Petersburg-Clearwater",
+    "fipsCode": "45300",
+    "population": 3194831,
+    "stateCode": ["12"],
+    "counties": ["12053", "12057", "12101", "12103"]
+  },
+  {
+    "name": "Terre Haute",
+    "fipsCode": "45460",
+    "population": 186367,
+    "stateCode": ["18"],
+    "counties": ["18021", "18121", "18153", "18165", "18167"]
+  },
+  {
+    "name": "Texarkana",
+    "fipsCode": "45500",
+    "population": 148761,
+    "stateCode": ["48", "05"],
+    "counties": ["05081", "05091", "48037"]
+  },
+  {
+    "name": "The Villages",
+    "fipsCode": "45540",
+    "population": 132420,
+    "stateCode": ["12"],
+    "counties": ["12119"]
+  },
+  {
+    "name": "Toledo",
+    "fipsCode": "45780",
+    "population": 641816,
+    "stateCode": ["39"],
+    "counties": ["39051", "39095", "39123", "39173"]
+  },
+  {
+    "name": "Topeka",
+    "fipsCode": "45820",
+    "population": 231969,
+    "stateCode": ["20"],
+    "counties": ["20085", "20087", "20139", "20177", "20197"]
+  },
+  {
+    "name": "Trenton-Princeton",
+    "fipsCode": "45940",
+    "population": 367430,
+    "stateCode": ["34"],
+    "counties": ["34021"]
+  },
+  {
+    "name": "Tucson",
+    "fipsCode": "46060",
+    "population": 1047279,
+    "stateCode": ["04"],
+    "counties": ["04019"]
+  },
+  {
+    "name": "Tulsa",
+    "fipsCode": "46140",
+    "population": 998626,
+    "stateCode": ["40"],
+    "counties": ["40037", "40111", "40113", "40117", "40131", "40143", "40145"]
+  },
+  {
+    "name": "Tuscaloosa",
+    "fipsCode": "46220",
+    "population": 252047,
+    "stateCode": ["01"],
+    "counties": ["01063", "01065", "01107", "01125"]
+  },
+  {
+    "name": "Twin Falls",
+    "fipsCode": "46300",
+    "population": 111290,
+    "stateCode": ["16"],
+    "counties": ["16053", "16083"]
+  },
+  {
+    "name": "Tyler",
+    "fipsCode": "46340",
+    "population": 232751,
+    "stateCode": ["48"],
+    "counties": ["48423"]
+  },
+  {
+    "name": "Urban Honolulu",
+    "fipsCode": "46520",
+    "population": 974563,
+    "stateCode": ["15"],
+    "counties": ["15003"]
+  },
+  {
+    "name": "Utica-Rome",
+    "fipsCode": "46540",
+    "population": 289990,
+    "stateCode": ["36"],
+    "counties": ["36043", "36065"]
+  },
+  {
+    "name": "Valdosta",
+    "fipsCode": "46660",
+    "population": 147292,
+    "stateCode": ["13"],
+    "counties": ["13027", "13101", "13173", "13185"]
+  },
+  {
+    "name": "Vallejo",
+    "fipsCode": "46700",
+    "population": 447643,
+    "stateCode": ["06"],
+    "counties": ["06095"]
+  },
+  {
+    "name": "Victoria",
+    "fipsCode": "47020",
+    "population": 99742,
+    "stateCode": ["48"],
+    "counties": ["48175", "48469"]
+  },
+  {
+    "name": "Vineland-Bridgeton",
+    "fipsCode": "47220",
+    "population": 149527,
+    "stateCode": ["34"],
+    "counties": ["34011"]
+  },
+  {
+    "name": "Virginia Beach-Norfolk-Newport News",
+    "fipsCode": "47260",
+    "population": 1768901,
+    "stateCode": ["51", "37"],
+    "counties": [
+      "37029",
+      "37053",
+      "37073",
+      "51073",
+      "51093",
+      "51095",
+      "51115",
+      "51175",
+      "51199",
+      "51550",
+      "51620",
+      "51650",
+      "51700",
+      "51710",
+      "51735",
+      "51740",
+      "51800",
+      "51810",
+      "51830"
+    ]
+  },
+  {
+    "name": "Visalia",
+    "fipsCode": "47300",
+    "population": 466195,
+    "stateCode": ["06"],
+    "counties": ["06107"]
+  },
+  {
+    "name": "Waco",
+    "fipsCode": "47380",
+    "population": 273920,
+    "stateCode": ["48"],
+    "counties": ["48145", "48309"]
+  },
+  {
+    "name": "Walla Walla",
+    "fipsCode": "47460",
+    "population": 60760,
+    "stateCode": ["53"],
+    "counties": ["53071"]
+  },
+  {
+    "name": "Warner Robins",
+    "fipsCode": "47580",
+    "population": 185409,
+    "stateCode": ["13"],
+    "counties": ["13153", "13225"]
+  },
+  {
+    "name": "Washington-Arlington-Alexandria",
+    "fipsCode": "47900",
+    "population": 5574738,
+    "stateCode": ["11", "51", "24", "54"],
+    "counties": [
+      "24021",
+      "24031",
+      "11001",
+      "24009",
+      "24017",
+      "24033",
+      "51013",
+      "51043",
+      "51047",
+      "51059",
+      "51061",
+      "51107",
+      "51113",
+      "51153",
+      "51157",
+      "51177",
+      "51179",
+      "51187",
+      "51510",
+      "51600",
+      "51610",
+      "51630",
+      "51683",
+      "51685",
+      "54037"
+    ]
+  },
+  {
+    "name": "Waterloo-Cedar Falls",
+    "fipsCode": "47940",
+    "population": 168522,
+    "stateCode": ["19"],
+    "counties": ["19013", "19017", "19075"]
+  },
+  {
+    "name": "Watertown-Fort Drum",
+    "fipsCode": "48060",
+    "population": 109834,
+    "stateCode": ["36"],
+    "counties": ["36045"]
+  },
+  {
+    "name": "Wausau-Weston",
+    "fipsCode": "48140",
+    "population": 163285,
+    "stateCode": ["55"],
+    "counties": ["55069", "55073"]
+  },
+  {
+    "name": "Weirton-Steubenville",
+    "fipsCode": "48260",
+    "population": 116074,
+    "stateCode": ["54", "39"],
+    "counties": ["39081", "54009", "54029"]
+  },
+  {
+    "name": "Wenatchee",
+    "fipsCode": "48300",
+    "population": 120629,
+    "stateCode": ["53"],
+    "counties": ["53007", "53017"]
+  },
+  {
+    "name": "Wheeling",
+    "fipsCode": "48540",
+    "population": 138948,
+    "stateCode": ["54", "39"],
+    "counties": ["39013", "54051", "54069"]
+  },
+  {
+    "name": "Wichita",
+    "fipsCode": "48620",
+    "population": 640218,
+    "stateCode": ["20"],
+    "counties": ["20015", "20079", "20173", "20191"]
+  },
+  {
+    "name": "Wichita Falls",
+    "fipsCode": "48660",
+    "population": 151254,
+    "stateCode": ["48"],
+    "counties": ["48009", "48077", "48485"]
+  },
+  {
+    "name": "Williamsport",
+    "fipsCode": "48700",
+    "population": 113299,
+    "stateCode": ["42"],
+    "counties": ["42081"]
+  },
+  {
+    "name": "Wilmington",
+    "fipsCode": "48900",
+    "population": 297533,
+    "stateCode": ["37"],
+    "counties": ["37129", "37141"]
+  },
+  {
+    "name": "Winchester",
+    "fipsCode": "49020",
+    "population": 140566,
+    "stateCode": ["51", "54"],
+    "counties": ["51069", "51840", "54027"]
+  },
+  {
+    "name": "Winston-Salem",
+    "fipsCode": "49180",
+    "population": 676008,
+    "stateCode": ["37"],
+    "counties": ["37057", "37059", "37067", "37169", "37197"]
+  },
+  {
+    "name": "Worcester",
+    "fipsCode": "49340",
+    "population": 947404,
+    "stateCode": ["25", "09"],
+    "counties": ["09015", "25027"]
+  },
+  {
+    "name": "Yakima",
+    "fipsCode": "49420",
+    "population": 250873,
+    "stateCode": ["53"],
+    "counties": ["53077"]
+  },
+  {
+    "name": "Yauco",
+    "fipsCode": "49500",
+    "population": 85830,
+    "stateCode": ["72"],
+    "counties": ["72055", "72059", "72111", "72153"]
+  },
+  {
+    "name": "York-Hanover",
+    "fipsCode": "49620",
+    "population": 449058,
+    "stateCode": ["42"],
+    "counties": ["42133"]
+  },
+  {
+    "name": "Youngstown-Warren-Boardman",
+    "fipsCode": "49660",
+    "population": 536081,
+    "stateCode": ["39", "42"],
+    "counties": ["39099", "39155", "42085"]
+  },
+  {
+    "name": "Yuba City",
+    "fipsCode": "49700",
+    "population": 175639,
+    "stateCode": ["06"],
+    "counties": ["06101", "06115"]
+  },
+  {
+    "name": "Yuma",
+    "fipsCode": "49740",
+    "population": 213787,
+    "stateCode": ["04"],
+    "counties": ["04027"]
+  }
+]
