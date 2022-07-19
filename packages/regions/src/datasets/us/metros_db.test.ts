@@ -17,7 +17,6 @@ describe("metros_db", () => {
   });
 
   test("findByRegionIdStrict", () => {
-    console.log(metrosDB.findByRegionIdStrict("14460"));
     expect(metrosDB.findByRegionIdStrict("10420")).toBeDefined();
     expect(metrosDB.findByRegionIdStrict("10420")).not.toBeNull();
     expect(() => metrosDB.findByRegionIdStrict("NO_METRO")).toThrow();
