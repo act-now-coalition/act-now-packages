@@ -66,8 +66,8 @@ Rounded.args = {
   showLabels: false,
 };
 
-export const Square = Template.bind({});
-Square.args = {
+export const Squared = Template.bind({});
+Squared.args = {
   ...Example.args,
   borderRadius: 0,
   showLabels: true,
