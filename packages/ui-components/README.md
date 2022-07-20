@@ -1,6 +1,6 @@
 # @actnowcoalition/ui-components
 
-> Ui components for act now
+> Ui components for Act Now
 
 ## Installing
 
