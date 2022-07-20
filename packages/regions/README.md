@@ -42,7 +42,7 @@ contain the full list of regions and utility methods to find regions by ID, amon
 
 This dataset contains states, counties and [metropolitan areas](https://www.census.gov/topics/housing/housing-patterns/about/core-based-statistical-areas.html) in the U.S. We use [FIPS Codes](https://www.census.gov/library/reference/code-lists/ansi.html) as `regionId` for states, and we concatenate state and county FIPS codes to generate a unique 5-digit `regionId` for each county. We use 5-digit [core based statistical area (CBSA) codes](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html) as `regionId` for metro areas.
 
-See [`src/datasets/us/states.json`](src/datasets/us/states.json) and [`src/datasets/us/counties.json`](src/datasets/us/counties.json) for a full list of states and counties.
+See [`src/datasets/us/states.json`](src/datasets/us/states.json), [`src/datasets/us/counties.json`](src/datasets/us/counties.json) and [`src/datasets/us/metros.json`](src/datasets/us/metros.json) for a full list of states, counties and metros.
 
 ##### Example
 
