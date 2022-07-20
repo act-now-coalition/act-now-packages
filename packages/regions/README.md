@@ -40,14 +40,14 @@ contain the full list of regions and utility methods to find regions by ID, amon
 
 #### `Unites States`
 
-This dataset contains states and counties in the U.S. We use [FIPS Codes](https://www.census.gov/library/reference/code-lists/ansi.html) as `regionId` for states, and we concatenate state and county FIPS codes to generate a unique 5-digit `regionId` for each county.
+This dataset contains states, counties and [metropolitan areas](https://www.census.gov/topics/housing/housing-patterns/about/core-based-statistical-areas.html) in the U.S. We use [FIPS Codes](https://www.census.gov/library/reference/code-lists/ansi.html) as `regionId` for states, and we concatenate state and county FIPS codes to generate a unique 5-digit `regionId` for each county. We use 5-digit [core based statistical area (CBSA) codes](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html) as `regionId` for metro areas.
 
-See [`src/datasets/us/states.json`](src/datasets/us/states.json) and [`src/datasets/us/counties.json`](src/datasets/us/counties.json) for a full list of states and counties.
+See [`src/datasets/us/states.json`](src/datasets/us/states.json), [`src/datasets/us/counties.json`](src/datasets/us/counties.json) and [`src/datasets/us/metros.json`](src/datasets/us/metros.json) for a full list of states, counties and metros.
 
 ##### Example
 
 ```tsx
-import { states, counties } from "@actnowcoalition/regions";
+import { states, counties, metros } from "@actnowcoalition/regions";
 
 const ny = states.findByRegionId("36");
 console.log(ny.fullName); // New York
@@ -55,6 +55,9 @@ console.log(ny.abbreviation); // NY
 
 const kingCountyWA = counties.findRegionById("53033");
 console.log(kingCountyWA.population); // 2252782
+
+const bostonMetro = metros.findRegionById("14460");
+console.log(bostonMetro.shortName); // Boston-Cambridge-Newton metro
 ```
 
 ## Installing
