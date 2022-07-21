@@ -22,7 +22,8 @@ export interface LegendThresholdProps<T> {
  * default. This component return a SVG group, so it won't render by itself,
  * it must be wrapped in a SVG element.
  */
-const LegendThreshold = <T extends object>({
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+const LegendThreshold = <T extends unknown>({
   height = 40,
   barHeight = 30,
   width = 80,
