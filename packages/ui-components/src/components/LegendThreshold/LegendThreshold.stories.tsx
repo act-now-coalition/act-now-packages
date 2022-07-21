@@ -32,9 +32,12 @@ const items: Item[] = [
   { value: 50, label: "50", color: "#A10003" },
 ];
 
-const getItemValue = (item: Item) => item.value;
-const getItemColor = (item: Item) => item.color;
-const getItemLabel = (item: Item) => item.label;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItemValue = (item: Item, itemIndex: number) => item.value;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItemColor = (item: Item, itemIndex: number) => item.color;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItemLabel = (item: Item, itemIndex: number) => item.label;
 
 export const Example = Template.bind({});
 Example.args = {
