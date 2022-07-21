@@ -9,6 +9,6 @@
     "rootDir": "src",
     "module": "commonjs"
   },
-  "include": ["src/**/*.ts", "src/**/*.json"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
   "exclude": ["node_modules", "**/*.test.*"]
 }
