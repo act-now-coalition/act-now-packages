@@ -1,23 +1,23 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import LegendThreshold from ".";
+import { Story, ComponentMeta } from "@storybook/react";
+import LegendThreshold, { LegendThresholdProps } from "./LegendThreshold";
 
 export default {
   title: "Components/LegendThreshold",
   component: LegendThreshold,
 } as ComponentMeta<typeof LegendThreshold>;
 
-const Template: ComponentStory<typeof LegendThreshold> = (args) => (
-  <svg width={args.width} height={args.height}>
-    <LegendThreshold {...args} />
-  </svg>
-);
-
 interface Item {
   value: number;
   label: string;
   color: string;
 }
+
+const Template: Story<LegendThresholdProps<Item>> = (args) => (
+  <svg width={args.width} height={args.height}>
+    <LegendThreshold {...args} />
+  </svg>
+);
 
 const width = 300;
 const height = 40;
