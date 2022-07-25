@@ -1,7 +1,7 @@
 {
-  "name": "@actnowcoalition/regions-test",
-  "version": "1.1.5",
-  "description": "Regions",
+  "name": "@actnowcoalition/regions",
+  "version": "1.1.6",
+  "description": "A package containing classes and datasets to represent geographic areas and administrative divisions with a uniform interface.",
   "repository": {
     "type": "git",
     "url": "https://github.com/covid-projections/act-now-packages.git",
