@@ -1,5 +1,5 @@
 {
-  "name": "@actnowcoalition/regions",
+  "name": "@actnowcoalition/regions-test",
   "version": "1.1.5",
   "description": "Regions",
   "repository": {
@@ -12,13 +12,16 @@
   ],
   "author": "Act Now Coalition",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build:browser": "tsc --project ./tsconfig.browser.json",
+    "build:node": "tsc --project ./tsconfig.node.json",
+    "build": "yarn build:browser && yarn build:node"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
@@ -27,5 +30,6 @@
   "dependencies": {
     "@actnowcoalition/assert": "^1.0.0",
     "lodash": "^4.17.21"
-  }
+  },
+  "sideEffects": false
 }

@@ -3,11 +3,9 @@
   "compilerOptions": {
     "baseUrl": "src",
     "declaration": true,
-    "declarationDir": "lib",
+    "declarationDir": "./dist",
     "noEmit": false,
-    "outDir": "lib",
-    "rootDir": "src",
-    "module": "commonjs"
+    "rootDir": "src"
   },
   "include": ["src/**/*.ts", "src/**/*.json"],
   "exclude": ["node_modules", "**/*.test.*"]
