@@ -33,37 +33,34 @@ const items: Item[] = [
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getItemValue = (item: Item, itemIndex: number) => item.value;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemColor = (item: Item, itemIndex: number) => item.color;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getItemLabel = (item: Item, itemIndex: number) => item.label;
+const getItemEndLabel = (item: Item, itemIndex: number) => item.label;
 
-export const Example = Template.bind({});
-Example.args = {
+export const DefaultProps = Template.bind({});
+DefaultProps.args = {
   height,
   width,
   barHeight,
   borderRadius,
   items,
-  getItemValue,
   getItemColor,
-  getItemLabel,
+  getItemEndLabel,
 };
 
 export const WithLabels = Template.bind({});
-WithLabels.args = { ...Example.args };
+WithLabels.args = { ...DefaultProps.args };
 
 export const WithoutLabels = Template.bind({});
 WithoutLabels.args = {
-  ...Example.args,
+  ...DefaultProps.args,
   height: barHeight,
   showLabels: false,
 };
 
 export const Rounded = Template.bind({});
 Rounded.args = {
-  ...Example.args,
+  ...DefaultProps.args,
   height: barHeight,
   borderRadius: barHeight / 2,
   showLabels: false,
@@ -71,7 +68,7 @@ Rounded.args = {
 
 export const Squared = Template.bind({});
 Squared.args = {
-  ...Example.args,
+  ...DefaultProps.args,
   borderRadius: 0,
   showLabels: true,
 };

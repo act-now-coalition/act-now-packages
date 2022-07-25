@@ -10,15 +10,26 @@ export interface LegendThresholdProps<T> {
   width?: number;
   borderRadius?: number;
   items: T[];
-  getItemValue: (item: T, itemIndex: number) => number;
   getItemColor: (item: T, itemIndex: number) => string;
-  getItemLabel: (item: T, itemIndex: number) => string;
+  getItemEndLabel: (item: T, itemIndex: number) => string;
   showLabels?: boolean;
 }
 
 /**
  * `LegendThreshold` represents a scale with specific cut values that separate
  * a set of levels. By default, the component shows labels between each level.
+ *
+ * **Notes**
+ *
+ * - This component returns an SVG Group element to make it easier to integrate
+ *   with other components inside an SVG element. Make sure to wrap it in an
+ *   SVG element if using it as standalone component.
+ * - The  `height` is the total height of the component (including labels),
+ *   whereas `barHeight` is the height of the colored bars only. When not adding
+ *   bars, make sure that `barHeight` is set to `height` (see Storybook for
+ *   some examples).
+ * - Only the labels between two levels are rendered. The last end label is
+ *   not rendered.
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 const LegendThreshold = <T extends unknown>({
@@ -27,16 +38,15 @@ const LegendThreshold = <T extends unknown>({
   width = 80,
   borderRadius = 4,
   items,
-  getItemValue,
   getItemColor,
-  getItemLabel,
+  getItemEndLabel,
   showLabels = true,
 }: LegendThresholdProps<T>) => {
-  const values = items.map(getItemValue);
-  const scaleRect = scaleBand({ domain: values, range: [0, width] });
+  const indexList = items.map((item, itemIndex) => itemIndex);
+  const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
 
-  const clipPathId = uniqueId(`rounded-borders-`);
+  const clipPathId = uniqueId(`bars-clip-path-`);
 
   const labelTickHeight = 4;
   const tickLabelPadding = 2;
@@ -56,7 +66,7 @@ const LegendThreshold = <T extends unknown>({
       </defs>
       <Group>
         {items.map((item, itemIndex) => {
-          const x = scaleRect(getItemValue(item, itemIndex)) ?? 0;
+          const x = scaleRect(itemIndex) ?? 0;
           return (
             <Group key={`item-${itemIndex}`}>
               <rect
@@ -70,7 +80,7 @@ const LegendThreshold = <T extends unknown>({
                 <Group top={barHeight} left={x + rectWidth}>
                   <TickMark y1={0} y2={labelTickHeight} />
                   <TickLabel y={labelTickHeight + tickLabelPadding}>
-                    {getItemLabel(item, itemIndex)}
+                    {getItemEndLabel(item, itemIndex)}
                   </TickLabel>
                 </Group>
               )}
