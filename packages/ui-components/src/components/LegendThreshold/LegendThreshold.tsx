@@ -18,9 +18,7 @@ export interface LegendThresholdProps<T> {
 
 /**
  * `LegendThreshold` represents a scale with specific cut values that separate
- * a set of levels. This component shows the labels between each level by
- * default. This component return a SVG group, so it won't render by itself,
- * it must be wrapped in a SVG element.
+ * a set of levels. By default, the component shows labels between each level.
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 const LegendThreshold = <T extends unknown>({
@@ -40,7 +38,6 @@ const LegendThreshold = <T extends unknown>({
 
   const clipPathId = uniqueId(`rounded-borders-`);
 
-  // Labels
   const labelTickHeight = 4;
   const tickLabelPadding = 2;
 
