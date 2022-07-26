@@ -201,7 +201,6 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
       {
         type: "append",
         path: `packages/ui-components/src/index.ts`,
-        pattern: /(-- APPEND ITEMS HERE --)/gi,
         template:
           'export { default as {{pascalCase name}} } from "components/{{pascalCase name}}";',
         unique: true,
