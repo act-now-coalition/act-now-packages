@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import LegendThreshold, { LegendThresholdProps } from "./LegendThreshold";
+import { styled } from "../../styles";
 
 export default {
   title: "Components/LegendThreshold",
@@ -69,3 +70,18 @@ Squared.args = {
   borderRadius: 0,
   showLabels: true,
 };
+
+const StyledLegendThreshold = styled(LegendThreshold)`
+  line {
+    stroke: ${({ theme }) => theme.palette.grey[50]};
+  }
+  text {
+    fill: ${({ theme }) => theme.palette.grey[50]};
+  }
+`;
+
+export const StyledExample = () => (
+  <div style={{ backgroundColor: "#555", padding: 16 }}>
+    <StyledLegendThreshold {...DefaultProps.args} />
+  </div>
+);

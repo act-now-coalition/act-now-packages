@@ -45,7 +45,9 @@ const LegendThreshold = <T,>({
   getItemColor,
   getItemEndLabel,
   showLabels = true,
-}: LegendThresholdProps<T>) => {
+  ...otherSvgProps
+}: LegendThresholdProps<T> &
+  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
@@ -56,7 +58,7 @@ const LegendThreshold = <T,>({
   const tickLabelPadding = 2;
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} {...otherSvgProps}>
       <defs>
         <clipPath id={clipPathId}>
           <rect

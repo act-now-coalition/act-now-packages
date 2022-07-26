@@ -13,7 +13,6 @@ on:
           - time-utils
           - regions
           - ui-components
-          - ui-components-test
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
