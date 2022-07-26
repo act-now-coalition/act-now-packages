@@ -4,23 +4,31 @@ import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
 
-/**
- * Notes:
- * - The `height` is the total height of the component (including labels),
- *   whereas `barHeight` is the height of the colored bars only. When not adding
- *   bars, make sure that `barHeight` is set to `height` (see Storybook for
- *   some examples).
- * - Only the labels between two levels are rendered. The last end label is
- *   not rendered.
- */
 export interface LegendThresholdProps<T> {
+  /** Height of the component, including the colored bars and labels. */
   height?: number;
+  /**
+   * Height of the colored bars. When not adding the bars, make sure that
+   * `barHeight` is set to the same value as `height`.
+   */
   barHeight?: number;
+  /** Width of the component */
   width?: number;
+  /** Border radius of the colored bars */
   borderRadius?: number;
+  /** List of items representing the labels */
   items: T[];
+  /** Function that returns the color of each level */
   getItemColor: (item: T, itemIndex: number) => string;
+  /**
+   * Note that only the labels between two levels are rendered. The last
+   * end label won't be shown.
+   */
   getItemEndLabel: (item: T, itemIndex: number) => string;
+  /**
+   * Whether to show the labels or not (true by default). Make sure to set
+   * `barHeight` to `height` when not including the labels.
+   */
   showLabels?: boolean;
 }
 
