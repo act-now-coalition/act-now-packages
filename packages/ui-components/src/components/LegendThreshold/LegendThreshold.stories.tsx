@@ -82,6 +82,6 @@ const StyledLegendThreshold = styled(LegendThreshold)`
 
 export const StyledExample = () => (
   <div style={{ backgroundColor: "#555", padding: 16 }}>
-    <StyledLegendThreshold {...DefaultProps.args} />
+    <StyledLegendThreshold {...DefaultProps.args} onClick={() => "clicked"} />
   </div>
 );
