@@ -8,7 +8,6 @@ export default {
 } as ComponentMeta<typeof LegendThreshold>;
 
 interface Item {
-  value: number;
   label: string;
   color: string;
 }
@@ -25,11 +24,11 @@ const barHeight = 20;
 const borderRadius = 4;
 
 const items: Item[] = [
-  { value: 10, label: "10", color: "#90BE6D" },
-  { value: 20, label: "20", color: "#F9C74F" },
-  { value: 30, label: "30", color: "#F8961E" },
-  { value: 40, label: "40", color: "#E16420" },
-  { value: 50, label: "50", color: "#A10003" },
+  { label: "10", color: "#90BE6D" },
+  { label: "20", color: "#F9C74F" },
+  { label: "30", color: "#F8961E" },
+  { label: "40", color: "#E16420" },
+  { label: "50", color: "#A10003" },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

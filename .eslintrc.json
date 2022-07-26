@@ -19,5 +19,5 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {},
-  "ignorePatterns": ["!.storybook"]
+  "ignorePatterns": ["!.storybook", "**/dist", "**/lib"]
 }

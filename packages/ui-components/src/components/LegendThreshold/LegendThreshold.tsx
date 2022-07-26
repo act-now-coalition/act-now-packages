@@ -4,6 +4,15 @@ import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
 
+/**
+ * Notes:
+ * - The `height` is the total height of the component (including labels),
+ *   whereas `barHeight` is the height of the colored bars only. When not adding
+ *   bars, make sure that `barHeight` is set to `height` (see Storybook for
+ *   some examples).
+ * - Only the labels between two levels are rendered. The last end label is
+ *   not rendered.
+ */
 export interface LegendThresholdProps<T> {
   height?: number;
   barHeight?: number;
@@ -16,23 +25,14 @@ export interface LegendThresholdProps<T> {
 }
 
 /**
- * `LegendThreshold` represents a scale with specific cut values that separate
+ * `LegendThreshold` represents a scale with specific thresholds that separate
  * a set of levels. By default, the component shows labels between each level.
  *
- * **Notes**
- *
- * - This component returns an SVG Group element to make it easier to integrate
- *   with other components inside an SVG element. Make sure to wrap it in an
- *   SVG element if using it as standalone component.
- * - The  `height` is the total height of the component (including labels),
- *   whereas `barHeight` is the height of the colored bars only. When not adding
- *   bars, make sure that `barHeight` is set to `height` (see Storybook for
- *   some examples).
- * - Only the labels between two levels are rendered. The last end label is
- *   not rendered.
+ * Notes: This component returns an SVG Group element to make it easier to
+ * integrate with other components inside an SVG element. Make sure to wrap
+ * it in an SVG element if using it as standalone component.
  */
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-const LegendThreshold = <T extends unknown>({
+const LegendThreshold = <T,>({
   height = 40,
   barHeight = 30,
   width = 80,
