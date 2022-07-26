@@ -18,7 +18,8 @@
     "test:ci": "CI=true yarn test",
     "lint": "eslint .",
     "build:all": "yarn workspaces run build",
-    "create-package": "yarn plop package"
+    "create-package": "yarn plop package",
+    "create-component": "yarn plop component"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --max-warnings=0",

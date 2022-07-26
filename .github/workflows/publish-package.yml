@@ -12,6 +12,7 @@ on:
           - number-format
           - time-utils
           - regions
+          - ui-components
 
 env:
   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

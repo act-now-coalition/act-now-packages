@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "declaration": true,
+    "declarationDir": "lib",
+    "noEmit": false,
+    "outDir": "lib",
+    "rootDir": "src",
+    "module": "commonjs",
+    "jsx": "react"
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
+  "exclude": ["node_modules", "**/*.test.*"]
+}
