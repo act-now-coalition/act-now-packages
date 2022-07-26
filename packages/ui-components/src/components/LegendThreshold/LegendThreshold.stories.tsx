@@ -13,9 +13,7 @@ interface Item {
 }
 
 const Template: Story<LegendThresholdProps<Item>> = (args) => (
-  <svg width={args.width} height={args.height}>
-    <LegendThreshold {...args} />
-  </svg>
+  <LegendThreshold {...args} />
 );
 
 const width = 300;

@@ -33,12 +33,8 @@ export interface LegendThresholdProps<T> {
 }
 
 /**
- * `LegendThreshold` represents a scale with specific thresholds that separate
- * a set of levels. By default, the component shows labels between each level.
- *
- * Notes: This component returns an SVG Group element to make it easier to
- * integrate with other components inside an SVG element. Make sure to wrap
- * it in an SVG element if using it as standalone component.
+ * `LegendThreshold` represents a scale with thresholds that separate
+ * a set of levels. By default, the labels between each level are shown.
  */
 const LegendThreshold = <T,>({
   height = 40,
@@ -60,7 +56,7 @@ const LegendThreshold = <T,>({
   const tickLabelPadding = 2;
 
   return (
-    <Group>
+    <svg width={width} height={height}>
       <defs>
         <clipPath id={clipPathId}>
           <rect
@@ -96,7 +92,7 @@ const LegendThreshold = <T,>({
           );
         })}
       </Group>
-    </Group>
+    </svg>
   );
 };
 
