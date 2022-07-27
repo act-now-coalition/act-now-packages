@@ -1,0 +1,35 @@
+{
+  "name": "@actnowcoalition/metrics",
+  "version": "1.0.0",
+  "description": "Classes for representing metrics and for importing metric data",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/metrics"
+  },
+  "keywords": [
+    "actnowcoalition"
+  ],
+  "author": "Act Now Coalition",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:esm": "tsc --project ./tsconfig.esm.json",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json",
+    "build": "yarn build:esm && yarn build:cjs"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182",
+    "typescript": "^4.6.4"
+  },
+  "sideEffects": false,
+  "dependencies": {
+    "@actnowcoalition/assert": "^1.0.0",
+    "lodash": "^4.17.21"
+  }
+}
