@@ -1,0 +1,30 @@
+{
+  "name": "@actnowcoalition/number-format-test",
+  "version": "1.0.1",
+  "description": "Number formatting utility functions",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "directory": "packages/number-format-test"
+  },
+  "keywords": [
+    "actnowcoalition"
+  ],
+  "author": "Act Now Coalition",
+  "license": "MIT",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build:esm": "tsc --project ./tsconfig.esm.json",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json",
+    "build": "yarn build:esm && yarn build:cjs"
+  },
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  },
+  "sideEffects": false
+}
