@@ -3,11 +3,9 @@
   "compilerOptions": {
     "baseUrl": "src",
     "declaration": true,
-    "declarationDir": "lib",
+    "declarationDir": "./dist",
     "noEmit": false,
-    "outDir": "lib",
     "rootDir": "src",
-    "module": "commonjs",
     "jsx": "react"
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
