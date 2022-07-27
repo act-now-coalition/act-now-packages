@@ -1,7 +1,7 @@
 {
   "name": "@actnowcoalition/metrics",
   "version": "1.0.0",
-  "description": "Classes for representing metrics and for importing metric data",
+  "description": "Classes for representing metrics and loading metric data",
   "repository": {
     "type": "git",
     "url": "https://github.com/covid-projections/act-now-packages.git",

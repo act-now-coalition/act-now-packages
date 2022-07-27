@@ -9,6 +9,7 @@ import findLastIndex from "lodash/findLastIndex";
  * @param days The number of days to include in the rolling average.
  * @param includeTrailingZeros Whether to include trailing zero points (else the
  * returned timeseries will truncate them).
+ * @returns A new Timeseries computed via a rolling average of the provided timeseries.
  */
 export function rollingAverage(
   timeseries: Timeseries<number | null>,

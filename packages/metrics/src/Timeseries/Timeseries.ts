@@ -11,15 +11,25 @@ import minBy from "lodash/minBy";
  * timestamp) and a value of type T.
  */
 export interface TimeseriesPoint<T = unknown> {
+  /** The date represented by this point. */
   get date(): Date;
+
+  /** The value represented by this point. */
   get value(): T;
 }
 
 /** Represents a range of dates with either inclusive or exclusive endpoints. */
 export type DateRange = {
+  /** Optional starting date (inclusive) */
   startAt?: Date;
+
+  /** Optional starting date (exclusive) */
   startAfter?: Date;
+
+  /** Optional ending date (inclusive) */
   endAt?: Date;
+
+  /** Optional ending date (exclusive) */
   endBefore?: Date;
 };
 
@@ -61,6 +71,10 @@ export class Timeseries<T = unknown> {
   /**
    * Filters the timeseries by calling the provided `filterFn` on each point in
    * the timeseries.
+   *
+   * @param filterFn The function to call on each point in the timeseries. If it
+   * returns true, the point will be kept, else discarded.
+   * @returns A new timeseries with the filtered points.
    */
   filter(filterFn: (val: TimeseriesPoint<T>) => boolean): Timeseries<T> {
     return new Timeseries(this.points.filter(filterFn));
@@ -70,10 +84,8 @@ export class Timeseries<T = unknown> {
    * Filters the timeseries down to the specified date range, specified using
    * either inclusive or exclusive endpoints.
    *
-   * @param range.startAt The start date (inclusive)
-   * @param range.startAfter The start date (exclusive)
-   * @param range.endAt The end date (inclusive)
-   * @param range.endBefore The end date (exclusive)
+   * @param range The date range to keep.
+   * @returns A new timeseries with the filtered points.
    */
   filterToDateRange(range: DateRange): Timeseries<T> {
     const { startAt, startAfter, endAt, endBefore } = range;
@@ -89,6 +101,9 @@ export class Timeseries<T = unknown> {
   /**
    * Filters the timeseries by calling the provided `filterFn` on each value in
    * the timeseries.
+   * @param filterFn The function to call on each value in the timeseries. If it
+   * returns true, the point will be kept, else discarded.
+   * @returns A new timeseries with the filtered points.
    */
   filterByValues(filterFn: (val: T) => boolean): Timeseries<T> {
     return new Timeseries(this.points.filter(({ value }) => filterFn(value)));
@@ -96,13 +111,17 @@ export class Timeseries<T = unknown> {
 
   /**
    * Returns a new timeseries with the values in the timeseries mapped to new
-   * values using the provided `mapper` function.
+   * values using the provided `mapFn` function.
+   *
+   * @param mapFn The function to call on each value in the timeseries. The
+   * return value is used as the point's value in the new timeseries.
+   * @returns A new timeseries with the mapped points.
    */
-  mapValues<R = T>(mapper: (val: T) => R): Timeseries<R> {
+  mapValues<R = T>(mapFn: (val: T) => R): Timeseries<R> {
     return new Timeseries(
       this.points.map((p) => ({
         date: p.date,
-        value: mapper(p.value),
+        value: mapFn(p.value),
       }))
     );
   }
@@ -143,6 +162,10 @@ export class Timeseries<T = unknown> {
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
+   *
+   * @param date The date to find the closest point to.
+   * @returns The point with the date closest to the provided date or undefined
+   * if the timeseries is empty.
    */
   findNearestDate(date: Date): TimeseriesPoint<T> | undefined {
     return minBy(this.points, (p) =>
