@@ -1,4 +1,4 @@
-# @actnowcoalition/number-format
+# @actnowcoalition/number-format-test
 
 > Number formatting utility functions
 

@@ -10,7 +10,6 @@ on:
         options:
           - assert
           - number-format
-          - number-format-test
           - time-utils
           - regions
 
