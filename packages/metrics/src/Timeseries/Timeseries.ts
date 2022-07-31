@@ -153,10 +153,11 @@ export class Timeseries<T = unknown> {
    */
   assertFiniteNumbers(): Timeseries<number> {
     this.points.forEach((p) => {
-      // TODO(michael): Won't allowing nulls break the return type?
       assert(
         isFinite(p.value),
-        `Found non-numeric (or non-finite) value in timeseries: ${p.value}`
+        `Found non-numeric (or non-finite) value in timeseries. date=${Timeseries.isoDateString(
+          p.date
+        )} value=${p.value}`
       );
     });
     return this.cast<number>();
@@ -256,9 +257,16 @@ export class Timeseries<T = unknown> {
     points.forEach((p, i) => {
       assert(
         p.date.toISOString().endsWith("T00:00:00.000Z"),
-        `Dates in a timeseries must not have a (non-zero) time. Bad date at index ${i}: ${p.date}`
+        `Dates in a timeseries must not have a (non-zero) time. Bad date at index ${i}: ${p.date.toISOString()} (value=${
+          p.value
+        })`
       );
     });
+  }
+
+  private static isoDateString(date: Date): string {
+    // Dates are guaranteed not to have a time component so we just return the ISO date.
+    return date.toISOString().split("T")[0];
   }
 }
 

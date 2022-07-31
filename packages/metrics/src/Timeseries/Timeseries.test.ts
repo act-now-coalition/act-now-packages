@@ -65,7 +65,7 @@ describe("Timeseries", () => {
     expect(ts.findNearestDate(new Date("2021-02-05"))).toBe(points[1]);
   });
 
-  test("assertNumeric() rejects non-numeric values", () => {
+  test("assertFiniteNumbers() rejects non-numeric values", () => {
     const verifyValueThrowsError = (value: unknown) => {
       expect(() =>
         new Timeseries([
