@@ -9,6 +9,7 @@ on:
         required: true
         options:
           - assert
+          - metrics
           - number-format
           - time-utils
           - regions
