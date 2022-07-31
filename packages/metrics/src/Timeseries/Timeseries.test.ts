@@ -28,6 +28,21 @@ describe("Timeseries", () => {
     ).toThrowError("Dates in a timeseries must not have a (non-zero) time.");
   });
 
+  test("constructor sorts dates", () => {
+    const points = [
+      {
+        date: new Date("2001-03-04"),
+        value: 51,
+      },
+      {
+        date: new Date("2001-02-03"),
+        value: 23,
+      },
+    ];
+    const ts = new Timeseries<number>(points);
+    expect(ts.points).toEqual([points[1], points[0]]);
+  });
+
   test("findNearestDate() finds nearest date", () => {
     const points = [
       {

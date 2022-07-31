@@ -38,8 +38,14 @@ export type DateRange = {
  * over time.
  */
 export class Timeseries<T = unknown> {
-  constructor(readonly points: Array<TimeseriesPoint<T>>) {
+  readonly points: Array<TimeseriesPoint<T>>;
+
+  constructor(points: Array<TimeseriesPoint<T>>) {
     Timeseries.assertDatesHaveNoTimeComponent(points);
+    // Sort the points by date.
+    this.points = points
+      .slice()
+      .sort((a, b) => a.date.getTime() - b.date.getTime());
   }
 
   /** The length of the timeseries. */
