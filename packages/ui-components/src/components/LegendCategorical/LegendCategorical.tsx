@@ -11,8 +11,10 @@ export interface LegendCategoricalProps<T> {
   getItemLabel: (item: T, itemIndex: number) => string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
-const LegendCategorical = <T extends unknown>({
+/**
+ * LegendCategorical represents a legend of items, each with a color block and a corresponding label.
+ */
+const LegendCategorical = <T,>({
   items,
   getItemColor,
   getItemLabel,
