@@ -38,31 +38,55 @@ const templatePackage = prepareTemplate(`
   ],
   "author": "Act Now Coalition",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": ["lib"],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build:esm": "tsc --project ./tsconfig.esm.json",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json",
+    "build": "yarn build:esm && yarn build:cjs"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
-  }
+  },
+  "sideEffects": false
 }`);
 
-const templateTSConfig = prepareTemplate(`
+const templateTSConfigBase = prepareTemplate(`
 {
   "extends": "../../tsconfig",
   "compilerOptions": {
     "baseUrl": "src",
     "declaration": true,
-    "declarationDir": "lib",
+    "declarationDir": "./dist",
     "noEmit": false,
-    "outDir": "lib",
-    "rootDir": "src",
-    "module": "commonjs"
+    "rootDir": "src"
   },
   "include": ["src/**/*.ts", "src/**/*.json"],
   "exclude": ["node_modules", "**/*.test.*"]
+}
+`);
+
+const templateTSConfigCJS = prepareTemplate(`
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "outDir": "./dist/cjs/"
+  }
+}
+`);
+
+const templateTSConfigESM = prepareTemplate(`
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "module": "ESNext",
+    "outDir": "./dist/esm/"
+  }
 }
 `);
 
@@ -151,8 +175,18 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
       },
       {
         type: "add",
-        path: `packages/{{dashCase name}}/tsconfig.json`,
-        template: templateTSConfig,
+        path: `packages/{{dashCase name}}/tsconfig.base.json`,
+        template: templateTSConfigBase,
+      },
+      {
+        type: "add",
+        path: `packages/{{dashCase name}}/tsconfig.cjs.json`,
+        template: templateTSConfigCJS,
+      },
+      {
+        type: "add",
+        path: `packages/{{dashCase name}}/tsconfig.esm.json`,
+        template: templateTSConfigESM,
       },
       {
         type: "append",
