@@ -38,15 +38,21 @@ const templatePackage = prepareTemplate(`
   ],
   "author": "Act Now Coalition",
   "license": "MIT",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": ["lib"],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build:esm": "tsc --project ./tsconfig.esm.json",
+    "build:cjs": "tsc --project ./tsconfig.cjs.json",
+    "build": "yarn build:esm && yarn build:cjs"
   },
   "devDependencies": {
     "typescript": "^4.6.4"
-  }
+  },
+  "sideEffects": false
 }`);
 
 const templateTSConfigBase = prepareTemplate(`
