@@ -3,39 +3,50 @@ import { Group } from "@visx/group";
 import uniqueId from "lodash/uniqueId";
 import React from "react";
 
-export interface MeterProps {
+export interface ProgressBarProps {
+  /** Border radius of the progress bar */
   borderRadius?: number;
+  /** Minimum value in the range (in user units) */
   minValue: number;
+  /** Maximum value in the range (in user units) */
   maxValue: number;
-  currentValue: number;
-  currentColor: string;
+  /** Value (in user units) */
+  value: number;
+  /** Bar color */
+  color: string;
+  /** Background color */
   backgroundColor?: string;
 }
 
 /**
- * Graphical display of a numeric value that varies within a defined range. Examples
+ * Chart that shows a numeric value that varies within a defined range.
  *
- * - use user units for values. For example when using percentages, set
- *   minValue=0, maxValue=100, currentValue=39 to represent 39%.
- * - use aria-label, aria-labelledby or title to indicate what the meter
- *   represents
+ * Note that minValue, maxValue and currentValue should be in user units in
+ * order for assistive technologies to describe the values correctly. For
+ * example, to represent 35%, we should set minValue=0, maxValue=100, and
+ * currentValue=35.
+ *
+ * By default, the role of the component is 'meter', since the role
+ * 'progressbar' is appropiate to show progress of tasks.
  *
  * https://www.w3.org/WAI/ARIA/apg/patterns/meter/
+ * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role
  */
-const Meter = ({
+const ProgressBar = ({
   width = 300,
   height = 16,
   borderRadius = 4,
   minValue,
   maxValue,
   backgroundColor = "rgba(95, 108, 114, 0.2)",
-  currentValue,
-  currentColor,
+  value,
+  color,
+  role = "meter",
   ...otherSvgProps
-}: MeterProps &
+}: ProgressBarProps &
   Omit<
     React.SVGProps<SVGSVGElement>,
-    "role" | "aria-valuemin" | "aria-valuemax" | "aria-valuenow"
+    "aria-valuemin" | "aria-valuemax" | "aria-valuenow"
   >) => {
   const xScale = scaleLinear({
     domain: [minValue, maxValue],
@@ -48,10 +59,10 @@ const Meter = ({
     <svg
       width={width}
       height={height}
-      role="meter"
+      role={role}
       aria-valuemin={minValue}
       aria-valuemax={maxValue}
-      aria-valuenow={currentValue}
+      aria-valuenow={value}
       {...otherSvgProps}
     >
       <defs>
@@ -67,14 +78,10 @@ const Meter = ({
       </defs>
       <Group clipPath={`url(#${clipPathId})`}>
         <rect width={width} height={height} fill={backgroundColor} />
-        <rect
-          width={xScale(currentValue)}
-          height={height}
-          fill={currentColor}
-        />
+        <rect width={xScale(value)} height={height} fill={color} />
       </Group>
     </svg>
   );
 };
 
-export default Meter;
+export default ProgressBar;
