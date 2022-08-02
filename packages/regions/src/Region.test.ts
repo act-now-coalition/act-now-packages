@@ -13,7 +13,7 @@ describe("Region serialization", () => {
     fullName: "Florida",
     shortName: "Florida",
     abbreviation: "FL",
-    slug: "us/florida-fl",
+    slug: "florida-fl",
     parent: null,
     population: 21_477_737,
   };
