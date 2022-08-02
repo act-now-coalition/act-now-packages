@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/regions",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A package containing classes and datasets to represent geographic areas and administrative divisions with a uniform interface.",
   "repository": {
     "type": "git",
