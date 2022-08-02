@@ -7,7 +7,7 @@ export interface RegionJSON {
   fullName: string;
   shortName: string;
   abbreviation: string;
-  urlFragment: string;
+  slug: string;
   parent: RegionJSON | null;
   population: number;
 }
@@ -18,7 +18,7 @@ export class Region {
     public readonly fullName: string,
     public readonly shortName: string,
     public readonly abbreviation: string,
-    public readonly urlFragment: string,
+    public readonly slug: string,
     public readonly parent: Region | null,
     // TODO: transfrom population and potentially other attributes to Metric.
     // This will allow us to leverage on more advanced Metric functionality,
@@ -32,8 +32,8 @@ export class Region {
 
   get relativeUrl(): string {
     return this.parent
-      ? Region.urlJoin(this.parent.relativeUrl, this.urlFragment)
-      : Region.urlJoin("/", this.urlFragment);
+      ? Region.urlJoin(this.parent.relativeUrl, this.slug)
+      : Region.urlJoin("/", this.slug);
   }
 
   toString() {
@@ -72,7 +72,7 @@ export class Region {
       regionJSON.fullName,
       regionJSON.shortName,
       regionJSON.abbreviation,
-      regionJSON.urlFragment,
+      regionJSON.slug,
       regionJSON.parent ? Region.fromJSON(regionJSON.parent) : null,
       regionJSON.population
     );
@@ -84,7 +84,7 @@ export class Region {
       fullName: this.fullName,
       shortName: this.shortName,
       abbreviation: this.abbreviation,
-      urlFragment: this.urlFragment,
+      slug: this.slug,
       parent: this.parent ? this.parent.toJSON() : null,
       population: this.population,
     };

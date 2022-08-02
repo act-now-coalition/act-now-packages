@@ -13,7 +13,7 @@ describe("Region serialization", () => {
     fullName: "Florida",
     shortName: "Florida",
     abbreviation: "FL",
-    urlFragment: "us/florida-fl",
+    slug: "florida-fl",
     parent: null,
     population: 21_477_737,
   };
@@ -23,7 +23,7 @@ describe("Region serialization", () => {
     fullName: "Miami-Dade County, Florida",
     shortName: "Miami-Dade County, FL",
     abbreviation: "Miami-Dade Co.",
-    urlFragment: "miami_dade_co",
+    slug: "miami_dade_co",
     parent: parentJSON,
     population: 2_716_940,
   };

@@ -6,13 +6,12 @@ const states = statesJSON
   .map((state) => {
     const slugName = Region.toSlug(state.name);
     const slugStateCode = Region.toSlug(state.stateCode);
-    const urlFragment = `${slugName}-${slugStateCode}`;
     return new Region(
       state.fipsCode,
       state.name,
       state.name,
       state.stateCode,
-      `us/${urlFragment}`,
+      `${slugName}-${slugStateCode}`,
       null,
       state.population
     );
