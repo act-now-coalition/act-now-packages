@@ -29,9 +29,17 @@ const getItemColor = (item: Item, itemIndex: number) => item.color;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemLabel = (item: Item, itemIndex: number) => item.label;
 
-export const Example = Template.bind({});
-Example.args = {
+export const Horizontal = Template.bind({});
+Horizontal.args = {
   items,
   getItemColor,
   getItemLabel,
+};
+
+export const Vertical = Template.bind({});
+Vertical.args = {
+  items,
+  getItemColor,
+  getItemLabel,
+  horizontal: false,
 };
