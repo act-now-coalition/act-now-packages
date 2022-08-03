@@ -8,7 +8,12 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "./packages/*"
+    "./packages/assert",
+    "./packages/number-format",
+    "./packages/time-utils",
+    "./packages/regions",
+    "./packages/metrics",
+    "./packages/ui-components"
   ],
   "scripts": {
     "prepare": "husky install",
