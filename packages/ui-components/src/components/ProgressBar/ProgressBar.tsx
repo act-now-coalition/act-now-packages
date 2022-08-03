@@ -6,11 +6,11 @@ import React from "react";
 export interface ProgressBarProps {
   /** Border radius of the progress bar */
   borderRadius?: number;
-  /** Minimum value in the range (in user units) */
-  minValue: number;
-  /** Maximum value in the range (in user units) */
+  /** Minimum value in the range */
+  minValue?: number;
+  /** Maximum value in the range */
   maxValue: number;
-  /** Value (in user units) */
+  /** Current progress value */
   value: number;
   /** Bar color */
   color: string;
@@ -36,7 +36,7 @@ const ProgressBar = ({
   width = 300,
   height = 16,
   borderRadius = 4,
-  minValue,
+  minValue = 0,
   maxValue,
   backgroundColor = "rgba(95, 108, 114, 0.2)",
   value,
