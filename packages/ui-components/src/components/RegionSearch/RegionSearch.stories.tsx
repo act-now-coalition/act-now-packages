@@ -15,19 +15,19 @@ const Template: ComponentStory<typeof RegionSearch> = (args) => (
 
 const allRegions = [...states.all, ...counties.all, ...metros.all];
 
-export const AllRegionsSearch = Template.bind({});
-AllRegionsSearch.args = {
+export const AllRegions = Template.bind({});
+AllRegions.args = {
   searchOptions: allRegions,
 };
 
-export const StatesOnlySearch = Template.bind({});
-StatesOnlySearch.args = {
+export const StatesOnly = Template.bind({});
+StatesOnly.args = {
   searchOptions: states.all,
   inputLabel: "State",
 };
 
-export const CountiesOnlySearch = Template.bind({});
-CountiesOnlySearch.args = {
+export const CountiesOnly = Template.bind({});
+CountiesOnly.args = {
   searchOptions: sortBy(counties.all, (county) => county.population * -1),
   inputLabel: "County",
 };
