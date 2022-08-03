@@ -19,7 +19,8 @@
     "lint": "eslint .",
     "build:all": "yarn workspaces run build",
     "create-package": "yarn plop package",
-    "create-component": "yarn plop component"
+    "create-component": "yarn plop component",
+    "generate-docs": "yarn typedoc --entryPointStrategy packages --name 'Act Now Packages' ."
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --max-warnings=0",
@@ -41,6 +42,7 @@
     "ts-jest": "^28.0.2",
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^4.0.0",
+    "typedoc": "^0.23.10",
     "typescript": "^4.6.4"
   },
   "dependencies": {}

@@ -18,7 +18,8 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "sourceMap": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "exclude": ["node_modules"],

@@ -18,3 +18,4 @@ jobs:
       - run: yarn run lint
       - run: yarn workspaces run build
       - run: yarn run test:ci
+      - run: yarn generate-docs
