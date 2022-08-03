@@ -23,7 +23,14 @@ const onChange = (item: Region | null) => {
 };
 
 const RegionSearch: React.FC<
-  RegionSearchProps & AutocompleteProps<Region, false, false, false, "div">
+  RegionSearchProps &
+    AutocompleteProps<
+      Region,
+      /** Multiple */ false,
+      /** DisableClearable */ false,
+      /** FreeSolo */ false,
+      /** ChipComponent */ "div"
+    >
 > = ({
   searchOptions,
   inputLabel = "City, county, state, or district",
