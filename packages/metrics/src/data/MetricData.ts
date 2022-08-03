@@ -2,6 +2,7 @@ import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "../Metric/Metric";
 import { Timeseries } from "../Timeseries";
+import { MetricLevel } from "../Metric/MetricLevel";
 
 /**
  * Data for a particular region and metric, possibly including timeseries history.
@@ -82,5 +83,35 @@ export class MetricData<T = unknown> {
       this.currentValue as number,
       timeseries
     );
+  }
+
+  /**
+   * Uses this metric's grading logic (thresholds and levels) to grade the
+   * `currentValue` to a `MetricLevel`.
+   *
+   * @returns The level that the value falls into.
+   */
+  getLevel(): MetricLevel {
+    return this.metric.getLevel(this.currentValue);
+  }
+
+  /**
+   * Formats the metric value for display purposes, using this metric's formatting logic.
+   *
+   * @param nullValueCopy Optional copy to be used if the value is null, else an empty string will be used.
+   * @returns The formatted value.
+   */
+  formatValue(nullValueCopy = ""): string {
+    return this.metric.formatValue(this.currentValue, nullValueCopy);
+  }
+
+  /**
+   * Rounds the metric value to the appropriate number of significant digits
+   * based on this metric's formatting logic.
+   *
+   * @returns Rounded value.
+   */
+  roundValue(): number | null {
+    return this.metric.roundValue(this.currentValue);
   }
 }

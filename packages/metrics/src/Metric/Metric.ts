@@ -134,7 +134,7 @@ export class Metric {
    * @returns The level that the value falls into.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getLevel(value: number | null): MetricLevel {
+  getLevel(value: unknown): MetricLevel {
     throw new Error("Not implemented");
   }
 
@@ -145,8 +145,9 @@ export class Metric {
    * @param nullValueCopy Optional copy to be used if the value is null, else an empty string will be used.
    * @returns The formatted value.
    */
-  formatValue(value: number | null, nullValueCopy = ""): string {
+  formatValue(value: unknown, nullValueCopy = ""): string {
     if (!isNumber(value)) {
+      // TODO(michael): Pass string values through as-is?
       return nullValueCopy;
     }
     return value.toLocaleString(undefined, this.formatOptions);
@@ -159,8 +160,9 @@ export class Metric {
    * @param value Value to be rounded.
    * @returns Rounded value.
    */
-  roundValue(value: number | null): number | null {
-    if (value === null) {
+  roundValue(value: unknown): number | null {
+    // TODO(michael) Deal with non-number data?
+    if (!isNumber(value)) {
       return null;
     }
 

@@ -11,6 +11,7 @@ yarn add @actnowcoalition/metrics
 ## TODO
 
 - [ ] Write some default data providers (CSVDataProvider, StaticValueDataProvider, etc.)
+- [ ] Add metric legends.
 - [ ] Create some default metrics (answer to life, etc.).
 - [ ] Add assertString() helpers similar to assertFiniteNumbers()
 - [ ] Add minValue / maxValue to metrics.
