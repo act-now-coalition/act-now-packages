@@ -1,15 +1,19 @@
 /**
  * A metric level (e.g. low/medium/high) used for metric grading.
  *
- * @example
- * { id: "low", "name": "Low", "color": "green" }
- *
- * @example
- * { id: "unknown", "name": "Unknown", "color": "grey", default: true }
- *
  * `MetricLevel`s are defined when creating a {@link MetricCatalog} via {@link
  * MetricCatalogOptions.metricLevelSets} and then used by metrics via their
  * {@link MetricDefinition.levelSet} property.
+ *
+ * @example
+ * ```
+ * { id: "low", "name": "Low", "color": "green" }
+ * ```
+ *
+ * @example
+ * ```
+ * { id: "unknown", "name": "Unknown", "color": "grey", default: true }
+ * ```
  */
 export interface MetricLevel {
   /** An arbitrary ID used to identify this level.  */

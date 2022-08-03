@@ -25,20 +25,22 @@ export interface MetricCatalogOptions {
    * and referenced by metrics via their {@link MetricDefinition.levelSet} property.
    *
    * @example
+   * ```
    * {
-   *  "default": [
-   *    { id: "low", "name": "Low", "color": "green" },
-   *    { id: "medium", "name": "Medium", "color": "yellow" },
-   *    { id: "high", "name": "High", "color": "red" },
-   *    { id: "unknown", "name": "Unknown", "color": "grey", default: true }
-   *  ],
-   *  "vaccine-levels": [
-   *    { id: "low", "name": "Low", "color": "lightblue" },
-   *    { id: "medium", "name": "Medium", "color": "blue" },
-   *    { id: "high", "name": "High", "color": "darkblue" },
-   *    { id: "unknown", "name": "Unknown", "color": "grey", default: true }
-   *  ]
+   *   "default": [
+   *     { id: "low", "name": "Low", "color": "green" },
+   *     { id: "medium", "name": "Medium", "color": "yellow" },
+   *     { id: "high", "name": "High", "color": "red" },
+   *     { id: "unknown", "name": "Unknown", "color": "grey", default: true }
+   *   ],
+   *   "vaccine-levels": [
+   *     { id: "low", "name": "Low", "color": "lightblue" },
+   *     { id: "medium", "name": "Medium", "color": "blue" },
+   *     { id: "high", "name": "High", "color": "darkblue" },
+   *     { id: "unknown", "name": "Unknown", "color": "grey", default: true }
+   *   ]
    * }
+   * ```
    */
   metricLevelSets?: { [name: string]: MetricLevel[] };
 }

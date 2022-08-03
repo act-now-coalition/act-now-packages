@@ -37,12 +37,16 @@ export interface MetricDefinition {
    * specified by {@link MetricDefinition.levelSet } and there should be one
    * fewer threshold than there are levels.
    *
-   * @example If the levels are [low, medium, high] and the thresholds are [10,
-   * 20] then <=10 is low, 10.1-20 is medium, and >20 is high.
+   * Example:
+   * ```
+   *   // Assuming levels are [low, medium, high]
+   *   thresholds: [10, 20]
+   *   // then <=10 is low, 10.1-20 is medium, and >20 is high.
    *
-   * @example The thresholds can be descending as well. If the levels are [low,
-   * medium, high] and the thresholds are [20, 10] then >=20 is low, 10-19.9 is
-   * medium, and <10 is high.
+   *   // Thresholds can be descending as well.
+   *   thresholds: [20, 10]
+   *   // then >=20 is low, 10-19.9 is medium, and <10 is high.
+   * ```
    */
   thresholds?: number[];
 
