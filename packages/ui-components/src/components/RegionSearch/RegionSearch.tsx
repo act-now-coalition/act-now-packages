@@ -3,42 +3,54 @@ import { Container } from "./RegionSearch.style";
 import { Region } from "@actnowcoalition/regions";
 import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { createFilterOptions } from "@mui/material/useAutocomplete";
 
 export interface RegionSearchProps {
   searchOptions: Region[];
-  getIndicatorColor?: (region: Region) => string;
+  inputLabel?: string;
 }
 
-// function getOptionSelected(option: Region, selectedOption: Region) {
-//   return option.regionId === selectedOption.regionId;
-// }
+function stringifyOption(region: Region) {
+  return region.fullName;
+}
 
-// const onSelect = (e: React.ChangeEvent<{}>, value: Region) => {
-//   // setIsOpen(false);
-//   window.location.href = value.relativeUrl;
-// };
+const onChange = (item: Region | null) => {
+  if (!item) {
+    return null;
+  } else {
+    window.location.href = item.relativeUrl;
+  }
+};
 
-const RegionSearch = /** type */ ({
+const RegionSearch: React.FC<
+  RegionSearchProps & AutocompleteProps<Region, false, false, false, "div">
+> = ({
   searchOptions,
-}: RegionSearchProps &
-  AutocompleteProps<Region, false, false, false, "div">) => {
-  console.log("searchOptions", searchOptions);
+  inputLabel = "City, county, state, or district",
+  ...otherProps
+}) => {
   return (
     <Container>
       <Autocomplete
+        {...otherProps}
         options={searchOptions}
+        onChange={(e, item: Region | null) => onChange(item)}
+        clearIcon={<></>}
         renderInput={(params) => (
           <TextField
             {...params}
-            label="City, county, state, or district"
+            label={inputLabel}
             variant="outlined"
             size="small"
             InputProps={{ ...params.InputProps, endAdornment: <SearchIcon /> }}
             inputProps={{ ...params.inputProps, "aria-label": "Search" }}
           />
         )}
-        getOptionLabel={() => ""} // we don't want the location name to populate the search bar after selecting
-        // getOptionSelected={getOptionSelected}
+        getOptionLabel={stringifyOption}
+        filterOptions={createFilterOptions({
+          limit: 30,
+          stringify: stringifyOption,
+        })}
       />
     </Container>
   );
