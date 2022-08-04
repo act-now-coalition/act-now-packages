@@ -16,6 +16,7 @@ jobs:
           node-version: 16
           cache: "yarn"
       - run: yarn install
+      - run: yarn workspaces run build
       - run: yarn generate-docs
       - run: yarn generate-storybook
       - uses: FirebaseExtended/action-hosting-deploy@v0
