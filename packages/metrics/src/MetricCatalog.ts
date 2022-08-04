@@ -10,7 +10,11 @@ import { MetricDataProvider } from "./data/MetricDataProvider";
 import { Metric, MetricDefinition } from "./Metric/Metric";
 import { MetricLevel } from "./Metric/MetricLevel";
 import { MultiMetricDataStore } from "./data/MultiMetricDataStore";
-import { MultiRegionMultiMetricDataStore } from "./data/MultiRegionMultiMetricDataStore";
+import {
+  MultiRegionMultiMetricDataStore,
+  SnapshotJSON,
+} from "./data/MultiRegionMultiMetricDataStore";
+import { Timeseries } from "./Timeseries";
 
 /**
  * Options that can be provided when creating a {@link MetricCatalog}.
@@ -57,17 +61,21 @@ export class MetricCatalog {
 
   private readonly metricsById: { [id: string]: Metric };
 
+  private readonly snapshot: SnapshotJSON | undefined;
+
   /**
    * Constructs a new {@link MetricCatalog} from the given metrics, data providers, and options.
    *
    * @param metrics The metrics to include in the catalog.
    * @param dataProviders The data providers used to fetch data for metrics.
    * @param options Additional options for the catalog.
+   * @param snapshot JSON cache file to read metrics from, instead of using DataProviders.
    */
   constructor(
     metrics: MetricDefinition[],
     dataProviders: MetricDataProvider[],
-    options: MetricCatalogOptions = {}
+    options: MetricCatalogOptions = {},
+    snapshot?: SnapshotJSON | undefined
   ) {
     const metricDefaults = options.metricDefaults || {};
     const metricLevelSets = options.metricLevelSets || {};
@@ -89,6 +97,7 @@ export class MetricCatalog {
       ).join(", ")}`
     );
     this.metricDataProviders = dataProviders;
+    this.snapshot = snapshot ?? undefined;
   }
 
   /**
@@ -119,6 +128,18 @@ export class MetricCatalog {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeTimeseries = true
   ): Promise<MetricData> {
+    if (this.snapshot !== undefined) {
+      metric = metric instanceof Metric ? metric : this.getMetric(metric);
+      const metricData = this.snapshot["data"][region.regionId][metric.id];
+      const timeseries = metricData["timeseries"]["points"] ?? undefined;
+      // console.log(timeseries)
+      return new MetricData(
+        metric,
+        region,
+        metricData["currentValue"],
+        timeseries ? Timeseries.fromJSON(timeseries) : undefined
+      );
+    }
     throw new Error("Not Implemented");
   }
 

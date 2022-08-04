@@ -1,8 +1,10 @@
 import { MetricCatalog } from "./MetricCatalog";
 import { StaticValueDataProvider } from "./data/StaticValueDataProvider";
+import { states } from "@actnowcoalition/regions";
+import { SnapshotJSON } from "./data/MultiRegionMultiMetricDataStore";
 
 describe("MetricCatalog", () => {
-  test("smoke test", () => {
+  test("smoke test", async () => {
     const dataProviders = [new StaticValueDataProvider()];
 
     enum MetricIds {
@@ -10,7 +12,21 @@ describe("MetricCatalog", () => {
       PI = "pi",
     }
 
-    new MetricCatalog(
+    const snapshot: SnapshotJSON = {
+      metadata: { date: "2022-08-04" },
+      data: {
+        12: {
+          pi: {
+            currentValue: 42,
+            timeseries: {
+              points: [{ date: "2022-08-04", value: 42 }],
+            },
+          },
+        },
+      },
+    };
+
+    const catalog = new MetricCatalog(
       [
         {
           id: MetricIds.THE_ANSWER,
@@ -31,7 +47,10 @@ describe("MetricCatalog", () => {
           },
         },
       ],
-      dataProviders
+      dataProviders,
+      undefined,
+      snapshot
     );
+    catalog.fetchData(states.findByRegionIdStrict("12"), "pi");
   });
 });

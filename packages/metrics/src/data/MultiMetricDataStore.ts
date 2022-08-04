@@ -16,7 +16,7 @@ export class MultiMetricDataStore<T = unknown> {
   constructor(
     /** The region for which we have stored metrics. */
     readonly region: Region,
-    private metricToDataMap: { [id: string]: MetricData<T> }
+    readonly metricToDataMap: { [id: string]: MetricData<T> }
   ) {}
 
   /**

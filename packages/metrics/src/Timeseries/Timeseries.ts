@@ -5,6 +5,7 @@ import first from "lodash/first";
 import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
+import { TimeseriesPointJSON } from "../data/MultiRegionMultiMetricDataStore";
 
 /**
  * A single point in a timeseries containing a date (which must not contain a
@@ -267,6 +268,25 @@ export class Timeseries<T = unknown> {
   private static isoDateString(date: Date): string {
     // Dates are guaranteed not to have a time component so we just return the ISO date.
     return date.toISOString().split("T")[0];
+  }
+
+  // TODO: make T not unknown
+  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
+    const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
+      (point) => {
+        return { date: new Date(point.date), value: point.value as unknown };
+      }
+    );
+    return new Timeseries<unknown>(timeseriesPoints);
+  }
+
+  toJSON(): TimeseriesPointJSON[] {
+    const timeseriesPointJSONs: TimeseriesPointJSON[] = this.points.map(
+      (point) => {
+        return { date: point.date.toISOString(), value: point.value };
+      }
+    );
+    return timeseriesPointJSONs;
   }
 }
 
