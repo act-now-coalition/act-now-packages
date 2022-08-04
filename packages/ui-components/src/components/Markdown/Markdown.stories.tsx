@@ -9,34 +9,21 @@ export default {
   component: Markdown,
 } as ComponentMeta<typeof Markdown>;
 
-// Plain markdown example
-
 const Template: ComponentStory<typeof Markdown> = (args) => (
   <Markdown {...args} />
 );
 
-export const PlainExample = Template.bind({});
-PlainExample.args = {
-  children: "Plain markdown example!",
-};
-
 // Styled markdown example
-
 const StyledMarkdown = styled(Markdown)`
   color: green;
 `;
-
 const StyledTemplate: ComponentStory<typeof StyledMarkdown> = (args) => (
   <StyledMarkdown {...args} />
 );
-
 export const StyledExample = StyledTemplate.bind({});
-StyledExample.args = {
-  children: "Styled markdown example!",
-};
+StyledExample.args = { children: "Styled markdown example!" };
 
 // Headings example
-
 export const HeadingExample = Template.bind({});
 HeadingExample.args = {
   children:
@@ -44,7 +31,6 @@ HeadingExample.args = {
 };
 
 // Quote example
-
 export const QuoteExample = Template.bind({});
 QuoteExample.args = {
   children:
@@ -52,41 +38,18 @@ QuoteExample.args = {
 };
 
 // Table example
-
 export const TableExample = Template.bind({});
-
-const tableStruct = `
-| heading | b  |  c |  d  |
-| - | :- | -: | :-: |
-| cell 1 | cell 2 | 3 | 4 | 
+const tableContent = `
+| Col 1     | Col 2     | Col 3     |
+|-----------|-----------|-----------|
+| Content 1 | Content 2 | Content 3 |
+| Content 4 | Content 5 | Content 6 |
 `;
-
-TableExample.args = {
-  children: tableStruct,
-};
+TableExample.args = { children: tableContent };
 
 // Inline markdown example
-
 const InlineTemplate: ComponentStory<typeof InlineMarkdown> = (args) => (
   <InlineMarkdown {...args} />
 );
-
 export const InlineExample = InlineTemplate.bind({});
-InlineExample.args = {
-  children: "Plain markdown example!",
-};
-
-// Styled inline markdown example
-
-const StyledInlineMarkdown = styled(InlineMarkdown)`
-  color: green;
-`;
-
-const StyledInlineTemplate: ComponentStory<typeof StyledInlineMarkdown> = (
-  args
-) => <StyledInlineMarkdown {...args} />;
-
-export const StyledInlineExample = StyledInlineTemplate.bind({});
-StyledInlineExample.args = {
-  children: "Styled markdown example!",
-};
+InlineExample.args = { children: "Inline markdown example!" };
