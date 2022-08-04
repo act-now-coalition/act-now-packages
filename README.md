@@ -4,10 +4,9 @@
 
 This is a multi-package repository to host NPM packages for the [Act Now Coalition](https://actnowcoalition.org).
 
-See all the [Act Now Coalition packages](https://www.npmjs.com/search?q=keywords:actnowcoalition)
-
-[API Reference Docs](https://act-now-packages.web.app/docs/)
-[Storybook of UI components](https://act-now-packages.web.app/storybook/)
+- [Act Now Coalition packages on npm](https://www.npmjs.com/search?q=keywords:actnowcoalition)
+- [API Reference Docs](https://act-now-packages.web.app/docs/)
+- [Storybook of UI components](https://act-now-packages.web.app/storybook/)
 
 ## Setup
 
