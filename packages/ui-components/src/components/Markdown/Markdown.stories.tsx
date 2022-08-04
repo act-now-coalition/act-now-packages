@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Markdown from ".";
+import InlineMarkdown from ".";
 import { styled } from "../../styles";
 
 export default {
@@ -16,7 +17,7 @@ const Template: ComponentStory<typeof Markdown> = (args) => (
 
 export const PlainExample = Template.bind({});
 PlainExample.args = {
-  body: "Plain markdown example!",
+  children: "Plain markdown example!",
 };
 
 // Styled markdown example
@@ -31,21 +32,23 @@ const StyledTemplate: ComponentStory<typeof StyledMarkdown> = (args) => (
 
 export const StyledExample = StyledTemplate.bind({});
 StyledExample.args = {
-  body: "Styled markdown example!",
+  children: "Styled markdown example!",
 };
 
 // Headings example
 
 export const HeadingExample = Template.bind({});
 HeadingExample.args = {
-  body: "# Heading 1 \n ## Heading 2 \n ### Heading 3 \n I am **bold!** \n\n I am *italicized!*",
+  children:
+    "# Heading 1 \n ## Heading 2 \n ### Heading 3 \n I am **bold!** \n\n I am *italicized!*",
 };
 
 // Quote example
 
 export const QuoteExample = Template.bind({});
 QuoteExample.args = {
-  body: "> I am a nested quote.\n\n>> Including sub-points... \n\n>> - Point 1 is plain. \n\n>> - `Point 2 is code` \n\n>> - Point 3 has an image underneath. \n\n>> ![Cat](https://pbs.twimg.com/profile_images/664169149002874880/z1fmxo00_400x400.jpg)",
+  children:
+    "> I am a nested quote.\n\n>> Including sub-points... \n\n>> - Point 1 is plain. \n\n>> - `Point 2 is code` \n\n>> - Point 3 has an image underneath. \n\n>> ![Cat](https://pbs.twimg.com/profile_images/664169149002874880/z1fmxo00_400x400.jpg)",
 };
 
 // Table example
@@ -59,5 +62,31 @@ const tableStruct = `
 `;
 
 TableExample.args = {
-  body: tableStruct,
+  children: tableStruct,
+};
+
+// Inline markdown example
+
+const InlineTemplate: ComponentStory<typeof InlineMarkdown> = (args) => (
+  <InlineMarkdown {...args} />
+);
+
+export const InlineExample = InlineTemplate.bind({});
+InlineExample.args = {
+  children: "Plain markdown example!",
+};
+
+// Styled inline markdown example
+
+const StyledInlineMarkdown = styled(InlineMarkdown)`
+  color: green;
+`;
+
+const StyledInlineTemplate: ComponentStory<typeof StyledInlineMarkdown> = (
+  args
+) => <StyledInlineMarkdown {...args} />;
+
+export const StyledInlineExample = StyledInlineTemplate.bind({});
+StyledInlineExample.args = {
+  children: "Styled markdown example!",
 };

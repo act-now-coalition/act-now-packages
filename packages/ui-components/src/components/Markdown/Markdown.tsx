@@ -1,20 +1,14 @@
 import * as React from "react";
 import { MarkdownBody } from "./Markdown.style";
 import remarkGfm from "remark-gfm";
+import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
 
-/**
- * "className" prop must be added to an element if it is to be used with added styles and without a wrapper.
- * Emotion needs the className prop to identify which element to combine styles for throughout the DOM.
- *
- * More info: https://github.com/emotion-js/emotion/issues/257
- */
-
-const Markdown: React.FC<{ className?: string; body: string }> = ({
-  className,
-  body,
+const Markdown: React.FC<ReactMarkdownOptions> = ({
+  children,
+  ...otherProps
 }) => (
-  <MarkdownBody className={className} remarkPlugins={[remarkGfm]}>
-    {body}
+  <MarkdownBody remarkPlugins={[remarkGfm]} {...otherProps}>
+    {children}
   </MarkdownBody>
 );
 
