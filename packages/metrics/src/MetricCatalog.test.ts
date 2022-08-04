@@ -1,10 +1,10 @@
 import { MetricCatalog } from "./MetricCatalog";
 import { StaticValueDataProvider } from "./data/StaticValueDataProvider";
-import { states } from "@actnowcoalition/regions";
 import { SnapshotJSON } from "./data/MultiRegionMultiMetricDataStore";
+import { states } from "@actnowcoalition/regions";
 
 describe("MetricCatalog", () => {
-  test("smoke test", async () => {
+  test("smoke test", () => {
     const dataProviders = [new StaticValueDataProvider()];
 
     enum MetricIds {

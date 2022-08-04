@@ -39,8 +39,10 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "@actnowcoalition/regions": "^1.1.6",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
