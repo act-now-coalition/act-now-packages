@@ -1,13 +1,6 @@
 import { TypographyOptions } from "@mui/material/styles/createTypography";
 import palette from "./palette";
 
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    paragraphSmall: true;
-    paragraphLarge: true;
-  }
-}
-
 interface ExtendedTypographyOptions extends TypographyOptions {
   paragraphSmall: React.CSSProperties;
   paragraphLarge: React.CSSProperties;
