@@ -6,73 +6,13 @@ import { isFinite } from "@actnowcoalition/number-format";
 
 import { MetricDataReference } from "./MetricDataReference";
 import { MetricLevel, MetricLevelSet } from "./MetricLevel";
+import { MetricDefinition } from "./MetricDefinition";
+import { MetricCatalogOptions } from "../MetricCatalog/MetricCatalogOptions";
 
 /** Default format options used for metrics that don't specify any. */
 const DEFAULT_FORMAT_OPTIONS: Intl.NumberFormatOptions = {
   maximumFractionDigits: 1,
 };
-
-/**
- * A set of parameters that define a given metric (name, data source, thresholds, etc.)
- *
- * All parameters are optional and should be omitted if default values are okay.
- *
- * The definition is specified using pure JSON types so that it could be read
- * from a file or CMS.
- */
-export interface MetricDefinition {
-  /** A unique ID that can be used to reference this metric (e.g. "cases_per_100k"). */
-  id: string;
-
-  /** Specifies how to fetch data for this metric.  See {@link MetricDataReference} and {@link MetricDataProvider} */
-  dataReference?: MetricDataReference;
-
-  /** The default user-facing display name of the metric (e.g. "Cases per 100k"). */
-  name?: string;
-
-  /**
-   * A longer name for the metric used when space is not a concern (e.g. "Cases
-   * per 100k population")
-   */
-  extendedName?: string;
-
-  /**
-   * Thresholds used for grading the metric. These correspond to the levels
-   * specified by {@link MetricDefinition.levelSetId } and there should be one
-   * fewer threshold than there are levels.
-   *
-   * Example:
-   * ```
-   *   // Assuming levels are [low, medium, high]
-   *   thresholds: [10, 20]
-   *   // then <=10 is low, 10.1-20 is medium, and >20 is high.
-   *
-   *   // Thresholds can be descending as well.
-   *   thresholds: [20, 10]
-   *   // then >=20 is low, 10-19.9 is medium, and <10 is high.
-   * ```
-   */
-  thresholds?: number[];
-
-  /**
-   * References a set of levels that this metric should use for grading (e.g.
-   * "default" or "vaccine-levels"). The available { @see MetricLevelSet }
-   * definitions are defined when constructing the {@link MetricCatalog}.
-   */
-  levelSetId?: string;
-
-  /**
-   * Specifies options used to format the metric value when it is displayed.
-   */
-  formatOptions?: Intl.NumberFormatOptions;
-
-  /**
-   * Arbitrary extra metadata related to the metric. This is not used by any
-   * bultin @actnowcoalition packages but can be used for custom application
-   * metadata that's useful to tie to the metric.
-   */
-  extra?: Record<string, unknown>;
-}
 
 /**
  * Represents something that can be measured, often over a period of time (to
@@ -114,15 +54,24 @@ export class Metric {
    * These are typically provided to the {@link MetricCatalog} when it is
    * constructed which passes them down to here constructing `Metric` objects.
    */
-  constructor(definition: MetricDefinition, levelSets?: MetricLevelSet[]) {
-    this.id = definition.id;
-    this.dataReference = definition.dataReference;
-    this.name = definition.name ?? `${this.id}`;
-    this.extendedName = definition.extendedName ?? this.name;
-    this.thresholds = definition.thresholds;
-    this.levelSetId = definition.levelSetId ?? "default";
+  constructor(
+    definition: MetricDefinition,
+    catalogOptions?: MetricCatalogOptions
+  ) {
+    const levelSets = catalogOptions?.metricLevelSets;
+    const metricDefaults = catalogOptions?.metricDefaults;
+
+    // Apply any metric defaults from the catalog.
+    const def = { ...metricDefaults, ...definition };
+
+    this.id = def.id;
+    this.dataReference = def.dataReference;
+    this.name = def.name ?? `${this.id}`;
+    this.extendedName = def.extendedName ?? this.name;
+    this.thresholds = def.thresholds;
+    this.levelSetId = def.levelSetId ?? "default";
     this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
-    this.formatOptions = definition.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
+    this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
 
     assert(
       this.thresholds === undefined ||

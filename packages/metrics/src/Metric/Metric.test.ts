@@ -1,4 +1,5 @@
 import { MetricDefinition } from "packages/metrics/dist/Metric/Metric";
+import { MetricCatalogOptions } from "../MetricCatalog/MetricCatalogOptions";
 import { Metric } from "./Metric";
 import { MetricLevelSet } from "./MetricLevel";
 
@@ -16,6 +17,10 @@ const testLevelSet: MetricLevelSet = {
   ],
 };
 
+const testCatalogOptions: MetricCatalogOptions = {
+  metricLevelSets: [testLevelSet],
+};
+
 // Example of a typical metric with mostly default options.
 const testMetricDef: MetricDefinition = {
   id: "cases",
@@ -24,21 +29,23 @@ const testMetricDef: MetricDefinition = {
 
 describe("Metric", () => {
   test("constructor smoke test", () => {
-    const metric = new Metric(testMetricDef, [testLevelSet]);
+    const metric = new Metric(testMetricDef, testCatalogOptions);
     expect(metric.id).toBe("cases");
     expect(metric.name).toBe("Cases per 100k");
   });
 
   test("constructor resolves levelSetId to correct levelSet", () => {
     const customLevelSet = { ...testLevelSet, id: "custom" };
-    const levelSets = [testLevelSet, customLevelSet];
+    const catalogOptions = {
+      metricLevelSets: [testLevelSet, customLevelSet],
+    };
 
-    const metric = new Metric(testMetricDef, levelSets);
+    const metric = new Metric(testMetricDef, catalogOptions);
     expect(metric.levelSet).toBe(testLevelSet);
 
     // Test with custom levelSetId.
     const metric2Def = { ...testMetricDef, levelSetId: "custom" };
-    const metric2 = new Metric(metric2Def, levelSets);
+    const metric2 = new Metric(metric2Def, catalogOptions);
     expect(metric2.levelSet).toBe(customLevelSet);
   });
 
@@ -48,7 +55,7 @@ describe("Metric", () => {
         ...testMetricDef,
         thresholds: [10, 20],
       },
-      [testLevelSet]
+      testCatalogOptions
     );
     expect(metric.getLevel(5).id).toBe("low");
     expect(metric.getLevel(15).id).toBe("medium");
@@ -65,7 +72,7 @@ describe("Metric", () => {
         ...testMetricDef,
         thresholds: [20, 10],
       },
-      [testLevelSet]
+      testCatalogOptions
     );
     expect(metric.getLevel(5).id).toBe("high");
     expect(metric.getLevel(15).id).toBe("medium");
