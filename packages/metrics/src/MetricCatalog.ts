@@ -8,7 +8,7 @@ import { assert } from "@actnowcoalition/assert";
 import { MetricData } from "./data/MetricData";
 import { MetricDataProvider } from "./data/MetricDataProvider";
 import { Metric, MetricDefinition } from "./Metric/Metric";
-import { MetricLevel } from "./Metric/MetricLevel";
+import { MetricLevelSet } from "./Metric/MetricLevel";
 import { MultiMetricDataStore } from "./data/MultiMetricDataStore";
 import { MultiRegionMultiMetricDataStore } from "./data/MultiRegionMultiMetricDataStore";
 
@@ -22,7 +22,7 @@ export interface MetricCatalogOptions {
   /**
    * Specifies sets of levels that can be used for metric grading. By default
    * metrics will use the "default" level set, but additional sets can be provided
-   * and referenced by metrics via their {@link MetricDefinition.levelSet} property.
+   * and referenced by metrics via their {@link MetricDefinition.levelSetId} property.
    *
    * @example
    * ```
@@ -42,7 +42,7 @@ export interface MetricCatalogOptions {
    * }
    * ```
    */
-  metricLevelSets?: { [name: string]: MetricLevel[] };
+  metricLevelSets?: MetricLevelSet[];
 }
 
 /**
@@ -70,7 +70,7 @@ export class MetricCatalog {
     options: MetricCatalogOptions = {}
   ) {
     const metricDefaults = options.metricDefaults || {};
-    const metricLevelSets = options.metricLevelSets || {};
+    const metricLevelSets = options.metricLevelSets || [];
     this.metrics = metrics.map(
       (metric) => new Metric({ ...metricDefaults, ...metric }, metricLevelSets)
     );

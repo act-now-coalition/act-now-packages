@@ -1,7 +1,11 @@
+import last from "lodash/last";
+import isEqual from "lodash/isEqual";
+
 import { assert } from "@actnowcoalition/assert";
-import { isNumber } from "lodash";
+import { isFinite } from "@actnowcoalition/number-format";
+
 import { MetricDataReference } from "./MetricDataReference";
-import { MetricLevel } from "./MetricLevel";
+import { MetricLevel, MetricLevelSet } from "./MetricLevel";
 
 /** Default format options used for metrics that don't specify any. */
 const DEFAULT_FORMAT_OPTIONS: Intl.NumberFormatOptions = {
@@ -34,7 +38,7 @@ export interface MetricDefinition {
 
   /**
    * Thresholds used for grading the metric. These correspond to the levels
-   * specified by {@link MetricDefinition.levelSet } and there should be one
+   * specified by {@link MetricDefinition.levelSetId } and there should be one
    * fewer threshold than there are levels.
    *
    * Example:
@@ -51,11 +55,11 @@ export interface MetricDefinition {
   thresholds?: number[];
 
   /**
-   * Specifies a set of levels that this metric can be graded as (e.g. "default"
-   * or "vaccine-levels").  These level sets can be specified when constructing the
-   * {@link MetricCatalog}.
+   * References a set of levels that this metric should use for grading (e.g.
+   * "default" or "vaccine-levels"). The available { @see MetricLevelSet }
+   * definitions are defined when constructing the {@link MetricCatalog}.
    */
-  levelSet?: string;
+  levelSetId?: string;
 
   /**
    * Specifies options used to format the metric value when it is displayed.
@@ -91,38 +95,62 @@ export class Metric {
   /** {@inheritDoc MetricDefinition.thresholds} */
   readonly thresholds?: number[];
   /** @inheritDoc MetricDefinition.levelSet */
-  readonly levelSet: string;
+  readonly levelSetId: string;
   /** {@inheritDoc MetricDefinition.formatOptions} */
   readonly formatOptions: Intl.NumberFormatOptions;
   /** {@inheritDoc MetricDefinition.extra} */
   readonly extra?: Record<string, unknown>;
 
-  private levels: MetricLevel[];
+  /**
+   * The set of levels this metric can be graded as. Populated from { @see
+   * MetricDefinition.lvelSet}.
+   */
+  readonly levelSet?: MetricLevelSet;
 
   /**
    * Constructs a Metric from the given definition and optional levelSets.
    * @param definition The JSON definition of the metric.
-   * @param levelSets Optional `MetricLevel` sets to be used for grading. These
-   * are typically provided to the {@link MetricCatalog} when it is constructed
-   * and passed down when constructing `Metric`s.
+   * @param levelSets Optional list of the available `MetricLevelSet` instances.
+   * These are typically provided to the {@link MetricCatalog} when it is
+   * constructed which passes them down to here constructing `Metric` objects.
    */
-  constructor(
-    definition: MetricDefinition,
-    levelSets?: { [name: string]: MetricLevel[] }
-  ) {
+  constructor(definition: MetricDefinition, levelSets?: MetricLevelSet[]) {
     this.id = definition.id;
     this.dataReference = definition.dataReference;
     this.name = definition.name ?? `${this.id}`;
     this.extendedName = definition.extendedName ?? this.name;
     this.thresholds = definition.thresholds;
-    this.levelSet = definition.levelSet ?? "default";
-    this.levels = levelSets?.[this.levelSet] ?? [];
+    this.levelSetId = definition.levelSetId ?? "default";
+    this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
     this.formatOptions = definition.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
 
     assert(
       this.thresholds === undefined ||
-        this.thresholds.length === this.levels.length - 1,
+        (this.levelSet &&
+          this.thresholds.length === this.levelSet.levels.length - 1),
       "There should be 1 fewer thresholds than levels."
+    );
+
+    if (this.thresholds) {
+      const sorted = this.thresholds.slice().sort();
+      const sortedReverse = sorted.slice().reverse();
+      assert(
+        isEqual(sorted, this.thresholds) ||
+          isEqual(this.thresholds, sortedReverse),
+        "Thresholds must be sorted ascending or descending."
+      );
+    }
+  }
+
+  /**
+   * Indicates if the thresholds used for grading this metric are descending
+   * (i.e. higher values ==> lower levels).
+   */
+  get areThresholdsDescending() {
+    return (
+      this.thresholds !== undefined &&
+      this.thresholds.length > 1 &&
+      this.thresholds[0] > this.thresholds[1]
     );
   }
 
@@ -133,9 +161,31 @@ export class Metric {
    * @param value The value to be graded.
    * @returns The level that the value falls into.
    */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getLevel(value: unknown): MetricLevel {
-    throw new Error("Not implemented");
+    assert(
+      this.levelSet !== undefined,
+      "No level set defined for this metric."
+    );
+    if (!this.thresholds || !isFinite(value)) {
+      return this.levelSet.defaultLevel;
+    }
+
+    // When grading we err on the side of a lower severity grade. So we use
+    // <= for descending thresholds and >= for ascending thresholds. We may
+    // need to make this configurable in the future.
+    const comparator = this.areThresholdsDescending
+      ? (a: number, b: number) => a >= b
+      : (a: number, b: number) => a <= b;
+
+    for (let i = 0; i < this.thresholds.length; i++) {
+      if (comparator(value, this.thresholds[i])) {
+        return this.levelSet.levels[i];
+      }
+    }
+
+    const lastLevel = last(this.levelSet.levels);
+    assert(lastLevel);
+    return lastLevel;
   }
 
   /**
@@ -146,7 +196,7 @@ export class Metric {
    * @returns The formatted value.
    */
   formatValue(value: unknown, nullValueCopy = ""): string {
-    if (!isNumber(value)) {
+    if (!isFinite(value)) {
       // TODO(michael): Pass string values through as-is?
       return nullValueCopy;
     }
@@ -162,7 +212,7 @@ export class Metric {
    */
   roundValue(value: unknown): number | null {
     // TODO(michael) Deal with non-number data?
-    if (!isNumber(value)) {
+    if (!isFinite(value)) {
       return null;
     }
 
