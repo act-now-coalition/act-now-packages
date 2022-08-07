@@ -5,7 +5,13 @@ import { MetricLevelSet } from "./MetricLevel";
 
 ///// Test data used within tests /////
 
-// Example of a typical MetricLevelSet with id "default" to be used by metrics
+// Example of a typical metric with mostly default options.
+const testMetricDef: MetricDefinition = {
+  id: "cases",
+  name: "Cases per 100k",
+};
+
+// Example of a typical MetricLevelSet with id "default", to be used by metrics
 // that don't specify a non-default one.
 const testLevelSet: MetricLevelSet = {
   id: "default",
@@ -17,14 +23,9 @@ const testLevelSet: MetricLevelSet = {
   ],
 };
 
+// Example of typical MetricCatalogOptions, including a default metric level set.
 const testCatalogOptions: MetricCatalogOptions = {
   metricLevelSets: [testLevelSet],
-};
-
-// Example of a typical metric with mostly default options.
-const testMetricDef: MetricDefinition = {
-  id: "cases",
-  name: "Cases per 100k",
 };
 
 describe("Metric", () => {
