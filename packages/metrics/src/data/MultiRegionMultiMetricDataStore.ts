@@ -25,6 +25,10 @@ interface metricDataJSON {
   };
 }
 
+export interface MultiRegionMultiMetricDataMap<T> {
+  [regionId: string]: MultiMetricDataStore<T>;
+}
+
 /**
  * A metric data store containing data for multiple regions and multiple metrics.
  *
@@ -33,9 +37,7 @@ interface metricDataJSON {
  */
 export class MultiRegionMultiMetricDataStore<T = unknown> {
   constructor(
-    private regionToMultiMetricDataStoreMap: {
-      [regionId: string]: MultiMetricDataStore<T>;
-    }
+    private regionToMultiMetricDataStoreMap: MultiRegionMultiMetricDataMap<T>
   ) {}
 
   regionData(region: Region): MultiMetricDataStore<T> {

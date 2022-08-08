@@ -14,13 +14,8 @@ import { MetricDefinition } from "../Metric/MetricDefinition";
 import { MetricCatalogOptions } from "./MetricCatalogOptions";
 import { SnapshotJSON } from "../data/MultiRegionMultiMetricDataStore";
 import { Timeseries } from "../Timeseries";
-
-interface MetricToDataMap {
-  [id: string]: MetricData;
-}
-interface MultiRegionMetricDataMap {
-  [regionId: string]: MultiMetricDataStore;
-}
+import { MetricToDataMap } from "../data/MultiMetricDataStore";
+import { MultiRegionMultiMetricDataMap } from "../data/MultiRegionMultiMetricDataStore";
 
 /**
  * Catalog of metrics and the accompanying data providers to fetch data for them.
@@ -134,13 +129,14 @@ export class MetricCatalog {
     useSnapshot = true
   ): Promise<MultiMetricDataStore> {
     if (this.snapshot !== undefined && useSnapshot) {
-      const dataMap: MetricToDataMap = {};
+      const dataMap: MetricToDataMap<unknown> = {};
       metrics.forEach(async (metric) => {
         metric = metric instanceof Metric ? metric : this.getMetric(metric);
         dataMap[metric.id] = await this.fetchData(
           region,
           metric,
-          includeTimeseries
+          includeTimeseries,
+          useSnapshot
         );
       });
       return new MultiMetricDataStore(region, dataMap);
@@ -164,13 +160,13 @@ export class MetricCatalog {
     useSnapshot = true
   ): Promise<MultiRegionMultiMetricDataStore> {
     if (this.snapshot !== undefined && useSnapshot) {
-      const dataMap: MultiRegionMetricDataMap = {};
+      const dataMap: MultiRegionMultiMetricDataMap<unknown> = {};
       regions.forEach(async (region) => {
         dataMap[region.regionId] = await this.fetchDataForMetrics(
           region,
           metrics,
           includeTimeseries,
-          true
+          useSnapshot
         );
       });
       return new MultiRegionMultiMetricDataStore(dataMap);
