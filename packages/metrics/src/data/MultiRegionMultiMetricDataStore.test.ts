@@ -2,7 +2,7 @@ import { StaticValueDataProvider } from "./StaticValueDataProvider";
 import { states } from "@actnowcoalition/regions";
 import { Metric } from "../Metric/Metric";
 
-describe("Static", () => {
+describe("MultiRegionMultiMetricDataStore", () => {
   test("smoke test", async () => {
     const metric = new Metric({
       id: "cases_per_100k",

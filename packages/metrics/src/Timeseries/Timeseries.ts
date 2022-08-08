@@ -276,12 +276,7 @@ export class Timeseries<T = unknown> {
    * @param jsonPoints Array of date and value JSON objects to construct timeseries from.
    * @returns
    */
-  static fromJSON(
-    jsonPoints: TimeseriesPointJSON[] | null
-  ): Timeseries<unknown> | undefined {
-    if (jsonPoints === null) {
-      return undefined;
-    }
+  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
     const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
       (point) => {
         return { date: new Date(point.date), value: point.value as unknown };

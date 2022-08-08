@@ -101,15 +101,17 @@ export class MetricCatalog {
     if (this.snapshot !== undefined && useSnapshot) {
       metric = metric instanceof Metric ? metric : this.getMetric(metric);
       const metricData = this.snapshot["data"][region.regionId][metric.id];
+      const timeseriesJSON = metricData["timeseries"]["points"];
       if (metricData !== undefined) {
-        const timeseries = Timeseries.fromJSON(
-          metricData["timeseries"]["points"]
-        );
+        const timeseries =
+          timeseriesJSON && includeTimeseries
+            ? Timeseries.fromJSON(timeseriesJSON)
+            : undefined;
         return new MetricData(
           metric,
           region,
           metricData["currentValue"],
-          includeTimeseries ? timeseries : undefined
+          timeseries
         );
       }
     }
