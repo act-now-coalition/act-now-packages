@@ -12,15 +12,17 @@ export { default as ProgressBar } from "./components/ProgressBar";
 export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
 
-// Material UI Theme extensions
-//
-// In order to use our extensions to the material UI theme in TypeScript code,
-// we must patch some material-ui interfaces since the allowed values for various
-// properties (e.g. the `variant` property on typography) are based on the
-// members of these interfaces.
-//
-// In order to make sure consumers of our package can use our theme extensions, we do
-// this in the index.ts file.
+/**
+ * Material UI Theme extensions
+ *
+ * In order to use our extensions to the material UI theme in TypeScript code,
+ * we must patch some material-ui interfaces since the allowed values for various
+ * properties (e.g. the `variant` property on typography) are based on the
+ * members of these interfaces.
+ *
+ * In order to make sure consumers of our package can use our theme extensions, we do
+ * this in the index.ts file.
+ */
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
