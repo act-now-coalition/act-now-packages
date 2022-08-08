@@ -17,10 +17,7 @@ describe("Static", () => {
       [metric],
       true
     );
-    console.log(
-      dataStore.regionData(states.findByRegionIdStrict("12")).metricData(metric)
-        .timeseries
-    );
-    console.log(JSON.stringify(dataStore.createSnapshot()));
+    dataStore.regionData(states.findByRegionIdStrict("12")).metricData(metric);
+    dataStore.createSnapshot();
   });
 });

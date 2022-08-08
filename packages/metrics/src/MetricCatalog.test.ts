@@ -16,7 +16,7 @@ describe("MetricCatalog", () => {
       metadata: { date: "2022-08-04" },
       data: {
         12: {
-          pi: {
+          "the-answer": {
             currentValue: 42,
             timeseries: {
               points: [{ date: "2022-08-04", value: 42 }],
@@ -51,6 +51,6 @@ describe("MetricCatalog", () => {
       undefined,
       snapshot
     );
-    catalog.fetchData(states.findByRegionIdStrict("12"), "pi");
+    catalog.fetchData(states.findByRegionIdStrict("12"), "the-answer");
   });
 });

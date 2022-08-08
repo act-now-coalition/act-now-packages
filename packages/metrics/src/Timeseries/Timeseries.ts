@@ -271,7 +271,12 @@ export class Timeseries<T = unknown> {
   }
 
   // TODO: make T not unknown
-  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
+  static fromJSON(
+    jsonPoints: TimeseriesPointJSON[] | null
+  ): Timeseries<unknown> | undefined {
+    if (jsonPoints === null) {
+      return undefined;
+    }
     const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
       (point) => {
         return { date: new Date(point.date), value: point.value as unknown };

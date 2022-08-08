@@ -57,7 +57,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
   }
 
   /**
-   * Preps the contents of the currentValues in this.data to be persisted to JSON file.
+   * Preps the contents of this.data to be persisted to JSON file.
    */
   createSnapshot(): SnapshotJSON {
     const metricDataStores = Object.values(

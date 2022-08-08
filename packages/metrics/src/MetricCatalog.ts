@@ -16,6 +16,13 @@ import {
 } from "./data/MultiRegionMultiMetricDataStore";
 import { Timeseries } from "./Timeseries";
 
+interface MetricToDataMap {
+  [id: string]: MetricData;
+}
+interface multiRegionMetricDataMap {
+  [regionId: string]: MultiMetricDataStore;
+}
+
 /**
  * Options that can be provided when creating a {@link MetricCatalog}.
  */
@@ -120,24 +127,26 @@ export class MetricCatalog {
    * @param region The region to get data for.
    * @param metric The metric to get data for as either a string or `Metric` object.
    * @param includeTimeseries Whether to fetch timeseries data or not.
+   * @param useSnapshot Whether to try to read metric data from this.snapshot if it exists.
    * @returns The metric data.
    */
   async fetchData(
     region: Region,
     metric: string | Metric,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    includeTimeseries = true
+    includeTimeseries = true,
+    useSnapshot = true
   ): Promise<MetricData> {
-    if (this.snapshot !== undefined) {
+    if (this.snapshot !== undefined && useSnapshot) {
       metric = metric instanceof Metric ? metric : this.getMetric(metric);
       const metricData = this.snapshot["data"][region.regionId][metric.id];
-      const timeseries = metricData["timeseries"]["points"] ?? undefined;
-      // console.log(timeseries)
+      const timeseries = Timeseries.fromJSON(
+        metricData["timeseries"]["points"]
+      );
       return new MetricData(
         metric,
         region,
         metricData["currentValue"],
-        timeseries ? Timeseries.fromJSON(timeseries) : undefined
+        includeTimeseries ? timeseries : undefined
       );
     }
     throw new Error("Not Implemented");
@@ -149,14 +158,27 @@ export class MetricCatalog {
    * @param region The region to get data for.
    * @param metrics The metrics to get data for as either strings or `Metric` objects.
    * @param includeTimeseries Whether to fetch timeseries data or not.
+   * @param useSnapshot Whether to try to read metric data from this.snapshot if it exists.
    * @returns The metric data.
    */
   async fetchDataForMetrics(
     region: Region,
     metrics: string[] | Metric[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    includeTimeseries = true
+    includeTimeseries = true,
+    useSnapshot = true
   ): Promise<MultiMetricDataStore> {
+    if (this.snapshot !== undefined && useSnapshot) {
+      const dataMap: MetricToDataMap = {};
+      metrics.forEach(async (metric) => {
+        metric = metric instanceof Metric ? metric : this.getMetric(metric);
+        dataMap[metric.id] = await this.fetchData(
+          region,
+          metric,
+          includeTimeseries
+        );
+      });
+      return new MultiMetricDataStore(region, dataMap);
+    }
     throw new Error("Not Implemented");
   }
 
@@ -166,14 +188,27 @@ export class MetricCatalog {
    * @param regions The regions to get data for.
    * @param metrics The metrics to get data for as either strings or `Metric` objects.
    * @param includeTimeseries Whether to fetch timeseries data or not.
+   * @param useSnapshot Whether to try to read metric data from this.snapshot if it exists.
    * @returns The metric data.
    */
   async fetchDataForMetricsAndRegions(
     regions: Region[],
     metrics: string[] | Metric[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    includeTimeseries = true
+    includeTimeseries = true,
+    useSnapshot = true
   ): Promise<MultiRegionMultiMetricDataStore> {
+    if (this.snapshot !== undefined && useSnapshot) {
+      const dataMap: multiRegionMetricDataMap = {};
+      regions.forEach(async (region) => {
+        dataMap[region.regionId] = await this.fetchDataForMetrics(
+          region,
+          metrics,
+          includeTimeseries,
+          true
+        );
+      });
+      return new MultiRegionMultiMetricDataStore(dataMap);
+    }
     throw new Error("Not Implemented");
   }
 
