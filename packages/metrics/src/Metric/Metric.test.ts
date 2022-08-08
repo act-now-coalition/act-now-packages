@@ -1,4 +1,4 @@
-import { MetricDefinition } from "./MetricDefinition";
+import { MetricDefinition } from "packages/metrics/src/Metric/MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog/MetricCatalogOptions";
 import { Metric } from "./Metric";
 import { MetricLevelSet } from "./MetricLevel";

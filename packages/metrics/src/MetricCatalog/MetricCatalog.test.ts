@@ -13,7 +13,7 @@ describe("MetricCatalog", () => {
     }
 
     const snapshot: SnapshotJSON = {
-      metadata: { date: "2022-08-04" },
+      metadata: { createdDate: "2022-08-04", latestDate: "2022-08-04" },
       data: {
         12: {
           "the-answer": {

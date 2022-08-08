@@ -133,4 +133,20 @@ describe("Timeseries", () => {
     test("startAfter / endBefore", () =>
       verifyRange({ startAfter: d(1), endBefore: d(2) }, []));
   });
+
+  test("toJSON() and fromJSON() preserve correct data.", () => {
+    const points = [
+      {
+        date: new Date("2001-03-04"),
+        value: 51,
+      },
+      {
+        date: new Date("2001-02-03"),
+        value: 23,
+      },
+    ];
+    const timeseries = new Timeseries(points);
+    const serialized = timeseries.toJSON();
+    expect(Timeseries.fromJSON(serialized)).toStrictEqual(timeseries);
+  });
 });

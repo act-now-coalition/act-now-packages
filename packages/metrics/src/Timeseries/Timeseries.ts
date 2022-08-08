@@ -270,7 +270,6 @@ export class Timeseries<T = unknown> {
     return date.toISOString().split("T")[0];
   }
 
-  // TODO: make T not unknown
   /**
    * Construct a Timeseries instance from JSON timeseries points.
    *

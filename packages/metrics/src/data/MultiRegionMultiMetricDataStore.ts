@@ -1,16 +1,16 @@
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
+import max from "lodash/max";
 import mapValues from "lodash/mapValues";
 import { MultiMetricDataStore } from "./MultiMetricDataStore";
 
-// TODO: Come up with better/more appropriate names
 export interface SnapshotJSON {
-  metadata: { date: string };
+  metadata: { createdDate: string; latestDate: string | null };
   data: RegionDataJSON;
 }
 
 export interface RegionDataJSON {
-  [regionFips: string]: metricValueJSON;
+  [regionFips: string]: metricDataJSON;
 }
 
 export interface TimeseriesPointJSON {
@@ -18,7 +18,7 @@ export interface TimeseriesPointJSON {
   value: unknown;
 }
 
-interface metricValueJSON {
+interface metricDataJSON {
   [metricName: string]: {
     currentValue: unknown;
     timeseries: { points: TimeseriesPointJSON[] | null };
@@ -64,13 +64,15 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
       this.regionToMultiMetricDataStoreMap
     );
     const records: RegionDataJSON = {};
-
+    const maxDates: (Date | undefined)[] = [];
     for (let i = 0; i < metricDataStores.length; i++) {
       const dataStore = metricDataStores[i];
       const regionFips = dataStore.region.regionId;
-      const metricJsons: metricValueJSON = {};
+      const metricJsons: metricDataJSON = {};
+
       Object.values(dataStore.metricToDataMap).forEach((metric) => {
         if (metric !== undefined) {
+          maxDates.push(metric.timeseries.maxDate());
           metricJsons[metric.metric.id] = {
             currentValue: metric.currentValue,
             timeseries: { points: metric.timeseries.toJSON() } ?? null,
@@ -81,7 +83,10 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     }
 
     return {
-      metadata: { date: new Date().toISOString() },
+      metadata: {
+        createdDate: new Date().toISOString(),
+        latestDate: max(maxDates)?.toISOString() ?? null,
+      },
       data: records,
     };
   }

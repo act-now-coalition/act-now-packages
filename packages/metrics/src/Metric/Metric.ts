@@ -3,7 +3,6 @@ import isEqual from "lodash/isEqual";
 
 import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "../../../number-format/src";
-
 import { MetricDataReference } from "./MetricDataReference";
 import { MetricLevel, MetricLevelSet } from "./MetricLevel";
 import { MetricDefinition } from "./MetricDefinition";

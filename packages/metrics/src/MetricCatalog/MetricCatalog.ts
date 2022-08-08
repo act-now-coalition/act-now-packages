@@ -18,7 +18,7 @@ import { Timeseries } from "../Timeseries";
 interface MetricToDataMap {
   [id: string]: MetricData;
 }
-interface multiRegionMetricDataMap {
+interface MultiRegionMetricDataMap {
   [regionId: string]: MultiMetricDataStore;
 }
 
@@ -101,15 +101,17 @@ export class MetricCatalog {
     if (this.snapshot !== undefined && useSnapshot) {
       metric = metric instanceof Metric ? metric : this.getMetric(metric);
       const metricData = this.snapshot["data"][region.regionId][metric.id];
-      const timeseries = Timeseries.fromJSON(
-        metricData["timeseries"]["points"]
-      );
-      return new MetricData(
-        metric,
-        region,
-        metricData["currentValue"],
-        includeTimeseries ? timeseries : undefined
-      );
+      if (metricData !== undefined) {
+        const timeseries = Timeseries.fromJSON(
+          metricData["timeseries"]["points"]
+        );
+        return new MetricData(
+          metric,
+          region,
+          metricData["currentValue"],
+          includeTimeseries ? timeseries : undefined
+        );
+      }
     }
     throw new Error("Not Implemented");
   }
@@ -160,7 +162,7 @@ export class MetricCatalog {
     useSnapshot = true
   ): Promise<MultiRegionMultiMetricDataStore> {
     if (this.snapshot !== undefined && useSnapshot) {
-      const dataMap: multiRegionMetricDataMap = {};
+      const dataMap: MultiRegionMetricDataMap = {};
       regions.forEach(async (region) => {
         dataMap[region.regionId] = await this.fetchDataForMetrics(
           region,
