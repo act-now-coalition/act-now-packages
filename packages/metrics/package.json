@@ -30,7 +30,6 @@
   "sideEffects": false,
   "dependencies": {
     "@actnowcoalition/assert": "^1.0.0",
-    "@actnowcoalition/number-format": "^1.0.1",
     "@actnowcoalition/regions": "^1.1.7",
     "lodash": "^4.17.21",
     "react": "^18.2.0"

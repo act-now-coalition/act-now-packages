@@ -7,11 +7,6 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-1.0.0.tgz#060686d3f81aefc5e2f23709c51d0236389104eb"
   integrity sha512-LVu0iIEnl2tfCFWuynm7pXX6jtLiiD3o3vV5mJSdnKONOsGAWs7CW15tMj30SUrLHLP3zhHFFpu9Y/hXL/Flig==
 
-"@actnowcoalition/number-format@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/number-format/-/number-format-1.0.1.tgz#6837cc19899a57bcf62964002aab3ee6766c4b93"
-  integrity sha512-5NEjI8BFCUMV2G2aCsMe+7fI1tB08jT9pVJz8b1fnzWTUdNEU8HqGmLj0GdikV4PbzMdqWLp4GBywC2OurqdAA==
-
 "@actnowcoalition/regions@^1.1.7":
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-1.1.7.tgz#bf8445f4ba06c8eeaed2f46a952f877d8f6b2c6e"
