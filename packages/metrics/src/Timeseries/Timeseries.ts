@@ -271,6 +271,12 @@ export class Timeseries<T = unknown> {
   }
 
   // TODO: make T not unknown
+  /**
+   * Construct a Timeseries instance from JSON timeseries points.
+   *
+   * @param jsonPoints Array of date and value JSON objects to construct timeseries from.
+   * @returns
+   */
   static fromJSON(
     jsonPoints: TimeseriesPointJSON[] | null
   ): Timeseries<unknown> | undefined {
@@ -285,10 +291,18 @@ export class Timeseries<T = unknown> {
     return new Timeseries<unknown>(timeseriesPoints);
   }
 
+  /**
+   * Convert Timeseries instance into serializable JSON format.
+   *
+   * @returns Array of date and value JSON objects containing data from this.points.
+   */
   toJSON(): TimeseriesPointJSON[] {
     const timeseriesPointJSONs: TimeseriesPointJSON[] = this.points.map(
       (point) => {
-        return { date: point.date.toISOString(), value: point.value };
+        return {
+          date: Timeseries.isoDateString(point.date),
+          value: point.value,
+        };
       }
     );
     return timeseriesPointJSONs;

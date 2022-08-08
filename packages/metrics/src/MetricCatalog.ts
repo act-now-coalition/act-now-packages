@@ -82,7 +82,7 @@ export class MetricCatalog {
     metrics: MetricDefinition[],
     dataProviders: MetricDataProvider[],
     options: MetricCatalogOptions = {},
-    snapshot?: SnapshotJSON | undefined
+    snapshot: SnapshotJSON | undefined
   ) {
     const metricDefaults = options.metricDefaults || {};
     const metricLevelSets = options.metricLevelSets || {};
@@ -104,7 +104,7 @@ export class MetricCatalog {
       ).join(", ")}`
     );
     this.metricDataProviders = dataProviders;
-    this.snapshot = snapshot ?? undefined;
+    this.snapshot = snapshot;
   }
 
   /**
