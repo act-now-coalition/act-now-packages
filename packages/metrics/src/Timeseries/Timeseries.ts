@@ -276,13 +276,11 @@ export class Timeseries<T = unknown> {
    * @param jsonPoints Array of date and value JSON objects to construct timeseries from.
    * @returns
    */
-  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
-    const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
-      (point) => {
-        return { date: new Date(point.date), value: point.value as unknown };
-      }
-    );
-    return new Timeseries<unknown>(timeseriesPoints);
+  static fromJSON<T>(jsonPoints: TimeseriesPointJSON[]): Timeseries<T> {
+    const timeseriesPoints: TimeseriesPoint<T>[] = jsonPoints.map((point) => {
+      return { date: new Date(point.date), value: point.value as T };
+    });
+    return new Timeseries<T>(timeseriesPoints);
   }
 
   /**
