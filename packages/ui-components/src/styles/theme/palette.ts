@@ -50,7 +50,7 @@ const palette = {
     white: "white",
   },
   success: {
-    main: colors.severity[100], // severity100
+    main: colors.severity[100],
   },
   text: {
     primary: colors.text.default,
