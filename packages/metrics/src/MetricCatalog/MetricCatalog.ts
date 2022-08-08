@@ -5,55 +5,21 @@ import uniq from "lodash/uniq";
 import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 
-import { MetricData } from "./data/MetricData";
-import { MetricDataProvider } from "./data/MetricDataProvider";
-import { Metric, MetricDefinition } from "./Metric/Metric";
-import { MetricLevel } from "./Metric/MetricLevel";
-import { MultiMetricDataStore } from "./data/MultiMetricDataStore";
-import {
-  MultiRegionMultiMetricDataStore,
-  SnapshotJSON,
-} from "./data/MultiRegionMultiMetricDataStore";
-import { Timeseries } from "./Timeseries";
+import { MetricData } from "../data/MetricData";
+import { MetricDataProvider } from "../data/MetricDataProvider";
+import { Metric } from "../Metric/Metric";
+import { MultiMetricDataStore } from "../data/MultiMetricDataStore";
+import { MultiRegionMultiMetricDataStore } from "../data/MultiRegionMultiMetricDataStore";
+import { MetricDefinition } from "../Metric/MetricDefinition";
+import { MetricCatalogOptions } from "./MetricCatalogOptions";
+import { SnapshotJSON } from "../data/MultiRegionMultiMetricDataStore";
+import { Timeseries } from "../Timeseries";
 
 interface MetricToDataMap {
   [id: string]: MetricData;
 }
 interface multiRegionMetricDataMap {
   [regionId: string]: MultiMetricDataStore;
-}
-
-/**
- * Options that can be provided when creating a {@link MetricCatalog}.
- */
-export interface MetricCatalogOptions {
-  /** Default options used for all metrics in the catalog, e.g. formatting options. */
-  metricDefaults?: MetricDefinition;
-
-  /**
-   * Specifies sets of levels that can be used for metric grading. By default
-   * metrics will use the "default" level set, but additional sets can be provided
-   * and referenced by metrics via their {@link MetricDefinition.levelSet} property.
-   *
-   * @example
-   * ```
-   * {
-   *   "default": [
-   *     { id: "low", "name": "Low", "color": "green" },
-   *     { id: "medium", "name": "Medium", "color": "yellow" },
-   *     { id: "high", "name": "High", "color": "red" },
-   *     { id: "unknown", "name": "Unknown", "color": "grey", default: true }
-   *   ],
-   *   "vaccine-levels": [
-   *     { id: "low", "name": "Low", "color": "lightblue" },
-   *     { id: "medium", "name": "Medium", "color": "blue" },
-   *     { id: "high", "name": "High", "color": "darkblue" },
-   *     { id: "unknown", "name": "Unknown", "color": "grey", default: true }
-   *   ]
-   * }
-   * ```
-   */
-  metricLevelSets?: { [name: string]: MetricLevel[] };
 }
 
 /**
@@ -84,11 +50,7 @@ export class MetricCatalog {
     options: MetricCatalogOptions = {},
     snapshot: SnapshotJSON | undefined
   ) {
-    const metricDefaults = options.metricDefaults || {};
-    const metricLevelSets = options.metricLevelSets || {};
-    this.metrics = metrics.map(
-      (metric) => new Metric({ ...metricDefaults, ...metric }, metricLevelSets)
-    );
+    this.metrics = metrics.map((metric) => new Metric({ ...metric }, options));
     this.metricsById = keyBy(this.metrics, "id");
 
     const referencedDataProviderIds = metrics.map(

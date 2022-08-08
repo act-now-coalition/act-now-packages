@@ -1,7 +1,6 @@
 import { MetricCatalog } from "./MetricCatalog";
-import { StaticValueDataProvider } from "./data/StaticValueDataProvider";
-import { SnapshotJSON } from "./data/MultiRegionMultiMetricDataStore";
-import { states } from "@actnowcoalition/regions";
+import { StaticValueDataProvider } from "../data/StaticValueDataProvider";
+import { SnapshotJSON } from "../data/MultiRegionMultiMetricDataStore";
 
 describe("MetricCatalog", () => {
   test("smoke test", () => {

@@ -1,5 +1,5 @@
 import { assert } from "@actnowcoalition/assert";
-import isFinite from "lodash/isFinite";
+import { isFinite } from "@actnowcoalition/number-format";
 import isNil from "lodash/isNil";
 import first from "lodash/first";
 import last from "lodash/last";
