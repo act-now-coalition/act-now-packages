@@ -2,8 +2,6 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { Square } from "./LegendCategorical.style";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "../../styles";
 
 export interface LegendCategoricalProps<T> {
   /** Array of items representing legend items */
@@ -31,27 +29,21 @@ const LegendCategorical = <T,>({
   const desktopLegendOrientation = horizontal ? "row" : "column";
   const desktopLegendSpacing = horizontal ? 2.5 : 1.5;
   return (
-    <ThemeProvider theme={theme}>
-      <Stack
-        direction={{ xs: "column", md: desktopLegendOrientation }}
-        spacing={{ xs: 1.5, md: desktopLegendSpacing }}
-      >
-        {items.map((item: T, itemIndex: number) => {
-          return (
-            <Stack
-              direction="row"
-              alignItems="center"
-              key={`item-${itemIndex}`}
-            >
-              <Square color={getItemColor(item, itemIndex)} />
-              <Typography variant="paragraphSmall">
-                {getItemLabel(item, itemIndex)}
-              </Typography>
-            </Stack>
-          );
-        })}
-      </Stack>
-    </ThemeProvider>
+    <Stack
+      direction={{ xs: "column", md: desktopLegendOrientation }}
+      spacing={{ xs: 1.5, md: desktopLegendSpacing }}
+    >
+      {items.map((item: T, itemIndex: number) => {
+        return (
+          <Stack direction="row" alignItems="center" key={`item-${itemIndex}`}>
+            <Square color={getItemColor(item, itemIndex)} />
+            <Typography variant="paragraphSmall">
+              {getItemLabel(item, itemIndex)}
+            </Typography>
+          </Stack>
+        );
+      })}
+    </Stack>
   );
 };
 

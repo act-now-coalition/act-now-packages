@@ -43,6 +43,7 @@ const palette = {
     light: colors.text.deemphasized,
     main: colors.text.default,
     dark: colors.text.emphasized,
+    contrastText: colors.text.light,
   },
   common: {
     black: "black",
@@ -53,9 +54,7 @@ const palette = {
   },
   text: {
     primary: colors.text.default,
-    secondary: colors.text.emphasized,
-    secondaryLight: colors.text.deemphasized,
-    light: colors.text.light,
+    secondary: colors.text.deemphasized,
   },
   severity: {
     100: colors.severity[100],

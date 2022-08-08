@@ -1,17 +1,5 @@
-import { TypographyOptions } from "@mui/material/styles/createTypography";
 import palette from "./palette";
-
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    paragraphSmall: true;
-    paragraphLarge: true;
-  }
-}
-
-interface ExtendedTypographyOptions extends TypographyOptions {
-  paragraphSmall: React.CSSProperties;
-  paragraphLarge: React.CSSProperties;
-}
+import { ExtendedTypographyOptions } from "./interfaces";
 
 const typographyConstants = {
   fontFamily: "Arial",
@@ -34,7 +22,7 @@ const typography: ExtendedTypographyOptions = {
     fontFamily: typographyConstants.fontFamily,
     fontSize: typographyConstants.fontSizePSmall,
     lineHeight: typographyConstants.lineHeightSmall,
-    color: palette.text.secondaryLight,
+    color: palette.secondary.contrastText,
   },
   paragraphLarge: {
     fontFamily: typographyConstants.fontFamily,
