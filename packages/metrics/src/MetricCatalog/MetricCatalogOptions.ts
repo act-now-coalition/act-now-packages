@@ -1,3 +1,4 @@
+import { SnapshotJSON } from "../data/MultiRegionMultiMetricDataStore";
 import { MetricDefinition } from "../Metric/MetricDefinition";
 import { MetricLevelSet } from "../Metric/MetricLevel";
 
@@ -33,4 +34,10 @@ export interface MetricCatalogOptions {
    * ```
    */
   metricLevelSets?: MetricLevelSet[];
+
+  /**
+   * @param snapshot JSON cache file to read metrics from instead of
+   * using DataProviders.
+   */
+  snapshot?: SnapshotJSON;
 }

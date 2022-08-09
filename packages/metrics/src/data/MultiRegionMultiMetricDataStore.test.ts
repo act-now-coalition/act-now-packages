@@ -1,23 +1,51 @@
 import { StaticValueDataProvider } from "./StaticValueDataProvider";
 import { states } from "@actnowcoalition/regions";
 import { Metric } from "../Metric/Metric";
+import { MultiRegionMultiMetricDataStore } from "./MultiRegionMultiMetricDataStore";
 
 describe("MultiRegionMultiMetricDataStore", () => {
-  test("smoke test", async () => {
-    const metric = new Metric({
-      id: "cases_per_100k",
-      dataReference: {
-        providerId: "static-value",
-        value: 42,
-      },
-    });
-    const provider = new StaticValueDataProvider();
+  const region = states.findByRegionIdStrict("12");
+  const metric = new Metric({
+    id: "cases_per_100k",
+    dataReference: {
+      providerId: "static-value",
+      value: 42,
+    },
+  });
+  const provider = new StaticValueDataProvider();
+
+  test("toSnapshot() and fromSnapshot() have correct forms.", async () => {
     const dataStore = await provider.fetchData(
-      [states.findByRegionIdStrict("12")],
+      [region],
       [metric],
-      true
+      /*useSnapshot=*/ true
     );
-    dataStore.regionData(states.findByRegionIdStrict("12")).metricData(metric);
-    dataStore.createSnapshot();
+    const expectedSnapshot = {
+      metadata: {
+        createdDate: new Date().toISOString().split("T")[0],
+        latestDate: "2022-01-02T00:00:00.000Z",
+      },
+      data: {
+        "12": {
+          cases_per_100k: {
+            currentValue: 42,
+            timeseriesPoints: [
+              {
+                date: "2022-01-02",
+                value: 42,
+              },
+            ],
+          },
+        },
+      },
+    };
+    expect(
+      MultiRegionMultiMetricDataStore.fromSnapshot(
+        expectedSnapshot,
+        [region],
+        [metric]
+      )
+    ).toEqual(dataStore);
+    expect(dataStore.toSnapshot()).toEqual(expectedSnapshot);
   });
 });

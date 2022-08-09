@@ -5,7 +5,12 @@ import first from "lodash/first";
 import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
-import { TimeseriesPointJSON } from "../data/MultiRegionMultiMetricDataStore";
+
+/**A single, serialized point in a timeseries containing a date-string and a value. */
+export interface TimeseriesPointJSON {
+  date: string;
+  value: unknown;
+}
 
 /**
  * A single point in a timeseries containing a date (which must not contain a
@@ -273,20 +278,22 @@ export class Timeseries<T = unknown> {
   /**
    * Construct a Timeseries instance from JSON timeseries points.
    *
-   * @param jsonPoints Array of date and value JSON objects to construct timeseries from.
-   * @returns
+   * @param jsonPoints Serialized timeseries points from which to construct a Timeseries.
+   * @returns The constructed timeseries.
    */
-  static fromJSON<T>(jsonPoints: TimeseriesPointJSON[]): Timeseries<T> {
-    const timeseriesPoints: TimeseriesPoint<T>[] = jsonPoints.map((point) => {
-      return { date: new Date(point.date), value: point.value as T };
-    });
-    return new Timeseries<T>(timeseriesPoints);
+  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
+    const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
+      (point) => {
+        return { date: new Date(point.date), value: point.value as unknown };
+      }
+    );
+    return new Timeseries<unknown>(timeseriesPoints);
   }
 
   /**
-   * Convert Timeseries instance into serializable JSON format.
+   * Convert Timeseries instance into serialized JSON format.
    *
-   * @returns Array of date and value JSON objects containing data from this.points.
+   * @returns Timeseries points serialized as JSON.
    */
   toJSON(): TimeseriesPointJSON[] {
     const timeseriesPointJSONs: TimeseriesPointJSON[] = this.points.map(

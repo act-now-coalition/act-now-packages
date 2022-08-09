@@ -1,8 +1,10 @@
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import max from "lodash/max";
 import mapValues from "lodash/mapValues";
-import { MultiMetricDataStore } from "./MultiMetricDataStore";
+import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
+import { Timeseries, TimeseriesPointJSON } from "../Timeseries/Timeseries";
+import { MetricData } from "./MetricData";
+import { Metric } from "../Metric/Metric";
 
 export interface SnapshotJSON {
   metadata: { createdDate: string; latestDate: string | null };
@@ -10,18 +12,13 @@ export interface SnapshotJSON {
 }
 
 export interface RegionDataJSON {
-  [regionFips: string]: metricDataJSON;
+  [regionId: string]: MetricDataJSON;
 }
 
-export interface TimeseriesPointJSON {
-  date: string;
-  value: unknown;
-}
-
-interface metricDataJSON {
+interface MetricDataJSON {
   [metricName: string]: {
     currentValue: unknown;
-    timeseries: { points: TimeseriesPointJSON[] | null };
+    timeseriesPoints?: TimeseriesPointJSON[];
   };
 }
 
@@ -61,35 +58,89 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
   /**
    * Preps the contents of this.data to be persisted to JSON file.
    */
-  createSnapshot(): SnapshotJSON {
+  toSnapshot(): SnapshotJSON {
     const metricDataStores = Object.values(
       this.regionToMultiMetricDataStoreMap
     );
     const records: RegionDataJSON = {};
-    const maxDates: (Date | undefined)[] = [];
-    for (let i = 0; i < metricDataStores.length; i++) {
-      const dataStore = metricDataStores[i];
-      const regionFips = dataStore.region.regionId;
-      const metricJsons: metricDataJSON = {};
+    let maxDate = new Date(0); // TODO: fix this (make it the first date in the dataStore?)
+    Object.values(metricDataStores).forEach((dataStore) => {
+      const regionId = dataStore.region.regionId;
+      const metricDataJsons: MetricDataJSON = {};
 
-      Object.values(dataStore.metricToDataMap).forEach((metric) => {
-        if (metric !== undefined) {
-          maxDates.push(metric.timeseries.maxDate());
-          metricJsons[metric.metric.id] = {
-            currentValue: metric.currentValue,
-            timeseries: { points: metric.timeseries.toJSON() } ?? null,
-          };
+      Object.values(dataStore.metricToDataMap).forEach((metricData) => {
+        const timeseries = metricData.hasTimeseries()
+          ? metricData.timeseries
+          : undefined;
+        if (timeseries?.hasData()) {
+          maxDate =
+            timeseries.maxDate() > maxDate ? timeseries.maxDate() : maxDate;
         }
+        metricDataJsons[metricData.metric.id] = {
+          currentValue: metricData.currentValue,
+          timeseriesPoints: timeseries?.toJSON(),
+        };
       });
-      records[regionFips] = metricJsons;
-    }
+      records[regionId] = metricDataJsons;
+    });
 
     return {
       metadata: {
-        createdDate: new Date().toISOString(),
-        latestDate: max(maxDates)?.toISOString() ?? null,
+        createdDate: new Date().toISOString().split("T")[0],
+        latestDate: maxDate?.toISOString(),
       },
       data: records,
     };
+  }
+
+  /**
+   * Creates a class instance from a snapshot for specified regions and metrics.
+   *
+   * @param snapshotJSON An output of this.toSnapshot() to deserialize.
+   * @param regions Regions to include.
+   * @param metrics Metrics to read from snapshotJSON.
+   * @returns MultiRegionMultiMetricDataStore deserialized from snapshotJSON.
+   */
+  static fromSnapshot(
+    snapshotJSON: SnapshotJSON,
+    regions: Region[],
+    metrics: Metric[]
+  ): MultiRegionMultiMetricDataStore {
+    const multiRegionMultiMetricDataMap: {
+      [regionId: string]: MultiMetricDataStore<unknown>;
+    } = {};
+    regions.forEach((region) => {
+      const regionMetricDataJson = snapshotJSON.data[region.regionId];
+      if (regionMetricDataJson === undefined) {
+        console.warn(
+          `Expected data for region ${region.regionId} not found. Skipping...`
+        );
+        return;
+      }
+      const regionMetricDataMap: MetricToDataMap<unknown> = {};
+      metrics.forEach((metric) => {
+        const metricDataJSON = regionMetricDataJson[metric.id];
+        if (metricDataJSON === undefined) {
+          console.warn(
+            `Expected data for metric ${metric.id} for region ${region.regionId} not found. Skipping...`
+          );
+          return;
+        }
+        regionMetricDataMap[metric.id] = new MetricData(
+          metric,
+          region,
+          metricDataJSON.currentValue as unknown,
+          metricDataJSON.timeseriesPoints
+            ? Timeseries.fromJSON(metricDataJSON.timeseriesPoints)
+            : undefined
+        );
+      });
+      const multiMetricDataStore = new MultiMetricDataStore(
+        region,
+        regionMetricDataMap
+      );
+      multiRegionMultiMetricDataMap[region.regionId] = multiMetricDataStore;
+    });
+    return new MultiRegionMultiMetricDataStore(multiRegionMultiMetricDataMap);
   }
 }
