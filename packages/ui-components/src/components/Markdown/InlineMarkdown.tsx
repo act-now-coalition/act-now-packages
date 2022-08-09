@@ -11,13 +11,18 @@ const customComponents = {
 
 const InlineMarkdown: React.FC<ReactMarkdownOptions> = ({
   children,
+  className,
   ...otherProps
 }) => (
   // If we pass `className` directly to `ReactMarkdown` it'll wrap the rendered
   // markdown in a div which we don't want, so we create our own wrapper span
   // instead.
-  <span className={otherProps.className}>
-    <MarkdownBody remarkPlugins={[remarkGfm]} components={customComponents}>
+  <span className={className}>
+    <MarkdownBody
+      remarkPlugins={[remarkGfm]}
+      components={customComponents}
+      {...otherProps}
+    >
       {children}
     </MarkdownBody>
   </span>
