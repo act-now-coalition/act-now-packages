@@ -43,6 +43,21 @@ describe("Timeseries", () => {
     expect(ts.points).toEqual([points[1], points[0]]);
   });
 
+  test("fromDateRange()", () => {
+    const values = [1, 2, 3];
+    const ts = Timeseries.fromDateRange(
+      new Date("2021-01-01"),
+      new Date("2021-01-03"),
+      (date, i) => values[i]
+    );
+    expect(ts.dates().map((d) => d.toISOString())).toEqual([
+      "2021-01-01T00:00:00.000Z",
+      "2021-01-02T00:00:00.000Z",
+      "2021-01-03T00:00:00.000Z",
+    ]);
+    expect(ts.values()).toEqual(values);
+  });
+
   test("findNearestDate() finds nearest date", () => {
     const points = [
       {

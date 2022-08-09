@@ -139,7 +139,7 @@ export class MetricCatalog {
       (m) => m.dataReference?.providerId
     );
 
-    const metricData: {
+    const resultData: {
       [regionId: string]: { [metricId: string]: MetricData };
     } = {};
     for (const [providerId, metrics] of Object.entries(metricsByProvider)) {
@@ -148,18 +148,16 @@ export class MetricCatalog {
         (p) => p.id === providerId
       );
       assert(provider, `No data provider found for id ${providerId}`);
-      const multiRegionMultiMetricData = await provider.fetchData(
+      const fetchedData = await provider.fetchData(
         regions,
         metrics,
         includeTimeseries
       );
 
-      // Merge data into resultData.
-      for (const [regionId, regionData] of Object.entries(
-        multiRegionMultiMetricData.data
-      )) {
-        if (!metricData[regionId]) {
-          metricData[regionId] = {};
+      // Merge fetched data into resultData.
+      for (const [regionId, regionData] of Object.entries(fetchedData.data)) {
+        if (!resultData[regionId]) {
+          resultData[regionId] = {};
         }
         for (const [metricId, metricData] of Object.entries(
           regionData.data[regionId]
@@ -169,9 +167,9 @@ export class MetricCatalog {
       }
     }
 
-    // Convert metricData into a map of MultiMetricDataStores.
+    // Convert resultData into a map of MultiMetricDataStores.
     const result = fromPairs(
-      Object.entries(metricData).map(([regionId, data]) => [
+      Object.entries(resultData).map(([regionId, data]) => [
         regionId,
         new MultiMetricDataStore(regionsById[regionId], data),
       ])

@@ -1,10 +1,12 @@
-import { assert } from "@actnowcoalition/assert";
-import { isFinite } from "@actnowcoalition/number-format";
 import isNil from "lodash/isNil";
 import first from "lodash/first";
 import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
+
+import { assert } from "@actnowcoalition/assert";
+import { isFinite } from "@actnowcoalition/number-format";
+import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 
 /**
  * A single point in a timeseries containing a date (which must not contain a
@@ -46,6 +48,36 @@ export class Timeseries<T = unknown> {
     this.points = points
       .slice()
       .sort((a, b) => a.date.getTime() - b.date.getTime());
+  }
+
+  /**
+   * Static constructor to help create a timeseries from a range of dates.
+   *
+   * @param start The start date of the timeseries.
+   * @param end The end date of the timeseries.
+   * @param valueFn The function to call on each date to get a value for that point.
+   * @returns A new timeseries.
+   */
+  static fromDateRange<T>(
+    startDate: Date,
+    endDate: Date,
+    valueFn: (date: Date, index: number) => T
+  ): Timeseries<T> {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const points = [];
+    let index = 0;
+    const date = start;
+    while (date <= end) {
+      points.push({
+        // Clone the date since we're going to mutate it below.
+        date: new Date(date),
+        value: valueFn(date, index),
+      });
+      index++;
+      date.setDate(date.getDate() + 1);
+    }
+    return new Timeseries<T>(points);
   }
 
   /** The length of the timeseries. */
@@ -266,7 +298,7 @@ export class Timeseries<T = unknown> {
 
   private static isoDateString(date: Date): string {
     // Dates are guaranteed not to have a time component so we just return the ISO date.
-    return date.toISOString().split("T")[0];
+    return formatUTCDateTime(date, DateFormat.YYYY_MM_DD);
   }
 }
 
