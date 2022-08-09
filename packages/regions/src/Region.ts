@@ -47,11 +47,11 @@ export class Region {
    *
    * @example
    *
-   *   Region.toSlug("Río Grande")    // rio_grande
-   *   Region.toSlug("DeSoto County") // de_soto_county
+   *   Region.toSlug("Río Grande")    // rio-grande
+   *   Region.toSlug("DeSoto County") // de-soto-county
    */
   static toSlug(name: string): string {
-    return lowerCase(deburr(name)).split(" ").join("_");
+    return lowerCase(deburr(name)).split(" ").join("-");
   }
 
   /**
