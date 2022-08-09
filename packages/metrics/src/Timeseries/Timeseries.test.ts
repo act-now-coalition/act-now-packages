@@ -43,6 +43,27 @@ describe("Timeseries", () => {
     expect(ts.points).toEqual([points[1], points[0]]);
   });
 
+  test("fromDateRange() with iteratee", () => {
+    const startDate = new Date("2021-01-01");
+    const endDate = new Date("2021-01-03");
+    const expectedDates = [
+      "2021-01-01T00:00:00.000Z",
+      "2021-01-02T00:00:00.000Z",
+      "2021-01-03T00:00:00.000Z",
+    ];
+    const values = [1, 2, 3];
+
+    // using values array
+    let ts = Timeseries.fromDateRange(startDate, endDate, values);
+    expect(ts.dates.map((d) => d.toISOString())).toEqual(expectedDates);
+    expect(ts.values).toEqual(values);
+
+    // using value iteratee
+    ts = Timeseries.fromDateRange(startDate, endDate, (date, i) => values[i]);
+    expect(ts.dates.map((d) => d.toISOString())).toEqual(expectedDates);
+    expect(ts.values).toEqual(values);
+  });
+
   test("findNearestDate() finds nearest date", () => {
     const points = [
       {
@@ -91,7 +112,7 @@ describe("Timeseries", () => {
     ]);
     const tsWithoutNulls: Timeseries<number> = ts.removeNils();
     expect(tsWithoutNulls.length).toBe(3);
-    expect(tsWithoutNulls.values()).toEqual([1, 2, 3]);
+    expect(tsWithoutNulls.values).toEqual([1, 2, 3]);
   });
 
   test(`hasData() can be used as a type guard for NonEmptyTimeseries`, () => {
@@ -103,7 +124,7 @@ describe("Timeseries", () => {
       // NonEmptyTimeseries and last() and findNearestDate() should be
       // non-nullable, so TypeScript will let us access `.value` without a null
       // check.
-      console.log(ts.last().value);
+      console.log(ts.last.value);
       console.log(ts.findNearestDate(new Date()).value);
     }
   });
