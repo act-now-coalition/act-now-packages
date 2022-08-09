@@ -1,4 +1,4 @@
 import { styled } from "@mui/material";
-import theme from "./theme";
+import theme, { themeConfig } from "./theme";
 
-export { styled, theme };
+export { styled, theme, themeConfig };

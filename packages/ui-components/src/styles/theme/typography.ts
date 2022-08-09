@@ -22,7 +22,7 @@ const typography: ExtendedTypographyOptions = {
     fontFamily: typographyConstants.fontFamily,
     fontSize: typographyConstants.fontSizePSmall,
     lineHeight: typographyConstants.lineHeightSmall,
-    color: palette.secondary.contrastText,
+    color: palette.secondary.light,
   },
   paragraphLarge: {
     fontFamily: typographyConstants.fontFamily,
