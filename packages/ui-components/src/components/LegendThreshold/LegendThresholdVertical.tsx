@@ -1,0 +1,65 @@
+import React from "react";
+import { Group } from "@visx/group";
+import { scaleBand } from "@visx/scale";
+import uniqueId from "lodash/uniqueId";
+import { LegendThresholdProps } from ".";
+
+/**
+ * `LegendThreshold` represents a scale with thresholds that separate
+ * a set of levels. By default, the labels between each level are shown.
+ */
+const LegendThresholdVertical = <T,>({
+  height = 100,
+  width = 14.4,
+  borderRadius = 4,
+  items,
+  getItemColor,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getItemEndLabel,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  showLabels = true,
+  ...otherSvgProps
+}: LegendThresholdProps<T> &
+  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
+  const indexList = items.map((item, itemIndex) => itemIndex);
+  const scaleRect = scaleBand({ domain: indexList, range: [0, height] });
+  const rectHeight = scaleRect.bandwidth();
+
+  const clipPathId = uniqueId(`bars-clip-path-`);
+
+  return (
+    <svg width={width} height={height} {...otherSvgProps}>
+      <defs>
+        <clipPath id={clipPathId}>
+          <rect
+            x={0}
+            y={0}
+            width={width}
+            height={height}
+            rx={borderRadius}
+            ry={borderRadius}
+          />
+        </clipPath>
+      </defs>
+      <Group>
+        {items.map((item, itemIndex) => {
+          const y = scaleRect(itemIndex) ?? 0;
+          return (
+            <Group key={`item-${itemIndex}`}>
+              <rect
+                x={0}
+                y={y}
+                height={rectHeight}
+                width={width}
+                fill={getItemColor(item, itemIndex)}
+                clipPath={`url(#${clipPathId})`}
+              />
+            </Group>
+          );
+        })}
+      </Group>
+    </svg>
+  );
+};
+
+export default LegendThresholdVertical;

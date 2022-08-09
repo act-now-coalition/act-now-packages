@@ -4,7 +4,7 @@ import { Theme } from "@mui/material/styles";
 export * from "./styles"; // styled, theme
 
 /** UI Components and props */
-export { default as LegendThreshold } from "./components/LegendThreshold";
+export { default as LegendThresholdHorizontal } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
 export { default as LegendCategorical } from "./components/LegendCategorical";
 export type { LegendCategoricalProps } from "./components/LegendCategorical";

@@ -1,4 +1,4 @@
-import LegendThreshold, { LegendThresholdProps } from "./LegendThreshold";
+import LegendThreshold from "./LegendThreshold";
 
-export type { LegendThresholdProps };
+export type { LegendThresholdProps } from "./LegendThreshold";
 export default LegendThreshold;

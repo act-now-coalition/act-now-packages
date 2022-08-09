@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import LegendThreshold, { LegendThresholdProps } from "./LegendThreshold";
+import LegendThreshold from ".";
+import { LegendThresholdProps } from "./LegendThreshold";
 
 export default {
   title: "Components/LegendThreshold",
@@ -21,6 +22,9 @@ const height = 40;
 const barHeight = 20;
 const borderRadius = 4;
 
+const verticalWidth = 14.4;
+const verticalHeight = 60;
+
 const items: Item[] = [
   { label: "10", color: "#90BE6D" },
   { label: "20", color: "#F9C74F" },
@@ -36,9 +40,22 @@ const getItemEndLabel = (item: Item, itemIndex: number) => item.label;
 
 export const DefaultProps = Template.bind({});
 DefaultProps.args = {
+  orientation: "horizontal",
   height,
   width,
   barHeight,
+  borderRadius,
+  items,
+  getItemColor,
+  getItemEndLabel,
+};
+
+export const VerticalProps = Template.bind({});
+VerticalProps.args = {
+  orientation: "vertical",
+  height: verticalHeight,
+  width: verticalWidth,
+  barHeight: verticalHeight,
   borderRadius,
   items,
   getItemColor,
