@@ -1,7 +1,7 @@
 import { Theme } from "@mui/material/styles";
 
 /** Theme variables */
-export * from "./styles"; // styled, theme
+export { themeConfig } from "./styles";
 
 /** UI Components and props */
 export { default as LegendThreshold } from "./components/LegendThreshold";

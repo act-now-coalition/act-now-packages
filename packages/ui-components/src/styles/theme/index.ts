@@ -1,1 +1,1 @@
-export { default } from "./theme";
+export { default, themeConfig } from "./theme";
