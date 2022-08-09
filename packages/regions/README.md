@@ -38,7 +38,7 @@ console.log(washingtonState.contains(kingCountyWA))  // true
 Datasets contain pre-constructed lists of regions such as U.S. states, counties or metropolitan areas. The datasets are exported as instances of [`RegionDB`](src/RegionDB.ts), which
 contain the full list of regions and utility methods to find regions by ID, among others. Note that the `regionId` must be unique for each `RegionDB`.
 
-#### `Unites States`
+#### Unites States
 
 This dataset contains states, counties and [metropolitan areas](https://www.census.gov/topics/housing/housing-patterns/about/core-based-statistical-areas.html) in the U.S. We use [FIPS Codes](https://www.census.gov/library/reference/code-lists/ansi.html) as `regionId` for states, and we concatenate state and county FIPS codes to generate a unique 5-digit `regionId` for each county. We use 5-digit [core based statistical area (CBSA) codes](https://www.census.gov/geographies/reference-files/time-series/demo/metro-micro/delineation-files.html) as `regionId` for metro areas.
 
