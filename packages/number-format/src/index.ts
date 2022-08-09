@@ -145,3 +145,24 @@ function getOptionsFromPlacesOrOptions(
       }
     : { ...placesOrOptions, ...formattingStyleForOptions };
 }
+
+/**
+ * Type guard that checks if the provided value is a number.
+ *
+ * @param value Value to check.
+ * @returns True if the value is a number.
+ */
+export function isNumber(value: unknown): value is number {
+  return typeof value === "number";
+}
+
+/**
+ * Type guard that checks if the provided value is a number and
+ * is not NaN, Infinity or -Infinity.
+ *
+ * @param value Value to check.
+ * @returns True if the value is a number.
+ */
+export function isFinite(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value);
+}
