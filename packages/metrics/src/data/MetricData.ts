@@ -70,8 +70,9 @@ export class MetricData<T = unknown> {
    */
   assertFiniteNumbers(): MetricData<number> {
     assert(
-      this.currentValue === null ||
-        (typeof this.currentValue === "number" && isFinite(this.currentValue)),
+      this.currentValue !== null &&
+        typeof this.currentValue === "number" &&
+        isFinite(this.currentValue),
       `Value is not numeric: ${this.currentValue}`
     );
 

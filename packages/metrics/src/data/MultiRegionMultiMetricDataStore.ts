@@ -99,38 +99,36 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
    * @param snapshotJSON An output of this.toSnapshot() to deserialize.
    * @param regions Regions to include.
    * @param metrics Metrics to read from snapshotJSON.
+   * @param includeTimeseries Whether to include metric timeseries.
    * @returns MultiRegionMultiMetricDataStore deserialized from snapshotJSON.
    */
   static fromSnapshot(
     snapshotJSON: SnapshotJSON,
     regions: Region[],
-    metrics: Metric[]
+    metrics: Metric[],
+    includeTimeseries = true
   ): MultiRegionMultiMetricDataStore {
     const multiRegionMultiMetricDataMap: {
       [regionId: string]: MultiMetricDataStore<unknown>;
     } = {};
     regions.forEach((region) => {
       const regionMetricDataJson = snapshotJSON.data[region.regionId];
-      if (regionMetricDataJson === undefined) {
-        console.warn(
-          `Expected data for region ${region.regionId} not found. Skipping...`
-        );
-        return;
-      }
+      assert(
+        regionMetricDataJson,
+        `Expected data for region ${region.regionId} not found.`
+      );
       const regionMetricDataMap: MetricToDataMap<unknown> = {};
       metrics.forEach((metric) => {
         const metricDataJSON = regionMetricDataJson[metric.id];
-        if (metricDataJSON === undefined) {
-          console.warn(
-            `Expected data for metric ${metric.id} for region ${region.regionId} not found. Skipping...`
-          );
-          return;
-        }
+        assert(
+          metricDataJSON,
+          `Expected data for metric ${metric.id} for region ${region.regionId} not found.`
+        );
         regionMetricDataMap[metric.id] = new MetricData(
           metric,
           region,
           metricDataJSON.currentValue as unknown,
-          metricDataJSON.timeseriesPoints
+          metricDataJSON.timeseriesPoints && includeTimeseries
             ? Timeseries.fromJSON(metricDataJSON.timeseriesPoints)
             : undefined
         );
