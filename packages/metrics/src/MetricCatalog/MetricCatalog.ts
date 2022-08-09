@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import fromPairs from "lodash/fromPairs";
+import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
 import uniq from "lodash/uniq";
 
@@ -22,6 +24,9 @@ export class MetricCatalog {
 
   /** All metric data providers registered with the catalog. */
   readonly metricDataProviders: MetricDataProvider[];
+
+  /** Options associated with the MetricCatalog. */
+  readonly options: MetricCatalogOptions;
 
   private readonly metricsById: { [id: string]: Metric };
 
@@ -53,6 +58,7 @@ export class MetricCatalog {
       ).join(", ")}`
     );
     this.metricDataProviders = dataProviders;
+    this.options = options;
   }
 
   /**
@@ -80,10 +86,14 @@ export class MetricCatalog {
   async fetchData(
     region: Region,
     metric: string | Metric,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeTimeseries = true
   ): Promise<MetricData> {
-    throw new Error("Not Implemented");
+    const dataStore = await this.fetchDataForMetrics(
+      region,
+      [metric],
+      includeTimeseries
+    );
+    return dataStore.metricData(metric);
   }
 
   /**
@@ -96,11 +106,15 @@ export class MetricCatalog {
    */
   async fetchDataForMetrics(
     region: Region,
-    metrics: string[] | Metric[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    metrics: Array<string | Metric>,
     includeTimeseries = true
   ): Promise<MultiMetricDataStore> {
-    throw new Error("Not Implemented");
+    const dataStore = await this.fetchDataForMetricsAndRegions(
+      [region],
+      metrics,
+      includeTimeseries
+    );
+    return dataStore.regionData(region);
   }
 
   /**
@@ -113,11 +127,56 @@ export class MetricCatalog {
    */
   async fetchDataForMetricsAndRegions(
     regions: Region[],
-    metrics: string[] | Metric[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    metrics: Array<string | Metric>,
     includeTimeseries = true
   ): Promise<MultiRegionMultiMetricDataStore> {
-    throw new Error("Not Implemented");
+    const regionsById = keyBy(regions, (r) => r.regionId);
+    const resolvedMetrics = metrics.map((m) =>
+      typeof m === "string" ? this.getMetric(m) : m
+    );
+    const metricsByProvider = groupBy(
+      resolvedMetrics,
+      (m) => m.dataReference?.providerId
+    );
+
+    const metricData: {
+      [regionId: string]: { [metricId: string]: MetricData };
+    } = {};
+    for (const [providerId, metrics] of Object.entries(metricsByProvider)) {
+      // Fetch data from appropriate data provider.
+      const provider = this.metricDataProviders.find(
+        (p) => p.id === providerId
+      );
+      assert(provider, `No data provider found for id ${providerId}`);
+      const multiRegionMultiMetricData = await provider.fetchData(
+        regions,
+        metrics,
+        includeTimeseries
+      );
+
+      // Merge data into resultData.
+      for (const [regionId, regionData] of Object.entries(
+        multiRegionMultiMetricData.data
+      )) {
+        if (!metricData[regionId]) {
+          metricData[regionId] = {};
+        }
+        for (const [metricId, metricData] of Object.entries(
+          regionData.data[regionId]
+        )) {
+          metricData[regionId][metricId] = metricData;
+        }
+      }
+    }
+
+    // Convert metricData into a map of MultiMetricDataStores.
+    const result = fromPairs(
+      Object.entries(metricData).map(([regionId, data]) => [
+        regionId,
+        new MultiMetricDataStore(regionsById[regionId], data),
+      ])
+    );
+    return new MultiRegionMultiMetricDataStore(result);
   }
 
   /**

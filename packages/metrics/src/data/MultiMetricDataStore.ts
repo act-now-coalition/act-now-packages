@@ -16,7 +16,7 @@ export class MultiMetricDataStore<T = unknown> {
   constructor(
     /** The region for which we have stored metrics. */
     readonly region: Region,
-    private metricToDataMap: { [id: string]: MetricData<T> }
+    readonly data: { [id: string]: MetricData<T> }
   ) {}
 
   /**
@@ -27,7 +27,7 @@ export class MultiMetricDataStore<T = unknown> {
    */
   metricData(metric: string | Metric): MetricData<T> {
     const metricId = metric instanceof Metric ? metric.id : metric;
-    const data = this.metricToDataMap[metricId];
+    const data = this.data[metricId];
     assert(
       data,
       `No data for metric ${metricId}. Did you forget to specify it when you created the MetricDataStore?`
@@ -41,7 +41,7 @@ export class MultiMetricDataStore<T = unknown> {
    * @returns This `MultiMetricDataStore` cast to `MultiMetricDataStore<number>`.
    */
   assertFiniteNumbers(): MultiMetricDataStore<number> {
-    const metricToDataMap = mapValues(this.metricToDataMap, (data) =>
+    const metricToDataMap = mapValues(this.data, (data) =>
       data.assertFiniteNumbers()
     );
     return new MultiMetricDataStore(this.region, metricToDataMap);

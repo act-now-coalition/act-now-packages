@@ -11,14 +11,14 @@ import { MultiMetricDataStore } from "./MultiMetricDataStore";
  */
 export class MultiRegionMultiMetricDataStore<T = unknown> {
   constructor(
-    private regionToMultiMetricDataStoreMap: {
+    readonly data: {
       [regionId: string]: MultiMetricDataStore<T>;
     }
   ) {}
 
   regionData(region: Region): MultiMetricDataStore<T> {
     const regionId = region.regionId;
-    const multiMetricDataStore = this.regionToMultiMetricDataStoreMap[regionId];
+    const multiMetricDataStore = this.data[regionId];
     assert(
       multiMetricDataStore,
       `No data for region ${regionId}. Did you forget to include it when you created the MultiRegionMetricDataStore?`
@@ -28,7 +28,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
 
   assertFiniteNumbers(): MultiRegionMultiMetricDataStore<number> {
     const regionToMultiMetricDataStoreMap = mapValues(
-      this.regionToMultiMetricDataStoreMap,
+      this.data,
       (multiMetricDataStore) => multiMetricDataStore.assertFiniteNumbers()
     );
     return new MultiRegionMultiMetricDataStore(regionToMultiMetricDataStoreMap);
