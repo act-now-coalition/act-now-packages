@@ -23,7 +23,7 @@ describe("nations_db", () => {
     });
   });
 
-  test("findByIso3Code returns a country for valid ISO3 code", () => {
+  test("findByRegionIdStrict returns a country for valid ISO3 code", () => {
     const ireland = nations.findByRegionIdStrict("IRL");
     expect(ireland.toJSON()).toEqual(jsonIreland);
   });
