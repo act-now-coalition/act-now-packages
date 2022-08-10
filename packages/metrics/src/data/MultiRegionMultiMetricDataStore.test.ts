@@ -8,73 +8,72 @@ import {
 import { MultiMetricDataStore } from "./MultiMetricDataStore";
 import { MetricData } from "./MetricData";
 
-describe("MultiRegionMultiMetricDataStore", () => {
-  const region = states.findByRegionIdStrict("12");
-  const metric = new Metric({
-    id: "cases_per_100k",
-    dataReference: {
-      providerId: "static-value",
-      value: 42,
-    },
-  });
-  const provider = new StaticValueDataProvider();
-  const expectedSnapshot: SnapshotJSON = {
-    metadata: {
-      createdDate: new Date().toISOString().split("T")[0],
-      latestDate: "2022-01-02T00:00:00.000Z",
-    },
-    data: {
-      "12": {
-        cases_per_100k: {
-          currentValue: 42,
-          timeseriesPoints: [
-            {
-              date: "2022-01-02",
-              value: 42,
-            },
-          ],
-        },
+const TEST_REGION = states.findByRegionIdStrict("12");
+const TEST_METRIC = new Metric({
+  id: "cases_per_100k",
+  dataReference: {
+    providerId: "static-value",
+    value: 42,
+  },
+});
+const PROVIDER = new StaticValueDataProvider();
+// The snapshot JSON that corresponds to the data for `TEST_REGION` and `TEST_METRIC`.
+const TEST_SNAPSHOT: SnapshotJSON = {
+  metadata: {
+    createdDate: new Date().toISOString().split("T")[0],
+    latestDate: "2022-01-02T00:00:00.000Z",
+  },
+  data: {
+    "12": {
+      cases_per_100k: {
+        currentValue: 42,
+        timeseriesPoints: [
+          {
+            date: "2022-01-02",
+            value: 42,
+          },
+        ],
       },
     },
-  };
+  },
+};
 
+describe("MultiRegionMultiMetricDataStore", () => {
   test("toSnapshot() has correct form.", async () => {
-    const dataStore = await provider.fetchData(
-      [region],
-      [metric],
+    const dataStore = await PROVIDER.fetchData(
+      [TEST_REGION],
+      [TEST_METRIC],
       /*includeTimeseries=*/ true
     );
-    expect(dataStore.toSnapshot()).toEqual(expectedSnapshot);
+    expect(dataStore.toSnapshot()).toEqual(TEST_SNAPSHOT);
   });
 
   test("fromSnapshot() has correct forms.", async () => {
-    const dataStore = await provider.fetchData(
-      [region],
-      [metric],
+    const dataStore = await PROVIDER.fetchData(
+      [TEST_REGION],
+      [TEST_METRIC],
       /*includeTimeseries=*/ true
     );
     expect(
       MultiRegionMultiMetricDataStore.fromSnapshot(
-        expectedSnapshot,
-        [region],
-        [metric],
+        TEST_SNAPSHOT,
+        [TEST_REGION],
+        [TEST_METRIC],
         /*includeTimeseries*/ true
       )
     ).toEqual(dataStore);
 
-    expectedSnapshot.data[region.regionId][metric.id].timeseriesPoints =
-      undefined;
-    const dataStoreNoTs = await provider.fetchData(
-      [region],
-      [metric],
+    const dataStoreNoTs = await PROVIDER.fetchData(
+      [TEST_REGION],
+      [TEST_METRIC],
       /*includeTimeseries=*/ false
     );
     expect(
       MultiRegionMultiMetricDataStore.fromSnapshot(
-        expectedSnapshot,
-        [region],
-        [metric],
-        /*includeTimeseries*/ false
+        TEST_SNAPSHOT,
+        [TEST_REGION],
+        [TEST_METRIC],
+        /*includeTimeseries=*/ false
       )
     ).toEqual(dataStoreNoTs);
   });
@@ -82,18 +81,18 @@ describe("MultiRegionMultiMetricDataStore", () => {
   test("fromSnapshot() fails if data for region or metric is missing.", async () => {
     expect(() => {
       MultiRegionMultiMetricDataStore.fromSnapshot(
-        expectedSnapshot,
-        [region, states.findByRegionIdStrict("36")],
-        [metric],
-        /*includeTimeseries*/ false
+        TEST_SNAPSHOT,
+        [TEST_REGION, states.findByRegionIdStrict("36")],
+        [TEST_METRIC],
+        /*includeTimeseries=*/ false
       );
     }).toThrow();
     expect(() => {
       MultiRegionMultiMetricDataStore.fromSnapshot(
-        expectedSnapshot,
-        [region],
-        [metric, new Metric({ id: "something-really-cool" })],
-        /*includeTimeseries*/ false
+        TEST_SNAPSHOT,
+        [TEST_REGION],
+        [TEST_METRIC, new Metric({ id: "something-really-cool" })],
+        /*includeTimeseries=*/ false
       );
     }).toThrow();
   });
@@ -102,15 +101,14 @@ describe("MultiRegionMultiMetricDataStore", () => {
     const verifyValueThrowsError = (value: unknown) => {
       expect(() => {
         const data = new MultiRegionMultiMetricDataStore({
-          region: new MultiMetricDataStore(region, {
-            metric: new MetricData(metric, region, value),
+          region: new MultiMetricDataStore(TEST_REGION, {
+            metric: new MetricData(TEST_METRIC, TEST_REGION, value),
           }),
         });
         data.assertFiniteNumbers();
       }).toThrowError();
     };
     verifyValueThrowsError("string");
-    verifyValueThrowsError(null);
     verifyValueThrowsError(undefined);
     verifyValueThrowsError(new Date());
     verifyValueThrowsError(Number.NaN);
@@ -119,13 +117,14 @@ describe("MultiRegionMultiMetricDataStore", () => {
   test("assertFiniteNumbers() accepts numeric values", () => {
     const verifyValueIsValid = (value: number) => {
       expect(() => {
+        console.log("do i exist");
         const dataStore = new MultiRegionMultiMetricDataStore({
-          region: new MultiMetricDataStore(region, {
-            metric: new MetricData(metric, region, value),
+          region: new MultiMetricDataStore(TEST_REGION, {
+            metric: new MetricData(TEST_METRIC, TEST_REGION, value),
           }),
         });
         dataStore.assertFiniteNumbers();
-      }).toBeDefined();
+      }).not.toThrowError();
     };
     verifyValueIsValid(1);
     verifyValueIsValid(0);
@@ -136,15 +135,15 @@ describe("MultiRegionMultiMetricDataStore", () => {
   test("regionData() has correct form and throws error if region is missing.", () => {
     const missingRegion = states.findByRegionIdStrict("06");
     const errorMsg = `No data for region ${missingRegion.regionId}. Did you forget to include it when you created the MultiRegionMetricDataStore?`;
-    const multiMetricDataStore = new MultiMetricDataStore(region, {
-      metric: new MetricData(metric, region, 42),
+    const multiMetricDataStore = new MultiMetricDataStore(TEST_REGION, {
+      metric: new MetricData(TEST_METRIC, TEST_REGION, 42),
     });
     const multiRegionMultiMetricDataStore = new MultiRegionMultiMetricDataStore(
       {
-        [region.regionId]: multiMetricDataStore,
+        [TEST_REGION.regionId]: multiMetricDataStore,
       }
     );
-    expect(multiRegionMultiMetricDataStore.regionData(region)).toEqual(
+    expect(multiRegionMultiMetricDataStore.regionData(TEST_REGION)).toEqual(
       multiMetricDataStore
     );
     expect(() => {

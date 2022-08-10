@@ -50,14 +50,15 @@ describe("MetricCatalog", () => {
       metricCatalog.getMetric("nothing");
     }).toThrow(`No metric found with id nothing`);
   });
-  test("fetchDataForMetricsAndRegions() correctly reads from a snapshot.", () => {
-    return expect(
+
+  test("fetchDataForMetricsAndRegions() correctly reads from a snapshot.", async () => {
+    expect(
       // TODO: change to fetchData() when it gets implemented and rip out un-needed code above.
-      metricCatalog.fetchDataForMetricsAndRegions(
+      await metricCatalog.fetchDataForMetricsAndRegions(
         [region],
         [metric],
-        /*includeTimeseries*/ false
+        /*includeTimeseries=*/ false
       )
-    ).resolves.toEqual(multiRegionMultiMetricDataStore);
+    ).toEqual(multiRegionMultiMetricDataStore);
   });
 });

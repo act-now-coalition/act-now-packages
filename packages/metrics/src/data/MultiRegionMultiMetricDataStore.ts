@@ -56,15 +56,14 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
   }
 
   /**
-   * Preps the contents of this.data to be persisted to JSON file.
+   * Persists all data into a JSON-compatible snapshot object.
    */
   toSnapshot(): SnapshotJSON {
     const metricDataStores = Object.values(
       this.regionToMultiMetricDataStoreMap
     );
     const records: RegionDataJSON = {};
-    const minimumDate = new Date(-8640000000000000);
-    let maxDate = minimumDate; // This is hacky. Sets the "starting" as the lowest possible date.
+    let maxDate: Date | undefined;
     Object.values(metricDataStores).forEach((dataStore) => {
       const regionId = dataStore.region.regionId;
       const metricDataJsons: MetricDataJSON = {};
@@ -74,7 +73,9 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
           : undefined;
         if (timeseries?.hasData()) {
           maxDate =
-            timeseries.maxDate() > maxDate ? timeseries.maxDate() : maxDate;
+            !maxDate || timeseries.maxDate() > maxDate
+              ? timeseries.maxDate()
+              : maxDate;
         }
         metricDataJsons[metricData.metric.id] = {
           currentValue: metricData.currentValue,
@@ -87,7 +88,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     return {
       metadata: {
         createdDate: new Date().toISOString().split("T")[0],
-        latestDate: maxDate !== minimumDate ? maxDate.toISOString() : null,
+        latestDate: maxDate?.toISOString() ?? null,
       },
       data: records,
     };

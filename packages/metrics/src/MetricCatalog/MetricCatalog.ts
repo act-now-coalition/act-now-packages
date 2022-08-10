@@ -123,9 +123,9 @@ export class MetricCatalog {
     includeTimeseries = true
   ): Promise<MultiRegionMultiMetricDataStore> {
     if (this.snapshot !== undefined) {
-      metrics = metrics.map((metric) => {
-        return metric instanceof Metric ? metric : this.getMetric(metric);
-      });
+      metrics = metrics.map((metric) =>
+        metric instanceof Metric ? metric : this.getMetric(metric)
+      );
       return MultiRegionMultiMetricDataStore.fromSnapshot(
         this.snapshot,
         regions,

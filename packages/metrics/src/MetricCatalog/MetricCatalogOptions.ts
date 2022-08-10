@@ -35,9 +35,6 @@ export interface MetricCatalogOptions {
    */
   metricLevelSets?: MetricLevelSet[];
 
-  /**
-   * @param snapshot JSON cache file to read metrics from instead of
-   * using DataProviders.
-   */
+  /** JSON cache file to read metrics from instead of using DataProviders. */
   snapshot?: SnapshotJSON;
 }

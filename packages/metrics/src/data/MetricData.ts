@@ -66,13 +66,14 @@ export class MetricData<T = unknown> {
   /**
    * Ensures the metric data is numeric.
    *
+   * Null values are treated as finite and will not throw an error.
+   *
    * @returns This `MetricData` cast to `MetricData<number>`.
    */
   assertFiniteNumbers(): MetricData<number> {
     assert(
-      this.currentValue !== null &&
-        typeof this.currentValue === "number" &&
-        isFinite(this.currentValue),
+      this.currentValue === null ||
+        (typeof this.currentValue === "number" && isFinite(this.currentValue)),
       `Value is not numeric: ${this.currentValue}`
     );
 
