@@ -35,10 +35,12 @@
     "@storybook/manager-webpack4": "^6.5.10",
     "@storybook/react": "^6.5.10",
     "@storybook/testing-library": "^0.0.13",
+    "@visx/mock-data": "^2.1.2",
     "babel-loader": "^8.2.5",
     "typescript": "^4.6.4"
   },
   "dependencies": {
+    "@actnowcoalition/metrics": "^0.0.1",
     "@actnowcoalition/regions": "^1.1.6",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
@@ -46,6 +48,7 @@
     "@mui/material": "^5.9.1",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
+    "@visx/shape": "^2.12.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.3",

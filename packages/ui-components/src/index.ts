@@ -55,3 +55,5 @@ declare module "@mui/material/styles" {
     };
   }
 }
+
+export { default as LineChart } from "./components/LineChart";
