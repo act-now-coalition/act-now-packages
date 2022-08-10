@@ -17,13 +17,16 @@ const Template: Story<LegendThresholdProps<Item>> = (args) => (
   <LegendThreshold {...args} />
 );
 
-const width = 300;
-const height = 40;
-const barHeight = 20;
-const borderRadius = 4;
+// Horizontal legend threshold props
+const horizontalHeight = 40;
+const horizontalBarHeight = 20;
+const horizontalWidth = 300;
 
-const verticalWidth = 14.4;
-const verticalHeight = 60;
+// Vertical legend threshold props
+const verticalWidth = 20;
+const verticalHeight = 300;
+
+const borderRadius = 4;
 
 const items: Item[] = [
   { label: "10", color: "#90BE6D" },
@@ -38,51 +41,62 @@ const getItemColor = (item: Item, itemIndex: number) => item.color;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemEndLabel = (item: Item, itemIndex: number) => item.label;
 
-export const DefaultProps = Template.bind({});
-DefaultProps.args = {
+export const HorizontalDefault = Template.bind({});
+HorizontalDefault.args = {
   orientation: "horizontal",
-  height,
-  width,
-  barHeight,
+  height: horizontalHeight,
+  width: horizontalWidth,
+  barHeight: horizontalBarHeight,
   borderRadius,
   items,
   getItemColor,
   getItemEndLabel,
 };
 
-export const VerticalProps = Template.bind({});
-VerticalProps.args = {
+export const HorizontalWithoutLabels = Template.bind({});
+HorizontalWithoutLabels.args = {
+  ...HorizontalDefault.args,
+  height: horizontalBarHeight,
+  showLabels: false,
+};
+
+export const HorizontalRounded = Template.bind({});
+HorizontalRounded.args = {
+  ...HorizontalDefault.args,
+  height: horizontalBarHeight,
+  borderRadius: horizontalBarHeight / 2,
+  showLabels: false,
+};
+
+export const HorizontalSquared = Template.bind({});
+HorizontalSquared.args = {
+  ...HorizontalDefault.args,
+  borderRadius: 0,
+  showLabels: true,
+};
+
+export const VerticalDefault = Template.bind({});
+VerticalDefault.args = {
   orientation: "vertical",
   height: verticalHeight,
-  width: verticalWidth,
   barHeight: verticalHeight,
+  width: verticalWidth,
   borderRadius,
   items,
   getItemColor,
   getItemEndLabel,
 };
 
-export const WithLabels = Template.bind({});
-WithLabels.args = { ...DefaultProps.args };
-
-export const WithoutLabels = Template.bind({});
-WithoutLabels.args = {
-  ...DefaultProps.args,
-  height: barHeight,
+export const VerticalRounded = Template.bind({});
+VerticalRounded.args = {
+  ...VerticalDefault.args,
+  borderRadius: verticalWidth / 2,
   showLabels: false,
 };
 
-export const Rounded = Template.bind({});
-Rounded.args = {
-  ...DefaultProps.args,
-  height: barHeight,
-  borderRadius: barHeight / 2,
-  showLabels: false,
-};
-
-export const Squared = Template.bind({});
-Squared.args = {
-  ...DefaultProps.args,
+export const VerticalSquared = Template.bind({});
+VerticalSquared.args = {
+  ...VerticalDefault.args,
   borderRadius: 0,
   showLabels: true,
 };

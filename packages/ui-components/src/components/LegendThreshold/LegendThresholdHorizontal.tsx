@@ -11,8 +11,8 @@ import { LegendThresholdProps } from ".";
  */
 const LegendThresholdHorizontal = <T,>({
   height = 40,
-  barHeight = 30,
-  width = 80,
+  barHeight = 20,
+  width = 300,
   borderRadius,
   items,
   getItemColor,
@@ -35,6 +35,7 @@ const LegendThresholdHorizontal = <T,>({
       <defs>
         <clipPath id={clipPathId}>
           <rect
+            x={0}
             y={0}
             width={width}
             height={showLabels ? barHeight : height}
