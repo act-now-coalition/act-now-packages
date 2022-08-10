@@ -1,11 +1,9 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LineChart from ".";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { appleStock } from "@visx/mock-data";
-import { TimeseriesPoint } from "packages/metrics/dist";
-import { AppleStock } from "@visx/mock-data/lib/mocks/appleStock";
 
 export default {
   title: "Charts/LineChart",
@@ -22,7 +20,12 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
   </svg>
 );
 
-const formatPoint = (p: AppleStock): TimeseriesPoint<number> => ({
+interface AppleStockPoint {
+  date: string;
+  close: number;
+}
+
+const formatPoint = (p: AppleStockPoint): TimeseriesPoint<number> => ({
   date: new Date(`${p.date.substring(0, 10)}T00:00:00Z`),
   value: p.close,
 });
