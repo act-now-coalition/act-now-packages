@@ -8,7 +8,7 @@ import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 
 import { MetricData } from "../data/MetricData";
-import { MetricDataProvider } from "../data/MetricDataProvider";
+import { MetricDataProvider } from "../data_providers/MetricDataProvider";
 import { Metric } from "../Metric/Metric";
 import { MultiMetricDataStore } from "../data/MultiMetricDataStore";
 import { MultiRegionMultiMetricDataStore } from "../data/MultiRegionMultiMetricDataStore";

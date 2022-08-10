@@ -1,12 +1,17 @@
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
+
+import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { Metric } from "../Metric/Metric";
 import { Timeseries } from "../Timeseries";
-import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
-import { MetricData } from "./MetricData";
+import { MetricData } from "../data/MetricData";
 
-interface MockDataReferenceFields {
+/**
+ * Fields allowed in the { @see MetricDefinition.dataReference } of metrics using the
+ * "mock" data provider.
+ */
+export interface MockDataReferenceFields {
   minValue?: number;
   maxValue?: number;
   startDate?: string;
@@ -58,31 +63,17 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
       const dataLength = getTimeDiff(endDate, startDate, TimeUnit.DAYS) + 1;
       assert(dataLength >= 0, "endDate must be >= startDate.");
 
-      let timeseries: Timeseries<number> | undefined;
       let currentValue: number;
+      let timeseries: Timeseries<number> | undefined;
       if (includeTimeseries) {
-        // Generate timeseries data using a sine wave with random magnitude and phase.
-        const range = maxValue - minValue;
-        const midpoint = minValue + range / 2;
-        const magnitude = (range * Math.random()) / 2;
-        const phase = Math.random() * Math.PI * 2;
-        const radiansPerDay = (Math.PI * 2) / dataLength;
-
-        const values: number[] = [];
-        for (let i = 0; i < dataLength; i++) {
-          values[i] =
-            midpoint +
-            Math.sin(radiansPerDay * i + phase) * magnitude +
-            minValue;
-        }
-
-        timeseries = Timeseries.fromDateRange(
+        timeseries = mockTimeseries(
+          dataLength,
+          minValue,
+          maxValue,
           startDate,
-          endDate,
-          (date, i) => values[i]
+          endDate
         );
-
-        // Last value of timeseries should be current value.
+        // Use last value of timeseries as current value.
         assert(timeseries.hasData());
         currentValue = timeseries.last.value;
       } else {
@@ -100,4 +91,29 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
 
     return this.cachedData[cacheKey];
   }
+}
+
+/**
+ * Generates a timeseries using a sine wave with random magnitude and phase.
+ */
+function mockTimeseries(
+  dataLength: number,
+  minValue: number,
+  maxValue: number,
+  startDate: Date,
+  endDate: Date
+) {
+  const range = maxValue - minValue;
+  const midpoint = minValue + range / 2;
+  const magnitude = (range * Math.random()) / 2;
+  const phase = Math.random() * Math.PI * 2;
+  const radiansPerDay = (Math.PI * 2) / dataLength;
+
+  const values: number[] = [];
+  for (let i = 0; i < dataLength; i++) {
+    values[i] =
+      midpoint + Math.sin(radiansPerDay * i + phase) * magnitude + minValue;
+  }
+
+  return Timeseries.fromDateRange(startDate, endDate, (date, i) => values[i]);
 }

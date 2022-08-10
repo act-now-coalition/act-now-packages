@@ -1,6 +1,7 @@
 import { Region } from "@actnowcoalition/regions";
+
 import { Metric } from "../Metric/Metric";
-import { MultiRegionMultiMetricDataStore } from "./MultiRegionMultiMetricDataStore";
+import { MultiRegionMultiMetricDataStore } from "../data/MultiRegionMultiMetricDataStore";
 
 /**
  * Base class for metric data providers.

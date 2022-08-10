@@ -1,9 +1,10 @@
-import { Region } from "packages/regions/dist";
-import { Metric } from "../Metric/Metric";
-import { MetricData } from "./MetricData";
+import { Region } from "@actnowcoalition/regions";
+
 import { MetricDataProvider } from "./MetricDataProvider";
-import { MultiMetricDataStore } from "./MultiMetricDataStore";
-import { MultiRegionMultiMetricDataStore } from "./MultiRegionMultiMetricDataStore";
+import { Metric } from "../Metric/Metric";
+import { MetricData } from "../data/MetricData";
+import { MultiMetricDataStore } from "../data/MultiMetricDataStore";
+import { MultiRegionMultiMetricDataStore } from "../data/MultiRegionMultiMetricDataStore";
 
 /**
  * Base class to help implement a MetricDataProvider that caches data.  It doesn't

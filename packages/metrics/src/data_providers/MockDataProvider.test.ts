@@ -1,7 +1,8 @@
-import { MockDataProvider } from "./MockDataProvider";
+import { assert } from "@actnowcoalition/assert";
 import { states } from "@actnowcoalition/regions";
+
+import { MockDataProvider } from "./MockDataProvider";
 import { Metric } from "../Metric/Metric";
-import { assert } from "console";
 
 const testRegion = states.findByRegionIdStrict("53"); // Washington.
 

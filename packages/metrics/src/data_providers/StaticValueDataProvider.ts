@@ -3,7 +3,7 @@ import { assert } from "console";
 import { Metric } from "../Metric/Metric";
 import { Timeseries } from "../Timeseries";
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
-import { MetricData } from "./MetricData";
+import { MetricData } from "../data/MetricData";
 
 /**
  * Simple data provider that provides a static value for all regions. Mostly
