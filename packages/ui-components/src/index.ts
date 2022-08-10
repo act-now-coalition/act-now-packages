@@ -11,7 +11,9 @@ export type { LegendCategoricalProps } from "./components/LegendCategorical";
 export { default as ProgressBar } from "./components/ProgressBar";
 export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
-export { default as Markdown } from "./components/Markdown";
+
+// Note (8/10/22) - Markdown is causing a bug. Commenting it out until fixed.
+// export { default as Markdown } from "./components/Markdown";
 
 /**
  * Material UI Theme extensions
