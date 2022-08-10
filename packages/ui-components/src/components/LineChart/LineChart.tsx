@@ -4,7 +4,7 @@ import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 
-interface LineChartProps {
+export interface LineChartProps {
   timeseries: Timeseries<number>;
   xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
