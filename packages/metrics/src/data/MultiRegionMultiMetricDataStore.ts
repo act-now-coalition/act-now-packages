@@ -1,6 +1,8 @@
+import mapValues from "lodash/mapValues";
+
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import mapValues from "lodash/mapValues";
+
 import { Metric } from "../Metric/Metric";
 import { MetricData } from "./MetricData";
 import { MultiMetricDataStore } from "./MultiMetricDataStore";

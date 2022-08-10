@@ -1,8 +1,9 @@
+import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import { assert } from "console";
+
+import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { Metric } from "../Metric/Metric";
 import { Timeseries } from "../Timeseries";
-import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { MetricData } from "../data/MetricData";
 
 /**

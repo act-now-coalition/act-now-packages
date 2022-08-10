@@ -3,11 +3,20 @@
  *
  * When adding a new source for metric data you will implement a {@link
  * MetricDataProvider} that can do the actual fetching of data and then when you
- * define your metrics you'll create `MetricDataReference`s that reference that
+ * define your metrics you'll use `MetricDataReference`s that reference that
  * provider and identify the specific data being referenced (e.g. a csv column
  * or API path).
  *
- * TODO: Example.
+ * @example
+ * ```
+ * dataReference: {
+ *   providerId: "mock",
+ *   minValue: 0,
+ *   maxValue: 100,
+ *   startDate: "2022-01-02",
+ *   endDate: "2022-06-01",
+ * },
+ * ```
  */
 export interface MetricDataReference {
   /**

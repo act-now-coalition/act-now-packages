@@ -7,13 +7,13 @@ import uniq from "lodash/uniq";
 import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 
+import { MetricCatalogOptions } from "./MetricCatalogOptions";
 import { MetricData } from "../data/MetricData";
-import { MetricDataProvider } from "../data_providers/MetricDataProvider";
-import { Metric } from "../Metric/Metric";
 import { MultiMetricDataStore } from "../data/MultiMetricDataStore";
 import { MultiRegionMultiMetricDataStore } from "../data/MultiRegionMultiMetricDataStore";
+import { MetricDataProvider } from "../data_providers/MetricDataProvider";
+import { Metric } from "../Metric/Metric";
 import { MetricDefinition } from "../Metric/MetricDefinition";
-import { MetricCatalogOptions } from "./MetricCatalogOptions";
 
 /**
  * Catalog of metrics and the accompanying data providers to fetch data for them.
