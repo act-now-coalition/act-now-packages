@@ -51,18 +51,23 @@ export class Timeseries<T = unknown> {
   }
 
   /**
-   * Static constructor to help create a timeseries from a range of dates.
+   * Static constructor to help create a timeseries from a range of dates and
+   * some values.
    *
    * @param start The start date of the timeseries.
    * @param end The end date of the timeseries.
-   * @param valueFn The function to call on each date to get a value for that point.
+   * @param valueProvider An array of values or iteratee function that returns
+   * values for the dates in the date range.
    * @returns A new timeseries.
    */
   static fromDateRange<T>(
     startDate: Date,
     endDate: Date,
-    valueFn: (date: Date, index: number) => T
+    valueProvider: T[] | ((date: Date, index: number) => T)
   ): Timeseries<T> {
+    const valueFn = Array.isArray(valueProvider)
+      ? (date: Date, index: number) => valueProvider[index]
+      : valueProvider;
     const start = new Date(startDate);
     const end = new Date(endDate);
     const points = [];
@@ -75,7 +80,7 @@ export class Timeseries<T = unknown> {
         value: valueFn(date, index),
       });
       index++;
-      date.setDate(date.getDate() + 1);
+      date.setUTCDate(date.getUTCDate() + 1);
     }
     return new Timeseries<T>(points);
   }
@@ -96,13 +101,13 @@ export class Timeseries<T = unknown> {
     return this.length > 0;
   }
 
-  /** Returns the dates of the points in the timeseries. */
-  dates(): Date[] {
+  /** The dates of the points in the timeseries. */
+  get dates(): Date[] {
     return this.points.map((p) => p.date);
   }
 
-  /** Returns the values of the points in the timeseries. */
-  values(): T[] {
+  /** The values of the points in the timeseries. */
+  get values(): T[] {
     return this.points.map((p) => p.value);
   }
 
@@ -213,64 +218,64 @@ export class Timeseries<T = unknown> {
   }
 
   /**
-   * Returns the first point in the timeseries, or undefined if the timeseries is
+   * The first point in the timeseries, or undefined if the timeseries is
    * empty.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
-  first(): TimeseriesPoint<T> | undefined {
+  get first(): TimeseriesPoint<T> | undefined {
     return first(this.points);
   }
 
   /**
-   * Returns the last point in the timeseries or undefined if the timeseries is
+   * The last point in the timeseries or undefined if the timeseries is
    * empty.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
-  last(): TimeseriesPoint<T> | undefined {
+  get last(): TimeseriesPoint<T> | undefined {
     return last(this.points);
   }
 
   /**
-   * Returns the minimum (earliest) date in the timeseries.
+   * The minimum (earliest) date in the timeseries.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
-  minDate(): Date | undefined {
+  get minDate(): Date | undefined {
     return minBy(this.points, (p) => p.date)?.date;
   }
 
   /**
-   * Returns the maximum (latest) date in the timeseries.
+   * The maximum (latest) date in the timeseries.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
-  maxDate(): Date | undefined {
+  get maxDate(): Date | undefined {
     return maxBy(this.points, (p) => p.date)?.date;
   }
 
   /**
-   * Returns the minimum value in the timeseries.
+   * The minimum value in the timeseries.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
-  minValue(): T | undefined {
+  get minValue(): T | undefined {
     return minBy(this.points, (p) => p.value)?.value;
   }
 
   /**
-   * Returns the maximum value in the timeseries.
+   * The maximum value in the timeseries.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
-  maxValue(): T | undefined {
+  get maxValue(): T | undefined {
     return maxBy(this.points, (p) => p.value)?.value;
   }
 
@@ -319,11 +324,11 @@ export class Timeseries<T = unknown> {
  * ```
  */
 export interface NonEmptyTimeseries<T> extends Timeseries<T> {
-  first(): TimeseriesPoint<T>;
-  last(): TimeseriesPoint<T>;
+  get first(): TimeseriesPoint<T>;
+  get last(): TimeseriesPoint<T>;
   findNearestDate(date: Date): TimeseriesPoint<T>;
-  minDate(): Date;
-  maxDate(): Date;
-  minValue(): T;
-  maxValue(): T;
+  get minDate(): Date;
+  get maxDate(): Date;
+  get minValue(): T;
+  get maxValue(): T;
 }

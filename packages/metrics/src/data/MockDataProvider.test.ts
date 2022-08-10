@@ -24,10 +24,10 @@ describe("MockDataProvider", () => {
     expect(data.currentValue).toBeGreaterThanOrEqual(0);
     expect(data.currentValue).toBeLessThanOrEqual(100);
     expect(data.timeseries.length).toBe(5);
-    expect(data.timeseries.dates()[0].toISOString()).toBe(
+    expect(data.timeseries.dates[0].toISOString()).toBe(
       "2022-01-01T00:00:00.000Z"
     );
-    expect(data.timeseries.dates()[4].toISOString()).toBe(
+    expect(data.timeseries.dates[4].toISOString()).toBe(
       "2022-01-05T00:00:00.000Z"
     );
   });

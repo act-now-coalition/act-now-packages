@@ -81,7 +81,7 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
 
         // Last value of timeseries should be current value.
         assert(timeseries.hasData());
-        currentValue = timeseries.last().value;
+        currentValue = timeseries.last.value;
       } else {
         // No timeseries. Just generate a random value.
         currentValue = Math.random() * (maxValue - minValue) + minValue;
