@@ -64,6 +64,13 @@ describe("Timeseries", () => {
     expect(ts.values).toEqual(values);
   });
 
+  test("fromDateRange() with big ranges (leap years, daylight savings, etc.)", () => {
+    const startDate = new Date("2019-01-01");
+    const endDate = new Date("2021-01-01");
+    const ts = Timeseries.fromDateRange(startDate, endDate, () => 1);
+    expect(ts.dates.length).toBe(732);
+  });
+
   test("findNearestDate() finds nearest date", () => {
     const points = [
       {

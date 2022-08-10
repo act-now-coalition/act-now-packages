@@ -80,7 +80,7 @@ export class Timeseries<T = unknown> {
         value: valueFn(date, index),
       });
       index++;
-      date.setDate(date.getDate() + 1);
+      date.setUTCDate(date.getUTCDate() + 1);
     }
     return new Timeseries<T>(points);
   }
