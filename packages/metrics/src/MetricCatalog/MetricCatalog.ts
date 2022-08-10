@@ -130,7 +130,8 @@ export class MetricCatalog {
       return MultiRegionMultiMetricDataStore.fromSnapshot(
         this.snapshot,
         regions,
-        metrics
+        metrics,
+        includeTimeseries
       );
     }
     throw new Error("Not Implemented");

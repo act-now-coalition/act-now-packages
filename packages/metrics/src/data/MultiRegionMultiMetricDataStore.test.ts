@@ -119,12 +119,12 @@ describe("MultiRegionMultiMetricDataStore", () => {
   test("assertFiniteNumbers() accepts numeric values", () => {
     const verifyValueIsValid = (value: number) => {
       expect(() => {
-        const data = new MultiRegionMultiMetricDataStore({
+        const dataStore = new MultiRegionMultiMetricDataStore({
           region: new MultiMetricDataStore(region, {
             metric: new MetricData(metric, region, value),
           }),
         });
-        data.assertFiniteNumbers();
+        dataStore.assertFiniteNumbers();
       }).toBeDefined();
     };
     verifyValueIsValid(1);
@@ -133,5 +133,22 @@ describe("MultiRegionMultiMetricDataStore", () => {
     verifyValueIsValid(0.53217);
   });
 
-  // TODO: Add tests for regionData()
+  test("regionData() has correct form and throws error if region is missing.", () => {
+    const missingRegion = states.findByRegionIdStrict("06");
+    const errorMsg = `No data for region ${missingRegion.regionId}. Did you forget to include it when you created the MultiRegionMetricDataStore?`;
+    const multiMetricDataStore = new MultiMetricDataStore(region, {
+      metric: new MetricData(metric, region, 42),
+    });
+    const multiRegionMultiMetricDataStore = new MultiRegionMultiMetricDataStore(
+      {
+        [region.regionId]: multiMetricDataStore,
+      }
+    );
+    expect(multiRegionMultiMetricDataStore.regionData(region)).toEqual(
+      multiMetricDataStore
+    );
+    expect(() => {
+      multiRegionMultiMetricDataStore.regionData(missingRegion);
+    }).toThrow(errorMsg);
+  });
 });
