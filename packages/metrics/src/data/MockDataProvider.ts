@@ -58,7 +58,8 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
       const dataLength = getTimeDiff(endDate, startDate, TimeUnit.DAYS) + 1;
       assert(dataLength >= 0, "endDate must be >= startDate.");
 
-      let timeseries: Timeseries<number> | undefined, currentValue: number;
+      let timeseries: Timeseries<number> | undefined;
+      let currentValue: number;
       if (includeTimeseries) {
         // Generate timeseries data using a sine wave with random magnitude and phase.
         const range = maxValue - minValue;
@@ -66,6 +67,7 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
         const magnitude = (range * Math.random()) / 2;
         const phase = Math.random() * Math.PI * 2;
         const radiansPerDay = (Math.PI * 2) / dataLength;
+
         const values: number[] = [];
         for (let i = 0; i < dataLength; i++) {
           values[i] =
@@ -73,6 +75,7 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
             Math.sin(radiansPerDay * i + phase) * magnitude +
             minValue;
         }
+
         timeseries = Timeseries.fromDateRange(
           startDate,
           endDate,

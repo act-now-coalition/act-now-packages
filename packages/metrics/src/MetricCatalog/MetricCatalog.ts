@@ -159,10 +159,8 @@ export class MetricCatalog {
         if (!resultData[regionId]) {
           resultData[regionId] = {};
         }
-        for (const [metricId, metricData] of Object.entries(
-          regionData.data[regionId]
-        )) {
-          metricData[regionId][metricId] = metricData;
+        for (const [metricId, metricData] of Object.entries(regionData.data)) {
+          resultData[regionId][metricId] = metricData;
         }
       }
     }
