@@ -30,6 +30,7 @@
   "sideEffects": false,
   "dependencies": {
     "@actnowcoalition/assert": "^1.0.0",
+    "@actnowcoalition/number-format": "^1.0.1",
     "@actnowcoalition/time-utils": "^1.0.1",
     "lodash": "^4.17.21"
   }
