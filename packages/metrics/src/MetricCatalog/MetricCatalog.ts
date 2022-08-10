@@ -8,10 +8,13 @@ import { assert } from "@actnowcoalition/assert";
 import { MetricData } from "../data/MetricData";
 import { MetricDataProvider } from "../data/MetricDataProvider";
 import { Metric } from "../Metric/Metric";
-import { MultiMetricDataStore } from "../data/MultiMetricDataStore";
-import { MultiRegionMultiMetricDataStore } from "../data/MultiRegionMultiMetricDataStore";
 import { MetricDefinition } from "../Metric/MetricDefinition";
 import { MetricCatalogOptions } from "./MetricCatalogOptions";
+import { MultiMetricDataStore } from "../data/MultiMetricDataStore";
+import {
+  MultiRegionMultiMetricDataStore,
+  SnapshotJSON,
+} from "../data/MultiRegionMultiMetricDataStore";
 
 /**
  * Catalog of metrics and the accompanying data providers to fetch data for them.
@@ -24,6 +27,8 @@ export class MetricCatalog {
   readonly metricDataProviders: MetricDataProvider[];
 
   private readonly metricsById: { [id: string]: Metric };
+
+  private readonly snapshot: SnapshotJSON | undefined;
 
   /**
    * Constructs a new {@link MetricCatalog} from the given metrics, data providers, and options.
@@ -53,6 +58,7 @@ export class MetricCatalog {
       ).join(", ")}`
     );
     this.metricDataProviders = dataProviders;
+    this.snapshot = options.snapshot;
   }
 
   /**
@@ -114,9 +120,19 @@ export class MetricCatalog {
   async fetchDataForMetricsAndRegions(
     regions: Region[],
     metrics: string[] | Metric[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeTimeseries = true
   ): Promise<MultiRegionMultiMetricDataStore> {
+    if (this.snapshot !== undefined) {
+      metrics = metrics.map((metric) =>
+        metric instanceof Metric ? metric : this.getMetric(metric)
+      );
+      return MultiRegionMultiMetricDataStore.fromSnapshot(
+        this.snapshot,
+        regions,
+        metrics,
+        includeTimeseries
+      );
+    }
     throw new Error("Not Implemented");
   }
 

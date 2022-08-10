@@ -6,6 +6,12 @@ import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
 
+/** A single, serialized point in a timeseries containing a date-string and a value. */
+export interface TimeseriesPointJSON {
+  date: string;
+  value: unknown;
+}
+
 /**
  * A single point in a timeseries containing a date (which must not contain a
  * timestamp) and a value of type T.
@@ -267,6 +273,34 @@ export class Timeseries<T = unknown> {
   private static isoDateString(date: Date): string {
     // Dates are guaranteed not to have a time component so we just return the ISO date.
     return date.toISOString().split("T")[0];
+  }
+
+  /**
+   * Construct a Timeseries instance from JSON timeseries points.
+   *
+   * @param jsonPoints Serialized timeseries points from which to construct a Timeseries.
+   * @returns The constructed timeseries.
+   */
+  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
+    const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
+      (point) => ({ date: new Date(point.date), value: point.value as unknown })
+    );
+    return new Timeseries<unknown>(timeseriesPoints);
+  }
+
+  /**
+   * Convert Timeseries instance into serialized JSON format.
+   *
+   * @returns Timeseries points serialized as JSON.
+   */
+  toJSON(): TimeseriesPointJSON[] {
+    const timeseriesPointJSONs: TimeseriesPointJSON[] = this.points.map(
+      (point) => ({
+        date: Timeseries.isoDateString(point.date),
+        value: point.value,
+      })
+    );
+    return timeseriesPointJSONs;
   }
 }
 

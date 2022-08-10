@@ -6,6 +6,10 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric/Metric";
 import { MetricData } from "./MetricData";
 
+export interface MetricToDataMap<T> {
+  [id: string]: MetricData<T>;
+}
+
 /**
  * A metric data store containing data for multiple metrics for a single region.
  *
@@ -16,7 +20,7 @@ export class MultiMetricDataStore<T = unknown> {
   constructor(
     /** The region for which we have stored metrics. */
     readonly region: Region,
-    private metricToDataMap: { [id: string]: MetricData<T> }
+    readonly metricToDataMap: MetricToDataMap<T>
   ) {}
 
   /**
