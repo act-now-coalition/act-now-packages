@@ -4,17 +4,22 @@ import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 
-export interface LineChartProps {
+interface LineChartOwnProps {
   timeseries: Timeseries<number>;
   xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
 }
 
-const LineChart: React.FC<
-  LineChartProps &
-    React.SVGProps<SVGPathElement> &
-    LinePathProps<TimeseriesPoint<number>>
-> = ({ timeseries, xScale, yScale, ...otherLineProps }) => {
+export type LineChartProps = LineChartOwnProps &
+  React.SVGProps<SVGPathElement> &
+  LinePathProps<TimeseriesPoint<number>>;
+
+const LineChart: React.FC<LineChartProps> = ({
+  timeseries,
+  xScale,
+  yScale,
+  ...otherLineProps
+}) => {
   const data = timeseries.removeNils();
   return (
     <LinePath
