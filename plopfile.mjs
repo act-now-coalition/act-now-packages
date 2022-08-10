@@ -26,7 +26,7 @@ yarn add @actnowcoalition/{{dashCase name}}
 const templatePackage = prepareTemplate(`
 {
   "name": "@actnowcoalition/{{dashCase name}}",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "{{sentenceCase description}}",
   "repository": {
     "type": "git",
