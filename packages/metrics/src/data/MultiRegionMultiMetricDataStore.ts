@@ -63,11 +63,11 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
       this.regionToMultiMetricDataStoreMap
     );
     const records: RegionDataJSON = {};
-    let maxDate = new Date(0); // TODO: fix this (make it the first date in the dataStore?)
+    const minimumDate = new Date(-8640000000000000);
+    let maxDate = minimumDate; // This is hacky. Sets the "starting" as the lowest possible date.
     Object.values(metricDataStores).forEach((dataStore) => {
       const regionId = dataStore.region.regionId;
       const metricDataJsons: MetricDataJSON = {};
-
       Object.values(dataStore.metricToDataMap).forEach((metricData) => {
         const timeseries = metricData.hasTimeseries()
           ? metricData.timeseries
@@ -87,7 +87,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     return {
       metadata: {
         createdDate: new Date().toISOString().split("T")[0],
-        latestDate: maxDate?.toISOString(),
+        latestDate: maxDate !== minimumDate ? maxDate.toISOString() : null,
       },
       data: records,
     };
