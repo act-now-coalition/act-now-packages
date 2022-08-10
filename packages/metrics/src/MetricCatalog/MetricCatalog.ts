@@ -120,7 +120,6 @@ export class MetricCatalog {
   async fetchDataForMetricsAndRegions(
     regions: Region[],
     metrics: string[] | Metric[],
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeTimeseries = true
   ): Promise<MultiRegionMultiMetricDataStore> {
     if (this.snapshot !== undefined) {
