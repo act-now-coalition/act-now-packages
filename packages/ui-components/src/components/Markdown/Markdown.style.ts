@@ -1,4 +1,6 @@
+import { lazy } from "react";
 import { styled } from "../../styles";
-import ReactMarkdown from "react-markdown";
+
+const ReactMarkdown = lazy(() => import("react-markdown"));
 
 export const MarkdownBody = styled(ReactMarkdown)``;
