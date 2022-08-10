@@ -37,14 +37,20 @@ describe("MetricCatalog", () => {
   const metricCatalog = new MetricCatalog([metricDefinition], dataProviders, {
     snapshot: snapshot,
   });
+  const multiMetricDataStore = new MultiMetricDataStore(region, {
+    [metric.id]: new MetricData(metric, region, 42),
+  });
+  const multiRegionMultiMetricDataStore = new MultiRegionMultiMetricDataStore({
+    [region.regionId]: multiMetricDataStore,
+  });
 
+  test("getMetric() returns correct metric, or throws error for unsupported metric.", () => {
+    expect(metricCatalog.getMetric(metric.id)).toStrictEqual(metric);
+    expect(() => {
+      metricCatalog.getMetric("nothing");
+    }).toThrow(`No metric found with id nothing`);
+  });
   test("fetchDataForMetricsAndRegions() correctly reads from a snapshot.", async () => {
-    const multiMetricDataStore = new MultiMetricDataStore(region, {
-      [metric.id]: new MetricData(metric, region, 42),
-    });
-    const multiRegionMultiMetricDataStore = new MultiRegionMultiMetricDataStore(
-      { [region.regionId]: multiMetricDataStore }
-    );
     expect(
       // TODO: change to fetchData() when it gets implemented and rip out un-needed code above.
       await metricCatalog.fetchDataForMetricsAndRegions(
@@ -53,11 +59,5 @@ describe("MetricCatalog", () => {
         /*includeTimeseries*/ false
       )
     ).toEqual(multiRegionMultiMetricDataStore);
-  });
-  test("getMetric() returns correct metric, or throws error for unsupported metric.", () => {
-    expect(metricCatalog.getMetric(metric.id)).toStrictEqual(metric);
-    expect(() => {
-      metricCatalog.getMetric("nothing");
-    }).toThrow(`No metric found with id nothing`);
   });
 });
