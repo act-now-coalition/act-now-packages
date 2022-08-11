@@ -8,7 +8,6 @@ import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
 import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 
-// TODO(michael): Can we remove this?
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {
   date: string;
