@@ -46,6 +46,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
+    "@visx/curve": "^2.1.0",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",

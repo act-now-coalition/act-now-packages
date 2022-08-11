@@ -2912,7 +2912,7 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@visx/curve@2.1.0":
+"@visx/curve@2.1.0", "@visx/curve@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@visx/curve/-/curve-2.1.0.tgz#f614bfe3db66df7db7382db7a75ced1506b94602"
   integrity sha512-9b6JOnx91gmOQiSPhUOxdsvcnW88fgqfTPKoVgQxidMsD/I3wksixtwo8TR/vtEz2aHzzsEEhlv1qK7Y3yaSDw==

@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LineChart from ".";
+import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { appleStock } from "@visx/mock-data";
@@ -10,9 +11,8 @@ export default {
   component: LineChart,
 } as ComponentMeta<typeof LineChart>;
 
-const width = 300;
-const height = 100;
-const padding = 4;
+const [width, height] = [600, 400];
+const padding = 20;
 
 const Template: ComponentStory<typeof LineChart> = (args) => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
@@ -26,30 +26,30 @@ interface AppleStockPoint {
 }
 
 const formatPoint = (p: AppleStockPoint): TimeseriesPoint<number> => ({
-  date: new Date(`${p.date.substring(0, 10)}T00:00:00Z`),
+  date: new Date(p.date.substring(0, 10)),
   value: p.close,
 });
 
 const timeseries = new Timeseries(appleStock.map(formatPoint));
+assert(timeseries.hasData(), `Timeseries cannot be empty`);
 
-const startDate = timeseries.hasData()
-  ? timeseries.minDate
-  : new Date("2007-04-24");
-const endDate = timeseries.hasData()
-  ? timeseries.maxDate
-  : new Date("2007-04-30");
-
-const minValue = timeseries.hasData() ? timeseries.minValue : 0;
-const maxValue = timeseries.hasData() ? timeseries.maxValue : 10;
+const { minDate, maxDate, minValue, maxValue } = timeseries;
 
 const xScale = scaleTime({
-  domain: [startDate, endDate],
+  domain: [minDate, maxDate],
   range: [padding, width - padding],
 });
+
 const yScale = scaleLinear({
   domain: [minValue, maxValue],
   range: [height - 2 * padding, padding],
 });
 
-export const Example = Template.bind({});
-Example.args = { timeseries, xScale, yScale, stroke: "blue" };
+export const SolidLine = Template.bind({});
+SolidLine.args = {
+  timeseries,
+  xScale,
+  yScale,
+  stroke: "#2a9d8f",
+  strokeWidth: 2,
+};

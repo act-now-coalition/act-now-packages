@@ -1,5 +1,6 @@
 import React from "react";
 import { LinePath } from "@visx/shape";
+import { curveMonotoneX } from "@visx/curve";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
@@ -23,10 +24,13 @@ const LineChart: React.FC<LineChartProps> = ({
   const data = timeseries.removeNils();
   return (
     <LinePath
-      {...otherLineProps}
       data={data.points}
       x={(d) => xScale(d.date)}
       y={(d) => yScale(d.value)}
+      curve={curveMonotoneX}
+      shapeRendering="geometricPrecision"
+      strokeLinejoin="round"
+      {...otherLineProps}
     />
   );
 };
