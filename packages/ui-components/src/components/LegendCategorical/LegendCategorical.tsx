@@ -1,6 +1,7 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
-import { Square, Label } from "./LegendCategorical.style";
+import Typography from "@mui/material/Typography";
+import { Square } from "./LegendCategorical.style";
 
 export interface LegendCategoricalProps<T> {
   /** Array of items representing legend items */
@@ -36,7 +37,9 @@ const LegendCategorical = <T,>({
         return (
           <Stack direction="row" alignItems="center" key={`item-${itemIndex}`}>
             <Square color={getItemColor(item, itemIndex)} />
-            <Label>{getItemLabel(item, itemIndex)}</Label>
+            <Typography variant="paragraphSmall">
+              {getItemLabel(item, itemIndex)}
+            </Typography>
           </Stack>
         );
       })}

@@ -2,8 +2,8 @@ import { Region, RegionJSON } from "./Region";
 
 describe("Region", () => {
   test("toSlug", () => {
-    expect(Region.toSlug("Río Grande")).toBe("rio_grande");
-    expect(Region.toSlug("DeSoto County")).toBe("de_soto_county");
+    expect(Region.toSlug("Río Grande")).toBe("rio-grande");
+    expect(Region.toSlug("DeSoto County")).toBe("de-soto-county");
   });
 });
 
@@ -23,7 +23,7 @@ describe("Region serialization", () => {
     fullName: "Miami-Dade County, Florida",
     shortName: "Miami-Dade County, FL",
     abbreviation: "Miami-Dade Co.",
-    slug: "miami_dade_co",
+    slug: "miami-dade-county",
     parent: parentJSON,
     population: 2_716_940,
   };
@@ -32,7 +32,7 @@ describe("Region serialization", () => {
     "Miami-Dade County, Florida",
     "Miami-Dade County, FL",
     "Miami-Dade Co.",
-    "miami_dade_co",
+    "miami-dade-county",
     Region.fromJSON(parentJSON),
     2_716_940
   );

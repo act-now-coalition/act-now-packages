@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/ui-components",
-  "version": "1.4.0",
+  "version": "1.5.3",
   "description": "UI components for Act Now",
   "repository": {
     "type": "git",
@@ -27,13 +27,13 @@
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
-    "@storybook/addon-actions": "^6.5.9",
-    "@storybook/addon-essentials": "^6.5.9",
-    "@storybook/addon-interactions": "^6.5.9",
-    "@storybook/addon-links": "^6.5.9",
-    "@storybook/builder-webpack4": "^6.5.9",
-    "@storybook/manager-webpack4": "^6.5.9",
-    "@storybook/react": "^6.5.9",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/builder-webpack4": "^6.5.10",
+    "@storybook/manager-webpack4": "^6.5.10",
+    "@storybook/react": "^6.5.10",
     "@storybook/testing-library": "^0.0.13",
     "babel-loader": "^8.2.5",
     "typescript": "^4.6.4"
@@ -47,6 +47,8 @@
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-markdown": "^8.0.3",
+    "remark-gfm": "^3.0.1"
   }
 }

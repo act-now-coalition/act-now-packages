@@ -6,13 +6,12 @@ import statesDB from "./states_db";
 const counties = countiesJSON.map((county) => {
   const state = statesDB.findByRegionIdStrict(county.stateFipsCode);
   const countyAbbreviation = getAbbreviatedCounty(county.name);
-  const countyUrlFragment = Region.toSlug(countyAbbreviation);
   return new Region(
     county.fipsCode,
     `${county.name}, ${state.fullName}`,
     `${county.name}, ${state.abbreviation}`,
     countyAbbreviation,
-    countyUrlFragment,
+    Region.toSlug(county.name),
     state,
     county.population
   );
