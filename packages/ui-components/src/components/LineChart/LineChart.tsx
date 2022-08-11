@@ -6,8 +6,13 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 
 interface LineChartOwnProps {
+  /** */
   timeseries: Timeseries<number>;
+
+  /** */
   xScale: ScaleTime<number, number>;
+
+  /** */
   yScale: ScaleLinear<number, number>;
 }
 
@@ -15,6 +20,15 @@ export type LineChartProps = LineChartOwnProps &
   React.SVGProps<SVGPathElement> &
   LinePathProps<TimeseriesPoint<number>>;
 
+/**
+ * LineChart
+ *
+ * @param timeseries
+ * @param xScale
+ * @param yScale
+ *
+ * @returns SVG Path element
+ */
 const LineChart: React.FC<LineChartProps> = ({
   timeseries,
   xScale,
