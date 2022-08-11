@@ -6,6 +6,10 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric/Metric";
 import { MetricData } from "./MetricData";
 
+export interface MetricToDataMap<T> {
+  [id: string]: MetricData<T>;
+}
+
 /**
  * A metric data store containing data for multiple metrics for a single region.
  *
@@ -16,8 +20,13 @@ export class MultiMetricDataStore<T = unknown> {
   constructor(
     /** The region for which we have stored metrics. */
     readonly region: Region,
-    readonly data: { [id: string]: MetricData<T> }
+    readonly data: MetricToDataMap<T>
   ) {}
+
+  /** Whether this data store is empty. */
+  get isEmpty(): boolean {
+    return Object.keys(this.data).length === 0;
+  }
 
   /**
    * Gets the MetricData for a particular metric.
@@ -36,6 +45,16 @@ export class MultiMetricDataStore<T = unknown> {
   }
 
   /**
+   * Checks whether this data store contains data for the given metric.
+   *
+   * @param metric The metric to check for data for.
+   * @returns Whether this data store contains data for the given metric.
+   */
+  hasMetricData(metric: Metric): boolean {
+    return this.data[metric.id] !== undefined;
+  }
+
+  /**
    * Ensures the data for all metrics is numeric.
    *
    * @returns This `MultiMetricDataStore` cast to `MultiMetricDataStore<number>`.
@@ -45,5 +64,18 @@ export class MultiMetricDataStore<T = unknown> {
       data.assertFiniteNumbers()
     );
     return new MultiMetricDataStore(this.region, metricToDataMap);
+  }
+
+  /**
+   * Merges the provided data store into this one and returns the result.
+   *
+   * Data from the provided data store takes precedence over any existing data.
+   *
+   * @param other The data store to merge into this one.
+   * @returns The merged data store.
+   */
+  merge(other: MultiMetricDataStore<T>): MultiMetricDataStore<T> {
+    const data: MetricToDataMap<T> = { ...this.data, ...other.data };
+    return new MultiMetricDataStore(this.region, data);
   }
 }

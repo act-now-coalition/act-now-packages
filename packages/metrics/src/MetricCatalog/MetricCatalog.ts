@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import fromPairs from "lodash/fromPairs";
 import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
 import uniq from "lodash/uniq";
@@ -23,7 +22,7 @@ export class MetricCatalog {
   readonly metrics: Metric[];
 
   /** All metric data providers registered with the catalog. */
-  readonly metricDataProviders: MetricDataProvider[];
+  readonly dataProvidersById: { [id: string]: MetricDataProvider };
 
   /** Options associated with the MetricCatalog. */
   readonly options: MetricCatalogOptions;
@@ -57,7 +56,7 @@ export class MetricCatalog {
         missingDataProviderIds
       ).join(", ")}`
     );
-    this.metricDataProviders = dataProviders;
+    this.dataProvidersById = keyBy(dataProviders, (p) => p.id);
     this.options = options;
   }
 
@@ -130,49 +129,52 @@ export class MetricCatalog {
     metrics: Array<string | Metric>,
     includeTimeseries = true
   ): Promise<MultiRegionMultiMetricDataStore> {
-    const regionsById = keyBy(regions, (r) => r.regionId);
     const resolvedMetrics = metrics.map((m) =>
       typeof m === "string" ? this.getMetric(m) : m
     );
+
+    let result = new MultiRegionMultiMetricDataStore({});
+    if (this.options.snapshot) {
+      result = MultiRegionMultiMetricDataStore.fromSnapshot(
+        this.options.snapshot,
+        regions,
+        resolvedMetrics,
+        includeTimeseries
+      );
+    }
+
+    // Filter out any metrics for which we got data for all regions from the
+    // snapshot so we don't do the work to fetch it from the data provider.
+    // TODO(michael): We could optimize this to deal with cases where we have
+    // some but not all regions for a metric (so that we don't refetch the
+    // regions we have), but for now we'll keep it simple.
+    const remainingMetrics = resolvedMetrics.filter((metric) =>
+      regions.some(
+        (region) =>
+          !result.hasMetricData(region, metric) ||
+          (includeTimeseries &&
+            !result.metricData(region, metric).hasTimeseries())
+      )
+    );
+
     const metricsByProvider = groupBy(
-      resolvedMetrics,
+      remainingMetrics,
       (m) => m.dataReference?.providerId
     );
 
-    const resultData: {
-      [regionId: string]: { [metricId: string]: MetricData };
-    } = {};
+    // For each provider, fetch the data for the metrics it provides and merge
+    // it into result.
     for (const [providerId, metrics] of Object.entries(metricsByProvider)) {
-      // Fetch data from appropriate data provider.
-      const provider = this.metricDataProviders.find(
-        (p) => p.id === providerId
-      );
+      const provider = this.dataProvidersById[providerId];
       assert(provider, `No data provider found for id ${providerId}`);
       const fetchedData = await provider.fetchData(
         regions,
         metrics,
         includeTimeseries
       );
-
-      // Merge fetched data into resultData.
-      for (const [regionId, regionData] of Object.entries(fetchedData.data)) {
-        if (!resultData[regionId]) {
-          resultData[regionId] = {};
-        }
-        for (const [metricId, metricData] of Object.entries(regionData.data)) {
-          resultData[regionId][metricId] = metricData;
-        }
-      }
+      result = result.merge(fetchedData);
     }
-
-    // Convert resultData into a map of MultiMetricDataStores.
-    const result = fromPairs(
-      Object.entries(resultData).map(([regionId, data]) => [
-        regionId,
-        new MultiMetricDataStore(regionsById[regionId], data),
-      ])
-    );
-    return new MultiRegionMultiMetricDataStore(result);
+    return result;
   }
 
   /**
