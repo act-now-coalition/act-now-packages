@@ -3,8 +3,6 @@ import { MetricLevelSet } from "./MetricLevel";
 import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
 
-///// Test data used within tests /////
-
 // Example of a typical metric with mostly default options.
 const testMetricDef: MetricDefinition = {
   id: "cases",
@@ -67,7 +65,7 @@ describe("Metric", () => {
     expect(metric.getLevel(20).id).toBe("medium");
   });
 
-  test("getLevel() grades values using descending thresholds", () => {
+  test("getLevel() grades values using thresholds that are descending", () => {
     const metric = new Metric(
       {
         ...testMetricDef,

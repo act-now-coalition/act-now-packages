@@ -17,6 +17,9 @@ import { Metric, MetricDefinition } from "../Metric";
 
 /**
  * Catalog of metrics and the accompanying data providers to fetch data for them.
+ *
+ * MetricCatalog is the central class for dealing with metrics.  It stores the definitions
+ * of all known metrics and can be used to fetch data for them as needed.
  */
 export class MetricCatalog {
   /** All metrics in the catalog. */

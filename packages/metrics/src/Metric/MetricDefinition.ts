@@ -1,7 +1,10 @@
 import { MetricDataReference } from "./MetricDataReference";
 
 /**
- * A set of parameters that define a given metric (name, data source, thresholds, etc.)
+ * A set of parameters that define a given metric (name, data source, thresholds, etc.).
+ * This definition can be passed to the {@link Metric} constructor to create a `Metric`
+ * or included in the definitions for a {@link MetricCatalog} to create a catalog of
+ * metrics.
  *
  * All parameters are optional and should be omitted if default values are okay.
  *
