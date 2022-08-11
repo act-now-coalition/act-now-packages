@@ -20,12 +20,19 @@ export class MultiMetricDataStore<T = unknown> {
   constructor(
     /** The region for which we have stored metrics. */
     readonly region: Region,
-    readonly data: MetricToDataMap<T>
+    private data: MetricToDataMap<T>
   ) {}
 
   /** Whether this data store is empty. */
   get isEmpty(): boolean {
     return Object.keys(this.data).length === 0;
+  }
+
+  /**
+   * Returns the `MetricData` for every metric in the data store.
+   */
+  get all(): MetricData[] {
+    return Object.values(this.data);
   }
 
   /**

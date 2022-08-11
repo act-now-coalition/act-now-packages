@@ -35,11 +35,18 @@ export interface MultiRegionMultiMetricDataMap<T> {
  * needs.
  */
 export class MultiRegionMultiMetricDataStore<T = unknown> {
-  constructor(readonly data: MultiRegionMultiMetricDataMap<T>) {}
+  constructor(private data: MultiRegionMultiMetricDataMap<T>) {}
 
   /** Whether this data store is empty. */
   get isEmpty(): boolean {
     return Object.keys(this.data).length === 0;
+  }
+
+  /**
+   * Returns the `MultiMetricDataStore` for every region in the data store.
+   */
+  get all(): MultiMetricDataStore<T>[] {
+    return Object.values(this.data);
   }
 
   /**
@@ -141,7 +148,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     Object.values(metricDataStores).forEach((dataStore) => {
       const regionId = dataStore.region.regionId;
       const metricDataJsons: MetricDataJSON = {};
-      Object.values(dataStore.data).forEach((metricData) => {
+      for (const metricData of dataStore.all) {
         const timeseries = metricData.hasTimeseries()
           ? metricData.timeseries
           : undefined;
@@ -155,7 +162,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
           currentValue: metricData.currentValue,
           timeseriesPoints: timeseries?.toJSON(),
         };
-      });
+      }
       records[regionId] = metricDataJsons;
     });
 
