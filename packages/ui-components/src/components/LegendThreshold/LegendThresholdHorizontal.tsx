@@ -3,10 +3,29 @@ import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
-import { LegendThresholdProps } from ".";
+import { CommonLegendThresholdProps } from ".";
+
+export interface LegendThresholdHorizontalProps<T>
+  extends CommonLegendThresholdProps<T> {
+  /**
+   * Height of the colored bars. When not adding the bars, make sure that
+   * `barHeight` is set to the same value as `height`.
+   */
+  barHeight?: number;
+  /**
+   * Whether to show the labels or not (true by default). Make sure to set
+   * `barHeight` to `height` when not including the labels.
+   */
+  showLabels?: boolean;
+  /**
+   * Note that only the labels between two levels are rendered. The last
+   * end label won't be shown.
+   */
+  getItemEndLabel?: (item: T, itemIndex: number) => string;
+}
 
 /**
- * `LegendThreshold` represents a scale with thresholds that separate
+ * `LegendThresholdHorizontal` represents a scale with thresholds that separate
  * a set of levels. By default, the labels between each level are shown.
  */
 const LegendThresholdHorizontal = <T,>({
@@ -19,8 +38,11 @@ const LegendThresholdHorizontal = <T,>({
   getItemEndLabel,
   showLabels,
   ...otherSvgProps
-}: LegendThresholdProps<T> &
-  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
+}: LegendThresholdHorizontalProps<T> &
+  Omit<
+    React.SVGProps<SVGSVGElement>,
+    keyof LegendThresholdHorizontalProps<T>
+  >) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
@@ -60,7 +82,7 @@ const LegendThresholdHorizontal = <T,>({
                 <Group top={barHeight} left={x + rectWidth}>
                   <TickMark y1={0} y2={labelTickHeight} />
                   <TickLabel y={labelTickHeight + tickLabelPadding}>
-                    {getItemEndLabel(item, itemIndex)}
+                    {getItemEndLabel && getItemEndLabel(item, itemIndex)}
                   </TickLabel>
                 </Group>
               )}

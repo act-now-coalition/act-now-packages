@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import LegendThreshold, { LegendThresholdProps } from ".";
+import LegendThreshold from ".";
+import { LegendThresholdProps } from "./LegendThreshold";
 
 export default {
   title: "Components/LegendThreshold",
@@ -78,24 +79,20 @@ export const VerticalDefault = Template.bind({});
 VerticalDefault.args = {
   orientation: "vertical",
   height: verticalHeight,
-  barHeight: verticalHeight,
   width: verticalWidth,
   borderRadius,
   items,
   getItemColor,
-  getItemEndLabel,
 };
 
 export const VerticalRounded = Template.bind({});
 VerticalRounded.args = {
   ...VerticalDefault.args,
   borderRadius: verticalWidth / 2,
-  showLabels: false,
 };
 
 export const VerticalSquared = Template.bind({});
 VerticalSquared.args = {
   ...VerticalDefault.args,
   borderRadius: 0,
-  showLabels: true,
 };

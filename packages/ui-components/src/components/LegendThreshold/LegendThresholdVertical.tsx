@@ -2,10 +2,12 @@ import React from "react";
 import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
-import { LegendThresholdProps } from ".";
+import { CommonLegendThresholdProps } from ".";
+
+export type LegendThresholdVerticalProps<T> = CommonLegendThresholdProps<T>;
 
 /**
- * `LegendThreshold` represents a scale with thresholds that separate
+ * `LegendThresholdVertical` represents a scale with thresholds that separate
  * a set of levels. By default, the labels between each level are shown.
  */
 const LegendThresholdVertical = <T,>({
@@ -14,13 +16,12 @@ const LegendThresholdVertical = <T,>({
   borderRadius,
   items,
   getItemColor,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getItemEndLabel,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  showLabels = true,
   ...otherSvgProps
-}: LegendThresholdProps<T> &
-  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
+}: LegendThresholdVerticalProps<T> &
+  Omit<
+    React.SVGProps<SVGSVGElement>,
+    keyof LegendThresholdVerticalProps<T>
+  >) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, height] });
   const barHeight = scaleRect.bandwidth();
