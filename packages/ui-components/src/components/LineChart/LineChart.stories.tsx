@@ -20,17 +20,16 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
   </svg>
 );
 
-interface AppleStockPoint {
-  date: string;
-  close: number;
-}
+// We format the points from appleStock to match TimeseriesPoint<number>
+// so we can use them to initialize Timeseries.
+const points = appleStock.map(
+  (p: { date: string; close: number }): TimeseriesPoint<number> => ({
+    date: new Date(p.date.substring(0, 10)),
+    value: p.close,
+  })
+);
 
-const formatPoint = (p: AppleStockPoint): TimeseriesPoint<number> => ({
-  date: new Date(p.date.substring(0, 10)),
-  value: p.close,
-});
-
-const timeseries = new Timeseries(appleStock.map(formatPoint));
+const timeseries = new Timeseries(points);
 assert(timeseries.hasData(), `Timeseries cannot be empty`);
 
 const { minDate, maxDate, minValue, maxValue } = timeseries;
@@ -51,5 +50,13 @@ SolidLine.args = {
   xScale,
   yScale,
   stroke: "#2a9d8f",
-  strokeWidth: 2,
+};
+
+export const DottedLine = Template.bind({});
+DottedLine.args = {
+  timeseries,
+  xScale,
+  yScale,
+  strokeWidth: 1,
+  strokeDasharray: "2 2",
 };

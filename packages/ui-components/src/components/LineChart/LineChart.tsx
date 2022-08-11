@@ -6,13 +6,13 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 
 interface LineChartOwnProps {
-  /** */
+  /** {@link Timeseries} used to draw the line chart */
   timeseries: Timeseries<number>;
 
-  /** */
+  /** Scale to transform point dates to positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** */
+  /** Scale to transform point values to position on the y-axis */
   yScale: ScaleLinear<number, number>;
 }
 
@@ -21,11 +21,33 @@ export type LineChartProps = LineChartOwnProps &
   LinePathProps<TimeseriesPoint<number>>;
 
 /**
- * LineChart
+ * LineChart is a chart building block that return an SVG path element, given
+ * a timeseries and x and y scales.
  *
- * @param timeseries
- * @param xScale
- * @param yScale
+ * The LineChart is intended to be used as building block of more complex
+ * charts, so it doesn't include axes, tooltips or anything else. See
+ * Storybook for a working example.
+ *
+ * @example
+ *    const xScale = scaleLinear({ domain: [minDate, maxDate], range: [0, 200] });
+ *    const yScale = scaleLInear({ domain: [minVal, maxVal], range: [0, 100] });
+ *
+ *    return (
+ *      <svg>
+ *        <BarChart ... />
+ *        <LineChart
+ *          timeseries={timeseries}
+ *          xScale={}
+ *          yScale={}
+ *          stroke="blue"
+ *          strokeDasharray="4 4"
+ *        />
+ *      <svg>
+ *    );
+ *
+ * @param timeseries {@link Timeseries} to represent as a line.
+ * @param xScale d3-scale to transform point dates to pixel positions on the x-axis.
+ * @param yScale d3-scale to transform point values to pixel positions on the y-axis.
  *
  * @returns SVG Path element
  */
@@ -33,6 +55,10 @@ const LineChart: React.FC<LineChartProps> = ({
   timeseries,
   xScale,
   yScale,
+  stroke = "#000",
+  strokeWidth = 2,
+  shapeRendering = "geometricPrecision",
+  strokeLinejoin = "round",
   ...otherLineProps
 }) => {
   const data = timeseries.removeNils();
@@ -42,8 +68,10 @@ const LineChart: React.FC<LineChartProps> = ({
       x={(d) => xScale(d.date)}
       y={(d) => yScale(d.value)}
       curve={curveMonotoneX}
-      shapeRendering="geometricPrecision"
-      strokeLinejoin="round"
+      shapeRendering={shapeRendering}
+      strokeLinejoin={strokeLinejoin}
+      stroke={stroke}
+      strokeWidth={strokeWidth}
       {...otherLineProps}
     />
   );
