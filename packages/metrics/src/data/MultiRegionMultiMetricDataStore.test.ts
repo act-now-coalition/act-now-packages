@@ -9,17 +9,19 @@ import { MetricData } from "./MetricData";
 import { Metric } from "../Metric";
 import { StaticValueDataProvider } from "../data_providers";
 
-const TEST_REGION = states.findByRegionIdStrict("12");
-const TEST_METRIC = new Metric({
+const testRegion = states.findByRegionIdStrict("12");
+const testMetric = new Metric({
   id: "cases_per_100k",
   dataReference: {
     providerId: "static-value",
     value: 42,
   },
 });
-const PROVIDER = new StaticValueDataProvider();
-// The snapshot JSON that corresponds to the data for `TEST_REGION` and `TEST_METRIC`.
-const TEST_SNAPSHOT: SnapshotJSON = {
+
+const testProvider = new StaticValueDataProvider();
+
+// The snapshot JSON that corresponds to the data for `testRegion` and `testMetric`.
+const testSnapshot: SnapshotJSON = {
   metadata: {
     createdDate: new Date().toISOString().split("T")[0],
     latestDate: "2022-01-02T00:00:00.000Z",
@@ -41,39 +43,39 @@ const TEST_SNAPSHOT: SnapshotJSON = {
 
 describe("MultiRegionMultiMetricDataStore", () => {
   test("toSnapshot() has correct form.", async () => {
-    const dataStore = await PROVIDER.fetchData(
-      [TEST_REGION],
-      [TEST_METRIC],
+    const dataStore = await testProvider.fetchData(
+      [testRegion],
+      [testMetric],
       /*includeTimeseries=*/ true
     );
-    expect(dataStore.toSnapshot()).toEqual(TEST_SNAPSHOT);
+    expect(dataStore.toSnapshot()).toEqual(testSnapshot);
   });
 
   test("fromSnapshot() has correct forms.", async () => {
-    const dataStore = await PROVIDER.fetchData(
-      [TEST_REGION],
-      [TEST_METRIC],
+    const dataStore = await testProvider.fetchData(
+      [testRegion],
+      [testMetric],
       /*includeTimeseries=*/ true
     );
     expect(
       MultiRegionMultiMetricDataStore.fromSnapshot(
-        TEST_SNAPSHOT,
-        [TEST_REGION],
-        [TEST_METRIC],
+        testSnapshot,
+        [testRegion],
+        [testMetric],
         /*includeTimeseries*/ true
       )
     ).toEqual(dataStore);
 
-    const dataStoreNoTs = await PROVIDER.fetchData(
-      [TEST_REGION],
-      [TEST_METRIC],
+    const dataStoreNoTs = await testProvider.fetchData(
+      [testRegion],
+      [testMetric],
       /*includeTimeseries=*/ false
     );
     expect(
       MultiRegionMultiMetricDataStore.fromSnapshot(
-        TEST_SNAPSHOT,
-        [TEST_REGION],
-        [TEST_METRIC],
+        testSnapshot,
+        [testRegion],
+        [testMetric],
         /*includeTimeseries=*/ false
       )
     ).toEqual(dataStoreNoTs);
@@ -83,8 +85,8 @@ describe("MultiRegionMultiMetricDataStore", () => {
     const verifyValueThrowsError = (value: unknown) => {
       expect(() => {
         const data = new MultiRegionMultiMetricDataStore({
-          region: new MultiMetricDataStore(TEST_REGION, {
-            metric: new MetricData(TEST_METRIC, TEST_REGION, value),
+          region: new MultiMetricDataStore(testRegion, {
+            metric: new MetricData(testMetric, testRegion, value),
           }),
         });
         data.assertFiniteNumbers();
@@ -100,8 +102,8 @@ describe("MultiRegionMultiMetricDataStore", () => {
     const verifyValueIsValid = (value: number) => {
       expect(() => {
         const dataStore = new MultiRegionMultiMetricDataStore({
-          region: new MultiMetricDataStore(TEST_REGION, {
-            metric: new MetricData(TEST_METRIC, TEST_REGION, value),
+          region: new MultiMetricDataStore(testRegion, {
+            metric: new MetricData(testMetric, testRegion, value),
           }),
         });
         dataStore.assertFiniteNumbers();
@@ -116,15 +118,15 @@ describe("MultiRegionMultiMetricDataStore", () => {
   test("regionData() has correct form and throws error if region is missing.", () => {
     const missingRegion = states.findByRegionIdStrict("06");
     const errorMsg = `No data for region ${missingRegion.regionId}. Did you forget to include it when you created the MultiRegionMetricDataStore?`;
-    const multiMetricDataStore = new MultiMetricDataStore(TEST_REGION, {
-      metric: new MetricData(TEST_METRIC, TEST_REGION, 42),
+    const multiMetricDataStore = new MultiMetricDataStore(testRegion, {
+      metric: new MetricData(testMetric, testRegion, 42),
     });
     const multiRegionMultiMetricDataStore = new MultiRegionMultiMetricDataStore(
       {
-        [TEST_REGION.regionId]: multiMetricDataStore,
+        [testRegion.regionId]: multiMetricDataStore,
       }
     );
-    expect(multiRegionMultiMetricDataStore.regionData(TEST_REGION)).toEqual(
+    expect(multiRegionMultiMetricDataStore.regionData(testRegion)).toEqual(
       multiMetricDataStore
     );
     expect(() => {

@@ -55,7 +55,8 @@ export class MetricData<T = unknown> {
   }
 
   /**
-   * Ensures the timeseries data is numeric and returns it.
+   * Removes any empty (null) values from the timeseries, Ensures the remaining
+   * data is numeric,  and returns a new `Timeseries<number>` with the data.
    *
    * @returns The timeseries cast to `Timeseries<number>`.
    */

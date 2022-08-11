@@ -13,10 +13,10 @@ import {
  * handle the actual caching, but provides a common interface for subclasses to do so
  * and reduces the amount of boilerplate code needed.
  */
-export abstract class CachingMetricDataProviderBase extends MetricDataProvider {
-  constructor(id: string) {
-    super(id);
-  }
+export abstract class CachingMetricDataProviderBase
+  implements MetricDataProvider
+{
+  constructor(readonly id: string) {}
 
   /**
    * Method to be overridden by subclasses to populate the cache with metric
