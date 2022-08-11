@@ -41,5 +41,5 @@ Vertical.args = {
   items,
   getItemColor,
   getItemLabel,
-  horizontal: false,
+  orientation: "vertical",
 };
