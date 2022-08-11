@@ -13,14 +13,14 @@ import { MetricData } from "../data";
  * @example
  * ```
  * dataReference: {
- *   providerId: "static-value",
+ *   providerId: "static",
  *   value: 42,
  * },
  * ```
  */
 export class StaticValueDataProvider extends CachingMetricDataProviderBase {
   constructor() {
-    super("static-value");
+    super(/*providerId=*/ "static");
   }
 
   async populateCache(): Promise<void> {

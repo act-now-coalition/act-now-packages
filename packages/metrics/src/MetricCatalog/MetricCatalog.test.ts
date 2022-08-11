@@ -15,7 +15,7 @@ const testMetricDefs = [
     name: "Pi",
     extendedName: "Pi - The ratio of a circle's circumference to its diameter",
     dataReference: {
-      providerId: "static-value",
+      providerId: "static",
       value: 3.141592653589793,
     },
   },

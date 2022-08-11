@@ -35,7 +35,7 @@ export interface MockDataReferenceFields {
  */
 export class MockDataProvider extends CachingMetricDataProviderBase {
   constructor() {
-    super("mock");
+    super(/*providerId=*/ "mock");
   }
 
   private cachedData: { [key: string]: MetricData<number> } = {};
@@ -46,11 +46,7 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
     // populate any cache up front.
   }
 
-  getDataFromCache(
-    region: Region,
-    metric: Metric,
-    includeTimeseries: boolean
-  ): MetricData<unknown> {
+  getDataFromCache(region: Region, metric: Metric): MetricData<unknown> {
     const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
     if (!this.cachedData[cacheKey]) {
       const fields = metric.dataReference as MockDataReferenceFields;
@@ -63,23 +59,19 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
       const dataLength = getTimeDiff(endDate, startDate, TimeUnit.DAYS) + 1;
       assert(dataLength >= 0, "endDate must be >= startDate.");
 
-      let currentValue: number;
-      let timeseries: Timeseries<number> | undefined;
-      if (includeTimeseries) {
-        timeseries = mockTimeseries(
-          dataLength,
-          minValue,
-          maxValue,
-          startDate,
-          endDate
-        );
-        // Use last value of timeseries as current value.
-        assert(timeseries.hasData());
-        currentValue = timeseries.last.value;
-      } else {
-        // No timeseries. Just generate a random value.
-        currentValue = Math.random() * (maxValue - minValue) + minValue;
-      }
+      // NOTE: We always include the timeseries even if not asked so that we end up
+      // with it in the cache in case they want timeseries later.
+      const timeseries = mockTimeseries(
+        dataLength,
+        minValue,
+        maxValue,
+        startDate,
+        endDate
+      );
+
+      // Use last value of timeseries as current value.
+      assert(timeseries.hasData());
+      const currentValue = timeseries.last.value;
 
       this.cachedData[cacheKey] = new MetricData(
         metric,

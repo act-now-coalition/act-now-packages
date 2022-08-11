@@ -13,7 +13,7 @@ const testRegion = states.findByRegionIdStrict("12");
 const testMetric = new Metric({
   id: "cases_per_100k",
   dataReference: {
-    providerId: "static-value",
+    providerId: "static",
     value: 42,
   },
 });
