@@ -98,6 +98,11 @@ describe("Metric", () => {
     expect(metric.formatValue(0.1234)).toBe("12%");
   });
 
+  test("formatValue() on string values", () => {
+    const metric = new Metric(testMetricDef);
+    expect(metric.formatValue("raw value")).toBe("raw value");
+  });
+
   test("roundValue() with default options", () => {
     const metric = new Metric(testMetricDef);
     expect(metric.roundValue(123.15)).toBe(123.2);

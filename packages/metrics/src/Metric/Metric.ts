@@ -145,11 +145,13 @@ export class Metric {
    * @returns The formatted value.
    */
   formatValue(value: unknown, nullValueCopy = ""): string {
-    if (!isFinite(value)) {
-      // TODO(michael): Pass string values through as-is?
+    if (typeof value === "string") {
+      return value;
+    } else if (!isFinite(value)) {
       return nullValueCopy;
+    } else {
+      return value.toLocaleString(undefined, this.formatOptions);
     }
-    return value.toLocaleString(undefined, this.formatOptions);
   }
 
   /**
@@ -160,7 +162,6 @@ export class Metric {
    * @returns Rounded value.
    */
   roundValue(value: unknown): number | null {
-    // TODO(michael) Deal with non-number data?
     if (!isFinite(value)) {
       return null;
     }
