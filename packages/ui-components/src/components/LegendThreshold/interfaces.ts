@@ -11,4 +11,9 @@ export interface CommonLegendThresholdProps<T> {
   items: T[];
   /** Function that returns the color of each level */
   getItemColor: (item: T, itemIndex: number) => string;
+  /**
+   * Whether to show the labels or not (true by default). Make sure to set
+   * `barHeight` to `height` when not including the labels.
+   */
+  showLabels?: boolean;
 }
