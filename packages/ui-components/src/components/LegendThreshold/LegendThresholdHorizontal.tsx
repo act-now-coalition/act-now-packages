@@ -3,7 +3,7 @@ import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
-import { CommonLegendThresholdProps } from ".";
+import { CommonLegendThresholdProps } from "./interfaces";
 
 export interface LegendThresholdHorizontalProps<T>
   extends CommonLegendThresholdProps<T> {
