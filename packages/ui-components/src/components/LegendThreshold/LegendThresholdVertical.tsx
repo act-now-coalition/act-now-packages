@@ -2,7 +2,7 @@ import React from "react";
 import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
-import { CommonLegendThresholdProps } from ".";
+import { CommonLegendThresholdProps } from "./interfaces";
 
 export type LegendThresholdVerticalProps<T> = CommonLegendThresholdProps<T>;
 
