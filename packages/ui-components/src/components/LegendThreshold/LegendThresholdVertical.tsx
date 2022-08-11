@@ -4,7 +4,19 @@ import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
 import { CommonLegendThresholdProps } from "./interfaces";
 
-export type LegendThresholdVerticalProps<T> = CommonLegendThresholdProps<T>;
+export interface LegendThresholdVerticalProps<T>
+  extends CommonLegendThresholdProps<T> {
+  /**
+   * Whether to show the labels or not (true by default). Make sure to set
+   * `barHeight` to `height` when not including the labels.
+   */
+  showLabels?: boolean;
+  /**
+   * Note that only the labels between two levels are rendered. The last
+   * end label won't be shown.
+   */
+  getItemEndLabel?: (item: T, itemIndex: number) => string;
+}
 
 /**
  * `LegendThresholdVertical` represents a scale with thresholds that separate
