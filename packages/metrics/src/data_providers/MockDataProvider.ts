@@ -3,12 +3,12 @@ import { Region } from "@actnowcoalition/regions";
 import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
 
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
-import { Metric } from "../Metric/Metric";
+import { MetricData } from "../data";
+import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
-import { MetricData } from "../data/MetricData";
 
 /**
- * Fields allowed in the { @see MetricDefinition.dataReference } of metrics using the
+ * Fields allowed in the { @link MetricDefinition.dataReference } of metrics using the
  * "mock" data provider.
  */
 export interface MockDataReferenceFields {

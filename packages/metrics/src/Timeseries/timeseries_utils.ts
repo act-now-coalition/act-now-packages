@@ -1,6 +1,8 @@
-import { Timeseries, TimeseriesPoint } from "./Timeseries";
-import { assert } from "@actnowcoalition/assert";
 import findLastIndex from "lodash/findLastIndex";
+
+import { assert } from "@actnowcoalition/assert";
+
+import { Timeseries, TimeseriesPoint } from "./Timeseries";
 
 /**
  * Returns a new Timeseries computed via a rolling average of the provided `timeseries`.

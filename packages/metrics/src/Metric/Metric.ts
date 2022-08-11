@@ -7,7 +7,7 @@ import { isFinite } from "@actnowcoalition/number-format";
 import { MetricDataReference } from "./MetricDataReference";
 import { MetricLevel, MetricLevelSet } from "./MetricLevel";
 import { MetricDefinition } from "./MetricDefinition";
-import { MetricCatalogOptions } from "../MetricCatalog/MetricCatalogOptions";
+import { MetricCatalogOptions } from "../MetricCatalog";
 
 /** Default format options used for metrics that don't specify any. */
 const DEFAULT_FORMAT_OPTIONS: Intl.NumberFormatOptions = {
@@ -34,7 +34,7 @@ export class Metric {
   readonly extendedName: string;
   /** {@inheritDoc MetricDefinition.thresholds} */
   readonly thresholds?: number[];
-  /** @inheritDoc MetricDefinition.levelSet */
+  /** @inheritDoc MetricDefinition.levelSetId */
   readonly levelSetId: string;
   /** {@inheritDoc MetricDefinition.formatOptions} */
   readonly formatOptions: Intl.NumberFormatOptions;
@@ -42,8 +42,8 @@ export class Metric {
   readonly extra?: Record<string, unknown>;
 
   /**
-   * The set of levels this metric can be graded as. Populated from { @see
-   * MetricDefinition.lvelSet}.
+   * The set of levels this metric can be graded as. Populated from { @link
+   * MetricDefinition.levelSetId }.
    */
   readonly levelSet?: MetricLevelSet;
 

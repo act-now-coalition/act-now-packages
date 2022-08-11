@@ -44,7 +44,7 @@ export interface MetricDefinition {
 
   /**
    * References a set of levels that this metric should use for grading (e.g.
-   * "default" or "vaccine-levels"). The available { @see MetricLevelSet }
+   * "default" or "vaccine-levels"). The available { @link MetricLevelSet }
    * definitions are defined when constructing the {@link MetricCatalog}.
    */
   levelSetId?: string;

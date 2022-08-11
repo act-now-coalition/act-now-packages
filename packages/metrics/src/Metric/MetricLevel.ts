@@ -3,7 +3,7 @@
  *
  * `MetricLevel`s are defined when creating a {@link MetricCatalog} via {@link
  * MetricCatalogOptions.metricLevelSets} and then used by metrics via their
- * {@link MetricDefinition.levelSet} property.
+ * {@link MetricDefinition.levelSetId} property.
  *
  * @example
  * ```
@@ -43,7 +43,7 @@ export interface MetricLevel {
  * ```
  */
 export interface MetricLevelSet {
-  /** The ID used to identify this level set, e.g. from {@see MetricDefinition.levelSet }. */
+  /** The ID used to identify this level set, e.g. from {@link MetricDefinition.levelSetId }. */
   id: string;
 
   /**

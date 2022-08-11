@@ -1,7 +1,7 @@
 import { Metric } from "./Metric";
 import { MetricLevelSet } from "./MetricLevel";
 import { MetricDefinition } from "./MetricDefinition";
-import { MetricCatalogOptions } from "../MetricCatalog/MetricCatalogOptions";
+import { MetricCatalogOptions } from "../MetricCatalog";
 
 ///// Test data used within tests /////
 

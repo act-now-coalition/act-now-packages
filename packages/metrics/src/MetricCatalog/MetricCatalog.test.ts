@@ -1,9 +1,8 @@
 import { states } from "@actnowcoalition/regions";
 
 import { MetricCatalog } from "./MetricCatalog";
-import { StaticValueDataProvider } from "../data_providers/StaticValueDataProvider";
-import { MockDataProvider } from "../data_providers/MockDataProvider";
-import { SnapshotJSON } from "../data/MultiRegionMultiMetricDataStore";
+import { SnapshotJSON } from "../data";
+import { MockDataProvider, StaticValueDataProvider } from "../data_providers";
 
 enum MetricId {
   PI = "pi",

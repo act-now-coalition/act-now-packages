@@ -3,8 +3,8 @@ import mapValues from "lodash/mapValues";
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 
-import { Metric } from "../Metric/Metric";
 import { MetricData } from "./MetricData";
+import { Metric } from "../Metric";
 
 export interface MetricToDataMap<T> {
   [id: string]: MetricData<T>;

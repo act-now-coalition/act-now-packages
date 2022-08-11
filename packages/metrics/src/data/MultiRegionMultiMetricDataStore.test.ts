@@ -1,11 +1,12 @@
 import { states } from "@actnowcoalition/regions";
-import { Metric } from "../Metric/Metric";
+
 import {
   MultiRegionMultiMetricDataStore,
   SnapshotJSON,
 } from "./MultiRegionMultiMetricDataStore";
 import { MultiMetricDataStore } from "./MultiMetricDataStore";
 import { MetricData } from "./MetricData";
+import { Metric } from "../Metric";
 import { StaticValueDataProvider } from "../data_providers";
 
 const TEST_REGION = states.findByRegionIdStrict("12");

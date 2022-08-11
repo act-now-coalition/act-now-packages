@@ -1,9 +1,8 @@
 import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 
-import { Metric } from "../Metric/Metric";
+import { Metric, MetricLevel } from "../Metric";
 import { Timeseries } from "../Timeseries";
-import { MetricLevel } from "../Metric/MetricLevel";
 
 /**
  * Data for a particular region and metric, possibly including timeseries history.

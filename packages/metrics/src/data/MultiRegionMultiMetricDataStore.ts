@@ -3,9 +3,9 @@ import mapValues from "lodash/mapValues";
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 
-import { Metric } from "../Metric/Metric";
 import { MetricData } from "./MetricData";
 import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
+import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
 
 export interface SnapshotJSON {
@@ -17,7 +17,7 @@ export interface RegionDataJSON {
   [regionId: string]: MetricDataJSON;
 }
 
-interface MetricDataJSON {
+export interface MetricDataJSON {
   [metricName: string]: {
     currentValue: unknown;
     timeseriesPoints?: TimeseriesPointJSON[];

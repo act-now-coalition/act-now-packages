@@ -2,9 +2,9 @@ import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
-import { Metric } from "../Metric/Metric";
+import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
-import { MetricData } from "../data/MetricData";
+import { MetricData } from "../data";
 
 /**
  * Simple data provider that provides a static value for all regions. Mostly

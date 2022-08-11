@@ -1,6 +1,5 @@
-import { SnapshotJSON } from "../data/MultiRegionMultiMetricDataStore";
-import { MetricDefinition } from "../Metric/MetricDefinition";
-import { MetricLevelSet } from "../Metric/MetricLevel";
+import { SnapshotJSON } from "../data";
+import { MetricDefinition, MetricLevelSet } from "../Metric";
 
 /**
  * Options that can be provided when creating a {@link MetricCatalog} that apply
