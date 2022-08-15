@@ -3,15 +3,15 @@ import { Region } from "@actnowcoalition/regions";
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
-import { fetchCsv, DataRow, rowsToMetricData } from "./data_provider_utils";
+import { fetchCsv, DataRow, dataRowsToMetricData } from "./data_provider_utils";
 import { groupBy } from "lodash";
 
 interface CsvDataProviderOptions {
-  /* URL of CSV file to import from. */
+  /* URL of the CSV file to import from. */
   url: string;
   /* Name of column containing valid Region IDs. */
   regionColumn: string;
-  /* Name of column containing valid ISO 8601 datetime values. */
+  /* Name of column containing valid ISO 8601 date-time values. */
   dateColumn?: string;
 }
 
@@ -53,7 +53,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
     regions.forEach((region) => {
       metrics.forEach((metric) => {
         const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
-        this.cachedData[cacheKey] = rowsToMetricData(
+        this.cachedData[cacheKey] = dataRowsToMetricData(
           groupedCsvRows,
           region,
           metric,
@@ -67,7 +67,6 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
   getDataFromCache(
     region: Region,
     metric: Metric,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     includeTimeseries: boolean
   ): MetricData<unknown> {
     const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
@@ -77,6 +76,9 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
       `Data for region and metric not found. Be sure populateCache() 
       has been invoked with expected region and metric.`
     );
+    if (!includeTimeseries) {
+      return metricData.dropTimeseries();
+    }
     return metricData;
   }
 }

@@ -13,7 +13,7 @@ import {
 
 export type DataRow = { [key: string]: unknown };
 
-export function rowsToMetricData(
+export function dataRowsToMetricData(
   rowsDictionary: Dictionary<DataRow[]>,
   region: Region,
   metric: Metric,
