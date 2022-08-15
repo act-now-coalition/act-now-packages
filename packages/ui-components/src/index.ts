@@ -1,20 +1,3 @@
-import { Theme } from "@mui/material/styles";
-
-/** Theme variables */
-export { themeConfig } from "./styles";
-
-/** UI Components and props */
-export { default as LegendThreshold } from "./components/LegendThreshold";
-export type { LegendThresholdProps } from "./components/LegendThreshold";
-export { default as LegendCategorical } from "./components/LegendCategorical";
-export type { LegendCategoricalProps } from "./components/LegendCategorical";
-export { default as ProgressBar } from "./components/ProgressBar";
-export type { ProgressBarProps } from "./components/ProgressBar";
-export { default as RegionSearch } from "./components/RegionSearch";
-
-// Note (8/10/22) - Markdown is causing a bug. Commenting it out until fixed.
-// export { default as Markdown } from "./components/Markdown";
-
 /**
  * Material UI Theme extensions
  *
@@ -26,6 +9,8 @@ export { default as RegionSearch } from "./components/RegionSearch";
  * In order to make sure consumers of our package can use our theme extensions, we do
  * this in the index.ts file.
  */
+
+import { Theme } from "@mui/material/styles";
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
@@ -55,3 +40,18 @@ declare module "@mui/material/styles" {
     };
   }
 }
+
+/** Theme variables */
+export { themeConfig } from "./styles";
+
+/** UI Components and props */
+export { default as LegendThreshold } from "./components/LegendThreshold";
+export type { LegendThresholdProps } from "./components/LegendThreshold";
+export { default as LegendCategorical } from "./components/LegendCategorical";
+export type { LegendCategoricalProps } from "./components/LegendCategorical";
+export { default as ProgressBar } from "./components/ProgressBar";
+export type { ProgressBarProps } from "./components/ProgressBar";
+export { default as RegionSearch } from "./components/RegionSearch";
+// Note (8/10/22) - Markdown is causing a bug. Commenting it out until fixed.
+// export { default as Markdown } from "./components/Markdown";
+export { default as InfoTooltip } from "./components/InfoTooltip";
