@@ -15,6 +15,8 @@ export default {
 } as ComponentMeta<typeof BarChart>;
 
 const [width, height] = [600, 400];
+const padding = 10;
+const color = "#2a9d8f";
 
 const Template: ComponentStory<typeof BarChart> = (args) => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
@@ -41,7 +43,7 @@ const { minDate, maxDate, minValue, maxValue } = timeseries;
 
 const xScale = scaleTime({
   domain: [minDate, maxDate],
-  range: [0, width],
+  range: [padding, width - 2 * padding],
 });
 
 const yScale = scaleLinear({
@@ -54,12 +56,11 @@ Example.args = {
   timeseries,
   xScale,
   yScale,
-  fill: "#ddd",
+  fill: color,
 };
 
-const xScaleLine = scaleTime({ domain: [minDate, maxDate], range: [0, width] });
 const yScaleLine = scaleLinear({
-  domain: [minValue, maxValue],
+  domain: yScale.domain(),
   range: [height, 0],
 });
 
@@ -69,12 +70,9 @@ export const WithLineChart = () => (
       timeseries={timeseries}
       xScale={xScale}
       yScale={yScale}
+      fill={color}
       fillOpacity={0.3}
     />
-    <LineChart
-      timeseries={timeseries}
-      xScale={xScaleLine}
-      yScale={yScaleLine}
-    />
+    <LineChart timeseries={timeseries} xScale={xScale} yScale={yScaleLine} />
   </svg>
 );
