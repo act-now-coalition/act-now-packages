@@ -14,10 +14,7 @@ export type LegendThresholdProps<T> =
  * `LegendThreshold` represents a scale with thresholds that separate
  * a set of levels. By default, the labels between each level are shown.
  */
-const LegendThreshold = <T,>(
-  props: LegendThresholdProps<T> &
-    Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdHorizontalProps<T>>
-) => {
+const LegendThreshold = <T,>(props: LegendThresholdProps<T>) => {
   return props.orientation === "horizontal" ? (
     <LegendThresholdHorizontal {...props} />
   ) : (

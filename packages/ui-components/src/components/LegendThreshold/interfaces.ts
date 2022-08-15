@@ -1,6 +1,4 @@
 export interface CommonLegendThresholdProps<T> {
-  /** Orientation of the bars */
-  orientation?: "horizontal" | "vertical";
   /** Height of the component, including the colored bars and labels. */
   height?: number;
   /** Width of the component */

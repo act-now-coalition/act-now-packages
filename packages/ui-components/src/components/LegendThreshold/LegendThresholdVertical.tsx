@@ -6,11 +6,10 @@ import { CommonLegendThresholdProps } from "./interfaces";
 
 export interface LegendThresholdVerticalProps<T>
   extends CommonLegendThresholdProps<T> {
-  /**
-   * Note that only the labels between two levels are rendered. The last
-   * end label won't be shown.
-   */
-  getItemEndLabel?: (item: T, itemIndex: number) => string;
+  /** Orientation of the bars */
+  orientation: "vertical";
+  getItemLabel?: (item: T, itemIndex: number) => string;
+  getItemSublabel?: (item: T, itemIndex: number) => string;
 }
 
 /**
@@ -24,11 +23,7 @@ const LegendThresholdVertical = <T,>({
   items,
   getItemColor,
   ...otherSvgProps
-}: LegendThresholdVerticalProps<T> &
-  Omit<
-    React.SVGProps<SVGSVGElement>,
-    keyof LegendThresholdVerticalProps<T>
-  >) => {
+}: LegendThresholdVerticalProps<T>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, height] });
   const barHeight = scaleRect.bandwidth();

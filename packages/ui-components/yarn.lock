@@ -16,6 +16,11 @@
     "@actnowcoalition/time-utils" "^1.0.1"
     lodash "^4.17.21"
 
+"@actnowcoalition/number-format@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/number-format/-/number-format-1.1.1.tgz#e69680ea88bac2cbfaab4b1a3e4a5ae4a7c90f28"
+  integrity sha512-lwqiDceGOXKZDzOa9cZKzFggxu/ZakocxBDzxBKt/DJT+yGBJXuujRbFD9iEz8753p32FCUWKtgQXvpmN1wjSA==
+
 "@actnowcoalition/regions@^1.1.6":
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-1.1.6.tgz#c12ca335cb65afe2ebc08309f0ea012f15a74ea0"

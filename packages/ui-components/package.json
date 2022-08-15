@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "@actnowcoalition/metrics": "^0.0.1",
+    "@actnowcoalition/number-format": "^1.1.1",
     "@actnowcoalition/regions": "^1.1.6",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
