@@ -5,8 +5,8 @@ import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 
-interface LineChartOwnProps {
-  /** {@link Timeseries} used to draw the line chart */
+export interface LineChartOwnProps {
+  /** Timeseries used to draw the line chart */
   timeseries: Timeseries<number>;
 
   /** Scale to transform point dates to positions on the x-axis */
@@ -45,7 +45,7 @@ export type LineChartProps = LineChartOwnProps &
  *      <svg>
  *    );
  *
- * @param timeseries {@link Timeseries} to represent as a line.
+ * @param timeseries Timeseries to represent as a line.
  * @param xScale d3-scale to transform point dates to pixel positions on the x-axis.
  * @param yScale d3-scale to transform point values to pixel positions on the y-axis.
  *

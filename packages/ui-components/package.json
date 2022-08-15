@@ -26,6 +26,7 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@actnowcoalition/assert": "^1.0.1",
     "@babel/core": "^7.18.9",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",
