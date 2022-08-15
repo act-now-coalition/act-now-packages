@@ -10,6 +10,7 @@ export default {
 
 interface Item {
   label: string;
+  sublabel?: string;
   color: string;
 }
 
@@ -22,13 +23,7 @@ const horizontalHeight = 40;
 const horizontalBarHeight = 20;
 const horizontalWidth = 300;
 
-// Vertical legend threshold props
-const verticalWidth = 20;
-const verticalHeight = 300;
-
-const borderRadius = 4;
-
-const items: Item[] = [
+const horizontalItems: Item[] = [
   { label: "10", color: "#90BE6D" },
   { label: "20", color: "#F9C74F" },
   { label: "30", color: "#F8961E" },
@@ -36,10 +31,26 @@ const items: Item[] = [
   { label: "50", color: "#A10003" },
 ];
 
+// Vertical legend threshold props
+const verticalWidth = 12;
+const verticalHeight = 265;
+
+const verticalItems: Item[] = [
+  { label: "10", sublabel: "Supporting text 10", color: "#90BE6D" },
+  { label: "20", sublabel: "Supporting text 20", color: "#F9C74F" },
+  { label: "30", sublabel: "Supporting text 30", color: "#F8961E" },
+  { label: "40", sublabel: "Supporting text 40", color: "#E16420" },
+  { label: "50", sublabel: "Supporting text 50", color: "#A10003" },
+];
+
+const borderRadius = 4;
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemColor = (item: Item, itemIndex: number) => item.color;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getItemEndLabel = (item: Item, itemIndex: number) => item.label;
+const getItemLabel = (item: Item, itemIndex: number) => item.label;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItemSublabel = (item: Item, itemIndex: number) => item.sublabel;
 
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
@@ -49,9 +60,9 @@ HorizontalDefault.args = {
   barHeight: horizontalBarHeight,
   borderRadius,
   showLabels: true,
-  items,
+  items: horizontalItems,
   getItemColor,
-  getItemEndLabel,
+  getItemEndLabel: getItemLabel,
 };
 
 export const HorizontalWithoutLabels = Template.bind({});
@@ -82,7 +93,10 @@ VerticalDefault.args = {
   height: verticalHeight,
   width: verticalWidth,
   borderRadius,
-  items,
+  items: verticalItems,
+  showLabels: true,
+  getItemLabel,
+  getItemSublabel,
   getItemColor,
 };
 
@@ -96,4 +110,13 @@ export const VerticalSquared = Template.bind({});
 VerticalSquared.args = {
   ...VerticalDefault.args,
   borderRadius: 0,
+};
+
+export const VerticalNoLabel = Template.bind({});
+VerticalNoLabel.args = {
+  ...VerticalDefault.args,
+  width: 72 / 5,
+  height: 72,
+  borderRadius: 8,
+  showLabels: false,
 };
