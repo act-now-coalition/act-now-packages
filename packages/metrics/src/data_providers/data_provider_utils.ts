@@ -5,35 +5,39 @@ import { MetricData } from "../data";
 import Papa from "papaparse";
 import { Timeseries } from "../Timeseries";
 import { Dictionary } from "lodash";
-import {
-  DateFormat,
-  formatUTCDateTime,
-  parseDateString,
-} from "@actnowcoalition/time-utils";
+import { parseDateString } from "@actnowcoalition/time-utils";
 
 export type DataRow = { [key: string]: unknown };
 
+/**
+ * Parse raw data-rows into MetricData for specified region and metric.
+ *
+ * @param rowsDictionary Region-indexed dictionary of data to transform.
+ * @param region Region to parse data for.
+ * @param metric Metric to parse data for.
+ * @param includeTimeseries Whether to create a timeseries.
+ * @param dateKey Key name of the items in the data-rows that contain the date-time values.
+ * @returns Metric Data for the specified region and metric.
+ */
 export function dataRowsToMetricData(
   rowsDictionary: Dictionary<DataRow[]>,
   region: Region,
   metric: Metric,
   includeTimeseries: boolean,
-  dateColumn?: string
+  dateKey?: string
 ) {
   const rows = rowsDictionary[region.regionId];
   assert(rows, `No data found for region ${region.regionId}`);
-  if (!dateColumn) {
+  if (!dateKey) {
     assert(
       rows.length === 1,
       `Duplicate or no entries for region ${region.regionId} and metric ${metric.id} found.`
     );
-    const value = rows[0][metric.id];
+    const value = rows[0][metric.id] ?? null;
     const timeseries = includeTimeseries
       ? new Timeseries([
           {
-            date: new Date(
-              formatUTCDateTime(new Date(), DateFormat.YYYY_MM_DD)
-            ),
+            date: stripTime(new Date()),
             value: value,
           },
         ])
@@ -41,17 +45,12 @@ export function dataRowsToMetricData(
     return new MetricData(metric, region, value, timeseries);
   }
   assert(
-    rows.every((row) => typeof row[dateColumn] === "string"),
-    `Not all rows have a valid date-string in column ${dateColumn}.`
+    rows.every((row) => typeof row[dateKey] === "string"),
+    `Not all rows have a valid date-string in column ${dateKey}.`
   );
   const timeseries = new Timeseries(
     rows.map((row) => ({
-      date: new Date(
-        formatUTCDateTime(
-          parseDateString(row[dateColumn] as string),
-          DateFormat.YYYY_MM_DD
-        )
-      ),
+      date: stripTime(parseDateString(row[dateKey] as string)),
       value: row[metric.id] as unknown,
     }))
   );
@@ -71,4 +70,14 @@ export async function fetchCsv(url: string): Promise<DataRow[]> {
     dynamicTyping: true,
   });
   return csv.data as DataRow[];
+}
+
+/**
+ * Remove hours minutes and seconds from Javascript Date object.
+ *
+ * @param date Date object to truncate.
+ */
+function stripTime(date: Date): Date {
+  const truncatedDate = date.toISOString().split("T")[0];
+  return new Date(truncatedDate);
 }
