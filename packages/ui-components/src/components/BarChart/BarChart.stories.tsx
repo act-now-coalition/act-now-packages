@@ -15,7 +15,7 @@ export default {
 } as ComponentMeta<typeof BarChart>;
 
 const [width, height] = [600, 400];
-const padding = 10;
+const padding = 5;
 const color = "#2a9d8f";
 
 const Template: ComponentStory<typeof BarChart> = (args) => (
@@ -65,7 +65,7 @@ const yScaleLine = scaleLinear({
 });
 
 export const WithLineChart = () => (
-  <svg width={width} height={height}>
+  <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
     <BarChart
       timeseries={timeseries}
       xScale={xScale}
