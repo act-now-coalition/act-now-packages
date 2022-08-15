@@ -5,6 +5,11 @@ import { MetricData } from "../data";
 import Papa from "papaparse";
 import { Timeseries } from "../Timeseries";
 import { Dictionary } from "lodash";
+import {
+  DateFormat,
+  formatUTCDateTime,
+  parseDateString,
+} from "@actnowcoalition/time-utils";
 
 export type DataRow = { [key: string]: unknown };
 
@@ -18,12 +23,17 @@ export function rowsToMetricData(
   const rows = rowsDictionary[region.regionId];
   assert(rows, `No data found for region ${region.regionId}`);
   if (!dateColumn) {
-    assert(rows.length === 1, "Duplicate or no entries for metric found.");
-    const value = rows[0][metric.id] ?? null;
+    assert(
+      rows.length === 1,
+      `Duplicate or no entries for region ${region.regionId} and metric ${metric.id} found.`
+    );
+    const value = rows[0][metric.id];
     const timeseries = includeTimeseries
       ? new Timeseries([
           {
-            date: new Date("2022-02-01"), // TODO: use curr date
+            date: new Date(
+              formatUTCDateTime(new Date(), DateFormat.YYYY_MM_DD)
+            ),
             value: value,
           },
         ])
@@ -32,11 +42,16 @@ export function rowsToMetricData(
   }
   assert(
     rows.every((row) => typeof row[dateColumn] === "string"),
-    "Not all rows have a valid date column."
+    `Not all rows have a valid date-string in column ${dateColumn}.`
   );
   const timeseries = new Timeseries(
     rows.map((row) => ({
-      date: new Date(row[dateColumn] as string),
+      date: new Date(
+        formatUTCDateTime(
+          parseDateString(row[dateColumn] as string),
+          DateFormat.YYYY_MM_DD
+        )
+      ),
       value: row[metric.id] as unknown,
     }))
   );

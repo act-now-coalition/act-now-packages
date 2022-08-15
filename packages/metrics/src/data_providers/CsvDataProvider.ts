@@ -6,6 +6,24 @@ import { MetricData } from "../data";
 import { fetchCsv, DataRow, rowsToMetricData } from "./data_provider_utils";
 import { groupBy } from "lodash";
 
+interface CsvDataProviderOptions {
+  /* URL of CSV file to import from. */
+  url: string;
+  /* Name of column containing valid Region IDs. */
+  regionColumn: string;
+  /* Name of column containing valid ISO 8601 datetime values. */
+  dateColumn?: string;
+}
+
+/**
+ * Data Provider for importing data from CSV files.
+ *
+ * Assumes data is in wide form (variables as columns, indexed by region and date columns.)
+ * E.g:
+ * |region |date       |var1 |var2 |
+ * |TX     |2022-02-01 |12   |45   |
+ * |CA     |2022-02-01 |31   |66   |
+ */
 export class CsvDataProvider extends CachingMetricDataProviderBase {
   private readonly url: string;
   private readonly regionColumn: string;
@@ -13,11 +31,11 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
 
   readonly cachedData: { [key: string]: MetricData } = {};
 
-  constructor(url: string, regionColumn: string, dateColumn?: string) {
+  constructor(options: CsvDataProviderOptions) {
     super("csv-data");
-    this.regionColumn = regionColumn;
-    this.dateColumn = dateColumn;
-    this.url = url;
+    this.regionColumn = options.regionColumn;
+    this.dateColumn = options.dateColumn;
+    this.url = options.url;
   }
 
   async populateCache(
@@ -56,7 +74,8 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
     const metricData = this.cachedData[cacheKey];
     assert(
       metricData,
-      "Data for region and metric not found. Be sure populateCache() has been called before calling this method. "
+      `Data for region and metric not found. Be sure populateCache() 
+      has been invoked with expected region and metric.`
     );
     return metricData;
   }
