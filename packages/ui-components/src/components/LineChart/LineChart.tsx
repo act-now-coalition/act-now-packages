@@ -9,10 +9,10 @@ export interface LineChartOwnProps {
   /** Timeseries used to draw the line chart */
   timeseries: Timeseries<number>;
 
-  /** Scale to transform point dates to positions on the x-axis */
+  /** Scale to transform point dates to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** Scale to transform point values to position on the y-axis */
+  /** Scale to transform point values to piel position on the y-axis */
   yScale: ScaleLinear<number, number>;
 }
 
@@ -30,19 +30,19 @@ export type LineChartProps = LineChartOwnProps &
  *
  * @example
  *    const xScale = scaleLinear({ domain: [minDate, maxDate], range: [0, 200] });
- *    const yScale = scaleLInear({ domain: [minVal, maxVal], range: [0, 100] });
+ *    const yScale = scaleLinear({ domain: [minVal, maxVal], range: [0, 100] });
  *
  *    return (
  *      <svg>
  *        <BarChart ... />
  *        <LineChart
  *          timeseries={timeseries}
- *          xScale={}
- *          yScale={}
+ *          xScale={p => xScale(p.date)}
+ *          yScale={p => yScale(p.value)}
  *          stroke="blue"
  *          strokeDasharray="4 4"
  *        />
- *      <svg>
+ *      </svg>
  *    );
  *
  * @param timeseries Timeseries to represent as a line.
