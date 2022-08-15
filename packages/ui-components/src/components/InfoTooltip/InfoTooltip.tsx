@@ -7,6 +7,12 @@ const InfoTooltip: React.FC<MuiTooltipProps> = ({
   title,
   ...otherProps
 }) => {
+  /**
+   * MUI Tooltip's 'open', 'onOpen', and 'onClose' props don't need to explicitly
+   * be declared by default, but since we need access to a handleClose function
+   * for the mobile tooltip's CloseIcon, we need to explicitly declare all three props.
+   */
+
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
