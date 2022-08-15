@@ -5,7 +5,7 @@ import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { MetricData } from "../data";
 import { Metric } from "../Metric";
-import { Timeseries } from "../Timeseries";
+import { mockTimeseries } from "../Timeseries";
 
 /**
  * Fields allowed in the { @link MetricDefinition.dataReference } of metrics using the
@@ -83,29 +83,4 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
 
     return this.cachedData[cacheKey];
   }
-}
-
-/**
- * Generates a timeseries using a sine wave with random magnitude and phase.
- */
-function mockTimeseries(
-  dataLength: number,
-  minValue: number,
-  maxValue: number,
-  startDate: Date,
-  endDate: Date
-) {
-  const range = maxValue - minValue;
-  const midpoint = minValue + range / 2;
-  const magnitude = (range * Math.random()) / 2;
-  const phase = Math.random() * Math.PI * 2;
-  const radiansPerDay = (Math.PI * 2) / dataLength;
-
-  const values: number[] = [];
-  for (let i = 0; i < dataLength; i++) {
-    values[i] =
-      midpoint + Math.sin(radiansPerDay * i + phase) * magnitude + minValue;
-  }
-
-  return Timeseries.fromDateRange(startDate, endDate, (date, i) => values[i]);
 }

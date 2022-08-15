@@ -6,4 +6,4 @@ export type {
   TimeseriesPointJSON,
 } from "./Timeseries";
 
-export { rollingAverage } from "./timeseries_utils";
+export { rollingAverage, mockTimeseries } from "./timeseries_utils";
