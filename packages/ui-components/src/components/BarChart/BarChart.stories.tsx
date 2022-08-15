@@ -1,13 +1,16 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleLinear, scaleBand } from "@visx/scale";
+import { scaleLinear, scaleTime } from "@visx/scale";
 import { appleStock } from "@visx/mock-data";
+
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+
 import BarChart from ".";
+import LineChart from "../LineChart";
 
 export default {
-  title: "Components/BarChart",
+  title: "Charts/BarChart",
   component: BarChart,
 } as ComponentMeta<typeof BarChart>;
 
@@ -30,16 +33,15 @@ const points = appleStock.map(
 
 const timeseries = new Timeseries(points).filterToDateRange({
   startAt: new Date("2008-01-01"),
-  endAt: new Date("2008-06-30"),
+  endAt: new Date("2008-03-31"),
 });
 assert(timeseries.hasData(), `Timeseries cannot be empty`);
 
-const { minValue, maxValue } = timeseries;
+const { minDate, maxDate, minValue, maxValue } = timeseries;
 
-const xScale = scaleBand({
-  domain: timeseries.dates,
+const xScale = scaleTime({
+  domain: [minDate, maxDate],
   range: [0, width],
-  padding: 0.2,
 });
 
 const yScale = scaleLinear({
@@ -52,4 +54,27 @@ Example.args = {
   timeseries,
   xScale,
   yScale,
+  fill: "#ddd",
 };
+
+const xScaleLine = scaleTime({ domain: [minDate, maxDate], range: [0, width] });
+const yScaleLine = scaleLinear({
+  domain: [minValue, maxValue],
+  range: [height, 0],
+});
+
+export const WithLineChart = () => (
+  <svg width={width} height={height}>
+    <BarChart
+      timeseries={timeseries}
+      xScale={xScale}
+      yScale={yScale}
+      fillOpacity={0.3}
+    />
+    <LineChart
+      timeseries={timeseries}
+      xScale={xScaleLine}
+      yScale={yScaleLine}
+    />
+  </svg>
+);

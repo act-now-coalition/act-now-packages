@@ -29,21 +29,23 @@ export type LineChartProps = LineChartOwnProps &
  * Storybook for a working example.
  *
  * @example
- *    const xScale = scaleLinear({ domain: [minDate, maxDate], range: [0, 200] });
- *    const yScale = scaleLinear({ domain: [minVal, maxVal], range: [0, 100] });
+ * ```tsx
+ * const xScale = scaleTime({ domain: [minDate, maxDate], range: [0, 200] });
+ * const yScale = scaleLinear({ domain: [minVal, maxVal], range: [0, 100] });
  *
- *    return (
- *      <svg>
- *        <BarChart ... />
- *        <LineChart
- *          timeseries={timeseries}
- *          xScale={p => xScale(p.date)}
- *          yScale={p => yScale(p.value)}
- *          stroke="blue"
- *          strokeDasharray="4 4"
- *        />
- *      </svg>
- *    );
+ * return (
+ *   <svg>
+ *     <BarChart ... />
+ *     <LineChart
+ *       timeseries={timeseries}
+ *       xScale={xScale}
+ *       yScale={yScale}
+ *       stroke="blue"
+ *       strokeDasharray="4 4"
+ *     />
+ *   </svg>
+ * );
+ * ```
  *
  * @param timeseries Timeseries to represent as a line.
  * @param xScale d3-scale to transform point dates to pixel positions on the x-axis.
