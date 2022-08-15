@@ -33,8 +33,8 @@ describe("Timeseries utils", () => {
       /*days=*/ 3,
       /*includeTrailingZeros=*/ true
     );
-    expect(withTrailingZeros.dates()).toEqual(ts.dates());
-    expect(withTrailingZeros.values()).toEqual([
+    expect(withTrailingZeros.dates).toEqual(ts.dates);
+    expect(withTrailingZeros.values).toEqual([
       1 / 1,
       (1 + 2) / 2,
       (1 + 2 + 3) / 3,
@@ -49,8 +49,8 @@ describe("Timeseries utils", () => {
       /*days=*/ 3,
       /*includeTrailingZeros=*/ false
     );
-    expect(withoutTrailingZeros.dates()).toEqual(ts.dates());
-    expect(withoutTrailingZeros.values()).toEqual([
+    expect(withoutTrailingZeros.dates).toEqual(ts.dates);
+    expect(withoutTrailingZeros.values).toEqual([
       1 / 1,
       (1 + 2) / 2,
       (1 + 2 + 3) / 3,
