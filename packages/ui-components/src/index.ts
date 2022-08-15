@@ -4,6 +4,7 @@ import { Theme } from "@mui/material/styles";
 export { themeConfig } from "./styles";
 
 /** UI Components and props */
+export { default as BarChart } from "./components/BarChart";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
 export { default as LegendCategorical } from "./components/LegendCategorical";
