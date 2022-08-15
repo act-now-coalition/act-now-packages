@@ -41,14 +41,17 @@ declare module "@mui/material/styles" {
   interface DefaultTheme extends Theme {}
 
   interface Palette {
-    severity: {
+    border: {
+      default: string;
+    };
+    gradient: {
       100: string;
       200: string;
       300: string;
       400: string;
       500: string;
     };
-    gradient: {
+    severity: {
       100: string;
       200: string;
       300: string;

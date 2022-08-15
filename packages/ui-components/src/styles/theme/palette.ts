@@ -49,6 +49,9 @@ const palette = {
     black: "black",
     white: "white",
   },
+  border: {
+    default: colors.border.default,
+  },
   success: {
     main: colors.severity[100],
   },
