@@ -76,7 +76,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
       `Data for region and metric not found. Be sure populateCache() 
       has been invoked with expected region and metric.`
     );
-    if (!includeTimeseries) {
+    if (!includeTimeseries && metricData.hasTimeseries()) {
       return metricData.dropTimeseries();
     }
     return metricData;
