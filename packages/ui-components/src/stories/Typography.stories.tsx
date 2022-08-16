@@ -17,6 +17,7 @@ const textSampleParagraphLarge = `Lorem ipsum dolor sit amet, consectetur adipis
 `;
 const textSampleParagraphSmall = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus est, fermentum sit amet ullamcorper at, venenatis eget lectus. Nunc ac augue eros. Ut gravida accumsan enim id maximus.`;
 
+// TODO(Pablo): How can I get this type from the theme?
 type TypographyVariant =
   | "h1"
   | "h2"
