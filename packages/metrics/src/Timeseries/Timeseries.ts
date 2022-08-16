@@ -207,6 +207,24 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * Throws an exception if any values in the timeseries are not boolean.
+   *
+   * The returned timeseries will cast to `Timeseries<boolean>` so any subsequent
+   * code doesn't need to deal with non-boolean values.
+   */
+  assertBoolean(): Timeseries<boolean> {
+    this.points.forEach((p) => {
+      assert(
+        p.value === null || typeof p.value === "boolean",
+        `Found non-boolean value in timeseries. date=${Timeseries.isoDateString(
+          p.date
+        )} value=${p.value}`
+      );
+    });
+    return this.cast<boolean>();
+  }
+
+  /**
    * Returns the point with the date closest to the provided date, or undefined
    * if the timeseries is empty.
    *
