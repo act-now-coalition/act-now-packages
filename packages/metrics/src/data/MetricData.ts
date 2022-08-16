@@ -153,26 +153,6 @@ export class MetricData<T = unknown> {
   }
 
   /**
-   * Converts metric data to strings.
-   *
-   * Null values are preserved and are not converted to string.
-   *
-   * @returns This `MetricData` with its data converted to strings, and cast to `MetricData<string>`
-   */
-  convertToString(): MetricData<string> {
-    const toStringPreserveNull = (value: unknown) =>
-      value === null ? (null as unknown as string) : String(value);
-    const currentValueStr = toStringPreserveNull(this.currentValue);
-    const booleanTimeseries = this._timeseries?.mapValues(toStringPreserveNull);
-    return new MetricData(
-      this.metric,
-      this.region,
-      currentValueStr as string,
-      booleanTimeseries
-    );
-  }
-
-  /**
    * Uses this metric's grading logic (thresholds and levels) to grade the
    * `currentValue` to a `MetricLevel`.
    *

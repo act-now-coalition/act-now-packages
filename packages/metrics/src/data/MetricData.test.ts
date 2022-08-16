@@ -59,19 +59,4 @@ describe("MetricData", () => {
       }).toThrow();
     }
   });
-
-  test("convertToString() succeeds on valid data.", () => {
-    expect(buildMetricData(12).convertToString()).toStrictEqual(
-      buildMetricData("12")
-    );
-    expect(buildMetricData(undefined).convertToString()).toStrictEqual(
-      buildMetricData("undefined")
-    );
-  });
-
-  test("convertToString() succeeds on null data.", () => {
-    expect(buildMetricData(null).convertToString()).toStrictEqual(
-      buildMetricData(null)
-    );
-  });
 });

@@ -235,7 +235,7 @@ export class Timeseries<T = unknown> {
   assertStrings(): Timeseries<string> {
     this.points.forEach((p) => {
       assert(
-        p.value === null || typeof p.value === "string",
+        typeof p.value === "string",
         `Found non-string value in timeseries. date=${Timeseries.isoDateString(
           p.date
         )} value=${p.value}`
