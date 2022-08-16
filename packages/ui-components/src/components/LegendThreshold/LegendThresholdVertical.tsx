@@ -32,23 +32,31 @@ const LegendThresholdVertical = <T,>({
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, height] });
   const barHeight = scaleRect.bandwidth();
-  const labelWidth = 160 - (width + 16);
-
+  const barWidth = width;
+  const viewportWidth = showLabels ? 160 : width;
+  /**
+   * The label group should fill up the rest of the view port,
+   * accommodating the bar width and the 16px spacing between the bar and label group.
+   */
+  const labelWidth = viewportWidth - (barWidth + 16);
   const clipPathId = uniqueId(`bars-clip-path-`);
-
   return (
-    <svg width={160} height={280} {...otherSvgProps}>
+    <svg width={viewportWidth} height={height} {...otherSvgProps}>
       <defs>
         <clipPath id={clipPathId}>
+          {/* View port for the bar */}
           <rect
             x={0}
             y={0}
-            width={width}
+            width={barWidth}
             height={height}
             rx={borderRadius}
             ry={borderRadius}
           />
-          <rect x={width} y={0} width={labelWidth} height={height} />
+          {/* View port for the label group */}
+          {showLabels && (
+            <rect x={barWidth} y={0} width={labelWidth} height={height} />
+          )}
         </clipPath>
       </defs>
       <Group>
@@ -60,7 +68,7 @@ const LegendThresholdVertical = <T,>({
                 x={0}
                 y={y}
                 height={barHeight}
-                width={width}
+                width={barWidth}
                 fill={getItemColor(item, itemIndex)}
                 clipPath={`url(#${clipPathId})`}
               />
@@ -68,15 +76,15 @@ const LegendThresholdVertical = <T,>({
           );
         })}
       </Group>
-      <Group>
-        {showLabels &&
-          items.map((item, itemIndex) => {
+      {showLabels && (
+        <Group>
+          {items.map((item, itemIndex) => {
             const y = scaleRect(itemIndex) ?? 0;
             return (
               <Group key={`item-${itemIndex}`}>
                 {getItemLabel && (
                   <text
-                    x={width + 16}
+                    x={barWidth + 16}
                     y={y + 22}
                     fontWeight={typographyConstants.fontWeightBold}
                   >
@@ -85,7 +93,7 @@ const LegendThresholdVertical = <T,>({
                 )}
                 {getItemSublabel && (
                   <text
-                    x={width + 16}
+                    x={barWidth + 16}
                     y={y + 42}
                     color={palette.text.secondary}
                   >
@@ -95,7 +103,8 @@ const LegendThresholdVertical = <T,>({
               </Group>
             );
           })}
-      </Group>
+        </Group>
+      )}
     </svg>
   );
 };
