@@ -207,6 +207,26 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * Throws an exception if any values in the timeseries are not of type string.
+   *
+   * Null values are treated as strings and will not throw an error.
+   *
+   * The returned timeseries will cast to `Timeseries<string>` so any subsequent
+   * code doesn't need to deal with non-string values.
+   */
+  assertStrings(): Timeseries<string> {
+    this.points.forEach((p) => {
+      assert(
+        p.value === null || typeof p.value === "string",
+        `Found non-string value in timeseries. date=${Timeseries.isoDateString(
+          p.date
+        )} value=${p.value}`
+      );
+    });
+    return this.cast<string>();
+  }
+
+  /**
    * Returns the point with the date closest to the provided date, or undefined
    * if the timeseries is empty.
    *
