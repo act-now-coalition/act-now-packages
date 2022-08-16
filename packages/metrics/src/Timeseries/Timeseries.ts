@@ -209,7 +209,7 @@ export class Timeseries<T = unknown> {
   assertBoolean(): Timeseries<boolean> {
     this.points.forEach((p) => {
       assert(
-        typeof parseBoolean(p.value),
+        typeof p.value === "boolean",
         `Found non-boolean value in timeseries. date=${Timeseries.isoDateString(
           p.date
         )} value=${p.value}`
@@ -377,24 +377,4 @@ export interface NonEmptyTimeseries<T> extends Timeseries<T> {
   get maxDate(): Date;
   get minValue(): T;
   get maxValue(): T;
-}
-
-function parseBoolean(value: unknown): boolean | null {
-  if (typeof value === "boolean") {
-    return value;
-  } else if (typeof value === "string") {
-    const lowercaseValue = value.toLowerCase();
-    if (lowercaseValue === "yes" || lowercaseValue === "true") {
-      return true;
-    } else if (lowercaseValue === "no" || lowercaseValue === "false") {
-      return false;
-    }
-  } else if (typeof value === "number") {
-    if (value === 1) {
-      return true;
-    } else if (value === 0) {
-      return false;
-    }
-  }
-  return null;
 }

@@ -177,4 +177,32 @@ describe("Timeseries", () => {
     const serialized = timeseries.toJSON();
     expect(Timeseries.fromJSON(serialized)).toStrictEqual(timeseries);
   });
+
+  test("assertBoolean() rejects non-boolean values", () => {
+    const verifyValueThrowsError = (value: unknown) => {
+      expect(() =>
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertBoolean()
+      ).toThrowError("Found non-boolean value in timeseries");
+    };
+    verifyValueThrowsError("false");
+    verifyValueThrowsError("true");
+    verifyValueThrowsError("string");
+    verifyValueThrowsError(undefined);
+    verifyValueThrowsError(null);
+    verifyValueThrowsError(Number.NaN);
+  });
+
+  test("assertBoolean() accepts boolean values", () => {
+    const verifyValue = (value: unknown) => {
+      expect(
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertBoolean().last?.value
+      ).toBe(value);
+    };
+    verifyValue(false);
+    verifyValue(true);
+  });
 });
