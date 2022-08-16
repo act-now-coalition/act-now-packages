@@ -89,6 +89,14 @@ export class MetricData<T = unknown> {
     );
   }
 
+  /**
+   * Ensures the metric data is boolean.
+   *
+   * Only strictly-boolean values are allowed (true, false).
+   * Use convertToBoolean() to coerce near-boolean values to boolean (e.g. "yes", 1, "True")
+   *
+   * @returns This `MetricData` cast to `MetricData<boolean>`.
+   */
   assertBoolean(): MetricData<boolean> {
     assert(
       typeof this.currentValue === "boolean",
@@ -103,6 +111,13 @@ export class MetricData<T = unknown> {
     );
   }
 
+  /**
+   * Converts near-boolean metric data (e.g. "yes", "True", 1) to boolean.
+   *
+   * Throws an error if any data is not coercible to a boolean.
+   *
+   * @returns This `MetricData` with its data coerced to boolean, and cast to `MetricData<boolean>`
+   */
   convertToBoolean(): MetricData<boolean> {
     const currentValueBoolean = parseBoolean(this.currentValue);
     const booleanTimeseries = this._timeseries?.mapValues(parseBoolean);

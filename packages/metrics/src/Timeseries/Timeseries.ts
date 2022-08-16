@@ -206,6 +206,12 @@ export class Timeseries<T = unknown> {
     return this.cast<number>();
   }
 
+  /**
+   * Throws an exception if any values in the timeseries are not boolean.
+   *
+   * The returned timeseries will cast to `Timeseries<boolean>` so any subsequent
+   * code doesn't need to deal with non-boolean values.
+   */
   assertBoolean(): Timeseries<boolean> {
     this.points.forEach((p) => {
       assert(

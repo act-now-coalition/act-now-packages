@@ -1,3 +1,8 @@
+/**
+ * Type coerces a given value to boolean if possible, else throws an error.
+ * @param value value to convert to boolean.
+ * @returns value converted to boolean.
+ */
 export function parseBoolean(value: unknown): boolean {
   if (typeof value === "boolean") {
     return value;
