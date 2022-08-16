@@ -51,7 +51,7 @@ export function dataRowsToMetricData(
   const timeseries = new Timeseries(
     rows.map((row) => ({
       date: stripTime(parseDateString(row[dateKey] as string)),
-      value: row[metric.id] as unknown,
+      value: row[metric.id] ?? (null as unknown),
     }))
   );
   return new MetricData(
@@ -62,6 +62,12 @@ export function dataRowsToMetricData(
   );
 }
 
+/**
+ * Fetches data from a URL and parses it as JSON.
+ *
+ * @param url URL to fetch data from.
+ * @returns Fetched CSV data.
+ */
 export async function fetchCsv(url: string): Promise<DataRow[]> {
   const response = await fetch(url);
   const text = await response.text();

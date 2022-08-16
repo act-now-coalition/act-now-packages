@@ -16,7 +16,7 @@ interface CsvDataProviderOptions {
 }
 
 /**
- * Data Provider for importing data from CSV files.
+ * Data Provider for importing data from wide-format CSV files.
  *
  * Assumes data is in wide form (variables as columns, indexed by region and date columns.)
  * E.g:
@@ -47,7 +47,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
     assert(
       csv.length > 0 &&
         csv.every((row) => row[this.regionColumn] !== undefined),
-      "CSV must contain region column entry for all rows."
+      "CSV must not be empty and must contain a region column entry for all rows."
     );
     const groupedCsvRows = groupBy(csv, (row) => row[this.regionColumn]);
     regions.forEach((region) => {

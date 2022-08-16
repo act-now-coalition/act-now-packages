@@ -5,13 +5,9 @@ import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
 
 const MOCK_DATA = `region,cool_metric\n36,150\n12,`;
 const MOCK_TIMESERIES = `region,date,cool_metric\n36,2022-08-02,150\n12,2022-08-02,`;
-
 const NEW_YORK = states.findByRegionIdStrict("36");
 const FLORIDA = states.findByRegionIdStrict("12");
-const TEST_METRIC = new Metric({
-  id: "cool_metric",
-});
-
+const TEST_METRIC = new Metric({ id: "cool_metric" });
 const TODAY_ISO_DATE = formatUTCDateTime(new Date(), DateFormat.YYYY_MM_DD);
 
 describe("CsvDataProvider", () => {
