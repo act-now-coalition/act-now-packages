@@ -177,4 +177,30 @@ describe("Timeseries", () => {
     const serialized = timeseries.toJSON();
     expect(Timeseries.fromJSON(serialized)).toStrictEqual(timeseries);
   });
+
+  test("assertStrings() rejects non-string values", () => {
+    const verifyValueThrowsError = (value: unknown) => {
+      expect(() =>
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertStrings()
+      ).toThrowError("Found non-string value in timeseries");
+    };
+    const notStrings = [100, {}, undefined, Number.NaN, true];
+    for (const value of notStrings) {
+      verifyValueThrowsError(value);
+    }
+  });
+
+  test("assertStrings() accepts string and null values", () => {
+    const verifyValue = (value: unknown) => {
+      expect(
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertStrings().last?.value
+      ).toBe(value);
+    };
+    verifyValue("a string value");
+    verifyValue(null);
+  });
 });
