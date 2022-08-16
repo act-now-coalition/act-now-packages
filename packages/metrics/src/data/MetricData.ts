@@ -88,6 +88,21 @@ export class MetricData<T = unknown> {
     );
   }
 
+  assertBoolean(): MetricData<boolean> {
+    const currentValueBoolean = parseBoolean(this.currentValue);
+    assert(
+      typeof currentValueBoolean == "boolean",
+      `Value is not and cannot be coerced to boolean: ${this.currentValue}`
+    );
+    const timeseries = this._timeseries?.assertBoolean();
+    return new MetricData(
+      this.metric,
+      this.region,
+      currentValueBoolean as boolean,
+      timeseries
+    );
+  }
+
   /**
    * Uses this metric's grading logic (thresholds and levels) to grade the
    * `currentValue` to a `MetricLevel`.
@@ -117,4 +132,24 @@ export class MetricData<T = unknown> {
   roundValue(): number | null {
     return this.metric.roundValue(this.currentValue);
   }
+}
+
+function parseBoolean(value: unknown): boolean | null {
+  if (typeof value === "boolean") {
+    return value;
+  } else if (typeof value === "string") {
+    const lowercaseValue = value.toLowerCase();
+    if (lowercaseValue === "yes" || lowercaseValue === "true") {
+      return true;
+    } else if (lowercaseValue === "no" || lowercaseValue === "false") {
+      return false;
+    }
+  } else if (typeof value === "number") {
+    if (value === 1) {
+      return true;
+    } else if (value === 0) {
+      return false;
+    }
+  }
+  return null;
 }
