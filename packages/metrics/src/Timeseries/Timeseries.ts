@@ -227,8 +227,6 @@ export class Timeseries<T = unknown> {
   /**
    * Throws an exception if any values in the timeseries are not of type string.
    *
-   * Null values are treated as strings and will not throw an error.
-   *
    * The returned timeseries will cast to `Timeseries<string>` so any subsequent
    * code doesn't need to deal with non-string values.
    */
