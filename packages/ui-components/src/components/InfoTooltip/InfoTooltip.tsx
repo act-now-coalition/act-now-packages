@@ -42,6 +42,8 @@ const InfoTooltip: React.FC<MuiTooltipProps> = ({
       placement="top"
       arrow={true}
       leaveTouchDelay={60000} // For mobile: a long leaveTouchDelay keeps the tooltip open until the close-icon is clicked
+      enterDelay={0}
+      enterTouchDelay={0}
     >
       {children}
     </Tooltip>
