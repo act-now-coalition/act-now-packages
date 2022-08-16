@@ -25,13 +25,7 @@ describe("MetricData", () => {
   });
 
   test("assertStrings() fails on non-string data.", () => {
-    const notStrings = [
-      undefined,
-      true,
-      { key: "value" },
-      ["item"],
-      Number.NaN,
-    ];
+    const notStrings = [undefined, true, {}, ["item"], Number.NaN];
     for (const value of notStrings) {
       expect(() => {
         buildMetricData(value).assertStrings();
