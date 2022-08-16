@@ -3,106 +3,150 @@ import { Metric } from "../Metric";
 import { Region, states } from "@actnowcoalition/regions";
 import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
 
-const MOCK_DATA = `region,cool_metric\n36,150\n12,`;
-const MOCK_TIMESERIES = `region,date,cool_metric\n36,2022-08-02,150\n12,2022-08-02,`;
-const NEW_YORK = states.findByRegionIdStrict("36");
-const FLORIDA = states.findByRegionIdStrict("12");
-const TEST_METRIC = new Metric({ id: "cool_metric" });
-const TODAY_ISO_DATE = formatUTCDateTime(new Date(), DateFormat.YYYY_MM_DD);
+const mockData = `region,cool_metric\n36,150\n12,`;
+const mockTimeseries = `region,date,cool_metric\n36,2022-08-02,150\n12,2022-08-02,`;
+const newYork = states.findByRegionIdStrict("36");
+const florida = states.findByRegionIdStrict("12");
+const testMetric = new Metric({ id: "cool_metric" });
+
+const mockFetchData = async (
+  data: string,
+  includeTimeseries: boolean,
+  dateCol?: string,
+  region: Region = newYork
+) => {
+  global.fetch = jest.fn(() =>
+    Promise.resolve({
+      text: () => Promise.resolve(data),
+    } as unknown as Response)
+  );
+  const provider = new CsvDataProvider({
+    url: "url-placeholder",
+    regionColumn: "region",
+    dateColumn: dateCol,
+  });
+  return (await provider.fetchData([region], [testMetric], includeTimeseries))
+    .regionData(region)
+    .metricData(testMetric);
+};
 
 describe("CsvDataProvider", () => {
-  test("fetchData() returns expected data.", async () => {
-    const mockFetch = async (
-      data: string,
-      includeTimeseries: boolean,
-      dateCol?: string,
-      region: Region = NEW_YORK
-    ) => {
-      global.fetch = jest.fn(() =>
-        Promise.resolve({
-          text: () => Promise.resolve(data),
-        } as unknown as Response)
-      );
-      const provider = new CsvDataProvider({
-        url: "url-placeholder",
-        regionColumn: "region",
-        dateColumn: dateCol,
-      });
-      return (
-        await provider.fetchData([region], [TEST_METRIC], includeTimeseries)
-      )
-        .regionData(region)
-        .metricData(TEST_METRIC);
-    };
-
+  test("fetchData() without timeseries data yields expected data", async () => {
     expect(
-      (await mockFetch(MOCK_DATA, /*includeTimeseries=*/ false)).currentValue
+      (await mockFetchData(mockData, /*includeTimeseries=*/ false)).currentValue
     ).toBe(150);
     expect(
-      (await mockFetch(MOCK_DATA, /*includeTimeseries=*/ false)).hasTimeseries()
+      (
+        await mockFetchData(mockData, /*includeTimeseries=*/ false)
+      ).hasTimeseries()
     ).toBe(false);
     expect(
       (
-        await mockFetch(
-          MOCK_DATA,
+        await mockFetchData(
+          mockData,
           /*includeTimeseries=*/ false,
           undefined,
-          FLORIDA
+          florida
         )
       ).currentValue
     ).toBe(null);
     expect(
       (
-        await mockFetch(MOCK_DATA, /*includeTimeseries=*/ true)
+        await mockFetchData(mockData, /*includeTimeseries=*/ true)
       ).timeseries.toJSON()
-    ).toStrictEqual([{ date: TODAY_ISO_DATE, value: 150 }]);
+    ).toStrictEqual([
+      {
+        date: formatUTCDateTime(new Date(), DateFormat.YYYY_MM_DD),
+        value: 150,
+      },
+    ]);
     expect(
       (
-        await mockFetch(
-          MOCK_DATA,
+        await mockFetchData(
+          mockData,
           /*includeTimeseries=*/ true,
           undefined,
-          FLORIDA
+          florida
         )
       ).timeseries
         .removeNils()
         .hasData()
     ).toBe(false);
+  });
+
+  test("fetchData() with timeseries data yields expected data.", async () => {
     expect(
       (
-        await mockFetch(MOCK_TIMESERIES, /*includeTimeseries=*/ false, "date")
+        await mockFetchData(
+          mockTimeseries,
+          /*includeTimeseries=*/ false,
+          "date"
+        )
       ).hasTimeseries()
     ).toBe(false);
     expect(
-      (await mockFetch(MOCK_TIMESERIES, /*includeTimeseries=*/ false, "date"))
-        .currentValue
+      (
+        await mockFetchData(
+          mockTimeseries,
+          /*includeTimeseries=*/ false,
+          "date"
+        )
+      ).currentValue
     ).toBe(150);
     expect(
       (
-        await mockFetch(
-          MOCK_TIMESERIES,
+        await mockFetchData(
+          mockTimeseries,
           /*includeTimeseries=*/ false,
           undefined,
-          FLORIDA
+          florida
         )
       ).currentValue
     ).toBe(null);
     expect(
       (
-        await mockFetch(MOCK_TIMESERIES, /*includeTimeseries=*/ true, "date")
+        await mockFetchData(mockTimeseries, /*includeTimeseries=*/ true, "date")
       ).timeseries.toJSON()
     ).toStrictEqual([{ date: "2022-08-02", value: 150 }]);
     expect(
       (
-        await mockFetch(
-          MOCK_TIMESERIES,
+        await mockFetchData(
+          mockTimeseries,
           /*includeTimeseries=*/ true,
           "date",
-          FLORIDA
+          florida
         )
       ).timeseries
         .removeNils()
         .hasData()
     ).toBe(false);
+  });
+
+  test("fetchData() with no timeseries and no data yields expected results", async () => {
+    const includedTimeseries = await mockFetchData(
+      `region,cool_metric\n36,`,
+      /*includeTimeseries=*/ true
+    );
+    const notIncludedTimeseries = await mockFetchData(
+      `region,cool_metric\n36,`,
+      /*includeTimeseries=*/ false
+    );
+    expect(includedTimeseries.timeseries.removeNils().hasData()).toBe(false);
+    expect(includedTimeseries.currentValue).toBe(null);
+    expect(notIncludedTimeseries.currentValue).toBe(null);
+  });
+
+  test("fetchData() with timeseries and an empty CSV, or no data yields expected results", async () => {
+    const includedTimeseries = await mockFetchData(
+      `region,date,cool_metric\n36,2022-08-02,`,
+      /*includeTimeseries=*/ true
+    );
+    const notIncludedTimeseries = await mockFetchData(
+      `region,date,cool_metric\n36,2022-08-02,`,
+      /*includeTimeseries=*/ false
+    );
+    expect(includedTimeseries.timeseries.removeNils().hasData()).toBe(false);
+    expect(includedTimeseries.currentValue).toBe(null);
+    expect(notIncludedTimeseries.currentValue).toBe(null);
   });
 });

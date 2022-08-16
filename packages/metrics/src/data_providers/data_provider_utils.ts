@@ -33,7 +33,11 @@ export function dataRowsToMetricData(
       rows.length === 1,
       `Duplicate or no entries for region ${region.regionId} and metric ${metric.id} found.`
     );
-    const value = rows[0][metric.id] ?? null;
+    const value = rows[0][metric.id];
+    assert(
+      value !== undefined,
+      "Entry for metric for region ${region.regionId} and metric ${metric.id} found."
+    );
     const timeseries = includeTimeseries
       ? new Timeseries([
           {
@@ -49,10 +53,16 @@ export function dataRowsToMetricData(
     `Not all rows have a valid date-string in column ${dateKey}.`
   );
   const timeseries = new Timeseries(
-    rows.map((row) => ({
-      date: stripTime(parseDateString(row[dateKey] as string)),
-      value: row[metric.id] ?? (null as unknown),
-    }))
+    rows.map((row) => {
+      assert(
+        row[metric.id] !== undefined,
+        "Entry for metric for region ${region.regionId} and metric ${metric.id} found."
+      );
+      return {
+        date: stripTime(parseDateString(row[dateKey] as string)),
+        value: row[metric.id] as unknown,
+      };
+    })
   );
   return new MetricData(
     metric,
