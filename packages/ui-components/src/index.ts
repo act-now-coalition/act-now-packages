@@ -24,14 +24,17 @@ declare module "@mui/material/styles" {
   interface DefaultTheme extends Theme {}
 
   interface Palette {
-    severity: {
+    border: {
+      default: string;
+    };
+    gradient: {
       100: string;
       200: string;
       300: string;
       400: string;
       500: string;
     };
-    gradient: {
+    severity: {
       100: string;
       200: string;
       300: string;
@@ -45,13 +48,15 @@ declare module "@mui/material/styles" {
 export { themeConfig } from "./styles";
 
 /** UI Components and props */
+export { default as InfoTooltip } from "./components/InfoTooltip";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
 export { default as LegendCategorical } from "./components/LegendCategorical";
 export type { LegendCategoricalProps } from "./components/LegendCategorical";
+export { default as LineChart } from "./components/LineChart";
+export type { LineChartProps } from "./components/LineChart";
 export { default as ProgressBar } from "./components/ProgressBar";
 export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
 // Note (8/10/22) - Markdown is causing a bug. Commenting it out until fixed.
 // export { default as Markdown } from "./components/Markdown";
-export { default as InfoTooltip } from "./components/InfoTooltip";
