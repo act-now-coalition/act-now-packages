@@ -190,7 +190,6 @@ describe("Timeseries", () => {
     verifyValueThrowsError("true");
     verifyValueThrowsError("string");
     verifyValueThrowsError(undefined);
-    verifyValueThrowsError(null);
     verifyValueThrowsError(Number.NaN);
   });
 
@@ -204,5 +203,6 @@ describe("Timeseries", () => {
     };
     verifyValue(false);
     verifyValue(true);
+    verifyValue(null);
   });
 });

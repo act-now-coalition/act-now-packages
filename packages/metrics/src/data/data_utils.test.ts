@@ -12,15 +12,13 @@ describe("data_utils", () => {
     expect(parseBoolean("no")).toBe(false);
     expect(parseBoolean("No")).toBe(false);
     expect(parseBoolean(0)).toBe(false);
+    expect(parseBoolean(null)).toBe(null);
   });
 
   test("parseBoolean rejects invalid values", () => {
     expect(() => {
       parseBoolean("string");
     }).toThrow(`Cannot coerce string to boolean.`);
-    expect(() => {
-      parseBoolean(null);
-    }).toThrow(`Cannot coerce null to boolean.`);
     expect(() => {
       parseBoolean(undefined);
     }).toThrow(`Cannot coerce undefined to boolean.`);

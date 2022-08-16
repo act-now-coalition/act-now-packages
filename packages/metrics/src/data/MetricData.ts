@@ -99,7 +99,7 @@ export class MetricData<T = unknown> {
    */
   assertBoolean(): MetricData<boolean> {
     assert(
-      typeof this.currentValue === "boolean",
+      this.currentValue === null || typeof this.currentValue === "boolean",
       `Value is not boolean: ${this.currentValue}`
     );
     const timeseries = this._timeseries?.assertBoolean();

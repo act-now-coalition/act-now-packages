@@ -15,9 +15,12 @@ const buildMetricData = (value: unknown) => {
 };
 
 describe("MetricData", () => {
-  test("assertBoolean() succeeds on boolean data.", () => {
+  test("assertBoolean() succeeds on boolean or null data.", () => {
     expect(buildMetricData(true).assertBoolean()).toStrictEqual(
       buildMetricData(true)
+    );
+    expect(buildMetricData(null).assertBoolean()).toStrictEqual(
+      buildMetricData(null)
     );
   });
 

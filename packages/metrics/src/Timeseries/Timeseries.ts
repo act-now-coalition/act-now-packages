@@ -215,7 +215,7 @@ export class Timeseries<T = unknown> {
   assertBoolean(): Timeseries<boolean> {
     this.points.forEach((p) => {
       assert(
-        typeof p.value === "boolean",
+        p.value === null || typeof p.value === "boolean",
         `Found non-boolean value in timeseries. date=${Timeseries.isoDateString(
           p.date
         )} value=${p.value}`
