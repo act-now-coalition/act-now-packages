@@ -190,6 +190,7 @@ describe("Timeseries", () => {
     verifyValueThrowsError("string");
     verifyValueThrowsError(undefined);
     verifyValueThrowsError(Number.NaN);
+    verifyValueThrowsError(null);
   });
 
   test("assertBoolean() accepts boolean values", () => {
@@ -202,7 +203,6 @@ describe("Timeseries", () => {
     };
     verifyValue(false);
     verifyValue(true);
-    verifyValue(null);
   });
 
   test("assertStrings() rejects non-string values", () => {
