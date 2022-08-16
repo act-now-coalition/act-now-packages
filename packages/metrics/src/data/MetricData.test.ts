@@ -30,7 +30,7 @@ describe("MetricData", () => {
     }).toThrow();
   });
 
-  test("convertToBoolean() succeeds on near-boolean data.", () => {
+  test("convertToBoolean() succeeds on valid/expected data.", () => {
     expect(buildMetricData("yes").convertToBoolean()).toStrictEqual(
       buildMetricData(true)
     );

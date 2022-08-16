@@ -15,9 +15,9 @@ export function parseBoolean(value: unknown): boolean {
     }
   } else if (typeof value === "string") {
     const lowerCaseValue = value.toLocaleLowerCase();
-    if (["yes", "true"].includes(lowerCaseValue)) {
+    if (["yes", "true", "1"].includes(lowerCaseValue)) {
       return true;
-    } else if (["no", "false"].includes(lowerCaseValue)) {
+    } else if (["no", "false", "0"].includes(lowerCaseValue)) {
       return false;
     }
   }

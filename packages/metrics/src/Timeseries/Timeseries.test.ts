@@ -186,7 +186,6 @@ describe("Timeseries", () => {
         ]).assertBoolean()
       ).toThrowError("Found non-boolean value in timeseries");
     };
-    verifyValueThrowsError("false");
     verifyValueThrowsError("true");
     verifyValueThrowsError("string");
     verifyValueThrowsError(undefined);

@@ -7,11 +7,13 @@ describe("data_utils", () => {
     expect(parseBoolean("yes")).toBe(true);
     expect(parseBoolean("Yes")).toBe(true);
     expect(parseBoolean(1)).toBe(true);
+    expect(parseBoolean("1")).toBe(true);
     expect(parseBoolean("false")).toBe(false);
     expect(parseBoolean("False")).toBe(false);
     expect(parseBoolean("no")).toBe(false);
     expect(parseBoolean("No")).toBe(false);
     expect(parseBoolean(0)).toBe(false);
+    expect(parseBoolean("0")).toBe(false);
     expect(parseBoolean(null)).toBe(null);
   });
 
