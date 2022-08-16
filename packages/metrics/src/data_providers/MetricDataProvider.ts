@@ -4,23 +4,21 @@ import { Metric } from "../Metric";
 import { MultiRegionMultiMetricDataStore } from "../data";
 
 /**
- * Base class for metric data providers.
+ * Interface that all metric data providers must implement.
  *
- * A `MetricDataProvider` can be used to fetch metric data from a particular
- * source, e.g. a CSV file or API endpoint.
+ * A `MetricDataProvider` is used to fetch metric data from a particular source,
+ * e.g. a CSV file or API endpoint.
  *
  * The {@link MetricCatalog} uses `MetricDataProvider`s to fetch metric data
  * based on the {@link MetricDataReference} in the {@link Metric}.
  */
-export abstract class MetricDataProvider {
-  constructor(
-    /**
-     * The unique id of this MetricDataProvider (e.g. "main-metrics-csv" or
-     * "city-data-api"). This ID can be used from a {@link MetricDataReference}
-     * to indicate what provider should be used to fetch the data for a metric.
-     */
-    readonly id: string
-  ) {}
+export interface MetricDataProvider {
+  /**
+   * The unique id of this MetricDataProvider (e.g. "main-metrics-csv" or
+   * "city-data-api"). This ID can be used from a {@link MetricDataReference}
+   * to indicate what provider should be used to fetch the data for a metric.
+   */
+  readonly id: string;
 
   /**
    * Fetches all of the data for the specified regions and metrics, optionally
@@ -30,7 +28,7 @@ export abstract class MetricDataProvider {
    * @param metrics One or more metrics to fetch data for.
    * @param includeTimeseries Whether to fetch timeseries data.
    */
-  abstract fetchData(
+  fetchData(
     regions: Region[],
     metrics: Metric[],
     includeTimeseries: boolean

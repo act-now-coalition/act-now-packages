@@ -10,7 +10,3 @@ export const Square = styled("div", { shouldForwardProp: isValidProp })<{
   margin-right: ${(props) => props.theme.spacing(1)};
   background-color: ${(props) => props.color};
 `;
-
-export const Label = styled("span")`
-  line-height: 1.2;
-`;

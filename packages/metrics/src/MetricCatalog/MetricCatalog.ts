@@ -17,6 +17,9 @@ import { Metric, MetricDefinition } from "../Metric";
 
 /**
  * Catalog of metrics and the accompanying data providers to fetch data for them.
+ *
+ * MetricCatalog is the central class for dealing with metrics.  It stores the definitions
+ * of all known metrics and can be used to fetch data for them as needed.
  */
 export class MetricCatalog {
   /** All metrics in the catalog. */
@@ -42,14 +45,15 @@ export class MetricCatalog {
     dataProviders: MetricDataProvider[],
     options: MetricCatalogOptions = {}
   ) {
-    this.metrics = metrics.map((metric) => new Metric({ ...metric }, options));
+    this.metrics = metrics.map((metric) => new Metric(metric, options));
     this.metricsById = keyBy(this.metrics, "id");
+    this.dataProvidersById = keyBy(dataProviders, (p) => p.id);
 
     const referencedDataProviderIds = metrics.map(
       (m) => m.dataReference?.providerId
     );
     const missingDataProviderIds = referencedDataProviderIds.filter(
-      (id) => !dataProviders.find((provider) => provider.id === id)
+      (id) => id && !this.dataProvidersById[id]
     );
     assert(
       missingDataProviderIds.length === 0,
@@ -57,7 +61,6 @@ export class MetricCatalog {
         missingDataProviderIds
       ).join(", ")}`
     );
-    this.dataProvidersById = keyBy(dataProviders, (p) => p.id);
     this.options = options;
   }
 
@@ -238,7 +241,7 @@ export class MetricCatalog {
           );
           return { error };
         });
-    }, [region, metrics]);
+    }, [metricList, region]);
     return { data };
   }
 

@@ -5,7 +5,7 @@ import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { MetricData } from "../data";
 import { Metric } from "../Metric";
-import { Timeseries } from "../Timeseries";
+import { mockTimeseries } from "../Timeseries";
 
 /**
  * Fields allowed in the { @link MetricDefinition.dataReference } of metrics using the
@@ -35,7 +35,7 @@ export interface MockDataReferenceFields {
  */
 export class MockDataProvider extends CachingMetricDataProviderBase {
   constructor() {
-    super("mock");
+    super(/*providerId=*/ "mock");
   }
 
   private cachedData: { [key: string]: MetricData<number> } = {};
@@ -46,11 +46,7 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
     // populate any cache up front.
   }
 
-  getDataFromCache(
-    region: Region,
-    metric: Metric,
-    includeTimeseries: boolean
-  ): MetricData<unknown> {
+  getDataFromCache(region: Region, metric: Metric): MetricData<unknown> {
     const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
     if (!this.cachedData[cacheKey]) {
       const fields = metric.dataReference as MockDataReferenceFields;
@@ -63,23 +59,19 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
       const dataLength = getTimeDiff(endDate, startDate, TimeUnit.DAYS) + 1;
       assert(dataLength >= 0, "endDate must be >= startDate.");
 
-      let currentValue: number;
-      let timeseries: Timeseries<number> | undefined;
-      if (includeTimeseries) {
-        timeseries = mockTimeseries(
-          dataLength,
-          minValue,
-          maxValue,
-          startDate,
-          endDate
-        );
-        // Use last value of timeseries as current value.
-        assert(timeseries.hasData());
-        currentValue = timeseries.last.value;
-      } else {
-        // No timeseries. Just generate a random value.
-        currentValue = Math.random() * (maxValue - minValue) + minValue;
-      }
+      // NOTE: We always include the timeseries even if not asked so that we end up
+      // with it in the cache in case they want timeseries later.
+      const timeseries = mockTimeseries(
+        dataLength,
+        minValue,
+        maxValue,
+        startDate,
+        endDate
+      );
+
+      // Use last value of timeseries as current value.
+      assert(timeseries.hasData());
+      const currentValue = timeseries.last.value;
 
       this.cachedData[cacheKey] = new MetricData(
         metric,
@@ -91,29 +83,4 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
 
     return this.cachedData[cacheKey];
   }
-}
-
-/**
- * Generates a timeseries using a sine wave with random magnitude and phase.
- */
-function mockTimeseries(
-  dataLength: number,
-  minValue: number,
-  maxValue: number,
-  startDate: Date,
-  endDate: Date
-) {
-  const range = maxValue - minValue;
-  const midpoint = minValue + range / 2;
-  const magnitude = (range * Math.random()) / 2;
-  const phase = Math.random() * Math.PI * 2;
-  const radiansPerDay = (Math.PI * 2) / dataLength;
-
-  const values: number[] = [];
-  for (let i = 0; i < dataLength; i++) {
-    values[i] =
-      midpoint + Math.sin(radiansPerDay * i + phase) * magnitude + minValue;
-  }
-
-  return Timeseries.fromDateRange(startDate, endDate, (date, i) => values[i]);
 }

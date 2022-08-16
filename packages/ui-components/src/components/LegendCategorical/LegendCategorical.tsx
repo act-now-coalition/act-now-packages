@@ -1,6 +1,7 @@
 import React from "react";
 import Stack from "@mui/material/Stack";
-import { Square, Label } from "./LegendCategorical.style";
+import Typography from "@mui/material/Typography";
+import { Square } from "./LegendCategorical.style";
 
 export interface LegendCategoricalProps<T> {
   /** Array of items representing legend items */
@@ -13,7 +14,7 @@ export interface LegendCategoricalProps<T> {
    * Whether or not the legend items are oriented horizontally (in a row) on desktop screens ('md' and wider).
    * Defaults to true. If false, the legend items will be oriented vertically/in a column.
    */
-  horizontal?: boolean;
+  orientation?: "horizontal" | "vertical";
 }
 
 /**
@@ -23,10 +24,11 @@ const LegendCategorical = <T,>({
   items,
   getItemColor,
   getItemLabel,
-  horizontal = true,
+  orientation = "horizontal",
 }: LegendCategoricalProps<T>) => {
-  const desktopLegendOrientation = horizontal ? "row" : "column";
-  const desktopLegendSpacing = horizontal ? 2.5 : 1.5;
+  const isHorizontalOrientation = orientation === "horizontal";
+  const desktopLegendOrientation = isHorizontalOrientation ? "row" : "column";
+  const desktopLegendSpacing = isHorizontalOrientation ? 2.5 : 1.5;
   return (
     <Stack
       direction={{ xs: "column", md: desktopLegendOrientation }}
@@ -36,7 +38,9 @@ const LegendCategorical = <T,>({
         return (
           <Stack direction="row" alignItems="center" key={`item-${itemIndex}`}>
             <Square color={getItemColor(item, itemIndex)} />
-            <Label>{getItemLabel(item, itemIndex)}</Label>
+            <Typography variant="paragraphSmall">
+              {getItemLabel(item, itemIndex)}
+            </Typography>
           </Stack>
         );
       })}

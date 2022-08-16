@@ -15,7 +15,7 @@ const testMetricDefs = [
     name: "Pi",
     extendedName: "Pi - The ratio of a circle's circumference to its diameter",
     dataReference: {
-      providerId: "static-value",
+      providerId: "static",
       value: 3.141592653589793,
     },
   },
@@ -85,11 +85,13 @@ describe("MetricCatalog", () => {
     ];
     const catalog = new MetricCatalog(testMetricDefs, dataProviders);
 
+    // Fetch data for two metrics that come from different data providers.
     const dataStore = await catalog.fetchDataForMetricsAndRegions(
       [testRegionCA, testRegionWA],
       [MetricId.PI, MetricId.MOCK_CASES]
     );
 
+    // Ensure PI metric is correct.
     expect(
       dataStore.regionData(testRegionCA).metricData(MetricId.PI).currentValue
     ).toBe(Math.PI);
@@ -97,13 +99,15 @@ describe("MetricCatalog", () => {
       dataStore.regionData(testRegionWA).metricData(MetricId.PI).currentValue
     ).toBe(Math.PI);
 
+    // Ensure mock cases metric is correct (note since mock data is random, we
+    // don't know the exact value).
     const valueCA = dataStore
       .regionData(testRegionCA)
       .metricData(MetricId.MOCK_CASES).currentValue;
+    expect(typeof valueCA).toBe("number");
     const valueWA = dataStore
       .regionData(testRegionWA)
       .metricData(MetricId.MOCK_CASES).currentValue;
-    expect(typeof valueCA).toBe("number");
     expect(typeof valueWA).toBe("number");
   });
 

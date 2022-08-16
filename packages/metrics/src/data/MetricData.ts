@@ -30,13 +30,6 @@ export class MetricData<T = unknown> {
   }
 
   /**
-   * Removes timeseries data for this metric and returns a new MetricData object.
-   */
-  dropTimeseries(): MetricData {
-    return new MetricData(this.metric, this.region, this.currentValue);
-  }
-
-  /**
    * The timeseries data for this metric.
    *
    * Throws if timeseries data was not fetched for this metric. See {@link hasTimeseries}.
@@ -62,7 +55,8 @@ export class MetricData<T = unknown> {
   }
 
   /**
-   * Ensures the timeseries data is numeric and returns it.
+   * Removes any empty (null) values from the timeseries, Ensures the remaining
+   * data is numeric,  and returns a new `Timeseries<number>` with the data.
    *
    * @returns The timeseries cast to `Timeseries<number>`.
    */

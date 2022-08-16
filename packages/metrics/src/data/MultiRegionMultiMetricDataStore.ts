@@ -8,15 +8,27 @@ import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
 import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
 
+/**
+ * JSON format of a data snapshot representing the contents of a
+ * MultiRegionMultiMetricDataStore instance.
+ */
 export interface SnapshotJSON {
   metadata: { createdDate: string; latestDate: string | null };
   data: RegionDataJSON;
 }
 
+/**
+ * JSON format of a data snapshot representing the contents of a
+ * MultiMetricDataStore instance.
+ */
 export interface RegionDataJSON {
   [regionId: string]: MetricDataJSON;
 }
 
+/**
+ * JSON format of a data snapshot representing the contents of a
+ * MetricData instance.
+ */
 export interface MetricDataJSON {
   [metricName: string]: {
     currentValue: unknown;
