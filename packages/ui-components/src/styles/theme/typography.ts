@@ -25,6 +25,9 @@ const typographyConstants = {
   fontSizeBase: "1rem",
   fontSizeDSmall: "1.125rem",
   fontSizeDLarge: "1.5rem",
+  fontSizeH1: "2.75rem",
+  fontSizeH2: "2rem",
+  fontSizeH3: "1.125rem",
 
   lineHeightSmall: 1,
   lineHeightMedium: 1.25,
@@ -35,21 +38,21 @@ const typography: ExtendedTypographyOptions = {
   fontFamily: typographyConstants.fontFamily,
 
   h1: {
-    fontSize: "2.75rem",
+    fontSize: typographyConstants.fontSizeH1,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
     color: palette.secondary.dark,
   },
 
   h2: {
-    fontSize: "2rem",
+    fontSize: typographyConstants.fontSizeH2,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
     color: palette.secondary.dark,
   },
 
   h3: {
-    fontSize: "1.125rem",
+    fontSize: typographyConstants.fontSizeH3,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
     color: palette.secondary.dark,
