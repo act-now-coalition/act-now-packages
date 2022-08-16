@@ -71,4 +71,15 @@ describe("fetchCsv()", () => {
     const payload = await fetchCsv("url-placeholder");
     expect(payload[0].cool_metric).toBe("a value that has spaces.");
   });
+
+  test("fetchCsv() parses booleans", async () => {
+    const mockFetchBoolean = async (value: string | boolean) => {
+      mockFetch(`region,date,cool_metric\n36,2022-08-02,${value}`);
+      const payload = await fetchCsv("url-placeholder");
+      console.log(payload[0].cool_metric);
+      return payload[0].cool_metric;
+    };
+    expect(await mockFetchBoolean(`"true"`)).toBe(true);
+    expect(await mockFetchBoolean(true)).toBe(true);
+  });
 });
