@@ -213,21 +213,17 @@ describe("Timeseries", () => {
         ]).assertStrings()
       ).toThrowError("Found non-string value in timeseries");
     };
-    const notStrings = [100, {}, undefined, Number.NaN, true];
+    const notStrings = [100, {}, undefined, Number.NaN, true, null];
     for (const value of notStrings) {
       verifyValueThrowsError(value);
     }
   });
 
-  test("assertStrings() accepts string and null values", () => {
-    const verifyValue = (value: unknown) => {
-      expect(
-        new Timeseries([
-          { date: new Date("2021-02-03"), value },
-        ]).assertStrings().last?.value
-      ).toBe(value);
-    };
-    verifyValue("a string value");
-    verifyValue(null);
+  test("assertStrings() accepts string values", () => {
+    expect(
+      new Timeseries([
+        { date: new Date("2021-02-03"), value: "a string value" },
+      ]).assertStrings().last?.value
+    ).toBe("a string value");
   });
 });

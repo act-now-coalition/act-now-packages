@@ -46,13 +46,10 @@ describe("MetricData", () => {
     expect(buildMetricData("string value").assertStrings()).toStrictEqual(
       buildMetricData("string value")
     );
-    expect(buildMetricData(null).assertStrings()).toStrictEqual(
-      buildMetricData(null)
-    );
   });
 
   test("assertStrings() fails on non-string data.", () => {
-    const notStrings = [undefined, true, {}, ["item"], Number.NaN];
+    const notStrings = [undefined, true, {}, ["item"], Number.NaN, null];
     for (const value of notStrings) {
       expect(() => {
         buildMetricData(value).assertStrings();
