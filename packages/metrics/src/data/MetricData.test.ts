@@ -41,4 +41,19 @@ describe("MetricData", () => {
       buildMetricData("not boolean").convertToBoolean();
     }).toThrow();
   });
+
+  test("assertStrings() succeeds on string data.", () => {
+    expect(buildMetricData("string value").assertStrings()).toStrictEqual(
+      buildMetricData("string value")
+    );
+  });
+
+  test("assertStrings() fails on non-string data.", () => {
+    const notStrings = [undefined, true, {}, ["item"], Number.NaN, null];
+    for (const value of notStrings) {
+      expect(() => {
+        buildMetricData(value).assertStrings();
+      }).toThrow();
+    }
+  });
 });

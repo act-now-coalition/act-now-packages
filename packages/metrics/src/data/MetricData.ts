@@ -130,6 +130,29 @@ export class MetricData<T = unknown> {
   }
 
   /**
+   * Ensures the metric data is of type string.
+   *
+   * Null values are treated as strings and will not throw an error.
+   *
+   * @returns This `MetricData` cast to `MetricData<string>`.
+   */
+  assertStrings(): MetricData<string> {
+    assert(
+      this.currentValue === null || typeof this.currentValue === "string",
+      `Value is not a string: ${this.currentValue}`
+    );
+
+    const timeseries = this._timeseries?.assertStrings();
+
+    return new MetricData(
+      this.metric,
+      this.region,
+      this.currentValue as string,
+      timeseries
+    );
+  }
+
+  /**
    * Uses this metric's grading logic (thresholds and levels) to grade the
    * `currentValue` to a `MetricLevel`.
    *
