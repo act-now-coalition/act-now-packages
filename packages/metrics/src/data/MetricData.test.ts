@@ -15,6 +15,33 @@ const buildMetricData = (value: unknown) => {
 };
 
 describe("MetricData", () => {
+  test("assertBoolean() succeeds on boolean or null data.", () => {
+    expect(buildMetricData(true).assertBoolean()).toStrictEqual(
+      buildMetricData(true)
+    );
+    expect(buildMetricData(null).assertBoolean()).toStrictEqual(
+      buildMetricData(null)
+    );
+  });
+
+  test("assertBoolean() fails on non-boolean data.", () => {
+    expect(() => {
+      buildMetricData("not boolean").assertBoolean();
+    }).toThrow();
+  });
+
+  test("convertToBoolean() succeeds on valid/expected data.", () => {
+    expect(buildMetricData("yes").convertToBoolean()).toStrictEqual(
+      buildMetricData(true)
+    );
+  });
+
+  test("convertToBoolean() fails on non-boolean data.", () => {
+    expect(() => {
+      buildMetricData("not boolean").convertToBoolean();
+    }).toThrow();
+  });
+
   test("assertStrings() succeeds on string or null data.", () => {
     expect(buildMetricData("string value").assertStrings()).toStrictEqual(
       buildMetricData("string value")
