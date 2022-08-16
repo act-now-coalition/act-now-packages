@@ -42,7 +42,7 @@ describe("MetricData", () => {
     }).toThrow();
   });
 
-  test("assertStrings() succeeds on string or null data.", () => {
+  test("assertStrings() succeeds on string data.", () => {
     expect(buildMetricData("string value").assertStrings()).toStrictEqual(
       buildMetricData("string value")
     );
