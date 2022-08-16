@@ -33,6 +33,11 @@ declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
     paragraphSmall: true;
     paragraphLarge: true;
+    labelSmall: true;
+    labelLarge: true;
+    dataEmphasizedSmall: true;
+    dataEmphasizedLarge: true;
+    dataTabular: true;
   }
 }
 
