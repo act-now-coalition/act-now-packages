@@ -29,7 +29,6 @@ const InfoTooltip: React.FC<MuiTooltipProps> = ({
 
   return (
     <Tooltip
-      {...otherProps}
       open={open}
       onOpen={handleOpen}
       onClose={handleClose}
@@ -44,6 +43,7 @@ const InfoTooltip: React.FC<MuiTooltipProps> = ({
       leaveTouchDelay={60000} // For mobile: a long leaveTouchDelay keeps the tooltip open until the close-icon is clicked
       enterDelay={0}
       enterTouchDelay={0}
+      {...otherProps}
     >
       {children}
     </Tooltip>
