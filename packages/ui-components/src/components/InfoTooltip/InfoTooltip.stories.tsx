@@ -27,8 +27,13 @@ const Template: ComponentStory<typeof InfoTooltip> = (args) => {
   );
 };
 
-export const Example = Template.bind({});
-Example.args = {
+export const DefaultProps = Template.bind({});
+DefaultProps.args = {
+  title: <TooltipTitle />,
+};
+
+export const AddedOpenAndCloseFunctionality = Template.bind({});
+AddedOpenAndCloseFunctionality.args = {
   title: <TooltipTitle />,
   onOpen: () => {
     console.log("onOpen, optional tracking functionality");
