@@ -1,6 +1,7 @@
 /** MUI theme components */
 
 import { createTheme } from "@mui/material/styles";
+import { typographyConstants } from "./typography";
 
 const referenceTheme = createTheme();
 
@@ -10,8 +11,8 @@ const components = {
       tooltip: {
         backgroundColor: "black",
         color: "white",
-        fontSize: ".8125rem",
-        lineHeight: "1.4",
+        fontSize: typographyConstants.fontSizeBase,
+        lineHeight: typographyConstants.lineHeightBase,
         padding: "16px",
         "& a": {
           color: "white",
