@@ -65,3 +65,6 @@ export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
 // Note (8/10/22) - Markdown is causing a bug. Commenting it out until fixed.
 // export { default as Markdown } from "./components/Markdown";
+
+export { AxisLeft, AxisBottom } from "./components/Axis";
+export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
