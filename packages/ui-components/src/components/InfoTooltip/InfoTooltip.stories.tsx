@@ -31,6 +31,9 @@ export const Example = Template.bind({});
 Example.args = {
   title: <TooltipTitle />,
   onOpen: () => {
-    console.log("opening");
+    console.log("onOpen, optional tracking functionality");
+  },
+  onClose: () => {
+    console.log("onClose, optional tracking functionality");
   },
 };

@@ -15,23 +15,22 @@ const InfoTooltip: React.FC<MuiTooltipProps> = ({
 
   const [open, setOpen] = useState(false);
 
-  const handleOpen = () => {
+  const handleOpen = (e: React.SyntheticEvent) => {
     if (!open) {
       setOpen(true);
+      otherProps.onOpen && otherProps.onOpen(e);
     }
   };
 
-  const handleClose = () => {
+  const handleClose = (e: Event | React.SyntheticEvent<Element, Event>) => {
     if (open) {
       setOpen(false);
+      otherProps.onClose && otherProps.onClose(e);
     }
   };
 
   return (
     <Tooltip
-      open={open}
-      onOpen={handleOpen}
-      onClose={handleClose}
       title={
         <>
           <CloseIcon role="button" onClick={handleClose} />
@@ -44,6 +43,9 @@ const InfoTooltip: React.FC<MuiTooltipProps> = ({
       enterDelay={0}
       enterTouchDelay={0}
       {...otherProps}
+      open={open}
+      onOpen={handleOpen}
+      onClose={handleClose}
     >
       {children}
     </Tooltip>
