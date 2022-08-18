@@ -3,8 +3,7 @@ import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import uniqueId from "lodash/uniqueId";
 import { CommonLegendThresholdProps } from "./interfaces";
-import palette from "../../styles/theme/palette";
-import { typographyConstants } from "../../styles/theme/typography";
+import Typography from "@mui/material/Typography";
 
 export interface LegendThresholdVerticalProps<T>
   extends CommonLegendThresholdProps<T> {
@@ -23,7 +22,7 @@ const LegendThresholdVertical = <T,>({
   width = 20,
   borderRadius,
   items,
-  showLabels,
+  showLabels = false,
   getItemColor,
   getItemLabel,
   getItemSublabel,
@@ -83,22 +82,32 @@ const LegendThresholdVertical = <T,>({
             return (
               <Group key={`item-${itemIndex}`}>
                 {getItemLabel && (
-                  <text
+                  <foreignObject
                     x={barWidth + 16}
-                    y={y + 22}
-                    fontWeight={typographyConstants.fontWeightBold}
+                    y={y + 4}
+                    width={labelWidth}
+                    height={24}
                   >
-                    {getItemLabel(item, itemIndex)}
-                  </text>
+                    <Typography
+                      variant="paragraphSmall"
+                      fontWeight={700}
+                      color="black"
+                    >
+                      {getItemLabel(item, itemIndex)}
+                    </Typography>
+                  </foreignObject>
                 )}
                 {getItemSublabel && (
-                  <text
+                  <foreignObject
                     x={barWidth + 16}
-                    y={y + 42}
-                    color={palette.text.secondary}
+                    y={y + 24}
+                    width={labelWidth}
+                    height={24}
                   >
-                    {getItemSublabel(item, itemIndex)}
-                  </text>
+                    <Typography variant="paragraphSmall">
+                      {getItemSublabel(item, itemIndex)}
+                    </Typography>
+                  </foreignObject>
                 )}
               </Group>
             );

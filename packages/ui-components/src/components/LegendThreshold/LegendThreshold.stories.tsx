@@ -94,7 +94,6 @@ VerticalDefault.args = {
   width: verticalWidth,
   borderRadius,
   items: verticalItems,
-  showLabels: true,
   getItemLabel,
   getItemSublabel,
   getItemColor,
@@ -104,12 +103,14 @@ export const VerticalRounded = Template.bind({});
 VerticalRounded.args = {
   ...VerticalDefault.args,
   borderRadius: verticalWidth / 2,
+  showLabels: true,
 };
 
 export const VerticalSquared = Template.bind({});
 VerticalSquared.args = {
   ...VerticalDefault.args,
   borderRadius: 0,
+  showLabels: true,
 };
 
 export const VerticalNoLabel = Template.bind({});
@@ -118,5 +119,4 @@ VerticalNoLabel.args = {
   width: 72 / 5,
   height: 72,
   borderRadius: 8,
-  showLabels: false,
 };
