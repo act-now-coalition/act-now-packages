@@ -8,10 +8,10 @@ export interface BarChartOwnProps {
   /** Timeseries used to draw the line chart */
   timeseries: Timeseries<number>;
 
-  /** Scale to transform point dates to pixel positions on the x-axis */
+  /** d3-scale to transform point dates to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** Scale to transform point values to piel position on the y-axis */
+  /** d3-scale to transform point values to pixel position on the y-axis */
   yScale: ScaleLinear<number, number>;
 
   /** Width of each bar, in pixels */
@@ -24,15 +24,15 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  * BarChart is a chart to represent a Timeseries as a series of bars, one bar
  * for each point in the series.
  *
- * The horizontal center of the rectangles will be aligned with the date of its
- * corresponding point, make sure to adjust the chart paddings accordingly.
+ * Note that the left edge of each rectangle will be aligned
+ * with the date of the data point
  *
  * By default, the bar width corresponds to the distance between two
  * consecutive days.
  *
  * @example
  * ```tsx
- * const xScale = scaleTime({ domain: [minDate, maxDate], range: [0, width] });
+ * const xScale = scaleUtc({ domain: [minDate, maxDate], range: [0, width] });
  * const yScale = scaleLinear({ domain: [minValue, maxValue], range: [height, 0] });
  *
  * <svg width={width} height={height}>

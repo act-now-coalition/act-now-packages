@@ -23,7 +23,9 @@ const fill = "#2a9d8f";
 
 const Template: ComponentStory<typeof BarChart> = (args) => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
-    <BarChart {...args} />
+    <Group left={padding} top={padding}>
+      <BarChart {...args} />
+    </Group>
   </svg>
 );
 
@@ -61,22 +63,25 @@ Example.args = {
   timeseries,
   xScale,
   yScale,
-  fill: fill,
+  fill,
+  barWidth: dayWidth - 3,
 };
 
 export const WithLineChart = () => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
     <Group top={padding} left={padding}>
       <rect width={innerWidth} height={innerHeight} fill="#eee" />
-      <BarChart
-        timeseries={timeseries}
-        xScale={xScale}
-        yScale={yScale}
-        fill={fill}
-        fillOpacity={0.3}
-        barWidth={dayWidth - 2}
-      />
       <Group left={0.5 * dayWidth}>
+        <Group left={-0.5 * dayWidth}>
+          <BarChart
+            timeseries={timeseries}
+            xScale={xScale}
+            yScale={yScale}
+            fill={fill}
+            fillOpacity={0.3}
+            barWidth={dayWidth - 2}
+          />
+        </Group>
         {timeseries.points.map((p, i) => (
           <circle
             key={`dot-${i}`}
