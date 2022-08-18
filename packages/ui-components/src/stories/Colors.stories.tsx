@@ -1,19 +1,24 @@
 import React from "react";
-import { Typography, Grid, Box } from "@mui/material";
+import isObject from "lodash/isObject";
+import { Typography, Palette, Grid, Box } from "@mui/material";
 import theme from "../styles/theme";
 
 export default {
   title: "Design System/Colors",
 };
 
-const groups = Object.keys(theme.palette)
-  .filter((name) => typeof theme.palette[name] === "object")
-  .filter((name) => !["mode"].includes(name))
+const paletteGroups = (Object.keys(theme.palette) as (keyof Palette)[])
+  .filter((name) => isObject(theme.palette[name]))
+  .filter((name) => ["mode"].includes(name))
   .map((name) => {
-    const colors = Object.keys(theme.palette[name]).map((colorKey) => ({
-      name: `theme.palette.${name}.${colorKey}`,
-      color: theme.palette[name][colorKey],
-    }));
+    const colorGroup = theme.palette[name] as Record<string, string>;
+    const colorGroupKeys = Object.keys(colorGroup);
+    const colors = colorGroupKeys.map((key) => {
+      return {
+        name: `theme.palette.${name}.${key}`,
+        color: colorGroup[key],
+      };
+    });
     return { name, colors };
   });
 
@@ -22,23 +27,25 @@ interface ColorInfo {
   color: string;
 }
 
-export const All = () => {
-  return (
-    <>
-      {groups.map((group) => (
-        <ColorGroup key={group.name} name={group.name} colors={group.colors} />
-      ))}
-    </>
-  );
-};
+export const All = () => (
+  <>
+    {paletteGroups.map((group) => (
+      <ColorGroup
+        key={group.name}
+        colorGroupName={group.name}
+        colorInfoList={group.colors}
+      />
+    ))}
+  </>
+);
 
-const ColorGroup: React.FC<{ name: string; colors: ColorInfo[] }> = ({
-  name,
-  colors,
-}) => (
-  <Box key={name} mt={4} mb={2}>
-    <Typography variant="overline">{name}</Typography>
-    {colors.map((item) => (
+const ColorGroup: React.FC<{
+  colorGroupName: string;
+  colorInfoList: ColorInfo[];
+}> = ({ colorGroupName, colorInfoList }) => (
+  <Box key={colorGroupName} mt={4} mb={2}>
+    <Typography variant="overline">{colorGroupName}</Typography>
+    {colorInfoList.map((item) => (
       <Grid key={item.name} container mt={2}>
         <Grid item sm={1} xs={12}>
           <ColorBox color={item.color} />
@@ -57,7 +64,7 @@ const ColorBox: React.FC<{ color: string }> = ({ color }) => (
       width: 48,
       height: 48,
       border: `solid 1px ${theme.palette.border.default}`,
-      borderRadius: 4,
+      borderRadius: theme.shape.borderRadius,
       backgroundColor: color,
     }}
   />
