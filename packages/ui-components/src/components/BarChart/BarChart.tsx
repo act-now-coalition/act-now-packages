@@ -33,7 +33,7 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  * @example
  * ```tsx
  * const xScale = scaleTime({ domain: [minDate, maxDate], range: [0, width] });
- * const yScale = scaleLinear({ domain: [minValue, maxValue], range: [0, height] });
+ * const yScale = scaleLinear({ domain: [minValue, maxValue], range: [height, 0] });
  *
  * <svg width={width} height={height}>
  *   <BarChart
@@ -55,7 +55,7 @@ const BarChart: React.FC<BarChartProps> = ({
   timeseries,
   xScale,
   yScale,
-  barWidth,
+  barWidth = 2,
   ...rectProps
 }) => {
   // We need minDate to calculate the bar width, so we return early if the
@@ -64,23 +64,20 @@ const BarChart: React.FC<BarChartProps> = ({
     return null;
   }
 
-  const { minDate } = timeseries;
-  const rectWidth =
-    barWidth ?? Math.floor(xScale(nextDay(minDate)) - xScale(minDate));
-
-  const [, maxHeight] = yScale.range();
+  const [yStart, yEnd] = yScale.range();
+  const maxHeight = Math.max(yStart, yEnd);
 
   return (
-    <Group left={-0.5 * rectWidth}>
+    <Group>
       {timeseries.points.map((p, i) => {
-        const barHeight = yScale(p.value);
+        const rectY = yScale(p.value);
         return (
           <rect
             key={`bar-${i}`}
             x={xScale(p.date)}
-            y={maxHeight - barHeight}
-            width={rectWidth}
-            height={barHeight}
+            y={rectY}
+            width={barWidth}
+            height={maxHeight - rectY}
             fill="#000"
             {...rectProps}
           />
@@ -91,9 +88,3 @@ const BarChart: React.FC<BarChartProps> = ({
 };
 
 export default BarChart;
-
-// Given a date, it returns the date of the next day
-function nextDay(date: Date): Date {
-  const unixTimeMilliseconds = date.getTime();
-  return new Date(unixTimeMilliseconds + 1000 * 24 * 60 * 60);
-}

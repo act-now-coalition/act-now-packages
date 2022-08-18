@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleLinear, scaleTime } from "@visx/scale";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+import { Group } from "@visx/group";
 import { appleStock } from "@visx/mock-data";
 
 import { assert } from "@actnowcoalition/assert";
@@ -15,8 +16,10 @@ export default {
 } as ComponentMeta<typeof BarChart>;
 
 const [width, height] = [600, 400];
-const padding = 5;
-const color = "#2a9d8f";
+const padding = 30;
+const innerWidth = width - 2 * padding;
+const innerHeight = height - 2 * padding;
+const fill = "#2a9d8f";
 
 const Template: ComponentStory<typeof BarChart> = (args) => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
@@ -28,27 +31,29 @@ const Template: ComponentStory<typeof BarChart> = (args) => (
 // so we can use them to initialize Timeseries.
 const points = appleStock.map(
   (p: { date: string; close: number }): TimeseriesPoint<number> => ({
-    date: new Date(p.date.substring(0, 10)),
+    date: new Date(`${p.date.replace(/T.*/, "")}`),
     value: p.close,
   })
 );
 
 const timeseries = new Timeseries(points).filterToDateRange({
   startAt: new Date("2008-01-01"),
-  endAt: new Date("2008-03-31"),
+  endAt: new Date("2008-01-31"),
 });
 assert(timeseries.hasData(), `Timeseries cannot be empty`);
 
 const { minDate, maxDate, minValue, maxValue } = timeseries;
 
-const xScale = scaleTime({
+const numDays = 31;
+const dayWidth = Math.floor(innerWidth / numDays);
+const xScale = scaleUtc({
   domain: [minDate, maxDate],
-  range: [padding, width - 2 * padding],
+  range: [0, innerWidth - dayWidth],
 });
 
 const yScale = scaleLinear({
   domain: [minValue, maxValue],
-  range: [0, height],
+  range: [innerHeight, 0],
 });
 
 export const Example = Template.bind({});
@@ -56,23 +61,33 @@ Example.args = {
   timeseries,
   xScale,
   yScale,
-  fill: color,
+  fill: fill,
 };
-
-const yScaleLine = scaleLinear({
-  domain: yScale.domain(),
-  range: [height, 0],
-});
 
 export const WithLineChart = () => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
-    <BarChart
-      timeseries={timeseries}
-      xScale={xScale}
-      yScale={yScale}
-      fill={color}
-      fillOpacity={0.3}
-    />
-    <LineChart timeseries={timeseries} xScale={xScale} yScale={yScaleLine} />
+    <Group top={padding} left={padding}>
+      <rect width={innerWidth} height={innerHeight} fill="#eee" />
+      <BarChart
+        timeseries={timeseries}
+        xScale={xScale}
+        yScale={yScale}
+        fill={fill}
+        fillOpacity={0.3}
+        barWidth={dayWidth - 2}
+      />
+      <Group left={0.5 * dayWidth}>
+        {timeseries.points.map((p, i) => (
+          <circle
+            key={`dot-${i}`}
+            cx={xScale(p.date)}
+            cy={yScale(p.value)}
+            r={4}
+            fill="black"
+          />
+        ))}
+        <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
+      </Group>
+    </Group>
   </svg>
 );
