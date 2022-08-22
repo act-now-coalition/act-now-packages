@@ -28,10 +28,10 @@ export function dataRowsToMetricData(
   const metricColumn = metric.dataReference?.column;
   assert(
     typeof metricColumn === "string",
-    "Metric is missing column name. Ensure 'column' is included in metric's dataReference"
+    "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
   );
   const rows = dataRowsByRegionId[region.regionId];
-  assert(rows, `No data found for region ${region.regionId}`);
+  assert(rows, `No data found for region ${region.regionId}.`);
   if (!dateKey) {
     assert(
       rows.length === 1,
@@ -40,7 +40,7 @@ export function dataRowsToMetricData(
     const value = rows[0][metricColumn];
     assert(
       value !== undefined,
-      `Entry for metric for region ${region.regionId} and metric ${metric.id} found.`
+      `No data for region ${region.regionId} and metric ${metric.id} found.`
     );
     return new MetricData(metric, region, value, /**_timeseries=*/ undefined);
   }
@@ -52,7 +52,7 @@ export function dataRowsToMetricData(
     rows.map((row) => {
       assert(
         row[metricColumn] !== undefined,
-        `Entry for metric for region ${region.regionId} and metric ${metric.id} found.`
+        `No data for region ${region.regionId} and metric ${metric.id} found.`
       );
       return {
         date: stripTime(parseDateString(row[dateKey] as string)),

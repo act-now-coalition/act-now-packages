@@ -12,7 +12,9 @@ interface CsvDataProviderOptions {
   url?: string;
   /** Name of column containing valid Region IDs. */
   regionColumn: string;
-  /** Name of column containing valid ISO 8601 date-time values. */
+  /** Name of column containing valid ISO 8601 date-time values.
+   * dateColumn must be provided if the CSV contains timeseries data, even if
+   * timeseries data will not be used (e.g. by setting includeTimeseries=false) */
   dateColumn?: string;
   /** CSV data to import in place of URL fetch, typically used for testing. */
   csvData?: string;
@@ -36,10 +38,15 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
   private cachedData: Dictionary<DataRow[]> = {};
 
   constructor(providerId: string, options: CsvDataProviderOptions) {
+    assert(
+      options.url || options.csvData,
+      "Either a URL or CSV data must be provided to create an instance of CsvDataProvider."
+    );
     super(providerId);
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
     this.url = options.url;
+    this.csvData = options.csvData;
   }
 
   async populateCache(): Promise<void> {

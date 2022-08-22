@@ -1,159 +1,86 @@
 import { CsvDataProvider } from "./CsvDataProvider";
-// import { Metric } from "../Metric";
-// import { Region, states } from "@actnowcoalition/regions";
-// import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
+import { Metric } from "../Metric";
+import { states } from "@actnowcoalition/regions";
 
-// const mockData = `region,cool_metric\n36,150\n12,`;
-// const mockTimeseries = `region,date,cool_metric\n36,2022-08-02,150\n12,2022-08-02,`;
-// const newYork = states.findByRegionIdStrict("36");
-// const florida = states.findByRegionIdStrict("12");
-// const testMetric = new Metric({ id: "cool_metric", dataReference: {providerId: "csv-provider", column: "cool_metric"} });
+const mockData = `region,cool_metric
+                  36,150
+                  12,`;
+const mockTimeseries = `region,date,cool_metric
+                        36,2022-08-02,150
+                        12,2022-08-02,`;
+const newYork = states.findByRegionIdStrict("36");
+const testMetric = new Metric({
+  id: "metric",
+  dataReference: { providerId: "csv-provider", column: "cool_metric" },
+});
 
-// const mockFetchData = async (
-//   data: string,
-//   includeTimeseries: boolean,
-//   dateCol?: string,
-//   region: Region = newYork
-// ) => {
-//   global.fetch = jest.fn(() =>
-//     Promise.resolve({
-//       text: () => Promise.resolve(data),
-//     } as unknown as Response)
-//   );
-//   const provider = new CsvDataProvider( "csv-provider", {
-//     url: "url-placeholder",
-//     regionColumn: "region",
-//     dateColumn: dateCol,
-//   });
-//   return (await provider.fetchData([region], [testMetric], includeTimeseries))
-//     .regionData(region)
-//     .metricData(testMetric);
-// };
+/**
+ * Create a CsvDataProvider from passed arguments and fetch data for test region and metric.
+ *
+ * @param data CSV data to be imported.
+ * @param includeTimeseries Whether to include timeseries.
+ * @param dateCol Name of date column.
+ * @returns MetricData for test region and metric.
+ */
+const fetchFromProvider = async (
+  data: string,
+  includeTimeseries: boolean,
+  dateCol?: string
+) => {
+  const provider = new CsvDataProvider("csv-provider", {
+    regionColumn: "region",
+    dateColumn: dateCol,
+    csvData: data,
+  });
+  return (await provider.fetchData([newYork], [testMetric], includeTimeseries))
+    .regionData(newYork)
+    .metricData(testMetric);
+};
 
-// describe("CsvDataProvider", () => {
-//   test("fetchData() without timeseries data yields expected data", async () => {
-//     expect(
-//       (await mockFetchData(mockData, /*includeTimeseries=*/ false)).currentValue
-//     ).toBe(150);
-//     expect(
-//       (
-//         await mockFetchData(mockData, /*includeTimeseries=*/ false)
-//       ).hasTimeseries()
-//     ).toBe(false);
-//     expect(
-//       (
-//         await mockFetchData(
-//           mockData,
-//           /*includeTimeseries=*/ false,
-//           undefined,
-//           florida
-//         )
-//       ).currentValue
-//     ).toBe(null);
-//     expect(
-//       (
-//         await mockFetchData(mockData, /*includeTimeseries=*/ true)
-//       ).timeseries.toJSON()
-//     ).toStrictEqual([
-//       {
-//         date: formatUTCDateTime(new Date(), DateFormat.YYYY_MM_DD),
-//         value: 150,
-//       },
-//     ]);
-//     expect(
-//       (
-//         await mockFetchData(
-//           mockData,
-//           /*includeTimeseries=*/ true,
-//           undefined,
-//           florida
-//         )
-//       ).timeseries
-//         .removeNils()
-//         .hasData()
-//     ).toBe(false);
-//   });
+describe("CsvDataProvider", () => {
+  test("fetchData() yields expected data", async () => {
+    const metricDataNoTs = await fetchFromProvider(
+      mockData,
+      /*includeTimeseries=*/ false
+    );
+    const metricDataTs = await fetchFromProvider(
+      mockTimeseries,
+      /*includeTimeseries=*/ true,
+      /*dateColumn=*/ "date"
+    );
+    expect(metricDataNoTs.currentValue).toBe(150);
+    expect(metricDataNoTs.hasTimeseries()).toBe(false);
+    expect(metricDataTs.currentValue).toBe(150);
+    expect(metricDataTs.timeseries.last?.value).toBe(150);
+  });
 
-//   test("fetchData() with timeseries data yields expected data.", async () => {
-//     expect(
-//       (
-//         await mockFetchData(
-//           mockTimeseries,
-//           /*includeTimeseries=*/ false,
-//           "date"
-//         )
-//       ).hasTimeseries()
-//     ).toBe(false);
-//     expect(
-//       (
-//         await mockFetchData(
-//           mockTimeseries,
-//           /*includeTimeseries=*/ false,
-//           "date"
-//         )
-//       ).currentValue
-//     ).toBe(150);
-//     expect(
-//       (
-//         await mockFetchData(
-//           mockTimeseries,
-//           /*includeTimeseries=*/ false,
-//           undefined,
-//           florida
-//         )
-//       ).currentValue
-//     ).toBe(null);
-//     expect(
-//       (
-//         await mockFetchData(mockTimeseries, /*includeTimeseries=*/ true, "date")
-//       ).timeseries.toJSON()
-//     ).toStrictEqual([{ date: "2022-08-02", value: 150 }]);
-//     expect(
-//       (
-//         await mockFetchData(
-//           mockTimeseries,
-//           /*includeTimeseries=*/ true,
-//           "date",
-//           florida
-//         )
-//       ).timeseries
-//         .removeNils()
-//         .hasData()
-//     ).toBe(false);
-//   });
+  test("fetchData() fails if timeseries is expected but does not exist in cache.", async () => {
+    const provider = new CsvDataProvider("csv-provider", {
+      regionColumn: "region",
+      csvData: mockData,
+    });
+    expect(async () => {
+      await provider.fetchData([newYork], [testMetric], true);
+    }).rejects.toThrow(
+      "includeTimeseries set to true but cached data has no timeseries."
+    );
+  });
 
-//   test("fetchData() with no timeseries and no data yields expected results", async () => {
-//     const includedTimeseries = await mockFetchData(
-//       `region,cool_metric\n36,`,
-//       /*includeTimeseries=*/ true
-//     );
-//     const notIncludedTimeseries = await mockFetchData(
-//       `region,cool_metric\n36,`,
-//       /*includeTimeseries=*/ false
-//     );
-//     expect(includedTimeseries.timeseries.removeNils().hasData()).toBe(false);
-//     expect(includedTimeseries.currentValue).toBe(null);
-//     expect(notIncludedTimeseries.currentValue).toBe(null);
-//   });
+  test("populateCache() fails if csv does not have at least one row.", async () => {
+    const provider = new CsvDataProvider("csv-provider", {
+      regionColumn: "region",
+      csvData: `region,cool_metric`,
+    });
+    expect(async () => {
+      await provider.populateCache();
+    }).rejects.toThrow("CSV must not be empty.");
+  });
 
-//   test("fetchData() with timeseries and an empty CSV, or no data yields expected results", async () => {
-//     const includedTimeseries = await mockFetchData(
-//       `region,date,cool_metric\n36,2022-08-02,`,
-//       /*includeTimeseries=*/ true
-//     );
-//     const notIncludedTimeseries = await mockFetchData(
-//       `region,date,cool_metric\n36,2022-08-02,`,
-//       /*includeTimeseries=*/ false
-//     );
-//     expect(includedTimeseries.timeseries.removeNils().hasData()).toBe(false);
-//     expect(includedTimeseries.currentValue).toBe(null);
-//     expect(notIncludedTimeseries.currentValue).toBe(null);
-//   });
-// });
-
-describe("rework CsvDataProvider tests placeholder", () => {
-  test("placeholder", () => {
-    new CsvDataProvider("placeholder", { regionColumn: "placeholder" });
-    expect(1).toBe(1);
+  test("Constructor fails if neither url or csv data is provided.", () => {
+    expect(() => {
+      new CsvDataProvider("csv-provider", {
+        regionColumn: "region",
+      });
+    }).toThrow("URL or CSV data must be provided");
   });
 });
