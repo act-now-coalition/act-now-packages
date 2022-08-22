@@ -9,10 +9,10 @@ export interface LineChartOwnProps {
   /** Timeseries used to draw the line chart */
   timeseries: Timeseries<number>;
 
-  /** Scale to transform point dates to pixel positions on the x-axis */
+  /** d3-scale to transform point dates to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** Scale to transform point values to piel position on the y-axis */
+  /** d3-scale to transform point values to piel position on the y-axis */
   yScale: ScaleLinear<number, number>;
 }
 

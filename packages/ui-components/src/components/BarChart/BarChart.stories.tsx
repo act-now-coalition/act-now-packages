@@ -69,30 +69,34 @@ Example.args = {
 
 export const WithLineChart = () => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
-    <Group top={padding} left={padding}>
-      <rect width={innerWidth} height={innerHeight} fill="#eee" />
-      <Group left={0.5 * dayWidth}>
-        <Group left={-0.5 * dayWidth}>
-          <BarChart
-            timeseries={timeseries}
-            xScale={xScale}
-            yScale={yScale}
-            fill={fill}
-            fillOpacity={0.3}
-            barWidth={dayWidth - 2}
-          />
-        </Group>
-        {timeseries.points.map((p, i) => (
-          <circle
-            key={`dot-${i}`}
-            cx={xScale(p.date)}
-            cy={yScale(p.value)}
-            r={4}
-            fill="black"
-          />
-        ))}
-        <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
+    <rect
+      y={padding}
+      x={padding}
+      width={innerWidth}
+      height={innerHeight}
+      fill="#eee"
+    />
+    <Group top={padding} left={padding + 0.5 * dayWidth}>
+      <Group left={-0.5 * dayWidth}>
+        <BarChart
+          timeseries={timeseries}
+          xScale={xScale}
+          yScale={yScale}
+          fill={fill}
+          fillOpacity={0.3}
+          barWidth={dayWidth - 2}
+        />
       </Group>
+      {timeseries.points.map((p, i) => (
+        <circle
+          key={`dot-${i}`}
+          cx={xScale(p.date)}
+          cy={yScale(p.value)}
+          r={4}
+          fill="black"
+        />
+      ))}
+      <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
     </Group>
   </svg>
 );
