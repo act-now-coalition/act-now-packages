@@ -14,7 +14,9 @@ export interface BarChartOwnProps {
   /** d3-scale to transform point values to pixel position on the y-axis */
   yScale: ScaleLinear<number, number>;
 
-  /** Width of each bar, in pixels */
+  /** Width of each bar, in pixels. By default, the barWidth will be set to
+   * the distance between 2 consecutive days.
+   */
   barWidth?: number;
 }
 
@@ -28,9 +30,6 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  * the data point, which can cause the last bar to be outside the charting
  * area. Make sure to adjust the chart paddings accordingly (see Storybook
  * for an example).
- *
- * By default, the bar width corresponds to the distance between two
- * consecutive days.
  *
  * @example
  * ```tsx

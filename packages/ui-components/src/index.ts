@@ -5,13 +5,13 @@ export { themeConfig } from "./styles";
 
 /** UI Components and props */
 export { default as BarChart } from "./components/BarChart";
-export type { BarChartProps } from "./components/BarChart";
+export type { BarChartProps, BarChartOwnProps } from "./components/BarChart";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
 export { default as LegendCategorical } from "./components/LegendCategorical";
 export type { LegendCategoricalProps } from "./components/LegendCategorical";
 export { default as LineChart } from "./components/LineChart";
-export type { LineChartProps } from "./components/LineChart";
+export type { LineChartProps, LineChartOwnProps } from "./components/LineChart";
 export { default as ProgressBar } from "./components/ProgressBar";
 export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
