@@ -69,7 +69,7 @@ const LegendLabelStyles = css`
 export const LegendLabel = styled("div")`
   ${LegendLabelStyles}
   color: ${({ theme }) => theme.palette.secondary.dark};
-  font-weight: 700;
+  font-weight: ${({ theme }) => theme.typography.fontWeightBold};
 `;
 
 export const LegendSublabel = styled("div")`

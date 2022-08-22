@@ -23,8 +23,6 @@ const horizontalHeight = 40;
 const horizontalBarHeight = 20;
 const horizontalWidth = 300;
 
-const borderRadius = 4;
-
 const items: Item[] = [
   { label: "10", sublabel: "Sublabel 1", color: "#90BE6D" },
   { label: "20", sublabel: "Sublabel 2", color: "#F9C74F" },
@@ -46,7 +44,7 @@ HorizontalDefault.args = {
   height: horizontalHeight,
   width: horizontalWidth,
   barHeight: horizontalBarHeight,
-  borderRadius,
+  borderRadius: 4,
   showLabels: true,
   items,
   getItemColor,
