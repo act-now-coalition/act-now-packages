@@ -25,8 +25,9 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  * for each point in the series.
  *
  * Note that the left edge of each rectangle will be aligned with the date of
- * the data point. Make sure to adjust the chart paddings accordingly (see
- * Storybook for an example).
+ * the data point, which can cause the last bar to be outside the charting
+ * area. Make sure to adjust the chart paddings accordingly (see Storybook
+ * for an example).
  *
  * By default, the bar width corresponds to the distance between two
  * consecutive days.
