@@ -7,9 +7,13 @@ export default {
   title: "Design System/Colors",
 };
 
+// Filter out the palette attributes that don't correspond to colors,
+// such as functions or numeric constants. The `mode` attribute is
+// a string to name themes (dark, light, highContrast), but not a color,
+// so we filter that out as well.
 const paletteGroups = (Object.keys(theme.palette) as (keyof Palette)[])
   .filter((name) => isObject(theme.palette[name]))
-  .filter((name) => ["mode"].includes(name))
+  .filter((name) => name !== "mode")
   .map((name) => {
     const colorGroup = theme.palette[name] as Record<string, string>;
     const colorGroupKeys = Object.keys(colorGroup);
