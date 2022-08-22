@@ -22,7 +22,7 @@ const testMetric = new Metric({
  * @param dateCol Name of date column.
  * @returns MetricData for test region and metric.
  */
-const fetchFromProvider = async (
+const testFetchingCsvData = async (
   data: string,
   includeTimeseries: boolean,
   dateCol?: string
@@ -39,11 +39,11 @@ const fetchFromProvider = async (
 
 describe("CsvDataProvider", () => {
   test("fetchData() yields expected data", async () => {
-    const metricDataNoTs = await fetchFromProvider(
+    const metricDataNoTs = await testFetchingCsvData(
       mockData,
       /*includeTimeseries=*/ false
     );
-    const metricDataTs = await fetchFromProvider(
+    const metricDataTs = await testFetchingCsvData(
       mockTimeseries,
       /*includeTimeseries=*/ true,
       /*dateColumn=*/ "date"
