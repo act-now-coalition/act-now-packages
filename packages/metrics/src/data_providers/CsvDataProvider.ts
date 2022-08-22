@@ -3,16 +3,19 @@ import { Region } from "@actnowcoalition/regions";
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
-import { fetchCsv, DataRow, dataRowsToMetricData } from "./data_provider_utils";
-import { groupBy } from "lodash";
+import { DataRow, dataRowsToMetricData } from "./data_provider_utils";
+import { Dictionary, groupBy } from "lodash";
+import Papa from "papaparse";
 
 interface CsvDataProviderOptions {
-  /* URL of the CSV file to import from. */
-  url: string;
-  /* Name of column containing valid Region IDs. */
+  /** URL of a CSV file to import from. */
+  url?: string;
+  /** Name of column containing valid Region IDs. */
   regionColumn: string;
-  /* Name of column containing valid ISO 8601 date-time values. */
+  /** Name of column containing valid ISO 8601 date-time values. */
   dateColumn?: string;
+  /** CSV data to import in place of URL fetch, typically used for testing. */
+  csvData?: string;
 }
 
 /**
@@ -25,43 +28,29 @@ interface CsvDataProviderOptions {
  * |CA     |2022-02-01 |31   |66   |
  */
 export class CsvDataProvider extends CachingMetricDataProviderBase {
-  private readonly url: string;
   private readonly regionColumn: string;
   private readonly dateColumn?: string;
+  private readonly url?: string;
+  private readonly csvData?: string;
 
-  readonly cachedData: { [key: string]: MetricData } = {};
+  private cachedData: Dictionary<DataRow[]> = {};
 
-  constructor(options: CsvDataProviderOptions) {
-    super("csv-data");
+  constructor(providerId: string, options: CsvDataProviderOptions) {
+    super(providerId);
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
     this.url = options.url;
   }
 
-  async populateCache(
-    regions: Region[],
-    metrics: Metric[],
-    includeTimeseries: boolean
-  ): Promise<void> {
-    const csv: DataRow[] = await fetchCsv(this.url);
+  async populateCache(): Promise<void> {
+    const csv = await fetchCsv(this.url, this.csvData);
+    assert(csv.length > 0, "CSV must not be empty.");
     assert(
-      csv.length > 0 &&
-        csv.every((row) => row[this.regionColumn] !== undefined),
-      "CSV must not be empty and must contain a region column entry for all rows."
+      csv.every((row) => row[this.regionColumn] !== undefined),
+      "CSV must contain a region column entry for all rows."
     );
-    const groupedCsvRows = groupBy(csv, (row) => row[this.regionColumn]);
-    regions.forEach((region) => {
-      metrics.forEach((metric) => {
-        const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
-        this.cachedData[cacheKey] = dataRowsToMetricData(
-          groupedCsvRows,
-          region,
-          metric,
-          includeTimeseries,
-          this.dateColumn
-        );
-      });
-    });
+    const dataRowsByRegionId = groupBy(csv, (row) => row[this.regionColumn]);
+    this.cachedData = dataRowsByRegionId;
   }
 
   getDataFromCache(
@@ -69,16 +58,49 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
     metric: Metric,
     includeTimeseries: boolean
   ): MetricData<unknown> {
-    const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
-    const metricData = this.cachedData[cacheKey];
-    assert(
-      metricData,
-      `Data for region and metric not found. Be sure populateCache() 
-      has been invoked with expected region and metric.`
+    const metricData = dataRowsToMetricData(
+      this.cachedData,
+      region,
+      metric,
+      includeTimeseries,
+      this.dateColumn
     );
-    if (!includeTimeseries && metricData.hasTimeseries()) {
-      return metricData.dropTimeseries();
+    if (includeTimeseries) {
+      assert(
+        metricData.hasTimeseries(),
+        "includeTimeseries set to true but cached data has no timeseries."
+      );
+      return metricData;
     }
-    return metricData;
+    return metricData.dropTimeseries();
   }
+}
+
+/**
+ * Fetches data from a URL or CSV data and parses it as JSON.
+ *
+ * At least one of url and csvData must be provided.
+ * If both url and csvData are provided data is fetched from the url and csvData is ignored.
+ *
+ * @param url URL to fetch data from.
+ * @param csvData CSV data to parse into JSON.
+ * @returns Fetched CSV data.
+ */
+export async function fetchCsv(
+  url?: string,
+  csvData?: string
+): Promise<DataRow[]> {
+  let text;
+  if (url) {
+    const response = await fetch(url);
+    text = await response.text();
+  } else {
+    assert(csvData, "Either url or csvData must be provided.");
+    text = csvData;
+  }
+  const csv = Papa.parse(text, {
+    header: true,
+    dynamicTyping: true,
+  });
+  return csv.data as DataRow[];
 }

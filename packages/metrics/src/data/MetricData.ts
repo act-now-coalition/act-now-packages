@@ -29,6 +29,11 @@ export class MetricData<T = unknown> {
     return this._timeseries !== undefined;
   }
 
+  /**
+   * Removes timeseries data for this metric.
+   *
+   * @returns new MetricData object without timeseries data.
+   */
   dropTimeseries(): MetricData<T> {
     return new MetricData(this.metric, this.region, this.currentValue);
   }

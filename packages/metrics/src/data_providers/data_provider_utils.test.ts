@@ -1,10 +1,14 @@
 import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
-import { DataRow, dataRowsToMetricData, fetchCsv } from "./data_provider_utils";
+import { DataRow, dataRowsToMetricData } from "./data_provider_utils";
+import { fetchCsv } from "./CsvDataProvider";
 import { Dictionary, groupBy } from "lodash";
 
 const newYork = states.findByRegionIdStrict("36");
-const testMetric = new Metric({ id: "cool_metric" });
+const testMetric = new Metric({
+  id: "cool_metric",
+  dataReference: { providerId: "csv-provider", column: "cool_metric" },
+});
 
 describe("dataRowsToMetricData()", () => {
   test("dataRowsToMetricData() fails when metric data column is missing.", async () => {
@@ -13,10 +17,22 @@ describe("dataRowsToMetricData()", () => {
       (row) => row.region
     );
     expect(() => {
-      dataRowsToMetricData(dataRows, newYork, testMetric, true, "date");
+      dataRowsToMetricData(
+        dataRows,
+        newYork,
+        testMetric,
+        /*includeTimeseries*/ true,
+        "date"
+      );
     }).toThrow();
     expect(() => {
-      dataRowsToMetricData(dataRows, newYork, testMetric, false, "date");
+      dataRowsToMetricData(
+        dataRows,
+        newYork,
+        testMetric,
+        /*includeTimeseries*/ false,
+        "date"
+      );
     }).toThrow();
   });
 
@@ -26,10 +42,22 @@ describe("dataRowsToMetricData()", () => {
       (row) => row.region
     );
     expect(() => {
-      dataRowsToMetricData(dataRows, newYork, testMetric, true, "date");
+      dataRowsToMetricData(
+        dataRows,
+        newYork,
+        testMetric,
+        /*includeTimeseries*/ true,
+        "date"
+      );
     }).toThrow();
     expect(() => {
-      dataRowsToMetricData(dataRows, newYork, testMetric, false, "date");
+      dataRowsToMetricData(
+        dataRows,
+        newYork,
+        testMetric,
+        /*includeTimeseries*/ false,
+        "date"
+      );
     }).toThrow();
   });
 
@@ -39,12 +67,22 @@ describe("dataRowsToMetricData()", () => {
       (row) => row.region
     );
     expect(
-      dataRowsToMetricData(dataRows, newYork, testMetric, true, "date")
-        .currentValue
+      dataRowsToMetricData(
+        dataRows,
+        newYork,
+        testMetric,
+        /*includeTimeseries*/ true,
+        "date"
+      ).currentValue
     ).toBe(null);
     expect(
-      dataRowsToMetricData(dataRows, newYork, testMetric, false, "date")
-        .currentValue
+      dataRowsToMetricData(
+        dataRows,
+        newYork,
+        testMetric,
+        /*includeTimeseries*/ false,
+        "date"
+      ).currentValue
     ).toBe(null);
   });
 });
@@ -76,7 +114,6 @@ describe("fetchCsv()", () => {
     const mockFetchBoolean = async (value: string | boolean) => {
       mockFetch(`region,date,cool_metric\n36,2022-08-02,${value}`);
       const payload = await fetchCsv("url-placeholder");
-      console.log(payload[0].cool_metric);
       return payload[0].cool_metric;
     };
     expect(await mockFetchBoolean(`"true"`)).toBe(true);
