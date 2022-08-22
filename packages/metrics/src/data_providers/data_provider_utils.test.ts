@@ -21,7 +21,7 @@ describe("dataRowsToMetricData()", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries*/ true,
+        /*includeTimeseries=*/ true,
         "date"
       );
     }).toThrow();
@@ -30,7 +30,7 @@ describe("dataRowsToMetricData()", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries*/ false,
+        /*includeTimeseries=*/ false,
         "date"
       );
     }).toThrow();
@@ -46,7 +46,7 @@ describe("dataRowsToMetricData()", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries*/ true,
+        /*includeTimeseries=*/ true,
         "date"
       );
     }).toThrow();
@@ -55,7 +55,7 @@ describe("dataRowsToMetricData()", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries*/ false,
+        /*includeTimeseries=*/ false,
         "date"
       );
     }).toThrow();
@@ -71,7 +71,7 @@ describe("dataRowsToMetricData()", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries*/ true,
+        /*includeTimeseries=*/ true,
         "date"
       ).currentValue
     ).toBe(null);
@@ -80,7 +80,7 @@ describe("dataRowsToMetricData()", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries*/ false,
+        /*includeTimeseries=*/ false,
         "date"
       ).currentValue
     ).toBe(null);
@@ -88,35 +88,34 @@ describe("dataRowsToMetricData()", () => {
 });
 
 describe("fetchCsv()", () => {
-  const mockFetch = async (data: string) => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        text: () => Promise.resolve(data),
-      } as unknown as Response)
-    );
-  };
-
   test("fetchCsv() return null when no cell data is provided", async () => {
-    mockFetch(`region,date,cool_metric\n36,2022-08-02,`);
-    const payload = await fetchCsv("url-placeholder");
+    const csv = `region,date,cool_metric
+    36,2022-08-02,`;
+    const payload = await fetchCsv(/*url=*/ undefined, /*csvData=*/ csv);
     expect(payload[0].cool_metric).toBe(null);
   });
 
-  test("fetchCsv() keeps strings intact", async () => {
-    mockFetch(
-      `region,date,cool_metric\n36,2022-08-02,a value that has spaces.`
-    );
-    const payload = await fetchCsv("url-placeholder");
+  test("fetchCsv() handles CSV values with strings.", async () => {
+    const csv = `region,date,cool_metric
+    36,2022-08-02,a value that has spaces.`;
+    const payload = await fetchCsv(/*url=*/ undefined, /*csvData=*/ csv);
     expect(payload[0].cool_metric).toBe("a value that has spaces.");
   });
 
   test("fetchCsv() parses booleans", async () => {
-    const mockFetchBoolean = async (value: string | boolean) => {
-      mockFetch(`region,date,cool_metric\n36,2022-08-02,${value}`);
-      const payload = await fetchCsv("url-placeholder");
+    const fetchBoolean = async (value: string | boolean) => {
+      const csv = `region,date,cool_metric
+      36,2022-08-02,${value}`;
+      const payload = await fetchCsv(/*url=*/ undefined, /*csvData=*/ csv);
       return payload[0].cool_metric;
     };
-    expect(await mockFetchBoolean(`"true"`)).toBe(true);
-    expect(await mockFetchBoolean(true)).toBe(true);
+    expect(await fetchBoolean(`"true"`)).toBe(true);
+    expect(await fetchBoolean(true)).toBe(true);
+  });
+
+  test("fetchCsv() fails if neither url or csvData are provided.", () => {
+    expect(async () => {
+      await fetchCsv(/*url=*/ undefined, /*csvData=*/ undefined);
+    }).rejects.toThrow();
   });
 });

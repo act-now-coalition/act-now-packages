@@ -35,7 +35,7 @@ export function dataRowsToMetricData(
   if (!dateKey) {
     assert(
       rows.length === 1,
-      `Duplicate or no entries for region ${region.regionId} and metric ${metric.id} found.`
+      `Expected exactly 1 entry for region ${region.regionId} and metric ${metric.id} but found: ${rows.length}`
     );
     const value = rows[0][metricColumn];
     assert(
