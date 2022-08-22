@@ -24,8 +24,9 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  * BarChart is a chart to represent a Timeseries as a series of bars, one bar
  * for each point in the series.
  *
- * Note that the left edge of each rectangle will be aligned
- * with the date of the data point
+ * Note that the left edge of each rectangle will be aligned with the date of
+ * the data point. Make sure to adjust the chart paddings accordingly (see
+ * Storybook for an example).
  *
  * By default, the bar width corresponds to the distance between two
  * consecutive days.
