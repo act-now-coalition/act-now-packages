@@ -12,7 +12,7 @@ export interface LineChartOwnProps {
   /** Scale to transform point dates to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** Scale to transform point values to piel position on the y-axis */
+  /** Scale to transform point values to pixel position on the y-axis */
   yScale: ScaleLinear<number, number>;
 }
 
