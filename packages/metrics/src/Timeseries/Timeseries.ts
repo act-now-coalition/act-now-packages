@@ -8,6 +8,12 @@ import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
 import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 
+/** A single, serialized point in a timeseries containing a date-string and a value. */
+export interface TimeseriesPointJSON {
+  date: string;
+  value: unknown;
+}
+
 /**
  * A single point in a timeseries containing a date (which must not contain a
  * timestamp) and a value of type T.
@@ -201,6 +207,42 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * Throws an exception if any values in the timeseries are not boolean.
+   *
+   * The returned timeseries will cast to `Timeseries<boolean>` so any subsequent
+   * code doesn't need to deal with non-boolean values.
+   */
+  assertBoolean(): Timeseries<boolean> {
+    this.points.forEach((p) => {
+      assert(
+        typeof p.value === "boolean",
+        `Found non-boolean value in timeseries. date=${Timeseries.isoDateString(
+          p.date
+        )} value=${p.value}`
+      );
+    });
+    return this.cast<boolean>();
+  }
+
+  /**
+   * Throws an exception if any values in the timeseries are not of type string.
+   *
+   * The returned timeseries will cast to `Timeseries<string>` so any subsequent
+   * code doesn't need to deal with non-string values.
+   */
+  assertStrings(): Timeseries<string> {
+    this.points.forEach((p) => {
+      assert(
+        typeof p.value === "string",
+        `Found non-string value in timeseries. date=${Timeseries.isoDateString(
+          p.date
+        )} value=${p.value}`
+      );
+    });
+    return this.cast<string>();
+  }
+
+  /**
    * Returns the point with the date closest to the provided date, or undefined
    * if the timeseries is empty.
    *
@@ -304,6 +346,34 @@ export class Timeseries<T = unknown> {
   private static isoDateString(date: Date): string {
     // Dates are guaranteed not to have a time component so we just return the ISO date.
     return formatUTCDateTime(date, DateFormat.YYYY_MM_DD);
+  }
+
+  /**
+   * Construct a Timeseries instance from JSON timeseries points.
+   *
+   * @param jsonPoints Serialized timeseries points from which to construct a Timeseries.
+   * @returns The constructed timeseries.
+   */
+  static fromJSON(jsonPoints: TimeseriesPointJSON[]): Timeseries<unknown> {
+    const timeseriesPoints: TimeseriesPoint<unknown>[] = jsonPoints.map(
+      (point) => ({ date: new Date(point.date), value: point.value as unknown })
+    );
+    return new Timeseries<unknown>(timeseriesPoints);
+  }
+
+  /**
+   * Convert Timeseries instance into serialized JSON format.
+   *
+   * @returns Timeseries points serialized as JSON.
+   */
+  toJSON(): TimeseriesPointJSON[] {
+    const timeseriesPointJSONs: TimeseriesPointJSON[] = this.points.map(
+      (point) => ({
+        date: Timeseries.isoDateString(point.date),
+        value: point.value,
+      })
+    );
+    return timeseriesPointJSONs;
   }
 }
 

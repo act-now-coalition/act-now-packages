@@ -161,4 +161,69 @@ describe("Timeseries", () => {
     test("startAfter / endBefore", () =>
       verifyRange({ startAfter: d(1), endBefore: d(2) }, []));
   });
+
+  test("toJSON() and fromJSON() preserve correct data.", () => {
+    const points = [
+      {
+        date: new Date("2001-03-04"),
+        value: 51,
+      },
+      {
+        date: new Date("2001-02-03"),
+        value: 23,
+      },
+    ];
+    const timeseries = new Timeseries(points);
+    const serialized = timeseries.toJSON();
+    expect(Timeseries.fromJSON(serialized)).toStrictEqual(timeseries);
+  });
+
+  test("assertBoolean() rejects non-boolean values", () => {
+    const verifyValueThrowsError = (value: unknown) => {
+      expect(() =>
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertBoolean()
+      ).toThrowError("Found non-boolean value in timeseries");
+    };
+    verifyValueThrowsError("true");
+    verifyValueThrowsError("string");
+    verifyValueThrowsError(undefined);
+    verifyValueThrowsError(Number.NaN);
+    verifyValueThrowsError(null);
+  });
+
+  test("assertBoolean() accepts boolean values", () => {
+    const verifyValue = (value: unknown) => {
+      expect(
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertBoolean().last?.value
+      ).toBe(value);
+    };
+    verifyValue(false);
+    verifyValue(true);
+  });
+
+  test("assertStrings() rejects non-string values", () => {
+    const verifyValueThrowsError = (value: unknown) => {
+      expect(() =>
+        new Timeseries([
+          { date: new Date("2021-02-03"), value },
+        ]).assertStrings()
+      ).toThrowError("Found non-string value in timeseries");
+    };
+    const notStrings = [100, {}, undefined, Number.NaN, true, null];
+    for (const value of notStrings) {
+      verifyValueThrowsError(value);
+    }
+  });
+
+  test("assertStrings() accepts string values", () => {
+    expect(
+      new Timeseries([
+        { date: new Date("2021-02-03"), value: "a string value" },
+      ]).assertStrings().last?.value
+    ).toBe("a string value");
+  });
 });

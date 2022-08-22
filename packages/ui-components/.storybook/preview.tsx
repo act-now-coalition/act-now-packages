@@ -19,6 +19,12 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  options: {
+    storySort: {
+      method: "alphabetical",
+      order: ["Design System", "Components", "Charts"],
+    },
+  },
 };
 
 export const decorators = [themeDecorator];
