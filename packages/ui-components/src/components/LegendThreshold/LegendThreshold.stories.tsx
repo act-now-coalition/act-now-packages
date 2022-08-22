@@ -9,8 +9,9 @@ export default {
 } as ComponentMeta<typeof LegendThreshold>;
 
 interface Item {
-  label: string;
   color: string;
+  label: string;
+  sublabel: string;
 }
 
 const Template: Story<LegendThresholdProps<Item>> = (args) => (
@@ -22,24 +23,22 @@ const horizontalHeight = 40;
 const horizontalBarHeight = 20;
 const horizontalWidth = 300;
 
-// Vertical legend threshold props
-const verticalWidth = 20;
-const verticalHeight = 300;
-
 const borderRadius = 4;
 
 const items: Item[] = [
-  { label: "10", color: "#90BE6D" },
-  { label: "20", color: "#F9C74F" },
-  { label: "30", color: "#F8961E" },
-  { label: "40", color: "#E16420" },
-  { label: "50", color: "#A10003" },
+  { label: "10", sublabel: "Sublabel 1", color: "#90BE6D" },
+  { label: "20", sublabel: "Sublabel 2", color: "#F9C74F" },
+  { label: "30", sublabel: "Sublabel 3", color: "#F8961E" },
+  { label: "40", sublabel: "Sublabel 4", color: "#E16420" },
+  { label: "50", sublabel: "Sublabel 5", color: "#A10003" },
 ];
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemColor = (item: Item, itemIndex: number) => item.color;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const getItemEndLabel = (item: Item, itemIndex: number) => item.label;
+const getItemLabel = (item: Item, itemIndex: number) => item.label;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItemSublabel = (item: Item, itemIndex: number) => item.sublabel;
 
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
@@ -51,7 +50,7 @@ HorizontalDefault.args = {
   showLabels: true,
   items,
   getItemColor,
-  getItemEndLabel,
+  getItemLabel,
 };
 
 export const HorizontalWithoutLabels = Template.bind({});
@@ -79,21 +78,28 @@ HorizontalSquared.args = {
 export const VerticalDefault = Template.bind({});
 VerticalDefault.args = {
   orientation: "vertical",
-  height: verticalHeight,
-  width: verticalWidth,
-  borderRadius,
   items,
   getItemColor,
+  getItemLabel,
+  getItemSublabel,
 };
 
 export const VerticalRounded = Template.bind({});
 VerticalRounded.args = {
+  borderRadius: 8,
   ...VerticalDefault.args,
-  borderRadius: verticalWidth / 2,
 };
 
-export const VerticalSquared = Template.bind({});
-VerticalSquared.args = {
+export const VerticalNoLabel = Template.bind({});
+VerticalNoLabel.args = {
+  showLabels: false,
   ...VerticalDefault.args,
-  borderRadius: 0,
+};
+
+export const VerticalSmall = Template.bind({});
+VerticalSmall.args = {
+  height: 72,
+  borderRadius: 8,
+  showLabels: false,
+  ...VerticalDefault.args,
 };

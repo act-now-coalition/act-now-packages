@@ -14,4 +14,5 @@ export interface CommonLegendThresholdProps<T> {
    * `barHeight` to `height` when not including the labels.
    */
   showLabels?: boolean;
+  getItemLabel?: (item: T, itemIndex: number) => string;
 }

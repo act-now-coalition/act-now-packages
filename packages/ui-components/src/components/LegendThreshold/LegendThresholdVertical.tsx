@@ -1,67 +1,65 @@
 import React from "react";
-import { Group } from "@visx/group";
-import { scaleBand } from "@visx/scale";
-import uniqueId from "lodash/uniqueId";
 import { CommonLegendThresholdProps } from "./interfaces";
+import {
+  LegendThresholdVerticalWrapper,
+  LegendContainer,
+  LegendColor,
+  LegendLabelContainer,
+  LegendLabel,
+  LegendSublabel,
+} from "./LegendThreshold.style";
 
 export interface LegendThresholdVerticalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "vertical";
-  getItemLabel?: (item: T, itemIndex: number) => string;
   getItemSublabel?: (item: T, itemIndex: number) => string;
 }
 
-/**
- * `LegendThresholdVertical` represents a scale with thresholds that separate
- * a set of levels. By default, the labels between each level are shown.
- */
 const LegendThresholdVertical = <T,>({
-  height = 300,
-  width = 20,
-  borderRadius,
+  height = 265,
+  width = 12,
+  borderRadius = 0,
+  showLabels = true,
   items,
   getItemColor,
-  ...otherSvgProps
+  getItemLabel,
+  getItemSublabel,
 }: LegendThresholdVerticalProps<T>) => {
-  const indexList = items.map((item, itemIndex) => itemIndex);
-  const scaleRect = scaleBand({ domain: indexList, range: [0, height] });
-  const barHeight = scaleRect.bandwidth();
-
-  const clipPathId = uniqueId(`bars-clip-path-`);
-
+  const numberOfItems = items.length;
+  const legendColorHeight = height / numberOfItems;
   return (
-    <svg width={width} height={height} {...otherSvgProps}>
-      <defs>
-        <clipPath id={clipPathId}>
-          <rect
-            x={0}
-            y={0}
-            width={width}
-            height={height}
-            rx={borderRadius}
-            ry={borderRadius}
-          />
-        </clipPath>
-      </defs>
-      <Group>
-        {items.map((item, itemIndex) => {
-          const y = scaleRect(itemIndex) ?? 0;
-          return (
-            <Group key={`item-${itemIndex}`}>
-              <rect
-                x={0}
-                y={y}
-                height={barHeight}
-                width={width}
-                fill={getItemColor(item, itemIndex)}
-                clipPath={`url(#${clipPathId})`}
-              />
-            </Group>
-          );
-        })}
-      </Group>
-    </svg>
+    <LegendThresholdVerticalWrapper $height={height}>
+      {items.map((item, itemIndex) => {
+        return (
+          <LegendContainer
+            key={getItemColor(item, itemIndex)}
+            $height={legendColorHeight}
+          >
+            <LegendColor
+              $width={width}
+              $color={getItemColor(item, itemIndex)}
+              $roundTop={itemIndex === 0 ? borderRadius : 0}
+              $roundBottom={itemIndex === numberOfItems - 1 ? borderRadius : 0}
+            />
+            {showLabels && (
+              <LegendLabelContainer>
+                {getItemLabel && (
+                  <>
+                    <LegendLabel>{getItemLabel(item, itemIndex)}</LegendLabel>
+                    {getItemSublabel && (
+                      <LegendSublabel>
+                        {getItemSublabel(item, itemIndex)}
+                      </LegendSublabel>
+                    )}
+                  </>
+                )}
+              </LegendLabelContainer>
+            )}
+          </LegendContainer>
+        );
+      })}
+    </LegendThresholdVerticalWrapper>
   );
 };
 
