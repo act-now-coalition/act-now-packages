@@ -3,6 +3,7 @@ import { assert } from "@actnowcoalition/assert";
 
 import { Metric, MetricLevel } from "../Metric";
 import { Timeseries } from "../Timeseries";
+import { parseBoolean } from "./data_utils";
 
 /**
  * Data for a particular region and metric, possibly including timeseries history.
@@ -93,6 +94,69 @@ export class MetricData<T = unknown> {
       this.metric,
       this.region,
       this.currentValue as number,
+      timeseries
+    );
+  }
+
+  /**
+   * Ensures the metric data is boolean.
+   *
+   * Only strictly-boolean values are allowed (true, false).
+   * Use convertToBoolean() to coerce near-boolean values to boolean (e.g. "yes", 1, "True")
+   *
+   * @returns This `MetricData` cast to `MetricData<boolean>`.
+   */
+  assertBoolean(): MetricData<boolean> {
+    assert(
+      this.currentValue === null || typeof this.currentValue === "boolean",
+      `Value is not boolean: ${this.currentValue}`
+    );
+    const timeseries = this._timeseries?.assertBoolean();
+    return new MetricData(
+      this.metric,
+      this.region,
+      this.currentValue as boolean,
+      timeseries
+    );
+  }
+
+  /**
+   * Converts near-boolean metric data (e.g. "yes", "True", 1) to boolean.
+   *
+   * Throws an error if any data is not coercible to a boolean.
+   *
+   * @returns This `MetricData` with its data coerced to boolean, and cast to `MetricData<boolean>`
+   */
+  convertToBoolean(): MetricData<boolean> {
+    const currentValueBoolean = parseBoolean(this.currentValue);
+    const booleanTimeseries = this._timeseries?.mapValues(parseBoolean);
+    return new MetricData(
+      this.metric,
+      this.region,
+      currentValueBoolean,
+      booleanTimeseries
+    );
+  }
+
+  /**
+   * Ensures the metric data is of type string.
+   *
+   * Null values are treated as strings and will not throw an error.
+   *
+   * @returns This `MetricData` cast to `MetricData<string>`.
+   */
+  assertStrings(): MetricData<string> {
+    assert(
+      this.currentValue === null || typeof this.currentValue === "string",
+      `Value is not a string: ${this.currentValue}`
+    );
+
+    const timeseries = this._timeseries?.assertStrings();
+
+    return new MetricData(
+      this.metric,
+      this.region,
+      this.currentValue as string,
       timeseries
     );
   }
