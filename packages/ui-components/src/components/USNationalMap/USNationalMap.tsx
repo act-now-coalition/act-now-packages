@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { states } from "@actnowcoalition/regions";
-import keyBy from "lodash/keyBy";
 import Tooltip from "@mui/material/Tooltip";
 import { geoAlbersUsaTerritories } from "geo-albers-usa-territories";
 import { ComposableMap, Geographies } from "react-simple-maps";
@@ -15,9 +14,8 @@ export interface USNationalMapProps {
 }
 
 const projection = geoAlbersUsaTerritories().scale(1070).translate([400, 250]);
-const stateFipsCodes = Object.keys(
-  keyBy(states.all, (state) => state.regionId)
-);
+
+const statesFipsCodes = states.all.map((state) => state.regionId);
 
 const USNationalMapFC: React.FC<USNationalMapProps> = ({
   getFillColor,
@@ -30,7 +28,7 @@ const USNationalMapFC: React.FC<USNationalMapProps> = ({
         <Geographies geography={statesGeographies}>
           {({ geographies }) =>
             geographies
-              .filter((geo) => stateFipsCodes.includes(geo.id))
+              .filter((geo) => statesFipsCodes.includes(geo.id))
               .map((geo) => {
                 const fipsCode = geo.id;
                 const stateRegion = states.findByRegionIdStrict(fipsCode);
@@ -50,7 +48,7 @@ const USNationalMapFC: React.FC<USNationalMapProps> = ({
                     strokeOpacity={1}
                     strokeWidth={1}
                     role="img"
-                    tabIndex={-1} // TODO: revisit making the map more accessible, for now removing from tab index to avoid a focus trap
+                    tabIndex={-1} // TODO: revisit making the map more accessible. For now removing from tab index to avoid a focus trap
                     aria-label={stateName}
                   />
                 );

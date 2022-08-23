@@ -49,13 +49,14 @@ const colorScaleAlpha = scaleOrdinal({
   range: colors,
 });
 
+/** States colored by first letter of fullName */
 export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
   renderTooltip: (fips) => renderSimpleTooltip(fips),
   getFillColor: (fips) => getFillColorByFirstLetter(fips),
 };
 
-/** Counties with no fill color */
+/** Counties colored by first letter of fullName */
 export const CountiesColoredByFirstLetter = Template.bind({});
 CountiesColoredByFirstLetter.args = {
   showCounties: true,

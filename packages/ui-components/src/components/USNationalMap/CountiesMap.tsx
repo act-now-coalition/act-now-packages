@@ -1,13 +1,11 @@
 import React from "react";
-import keyBy from "lodash/keyBy";
 import { Geographies } from "react-simple-maps";
 import { useCountyGeographies } from "../../common/shapefiles";
 import { CountyGeoPath } from "./USNationalMap.style";
 import { counties } from "@actnowcoalition/regions";
 
-const countiesFipsCodes = Object.keys(
-  keyBy(counties.all, (county) => county.regionId)
-);
+const countiesFipsCodes = counties.all.map((county) => county.regionId);
+
 const CountiesMap: React.FC<{
   getFillColor?: (fips: string) => string;
 }> = ({ getFillColor }) => {
