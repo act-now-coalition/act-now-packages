@@ -26,6 +26,13 @@ StatesWithNoFillColor.args = {
   renderTooltip: (fips) => renderSimpleTooltip(fips),
 };
 
+/** Counties with no fill color */
+export const CountiesWithNoFillColor = Template.bind({});
+CountiesWithNoFillColor.args = {
+  showCounties: true,
+  renderTooltip: (fips) => renderSimpleTooltip(fips),
+};
+
 const getFillColorByFirstLetter = (fips: string) => {
   const fullNameFromFips = regions
     .findByRegionIdStrict(fips)
