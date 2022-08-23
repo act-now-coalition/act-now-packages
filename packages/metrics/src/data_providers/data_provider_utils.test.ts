@@ -1,7 +1,10 @@
 import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
-import { DataRow, dataRowsToMetricData } from "./data_provider_utils";
-import { fetchCsv } from "./CsvDataProvider";
+import {
+  DataRow,
+  dataRowsToMetricData,
+  dataRowToMetricData,
+} from "./data_provider_utils";
 import { Dictionary, groupBy } from "lodash";
 
 const newYork = states.findByRegionIdStrict("36");
@@ -10,8 +13,9 @@ const testMetric = new Metric({
   dataReference: { providerId: "csv-provider", column: "cool_metric" },
 });
 
-describe("dataRowsToMetricData() with timeseries", () => {
+describe("dataRowsToMetricData()", () => {
   test("dataRowsToMetricData() yields expected data.", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [
         { date: "2022-08-01", region: "36", cool_metric: 100 },
@@ -19,30 +23,22 @@ describe("dataRowsToMetricData() with timeseries", () => {
       ],
       (row) => row.region
     );
-    const tsData = dataRowsToMetricData(
+    const data = dataRowsToMetricData(
       dataRows,
       newYork,
       testMetric,
-      /*includeTimeseries=*/ true,
+      column,
       "date"
     );
-    const noTsData = dataRowsToMetricData(
-      dataRows,
-      newYork,
-      testMetric,
-      /*includeTimeseries=*/ false,
-      "date"
-    );
-    expect(tsData.currentValue).toBe(100);
-    expect(tsData.timeseries.last?.value).toBe(100);
-    expect(tsData.timeseries.last?.date).toStrictEqual(new Date("2022-08-01"));
-    expect(tsData.timeseries.first?.value).toBe(90);
-    expect(tsData.timeseries.first?.date).toStrictEqual(new Date("2022-07-31"));
-    expect(noTsData.currentValue).toBe(100);
-    expect(noTsData.hasTimeseries()).toBe(false);
+    expect(data.currentValue).toBe(100);
+    expect(data.timeseries.last?.value).toBe(100);
+    expect(data.timeseries.last?.date).toStrictEqual(new Date("2022-08-01"));
+    expect(data.timeseries.first?.value).toBe(90);
+    expect(data.timeseries.first?.date).toStrictEqual(new Date("2022-07-31"));
   });
 
   test("dataRowsToMetricData() fails when there's no data for metric.", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ date: "2022-08-01", region: "36", another_metric: 100 }],
       (row) => row.region
@@ -52,7 +48,7 @@ describe("dataRowsToMetricData() with timeseries", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries=*/ true,
+        column,
         /*dateKey=*/ "date"
       );
     }).toThrow();
@@ -61,13 +57,14 @@ describe("dataRowsToMetricData() with timeseries", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries=*/ false,
+        column,
         /*dateKey=*/ "date"
       );
     }).toThrow();
   });
 
   test("dataRowsToMetricData() fails when there's no data for region.", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ date: "2022-08-01", region: "12", cool_metric: 100 }],
       (row) => row.region
@@ -77,7 +74,7 @@ describe("dataRowsToMetricData() with timeseries", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries=*/ true,
+        column,
         /*dateKey=*/ "date"
       );
     }).toThrow();
@@ -86,13 +83,14 @@ describe("dataRowsToMetricData() with timeseries", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries=*/ false,
+        column,
         /*dateKey=*/ "date"
       );
     }).toThrow();
   });
 
   test("dataRowsToMetricData() succeeds when metric data is null.", async () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ date: "2022-08-01", region: "36", cool_metric: null }],
       (row) => row.region
@@ -102,7 +100,7 @@ describe("dataRowsToMetricData() with timeseries", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries=*/ true,
+        column,
         /*dateKey=*/ "date"
       ).currentValue
     ).toBe(null);
@@ -111,104 +109,55 @@ describe("dataRowsToMetricData() with timeseries", () => {
         dataRows,
         newYork,
         testMetric,
-        /*includeTimeseries=*/ false,
+        column,
         /*dateKey=*/ "date"
       ).currentValue
     ).toBe(null);
   });
 });
 
-describe("dataRowsToMetricData() without timeseries", () => {
-  test("dataRowsToMetricData() yields expected data.", () => {
+describe("dataRowToMetricData()", () => {
+  test("dataRowToMetricData() yields expected data.", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ region: "36", cool_metric: 100 }],
       (row) => row.region
     );
-    const data = dataRowsToMetricData(
-      dataRows,
-      newYork,
-      testMetric,
-      /*includeTimeseries=*/ false
-    );
+    const data = dataRowToMetricData(dataRows, newYork, testMetric, column);
     expect(data.currentValue).toBe(100);
     expect(data.hasTimeseries()).toBe(false);
   });
 
-  test("dataRowsToMetricData() fails when there's no data for metric.", () => {
+  test("dataRowToMetricData() fails when there's no data for metric.", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ region: "36", another_metric: 100 }],
       (row) => row.region
     );
     expect(() => {
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        /*includeTimeseries=*/ false
-      );
+      dataRowToMetricData(dataRows, newYork, testMetric, column);
     }).toThrow();
   });
 
-  test("dataRowsToMetricData() fails when there's no data for region.", () => {
+  test("dataRowToMetricData() fails when there's no data for region.", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ region: "12", cool_metric: 100 }],
       (row) => row.region
     );
     expect(() => {
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        /*includeTimeseries=*/ false
-      );
+      dataRowToMetricData(dataRows, newYork, testMetric, column);
     }).toThrow();
   });
 
-  test("dataRowsToMetricData() succeeds when metric data is null", () => {
+  test("dataRowToMetricData() succeeds when metric data is null", () => {
+    const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ region: "36", cool_metric: null }],
       (row) => row.region
     );
     expect(
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        /*includeTimeseries=*/ false
-      ).currentValue
+      dataRowToMetricData(dataRows, newYork, testMetric, column).currentValue
     ).toBe(null);
-  });
-});
-
-describe("fetchCsv()", () => {
-  test("fetchCsv() treats missing values as null", async () => {
-    const csv = `region,date,cool_metric
-    36,2022-08-02,`;
-    const payload = await fetchCsv(/*url=*/ undefined, /*csvData=*/ csv);
-    expect(payload[0].cool_metric).toBe(null);
-  });
-
-  test("fetchCsv() handles CSV values with strings.", async () => {
-    const csv = `region,date,cool_metric
-    36,2022-08-02,a value that has spaces.`;
-    const payload = await fetchCsv(/*url=*/ undefined, /*csvData=*/ csv);
-    expect(payload[0].cool_metric).toBe("a value that has spaces.");
-  });
-
-  test("fetchCsv() parses booleans", async () => {
-    const fetchBoolean = async (value: string | boolean) => {
-      const csv = `region,date,cool_metric
-      36,2022-08-02,${value}`;
-      const payload = await fetchCsv(/*url=*/ undefined, /*csvData=*/ csv);
-      return payload[0].cool_metric;
-    };
-    expect(await fetchBoolean(`"true"`)).toBe(true);
-    expect(await fetchBoolean(true)).toBe(true);
-  });
-
-  test("fetchCsv() fails if neither url or csvData are provided.", () => {
-    expect(async () => {
-      await fetchCsv(/*url=*/ undefined, /*csvData=*/ undefined);
-    }).rejects.toThrow();
   });
 });

@@ -3,60 +3,66 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
 import { Timeseries } from "../Timeseries";
-import { Dictionary } from "lodash";
 import { parseDateString } from "@actnowcoalition/time-utils";
 
 export type DataRow = { [key: string]: unknown };
 
 /**
- * Parse raw data-rows into MetricData for specified region and metric.
+ * Parse non-timeseries raw data-rows into MetricData for specified region and metric.
+ *
+ * Expects exactly one row in dataRowsByRegionId for the specified region.
  *
  * @param dataRowsByRegionId Region-indexed dictionary of data to transform.
  * @param region Region to parse data for.
  * @param metric Metric to parse data for.
- * @param includeTimeseries Whether to create a timeseries.
+ * @param metricKey Key name of the items in the data-rows containing the metric values.
+ * @returns Metric Data for the specified region and metric.
+ */
+export function dataRowToMetricData(
+  dataRowsByRegionId: { [regionId: string]: DataRow[] },
+  region: Region,
+  metric: Metric,
+  metricKey: string
+) {
+  const rows = dataRowsByRegionId[region.regionId];
+  assert(
+    rows.length === 1,
+    `Expected exactly 1 entry for region ${region.regionId} and metric ${metric.id} but found: ${rows.length}`
+  );
+  const value = rows[0][metricKey];
+  assert(value !== undefined, `Metric key ${metricKey} missing.`);
+  return new MetricData(metric, region, value);
+}
+
+/**
+ * Parse timeseries raw data-rows into MetricData for specified region and metric.
+ *
+ * @param dataRowsByRegionId Region-indexed dictionary of data to transform.
+ * @param region Region to parse data for.
+ * @param metric Metric to parse data for.
+ * @param metricKey Key name of the items in the data-rows containing the metric values.
  * @param dateKey Key name of the items in the data-rows that contain the date-time values.
  * @returns Metric Data for the specified region and metric.
  */
 export function dataRowsToMetricData(
-  dataRowsByRegionId: Dictionary<DataRow[]>,
+  dataRowsByRegionId: { [regionId: string]: DataRow[] },
   region: Region,
   metric: Metric,
-  includeTimeseries: boolean,
-  dateKey?: string
+  metricKey: string,
+  dateKey: string
 ) {
-  const metricColumn = metric.dataReference?.column;
-  assert(
-    typeof metricColumn === "string",
-    "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
-  );
   const rows = dataRowsByRegionId[region.regionId];
   assert(rows, `No data found for region ${region.regionId}.`);
-  if (!dateKey) {
-    assert(
-      rows.length === 1,
-      `Expected exactly 1 entry for region ${region.regionId} and metric ${metric.id} but found: ${rows.length}`
-    );
-    const value = rows[0][metricColumn];
-    assert(
-      value !== undefined,
-      `No data for region ${region.regionId} and metric ${metric.id} found.`
-    );
-    return new MetricData(metric, region, value, /**_timeseries=*/ undefined);
-  }
-  assert(
-    rows.every((row) => typeof row[dateKey] === "string"),
-    `Not all rows have a valid date-string in column ${dateKey}.`
-  );
   const timeseries = new Timeseries(
     rows.map((row) => {
+      assert(row[metricKey] !== undefined, `Metric key ${metricKey} missing.`);
       assert(
-        row[metricColumn] !== undefined,
-        `No data for region ${region.regionId} and metric ${metric.id} found.`
+        typeof row[dateKey] === "string",
+        `Date column must be a string. ${typeof row[dateKey]} found.`
       );
       return {
         date: stripTime(parseDateString(row[dateKey] as string)),
-        value: row[metricColumn] as unknown,
+        value: row[metricKey] as unknown,
       };
     })
   );
@@ -64,12 +70,14 @@ export function dataRowsToMetricData(
     metric,
     region,
     timeseries.last?.value ?? null,
-    includeTimeseries ? timeseries : undefined
+    timeseries
   );
 }
 
 /**
  * Remove hours minutes and seconds from Javascript Date object.
+ *
+ * TODO: Merge this logic with Timeseries.isoDateString() and move to time-utils package.
  *
  * @param date Date object to truncate.
  */

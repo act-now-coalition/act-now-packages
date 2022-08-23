@@ -2,10 +2,10 @@ import { CsvDataProvider } from "./CsvDataProvider";
 import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
 
-const mockData = `region,cool_metric
+const mockCsv = `region,cool_metric
                   36,150
                   12,`;
-const mockTimeseries = `region,date,cool_metric
+const csvTimeseries = `region,date,cool_metric
                         36,2022-08-02,150
                         12,2022-08-02,`;
 const newYork = states.findByRegionIdStrict("36");
@@ -30,7 +30,7 @@ const testFetchingCsvData = async (
   const provider = new CsvDataProvider("csv-provider", {
     regionColumn: "region",
     dateColumn: dateCol,
-    csvData: data,
+    csvText: data,
   });
   return (await provider.fetchData([newYork], [testMetric], includeTimeseries))
     .regionData(newYork)
@@ -40,11 +40,11 @@ const testFetchingCsvData = async (
 describe("CsvDataProvider", () => {
   test("fetchData() yields expected data", async () => {
     const metricDataNoTs = await testFetchingCsvData(
-      mockData,
+      mockCsv,
       /*includeTimeseries=*/ false
     );
     const metricDataTs = await testFetchingCsvData(
-      mockTimeseries,
+      csvTimeseries,
       /*includeTimeseries=*/ true,
       /*dateColumn=*/ "date"
     );
@@ -54,10 +54,10 @@ describe("CsvDataProvider", () => {
     expect(metricDataTs.timeseries.last?.value).toBe(150);
   });
 
-  test("fetchData() fails if timeseries is expected but does not exist in cache.", async () => {
+  test("fetchData() fails if timeseries is expected, but the CSV does not have timeseries data.", async () => {
     const provider = new CsvDataProvider("csv-provider", {
       regionColumn: "region",
-      csvData: mockData,
+      csvText: mockCsv,
     });
     expect(async () => {
       await provider.fetchData([newYork], [testMetric], true);
@@ -69,7 +69,7 @@ describe("CsvDataProvider", () => {
   test("populateCache() fails if csv does not have at least one row.", async () => {
     const provider = new CsvDataProvider("csv-provider", {
       regionColumn: "region",
-      csvData: `region,cool_metric`,
+      csvText: `region,cool_metric`,
     });
     expect(async () => {
       await provider.populateCache();
