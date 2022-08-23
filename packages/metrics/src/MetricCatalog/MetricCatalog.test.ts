@@ -2,7 +2,7 @@ import { renderHook } from "@testing-library/react-hooks";
 
 import { states } from "@actnowcoalition/regions";
 
-import { MetricCatalog } from "./MetricCatalog";
+import { MetricCatalog, useCachedArrayIfEqual } from "./MetricCatalog";
 import { SnapshotJSON } from "../data";
 import { MockDataProvider, StaticValueDataProvider } from "../data_providers";
 
@@ -219,5 +219,36 @@ describe("MetricCatalog", () => {
     expect(
       result.current.data?.metricData(testRegionCA, metricPi).currentValue
     ).toBe(Math.PI);
+  });
+});
+
+describe("useCachedArrayIfEqual()", () => {
+  test("example", () => {
+    // Render with an initial array.
+    const initialArray = ["testing"];
+    const { result, rerender } = renderHook(
+      ({ array }) => useCachedArrayIfEqual(array),
+      {
+        initialProps: {
+          array: initialArray,
+        },
+      }
+    );
+    expect(result.current).toBe(initialArray);
+
+    // Re-render with a different array instance but the same values.
+    // Should still return the original array instance.
+    rerender({ array: ["testing"] });
+    expect(result.current).toBe(initialArray);
+
+    // Re-render with a different array instance and different values.
+    const newArray = ["testing", "new"];
+    rerender({ array: newArray });
+    expect(result.current).toBe(newArray);
+
+    // Re-render with a different array instance but same values again.
+    // Should still return the original array instance.
+    rerender({ array: ["testing", "new"] });
+    expect(result.current).toBe(newArray);
   });
 });

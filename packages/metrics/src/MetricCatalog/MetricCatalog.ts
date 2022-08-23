@@ -320,7 +320,7 @@ function useDataForRegionsAndMetrics(
  * @param value New array to check against the cached array.
  * @returns The cached array if its contents is exactly equal to the new value, else the new value.
  */
-function useCachedArrayIfEqual<T>(value: Array<T>): Array<T> {
+export function useCachedArrayIfEqual<T>(value: Array<T>): Array<T> {
   const ref = useRef(value);
   if (!isEqual(ref.current, value)) {
     ref.current = value;
