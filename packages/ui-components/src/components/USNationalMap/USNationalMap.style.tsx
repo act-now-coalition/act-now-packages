@@ -1,7 +1,7 @@
 import { Geography } from "react-simple-maps";
 import { styled } from "../../styles";
 
-export const GeoPath = styled(Geography)`
+export const StateGeoPath = styled(Geography)`
   fill-opacity: 1;
   /* Prevent focus rectangle appearing on click. */
   outline: none;
@@ -9,4 +9,8 @@ export const GeoPath = styled(Geography)`
   &:hover {
     fill-opacity: 0.7;
   }
+`;
+
+export const CountyGeoPath = styled(Geography)`
+  pointer-events: none;
 `;

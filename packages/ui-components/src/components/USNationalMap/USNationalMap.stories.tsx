@@ -1,11 +1,11 @@
 import React from "react";
-import minBy from "lodash/minBy";
-import maxBy from "lodash/maxBy";
-import keyBy from "lodash/keyBy";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import USNationalMap from "./USNationalMap";
-import { scaleQuantize } from "@visx/scale";
-import { states } from "@actnowcoalition/regions";
+import { scaleOrdinal, scaleLinear } from "@visx/scale";
+import { states, counties, RegionDB } from "@actnowcoalition/regions";
+import { interpolatePiYG } from "d3-scale-chromatic";
+
+const regions = new RegionDB([...states.all, ...counties.all]);
 
 export default {
   title: "Components/USNationalMap",
@@ -26,32 +26,39 @@ StatesWithNoFillColor.args = {
   renderTooltip: (fips) => renderSimpleTooltip(fips),
 };
 
-/** States colored by length of state's fullName */
-const stateNames = Object.keys(keyBy(states.all, (state) => state.fullName));
-
-const getGeoFillColorByStateNameLength = (fips: string) => {
-  const stateName = states.findByRegionIdStrict(fips).fullName;
-  return colorScaleByStateNameLength(stateName.length);
+const getFillColorByFirstLetter = (fips: string) => {
+  const fullNameFromFips = regions
+    .findByRegionIdStrict(fips)
+    .fullName.toLowerCase();
+  return colorScaleAlpha(fullNameFromFips[0]);
 };
 
-const minStateLength =
-  minBy(stateNames, (stateName) => stateName.length)?.length || 4;
-const maxStateLength =
-  maxBy(stateNames, (stateName) => stateName.length)?.length || 40;
+const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
 
-const colorScaleByStateNameLength = scaleQuantize({
-  domain: [minStateLength, maxStateLength],
-  range: [
-    "#119146" /* green */,
-    "#FFCC07" /* yellow */,
-    "#F68E1D" /* orange */,
-    "#F04623" /* dark orange */,
-    "#BC2026" /* red */,
-  ],
+const testLinear = scaleLinear({
+  domain: [0, 25],
+  range: [0, 1],
 });
 
-export const StatesColoredByNameLength = Template.bind({});
-StatesColoredByNameLength.args = {
-  getGeoFillColor: (fips) => getGeoFillColorByStateNameLength(fips),
+const colors = alphabetArr.map((letter: string, i: number) =>
+  interpolatePiYG(testLinear(i))
+);
+
+const colorScaleAlpha = scaleOrdinal({
+  domain: alphabetArr,
+  range: colors,
+});
+
+export const StatesColoredByFirstLetter = Template.bind({});
+StatesColoredByFirstLetter.args = {
   renderTooltip: (fips) => renderSimpleTooltip(fips),
+  getFillColor: (fips) => getFillColorByFirstLetter(fips),
+};
+
+/** Counties with no fill color */
+export const CountiesColoredByFirstLetter = Template.bind({});
+CountiesColoredByFirstLetter.args = {
+  showCounties: true,
+  renderTooltip: (fips) => renderSimpleTooltip(fips),
+  getFillColor: (fips) => getFillColorByFirstLetter(fips),
 };

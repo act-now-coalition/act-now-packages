@@ -4,12 +4,14 @@ import keyBy from "lodash/keyBy";
 import Tooltip from "@mui/material/Tooltip";
 import { geoAlbersUsaTerritories } from "geo-albers-usa-territories";
 import { ComposableMap, Geographies } from "react-simple-maps";
-import stateGeographies from "./shapefiles/states-10m.json";
-import { GeoPath } from "./USNationalMap.style";
+import { statesGeographies } from "../../common/shapefiles";
+import CountiesMap from "./CountiesMap";
+import { StateGeoPath } from "./USNationalMap.style";
 
 interface USNationalMapProps {
   renderTooltip: (fips: string) => React.ReactElement | string;
-  getGeoFillColor?: (fips: string) => string;
+  getFillColor?: (fips: string) => string;
+  showCounties?: boolean;
 }
 
 const projection = geoAlbersUsaTerritories().scale(1070).translate([400, 250]);
@@ -18,42 +20,54 @@ const stateFipsCodes = Object.keys(
 );
 
 const USNationalMap = React.memo(
-  ({ getGeoFillColor, renderTooltip }: USNationalMapProps) => {
+  ({
+    getFillColor,
+    renderTooltip,
+    showCounties = false,
+  }: USNationalMapProps) => {
     const regionGeographies = useMemo(() => {
       return (
-        <Geographies geography={stateGeographies}>
-          {({ geographies }) =>
-            geographies
-              .filter((geo) => stateFipsCodes.includes(geo.id))
-              .map((geo) => {
-                const fipsCode = geo.id;
-                const stateRegion = states.findByRegionIdStrict(fipsCode);
-                const stateName = stateRegion.fullName;
+        <>
+          <Geographies geography={statesGeographies}>
+            {({ geographies }) =>
+              geographies
+                .filter((geo) => stateFipsCodes.includes(geo.id))
+                .map((geo) => {
+                  const fipsCode = geo.id;
+                  const stateRegion = states.findByRegionIdStrict(fipsCode);
+                  const stateName = stateRegion.fullName;
 
-                const geography = (
-                  <GeoPath
-                    key={fipsCode}
-                    geography={geo}
-                    fill={getGeoFillColor ? getGeoFillColor(fipsCode) : "white"}
-                    stroke="black"
-                    strokeOpacity={1}
-                    strokeWidth={1}
-                    role="img"
-                    tabIndex={-1} // TODO: revisit making the map more accessible, for now removing from tab index to avoid a focus trap
-                    aria-label={stateName}
-                  />
-                );
+                  const geography = (
+                    <StateGeoPath
+                      key={fipsCode}
+                      geography={geo}
+                      /* If we are rendering counties, we do not color the state shapes */
+                      fill={
+                        !getFillColor || showCounties
+                          ? "white"
+                          : getFillColor(geo.id)
+                      }
+                      stroke="black"
+                      strokeOpacity={1}
+                      strokeWidth={1}
+                      role="img"
+                      tabIndex={-1} // TODO: revisit making the map more accessible, for now removing from tab index to avoid a focus trap
+                      aria-label={stateName}
+                    />
+                  );
 
-                return (
-                  <Tooltip key={fipsCode} title={renderTooltip(fipsCode)}>
-                    {geography}
-                  </Tooltip>
-                );
-              })
-          }
-        </Geographies>
+                  return (
+                    <Tooltip key={fipsCode} title={renderTooltip(fipsCode)}>
+                      {geography}
+                    </Tooltip>
+                  );
+                })
+            }
+          </Geographies>
+          {showCounties && <CountiesMap getFillColor={getFillColor} />}
+        </>
       );
-    }, [getGeoFillColor]);
+    }, [getFillColor]);
 
     return (
       <ComposableMap projection={projection} height={500}>
