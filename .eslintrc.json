@@ -19,7 +19,6 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "react/display-name": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "prefer-const": "off"
   },
