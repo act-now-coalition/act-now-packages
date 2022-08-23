@@ -54,6 +54,18 @@
   resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-2.4.0.tgz#897d3abc23b68d78b69d76a12c21e01eb5adab95"
   integrity sha512-oCavjEjRXuR6URJEtQm0eBdfsBiEcGBZbq21of8iGkeKxU1+1xgKuFPClaBZl2KB8ZZBSWlgk61tH6Mf+nvZVw==
 
+"@types/node@*":
+  version "18.7.6"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.7.6.tgz#31743bc5772b6ac223845e18c3fc26f042713c83"
+  integrity sha512-EdxgKRXgYsNITy5mjjXjVE/CS8YENSdhiagGrLqjG0pvA2owgJ6i4l7wy/PFZGC0B1/H20lWKN7ONVDNYDZm7A==
+
+"@types/papaparse@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@types/papaparse/-/papaparse-5.3.3.tgz#59c4db7efcb5ecbca18ba0e6f6d62b3949f35ed0"
+  integrity sha512-i7fV8u843vb7nIGpcwdCsG3WjfBONeytRHK1mQL9d5KQAvFeAK2rRisDHicreYpoQ0MXocUDEqunKHTeXdvibg==
+  dependencies:
+    "@types/node" "*"
+
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -80,6 +92,11 @@ object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
+
+papaparse@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.3.2.tgz#d1abed498a0ee299f103130a6109720404fbd467"
+  integrity sha512-6dNZu0Ki+gyV0eBsFKJhYr+MdQYAzFUGlBMNj3GNrmHxmz1lfRa24CjFObPXtjcetlOv5Ad299MhIK0znp3afw==
 
 react-error-boundary@^3.1.0:
   version "3.1.4"
