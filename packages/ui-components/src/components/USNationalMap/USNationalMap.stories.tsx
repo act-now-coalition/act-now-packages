@@ -1,6 +1,6 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import USNationalMap from "./USNationalMap";
+import { Story, ComponentMeta } from "@storybook/react";
+import USNationalMap, { USNationalMapProps } from "./USNationalMap";
 import { scaleOrdinal, scaleLinear } from "@visx/scale";
 import { states, counties, RegionDB } from "@actnowcoalition/regions";
 import { interpolatePiYG } from "d3-scale-chromatic";
@@ -12,7 +12,7 @@ export default {
   component: USNationalMap,
 } as ComponentMeta<typeof USNationalMap>;
 
-const Template: ComponentStory<typeof USNationalMap> = (args) => (
+const Template: Story<USNationalMapProps> = (args) => (
   <USNationalMap {...args} />
 );
 
