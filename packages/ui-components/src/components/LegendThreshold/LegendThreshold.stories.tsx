@@ -44,7 +44,6 @@ HorizontalDefault.args = {
   height: horizontalHeight,
   width: horizontalWidth,
   barHeight: horizontalBarHeight,
-  borderRadius: 4,
   showLabels: true,
   items,
   getItemColor,

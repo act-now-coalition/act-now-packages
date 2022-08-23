@@ -5,14 +5,14 @@ import {
   LegendContainer,
   LegendColor,
   LegendLabelContainer,
-  LegendLabel,
-  LegendSublabel,
 } from "./LegendThreshold.style";
+import { Typography } from "@mui/material";
 
 export interface LegendThresholdVerticalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "vertical";
+  barWidth?: number;
   getItemSublabel?: (item: T, itemIndex: number) => string;
 }
 
@@ -22,7 +22,7 @@ export interface LegendThresholdVerticalProps<T>
  */
 const LegendThresholdVertical = <T,>({
   height = 265,
-  width = 12,
+  barWidth = 12,
   borderRadius = 0,
   showLabels = true,
   items,
@@ -33,27 +33,28 @@ const LegendThresholdVertical = <T,>({
   const numberOfItems = items.length;
   const legendColorHeight = height / numberOfItems;
   return (
-    <LegendThresholdVerticalWrapper $height={height}>
+    <LegendThresholdVerticalWrapper>
       {items.map((item, itemIndex) => (
-        <LegendContainer
-          key={getItemColor(item, itemIndex)}
-          $height={legendColorHeight}
-        >
+        <LegendContainer key={itemIndex} style={{ height: legendColorHeight }}>
           <LegendColor
-            $width={width}
-            $color={getItemColor(item, itemIndex)}
-            $roundTop={itemIndex === 0 ? borderRadius : 0}
-            $roundBottom={itemIndex === numberOfItems - 1 ? borderRadius : 0}
+            style={{
+              width: barWidth,
+              backgroundColor: getItemColor(item, itemIndex),
+            }}
+            roundTop={itemIndex === 0 ? borderRadius : 0}
+            roundBottom={itemIndex === numberOfItems - 1 ? borderRadius : 0}
           />
           {showLabels && (
             <LegendLabelContainer>
               {getItemLabel && (
                 <>
-                  <LegendLabel>{getItemLabel(item, itemIndex)}</LegendLabel>
+                  <Typography variant="labelSmall">
+                    {getItemLabel(item, itemIndex)}
+                  </Typography>
                   {getItemSublabel && (
-                    <LegendSublabel>
+                    <Typography variant="paragraphSmall">
                       {getItemSublabel(item, itemIndex)}
-                    </LegendSublabel>
+                    </Typography>
                   )}
                 </>
               )}

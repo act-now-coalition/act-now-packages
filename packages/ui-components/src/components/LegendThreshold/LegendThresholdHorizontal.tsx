@@ -9,6 +9,8 @@ export interface LegendThresholdHorizontalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "horizontal";
+  /** Width of the component */
+  width?: number;
   /**
    * Height of the colored bars. When not adding the bars, make sure that
    * `barHeight` is set to the same value as `height`.
@@ -24,7 +26,7 @@ const LegendThresholdHorizontal = <T,>({
   height = 40,
   barHeight = 20,
   width = 300,
-  borderRadius,
+  borderRadius = 0,
   items,
   getItemColor,
   getItemLabel,

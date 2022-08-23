@@ -1,8 +1,6 @@
 export interface CommonLegendThresholdProps<T> {
   /** Height of the component, including the colored bars and labels. */
   height?: number;
-  /** Width of the component */
-  width?: number;
   /** Border radius of the colored bars */
   borderRadius?: number;
   /** List of items representing the labels */

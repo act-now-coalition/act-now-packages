@@ -14,22 +14,12 @@ export const TickMark = styled("line")`
   stroke: ${({ theme }) => theme.palette.border.default};
 `;
 
-export const LegendThresholdVerticalWrapper = styled("div", {
-  shouldForwardProp: isValidProp,
-})<{
-  $height: number;
-}>`
+export const LegendThresholdVerticalWrapper = styled("div")`
   width: fit-content;
-  height: ${(props) => props.$height}px;
 `;
 
-export const LegendContainer = styled("div", {
-  shouldForwardProp: isValidProp,
-})<{
-  $height: number;
-}>`
+export const LegendContainer = styled("div")`
   display: flex;
-  height: ${(props) => props.$height}px;
 `;
 
 const getTopRadius = ($roundTop: number) => css`
@@ -43,36 +33,17 @@ const getBottomRadius = ($roundBottom: number) => css`
 `;
 
 export const LegendColor = styled("div", { shouldForwardProp: isValidProp })<{
-  $width: number;
-  $color: string;
-  $roundTop: number;
-  $roundBottom: number;
+  roundTop: number;
+  roundBottom: number;
 }>`
-  background-color: ${(props) => props.$color};
-  width: ${(props) => props.$width}px;
   margin-right: ${(props) => props.theme.spacing(2)};
-  ${(props) => getTopRadius(props.$roundTop)}
-  ${(props) => getBottomRadius(props.$roundBottom)}
+  ${(props) => getTopRadius(props.roundTop)}
+  ${(props) => getBottomRadius(props.roundBottom)}
 `;
 
 export const LegendLabelContainer = styled("div")`
   display: flex;
   flex-direction: column;
   justify-content: center;
-`;
-
-const LegendLabelStyles = css`
-  font-size: 0.875rem;
   white-space: nowrap;
-`;
-
-export const LegendLabel = styled("div")`
-  ${LegendLabelStyles}
-  color: ${({ theme }) => theme.palette.secondary.dark};
-  font-weight: ${({ theme }) => theme.typography.fontWeightBold};
-`;
-
-export const LegendSublabel = styled("div")`
-  ${LegendLabelStyles}
-  color: ${({ theme }) => theme.palette.secondary.light};
 `;
