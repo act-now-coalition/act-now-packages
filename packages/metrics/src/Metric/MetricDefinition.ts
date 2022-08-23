@@ -53,6 +53,15 @@ export interface MetricDefinition {
   levelSetId?: string;
 
   /**
+   * Legends for representing categorical metrics.
+   */
+  legendCatagories?: {
+    label: string;
+    color: string;
+    [extra: string]: unknown;
+  }[];
+
+  /**
    * Specifies options used to format the metric value when it is displayed.
    */
   formatOptions?: Intl.NumberFormatOptions;

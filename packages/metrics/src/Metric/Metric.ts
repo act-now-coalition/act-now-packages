@@ -38,6 +38,12 @@ export class Metric {
   readonly levelSetId: string;
   /** {@inheritDoc MetricDefinition.formatOptions} */
   readonly formatOptions: Intl.NumberFormatOptions;
+  /** {@inheritDoc MetricDefinition.legendCatagories} */
+  readonly legendCatagories?: {
+    label: string;
+    color: string;
+    [extra: string]: unknown;
+  }[];
   /** {@inheritDoc MetricDefinition.extra} */
   readonly extra?: Record<string, unknown>;
 
@@ -72,6 +78,7 @@ export class Metric {
     this.levelSetId = def.levelSetId ?? "default";
     this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
     this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
+    this.legendCatagories = def.legendCatagories;
 
     assert(
       this.thresholds === undefined ||
