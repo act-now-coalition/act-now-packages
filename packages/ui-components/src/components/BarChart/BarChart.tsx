@@ -14,9 +14,7 @@ export interface BarChartOwnProps {
   /** d3-scale to transform point values to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
 
-  /** Width of each bar, in pixels. By default, the barWidth will be set to
-   * the distance between 2 consecutive days.
-   */
+  /** Width of each bar, in pixels (2px by default) */
   barWidth?: number;
 }
 
@@ -59,15 +57,7 @@ const BarChart: React.FC<BarChartProps> = ({
   barWidth = 2,
   ...rectProps
 }) => {
-  // We need minDate to calculate the bar width, so we return early if the
-  // timeseries is empty.
-  if (!timeseries.hasData()) {
-    return null;
-  }
-
-  const [yStart, yEnd] = yScale.range();
-  const maxHeight = Math.max(yStart, yEnd);
-
+  const [yStart] = yScale.range();
   return (
     <Group>
       {timeseries.points.map((p, i) => {
@@ -76,9 +66,9 @@ const BarChart: React.FC<BarChartProps> = ({
           <rect
             key={`bar-${i}`}
             x={xScale(p.date)}
-            y={rectY}
+            y={Math.min(rectY, yStart)}
             width={barWidth}
-            height={maxHeight - rectY}
+            height={Math.abs(rectY - yStart)}
             fill="#000"
             {...rectProps}
           />
