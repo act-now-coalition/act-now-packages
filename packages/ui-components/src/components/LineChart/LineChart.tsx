@@ -12,7 +12,7 @@ export interface LineChartOwnProps {
   /** d3-scale to transform point dates to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** d3-scale to transform point values to piel position on the y-axis */
+  /** d3-scale to transform point values to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
 }
 
@@ -31,7 +31,7 @@ export type LineChartProps = LineChartOwnProps &
  * @example
  * ```tsx
  * const xScale = scaleTime({ domain: [minDate, maxDate], range: [0, 200] });
- * const yScale = scaleLinear({ domain: [minVal, maxVal], range: [0, 100] });
+ * const yScale = scaleLinear({ domain: [minVal, maxVal], range: [100, 0] });
  *
  * return (
  *   <svg>

@@ -17,6 +17,7 @@ export default {
 
 const [width, height] = [600, 400];
 const padding = 30;
+const barPadding = 3;
 const innerWidth = width - 2 * padding;
 const innerHeight = height - 2 * padding;
 const fill = "#2a9d8f";
@@ -64,7 +65,7 @@ Example.args = {
   xScale,
   yScale,
   fill,
-  barWidth: dayWidth - 3,
+  barWidth: dayWidth - barPadding,
 };
 
 export const WithLineChart = () => (
@@ -84,7 +85,7 @@ export const WithLineChart = () => (
           yScale={yScale}
           fill={fill}
           fillOpacity={0.3}
-          barWidth={dayWidth - 2}
+          barWidth={dayWidth - barPadding}
         />
       </Group>
       {timeseries.points.map((p, i) => (

@@ -5,13 +5,13 @@ import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
 
 export interface BarChartOwnProps {
-  /** Timeseries used to draw the line chart */
+  /** Timeseries used to draw the bar chart */
   timeseries: Timeseries<number>;
 
   /** d3-scale to transform point dates to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
 
-  /** d3-scale to transform point values to pixel position on the y-axis */
+  /** d3-scale to transform point values to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
 
   /** Width of each bar, in pixels. By default, the barWidth will be set to
