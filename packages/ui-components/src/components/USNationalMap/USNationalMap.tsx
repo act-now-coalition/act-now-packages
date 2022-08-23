@@ -19,7 +19,7 @@ const stateFipsCodes = Object.keys(
   keyBy(states.all, (state) => state.regionId)
 );
 
-const USNationalMap: React.FC<USNationalMapProps> = ({
+const USNationalMapFC: React.FC<USNationalMapProps> = ({
   getFillColor,
   renderTooltip,
   showCounties = false,
@@ -75,4 +75,5 @@ const USNationalMap: React.FC<USNationalMapProps> = ({
   );
 };
 
+const USNationalMap = React.memo(USNationalMapFC);
 export default USNationalMap;
