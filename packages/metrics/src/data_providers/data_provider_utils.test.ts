@@ -52,41 +52,22 @@ describe("dataRowsToMetricData()", () => {
         /*dateKey=*/ "date"
       );
     }).toThrow();
-    expect(() => {
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        column,
-        /*dateKey=*/ "date"
-      );
-    }).toThrow();
   });
 
-  test("dataRowsToMetricData() fails when there's no data for region.", () => {
+  test("dataRowsToMetricData() returns null data when there's no data for region.", () => {
     const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ date: "2022-08-01", region: "12", cool_metric: 100 }],
       (row) => row.region
     );
-    expect(() => {
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        column,
-        /*dateKey=*/ "date"
-      );
-    }).toThrow();
-    expect(() => {
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        column,
-        /*dateKey=*/ "date"
-      );
-    }).toThrow();
+    const data = dataRowsToMetricData(
+      dataRows,
+      newYork,
+      testMetric,
+      column,
+      /*dateKey=*/ "date"
+    );
+    expect(data.currentValue).toBe(null);
   });
 
   test("dataRowsToMetricData() succeeds when metric data is null.", async () => {
@@ -95,15 +76,6 @@ describe("dataRowsToMetricData()", () => {
       [{ date: "2022-08-01", region: "36", cool_metric: null }],
       (row) => row.region
     );
-    expect(
-      dataRowsToMetricData(
-        dataRows,
-        newYork,
-        testMetric,
-        column,
-        /*dateKey=*/ "date"
-      ).currentValue
-    ).toBe(null);
     expect(
       dataRowsToMetricData(
         dataRows,
@@ -139,15 +111,14 @@ describe("dataRowToMetricData()", () => {
     }).toThrow();
   });
 
-  test("dataRowToMetricData() fails when there's no data for region.", () => {
+  test("dataRowToMetricData() returns null data when there's no data for region.", () => {
     const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ region: "12", cool_metric: 100 }],
       (row) => row.region
     );
-    expect(() => {
-      dataRowToMetricData(dataRows, newYork, testMetric, column);
-    }).toThrow();
+    const data = dataRowToMetricData(dataRows, newYork, testMetric, column);
+    expect(data.currentValue).toBe(null);
   });
 
   test("dataRowToMetricData() succeeds when metric data is null", () => {

@@ -3,11 +3,13 @@ import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
 
 const mockCsv = `region,cool_metric
-                  36,150
-                  12,`;
+36,150
+12,`;
+
 const csvTimeseries = `region,date,cool_metric
-                        36,2022-08-02,150
-                        12,2022-08-02,`;
+36,2022-08-02,150
+12,2022-08-02,`;
+
 const newYork = states.findByRegionIdStrict("36");
 const testMetric = new Metric({
   id: "metric",

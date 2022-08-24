@@ -24,14 +24,20 @@ export function dataRowToMetricData(
   metric: Metric,
   metricKey: string
 ) {
-  const rows = dataRowsByRegionId[region.regionId];
-  assert(
-    rows.length === 1,
-    `Expected exactly 1 entry for region ${region.regionId} and metric ${metric.id} but found: ${rows.length}`
-  );
-  const value = rows[0][metricKey];
-  assert(value !== undefined, `Metric key ${metricKey} missing.`);
-  return new MetricData(metric, region, value);
+  const rows = dataRowsByRegionId[region.regionId] ?? [];
+  if (rows.length === 0) {
+    return new MetricData(metric, region, /*currentValue=*/ null);
+  } else {
+    assert(
+      rows.length === 1,
+      `Expected no more than 1 entry for region ${region.regionId} and metric ` +
+        `${metric.id} but found: ${rows.length}. If this is timeseries data, ` +
+        `specify a dateColumn when creating the CsvDataProvider.`
+    );
+    const value = rows[0][metricKey];
+    assert(value !== undefined, `Metric key ${metricKey} missing.`);
+    return new MetricData(metric, region, value);
+  }
 }
 
 /**
@@ -51,8 +57,7 @@ export function dataRowsToMetricData(
   metricKey: string,
   dateKey: string
 ) {
-  const rows = dataRowsByRegionId[region.regionId];
-  assert(rows, `No data found for region ${region.regionId}.`);
+  const rows = dataRowsByRegionId[region.regionId] ?? [];
   const timeseries = new Timeseries(
     rows.map((row) => {
       assert(row[metricKey] !== undefined, `Metric key ${metricKey} missing.`);
