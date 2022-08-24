@@ -194,3 +194,26 @@ export function getTimeDiff(date1: Date, date2: Date, unit: TimeUnit) {
     .diff(DateTime.fromJSDate(date2), unit)
     .get(unit);
 }
+
+/**
+ * Remove hours, minutes and seconds from a Javascript Date object.
+ *
+ * @param date Date to modify.
+ * @returns Truncated Date object.
+ */
+export function stripHoursMinutesSeconds(date: Date): Date | string {
+  return new Date(truncatedIsoString(date));
+}
+
+/**
+ * Format a date in ISO format excluding hours, minutes, and seconds.
+ *
+ * @example
+ * getStartOf(new Date(2020, 3, 2, 10, 30))  // "2020-04-02"
+ *
+ * @param date Date to transform.
+ * @returns Date in ISO format with hours, minutes, and seconds removed.
+ */
+export function truncatedIsoString(date: Date): string {
+  return formatUTCDateTime(date, DateFormat.YYYY_MM_DD);
+}
