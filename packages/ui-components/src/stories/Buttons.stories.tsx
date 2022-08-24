@@ -24,7 +24,7 @@ export const Variants = () => (
 );
 
 export const Icon = () => (
-  <IconButton aria-label="delete" color="primary">
+  <IconButton aria-label="share on Facebook" color="primary">
     <FacebookIcon />
   </IconButton>
 );
