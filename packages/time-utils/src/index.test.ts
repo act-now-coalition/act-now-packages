@@ -9,6 +9,8 @@ import {
   subtractTime,
   getStartOf,
   getTimeDiff,
+  truncatedIsoString,
+  stripHoursMinutesSeconds,
 } from "./index";
 
 /**
@@ -295,5 +297,18 @@ describe("get time difference", () => {
         TimeUnit.MONTHS
       )
     ).toEqual(5);
+  });
+});
+
+describe("remove hours, minutes, and seconds", () => {
+  test("truncatedIsoString", () => {
+    expect(truncatedIsoString(new Date(2020, 3, 2, 10, 30))).toBe("2020-04-02");
+  });
+
+  test("stripHoursMinutesSeconds", () => {
+    const expectedDate = new Date("2020-04-02");
+    expect(
+      stripHoursMinutesSeconds(new Date(2020, 3, 2, 10, 30))
+    ).toStrictEqual(expectedDate);
   });
 });

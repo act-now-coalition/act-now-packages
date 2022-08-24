@@ -3,7 +3,10 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
 import { Timeseries } from "../Timeseries";
-import { parseDateString } from "@actnowcoalition/time-utils";
+import {
+  parseDateString,
+  stripHoursMinutesSeconds,
+} from "@actnowcoalition/time-utils";
 
 export type DataRow = { [key: string]: unknown };
 
@@ -66,7 +69,7 @@ export function dataRowsToMetricData(
         `Date column must be a string. ${typeof row[dateKey]} found.`
       );
       return {
-        date: stripTime(parseDateString(row[dateKey] as string)),
+        date: stripHoursMinutesSeconds(parseDateString(row[dateKey] as string)),
         value: row[metricKey] as unknown,
       };
     })
@@ -77,16 +80,4 @@ export function dataRowsToMetricData(
     timeseries.last?.value ?? null,
     timeseries
   );
-}
-
-/**
- * Remove hours minutes and seconds from Javascript Date object.
- *
- * TODO: Merge this logic with Timeseries.isoDateString() and move to time-utils package.
- *
- * @param date Date object to truncate.
- */
-function stripTime(date: Date): Date {
-  const truncatedDate = date.toISOString().split("T")[0];
-  return new Date(truncatedDate);
 }

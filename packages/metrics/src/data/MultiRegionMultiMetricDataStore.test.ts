@@ -8,6 +8,7 @@ import { MultiMetricDataStore } from "./MultiMetricDataStore";
 import { MetricData } from "./MetricData";
 import { Metric } from "../Metric";
 import { StaticValueDataProvider } from "../data_providers";
+import { truncatedIsoString } from "@actnowcoalition/time-utils";
 
 const testRegion = states.findByRegionIdStrict("12");
 const testMetric = new Metric({
@@ -23,8 +24,8 @@ const testProvider = new StaticValueDataProvider();
 // The snapshot JSON that corresponds to the data for `testRegion` and `testMetric`.
 const testSnapshot: SnapshotJSON = {
   metadata: {
-    createdDate: new Date().toISOString().split("T")[0],
-    latestDate: "2022-01-02T00:00:00.000Z",
+    createdDate: truncatedIsoString(new Date()),
+    latestDate: "2022-01-02",
   },
   data: {
     "12": {

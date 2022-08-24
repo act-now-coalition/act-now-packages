@@ -204,7 +204,7 @@ export function getTimeDiff(date1: Date, date2: Date, unit: TimeUnit) {
  * @param date Date to modify.
  * @returns Truncated Date object.
  */
-export function stripHoursMinutesSeconds(date: Date): Date | string {
+export function stripHoursMinutesSeconds(date: Date): Date {
   return new Date(truncatedIsoString(date));
 }
 
