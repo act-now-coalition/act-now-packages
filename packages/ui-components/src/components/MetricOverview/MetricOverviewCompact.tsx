@@ -1,16 +1,21 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { CommonMetricOverviewProps } from "./interfaces";
+import MetricValue from "./MetricValue";
+import LabelArrow from "./LabelArrow";
 
-const MetricOverviewCompact: React.FC = () => {
+export interface MetricOverviewCompactProps extends CommonMetricOverviewProps {
+  size: "compact";
+}
+
+const MetricOverviewCompact: React.FC<MetricOverviewCompactProps> = ({
+  metric,
+}) => {
   return (
     <Stack direction="column" spacing={0.5}>
       <Stack direction="row" justifyContent="space-between">
-        <Stack direction="row" alignItems="center">
-          <Typography variant="labelLarge">Metric name</Typography>
-          <ArrowForwardIcon fontSize="small"></ArrowForwardIcon>
-        </Stack>
-        <Typography variant="dataEmphasizedSmall">123.45</Typography>
+        <LabelArrow variant="labelLarge">{metric.name}</LabelArrow>
+        <MetricValue variant="dataEmphasizedSmall" metric={metric} />
       </Stack>
       <Typography variant="paragraphSmall">Supporting text</Typography>
     </Stack>

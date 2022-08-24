@@ -1,16 +1,20 @@
 import React from "react";
-import { MetricOverviewProps } from "./interfaces";
-import MetricOverviewRegular from "./MetricOverviewRegular";
-import MetricOverviewCompact from "./MetricOverviewCompact";
+import MetricOverviewRegular, {
+  MetricOverviewRegularProps,
+} from "./MetricOverviewRegular";
+import MetricOverviewCompact, {
+  MetricOverviewCompactProps,
+} from "./MetricOverviewCompact";
 
-const MetricOverview: React.FC<MetricOverviewProps> = ({
-  size = "regular",
-  ...otherProps
-}) => {
-  return size === "regular" ? (
-    <MetricOverviewRegular {...otherProps} />
+export type MetricOverviewProps =
+  | MetricOverviewRegularProps
+  | MetricOverviewCompactProps;
+
+const MetricOverview: React.FC<MetricOverviewProps> = (props) => {
+  return props.size === "regular" ? (
+    <MetricOverviewRegular {...props} />
   ) : (
-    <MetricOverviewCompact {...otherProps} />
+    <MetricOverviewCompact {...props} />
   );
 };
 

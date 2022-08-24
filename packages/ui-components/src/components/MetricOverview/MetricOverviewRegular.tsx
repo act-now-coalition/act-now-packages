@@ -1,20 +1,39 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { CommonMetricOverviewProps } from "./interfaces";
+import MetricValue from "./MetricValue";
+import LabelArrow from "./LabelArrow";
 
-const MetricOverviewRegular: React.FC = () => {
+export interface MetricOverviewRegularProps extends CommonMetricOverviewProps {
+  size: "regular";
+}
+
+const MetricOverviewRegular: React.FC<MetricOverviewRegularProps> = ({
+  metric,
+}) => (
+  <Stack direction="column" spacing={1}>
+    <LabelArrow variant="labelLarge">{metric.name}</LabelArrow>
+    <ChartPlaceholder />
+    <MetricValue variant="dataEmphasizedLarge" metric={metric} />
+    <Typography variant="paragraphSmall">Supporting text</Typography>
+  </Stack>
+);
+
+const ChartPlaceholder: React.FC = () => {
   return (
-    <Stack direction="column" spacing={1}>
-      <Stack direction="row" alignItems="center">
-        <Typography variant="labelLarge">Metric name</Typography>
-        <ArrowForwardIcon fontSize="small"></ArrowForwardIcon>
-      </Stack>
-      <div
-        style={{ backgroundColor: "#5F6C7233", borderRadius: 4, minHeight: 72 }}
-      />
-      <Typography variant="dataEmphasizedLarge">123.45</Typography>
-      <Typography variant="paragraphSmall">Supporting text</Typography>
-    </Stack>
+    <div
+      style={{
+        borderRadius: 4,
+        backgroundColor: "#eee",
+        display: "grid",
+        placeItems: "center",
+        height: 72,
+      }}
+    >
+      <Typography variant="overline" component="div" color="#777">
+        placeholder
+      </Typography>
+    </div>
   );
 };
 
