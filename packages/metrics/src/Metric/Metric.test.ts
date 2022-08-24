@@ -22,6 +22,12 @@ const testLevelSet: MetricLevelSet = {
   ],
 };
 
+// Example of a typical testCategories to be used by metrics.
+const testCategories: MetricCategory[] = [
+  { label: "Not started", color: "red", value: "no" },
+  { label: "Done", color: "green", value: "yes" },
+];
+
 // Example of typical MetricCatalogOptions, including a default metric level set.
 const testCatalogOptions: MetricCatalogOptions = {
   metricLevelSets: [testLevelSet],
@@ -115,18 +121,13 @@ describe("Metric", () => {
     expect(metric.roundValue(0.123)).toBe(0.12);
   });
 
-  test("getCategory() with string value and no match.", () => {
-    const testCategories: MetricCategory[] = [
-      { label: "Not started", color: "red", value: "no" },
-      { label: "Done", color: "green", value: "yes" },
-    ];
+  test("getCategory() fails with no matching value.", () => {
     const metric = new Metric({
       ...testMetricDef,
       categories: testCategories,
     });
-    expect(metric.getCategory("no")).toStrictEqual(testCategories[0]);
     expect(() => {
       metric.getCategory("none");
-    }).toThrow("No matching category");
+    }).toThrow("No matching");
   });
 });
