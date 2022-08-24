@@ -1,3 +1,8 @@
+import { Theme } from "@mui/material/styles";
+
+/** Theme variables */
+export { themeConfig } from "./styles";
+
 /**
  * Material UI Theme extensions
  *
@@ -9,8 +14,6 @@
  * In order to make sure consumers of our package can use our theme extensions, we do
  * this in the index.ts file.
  */
-
-import { Theme } from "@mui/material/styles";
 
 declare module "@mui/material/Typography" {
   interface TypographyPropsVariantOverrides {
@@ -49,17 +52,16 @@ declare module "@mui/material/styles" {
   }
 }
 
-/** Theme variables */
-export { themeConfig } from "./styles";
-
 /** UI Components and props */
+export { default as BarChart } from "./components/BarChart";
+export type { BarChartProps, BarChartOwnProps } from "./components/BarChart";
 export { default as InfoTooltip } from "./components/InfoTooltip";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
 export { default as LegendCategorical } from "./components/LegendCategorical";
 export type { LegendCategoricalProps } from "./components/LegendCategorical";
 export { default as LineChart } from "./components/LineChart";
-export type { LineChartProps } from "./components/LineChart";
+export type { LineChartProps, LineChartOwnProps } from "./components/LineChart";
 export { default as ProgressBar } from "./components/ProgressBar";
 export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";

@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import groupBy from "lodash/groupBy";
+import isEqual from "lodash/isEqual";
 import keyBy from "lodash/keyBy";
 import uniq from "lodash/uniq";
 
@@ -32,6 +33,15 @@ export class MetricCatalog {
   readonly options: MetricCatalogOptions;
 
   private readonly metricsById: { [id: string]: Metric };
+
+  /**
+   * Count of times that the MetricCatalog has had to fetch data from one or
+   * more data providers (e.g. any of the fetchData() methods were called, or a
+   * useData() hook was called with new metrics / regions).
+   *
+   * Used for debugging / testing.
+   */
+  dataFetchesCount = 0;
 
   /**
    * Constructs a new {@link MetricCatalog} from the given metrics, data providers, and options.
@@ -133,6 +143,8 @@ export class MetricCatalog {
     metrics: Array<string | Metric>,
     includeTimeseries = true
   ): Promise<MultiRegionMultiMetricDataStore> {
+    this.dataFetchesCount++;
+
     const resolvedMetrics = metrics.map((m) =>
       typeof m === "string" ? this.getMetric(m) : m
     );
@@ -194,20 +206,13 @@ export class MetricCatalog {
     metric: string | Metric,
     includeTimeseries = true
   ): DataOrError<MetricData> {
-    const [data, setData] = useState<MetricData>();
-    useEffect(() => {
-      this.fetchData(region, metric, includeTimeseries)
-        .then((data) => {
-          setData(data);
-        })
-        .catch((error) => {
-          console.error(
-            `Error fetching metric data for ${metric} for ${region.regionId}: ${error}`
-          );
-          return { error };
-        });
-    }, [region, metric]);
-    return { data };
+    const { data: dataStore, error } = this.useDataForMetrics(
+      region,
+      [metric],
+      includeTimeseries
+    );
+    const data = dataStore?.metricData(metric);
+    return { data, error };
   }
 
   /**
@@ -220,29 +225,16 @@ export class MetricCatalog {
    */
   useDataForMetrics(
     region: Region,
-    metrics: string[] | Metric[],
+    metrics: Array<string | Metric>,
     includeTimeseries = true
   ): DataOrError<MultiMetricDataStore> {
-    const [data, setData] = useState<MultiMetricDataStore>();
-    // TODO(michael): This is a hack. We have to turn metricList into a string
-    // to pass to the useEffect hook since useEffect doesn't do deep equality on
-    // arrays. We probably need to do something similar for regions or else find
-    // another workaround.
-    const metricList = JSON.stringify(metrics);
-    useEffect(() => {
-      const metrics = JSON.parse(metricList);
-      this.fetchDataForMetrics(region, metrics, includeTimeseries)
-        .then((metricDataStore) => {
-          setData(metricDataStore);
-        })
-        .catch((error) => {
-          console.error(
-            `Error fetching metric data for ${region.regionId}: ${error}`
-          );
-          return { error };
-        });
-    }, [metricList, region]);
-    return { data };
+    const { data: dataStore, error } = this.useDataForRegionsAndMetrics(
+      [region],
+      metrics,
+      includeTimeseries
+    );
+    const data = dataStore?.regionData(region);
+    return { data, error };
   }
 
   /**
@@ -255,27 +247,19 @@ export class MetricCatalog {
    */
   useDataForRegionsAndMetrics(
     regions: Region[],
-    metrics: string[] | Metric[],
+    metrics: Array<string | Metric>,
     includeTimeseries = true
   ): DataOrError<MultiRegionMultiMetricDataStore> {
-    const [data, setData] = useState<MultiRegionMultiMetricDataStore>();
-    // TODO(michael): This is a hack. We have to turn metricList into a string
-    // to pass to the useEffect hook since useEffect doesn't do deep equality on
-    // arrays. We probably need to do something similar for regions or else find
-    // another workaround.
-    const metricList = JSON.stringify(metrics);
-    useEffect(() => {
-      const metrics = JSON.parse(metricList);
-      this.fetchDataForMetricsAndRegions(regions, metrics, includeTimeseries)
-        .then((multiRegionMetricDataStore) => {
-          setData(multiRegionMetricDataStore);
-        })
-        .catch((error) => {
-          console.error(`Error fetching metric data: ${error}`);
-          return { error };
-        });
-    }, [metricList, regions]);
-    return { data };
+    // ESLint complains about calling hooks from classes (React Hook
+    // "useDataForRegionsAndMetrics" cannot be called in a class component.) but
+    // this isn't actually a class component.  It's just a class.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    return useDataForRegionsAndMetrics(
+      /*catalog=*/ this,
+      regions,
+      metrics,
+      includeTimeseries
+    );
   }
 }
 
@@ -287,3 +271,59 @@ export class MetricCatalog {
  * 3. The data failed to load. (data is nil, error is not nil)
  */
 export type DataOrError<T> = { data?: T; error?: Error };
+
+function useDataForRegionsAndMetrics(
+  catalog: MetricCatalog,
+  regions: Region[],
+  metrics: Array<string | Metric>,
+  includeTimeseries = true
+): DataOrError<MultiRegionMultiMetricDataStore> {
+  const [data, setData] = useState<MultiRegionMultiMetricDataStore>();
+  let resolvedMetrics = metrics.map((m) =>
+    typeof m === "string" ? catalog.getMetric(m) : m
+  );
+
+  // In order to allow people to pass in a new array of regions / metrics that
+  // contain the same regions / metrics as before without triggering additional
+  // fetches, we need this caching trick.
+  resolvedMetrics = useCachedArrayIfEqual(resolvedMetrics);
+  regions = useCachedArrayIfEqual(regions);
+
+  useEffect(() => {
+    catalog
+      .fetchDataForMetricsAndRegions(
+        regions,
+        resolvedMetrics,
+        includeTimeseries
+      )
+      .then((multiRegionMetricDataStore) => {
+        setData(multiRegionMetricDataStore);
+      })
+      .catch((error) => {
+        console.error(`Error fetching metric data: ${error}`);
+        return { error };
+      });
+  }, [catalog, resolvedMetrics, regions, includeTimeseries]);
+  return { data };
+}
+
+/**
+ * Helper react hook to cache / return an array value, as long as the contents
+ * are equal.
+ *
+ * As long as the new array contains the exact same values (i.e. each item `===`
+ * the previous values), then the original cached array will be returned. This is
+ * useful when using the array as a dependency in react, e.g. with `useEffect()`
+ * where you want to avoid re-running the effect as long as the array is equal
+ * to the old array.
+ *
+ * @param value New array to check against the cached array.
+ * @returns The cached array if its contents is exactly equal to the new value, else the new value.
+ */
+export function useCachedArrayIfEqual<T>(value: Array<T>): Array<T> {
+  const ref = useRef(value);
+  if (!isEqual(ref.current, value)) {
+    ref.current = value;
+  }
+  return ref.current;
+}
