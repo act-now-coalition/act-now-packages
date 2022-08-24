@@ -10,6 +10,7 @@ import {
   getStartOf,
   getTimeDiff,
   isoDateOnlyString,
+  assertDateOnly,
 } from "./index";
 
 /**
@@ -302,5 +303,13 @@ describe("get time difference", () => {
 describe("isoDateOnlyString", () => {
   test("isoDateOnlyString removes hours, minutes and seconds.", () => {
     expect(isoDateOnlyString(new Date(2020, 3, 2, 10, 30))).toBe("2020-04-02");
+  });
+});
+
+describe("assertDateOnly", () => {
+  test("assertDateOnly throws when time data is present.", () => {
+    expect(() => {
+      assertDateOnly(new Date(2020, 3, 2, 10, 30));
+    }).toThrow();
   });
 });
