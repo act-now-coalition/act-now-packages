@@ -1,5 +1,5 @@
 /**
- * A category for representing a discrete metric values.
+ * A category for representing discrete metric values.
  *
  * Categories for a metric are defined in the
  * {@link MetricDefinition.categories} property, and the given category
