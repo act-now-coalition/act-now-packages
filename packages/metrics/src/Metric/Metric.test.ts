@@ -2,6 +2,7 @@ import { Metric } from "./Metric";
 import { MetricLevelSet } from "./MetricLevel";
 import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
+import { MetricCategory } from "./MetricCategory";
 
 // Example of a typical metric with mostly default options.
 const testMetricDef: MetricDefinition = {
@@ -112,5 +113,20 @@ describe("Metric", () => {
       formatOptions: { style: "percent", maximumFractionDigits: 0 },
     });
     expect(metric.roundValue(0.123)).toBe(0.12);
+  });
+
+  test("getCategory() with string value and no match.", () => {
+    const testCategories: MetricCategory[] = [
+      { label: "Not started", color: "red", value: "no" },
+      { label: "Done", color: "green", value: "yes" },
+    ];
+    const metric = new Metric({
+      ...testMetricDef,
+      categories: testCategories,
+    });
+    expect(metric.getCategory("no")).toStrictEqual(testCategories[0]);
+    expect(() => {
+      metric.getCategory("none");
+    }).toThrow("No matching category");
   });
 });

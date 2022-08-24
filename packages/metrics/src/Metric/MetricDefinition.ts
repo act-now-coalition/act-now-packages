@@ -1,3 +1,4 @@
+import { MetricCategory } from "./MetricCategory";
 import { MetricDataReference } from "./MetricDataReference";
 
 /**
@@ -53,13 +54,9 @@ export interface MetricDefinition {
   levelSetId?: string;
 
   /**
-   * Legends for representing categorical metrics.
+   * Categories used for representing or displaying a discrete metric (e.g. "Yes", "No").
    */
-  legendCatagories?: {
-    label: string;
-    color: string;
-    [extra: string]: unknown;
-  }[];
+  categories?: Array<MetricCategory>;
 
   /**
    * Specifies options used to format the metric value when it is displayed.
