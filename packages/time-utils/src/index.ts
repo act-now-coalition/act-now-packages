@@ -198,6 +198,9 @@ export function getTimeDiff(date1: Date, date2: Date, unit: TimeUnit) {
 /**
  * Remove hours, minutes and seconds from a Javascript Date object.
  *
+ * @example
+ * stripHoursMinutesSeconds(new Date(2020, 3, 2, 10, 30))  // "2020-04-02T00:00:00.000Z"
+ *
  * @param date Date to modify.
  * @returns Truncated Date object.
  */
@@ -209,7 +212,7 @@ export function stripHoursMinutesSeconds(date: Date): Date | string {
  * Format a date in ISO format excluding hours, minutes, and seconds.
  *
  * @example
- * getStartOf(new Date(2020, 3, 2, 10, 30))  // "2020-04-02"
+ * truncatedIsoString(new Date(2020, 3, 2, 10, 30))  // "2020-04-02"
  *
  * @param date Date to transform.
  * @returns Date in ISO format with hours, minutes, and seconds removed.
