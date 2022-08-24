@@ -1,6 +1,7 @@
 /** MUI theme components */
 import { ThemeOptions, createTheme } from "@mui/material";
 import typography, { typographyConstants } from "./typography";
+import palette from "./palette";
 
 const referenceTheme = createTheme();
 
@@ -13,6 +14,9 @@ const components: ThemeOptions["components"] = {
         fontSize: typography.labelLarge.fontSize,
         fontWeight: typography.labelLarge.fontWeight,
         lineHeight: typography.labelLarge.lineHeight,
+      },
+      outlinedPrimary: {
+        borderColor: palette.border.default,
       },
     },
   },
