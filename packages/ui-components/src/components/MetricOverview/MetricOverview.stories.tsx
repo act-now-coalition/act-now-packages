@@ -22,10 +22,7 @@ const TemplateCompact: ComponentStory<typeof MetricOverview> = (args) => (
   </div>
 );
 
-const metric = new Metric({
-  id: "cases",
-  name: "Cases per 100k",
-});
+const metric = new Metric({ id: "cases", name: "Cases per 100k" });
 
 export const Regular = Template.bind({});
 Regular.args = { size: "regular", metric };
