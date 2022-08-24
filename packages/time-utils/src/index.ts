@@ -217,6 +217,6 @@ export function assertDateOnly(date: Date): void {
   const onlyDate = date.toISOString().endsWith("T00:00:00.000Z");
   assert(
     onlyDate,
-    `Date must not have a non-zero time component. Date found: ${date.toISOString()}`
+    `Date is expected to have a no time component (hours/minutes/seconds). Date found: ${date.toISOString()}`
   );
 }
