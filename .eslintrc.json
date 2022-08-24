@@ -19,6 +19,9 @@
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
-  "rules": {},
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "off",
+    "prefer-const": "off"
+  },
   "ignorePatterns": ["!.storybook", "**/dist", "**/lib"]
 }
