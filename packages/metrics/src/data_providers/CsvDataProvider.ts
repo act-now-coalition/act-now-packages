@@ -11,7 +11,7 @@ import {
 import { groupBy } from "lodash";
 import Papa from "papaparse";
 
-interface CsvDataProviderOptions {
+export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
   url?: string;
   /** Name of column containing valid Region IDs. */
@@ -62,7 +62,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
       assert(this.csvText, "Either url or csvData must be provided.");
       csvText = this.csvText;
     }
-    const csv = parseCsv(csvText);
+    const csv = parseCsv(csvText, this.regionColumn);
     assert(csv.length > 0, "CSV must not be empty.");
     const dataRowsByRegionId = groupBy(csv, (row) => row[this.regionColumn]);
     assert(
@@ -118,6 +118,11 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
   private async fetchCsvText(): Promise<string> {
     assert(this.url, "URL must be specified in order to use fetchCsvText()");
     const response = await fetch(this.url);
+    if (response.status !== 200) {
+      throw new Error(
+        `Failed to fetch CSV data from ${this.url}: ${response.statusText}`
+      );
+    }
     return await response.text();
   }
 }
@@ -126,12 +131,41 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
  * Transforms CSV text from string to JSON.
  *
  * @param csvText CSV text to parse.
- * @returns parsed CSV text.
+ * @param regionColumn Name of column containing region IDs. It will be
+ * preserved as a string, even if it has numeric values, to preserve FIPS codes
+ * as strings.
+ * @returns parsed CSV rows.
  */
-function parseCsv(csvText: string): DataRow[] {
+function parseCsv(csvText: string, regionColumn: string): DataRow[] {
   const csv = Papa.parse(csvText, {
     header: true,
-    dynamicTyping: true,
+    skipEmptyLines: true,
   });
-  return csv.data as DataRow[];
+
+  const data = csv.data as DataRow[];
+  sanitizeRows(data, [regionColumn]);
+  return data;
+}
+
+/**
+ * Sanitize CSV rows, turning numeric strings into numbers.
+ *
+ * @param rows Raw CSV rows.
+ * @returns Sanitized CSV rows.
+ */
+function sanitizeRows(rows: DataRow[], excludeColumns: string[]): void {
+  for (const row of rows) {
+    for (const c in row) {
+      if (excludeColumns.includes(c)) {
+        continue;
+      }
+      const v = row[c] as string;
+      if (/^-?[\d.eE]+$/.test(v)) {
+        const num = Number.parseFloat(v.replace(/,/g, ""));
+        if (!Number.isNaN(num)) {
+          row[c] = num;
+        }
+      }
+    }
+  }
 }

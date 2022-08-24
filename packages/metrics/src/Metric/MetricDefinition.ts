@@ -1,3 +1,4 @@
+import { MetricCategory } from "./MetricCategory";
 import { MetricDataReference } from "./MetricDataReference";
 
 /**
@@ -51,6 +52,11 @@ export interface MetricDefinition {
    * definitions are defined when constructing the {@link MetricCatalog}.
    */
   levelSetId?: string;
+
+  /**
+   * Categories used for representing or displaying a discrete metric (e.g. "Yes", "No").
+   */
+  categories?: Array<MetricCategory>;
 
   /**
    * Specifies options used to format the metric value when it is displayed.
