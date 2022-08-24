@@ -2,6 +2,7 @@ import { Metric } from "./Metric";
 import { MetricLevelSet } from "./MetricLevel";
 import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
+import { MetricCategory } from "./MetricCategory";
 
 // Example of a typical metric with mostly default options.
 const testMetricDef: MetricDefinition = {
@@ -20,6 +21,12 @@ const testLevelSet: MetricLevelSet = {
     { id: "high", color: "red" },
   ],
 };
+
+// Example of a typical testCategories to be used by metrics.
+const testCategories: MetricCategory[] = [
+  { label: "Not started", color: "red", value: "no" },
+  { label: "Done", color: "green", value: "yes" },
+];
 
 // Example of typical MetricCatalogOptions, including a default metric level set.
 const testCatalogOptions: MetricCatalogOptions = {
@@ -112,5 +119,23 @@ describe("Metric", () => {
       formatOptions: { style: "percent", maximumFractionDigits: 0 },
     });
     expect(metric.roundValue(0.123)).toBe(0.12);
+  });
+
+  test("getCategory() with string values", () => {
+    const metric = new Metric({
+      ...testMetricDef,
+      categories: testCategories,
+    });
+    expect(metric.getCategory("no")).toStrictEqual(testCategories[0]);
+  });
+
+  test("getCategory() fails with no matching value.", () => {
+    const metric = new Metric({
+      ...testMetricDef,
+      categories: testCategories,
+    });
+    expect(() => {
+      metric.getCategory("none");
+    }).toThrow("No matching");
   });
 });

@@ -6,6 +6,7 @@ import { isFinite } from "@actnowcoalition/number-format";
 
 import { MetricDataReference } from "./MetricDataReference";
 import { MetricLevel, MetricLevelSet } from "./MetricLevel";
+import { MetricCategory } from "./MetricCategory";
 import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
 
@@ -38,6 +39,8 @@ export class Metric {
   readonly levelSetId: string;
   /** {@inheritDoc MetricDefinition.formatOptions} */
   readonly formatOptions: Intl.NumberFormatOptions;
+  /** {@inheritDoc MetricDefinition.categories} */
+  readonly categories?: Array<MetricCategory>;
   /** {@inheritDoc MetricDefinition.extra} */
   readonly extra?: Record<string, unknown>;
 
@@ -72,6 +75,12 @@ export class Metric {
     this.levelSetId = def.levelSetId ?? "default";
     this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
     this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
+    this.categories = def.categories;
+
+    assert(
+      !(this.categories && this.thresholds),
+      "Categories and levels should not both be defined."
+    );
 
     assert(
       this.thresholds === undefined ||
@@ -135,6 +144,26 @@ export class Metric {
     const lastLevel = last(this.levelSet.levels);
     assert(lastLevel);
     return lastLevel;
+  }
+
+  /**
+   * Finds the corresponding category for a given value.
+   *
+   * Throws an error if no matching category is found.
+   *
+   * @param value Value to find category for.
+   * @returns Category the value belongs to.
+   */
+  getCategory(value: unknown): MetricCategory {
+    assert(
+      this.categories !== undefined,
+      "No categories defined for this metric."
+    );
+    const category = this.categories.find(
+      (category) => value === category.value
+    );
+    assert(category, `No matching category found for value ${value}.`);
+    return category;
   }
 
   /**
