@@ -194,3 +194,29 @@ export function getTimeDiff(date1: Date, date2: Date, unit: TimeUnit) {
     .diff(DateTime.fromJSDate(date2), unit)
     .get(unit);
 }
+
+/**
+ * Format a date in ISO format excluding hours, minutes, and seconds.
+ *
+ * @example
+ * isoDateOnlyString(new Date(2020, 3, 2, 10, 30))  // "2020-04-02"
+ *
+ * @param date Date to transform.
+ * @returns Date in ISO format with hours, minutes, and seconds removed.
+ */
+export function isoDateOnlyString(date: Date): string {
+  return formatUTCDateTime(date, DateFormat.YYYY_MM_DD);
+}
+
+/**
+ * Asserts that a date has no time component (no hours, minutes, and seconds).
+ *
+ * @param date Date to assert has no time component.
+ */
+export function assertDateOnly(date: Date): void {
+  const onlyDate = date.toISOString().endsWith("T00:00:00.000Z");
+  assert(
+    onlyDate,
+    `Date must not have a non-zero time component. Date found: ${date.toISOString()}`
+  );
+}
