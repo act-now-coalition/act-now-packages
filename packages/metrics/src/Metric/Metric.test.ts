@@ -121,6 +121,14 @@ describe("Metric", () => {
     expect(metric.roundValue(0.123)).toBe(0.12);
   });
 
+  test("getCategory() with string values", () => {
+    const metric = new Metric({
+      ...testMetricDef,
+      categories: testCategories,
+    });
+    expect(metric.getCategory("no")).toStrictEqual(testCategories[0]);
+  });
+
   test("getCategory() fails with no matching value.", () => {
     const metric = new Metric({
       ...testMetricDef,
