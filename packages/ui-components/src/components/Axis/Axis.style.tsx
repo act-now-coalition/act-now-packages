@@ -5,6 +5,8 @@ import {
   AxisBottom as VxAxisBottom,
   TickLabelProps,
 } from "@visx/axis";
+import typography from "../../styles/theme/typography";
+import { formatDateTime, DateFormat } from "@actnowcoalition/time-utils";
 
 export type AxisLeftProps = React.ComponentProps<typeof VxAxisLeft> & {
   className?: string;
@@ -15,8 +17,10 @@ export type AxisBottomProps = React.ComponentProps<typeof VxAxisBottom> & {
 };
 
 const baseTickLabelProps = {
-  fill: theme.palette.text.secondary,
-  fontSize: theme.typography.body2.fontSize,
+  fill: typography.paragraphSmall.color,
+  fontFamily: typography.paragraphSmall.fontFamily,
+  fontSize: typography.paragraphSmall.fontSize,
+  fontWeight: typography.paragraphSmall.fontWeight,
 };
 
 // eslint-disable-next-line @typescript-eslint/ban-types
@@ -33,10 +37,27 @@ export const leftTickLabelProps: TickLabelProps<{}> = () => ({
   ...baseTickLabelProps,
 });
 
+const formatDate = (date: Date) => formatDateTime(date, DateFormat.MMM);
+
 export const AxisLeft = styled((props: AxisLeftProps) => (
-  <VxAxisLeft axisClassName={props.className ?? ""} {...props} />
+  <VxAxisLeft
+    axisClassName={props.className ?? ""}
+    numTicks={props.numTicks ?? 5}
+    hideTicks={props.hideTicks ?? true}
+    tickLabelProps={leftTickLabelProps}
+    stroke={theme.palette.border.default}
+    {...props}
+  />
 ))``;
 
 export const AxisBottom = styled((props: AxisBottomProps) => (
-  <VxAxisBottom axisClassName={props.className ?? ""} {...props} />
+  <VxAxisBottom
+    axisClassName={props.className ?? ""}
+    tickLength={4}
+    tickStroke={theme.palette.border.default}
+    tickFormat={props.tickFormat ?? formatDate}
+    tickLabelProps={bottomTickLabelProps}
+    stroke={theme.palette.border.default}
+    {...props}
+  />
 ))``;
