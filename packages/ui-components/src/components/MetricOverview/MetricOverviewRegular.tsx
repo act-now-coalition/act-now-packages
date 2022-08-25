@@ -4,20 +4,27 @@ import { CommonMetricOverviewProps } from "./interfaces";
 import MetricValue from "./MetricValue";
 import LabelArrow from "./LabelArrow";
 
-export interface MetricOverviewRegularProps extends CommonMetricOverviewProps {
+export interface MetricOverviewRegularProps<T>
+  extends CommonMetricOverviewProps<T> {
   size: "regular";
 }
 
-const MetricOverviewRegular: React.FC<MetricOverviewRegularProps> = ({
-  metric,
-}) => (
-  <Stack direction="column" spacing={1}>
-    <LabelArrow variant="labelLarge">{metric.name}</LabelArrow>
-    <ChartPlaceholder />
-    <MetricValue variant="dataEmphasizedLarge" metric={metric} />
-    <Typography variant="paragraphSmall">Supporting text</Typography>
-  </Stack>
-);
+const MetricOverviewRegular = <T,>({
+  dataOrError,
+}: MetricOverviewRegularProps<T>) => {
+  const { error, data } = dataOrError;
+  if (error || !data) {
+    return null;
+  }
+  return (
+    <Stack direction="column" spacing={1}>
+      <LabelArrow variant="labelLarge">{data.metric.name}</LabelArrow>
+      <ChartPlaceholder />
+      <MetricValue variant="dataEmphasizedLarge" metricData={data} />
+      <Typography variant="paragraphSmall">Supporting text</Typography>
+    </Stack>
+  );
+};
 
 const ChartPlaceholder: React.FC = () => {
   return (

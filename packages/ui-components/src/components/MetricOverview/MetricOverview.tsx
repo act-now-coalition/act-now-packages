@@ -6,11 +6,11 @@ import MetricOverviewCompact, {
   MetricOverviewCompactProps,
 } from "./MetricOverviewCompact";
 
-export type MetricOverviewProps =
-  | MetricOverviewRegularProps
-  | MetricOverviewCompactProps;
+export type MetricOverviewProps<T> =
+  | MetricOverviewRegularProps<T>
+  | MetricOverviewCompactProps<T>;
 
-const MetricOverview: React.FC<MetricOverviewProps> = (props) => {
+const MetricOverview = <T,>(props: MetricOverviewProps<T>) => {
   return props.size === "regular" ? (
     <MetricOverviewRegular {...props} />
   ) : (

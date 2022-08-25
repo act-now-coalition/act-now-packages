@@ -1,28 +1,32 @@
 import React from "react";
 import { Stack, Typography, TypographyProps } from "@mui/material";
-import { Metric } from "@actnowcoalition/metrics";
+import { MetricData } from "@actnowcoalition/metrics";
 
-export interface MetricValueProps {
-  metric: Metric;
+export interface MetricValueProps<T> {
+  metricData: MetricData<T>;
   variant?: TypographyProps["variant"];
 }
 
-const MetricValue: React.FC<MetricValueProps> = ({
+const MetricValue = <T,>({
   variant = "dataEmphasizedLarge",
-  metric,
-}) => {
+  metricData,
+}: MetricValueProps<T>) => {
+  const { metric, currentValue } = metricData;
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <div
-        style={{
-          width: 10,
-          height: 10,
-          borderRadius: 5,
-          backgroundColor: "#ddd",
-        }}
-      />
-      <Typography variant={variant}>{metric.formatValue(123.4555)}</Typography>
+      <PlaceholderDot />
+      <Typography variant={variant}>
+        {metric.formatValue(currentValue)}
+      </Typography>
     </Stack>
+  );
+};
+
+const PlaceholderDot: React.FC = () => {
+  return (
+    <div
+      style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: "#eee" }}
+    />
   );
 };
 
