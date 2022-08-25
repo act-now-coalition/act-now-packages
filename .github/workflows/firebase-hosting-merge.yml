@@ -17,6 +17,8 @@ jobs:
           cache: "yarn"
       - run: yarn install
       - run: yarn build-public
+        env:
+          NODE_OPTIONS: "--max_old_space_size=4096"
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"

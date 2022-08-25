@@ -9,16 +9,13 @@ export interface LegendThresholdHorizontalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "horizontal";
+  /** Width of the component */
+  width?: number;
   /**
    * Height of the colored bars. When not adding the bars, make sure that
    * `barHeight` is set to the same value as `height`.
    */
   barHeight?: number;
-  /**
-   * Note that only the labels between two levels are rendered. The last
-   * end label won't be shown.
-   */
-  getItemEndLabel?: (item: T, itemIndex: number) => string;
 }
 
 /**
@@ -29,10 +26,10 @@ const LegendThresholdHorizontal = <T,>({
   height = 40,
   barHeight = 20,
   width = 300,
-  borderRadius,
+  borderRadius = 0,
   items,
   getItemColor,
-  getItemEndLabel,
+  getItemLabel,
   showLabels = true,
   ...otherSvgProps
 }: LegendThresholdHorizontalProps<T> &
@@ -79,7 +76,7 @@ const LegendThresholdHorizontal = <T,>({
                 <Group top={barHeight} left={x + rectWidth}>
                   <TickMark y1={0} y2={labelTickHeight} />
                   <TickLabel y={labelTickHeight + tickLabelPadding}>
-                    {getItemEndLabel && getItemEndLabel(item, itemIndex)}
+                    {getItemLabel && getItemLabel(item, itemIndex)}
                   </TickLabel>
                 </Group>
               )}

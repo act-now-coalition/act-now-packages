@@ -1,11 +1,25 @@
 /** MUI theme components */
-
-import { createTheme } from "@mui/material/styles";
-import { typographyConstants } from "./typography";
+import { ThemeOptions, createTheme } from "@mui/material";
+import typography, { typographyConstants } from "./typography";
+import palette from "./palette";
 
 const referenceTheme = createTheme();
 
-const components = {
+const components: ThemeOptions["components"] = {
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        textTransform: "none",
+        fontFamily: typography.labelLarge.fontFamily,
+        fontSize: typography.labelLarge.fontSize,
+        fontWeight: typography.labelLarge.fontWeight,
+        lineHeight: typography.labelLarge.lineHeight,
+      },
+      outlinedPrimary: {
+        borderColor: palette.border.default,
+      },
+    },
+  },
   MuiTooltip: {
     styleOverrides: {
       tooltip: {

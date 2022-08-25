@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/ui-components",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "UI components for Act Now",
   "repository": {
     "type": "git",
@@ -49,13 +49,21 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.1",
     "@visx/axis": "^2.12.2",
+    "@types/d3-geo": "^3.0.2",
+    "@types/d3-scale-chromatic": "^3.0.0",
+    "@types/react-simple-maps": "^1.0.8",
     "@visx/curve": "^2.1.0",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",
+    "d3-geo": "^3.0.1",
+    "d3-scale-chromatic": "^3.0.0",
+    "geo-albers-usa-territories": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.3",
+    "react-simple-maps": "^3.0.0",
+    "react-singleton-hook": "^4.0.0",
     "remark-gfm": "^3.0.1"
   }
 }

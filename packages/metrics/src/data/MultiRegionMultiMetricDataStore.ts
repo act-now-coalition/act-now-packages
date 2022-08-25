@@ -7,6 +7,7 @@ import { MetricData } from "./MetricData";
 import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
 import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
+import { isoDateOnlyString } from "@actnowcoalition/time-utils";
 
 /**
  * JSON format of a data snapshot representing the contents of a
@@ -180,8 +181,8 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
 
     return {
       metadata: {
-        createdDate: new Date().toISOString().split("T")[0],
-        latestDate: maxDate?.toISOString() ?? null,
+        createdDate: isoDateOnlyString(new Date()),
+        latestDate: maxDate ? isoDateOnlyString(maxDate) : null,
       },
       data: records,
     };
