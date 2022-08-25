@@ -6,7 +6,7 @@ import minBy from "lodash/minBy";
 
 import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
-import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
+import { isoDateOnlyString } from "@actnowcoalition/time-utils";
 
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {
@@ -198,7 +198,7 @@ export class Timeseries<T = unknown> {
     this.points.forEach((p) => {
       assert(
         isFinite(p.value),
-        `Found non-numeric (or non-finite) value in timeseries. date=${Timeseries.isoDateString(
+        `Found non-numeric (or non-finite) value in timeseries. date=${isoDateOnlyString(
           p.date
         )} value=${p.value}`
       );
@@ -216,7 +216,7 @@ export class Timeseries<T = unknown> {
     this.points.forEach((p) => {
       assert(
         typeof p.value === "boolean",
-        `Found non-boolean value in timeseries. date=${Timeseries.isoDateString(
+        `Found non-boolean value in timeseries. date=${isoDateOnlyString(
           p.date
         )} value=${p.value}`
       );
@@ -234,7 +234,7 @@ export class Timeseries<T = unknown> {
     this.points.forEach((p) => {
       assert(
         typeof p.value === "string",
-        `Found non-string value in timeseries. date=${Timeseries.isoDateString(
+        `Found non-string value in timeseries. date=${isoDateOnlyString(
           p.date
         )} value=${p.value}`
       );
@@ -343,11 +343,6 @@ export class Timeseries<T = unknown> {
     });
   }
 
-  private static isoDateString(date: Date): string {
-    // Dates are guaranteed not to have a time component so we just return the ISO date.
-    return formatUTCDateTime(date, DateFormat.YYYY_MM_DD);
-  }
-
   /**
    * Construct a Timeseries instance from JSON timeseries points.
    *
@@ -369,7 +364,7 @@ export class Timeseries<T = unknown> {
   toJSON(): TimeseriesPointJSON[] {
     const timeseriesPointJSONs: TimeseriesPointJSON[] = this.points.map(
       (point) => ({
-        date: Timeseries.isoDateString(point.date),
+        date: isoDateOnlyString(point.date),
         value: point.value,
       })
     );
