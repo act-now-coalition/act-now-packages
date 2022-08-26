@@ -2,10 +2,10 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { AxisLeft, AxisBottom } from "./Axis.style";
+import { formatDateTime, DateFormat } from "@actnowcoalition/time-utils";
 
 export default {
   title: "Charts/Axis",
-  component: AxisLeft,
 } as ComponentMeta<typeof AxisLeft>;
 
 const width = 600;
@@ -27,11 +27,16 @@ const bottomUnitsScale = scaleLinear({
   range: [height - 2 * padding, 0],
 });
 
-const formatUnits = (unit: number) => unit.toString();
+const formatDate = (date: Date) => formatDateTime(date, DateFormat.MMM);
 
 const DefaultTemplateBottomAxis: ComponentStory<typeof AxisBottom> = (args) => (
   <svg width={width} height={height}>
-    <AxisBottom {...args} left={padding} top={padding} />
+    <AxisBottom
+      {...args}
+      left={padding}
+      top={padding}
+      tickFormat={formatDate}
+    />
   </svg>
 );
 
@@ -42,14 +47,7 @@ DefaultBottomAxis.args = {
 
 const TemplateBottomAxis: ComponentStory<typeof AxisBottom> = (args) => (
   <svg width={width} height={height}>
-    <AxisBottom
-      {...args}
-      left={padding}
-      top={padding}
-      // Approximate (More info: https://airbnb.io/visx/docs/axis#Axis_numTicks)
-      numTicks={10}
-      tickFormat={formatUnits}
-    />
+    <AxisBottom {...args} left={padding} top={padding} />
   </svg>
 );
 
