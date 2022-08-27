@@ -226,4 +226,56 @@ describe("Timeseries", () => {
       ]).assertStrings().last?.value
     ).toBe("a string value");
   });
+
+  test("computeDeltas()", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      // cumulative don't change, should be excluded in the result
+      { date: new Date("2020-01-03"), value: 1 },
+      { date: new Date("2020-01-05"), value: 5 },
+      // cumulative dips from 5 to 4, should be excluded in the result
+      { date: new Date("2020-01-07"), value: 4 },
+      { date: new Date("2020-01-08"), value: 6 },
+    ]);
+
+    const deltas = ts.computeDeltas();
+    expect(deltas.points).toEqual([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-08"), value: 2 },
+    ]);
+  });
+
+  test("computeDeltas() with minDeltaToKeep=0", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 1 },
+      { date: new Date("2020-01-05"), value: 5 },
+      // cumulative dips from 5 to 4, should be excluded in the result
+      { date: new Date("2020-01-07"), value: 4 },
+      { date: new Date("2020-01-08"), value: 6 },
+    ]);
+
+    const deltas = ts.computeDeltas({ minDeltaToKeep: 0 });
+    expect(deltas.points).toEqual([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 0 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-08"), value: 2 },
+    ]);
+  });
+
+  test("computeDeltas() with keepInitialValue=false", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 3 },
+      { date: new Date("2020-01-05"), value: 5 },
+    ]);
+
+    const deltas = ts.computeDeltas({ keepInitialValue: false });
+    expect(deltas.points).toEqual([
+      { date: new Date("2020-01-03"), value: 2 },
+      { date: new Date("2020-01-05"), value: 2 },
+    ]);
+  });
 });

@@ -288,7 +288,7 @@ export class Timeseries<T = unknown> {
    * being empty and ensure this can't return undefined.
    */
   get minDate(): Date | undefined {
-    return minBy(this.points, (p) => p.date)?.date;
+    return this.points[0]?.date;
   }
 
   /**
@@ -298,7 +298,7 @@ export class Timeseries<T = unknown> {
    * being empty and ensure this can't return undefined.
    */
   get maxDate(): Date | undefined {
-    return maxBy(this.points, (p) => p.date)?.date;
+    return this.points[this.points.length - 1]?.date;
   }
 
   /**
@@ -327,6 +327,28 @@ export class Timeseries<T = unknown> {
    */
   private cast<R>(): Timeseries<R> {
     return this as unknown as Timeseries<R>;
+  }
+
+  computeDeltas(opts?: {
+    keepInitialValue?: boolean;
+    minDeltaToKeep?: number;
+  }): Timeseries<number> {
+    const keepInitialValue = opts?.keepInitialValue ?? true;
+    const minDeltaToKeep = opts?.minDeltaToKeep ?? 1;
+
+    const ts = this.removeNils().assertFiniteNumbers();
+    const result: Array<TimeseriesPoint<number>> = [];
+    let lastValue: number | undefined = keepInitialValue ? 0 : undefined;
+    for (const point of ts.points) {
+      if (
+        lastValue !== undefined &&
+        point.value - lastValue >= minDeltaToKeep
+      ) {
+        result.push({ date: point.date, value: point.value - lastValue });
+      }
+      lastValue = point.value;
+    }
+    return new Timeseries(result);
   }
 
   /**
