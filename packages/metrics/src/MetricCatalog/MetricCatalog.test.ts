@@ -88,7 +88,7 @@ describe("MetricCatalog", () => {
     const catalog = new MetricCatalog(testMetricDefs, dataProviders);
 
     // Fetch data for two metrics that come from different data providers.
-    const dataStore = await catalog.fetchDataForMetricsAndRegions(
+    const dataStore = await catalog.fetchDataForRegionsAndMetrics(
       [testRegionCA, testRegionWA],
       [MetricId.PI, MetricId.MOCK_CASES]
     );

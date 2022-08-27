@@ -122,7 +122,7 @@ export class MetricCatalog {
     metrics: Array<string | Metric>,
     includeTimeseries = true
   ): Promise<MultiMetricDataStore> {
-    const dataStore = await this.fetchDataForMetricsAndRegions(
+    const dataStore = await this.fetchDataForRegionsAndMetrics(
       [region],
       metrics,
       includeTimeseries
@@ -138,7 +138,7 @@ export class MetricCatalog {
    * @param includeTimeseries Whether to fetch timeseries data or not.
    * @returns The metric data.
    */
-  async fetchDataForMetricsAndRegions(
+  async fetchDataForRegionsAndMetrics(
     regions: Region[],
     metrics: Array<string | Metric>,
     includeTimeseries = true
@@ -291,7 +291,7 @@ function useDataForRegionsAndMetrics(
 
   useEffect(() => {
     catalog
-      .fetchDataForMetricsAndRegions(
+      .fetchDataForRegionsAndMetrics(
         regions,
         resolvedMetrics,
         includeTimeseries
