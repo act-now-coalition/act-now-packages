@@ -186,7 +186,8 @@ export class MetricCatalog {
       const fetchedData = await provider.fetchData(
         regions,
         metrics,
-        includeTimeseries
+        includeTimeseries,
+        this
       );
       result = result.merge(fetchedData);
     }
