@@ -3,15 +3,24 @@ import first from "lodash/first";
 import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
+import sumBy from "lodash/sumBy";
 
 import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
 import { isoDateOnlyString } from "@actnowcoalition/time-utils";
+import { PureDate } from "../PureDate/PureDate";
 
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {
   date: string;
   value: unknown;
+}
+
+export interface TimeseriesWindow<T> {
+  startDate: Date;
+  endDate: Date;
+  days: number;
+  windowTimeseries: Timeseries<T>;
 }
 
 /**
@@ -159,6 +168,29 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * Returns a new timeseries with the points in the timeseries mapped to new
+   * points using the provided `mapFn` function. Points can be discarded by
+   * returning undefined.
+   *
+   * @param mapFn The function to call on each point in the timeseries. The
+   * return value is used as the point's value in the new timeseries. Undefined
+   * can be returned to drop the point.
+   * @returns A new timeseries with the mapped points.
+   */
+  map<R = T>(
+    mapFn: (point: TimeseriesPoint<T>) => TimeseriesPoint<R> | undefined
+  ): Timeseries<R> {
+    const result: Array<TimeseriesPoint<R>> = [];
+    for (const point of this.points) {
+      const mappedPoint = mapFn(point);
+      if (mappedPoint) {
+        result.push(mappedPoint);
+      }
+    }
+    return new Timeseries(result);
+  }
+
+  /**
    * Returns a new timeseries with the values in the timeseries mapped to new
    * values using the provided `mapFn` function.
    *
@@ -167,12 +199,14 @@ export class Timeseries<T = unknown> {
    * @returns A new timeseries with the mapped points.
    */
   mapValues<R = T>(mapFn: (val: T) => R): Timeseries<R> {
-    return new Timeseries(
-      this.points.map((p) => ({
-        date: p.date,
-        value: mapFn(p.value),
-      }))
-    );
+    return this.map((p) => ({
+      date: p.date,
+      value: mapFn(p.value),
+    }));
+  }
+
+  slice(start: number, end?: number): Timeseries<T> {
+    return new Timeseries(this.points.slice(start, end));
   }
 
   /**
@@ -321,6 +355,12 @@ export class Timeseries<T = unknown> {
     return maxBy(this.points, (p) => p.value)?.value;
   }
 
+  get sum(): number {
+    return sumBy(this.points, (p) =>
+      typeof p.value === "number" ? p.value : 0
+    );
+  }
+
   /**
    * Internal helper to cast the timeseries values to a new type. Should only be used after verifying
    * all values match the new type.
@@ -334,21 +374,70 @@ export class Timeseries<T = unknown> {
     minDeltaToKeep?: number;
   }): Timeseries<number> {
     const keepInitialValue = opts?.keepInitialValue ?? true;
-    const minDeltaToKeep = opts?.minDeltaToKeep ?? 1;
+    const minDeltaToKeep = opts?.minDeltaToKeep ?? 0;
 
-    const ts = this.removeNils().assertFiniteNumbers();
-    const result: Array<TimeseriesPoint<number>> = [];
     let lastValue: number | undefined = keepInitialValue ? 0 : undefined;
-    for (const point of ts.points) {
-      if (
-        lastValue !== undefined &&
-        point.value - lastValue >= minDeltaToKeep
-      ) {
-        result.push({ date: point.date, value: point.value - lastValue });
-      }
-      lastValue = point.value;
+    return this.removeNils()
+      .assertFiniteNumbers()
+      .map((point) => {
+        const _lastValue = lastValue;
+        lastValue = point.value;
+        if (
+          _lastValue !== undefined &&
+          point.value - _lastValue >= minDeltaToKeep
+        ) {
+          return { date: point.date, value: point.value - _lastValue };
+        }
+      });
+  }
+
+  windowed(opts: { days: number }): Timeseries<TimeseriesWindow<T>> {
+    if (!this.hasData()) {
+      return this.cast<TimeseriesWindow<T>>();
     }
-    return new Timeseries(result);
+    const minDate = this.minDate;
+    const days = opts.days;
+    const windowPoints: Array<TimeseriesPoint<T>> = [];
+    return this.map((point) => {
+      windowPoints.push(point);
+      const windowEnd = new PureDate(point.date);
+      let windowStart = windowEnd.addDays(-(days - 1));
+      // Adjust windowStart if it is earlier than the earliest point in the timeseries.
+      // We'll use a "partial" window for the initial days. TODO: Make configurable?
+      windowStart =
+        windowStart.jsDate < minDate ? new PureDate(minDate) : windowStart;
+
+      // Remove points that are older than the window start.
+      while (windowPoints[0].date < windowStart.jsDate) {
+        windowPoints.shift();
+      }
+      const windowSize = windowEnd.subtract(windowStart) + 1;
+      return {
+        date: windowEnd.jsDate,
+        value: {
+          startDate: windowStart.jsDate,
+          endDate: windowEnd.jsDate,
+          days: windowSize,
+          windowTimeseries: new Timeseries(windowPoints.slice()),
+        },
+      };
+    });
+  }
+
+  rollingAverage(opts: {
+    days: number;
+    treatMissingDatesAsZero?: boolean;
+  }): Timeseries<number> {
+    const treatMissingDatesAsZero = opts.treatMissingDatesAsZero ?? false;
+    return this.windowed({ days: opts.days }).map((point) => {
+      const date = point.date;
+      const window = point.value;
+      const days = treatMissingDatesAsZero
+        ? window.days
+        : window.windowTimeseries.length;
+      const value = window.windowTimeseries.sum / days;
+      return { date, value };
+    });
   }
 
   /**

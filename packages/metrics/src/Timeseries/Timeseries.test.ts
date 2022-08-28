@@ -241,12 +241,13 @@ describe("Timeseries", () => {
     const deltas = ts.computeDeltas();
     expect(deltas.points).toEqual([
       { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 0 },
       { date: new Date("2020-01-05"), value: 4 },
       { date: new Date("2020-01-08"), value: 2 },
     ]);
   });
 
-  test("computeDeltas() with minDeltaToKeep=0", () => {
+  test("computeDeltas() with minDeltaToKeep=1", () => {
     const ts = new Timeseries<number>([
       { date: new Date("2020-01-01"), value: 1 },
       { date: new Date("2020-01-03"), value: 1 },
@@ -256,10 +257,9 @@ describe("Timeseries", () => {
       { date: new Date("2020-01-08"), value: 6 },
     ]);
 
-    const deltas = ts.computeDeltas({ minDeltaToKeep: 0 });
+    const deltas = ts.computeDeltas({ minDeltaToKeep: 1 });
     expect(deltas.points).toEqual([
       { date: new Date("2020-01-01"), value: 1 },
-      { date: new Date("2020-01-03"), value: 0 },
       { date: new Date("2020-01-05"), value: 4 },
       { date: new Date("2020-01-08"), value: 2 },
     ]);
@@ -276,6 +276,103 @@ describe("Timeseries", () => {
     expect(deltas.points).toEqual([
       { date: new Date("2020-01-03"), value: 2 },
       { date: new Date("2020-01-05"), value: 2 },
+    ]);
+  });
+
+  test("windowed()", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: 2 },
+      { date: new Date("2020-01-04"), value: 3 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-06"), value: 5 },
+    ]);
+
+    const windowed = ts.windowed({ days: 3 });
+    expect(windowed.points).toEqual([
+      {
+        date: new Date("2020-01-01"),
+        value: {
+          startDate: new Date("2020-01-01"),
+          endDate: new Date("2020-01-01"),
+          days: 1,
+          windowTimeseries: ts.slice(0, 1),
+        },
+      },
+      {
+        date: new Date("2020-01-02"),
+        value: {
+          startDate: new Date("2020-01-01"),
+          endDate: new Date("2020-01-02"),
+          days: 2,
+          windowTimeseries: ts.slice(0, 2),
+        },
+      },
+      {
+        date: new Date("2020-01-04"),
+        value: {
+          startDate: new Date("2020-01-02"),
+          endDate: new Date("2020-01-04"),
+          days: 3,
+          windowTimeseries: ts.slice(1, 3),
+        },
+      },
+      {
+        date: new Date("2020-01-05"),
+        value: {
+          startDate: new Date("2020-01-03"),
+          endDate: new Date("2020-01-05"),
+          days: 3,
+          windowTimeseries: ts.slice(2, 4),
+        },
+      },
+      {
+        date: new Date("2020-01-06"),
+        value: {
+          startDate: new Date("2020-01-04"),
+          endDate: new Date("2020-01-06"),
+          days: 3,
+          windowTimeseries: ts.slice(2, 5),
+        },
+      },
+    ]);
+  });
+
+  test("rollingAverage()", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: 2 },
+      { date: new Date("2020-01-04"), value: 3 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-06"), value: 5 },
+    ]);
+
+    expect(ts.rollingAverage({ days: 3 }).points).toEqual([
+      { date: new Date("2020-01-01"), value: 1 / 1 },
+      { date: new Date("2020-01-02"), value: (1 + 2) / 2 },
+      { date: new Date("2020-01-04"), value: (2 + 3) / 2 },
+      { date: new Date("2020-01-05"), value: (3 + 4) / 2 },
+      { date: new Date("2020-01-06"), value: (3 + 4 + 5) / 3 },
+    ]);
+  });
+
+  test("rollingAverage() with treatMissingDatesAsZero=true", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: 2 },
+      { date: new Date("2020-01-04"), value: 3 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-06"), value: 5 },
+    ]);
+
+    expect(
+      ts.rollingAverage({ days: 3, treatMissingDatesAsZero: true }).points
+    ).toEqual([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: (1 + 2) / 2 },
+      { date: new Date("2020-01-04"), value: (2 + 3) / 3 },
+      { date: new Date("2020-01-05"), value: (3 + 4) / 3 },
+      { date: new Date("2020-01-06"), value: (3 + 4 + 5) / 3 },
     ]);
   });
 });
