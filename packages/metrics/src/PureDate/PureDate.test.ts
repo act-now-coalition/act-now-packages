@@ -33,4 +33,16 @@ describe("PureDate", () => {
   test("prev", () => {
     expect(new PureDate("2020-01-01").prev).toEqual(new PureDate("2019-12-31"));
   });
+
+  test("subtract", () => {
+    // Daylight savings started 2020-03-08. Make sure it doesn't cause an issue.
+    expect(
+      new PureDate("2020-03-10").subtract(new PureDate("2020-03-06"))
+    ).toEqual(4);
+
+    // Arbitrary large delta
+    expect(
+      new PureDate("2123-10-17").subtract(new PureDate("1850-01-01"))
+    ).toEqual(100000);
+  });
 });

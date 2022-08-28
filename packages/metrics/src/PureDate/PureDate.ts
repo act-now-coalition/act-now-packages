@@ -30,6 +30,13 @@ export class PureDate {
     return new PureDate(newDate);
   }
 
+  subtract(other: PureDate): number {
+    // HACK: We use Math.round() which allows us to not worry about daylight saving time.
+    return Math.round(
+      (this.jsDate.getTime() - other.jsDate.getTime()) / (1000 * 3600 * 24)
+    );
+  }
+
   toString(): string {
     return this.jsDate.toISOString().replace(/T.*/, "");
   }
