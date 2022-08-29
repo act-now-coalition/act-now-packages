@@ -20,10 +20,10 @@
     "@actnowcoalition/assert" "^1.0.0"
     lodash "^4.17.21"
 
-"@actnowcoalition/time-utils@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-1.0.1.tgz#4caf60c55764a73ec31be223cefee880568204b9"
-  integrity sha512-IKquf6m4tu4k6GUTWEvw8wL+sVRnyOOztXotEwM2WdCPNlHd4nPX3X1ZdVoOKPqdF7kIeplu1y7sFjhIpnmABA==
+"@actnowcoalition/time-utils@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-1.0.2.tgz#b0566583becfbe3744cb99d0a95c02ba3f903a05"
+  integrity sha512-oqafwdmOXGt6dpZkveD8UMD3lM2OJHY6ROOPtwEBhYbXTH4H49dW1V6K+w9UhYObKXGYrmnDrpgnEiRRJTYKzQ==
   dependencies:
     "@actnowcoalition/assert" "^1.0.0"
     "@types/luxon" "^2.3.2"

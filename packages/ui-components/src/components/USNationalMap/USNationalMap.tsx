@@ -64,7 +64,7 @@ const USNationalMapFC: React.FC<USNationalMapProps> = ({
         {showCounties && <CountiesMap getFillColor={getFillColor} />}
       </>
     );
-  }, [getFillColor]);
+  }, [getFillColor, renderTooltip, showCounties]);
 
   return (
     <ComposableMap projection={projection} height={500}>

@@ -30,9 +30,11 @@ export interface CsvDataProviderOptions {
  *
  * Assumes data is in wide form (variables as columns, indexed by region and date columns.)
  * E.g:
+ * ```
  * |region |date       |var1 |var2 |
  * |TX     |2022-02-01 |12   |45   |
  * |CA     |2022-02-01 |31   |66   |
+ * ```
  */
 export class CsvDataProvider extends CachingMetricDataProviderBase {
   private readonly regionColumn: string;
