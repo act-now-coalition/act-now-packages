@@ -31,6 +31,26 @@ declare module "@mui/material/styles" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface DefaultTheme extends Theme {}
 
+  interface TypographyVariants {
+    paragraphSmall: React.CSSProperties;
+    paragraphLarge: React.CSSProperties;
+    labelSmall: React.CSSProperties;
+    labelLarge: React.CSSProperties;
+    dataEmphasizedSmall: React.CSSProperties;
+    dataEmphasizedLarge: React.CSSProperties;
+    dataTabular: React.CSSProperties;
+  }
+
+  interface TypographyVariantsOptions {
+    paragraphSmall?: React.CSSProperties;
+    paragraphLarge?: React.CSSProperties;
+    labelSmall?: React.CSSProperties;
+    labelLarge?: React.CSSProperties;
+    dataEmphasizedSmall?: React.CSSProperties;
+    dataEmphasizedLarge?: React.CSSProperties;
+    dataTabular?: React.CSSProperties;
+  }
+
   interface Palette {
     border: {
       default: string;
@@ -69,4 +89,4 @@ export { default as RegionSearch } from "./components/RegionSearch";
 // export { default as Markdown } from "./components/Markdown";
 export { AxisLeft, AxisBottom } from "./components/Axis";
 export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
-export { default as USNationalMap } from "./components/USNationalMap";
+// export { default as USNationalMap } from "./components/USNationalMap";

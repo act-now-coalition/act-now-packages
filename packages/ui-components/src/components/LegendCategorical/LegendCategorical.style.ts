@@ -7,6 +7,6 @@ export const Square = styled("div", { shouldForwardProp: isValidProp })<{
   min-width: 20px;
   height: 20px;
   border-radius: 4px;
-  margin-right: ${(props) => props.theme.spacing(1)};
+  margin-right: ${({ theme }) => theme.spacing(1)};
   background-color: ${(props) => props.color};
 `;
