@@ -74,7 +74,7 @@ export function dataRowsToMetricData(
   return new MetricData(
     metric,
     region,
-    timeseries.last?.value ?? null,
+    timeseries.removeNils().last?.value ?? null,
     timeseries
   );
 }
