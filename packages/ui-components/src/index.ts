@@ -70,3 +70,5 @@ export { default as RegionSearch } from "./components/RegionSearch";
 export { AxisLeft, AxisBottom } from "./components/Axis";
 export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
 export { default as USNationalMap } from "./components/USNationalMap";
+
+export { default as Grid } from "./components/Grid";
