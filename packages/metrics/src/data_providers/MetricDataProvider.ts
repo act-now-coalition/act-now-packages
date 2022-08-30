@@ -2,6 +2,7 @@ import { Region } from "@actnowcoalition/regions";
 
 import { Metric } from "../Metric";
 import { MultiRegionMultiMetricDataStore } from "../data";
+import type { MetricCatalog } from "../MetricCatalog";
 
 /**
  * Interface that all metric data providers must implement.
@@ -31,6 +32,7 @@ export interface MetricDataProvider {
   fetchData(
     regions: Region[],
     metrics: Metric[],
-    includeTimeseries: boolean
+    includeTimeseries: boolean,
+    metricCatalog: MetricCatalog
   ): Promise<MultiRegionMultiMetricDataStore>;
 }
