@@ -47,8 +47,8 @@ export class CanRegionDataProvider extends CachingMetricDataProviderBase {
     metrics: Metric[],
     includeTimeseries: boolean
   ) {
-    let json;
     for (const region of regions) {
+      let json;
       if (this.data) {
         json = this.data[region.regionId];
       } else {
