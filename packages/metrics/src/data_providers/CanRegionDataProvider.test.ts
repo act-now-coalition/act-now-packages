@@ -3,7 +3,7 @@ import { Metric } from "../Metric";
 import { CanRegionDataProvider } from "./CanRegionDataProvider";
 
 describe("CanRegionDataProvider", () => {
-  test("fromApiUrl", async () => {
+  test("CAN provider smoke-test", async () => {
     const metric = new Metric({
       id: "hospital-capacity",
       dataReference: {
@@ -12,15 +12,11 @@ describe("CanRegionDataProvider", () => {
       },
     });
     const region = counties.findByRegionIdStrict("25017");
-    const provider = new CanRegionDataProvider("can-api-test", {
-      region: region,
-      apiKey: "81d0e97ecec0406abf12c80d6cd8ec93",
-      timeseries: true,
-    });
-    const metricData = await provider.fetchData([region], [metric], true);
-    console.log(
-      metricData.regionData(region).metricData(metric).timeseries.removeNils()
-        .last
+    const provider = new CanRegionDataProvider(
+      "can-api-test",
+      "81d0e97ecec0406abf12c80d6cd8ec93"
     );
+    const metricData = await provider.fetchData([region], [metric], true);
+    console.log(metricData.regionData(region).metricData(metric).currentValue);
   });
 });
