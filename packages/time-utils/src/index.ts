@@ -1,6 +1,8 @@
 import { DateTime, Duration } from "luxon";
 import { assert } from "@actnowcoalition/assert";
 
+export * from "./PureDate";
+
 export enum DateFormat {
   YYYY_MM_DD = "yyyy-MM-dd", // 2020-03-01
   MM_DD_YYYY = "MM/dd/yyyy", // 03/01/2020
