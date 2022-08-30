@@ -10,8 +10,10 @@ export default {
   component: MetricCatalogProvider,
 } as ComponentMeta<typeof MetricCatalogProvider>;
 
-// Storybook already has a decorator with a MetricCatalogProvider, this one
-// is provided as usage example.
+// Storybook already has a decorator which wraps each story on a
+// `MetricCatalogProvider`, this one is provided as usage example and to
+// confirm that the hook uses the value of the closest `MetricCatalogProvider`
+// ancestor.
 const Template: ComponentStory<typeof MetricCatalogProvider> = (args) => (
   <MetricCatalogProvider metricCatalog={metricCatalogB}>
     {args.children}
