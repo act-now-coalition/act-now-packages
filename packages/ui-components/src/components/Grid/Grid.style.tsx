@@ -1,18 +1,17 @@
-import { styled, theme } from "../../styles";
+import { styled } from "../../styles";
 import {
   GridRows as VxGridRows,
   GridColumns as VxGridColumns,
 } from "@visx/grid";
-import React from "react";
 
-export type GridRowsProps = React.ComponentProps<typeof VxGridRows>;
+export const GridRows = styled(VxGridRows)`
+  .visx-line {
+    stroke: ${({ theme }) => theme.palette.border.default};
+  }
+`;
 
-export type GridColumnsProps = React.ComponentProps<typeof VxGridColumns>;
-
-export const GridRows = styled((props: GridRowsProps) => (
-  <VxGridRows stroke={theme.palette.border.default} {...props} />
-))``;
-
-export const GridColumns = styled((props: GridColumnsProps) => (
-  <VxGridColumns stroke={theme.palette.border.default} {...props} />
-))``;
+export const GridColumns = styled(VxGridColumns)`
+  .visx-line {
+    stroke: ${({ theme }) => theme.palette.border.default};
+  }
+`;
