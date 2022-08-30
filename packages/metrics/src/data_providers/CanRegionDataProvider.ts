@@ -87,7 +87,7 @@ export class CanRegionDataProvider extends CachingMetricDataProviderBase {
         timeseriesData !== undefined,
         `Unable to find timeseries with label ${tsLabel}. ` +
           `Check that this timeseries label is valid (e.g. 'metricsTimeseries') ` +
-          `and that metric ${metric} is expected to have timeseries data.`
+          `and that metric ${metric.id} is expected to have timeseries data.`
       );
       return dataRowsToMetricData(
         { [region.regionId]: timeseriesData as DataRow[] },
