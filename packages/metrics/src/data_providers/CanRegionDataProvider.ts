@@ -7,8 +7,9 @@ import {
   dataRowsToMetricData,
   dataRowToMetricData,
 } from "./data_provider_utils";
-import flat from "flat";
+import flatten from "flat";
 import { DataRow } from "./data_provider_utils";
+import fetch from "node-fetch";
 
 /**
  * Data provider to ingest data from a Covid Act Now region API endpoint.
@@ -19,16 +20,23 @@ import { DataRow } from "./data_provider_utils";
  * - For the CAN Community Level, set metric.dataReference.column to `communityLevels.canCommunityLevel`.
  */
 export class CanRegionDataProvider extends CachingMetricDataProviderBase {
-  /** Valid Covid Act Now API key to use in API calls*/
+  /** Valid Covid Act Now API key to use in API calls. */
   private readonly apiKey: string;
 
-  /** Cached CAN API responses indexed by the FIPS codes of the regions fetched. */
-  private flattenedApiJson: { [region: string]: { [key: string]: unknown } } =
-    {};
+  /** Data to be used instead of an API call. Used for testing. */
+  private readonly data?: { [regionId: string]: DataRow };
 
-  constructor(providerId: string, apiKey: string) {
+  /** Cached CAN API responses indexed by the FIPS codes of the regions fetched. */
+  private flattenedApiJson: { [regionId: string]: DataRow } = {};
+
+  constructor(
+    providerId: string,
+    apiKey: string,
+    data?: { [regionId: string]: DataRow }
+  ) {
     super(providerId);
     this.apiKey = apiKey;
+    this.data = data;
   }
 
   async populateCache(
@@ -36,27 +44,21 @@ export class CanRegionDataProvider extends CachingMetricDataProviderBase {
     metrics: Metric[],
     includeTimeseries: boolean
   ) {
+    let json;
     for (const region of regions) {
-      const url = this.buildFetchUrl(region, includeTimeseries);
-      const data = await fetch(url);
-      if (data.status !== 200) {
-        throw new Error(`Error fetching data from ${url}: ${data.status}`);
-      }
-      const json = await data.json();
-      const flattened: DataRow = flat(json, { safe: true });
-      // We want to flatten the objects inside the arrays/timeseries while leaving the arrays themselves intact.
-      // TODO: write our own flatten function such that we can remove npm-flat as a dependency,
-      // and so that we don't have to iterate through all the array keys like this.
-      for (const key in flattened) {
-        if (Array.isArray(flattened[key])) {
-          const flattenedRows: DataRow[] = [];
-          for (const row of flattened[key] as DataRow[]) {
-            flattenedRows.push(flat(row, { safe: true }));
-          }
-          flattened[key] = flattenedRows;
+      if (this.data) {
+        json = this.data[region.regionId];
+      } else {
+        const url = this.buildFetchUrl(region, includeTimeseries);
+        const response = await fetch(url);
+        if (response.status !== 200) {
+          throw new Error(
+            `Error fetching data from ${url}: ${response.status}`
+          );
         }
+        json = await response.json();
       }
-      this.flattenedApiJson[region.regionId] = flattened;
+      this.flattenedApiJson[region.regionId] = flattenDataForRegion(json);
     }
   }
 
@@ -72,7 +74,7 @@ export class CanRegionDataProvider extends CachingMetricDataProviderBase {
     );
 
     if (includeTimeseries) {
-      // Get the timeseries prefix from the flattened metric key by splitting on the first '.'.
+      // Get the timeseries prefix from the flat metric key by splitting on the first '.'.
       // E.g. 'actuals.hospitalBeds.capacity' -> ['actuals', 'hospitalBeds.capacity', '']
       const metricKeyParts = metricKey.split(/\.(.*)/);
       const tsLabel = `${metricKeyParts[0]}Timeseries`;
@@ -81,19 +83,20 @@ export class CanRegionDataProvider extends CachingMetricDataProviderBase {
       assert(
         timeseriesData !== undefined,
         `Unable to find timeseries with label ${tsLabel}. ` +
-          `Check that this timeseries label is expected (e.g. 'metricsTimeseries')`
+          `Check that this timeseries label is valid (e.g. 'metricsTimeseries') ` +
+          `and that metric ${metric} is expected to have timeseries data.`
       );
       return dataRowsToMetricData(
         { [region.regionId]: timeseriesData as DataRow[] },
         region,
         metric,
         metricName,
-        "date"
+        /*dateKey=*/ "date"
       );
     } else {
-      const data = [this.flattenedApiJson[region.regionId]] as DataRow[];
+      const data = this.flattenedApiJson[region.regionId];
       return dataRowToMetricData(
-        { [region.regionId]: data },
+        { [region.regionId]: [data] },
         region,
         metric,
         metricKey
@@ -143,4 +146,30 @@ function determineRegionType(
     );
     return countyOrNull ? "county" : "cbsa";
   }
+}
+
+/**
+ * Flatten an API response JSON.
+ *
+ * Flattens the objects inside first-level arrays while leaving the arrays themselves unchanged.
+ * This is used to flatten the data inside the CAN timeseries (e.g. actualsTimeseries) without
+ * flattening the arrays themselves.
+ *
+ * @param json JSON to flatten.
+ * @returns Flattened JSON.
+ */
+function flattenDataForRegion(json: DataRow) {
+  // TODO: write our own flatten function such that we can remove npm-flat as a dependency,
+  // and so that we don't have to iterate through all the array keys like this.
+  const flattened: DataRow = flatten(json, { safe: true });
+  for (const key in flattened) {
+    if (Array.isArray(flattened[key])) {
+      const flattenedRows: DataRow[] = [];
+      for (const row of flattened[key] as DataRow[]) {
+        flattenedRows.push(flatten(row, { safe: true }));
+      }
+      flattened[key] = flattenedRows;
+    }
+  }
+  return flattened;
 }
