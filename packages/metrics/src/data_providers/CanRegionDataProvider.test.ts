@@ -12,13 +12,15 @@ describe("CanRegionDataProvider", () => {
       },
     });
     const region = counties.findByRegionIdStrict("25017");
-    const provider = new CanRegionDataProvider({
-      providerId: "middlesex-county-ma-can",
-      url: "https://api.covidactnow.org/v2/county/25017.timeseries.json?apiKey=81d0e97ecec0406abf12c80d6cd8ec93",
+    const provider = new CanRegionDataProvider("can-api-test", {
       region: region,
+      apiKey: "81d0e97ecec0406abf12c80d6cd8ec93",
+      timeseries: true,
     });
     const metricData = await provider.fetchData([region], [metric], true);
-    metricData.regionData(region).metricData(metric).timeseries.removeNils()
-      .last;
+    console.log(
+      metricData.regionData(region).metricData(metric).timeseries.removeNils()
+        .last
+    );
   });
 });
