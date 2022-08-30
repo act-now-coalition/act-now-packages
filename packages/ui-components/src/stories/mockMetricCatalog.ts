@@ -44,7 +44,7 @@ const metricDefsB: MetricDefinition[] = [
     extendedName: "Pi - The ratio of a circle's circumference to its diameter",
     dataReference: {
       providerId: "static",
-      value: 2,
+      value: Math.PI,
     },
     formatOptions: { minimumFractionDigits: 2 },
   },
