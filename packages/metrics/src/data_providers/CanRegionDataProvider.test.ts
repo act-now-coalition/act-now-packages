@@ -53,8 +53,8 @@ const testData = {
 
 const dataProviders = [
   new CanRegionDataProvider(
-    "can-region",
-    "81d0e97ecec0406abf12c80d6cd8ec93",
+    /*providerId=*/ "can-region",
+    /*apiKey=*/ undefined,
     testData
   ),
 ];

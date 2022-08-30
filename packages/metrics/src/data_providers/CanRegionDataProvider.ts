@@ -21,7 +21,7 @@ import fetch from "node-fetch";
  */
 export class CanRegionDataProvider extends CachingMetricDataProviderBase {
   /** Valid Covid Act Now API key to use in API calls. */
-  private readonly apiKey: string;
+  private readonly apiKey?: string;
 
   /** Data to be used instead of an API call. Used for testing. */
   private readonly data?: { [regionId: string]: DataRow };
@@ -31,9 +31,12 @@ export class CanRegionDataProvider extends CachingMetricDataProviderBase {
 
   constructor(
     providerId: string,
-    apiKey: string,
+    apiKey?: string,
     data?: { [regionId: string]: DataRow }
   ) {
+    if (!data) {
+      assert(apiKey, "API key must be provided if test data is not provided.");
+    }
     super(providerId);
     this.apiKey = apiKey;
     this.data = data;
