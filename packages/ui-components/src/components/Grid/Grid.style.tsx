@@ -5,17 +5,14 @@ import {
 } from "@visx/grid";
 import React from "react";
 
-export type GridRowsProps = React.ComponentProps<typeof VxGridRows> & {
-  className?: string;
-};
+export type GridRowsProps = React.ComponentProps<typeof VxGridRows>;
+
+export type GridColumnsProps = React.ComponentProps<typeof VxGridColumns>;
 
 export const GridRows = styled((props: GridRowsProps) => (
-  <VxGridRows fill={theme.palette.border.default} {...props} />
+  <VxGridRows stroke={theme.palette.border.default} {...props} />
 ))``;
 
-export const GridColumns = styled(VxGridColumns)`
-  line {
-    stroke: ${({ theme }) => theme.palette.common.black};
-    stroke-opacity: 0.12;
-  }
-`;
+export const GridColumns = styled((props: GridColumnsProps) => (
+  <VxGridColumns stroke={theme.palette.border.default} {...props} />
+))``;

@@ -2,6 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleLinear } from "@visx/scale";
 import { GridRows, GridColumns } from "./Grid.style";
+import { theme } from "../../styles";
 
 export default {
   title: "Charts/Grid",
@@ -21,7 +22,11 @@ const yScale = scaleLinear({
 });
 
 const TemplateRows: ComponentStory<typeof GridRows> = (args) => (
-  <svg width={width} height={height} style={{ border: "solid 1px #ddd" }}>
+  <svg
+    width={width}
+    height={height}
+    style={{ border: `1px solid ${theme.palette.border.default}` }}
+  >
     <GridRows {...args} />
   </svg>
 );
@@ -33,7 +38,11 @@ Rows.args = {
 };
 
 const TemplateColumns: ComponentStory<typeof GridColumns> = (args) => (
-  <svg width={width} height={height} style={{ border: "solid 1px #ddd" }}>
+  <svg
+    width={width}
+    height={height}
+    style={{ border: `1px solid ${theme.palette.border.default}` }}
+  >
     <GridColumns {...args} />
   </svg>
 );
