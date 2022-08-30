@@ -4,13 +4,6 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "./MetricCatalogContext";
 
-/**
- * Example of a metric-aware component
- *
- * @param metric
- * @param region
- * @returns React.ReactNode
- */
 const MetricAwareDemo: React.FC<{
   metric: Metric | string;
   region: Region;
