@@ -92,4 +92,7 @@ export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
 // Note (8/29/22) - Same problem with d3-geo, commenting out until fixed.
 // export { default as USNationalMap } from "./components/USNationalMap";
 
-export { default as MetricCatalogContext } from "./components/MetricCatalogContext";
+export {
+  MetricCatalogProvider,
+  useMetricCatalog,
+} from "./components/MetricCatalogContext";
