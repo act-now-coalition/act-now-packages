@@ -3,15 +3,31 @@ import first from "lodash/first";
 import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
+import sumBy from "lodash/sumBy";
 
 import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
-import { isoDateOnlyString } from "@actnowcoalition/time-utils";
+import { isoDateOnlyString, PureDate } from "@actnowcoalition/time-utils";
 
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {
   date: string;
   value: unknown;
+}
+
+/**
+ * A window of points from a timeseries, represented as a new timeseries.
+ * Returned by {@link Timeseries#windowed}.
+ */
+export interface TimeseriesWindow<T> {
+  /** The starting date of the window. */
+  startDate: Date;
+  /** The ending date of the window. */
+  endDate: Date;
+  /** The number of days in window (endDate - startDate). */
+  days: number;
+  /** The points in the window, represented as a new timeseries. */
+  windowTimeseries: Timeseries<T>;
 }
 
 /**
@@ -159,6 +175,29 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * Returns a new timeseries with the points in the timeseries mapped to new
+   * points using the provided `mapFn` function. Points can be discarded by
+   * returning undefined.
+   *
+   * @param mapFn The function to call on each point in the timeseries. The
+   * return value is used as the point's value in the new timeseries. Undefined
+   * can be returned to drop the point.
+   * @returns A new timeseries with the mapped points.
+   */
+  map<R = T>(
+    mapFn: (point: TimeseriesPoint<T>) => TimeseriesPoint<R> | undefined
+  ): Timeseries<R> {
+    const result: Array<TimeseriesPoint<R>> = [];
+    for (const point of this.points) {
+      const mappedPoint = mapFn(point);
+      if (mappedPoint) {
+        result.push(mappedPoint);
+      }
+    }
+    return new Timeseries(result);
+  }
+
+  /**
    * Returns a new timeseries with the values in the timeseries mapped to new
    * values using the provided `mapFn` function.
    *
@@ -167,12 +206,14 @@ export class Timeseries<T = unknown> {
    * @returns A new timeseries with the mapped points.
    */
   mapValues<R = T>(mapFn: (val: T) => R): Timeseries<R> {
-    return new Timeseries(
-      this.points.map((p) => ({
-        date: p.date,
-        value: mapFn(p.value),
-      }))
-    );
+    return this.map((p) => ({
+      date: p.date,
+      value: mapFn(p.value),
+    }));
+  }
+
+  slice(start: number, end?: number): Timeseries<T> {
+    return new Timeseries(this.points.slice(start, end));
   }
 
   /**
@@ -271,6 +312,17 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * The first value in the timeseries, or undefined if the timeseries is
+   * empty.
+   *
+   * You can use {@link Timeseries.hasData} to guard against the timeseries
+   * being empty and ensure this can't return undefined.
+   */
+  get firstValue(): T | undefined {
+    return first(this.points)?.value;
+  }
+
+  /**
    * The last point in the timeseries or undefined if the timeseries is
    * empty.
    *
@@ -282,13 +334,24 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * The last value in the timeseries or undefined if the timeseries is
+   * empty.
+   *
+   * You can use {@link Timeseries.hasData} to guard against the timeseries
+   * being empty and ensure this can't return undefined.
+   */
+  get lastValue(): T | undefined {
+    return last(this.points)?.value;
+  }
+
+  /**
    * The minimum (earliest) date in the timeseries.
    *
    * You can use {@link Timeseries.hasData} to guard against the timeseries
    * being empty and ensure this can't return undefined.
    */
   get minDate(): Date | undefined {
-    return minBy(this.points, (p) => p.date)?.date;
+    return this.points[0]?.date;
   }
 
   /**
@@ -298,7 +361,7 @@ export class Timeseries<T = unknown> {
    * being empty and ensure this can't return undefined.
    */
   get maxDate(): Date | undefined {
-    return maxBy(this.points, (p) => p.date)?.date;
+    return this.points[this.points.length - 1]?.date;
   }
 
   /**
@@ -322,11 +385,127 @@ export class Timeseries<T = unknown> {
   }
 
   /**
+   * Returns the sum of all numeric values in the timeseries.
+   */
+  get sum(): number {
+    return sumBy(this.points, (p) =>
+      typeof p.value === "number" ? p.value : 0
+    );
+  }
+
+  /**
    * Internal helper to cast the timeseries values to a new type. Should only be used after verifying
    * all values match the new type.
    */
   private cast<R>(): Timeseries<R> {
     return this as unknown as Timeseries<R>;
+  }
+
+  /**
+   * Computes deltas between each point in the timeseries.
+   *
+   * @param opts.keepInitialValue Whether to include the initial value in the
+   * series as a delta (with an assumed prior value of 0).
+   * @param opts.minDeltaToKeep The minimum delta to keep. By default all deltas
+   * are kept, but can be set to 0 to drop negative deltas or 1 to only keep
+   * positive deltas.
+   * @returns A timeseries made up of the deltas between timeseries points.
+   */
+  computeDeltas(opts?: {
+    keepInitialValue?: boolean;
+    minDeltaToKeep?: number;
+  }): Timeseries<number> {
+    const keepInitialValue = opts?.keepInitialValue ?? false;
+    const minDeltaToKeep = opts?.minDeltaToKeep ?? Number.NEGATIVE_INFINITY;
+
+    let lastValue: number | undefined = keepInitialValue ? 0 : undefined;
+    return this.removeNils()
+      .assertFiniteNumbers()
+      .map((point) => {
+        const _lastValue = lastValue;
+        lastValue = point.value;
+        if (
+          _lastValue !== undefined &&
+          point.value - _lastValue >= minDeltaToKeep
+        ) {
+          return { date: point.date, value: point.value - _lastValue };
+        }
+      });
+  }
+
+  /**
+   * Breaks the timeseries into overlapping windows of the specified size and
+   * makes a new timeseries from them. Handy for computing aggregations like a
+   * rolling average.
+   *
+   * @param opts.days The number of days to include in each window. Note that
+   * the points at the beginning of the timeseries will have a smaller window
+   * due to no prior history.
+   * @returns A new timeseries that has a point for every point in the original
+   * timeseries, but contains a `TimeseriesWindow` object containing the window
+   * of points leading up to that point.
+   */
+  windowed(opts: { days: number }): Timeseries<TimeseriesWindow<T>> {
+    if (!this.hasData()) {
+      return this.cast<TimeseriesWindow<T>>();
+    }
+    const minDate = this.minDate;
+    const days = opts.days;
+
+    const pointsInCurrentWindow: Array<TimeseriesPoint<T>> = [];
+    return this.map((point) => {
+      pointsInCurrentWindow.push(point);
+      const windowEnd = new PureDate(point.date);
+      // subtract days-1 to get window start.
+      let windowStart = windowEnd.addDays(-(days - 1));
+      // Adjust windowStart if it is earlier than the earliest point in the timeseries.
+      // We'll use a "partial" window for the initial days.
+      // TODO(michael): Make this configurable?
+      windowStart =
+        windowStart.jsDate < minDate ? new PureDate(minDate) : windowStart;
+
+      // Drop points that have fallen out of the window.
+      while (pointsInCurrentWindow[0].date < windowStart.jsDate) {
+        pointsInCurrentWindow.shift();
+      }
+
+      const windowSize = windowEnd.subtract(windowStart) + 1;
+      return {
+        date: windowEnd.jsDate,
+        value: {
+          startDate: windowStart.jsDate,
+          endDate: windowEnd.jsDate,
+          days: windowSize,
+          windowTimeseries: new Timeseries(pointsInCurrentWindow.slice()),
+        },
+      };
+    });
+  }
+
+  /**
+   * Computes a rolling average of the timeseries where each point represents
+   * the average of the prior `opts.days` days of data points.
+   *
+   * @param opts.days The number of days to average over.
+   * @param opts.treatMissingDatesAsZero Whether to treat missing dates as 0.
+   * This is typically what you want for "incidence" metrics (like "daily new
+   * cases") but not "current" metrics (like "% of beds in use").
+   * @returns A new timeseries containing the rolling average of the original one.
+   */
+  rollingAverage(opts: {
+    days: number;
+    treatMissingDatesAsZero?: boolean;
+  }): Timeseries<number> {
+    const treatMissingDatesAsZero = opts.treatMissingDatesAsZero ?? false;
+    return this.windowed({ days: opts.days }).map((point) => {
+      const date = point.date;
+      const window = point.value;
+      const days = treatMissingDatesAsZero
+        ? window.days
+        : window.windowTimeseries.length;
+      const value = window.windowTimeseries.sum / days;
+      return { date, value };
+    });
   }
 
   /**
@@ -390,7 +569,9 @@ export class Timeseries<T = unknown> {
  */
 export interface NonEmptyTimeseries<T> extends Timeseries<T> {
   get first(): TimeseriesPoint<T>;
+  get firstValue(): T;
   get last(): TimeseriesPoint<T>;
+  get lastValue(): T;
   findNearestDate(date: Date): TimeseriesPoint<T>;
   get minDate(): Date;
   get maxDate(): Date;

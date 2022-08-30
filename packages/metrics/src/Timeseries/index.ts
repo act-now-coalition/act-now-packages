@@ -4,6 +4,7 @@ export type {
   NonEmptyTimeseries,
   TimeseriesPoint,
   TimeseriesPointJSON,
+  TimeseriesWindow,
 } from "./Timeseries";
 
-export { rollingAverage, mockTimeseries } from "./timeseries_utils";
+export { mockTimeseries } from "./timeseries_utils";
