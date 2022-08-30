@@ -91,3 +91,5 @@ export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
 // export { default as Markdown } from "./components/Markdown";
 // Note (8/29/22) - Same problem with d3-geo, commenting out until fixed.
 // export { default as USNationalMap } from "./components/USNationalMap";
+
+export { default as MetricCatalogContext } from "./components/MetricCatalogContext";
