@@ -2,11 +2,13 @@ import { styled } from "../../styles";
 import isValidProp from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
 
-// TODO: Typography should be "paragraph.small", update once we update the theme.
 export const TickLabel = styled("text")`
   text-anchor: middle;
   dominant-baseline: hanging;
-  fill: ${({ theme }) => theme.palette.text.primary};
+  fill: ${({ theme }) => theme.typography.paragraphSmall.color};
+  font-family: ${({ theme }) => theme.typography.paragraphSmall.fontFamily};
+  font-size: ${({ theme }) => theme.typography.paragraphSmall.fontSize};
+  font-weight: ${({ theme }) => theme.typography.paragraphSmall.fontWeight};
 `;
 
 export const TickMark = styled("line")`
