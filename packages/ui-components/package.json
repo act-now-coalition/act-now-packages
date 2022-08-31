@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/ui-components",
-  "version": "1.5.6",
+  "version": "1.5.8",
   "description": "UI components for Act Now",
   "repository": {
     "type": "git",
@@ -54,6 +54,7 @@
     "@types/topojson-client": "^3.1.1",
     "@visx/axis": "^2.12.2",
     "@visx/curve": "^2.1.0",
+    "@visx/grid": "^2.12.2",
     "@visx/group": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",

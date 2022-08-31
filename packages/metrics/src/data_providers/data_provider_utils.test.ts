@@ -31,10 +31,10 @@ describe("dataRowsToMetricData()", () => {
       "date"
     );
     expect(data.currentValue).toBe(100);
-    expect(data.timeseries.last?.value).toBe(100);
-    expect(data.timeseries.last?.date).toStrictEqual(new Date("2022-08-01"));
-    expect(data.timeseries.first?.value).toBe(90);
-    expect(data.timeseries.first?.date).toStrictEqual(new Date("2022-07-31"));
+    expect(data.timeseries.lastValue).toBe(100);
+    expect(data.timeseries.maxDate).toStrictEqual(new Date("2022-08-01"));
+    expect(data.timeseries.firstValue).toBe(90);
+    expect(data.timeseries.minDate).toStrictEqual(new Date("2022-07-31"));
   });
 
   test("dataRowsToMetricData() fails when there's no data for metric.", () => {
