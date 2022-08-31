@@ -55,6 +55,38 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
     }
   }
 
+  getDataFromCache(region: Region, metric: Metric, includeTimeseries: boolean) {
+    const metricKey = metric.dataReference?.column;
+    assert(
+      typeof metricKey === "string",
+      `Metrics using ${this.id} data provider must specify the` +
+        `CAN API field to access via the dataReference.column property.`
+    );
+    const cachedData = this.getCachedData(region, includeTimeseries);
+    assert(cachedData, `No valid data found in cache for ${region.regionId}`);
+    const metricKeyParts = metricKey.split(/\.(.*)/);
+    const tsLabel = `${metricKeyParts[0]}Timeseries`;
+    const timeseriesData = cachedData[tsLabel] as DataRow[];
+
+    if (includeTimeseries && timeseriesData) {
+      const tsMetricKey = metricKeyParts[1];
+      return dataRowsToMetricData(
+        { [region.regionId]: timeseriesData },
+        region,
+        metric,
+        tsMetricKey,
+        /*dateKey=*/ "date"
+      );
+    } else {
+      return dataRowToMetricData(
+        { [region.regionId]: [cachedData] },
+        region,
+        metric,
+        metricKey
+      );
+    }
+  }
+
   /**
    * Construct a Covid Act Now API url for a given region.
    *
@@ -98,38 +130,6 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
     } else if (!includeTimeseries) {
       // check for non-timeseries data cached.
       return this.flattenedApiJson[`${region.regionId}-false`];
-    }
-  }
-
-  getDataFromCache(region: Region, metric: Metric, includeTimeseries: boolean) {
-    const metricKey = metric.dataReference?.column;
-    assert(
-      typeof metricKey === "string",
-      `Metrics using ${this.id} data provider must specify the` +
-        `CAN API field to access via the dataReference.column property.`
-    );
-    const cachedData = this.getCachedData(region, includeTimeseries);
-    assert(cachedData, `No valid data found in cache for ${region.regionId}`);
-    const metricKeyParts = metricKey.split(/\.(.*)/);
-    const tsLabel = `${metricKeyParts[0]}Timeseries`;
-    const timeseriesData = cachedData[tsLabel] as DataRow[];
-
-    if (includeTimeseries && timeseriesData) {
-      const tsMetricKey = metricKeyParts[1];
-      return dataRowsToMetricData(
-        { [region.regionId]: timeseriesData },
-        region,
-        metric,
-        tsMetricKey,
-        /*dateKey=*/ "date"
-      );
-    } else {
-      return dataRowToMetricData(
-        { [region.regionId]: [cachedData] },
-        region,
-        metric,
-        metricKey
-      );
     }
   }
 }
