@@ -108,6 +108,14 @@ describe("Metric", () => {
     expect(metric.formatValue("raw value")).toBe("raw value");
   });
 
+  test("formatValue() on metric with categories", () => {
+    const metric = new Metric({
+      ...testMetricDef,
+      categories: testCategories,
+    });
+    expect(metric.formatValue("no")).toStrictEqual(testCategories[0].label);
+  });
+
   test("roundValue() with default options", () => {
     const metric = new Metric(testMetricDef);
     expect(metric.roundValue(123.15)).toBe(123.2);
@@ -137,5 +145,25 @@ describe("Metric", () => {
     expect(() => {
       metric.getCategory("none");
     }).toThrow("No matching");
+  });
+
+  test("getColor() on metric with categories", () => {
+    const metric = new Metric({
+      ...testMetricDef,
+      categories: testCategories,
+    });
+    expect(metric.getColor("no")).toStrictEqual(testCategories[0].color);
+  });
+
+  test("getColor() on metric with thresholds", () => {
+    const metric = new Metric(
+      {
+        ...testMetricDef,
+        thresholds: [10, 20],
+      },
+      testCatalogOptions
+    );
+    expect(metric.getColor(5)).toBe(testLevelSet.levels[0].color);
+    expect(metric.getColor(null)).toBe(testLevelSet.defaultLevel.color);
   });
 });

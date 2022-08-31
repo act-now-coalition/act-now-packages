@@ -1,7 +1,7 @@
 import last from "lodash/last";
 import isEqual from "lodash/isEqual";
 
-import { assert } from "@actnowcoalition/assert";
+import { assert, fail } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
 
 import { MetricDataReference } from "./MetricDataReference";
@@ -174,7 +174,9 @@ export class Metric {
    * @returns The formatted value.
    */
   formatValue(value: unknown, nullValueCopy = ""): string {
-    if (typeof value === "string") {
+    if (this.categories) {
+      return this.getCategory(value).label;
+    } else if (typeof value === "string") {
       return value;
     } else if (!isFinite(value)) {
       return nullValueCopy;
@@ -202,6 +204,23 @@ export class Metric {
       decimalPlaces += 2;
     }
     return Number(value.toFixed(decimalPlaces));
+  }
+
+  /**
+   * Looks up the color to use for the specified value either using the defined
+   * metric categories or metric thresholds.
+   *
+   * @param value Value to get color for.
+   * @returns Color to use for value.
+   */
+  getColor(value: unknown): string {
+    if (this.categories) {
+      return this.getCategory(value).color;
+    } else if (this.thresholds) {
+      return this.getLevel(value).color;
+    } else {
+      fail("Can only color metrics with thresholds or categories.");
+    }
   }
 
   /** Returns a string that helps identify this metric, e.g. for debugging purposes. */
