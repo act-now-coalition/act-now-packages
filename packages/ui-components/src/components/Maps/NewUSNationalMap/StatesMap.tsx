@@ -30,11 +30,12 @@ const StatesMap: React.FC<{
             <g>
               <a href={state.relativeUrl}>
                 {!showCounties && (
-                  // @ts-ignore (Chelsi) - figure out why 'd' prop is being problematic
-                  <StateShape d={geoPath(geo)} fill={getFillColor(stateFips)} />
+                  <StateShape
+                    d={geoPath(geo) ?? ""}
+                    fill={getFillColor(stateFips)}
+                  />
                 )}
-                {/* @ts-ignore (Chelsi) - figure out why 'd' prop is being problematic */}
-                <StateOverlay data-track="map-state" d={geoPath(geo)} />
+                <StateOverlay d={geoPath(geo) ?? ""} />
               </a>
             </g>
           </Tooltip>
