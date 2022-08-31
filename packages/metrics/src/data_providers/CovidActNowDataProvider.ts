@@ -41,11 +41,10 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
   ) {
     for (const region of regions) {
       const cacheKey = `${region.regionId}-${includeTimeseries}`;
-      const timeseriesCacheKey = `${region.regionId}-true`;
       // If timeseries data exists in the cache, skip the fetch no matter what,
       // as the timeseries endpoints also contain all of the non-timeseries data,
       // and we will use this data if necessary via the getCachedData method.
-      if (!this.apiJson[cacheKey] && !this.apiJson[timeseriesCacheKey]) {
+      if (!this.getCachedData(region, includeTimeseries)) {
         const url = this.buildFetchUrl(region, includeTimeseries);
         const response = await fetch(url);
         if (response.status !== 200) {
