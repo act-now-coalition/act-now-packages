@@ -63,6 +63,12 @@ export interface MetricDefinition {
    */
   formatOptions?: Intl.NumberFormatOptions;
 
+  /** Minimum possible value for the given metric. */
+  minValue?: number;
+
+  /** Maximum possible value for the given metric. */
+  maxValue?: number;
+
   /**
    * Arbitrary extra metadata related to the metric. This is not used by any
    * bultin @actnowcoalition packages but can be used for custom application
