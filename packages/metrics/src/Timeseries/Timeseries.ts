@@ -212,6 +212,19 @@ export class Timeseries<T = unknown> {
     }));
   }
 
+  /**
+   * Returns a new Timeseries from the slice of data points indicated by the
+   * provided `start` and `end` indices.
+   *
+   * @example
+   * ```
+   * ts.slice(2, 4); // Returns a Timeseries with the 3rd and 4th points.
+   * ```
+   *
+   * @param start The first index to be included in the new Timeseries.
+   * @param end The first index not to be included in the new Timeseries.
+   * @returns A new Timeseries with the sliced data points.
+   */
   slice(start: number, end?: number): Timeseries<T> {
     return new Timeseries(this.points.slice(start, end));
   }
