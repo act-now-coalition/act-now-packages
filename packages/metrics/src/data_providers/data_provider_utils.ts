@@ -73,7 +73,7 @@ export function dataRowsToMetricData(
   return new MetricData(
     metric,
     region,
-    timeseries.last?.value ?? null,
+    timeseries.lastValue ?? null,
     timeseries
   );
 }

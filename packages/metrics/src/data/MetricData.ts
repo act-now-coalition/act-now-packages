@@ -190,4 +190,13 @@ export class MetricData<T = unknown> {
   roundValue(): number | null {
     return this.metric.roundValue(this.currentValue);
   }
+
+  /**
+   * Uses this metric's grading logic or categories to color the `currentValue`.
+   *
+   * @returns The color associated with the metric's value.
+   */
+  getColor(): string {
+    return this.metric.getColor(this.currentValue);
+  }
 }
