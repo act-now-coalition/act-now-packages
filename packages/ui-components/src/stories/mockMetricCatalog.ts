@@ -4,6 +4,7 @@ import {
   MockDataProvider,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
+import { theme } from "../styles";
 
 export enum MetricId {
   PI = "pi",
@@ -28,6 +29,8 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "mock",
       startDate: "2020-01-01",
     },
+    thresholds: [10, 100],
+    levelSetId: "cases_mock",
   },
 ];
 
@@ -35,7 +38,22 @@ export const dataProviders = [
   new MockDataProvider(),
   new StaticValueDataProvider(),
 ];
-export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders);
+
+const metricLevelSets = [
+  {
+    id: "cases_mock",
+    levels: [
+      { id: "low", name: "low", color: theme.palette.severity[100] },
+      { id: "medium", name: "medium", color: theme.palette.severity[200] },
+      { id: "high", name: "high", color: theme.palette.severity[500] },
+    ],
+    defaultLevel: { id: "unknown", color: theme.palette.border.default },
+  },
+];
+
+export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders, {
+  metricLevelSets,
+});
 
 // Exporting a second metric catalog to confirm that the closest
 // MetricCatalocProvider instance is used

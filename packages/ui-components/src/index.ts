@@ -92,3 +92,7 @@ export * from "./components/MetricCatalogContext";
 export { default as Markdown } from "./components/Markdown";
 export * from "./components/Maps";
 export { default as LabelIcon } from "./components/LabelIcon";
+export type { LabelIconProps } from "./components/LabelIcon";
+
+export { default as MetricDot } from "./components/MetricDot";
+export type { MetricDotProps } from "./components/MetricDot";
