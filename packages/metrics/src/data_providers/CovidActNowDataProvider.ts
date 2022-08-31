@@ -21,7 +21,7 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
   private readonly apiKey: string;
 
   /** Cached CAN API responses indexed by the FIPS codes of the regions fetched. */
-  private flattenedApiJson: { [regionId: string]: DataRow };
+  private apiJson: { [regionId: string]: DataRow };
 
   /**
    * Constructs a new CovidActNowDataProvider instance.
@@ -31,7 +31,7 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
   constructor(apiKey: string, data?: { [regionId: string]: DataRow }) {
     super("covid-act-now-api");
     this.apiKey = apiKey;
-    this.flattenedApiJson = data ?? {};
+    this.apiJson = data ?? {};
   }
 
   async populateCache(
@@ -41,7 +41,11 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
   ) {
     for (const region of regions) {
       const cacheKey = `${region.regionId}-${includeTimeseries}`;
-      if (!this.flattenedApiJson[cacheKey]) {
+      const timeseriesCacheKey = `${region.regionId}-true`;
+      // If timeseries data exists in the cache, skip the fetch no matter what,
+      // as the timeseries endpoints also contain all of the non-timeseries data,
+      // and we will use this data if necessary via the getCachedData method.
+      if (!this.apiJson[cacheKey] && !this.apiJson[timeseriesCacheKey]) {
         const url = this.buildFetchUrl(region, includeTimeseries);
         const response = await fetch(url);
         if (response.status !== 200) {
@@ -50,7 +54,7 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
           );
         }
         const json = await response.json();
-        this.flattenedApiJson[cacheKey] = json;
+        this.apiJson[cacheKey] = json;
       }
     }
   }
@@ -63,11 +67,15 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
         `CAN API field to access via the dataReference.column property.`
     );
     const cachedData = this.getCachedData(region, includeTimeseries);
-    assert(cachedData, `No valid data found in cache for ${region.regionId}`);
+    assert(
+      cachedData,
+      `No data found in cache for ${region.regionId} with includeTimeseries=${includeTimeseries}`
+    );
     const metricKeyParts = metricKey.split(/\.(.*)/);
     const tsLabel = `${metricKeyParts[0]}Timeseries`;
     const timeseriesData = cachedData[tsLabel] as DataRow[];
 
+    // If we don't have timeseries data, just return the non-timeseries data.
     if (includeTimeseries && timeseriesData) {
       const tsMetricKey = metricKeyParts[1];
       return dataRowsToMetricData(
@@ -123,13 +131,12 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
    */
   private getCachedData(region: Region, includeTimeseries: boolean) {
     // If we have timeseries data cached, we always use it.
-    const cachedTimeseriesData =
-      this.flattenedApiJson[`${region.regionId}-true`];
+    const cachedTimeseriesData = this.apiJson[`${region.regionId}-true`];
     if (cachedTimeseriesData) {
       return cachedTimeseriesData;
     } else if (!includeTimeseries) {
       // check for non-timeseries data cached.
-      return this.flattenedApiJson[`${region.regionId}-false`];
+      return this.apiJson[`${region.regionId}-false`];
     }
   }
 }
