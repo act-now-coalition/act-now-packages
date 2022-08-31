@@ -1,9 +1,10 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import USNationalMap, { USNationalMapProps } from "./USNationalMap";
-import { scaleOrdinal, scaleLinear } from "@visx/scale";
 import { states, counties, RegionDB } from "@actnowcoalition/regions";
 import { interpolatePiYG } from "d3-scale-chromatic";
+import { scaleOrdinal, scaleLinear } from "@visx/scale";
+import { defaultWidth } from "../../../common/geo-shapes";
 
 const regions = new RegionDB([...states.all, ...counties.all]);
 
@@ -16,21 +17,23 @@ const Template: Story<USNationalMapProps> = (args) => (
   <USNationalMap {...args} />
 );
 
-const renderSimpleTooltip = (fips: string) => {
-  return states.findByRegionIdStrict(fips).fullName;
+const renderSimpleTooltip = (regionId: string) => {
+  return states.findByRegionIdStrict(regionId).fullName;
 };
 
 /** States with no fill color */
 export const StatesWithNoFillColor = Template.bind({});
 StatesWithNoFillColor.args = {
-  renderTooltip: (fips) => renderSimpleTooltip(fips),
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  width: defaultWidth,
 };
 
 /** Counties with no fill color */
 export const CountiesWithNoFillColor = Template.bind({});
 CountiesWithNoFillColor.args = {
   showCounties: true,
-  renderTooltip: (fips) => renderSimpleTooltip(fips),
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  width: defaultWidth,
 };
 
 const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
@@ -57,9 +60,9 @@ const colorScaleAlpha = scaleOrdinal({
   range: colors,
 });
 
-const getFillColorByFirstLetter = (fips: string) => {
+const getFillColorByFirstLetter = (regionId: string) => {
   const fullNameFromFips = regions
-    .findByRegionIdStrict(fips)
+    .findByRegionIdStrict(regionId)
     .fullName.toLowerCase();
   return colorScaleAlpha(fullNameFromFips[0]);
 };
@@ -67,14 +70,16 @@ const getFillColorByFirstLetter = (fips: string) => {
 /** States colored by first letter of fullName */
 export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
-  renderTooltip: (fips) => renderSimpleTooltip(fips),
-  getFillColor: (fips) => getFillColorByFirstLetter(fips),
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  getFillColor: (regionId: string) => getFillColorByFirstLetter(regionId),
+  width: defaultWidth,
 };
 
 /** Counties colored by first letter of fullName */
 export const CountiesColoredByFirstLetter = Template.bind({});
 CountiesColoredByFirstLetter.args = {
   showCounties: true,
-  renderTooltip: (fips) => renderSimpleTooltip(fips),
-  getFillColor: (fips) => getFillColorByFirstLetter(fips),
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  getFillColor: (regionId: string) => getFillColorByFirstLetter(regionId),
+  width: defaultWidth,
 };

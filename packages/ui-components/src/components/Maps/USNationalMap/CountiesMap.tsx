@@ -1,40 +1,16 @@
 import React from "react";
-import { Geographies } from "react-simple-maps";
-import { useCountyGeographies } from "../../../common/geo-shapes";
-import { CountyGeoPath } from "./USNationalMap.style";
-import { counties } from "@actnowcoalition/regions";
-
-const countiesFipsCodes = counties.all.map((county) => county.regionId);
+import { ExtendedFeature, GeoProjection } from "d3-geo";
+import CanvasMap from "./CanvasMap";
+import { countiesGeographies } from "../../../common/geo-shapes";
 
 const CountiesMap: React.FC<{
-  getFillColor?: (fips: string) => string;
-}> = ({ getFillColor }) => {
-  const { result: allCountiesTopoJson } = useCountyGeographies();
-
-  if (!allCountiesTopoJson) {
-    return <g />;
-  }
-
-  return (
-    <Geographies geography={allCountiesTopoJson}>
-      {({ geographies }) =>
-        geographies
-          .filter((geo) => countiesFipsCodes.includes(geo.id))
-          .map((geo) => (
-            <CountyGeoPath
-              key={geo.id}
-              geography={geo}
-              fill={getFillColor ? getFillColor(geo.id) : "white"}
-              strokeWidth={1}
-              stroke="black"
-              role="img"
-              aria-label={geo.properties.name}
-              tabIndex={-1}
-            />
-          ))
-      }
-    </Geographies>
-  );
-};
+  width: number;
+  height: number;
+  getFillColor: (fipsCode: string) => string;
+  geoProjection: GeoProjection;
+  getGeoId: (geo: ExtendedFeature) => string;
+}> = (props) => (
+  <CanvasMap {...props} features={countiesGeographies.features} />
+);
 
 export default CountiesMap;
