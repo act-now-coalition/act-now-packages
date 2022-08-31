@@ -91,3 +91,5 @@ export { GridRows, GridColumns } from "./components/Grid";
 export * from "./components/MetricCatalogContext";
 export { default as Markdown } from "./components/Markdown";
 export { default as USNationalMap } from "./components/USNationalMap";
+
+export { default as LabelIcon } from "./components/LabelIcon";
