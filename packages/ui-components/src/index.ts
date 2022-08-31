@@ -89,3 +89,5 @@ export { AxisLeft, AxisBottom } from "./components/Axis";
 export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
 export { default as Markdown } from "./components/Markdown";
 export { default as USNationalMap } from "./components/USNationalMap";
+
+export { default as LabelIcon } from "./components/LabelIcon";
