@@ -3,6 +3,7 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
 import { Timeseries } from "../Timeseries";
+import get from "lodash/get";
 
 export type DataRow = { [key: string]: unknown };
 
@@ -33,7 +34,7 @@ export function dataRowToMetricData(
         `${metric.id} but found: ${rows.length}. If this is timeseries data, ` +
         `specify a dateColumn when creating the CsvDataProvider.`
     );
-    const value = rows[0][metricKey];
+    const value = get(rows[0], metricKey);
     assert(value !== undefined, `Metric key ${metricKey} missing.`);
     return new MetricData(metric, region, value);
   }
@@ -59,21 +60,22 @@ export function dataRowsToMetricData(
   const rows = dataRowsByRegionId[region.regionId] ?? [];
   const timeseries = new Timeseries(
     rows.map((row) => {
-      assert(row[metricKey] !== undefined, `Metric key ${metricKey} missing.`);
+      const value = get(row, metricKey);
+      assert(value !== undefined, `Metric key ${metricKey} missing.`);
       assert(
         typeof row[dateKey] === "string",
         `Date column must be a string. ${typeof row[dateKey]} found.`
       );
       return {
         date: new Date(row[dateKey] as string),
-        value: row[metricKey] as unknown,
+        value: value as unknown,
       };
     })
   );
   return new MetricData(
     metric,
     region,
-    timeseries.lastValue ?? null,
+    timeseries.removeNils().lastValue ?? null,
     timeseries
   );
 }
