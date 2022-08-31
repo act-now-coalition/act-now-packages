@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/metrics",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Classes for representing metrics and loading metric data",
   "repository": {
     "type": "git",
