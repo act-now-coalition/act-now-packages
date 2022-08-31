@@ -2,11 +2,7 @@ import { Region } from "@actnowcoalition/regions";
 
 import { MetricDataProvider } from "./MetricDataProvider";
 import { Metric } from "../Metric";
-import {
-  MetricData,
-  MultiMetricDataStore,
-  MultiRegionMultiMetricDataStore,
-} from "../data";
+import { MetricData, MultiRegionMultiMetricDataStore } from "../data";
 
 /**
  * Base class to help implement a MetricDataProvider that caches data.  It doesn't
@@ -63,19 +59,11 @@ export abstract class CachingMetricDataProviderBase
   ): Promise<MultiRegionMultiMetricDataStore> {
     await this.populateCache(regions, metrics, includeTimeseries);
 
-    const data: { [regionId: string]: MultiMetricDataStore } = {};
-    for (const region of regions) {
-      const regionData: { [metricId: string]: MetricData } = {};
-      for (const metric of metrics) {
-        regionData[metric.id] = this.getDataFromCache(
-          region,
-          metric,
-          includeTimeseries
-        );
-      }
-      data[region.regionId] = new MultiMetricDataStore(region, regionData);
-    }
-
-    return new MultiRegionMultiMetricDataStore(data);
+    return MultiRegionMultiMetricDataStore.fromRegionsAndMetrics(
+      regions,
+      metrics,
+      (region, metric) =>
+        this.getDataFromCache(region, metric, includeTimeseries)
+    );
   }
 }

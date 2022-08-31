@@ -53,7 +53,7 @@ describe("CsvDataProvider", () => {
     expect(metricDataNoTs.currentValue).toBe(150);
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
     expect(metricDataTs.currentValue).toBe(150);
-    expect(metricDataTs.timeseries.last?.value).toBe(150);
+    expect(metricDataTs.timeseries.lastValue).toBe(150);
   });
 
   test("fetchData() fails if timeseries is expected, but the CSV does not have timeseries data.", async () => {

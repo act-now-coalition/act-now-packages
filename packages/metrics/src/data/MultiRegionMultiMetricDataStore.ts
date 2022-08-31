@@ -50,6 +50,33 @@ export interface MultiRegionMultiMetricDataMap<T> {
 export class MultiRegionMultiMetricDataStore<T = unknown> {
   constructor(private data: MultiRegionMultiMetricDataMap<T>) {}
 
+  /**
+   * Static constructor to create a MultiRegionMultiMetricDataStore from a list
+   * of regions, a list of metrics, and a dataGetter callback that returns MetricData
+   * for each region and metric combination.
+   *
+   * @param regions Regions to create data for.
+   * @param metrics Metrics to create data for.
+   * @param dataGetter Callback that returns MetricData for each region and metric combination.
+   * @returns Created MultiRegionMultiMetricDataStore instance.
+   */
+  static fromRegionsAndMetrics<T = unknown>(
+    regions: Region[],
+    metrics: Metric[],
+    dataGetter: (region: Region, metric: Metric) => MetricData<T>
+  ): MultiRegionMultiMetricDataStore<T> {
+    const data: { [regionId: string]: MultiMetricDataStore<T> } = {};
+    for (const region of regions) {
+      const regionData: { [metricId: string]: MetricData<T> } = {};
+      for (const metric of metrics) {
+        regionData[metric.id] = dataGetter(region, metric);
+      }
+      data[region.regionId] = new MultiMetricDataStore<T>(region, regionData);
+    }
+
+    return new MultiRegionMultiMetricDataStore(data);
+  }
+
   /** Whether this data store is empty. */
   get isEmpty(): boolean {
     return Object.keys(this.data).length === 0;

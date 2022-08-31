@@ -66,7 +66,7 @@ const catalog = new MetricCatalog(testMetrics, dataProviders);
 
 describe("CovidActNowDataProvider", () => {
   test("fetches data without timeseries", async () => {
-    const data = await catalog.fetchDataForMetricsAndRegions(
+    const data = await catalog.fetchDataForRegionsAndMetrics(
       [testCounty, testNation, testState, testMetro],
       [MetricId.HOSPITAL_BEDS, MetricId.WEEKLY_ADMISSIONS, MetricId.POPULATION],
       /*includeTimeseries=*/ false
@@ -85,7 +85,7 @@ describe("CovidActNowDataProvider", () => {
   });
 
   test("fetches data with timeseries", async () => {
-    const data = await catalog.fetchDataForMetricsAndRegions(
+    const data = await catalog.fetchDataForRegionsAndMetrics(
       [testCounty, testNation, testState, testMetro],
       [MetricId.HOSPITAL_BEDS, MetricId.WEEKLY_ADMISSIONS],
       /*includeTimeseries=*/ true
@@ -94,12 +94,12 @@ describe("CovidActNowDataProvider", () => {
     for (const region of [testCounty, testNation, testState, testMetro]) {
       const d = data.regionData(region);
       expect(d.metricData(MetricId.HOSPITAL_BEDS).currentValue).toBe(100);
-      expect(d.metricData(MetricId.HOSPITAL_BEDS).timeseries.first?.value).toBe(
+      expect(d.metricData(MetricId.HOSPITAL_BEDS).timeseries.firstValue).toBe(
         100
       );
       expect(d.metricData(MetricId.WEEKLY_ADMISSIONS).currentValue).toBe(10);
       expect(
-        d.metricData(MetricId.WEEKLY_ADMISSIONS).timeseries.first?.value
+        d.metricData(MetricId.WEEKLY_ADMISSIONS).timeseries.firstValue
       ).toBe(10);
     }
   });

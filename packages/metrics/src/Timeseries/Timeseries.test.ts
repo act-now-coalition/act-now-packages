@@ -198,7 +198,7 @@ describe("Timeseries", () => {
       expect(
         new Timeseries([
           { date: new Date("2021-02-03"), value },
-        ]).assertBoolean().last?.value
+        ]).assertBoolean().lastValue
       ).toBe(value);
     };
     verifyValue(false);
@@ -223,7 +223,162 @@ describe("Timeseries", () => {
     expect(
       new Timeseries([
         { date: new Date("2021-02-03"), value: "a string value" },
-      ]).assertStrings().last?.value
+      ]).assertStrings().lastValue
     ).toBe("a string value");
+  });
+
+  test("computeDeltas()", () => {
+    const ts = new Timeseries<number>([
+      // initial data point will be dropped since there's no previous point to
+      // compute a delta from.
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 1 },
+      { date: new Date("2020-01-05"), value: 5 },
+      { date: new Date("2020-01-07"), value: 4 },
+      { date: new Date("2020-01-08"), value: 6 },
+    ]);
+
+    const deltas = ts.computeDeltas();
+    expect(deltas.points).toEqual([
+      { date: new Date("2020-01-03"), value: 0 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-07"), value: -1 },
+      { date: new Date("2020-01-08"), value: 2 },
+    ]);
+  });
+
+  test("computeDeltas() with minDeltaToKeep=1", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      // cumulative stays at 1, so will be excluded from the result
+      { date: new Date("2020-01-03"), value: 1 },
+      { date: new Date("2020-01-05"), value: 5 },
+      // cumulative dips from 5 to 4, so will be excluded from the result
+      { date: new Date("2020-01-07"), value: 4 },
+      { date: new Date("2020-01-08"), value: 6 },
+    ]);
+
+    const deltas = ts.computeDeltas({ minDeltaToKeep: 1 });
+    expect(deltas.points).toEqual([
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-08"), value: 2 },
+    ]);
+  });
+
+  test("computeDeltas() with keepInitialValue=true", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 3 },
+      { date: new Date("2020-01-05"), value: 5 },
+    ]);
+
+    const deltas = ts.computeDeltas({ keepInitialValue: true });
+    expect(deltas.points).toEqual([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-03"), value: 2 },
+      { date: new Date("2020-01-05"), value: 2 },
+    ]);
+  });
+
+  test("windowed()", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: 2 },
+      { date: new Date("2020-01-04"), value: 3 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-06"), value: 5 },
+    ]);
+
+    const windowed = ts.windowed({ days: 3 });
+
+    // Note that initial 2 windows are <3 days since there aren't enough prior points.
+    expect(windowed.points).toEqual([
+      {
+        date: new Date("2020-01-01"),
+        value: {
+          startDate: new Date("2020-01-01"),
+          endDate: new Date("2020-01-01"),
+          days: 1,
+          windowTimeseries: ts.slice(0, 1),
+        },
+      },
+      {
+        date: new Date("2020-01-02"),
+        value: {
+          startDate: new Date("2020-01-01"),
+          endDate: new Date("2020-01-02"),
+          days: 2,
+          windowTimeseries: ts.slice(0, 2),
+        },
+      },
+      // Note that there's no data point for 2020-01-03 since it doesn't appear
+      // in the original timeseries.  But as a result, the 2020-01-04 and
+      // 2020-01-05 windows only contains 2 data points in the window.
+      {
+        date: new Date("2020-01-04"),
+        value: {
+          startDate: new Date("2020-01-02"),
+          endDate: new Date("2020-01-04"),
+          days: 3,
+          windowTimeseries: ts.slice(1, 3),
+        },
+      },
+      {
+        date: new Date("2020-01-05"),
+        value: {
+          startDate: new Date("2020-01-03"),
+          endDate: new Date("2020-01-05"),
+          days: 3,
+          windowTimeseries: ts.slice(2, 4),
+        },
+      },
+      {
+        date: new Date("2020-01-06"),
+        value: {
+          startDate: new Date("2020-01-04"),
+          endDate: new Date("2020-01-06"),
+          days: 3,
+          windowTimeseries: ts.slice(2, 5),
+        },
+      },
+    ]);
+  });
+
+  test("rollingAverage()", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: 2 },
+      { date: new Date("2020-01-04"), value: 3 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-06"), value: 5 },
+    ]);
+
+    expect(ts.rollingAverage({ days: 3 }).points).toEqual([
+      { date: new Date("2020-01-01"), value: 1 / 1 },
+      { date: new Date("2020-01-02"), value: (1 + 2) / 2 },
+      { date: new Date("2020-01-04"), value: (2 + 3) / 2 },
+      { date: new Date("2020-01-05"), value: (3 + 4) / 2 },
+      { date: new Date("2020-01-06"), value: (3 + 4 + 5) / 3 },
+    ]);
+  });
+
+  test("rollingAverage() with treatMissingDatesAsZero=true", () => {
+    const ts = new Timeseries<number>([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: 2 },
+      { date: new Date("2020-01-04"), value: 3 },
+      { date: new Date("2020-01-05"), value: 4 },
+      { date: new Date("2020-01-06"), value: 5 },
+    ]);
+
+    expect(
+      ts.rollingAverage({ days: 3, treatMissingDatesAsZero: true }).points
+    ).toEqual([
+      { date: new Date("2020-01-01"), value: 1 },
+      { date: new Date("2020-01-02"), value: (1 + 2) / 2 },
+      { date: new Date("2020-01-04"), value: (2 + 3) / 3 },
+      { date: new Date("2020-01-05"), value: (3 + 4) / 3 },
+      { date: new Date("2020-01-06"), value: (3 + 4 + 5) / 3 },
+    ]);
   });
 });
