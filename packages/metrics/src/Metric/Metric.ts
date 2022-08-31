@@ -43,6 +43,10 @@ export class Metric {
   readonly categories?: Array<MetricCategory>;
   /** {@inheritDoc MetricDefinition.extra} */
   readonly extra?: Record<string, unknown>;
+  /** {@inheritDoc MetricDefinition.minValue} */
+  readonly minValue?: number;
+  /** {@inheritDoc MetricDefinition.maxValue} */
+  readonly maxValue?: number;
 
   /**
    * The set of levels this metric can be graded as. Populated from { @link
@@ -76,6 +80,14 @@ export class Metric {
     this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
     this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
     this.categories = def.categories;
+    this.minValue = def.minValue ?? Number.NEGATIVE_INFINITY;
+    this.maxValue = def.maxValue ?? Number.POSITIVE_INFINITY;
+
+    assert(
+      this.minValue <= this.maxValue,
+      `Minimum value must be less than maximum value. ` +
+        `Got min: ${this.minValue}, max: ${this.maxValue}`
+    );
 
     assert(
       !(this.categories && this.thresholds),
