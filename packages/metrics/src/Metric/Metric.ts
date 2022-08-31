@@ -80,14 +80,16 @@ export class Metric {
     this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
     this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
     this.categories = def.categories;
-    this.minValue = def.minValue ?? Number.NEGATIVE_INFINITY;
-    this.maxValue = def.maxValue ?? Number.POSITIVE_INFINITY;
+    this.minValue = def.minValue;
+    this.maxValue = def.maxValue;
 
-    assert(
-      this.minValue <= this.maxValue,
-      `Minimum value must be less than maximum value. ` +
-        `Got min: ${this.minValue}, max: ${this.maxValue}`
-    );
+    if (this.minValue && this.maxValue) {
+      assert(
+        this.minValue <= this.maxValue,
+        `Minimum value must be less than maximum value. ` +
+          `Got min: ${this.minValue}, max: ${this.maxValue}`
+      );
+    }
 
     assert(
       !(this.categories && this.thresholds),
