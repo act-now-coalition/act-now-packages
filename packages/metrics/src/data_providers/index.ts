@@ -4,5 +4,5 @@ export { MockDataProvider } from "./MockDataProvider";
 export type { MockDataReferenceFields } from "./MockDataProvider";
 export { StaticValueDataProvider } from "./StaticValueDataProvider";
 export { CsvDataProvider } from "./CsvDataProvider";
-export { CanRegionDataProvider } from "./CanRegionDataProvider";
+export { CovidActNowDataProvider } from "./CovidActNowDataProvider";
 export type { CsvDataProviderOptions } from "./CsvDataProvider";
