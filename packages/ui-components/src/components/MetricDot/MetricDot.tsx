@@ -28,7 +28,7 @@ const MetricDot: React.FC<MetricDotProps> = ({
       ? metricCatalog.getMetric(metricOrId)
       : metricOrId;
 
-  if (!metric.levelSet || !metric.categories) {
+  if (!(metric.levelSet || metric.categories)) {
     return <PlaceholderDot />;
   }
 
@@ -38,8 +38,8 @@ const MetricDot: React.FC<MetricDotProps> = ({
   }
 
   // TODO: Find out accessibility best practices for this component
-  const color = metric.getColor(data.currentValue);
-  return <Dot style={{ backgroundColor: color }} />;
+  const backgroundColor = metric.getColor(data.currentValue);
+  return <Dot style={{ backgroundColor }} />;
 };
 
 export default MetricDot;
