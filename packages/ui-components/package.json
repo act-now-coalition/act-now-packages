@@ -51,6 +51,7 @@
     "@types/d3-geo": "^3.0.2",
     "@types/d3-scale-chromatic": "^3.0.0",
     "@types/react-simple-maps": "^1.0.8",
+    "@types/topojson-client": "^3.1.1",
     "@visx/axis": "^2.12.2",
     "@visx/curve": "^2.1.0",
     "@visx/group": "^2.10.0",
@@ -64,6 +65,7 @@
     "react-markdown": "^8.0.3",
     "react-simple-maps": "^3.0.0",
     "react-singleton-hook": "^4.0.0",
-    "remark-gfm": "^3.0.1"
+    "remark-gfm": "^3.0.1",
+    "topojson-client": "^3.1.0"
   }
 }

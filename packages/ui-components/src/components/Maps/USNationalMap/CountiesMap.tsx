@@ -1,6 +1,6 @@
 import React from "react";
 import { Geographies } from "react-simple-maps";
-import { useCountyGeographies } from "../../common/shapefiles";
+import { useCountyGeographies } from "../../../common/geo-shapes";
 import { CountyGeoPath } from "./USNationalMap.style";
 import { counties } from "@actnowcoalition/regions";
 

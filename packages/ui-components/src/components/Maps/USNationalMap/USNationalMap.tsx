@@ -3,7 +3,7 @@ import { states } from "@actnowcoalition/regions";
 import Tooltip from "@mui/material/Tooltip";
 import { geoAlbersUsaTerritories } from "geo-albers-usa-territories";
 import { ComposableMap, Geographies } from "react-simple-maps";
-import { statesGeographies } from "../../common/shapefiles";
+import { statesGeographies } from "../../../common/geo-shapes";
 import CountiesMap from "./CountiesMap";
 import { StateGeoPath } from "./USNationalMap.style";
 

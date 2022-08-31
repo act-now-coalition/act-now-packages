@@ -1,5 +1,5 @@
 import { Geography } from "react-simple-maps";
-import { styled } from "../../styles";
+import { styled } from "../../../styles";
 
 export const StateGeoPath = styled(Geography)`
   fill-opacity: 1;
