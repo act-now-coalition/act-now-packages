@@ -93,3 +93,7 @@ export { default as Markdown } from "./components/Markdown";
 export { default as USNationalMap } from "./components/USNationalMap";
 
 export { default as LabelIcon } from "./components/LabelIcon";
+export type { LabelIconProps } from "./components/LabelIcon";
+
+export { default as MetricDot } from "./components/MetricDot";
+export type { MetricDotProps } from "./components/MetricDot";
