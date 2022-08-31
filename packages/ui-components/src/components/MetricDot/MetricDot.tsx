@@ -12,7 +12,7 @@ export interface MetricDotProps {
 }
 
 /**
- * The MetricDot component shows a colored dot that represents current level
+ * The MetricDot component shows a colored dot that represents the current level
  * or category for a given metric and region. The component is still rendered
  * for metrics that don't have levels or categories to keep spacing and
  * alignment consistent across metrics.

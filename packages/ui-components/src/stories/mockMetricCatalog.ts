@@ -43,9 +43,9 @@ const metricLevelSets = [
   {
     id: "cases_mock",
     levels: [
-      { id: "low", color: theme.palette.severity[100] },
-      { id: "medium", color: theme.palette.severity[200] },
-      { id: "high", color: theme.palette.severity[500] },
+      { id: "low", name: "low", color: theme.palette.severity[100] },
+      { id: "medium", name: "medium", color: theme.palette.severity[200] },
+      { id: "high", name: "high", color: theme.palette.severity[500] },
     ],
     defaultLevel: { id: "unknown", color: theme.palette.border.default },
   },
