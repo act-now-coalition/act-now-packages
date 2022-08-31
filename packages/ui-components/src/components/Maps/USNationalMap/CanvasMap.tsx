@@ -21,7 +21,7 @@ const CanvasMap: React.FC<{
       const ctx = canvas.getContext("2d");
       if (ctx) {
         const path = d3GeoPath(geoProjection, ctx);
-        // Render feature shapes and border
+        // Feature shapes and borders
         features.forEach((geo) => {
           ctx.strokeStyle = borderColor;
           ctx.lineWidth = 0.5;

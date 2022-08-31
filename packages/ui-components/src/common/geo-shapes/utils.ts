@@ -32,7 +32,6 @@ export function getGeoBorders(
   return mesh(topology, geoObject) as GeoJSON.Geometry;
 }
 
-// Todo (Chelsi) - move to regions package
 function isValidGeoidCode(geoId: string): boolean {
   const allUsRegions = new RegionDB([
     ...counties.all,
