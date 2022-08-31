@@ -510,15 +510,18 @@ export class Timeseries<T = unknown> {
     treatMissingDatesAsZero?: boolean;
   }): Timeseries<number> {
     const treatMissingDatesAsZero = opts.treatMissingDatesAsZero ?? false;
-    return this.windowed({ days: opts.days }).map((point) => {
-      const date = point.date;
-      const window = point.value;
-      const days = treatMissingDatesAsZero
-        ? window.days
-        : window.windowTimeseries.length;
-      const value = window.windowTimeseries.sum / days;
-      return { date, value };
-    });
+    return this.removeNils()
+      .assertFiniteNumbers()
+      .windowed({ days: opts.days })
+      .map((point) => {
+        const date = point.date;
+        const window = point.value;
+        const days = treatMissingDatesAsZero
+          ? window.days
+          : window.windowTimeseries.length;
+        const value = window.windowTimeseries.sum / days;
+        return { date, value };
+      });
   }
 
   /**
