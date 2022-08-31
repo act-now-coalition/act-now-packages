@@ -19,7 +19,6 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "static",
       value: 3.141592653589793,
     },
-    formatOptions: { minimumFractionDigits: 5 },
   },
   {
     id: MetricId.MOCK_CASES,
@@ -32,7 +31,10 @@ const testMetricDefs: MetricDefinition[] = [
   },
 ];
 
-const dataProviders = [new MockDataProvider(), new StaticValueDataProvider()];
+export const dataProviders = [
+  new MockDataProvider(),
+  new StaticValueDataProvider(),
+];
 export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders);
 
 // Exporting a second metric catalog to confirm that the closest

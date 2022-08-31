@@ -1,4 +1,1 @@
-export {
-  MetricCatalogProvider,
-  useMetricCatalog,
-} from "./MetricCatalogContext";
+export * from "./MetricCatalogContext";

@@ -1,8 +1,9 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { states } from "@actnowcoalition/regions";
+import { MetricCatalog, MetricDefinition } from "@actnowcoalition/metrics";
 import { MetricCatalogProvider } from "./MetricCatalogContext";
-import { metricCatalogB, MetricId } from "../../stories/mockMetricCatalog";
+import { MetricId, dataProviders } from "../../stories/mockMetricCatalog";
 import MetricAwareDemo from "./MetricAwareDemo";
 
 export default {
@@ -10,12 +11,35 @@ export default {
   component: MetricCatalogProvider,
 } as ComponentMeta<typeof MetricCatalogProvider>;
 
-// Storybook already has a decorator which wraps each story on a
-// `MetricCatalogProvider`, this one is provided as usage example and to
-// confirm that the hook uses the value of the closest `MetricCatalogProvider`
-// ancestor.
+// Setting up a custom metricCatalog to confirm that the MetricCatalogProvider
+// closets to the component using the hook prevails.
+const metricDefs: MetricDefinition[] = [
+  {
+    id: MetricId.PI,
+    name: "Pi",
+    extendedName:
+      "Pi - The ratio of a circle's circumference to its diameter (should be formatted as 3.1)",
+    dataReference: {
+      providerId: "static",
+      value: Math.PI,
+    },
+    formatOptions: { maximumSignificantDigits: 2 },
+  },
+  {
+    id: MetricId.MOCK_CASES,
+    name: "Cases Per 100k (mock)",
+    extendedName: "Cases per 100k population (using mock data)",
+    dataReference: {
+      providerId: "mock",
+      startDate: "2020-01-01",
+    },
+  },
+];
+
+const metricCatalog = new MetricCatalog(metricDefs, dataProviders);
+
 const Template: ComponentStory<typeof MetricCatalogProvider> = (args) => (
-  <MetricCatalogProvider metricCatalog={metricCatalogB}>
+  <MetricCatalogProvider metricCatalog={metricCatalog}>
     {args.children}
   </MetricCatalogProvider>
 );
