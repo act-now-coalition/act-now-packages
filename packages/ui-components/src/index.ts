@@ -76,7 +76,7 @@ declare module "@mui/material/styles" {
 export * from "./components/Axis";
 export * from "./components/BarChart";
 export * from "./components/Grid";
-export { default as InfoTooltip } from "./components/InfoTooltip";
+export * from "./components/InfoTooltip";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
 export { default as LegendCategorical } from "./components/LegendCategorical";
