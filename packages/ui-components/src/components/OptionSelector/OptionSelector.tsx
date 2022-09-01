@@ -7,22 +7,40 @@ import {
 import { assert } from "@actnowcoalition/assert";
 
 export interface Option {
-  /** Id of the option, it should be a unique string */
+  /** ID for the option, it should be unique across options */
   id: string;
-  /** Content of the Toggle button. If the buttonContext doesn't have text, make sure to pass a component with aria-label to make the component accessible */
+  /** Content of the button (normally just text or an icon) */
   buttonContent: React.ReactNode;
-
-  /** ARIA-Label in case the buttonContent doesn't have any text */
+  /**
+   * The ariaLabel must be provided if buttonContent doesn't have text (for
+   * example, if the buttons only contain an icon)
+   */
   ariaLabel?: string;
 }
 
 export interface OptionSelectorProps extends ToggleButtonGroupProps {
   /** List of options to choose from */
   options: Option[];
-  /** Optional ID of the initially selected option */
+  /**
+   * Optional ID of the initially selected option. The first option will be
+   * selected by default
+   */
   selectedOptionId?: string;
 }
 
+/**
+ * The OptionSelector component can be used to group related options, from which
+ * the user can select only one of them.
+ *
+ * Accessibility Notes
+ *
+ * The `OptionSelector` component should have an accessibility label attached
+ * to it, use either `aria-label` or `aria-labelledby` (if the label is provided
+ * on a different element).
+ * Each option should have a label. If `buttonContent` doesn't contain text
+ * (when using only an icon, for example), make sure to provide `ariaLabel` to
+ * make the component accessible.
+ */
 const OptionSelector: React.FC<OptionSelectorProps> = ({
   options,
   selectedOptionId,
