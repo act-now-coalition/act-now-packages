@@ -1,8 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleTime } from "@visx/scale";
-import { AxisLeft, AxisBottom } from "./Axis.style";
 import { formatDateTime, DateFormat } from "@actnowcoalition/time-utils";
+import { AxisLeft, AxisBottom } from ".";
 
 export default {
   title: "Charts/Axis",

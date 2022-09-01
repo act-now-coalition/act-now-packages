@@ -4,7 +4,7 @@ import { scaleLinear, scaleTime } from "@visx/scale";
 import { appleStock } from "@visx/mock-data";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import LineChart from ".";
+import { LineChart } from ".";
 
 export default {
   title: "Charts/LineChart",

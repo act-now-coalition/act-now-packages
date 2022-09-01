@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import InfoTooltip from ".";
 import { Typography } from "@mui/material";
+import { InfoTooltip } from ".";
 
 export default {
   title: "Components/InfoTooltip",

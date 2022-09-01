@@ -94,17 +94,19 @@ const templateComponentMain = prepareTemplate(`
 import React from "react";
 import { Container } from "./{{pascalCase name}}.style";
 
-const {{pascalCase name}}: React.FC = () => {
+export interface {{pascalCase name}}Props {
+
+}
+
+export const {{pascalCase name}}: React.FC<{{pascalCase name}}Props> = () => {
   return <Container>{{pascalCase name}}</Container>;
 };
-
-export default {{pascalCase name}};
 `);
 
 const templateComponentStories = prepareTemplate(`
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import {{pascalCase name}} from ".";
+import { {{pascalCase name}} } from ".";
 
 export default {
   title: "Components/{{pascalCase name}}",
@@ -126,7 +128,7 @@ export const Container = styled("div")\`\`;
 `);
 
 const templateComponentIndex = prepareTemplate(`
-export { default } from "./{{pascalCase name}}";
+export * from "./{{pascalCase name}}";
 `);
 
 export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
@@ -235,8 +237,7 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
       {
         type: "append",
         path: `packages/ui-components/src/index.ts`,
-        template:
-          'export { default as {{pascalCase name}} } from "./components/{{pascalCase name}}";',
+        template: 'export * from "./components/{{pascalCase name}}";',
         unique: true,
       },
     ],

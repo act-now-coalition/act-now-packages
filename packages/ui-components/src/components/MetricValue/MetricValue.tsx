@@ -3,7 +3,7 @@ import { Stack, Typography, TypographyProps } from "@mui/material";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import MetricDot from "../MetricDot";
+import { MetricDot } from "../MetricDot";
 
 export interface MetricValueProps {
   /** Region for which we want to show the metric value */
@@ -17,7 +17,7 @@ export interface MetricValueProps {
   variant?: TypographyProps["variant"];
 }
 
-const MetricValue: React.FC<MetricValueProps> = ({
+export const MetricValue: React.FC<MetricValueProps> = ({
   region,
   metric: metricOrId,
   variant = "dataEmphasizedLarge",
@@ -43,5 +43,3 @@ const MetricValue: React.FC<MetricValueProps> = ({
     </Stack>
   );
 };
-
-export default MetricValue;

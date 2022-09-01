@@ -1,7 +1,6 @@
 import React from "react";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Group } from "@visx/group";
-
 import { Timeseries } from "@actnowcoalition/metrics";
 
 export interface BarChartOwnProps {
@@ -50,7 +49,7 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  *
  * @returns An SVG Group element
  */
-const BarChart: React.FC<BarChartProps> = ({
+export const BarChart: React.FC<BarChartProps> = ({
   timeseries,
   xScale,
   yScale,
@@ -77,5 +76,3 @@ const BarChart: React.FC<BarChartProps> = ({
     </Group>
   );
 };
-
-export default BarChart;

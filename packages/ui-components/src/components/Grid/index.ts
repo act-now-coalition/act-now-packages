@@ -1,1 +1,1 @@
-export { GridRows, GridColumns } from "./Grid.style";
+export * from "./Grid.style";
