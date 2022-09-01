@@ -7,7 +7,7 @@ import { appleStock } from "@visx/mock-data";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
-import BarChart from ".";
+import { BarChart } from ".";
 import LineChart from "../LineChart";
 
 export default {

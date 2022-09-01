@@ -74,8 +74,7 @@ declare module "@mui/material/styles" {
 
 /** UI Components and props */
 export * from "./components/Axis";
-export { default as BarChart } from "./components/BarChart";
-export type { BarChartProps, BarChartOwnProps } from "./components/BarChart";
+export * from "./components/BarChart";
 export { default as InfoTooltip } from "./components/InfoTooltip";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
