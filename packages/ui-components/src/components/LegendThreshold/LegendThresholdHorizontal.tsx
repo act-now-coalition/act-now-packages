@@ -22,7 +22,7 @@ export interface LegendThresholdHorizontalProps<T>
  * `LegendThresholdHorizontal` represents a scale with thresholds that separate
  * a set of levels. By default, the labels between each level are shown.
  */
-const LegendThresholdHorizontal = <T,>({
+export const LegendThresholdHorizontal = <T,>({
   height = 40,
   barHeight = 20,
   width = 300,
@@ -87,5 +87,3 @@ const LegendThresholdHorizontal = <T,>({
     </svg>
   );
 };
-
-export default LegendThresholdHorizontal;

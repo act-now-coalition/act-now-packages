@@ -20,7 +20,7 @@ export interface LegendThresholdVerticalProps<T>
  * `LegendThresholdVertical` represents a scale with thresholds that separate
  * a set of levels. By default, the labels between each level are shown.
  */
-const LegendThresholdVertical = <T,>({
+export const LegendThresholdVertical = <T,>({
   height = 265,
   barWidth = 12,
   borderRadius = 0,
@@ -65,5 +65,3 @@ const LegendThresholdVertical = <T,>({
     </LegendThresholdVerticalWrapper>
   );
 };
-
-export default LegendThresholdVertical;
