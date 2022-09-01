@@ -1,8 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import RegionSearch from ".";
 import { states, counties, metros } from "@actnowcoalition/regions";
 import sortBy from "lodash/sortBy";
+import { RegionSearch } from ".";
 
 export default {
   title: "Components/RegionSearch",

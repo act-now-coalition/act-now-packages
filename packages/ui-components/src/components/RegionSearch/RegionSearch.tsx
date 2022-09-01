@@ -22,7 +22,7 @@ const onChange = (item: Region | null) => {
   }
 };
 
-const RegionSearch: React.FC<
+export const RegionSearch: React.FC<
   RegionSearchProps &
     AutocompleteProps<
       Region,
@@ -62,5 +62,3 @@ const RegionSearch: React.FC<
     </Container>
   );
 };
-
-export default RegionSearch;

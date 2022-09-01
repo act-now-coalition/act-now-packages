@@ -87,4 +87,4 @@ export * from "./components/MetricCatalogContext";
 export * from "./components/MetricDot";
 export * from "./components/MetricValue";
 export * from "./components/ProgressBar";
-export { default as RegionSearch } from "./components/RegionSearch";
+export * from "./components/RegionSearch";
