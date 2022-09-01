@@ -17,7 +17,7 @@ export interface MetricValueProps {
   variant?: TypographyProps["variant"];
 }
 
-const MetricValue: React.FC<MetricValueProps> = ({
+export const MetricValue: React.FC<MetricValueProps> = ({
   region,
   metric: metricOrId,
   variant = "dataEmphasizedLarge",
@@ -43,5 +43,3 @@ const MetricValue: React.FC<MetricValueProps> = ({
     </Stack>
   );
 };
-
-export default MetricValue;
