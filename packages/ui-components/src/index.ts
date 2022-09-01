@@ -75,6 +75,7 @@ declare module "@mui/material/styles" {
 /** UI Components and props */
 export * from "./components/Axis";
 export * from "./components/BarChart";
+export * from "./components/BaseTable";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
 export * from "./components/LabelIcon";
