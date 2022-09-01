@@ -7,15 +7,15 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-1.0.1.tgz#a4c629a16279085abf7958f4a735a0c3b9aee848"
   integrity sha512-i4k08njxovn3m1jy1mYvCJJv7fLvSpsVwaiocNGB+WC8x44TOxsQuX8iQM62IMKXtu+/5uBIEgn+3QcbT2QLuw==
 
-"@actnowcoalition/metrics@^0.0.7":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.0.7.tgz#7860cc3017739846b5db8ff70c89deadc76ca542"
-  integrity sha512-uOxGhcILqgIDireIyYmNwCV7f5G752QyAobaahlOLyMDC2qPOH4cX5ml/i7h3Y/DL6mPP7BDMHXPxBZNK8W14A==
+"@actnowcoalition/metrics@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.0.10.tgz#ff18d23b2f8bcd4ba7831f0a00ce819ca782f216"
+  integrity sha512-q0YynG1Fh7Vd0BGpUIPP1ZX1u/T1/dBqnon7Lwf1gSwL5hx/l3MpHf7Ewx0cDTItv9XicyLUKdvuLuQQ6/xEWA==
   dependencies:
     "@actnowcoalition/assert" "^1.0.0"
     "@actnowcoalition/number-format" "^1.1.1"
     "@actnowcoalition/regions" "^1.3.0"
-    "@actnowcoalition/time-utils" "^1.0.1"
+    "@actnowcoalition/time-utils" "^1.1.0"
     "@types/papaparse" "^5.3.3"
     lodash "^4.17.21"
     papaparse "^5.3.2"
@@ -33,10 +33,10 @@
     "@actnowcoalition/assert" "^1.0.0"
     lodash "^4.17.21"
 
-"@actnowcoalition/time-utils@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-1.0.1.tgz#4caf60c55764a73ec31be223cefee880568204b9"
-  integrity sha512-IKquf6m4tu4k6GUTWEvw8wL+sVRnyOOztXotEwM2WdCPNlHd4nPX3X1ZdVoOKPqdF7kIeplu1y7sFjhIpnmABA==
+"@actnowcoalition/time-utils@^1.1.0":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-1.1.2.tgz#c09a31e6828387b18dff636d653f362f5d581920"
+  integrity sha512-4aAF3S4EIBBM4Knm0/IF9l3ij7G8CIEMJx5N9VmCl4RHccFFIj4RPi0BTobDuK62J3zAiR5/SwVsfzsGdhw9Vw==
   dependencies:
     "@actnowcoalition/assert" "^1.0.0"
     "@types/luxon" "^2.3.2"
@@ -2917,6 +2917,21 @@
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/@types/tapable/-/tapable-1.0.8.tgz#b94a4391c85666c7b73299fd3ad79d4faa435310"
   integrity sha512-ipixuVrh2OdNmauvtT51o3d8z12p6LtFW9in7U79der/kwejjdNchQC5UMn5u/KxNoM7VHHOs/l8KS8uHxhODQ==
+
+"@types/topojson-client@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@types/topojson-client/-/topojson-client-3.1.1.tgz#d1396b2e79f530ef69bb162523cddf94576bd5a9"
+  integrity sha512-E4/Z2Xg56kVLRzYWem/6uOKVcVNqqxEqlWM9qCG2tCV1BxuzvvXC02/ELoGJWgtKkQhfycBPlMFEuTFdA/YiTg==
+  dependencies:
+    "@types/geojson" "*"
+    "@types/topojson-specification" "*"
+
+"@types/topojson-specification@*":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@types/topojson-specification/-/topojson-specification-1.0.2.tgz#e20df2c5a611e31f51d606473dbaccc1d90461c8"
+  integrity sha512-SGc1NdX9g3UGDp6S+p+uyG+Z8CehS51sUJ9bejA25Xgn2kkAguILk6J9nxXK+0M/mbTBN7ypMA7+4HVLNMJ8ag==
+  dependencies:
+    "@types/geojson" "*"
 
 "@types/uglify-js@*":
   version "3.16.0"
