@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import ProgressBar from "./ProgressBar";
+import { ProgressBar } from ".";
 
 export default {
   title: "Charts/ProgressBar",

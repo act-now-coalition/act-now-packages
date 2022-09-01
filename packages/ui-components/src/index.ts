@@ -86,6 +86,5 @@ export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
 export * from "./components/MetricDot";
 export * from "./components/MetricValue";
-export { default as ProgressBar } from "./components/ProgressBar";
-export type { ProgressBarProps } from "./components/ProgressBar";
+export * from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
