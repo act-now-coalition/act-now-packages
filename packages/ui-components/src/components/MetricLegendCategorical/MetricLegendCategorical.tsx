@@ -27,9 +27,8 @@ const MetricLegendCategorical = ({
   orientation,
 }: MetricLegendCategoricalProps) => {
   const metricCatalog = useMetricCatalog();
-  const resolvedMetric =
-    typeof metric === "string" ? metricCatalog.getMetric(metric) : metric;
-  const items = resolvedMetric.categories;
+  metric = metricCatalog.getMetric(metric);
+  const items = metric.categories;
   assert(
     items,
     "Metric must define categories in order to use MetricLegendCategorical" +
@@ -39,7 +38,7 @@ const MetricLegendCategorical = ({
   return (
     <Stack spacing={2}>
       <Stack spacing={0.5}>
-        <Typography variant="labelLarge">{resolvedMetric.name}</Typography>
+        <Typography variant="labelLarge">{metric.name}</Typography>
         <Typography variant="paragraphSmall">{supportingText}</Typography>
       </Stack>
       <LegendCategorical
