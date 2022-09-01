@@ -40,6 +40,28 @@ const components: ThemeOptions["components"] = {
       },
     },
   },
+  MuiToggleButtonGroup: {
+    styleOverrides: {
+      root: {
+        ...typography.paragraphSmall,
+        border: `solid 1px ${palette.border.default}`,
+      },
+      groupedHorizontal: {
+        border: "none",
+        color: typography.paragraphSmall.color,
+        textTransform: "none",
+        borderBottom: `solid 2px transparent`,
+        ":not(:first-of-type)": {
+          borderLeft: "none",
+        },
+        "&.Mui-selected": {
+          ...typography.labelSmall,
+          borderBottom: `solid 2px ${palette.secondary.dark}`,
+          backgroundColor: "transparent",
+        },
+      },
+    },
+  },
 };
 
 export default components;
