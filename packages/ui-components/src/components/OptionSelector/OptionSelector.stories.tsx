@@ -40,4 +40,7 @@ WithIcons.args = {
   options: iconOptions,
   selectedOptionId: "center",
   size: "small",
+  onChange: (event: React.MouseEvent<HTMLElement>, optionId: string) => {
+    console.log(`Selected ${optionId}`);
+  },
 };

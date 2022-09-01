@@ -30,8 +30,9 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
   const [firstOption] = options;
   const [optionId, setOptionId] = useState(firstOption.id);
 
-  // If the user pass a selectedItemId, we update the state to select the
-  // corresponding item. This effect will run only on mount/unmount. See
+  // If the user pass a selectedIOptionId, we update the state to select the
+  // corresponding item. This effect will run only on mount/unmount because
+  // we are passing an empty dependencies array. See
   // https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects
   useEffect(() => {
     const optionIdList = options.map((option) => option.id);
@@ -41,7 +42,6 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update the state and call the onChange handler if provided
   const handleChangeOption = (
     event: React.MouseEvent<HTMLElement>,
     newOption: string
@@ -59,9 +59,9 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
       onChange={handleChangeOption}
       {...otherToggleButtonProps}
     >
-      {options.map((option) => (
-        <ToggleButton key={`toggle-button-${option.id}`} value={option.id}>
-          {option.content}
+      {options.map(({ id, content }) => (
+        <ToggleButton key={`toggle-button-${id}`} value={id}>
+          {content}
         </ToggleButton>
       ))}
     </ToggleButtonGroup>
