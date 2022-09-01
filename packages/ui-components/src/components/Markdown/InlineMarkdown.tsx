@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
-import remarkGfm from "remark-gfm";
 import { MarkdownBody } from "./Markdown.style";
 
 /** Override 'div' and 'p' components so they just render as fragments. */
@@ -18,11 +17,7 @@ const InlineMarkdown: React.FC<ReactMarkdownOptions> = ({
   // markdown in a div which we don't want, so we create our own wrapper span
   // instead.
   <span className={className}>
-    <MarkdownBody
-      remarkPlugins={[remarkGfm]}
-      components={customComponents}
-      {...otherProps}
-    >
+    <MarkdownBody components={customComponents} {...otherProps}>
       {children}
     </MarkdownBody>
   </span>
