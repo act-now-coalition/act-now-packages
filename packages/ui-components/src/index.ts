@@ -86,6 +86,7 @@ export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
 export * from "./components/MetricDot";
 export * from "./components/MetricLegendCategorical";
+export * from "./components/MetricOverview";
 export * from "./components/MetricValue";
 export * from "./components/ProgressBar";
 export * from "./components/RegionSearch";

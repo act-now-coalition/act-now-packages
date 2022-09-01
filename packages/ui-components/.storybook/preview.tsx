@@ -5,17 +5,21 @@ import { MetricCatalogProvider } from "../src/components/MetricCatalogContext";
 import { metricCatalog } from "../src/stories/mockMetricCatalog";
 import { theme } from "../src/styles";
 
-// Wraps stories with the MUI Theme provider
-const themeDecorator = (Story) => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Story />
-  </ThemeProvider>
-);
-
-const metricCatalogDecorator = (Story) => (
+/**
+ * Note (Pablo): It seems that the order of the context providers matter, even
+ * if they use different contexts. I noticed that if the ThemeProvider is the
+ * outer provider, the styles for variant="paragraphSmall" on Typography are
+ * not correctly applied.
+ *
+ * I combined both providers into one decorator to make the nesting order more
+ * explicit.
+ */
+const appDecorator = (Story) => (
   <MetricCatalogProvider metricCatalog={metricCatalog}>
-    <Story />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Story />
+    </ThemeProvider>
   </MetricCatalogProvider>
 );
 
@@ -35,4 +39,4 @@ export const parameters = {
   },
 };
 
-export const decorators = [themeDecorator, metricCatalogDecorator];
+export const decorators = [appDecorator];
