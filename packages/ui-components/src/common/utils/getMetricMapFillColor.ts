@@ -2,6 +2,7 @@
 
 import { Metric, MetricCatalog } from "@actnowcoalition/metrics";
 import { RegionDB, states, counties, metros } from "@actnowcoalition/regions";
+import { useData } from "../hooks";
 
 export default function getMetricMapFillColor(
   metricCatalog: MetricCatalog,
@@ -18,7 +19,7 @@ export default function getMetricMapFillColor(
 
   const metric = metricCatalog.getMetric(metricOrId);
 
-  const { data } = metricCatalog.useData(region, metric);
+  const { data } = useData(region, metric);
   const currentValue = data?.currentValue;
 
   return currentValue ? metric.getColor(currentValue) : "white";

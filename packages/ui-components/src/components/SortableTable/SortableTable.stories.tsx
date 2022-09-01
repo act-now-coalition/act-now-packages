@@ -5,7 +5,6 @@ import { states, Region } from "@actnowcoalition/regions";
 import { formatInteger } from "@actnowcoalition/number-format";
 import { Metric } from "@actnowcoalition/metrics";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
-import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricValue } from "../MetricValue";
 import {
   TableCell,
@@ -13,6 +12,7 @@ import {
   SortableTableProps,
   ColumnDefinition,
 } from ".";
+import { useData } from "../../common/hooks";
 
 export default {
   title: "Components/SortableTable",
@@ -90,8 +90,7 @@ const MetricCell: React.FC<{ region: Region; metric: Metric }> = ({
   region,
   metric,
 }) => {
-  const metricCatalog = useMetricCatalog();
-  const { data, error } = metricCatalog.useData(region, metric);
+  const { data, error } = useData(region, metric);
 
   if (!data || error) {
     return null;
