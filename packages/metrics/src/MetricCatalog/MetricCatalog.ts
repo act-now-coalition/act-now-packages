@@ -79,13 +79,24 @@ export class MetricCatalog {
    *
    * If the ID does not exist in the catalog, an error will be thrown.
    *
-   * @param id The metric ID. See {@link MetricDefinition.id}.
+   * For convenience this method also accepts `Metric` objects and will just return them as-is.
+   *
+   * @param metricOrId The metric ID (or an existing `Metric` object). See {@link MetricDefinition#id}.
    * @returns The metric.
    */
-  getMetric(id: string): Metric {
-    const metric = this.metricsById[id];
-    assert(metric, `No metric found with id ${id}`);
-    return metric;
+  getMetric(metricOrId: Metric | string): Metric {
+    if (metricOrId instanceof Metric) {
+      // As a sanity-check, make sure it's a metric from this catalog.
+      assert(
+        metricOrId === this.metricsById[metricOrId.id],
+        "getMetric() called with unrecognized metric"
+      );
+      return metricOrId;
+    } else {
+      const metric = this.metricsById[metricOrId];
+      assert(metric, `No metric found with id ${metricOrId}`);
+      return metric;
+    }
   }
 
   /**
