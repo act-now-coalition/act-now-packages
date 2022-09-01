@@ -9,6 +9,7 @@ import { theme } from "../styles";
 export enum MetricId {
   PI = "pi",
   MOCK_CASES = "mock_cases",
+  PASS_FAIL = "pass_fail",
 }
 
 const testMetricDefs: MetricDefinition[] = [
@@ -31,6 +32,19 @@ const testMetricDefs: MetricDefinition[] = [
     },
     thresholds: [10, 100],
     levelSetId: "cases_mock",
+  },
+  {
+    id: MetricId.PASS_FAIL,
+    name: "Pass or Fail",
+    extendedName: "Passing or Failing grade on an arbitrary test",
+    dataReference: {
+      providerId: "static",
+      value: 0,
+    },
+    categories: [
+      { color: "#d32f2f", value: 0, label: "Fail" },
+      { color: "#4caf50", value: 1, label: "Pass" },
+    ],
   },
 ];
 
