@@ -96,3 +96,5 @@ export type { LabelIconProps } from "./components/LabelIcon";
 
 export { default as MetricDot } from "./components/MetricDot";
 export type { MetricDotProps } from "./components/MetricDot";
+
+export { default as SparkLine } from "./components/SparkLine";
