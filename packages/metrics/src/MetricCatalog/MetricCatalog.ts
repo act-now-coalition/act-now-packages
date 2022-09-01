@@ -156,9 +156,7 @@ export class MetricCatalog {
   ): Promise<MultiRegionMultiMetricDataStore> {
     this.dataFetchesCount++;
 
-    const resolvedMetrics = metrics.map((m) =>
-      typeof m === "string" ? this.getMetric(m) : m
-    );
+    const resolvedMetrics = metrics.map((m) => this.getMetric(m));
 
     let result = new MultiRegionMultiMetricDataStore({});
     if (this.options.snapshot) {
@@ -291,9 +289,7 @@ function useDataForRegionsAndMetrics(
   includeTimeseries = true
 ): DataOrError<MultiRegionMultiMetricDataStore> {
   const [data, setData] = useState<MultiRegionMultiMetricDataStore>();
-  let resolvedMetrics = metrics.map((m) =>
-    typeof m === "string" ? catalog.getMetric(m) : m
-  );
+  let resolvedMetrics = metrics.map((m) => catalog.getMetric(m));
 
   // In order to allow people to pass in a new array of regions / metrics that
   // contain the same regions / metrics as before without triggering additional

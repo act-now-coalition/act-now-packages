@@ -12,10 +12,7 @@ const MetricAwareDemo: React.FC<{
   const metricCatalog = useMetricCatalog();
 
   // Metric instance from the catalog (or from the props)
-  const metric =
-    typeof metricOrId === "string"
-      ? metricCatalog.getMetric(metricOrId)
-      : metricOrId;
+  const metric = metricCatalog.getMetric(metricOrId);
 
   // Get data from the metric catalog
   const { data, error } = metricCatalog.useData(region, metric);
