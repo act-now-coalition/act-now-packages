@@ -3,7 +3,7 @@ import { Stack, Typography, TypographyProps } from "@mui/material";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import MetricDot from "../MetricDot";
+import { MetricDot } from "../MetricDot";
 
 export interface MetricValueProps {
   /** Region for which we want to show the metric value */
