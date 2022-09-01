@@ -60,6 +60,16 @@ const components: ThemeOptions["components"] = {
           backgroundColor: "transparent",
         },
       },
+      groupedVertical: {
+        borderLeft: "none",
+        borderRight: "none",
+        ":first-of-type": {
+          borderTop: "none",
+        },
+        ":last-of-type": {
+          borderBottom: "none",
+        },
+      },
     },
   },
 };

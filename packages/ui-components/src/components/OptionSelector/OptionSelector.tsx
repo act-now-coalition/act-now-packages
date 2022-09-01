@@ -9,8 +9,11 @@ import { assert } from "@actnowcoalition/assert";
 export interface Option {
   /** Id of the option, it should be a unique string */
   id: string;
-  /** Content of the Toggle button */
-  content: React.ReactNode;
+  /** Content of the Toggle button. If the buttonContext doesn't have text, make sure to pass a component with aria-label to make the component accessible */
+  buttonContent: React.ReactNode;
+
+  /** ARIA-Label in case the buttonContent doesn't have any text */
+  ariaLabel?: string;
 }
 
 export interface OptionSelectorProps extends ToggleButtonGroupProps {
@@ -59,9 +62,13 @@ const OptionSelector: React.FC<OptionSelectorProps> = ({
       onChange={handleChangeOption}
       {...otherToggleButtonProps}
     >
-      {options.map(({ id, content }) => (
-        <ToggleButton key={`toggle-button-${id}`} value={id}>
-          {content}
+      {options.map(({ id, buttonContent, ariaLabel }) => (
+        <ToggleButton
+          key={`toggle-button-${id}`}
+          value={id}
+          aria-label={ariaLabel}
+        >
+          {buttonContent}
         </ToggleButton>
       ))}
     </ToggleButtonGroup>
