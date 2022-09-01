@@ -38,7 +38,7 @@ const MetricValue: React.FC<MetricValueProps> = ({
     <Stack direction="row" spacing={1} alignItems="center">
       <MetricDot region={region} metric={metric} />
       <Typography variant={variant}>
-        {metric.formatValue(data?.currentValue, "---")}
+        {metric.formatValue(data.currentValue, "---")}
       </Typography>
     </Stack>
   );
