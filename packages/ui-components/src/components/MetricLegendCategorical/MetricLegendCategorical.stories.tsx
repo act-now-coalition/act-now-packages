@@ -12,7 +12,7 @@ export default {
 } as ComponentMeta<typeof MetricLegendCategorical>;
 
 const Template: Story<MetricLegendCategoricalProps> = (args) => (
-  <div style={{ width: 200, border: "border 1px #ddd" }}>
+  <div style={{ width: 200, border: "1px solid #ddd" }}>
     <MetricLegendCategorical {...args} />
   </div>
 );

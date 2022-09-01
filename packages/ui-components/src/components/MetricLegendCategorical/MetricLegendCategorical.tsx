@@ -31,8 +31,8 @@ const MetricLegendCategorical = ({
   const items = metric.categories;
   assert(
     items,
-    "Metric must define categories in order to use MetricLegendCategorical" +
-      `No categories found for metric ${metric.toString()}`
+    "Metric must define categories in order to use MetricLegendCategorical " +
+      `No categories found for metric: ${metric}`
   );
 
   return (
