@@ -23,10 +23,7 @@ export const MetricValue: React.FC<MetricValueProps> = ({
   variant = "dataEmphasizedLarge",
 }) => {
   const metricCatalog = useMetricCatalog();
-  const metric =
-    typeof metricOrId === "string"
-      ? metricCatalog.getMetric(metricOrId)
-      : metricOrId;
+  const metric = metricCatalog.getMetric(metricOrId);
 
   const { data, error } = metricCatalog.useData(region, metric);
 

@@ -22,11 +22,7 @@ export const MetricDot: React.FC<MetricDotProps> = ({
   metric: metricOrId,
 }) => {
   const metricCatalog = useMetricCatalog();
-  // TODO: Maybe add a method to the metricCatalog?
-  const metric =
-    typeof metricOrId === "string"
-      ? metricCatalog.getMetric(metricOrId)
-      : metricOrId;
+  const metric = metricCatalog.getMetric(metricOrId);
 
   if (!(metric.levelSet || metric.categories)) {
     return <PlaceholderDot />;
