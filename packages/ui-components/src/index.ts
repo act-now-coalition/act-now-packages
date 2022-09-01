@@ -75,6 +75,7 @@ declare module "@mui/material/styles" {
 /** UI Components and props */
 export * from "./components/Axis";
 export * from "./components/BarChart";
+export * from "./components/Grid";
 export { default as InfoTooltip } from "./components/InfoTooltip";
 export { default as LegendThreshold } from "./components/LegendThreshold";
 export type { LegendThresholdProps } from "./components/LegendThreshold";
@@ -85,7 +86,6 @@ export type { LineChartProps, LineChartOwnProps } from "./components/LineChart";
 export { default as ProgressBar } from "./components/ProgressBar";
 export type { ProgressBarProps } from "./components/ProgressBar";
 export { default as RegionSearch } from "./components/RegionSearch";
-export { GridRows, GridColumns } from "./components/Grid";
 export * from "./components/MetricCatalogContext";
 export { default as Markdown } from "./components/Markdown";
 export * from "./components/Maps";
