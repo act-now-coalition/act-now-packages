@@ -7,7 +7,7 @@ export interface LabelIconProps extends TypographyProps {
   endIcon?: React.ReactNode;
 }
 
-const LabelIcon: React.FC<LabelIconProps> = ({
+export const LabelIcon: React.FC<LabelIconProps> = ({
   endIcon = <ArrowForwardIcon fontSize="small" color="inherit" />,
   children,
   variant = "labelLarge",
@@ -22,5 +22,3 @@ const LabelIcon: React.FC<LabelIconProps> = ({
     </Typography>
   );
 };
-
-export default LabelIcon;
