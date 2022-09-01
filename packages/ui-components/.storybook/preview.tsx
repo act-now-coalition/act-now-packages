@@ -10,9 +10,6 @@ import { theme } from "../src/styles";
  * if they use different contexts. I noticed that if the ThemeProvider is the
  * outer provider, the styles for variant="paragraphSmall" on Typography are
  * not correctly applied.
- *
- * I combined both providers into one decorator to make the nesting order more
- * explicit.
  */
 const appDecorator = (Story) => (
   <MetricCatalogProvider metricCatalog={metricCatalog}>
