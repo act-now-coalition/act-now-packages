@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-1.0.1.tgz#a4c629a16279085abf7958f4a735a0c3b9aee848"
   integrity sha512-i4k08njxovn3m1jy1mYvCJJv7fLvSpsVwaiocNGB+WC8x44TOxsQuX8iQM62IMKXtu+/5uBIEgn+3QcbT2QLuw==
 
-"@actnowcoalition/metrics@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.0.10.tgz#ff18d23b2f8bcd4ba7831f0a00ce819ca782f216"
-  integrity sha512-q0YynG1Fh7Vd0BGpUIPP1ZX1u/T1/dBqnon7Lwf1gSwL5hx/l3MpHf7Ewx0cDTItv9XicyLUKdvuLuQQ6/xEWA==
+"@actnowcoalition/metrics@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.0.12.tgz#4ccca294414a68b0cd23fad759455d70e9c5d200"
+  integrity sha512-cfZewthZXM69yW1mwtW+wYCnbRnhViHRv2E2URquwTjf587Esp74B+U4QI/50sn/GFTPeA5KLXYLQao5rgpgcg==
   dependencies:
     "@actnowcoalition/assert" "^1.0.0"
     "@actnowcoalition/number-format" "^1.1.1"

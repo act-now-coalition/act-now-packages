@@ -35,7 +35,7 @@ const testMetricDefs: MetricDefinition[] = [
   },
   {
     id: MetricId.PASS_FAIL,
-    name: "Passing or Fail",
+    name: "Pass or Fail",
     extendedName: "Passing or Failing grade on an arbitrary test",
     dataReference: {
       providerId: "static",
