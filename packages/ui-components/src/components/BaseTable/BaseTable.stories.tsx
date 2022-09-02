@@ -13,7 +13,14 @@ interface Row {
 }
 
 const Template: Story<BaseTableProps<Row>> = (args) => (
-  <div style={{ width: 400, height: 400, overflow: "auto" }}>
+  <div
+    style={{
+      width: 400,
+      height: 400,
+      overflow: "auto",
+      border: "solid 1px #0969da",
+    }}
+  >
     <BaseTable<Row> {...args} />
   </div>
 );
