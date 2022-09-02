@@ -1,4 +1,3 @@
-import isValidProp from "@emotion/is-prop-valid";
 import {
   Table as MuiTable,
   TableBody as MuiTableBody,
@@ -21,7 +20,7 @@ const cssStickyColumn = css`
   left: 0;
   position: sticky;
   z-index: 2;
-  background-color: #eee;
+  background-color: #fafafa;
 `;
 
 const cssStickyRow = css`
@@ -39,15 +38,14 @@ const cssStickyRowAndColumn = css`
   background-color: #eee;
 `;
 
-export const TableCell = styled(MuiTableCell, {
-  shouldForwardProp: isValidProp,
-})<{ stickyColumn?: boolean }>`
+export const TableCell = styled(MuiTableCell)<{ stickyColumn?: boolean }>`
   ${({ stickyColumn }) => (stickyColumn ? cssStickyColumn : null)}
 `;
 
-export const TableCellHead = styled(TableCell, {
-  shouldForwardProp: isValidProp,
-})<{ stickyRow?: boolean; stickyColumn?: boolean }>`
+export const TableCellHead = styled(TableCell)<{
+  stickyRow?: boolean;
+  stickyColumn?: boolean;
+}>`
   font-weight: ${({ theme }) => theme.typography.fontWeightBold};
   ${({ stickyRow }) => (stickyRow ? cssStickyRow : null)}
   ${({ stickyRow, stickyColumn }) =>

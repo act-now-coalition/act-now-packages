@@ -1,13 +1,6 @@
 import React from "react";
+import { Table, TableHead, TableBody, TableRow } from "@mui/material";
 import { TableProps as MuiTableProps } from "@mui/material";
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell,
-  TableCellHead,
-} from "./BaseTable.style";
 
 export interface BaseTableColumn<R> {
   name: string;
@@ -35,13 +28,7 @@ export const BaseTable = <R,>({ rows, columns }: BaseTableProps<R>) => {
       <TableHead>
         <TableRow>
           {columns.map((column, columnIndex) => (
-            <TableCellHead
-              key={`table-column-${columnIndex}`}
-              stickyRow={true}
-              stickyColumn={column.sticky}
-            >
-              {column.renderHeader({ column, columnIndex })}
-            </TableCellHead>
+            <>{column.renderHeader({ column, columnIndex })}</>
           ))}
         </TableRow>
       </TableHead>
@@ -49,12 +36,7 @@ export const BaseTable = <R,>({ rows, columns }: BaseTableProps<R>) => {
         {rows.map((row, rowIndex) => (
           <TableRow key={`table-row-${rowIndex}`}>
             {columns.map((column, columnIndex) => (
-              <TableCell
-                key={`table-cell-${rowIndex}-${columnIndex}`}
-                stickyColumn={column.sticky}
-              >
-                {column.renderCell({ row, rowIndex, columnIndex })}
-              </TableCell>
+              <>{column.renderCell({ row, rowIndex, columnIndex })}</>
             ))}
           </TableRow>
         ))}

@@ -2,6 +2,7 @@ import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { Region, states } from "@actnowcoalition/regions";
 import { BaseTable, BaseTableColumn, BaseTableProps } from ".";
+import { TableCellHead, TableCell } from "./BaseTable.style";
 
 export default {
   title: "Components/BaseTable",
@@ -31,15 +32,29 @@ const columnName: BaseTableColumn<Row> = {
   name: "Name",
   rows,
   sticky: true,
-  renderCell: ({ row }) => <>{row.region.fullName}</>,
-  renderHeader: ({ column }) => <>{column.name}</>,
+  renderHeader: ({ column }) => (
+    <TableCellHead stickyRow={true} stickyColumn={column.sticky}>
+      {column.name}
+    </TableCellHead>
+  ),
+  renderCell: ({ row }) => (
+    <TableCell stickyColumn={columnName.sticky}>
+      {row.region.fullName}
+    </TableCell>
+  ),
 };
 
 const columnPopulation: BaseTableColumn<Row> = {
   name: "Population",
   rows,
-  renderCell: ({ row }) => <>{row.region.population}</>,
-  renderHeader: ({ column }) => <>{column.name}</>,
+  renderHeader: ({ column }) => (
+    <TableCellHead align="right" stickyRow={true} stickyColumn={column.sticky}>
+      {column.name}
+    </TableCellHead>
+  ),
+  renderCell: ({ row }) => (
+    <TableCell align="right">{row.region.population}</TableCell>
+  ),
 };
 
 const columns: BaseTableColumn<Row>[] = [
