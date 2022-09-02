@@ -48,6 +48,7 @@ export const TableCell = styled(MuiTableCell, {
 export const TableCellHead = styled(TableCell, {
   shouldForwardProp: isValidProp,
 })<{ stickyRow?: boolean; stickyColumn?: boolean }>`
+  font-weight: ${({ theme }) => theme.typography.fontWeightBold};
   ${({ stickyRow }) => (stickyRow ? cssStickyRow : null)}
   ${({ stickyRow, stickyColumn }) =>
     stickyRow && stickyColumn ? cssStickyRowAndColumn : null}
