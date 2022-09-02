@@ -38,11 +38,20 @@ const cssStickyRowAndColumn = css`
   background-color: #eee;
 `;
 
-export const TableCell = styled(MuiTableCell)<{ stickyColumn?: boolean }>`
+const isStickyProp = (propName: string) =>
+  !["stickyRow", "stickyColumn"].includes(propName);
+
+export const TableCell = styled(MuiTableCell, {
+  shouldForwardProp: isStickyProp,
+})<{
+  stickyColumn?: boolean;
+}>`
   ${({ stickyColumn }) => (stickyColumn ? cssStickyColumn : null)}
 `;
 
-export const TableCellHead = styled(TableCell)<{
+export const TableCellHead = styled(TableCell, {
+  shouldForwardProp: isStickyProp,
+})<{
   stickyRow?: boolean;
   stickyColumn?: boolean;
 }>`

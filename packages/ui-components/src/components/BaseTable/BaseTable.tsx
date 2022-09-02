@@ -2,7 +2,7 @@ import React from "react";
 import { Table, TableHead, TableBody, TableRow } from "@mui/material";
 import { TableProps as MuiTableProps } from "@mui/material";
 
-export interface BaseTableColumn<R> {
+export interface ColumnDefinition<R> {
   name: string;
   rows: R[];
   sticky?: boolean;
@@ -12,14 +12,14 @@ export interface BaseTableColumn<R> {
     columnIndex: number;
   }>;
   renderHeader: React.FC<{
-    column: BaseTableColumn<R>;
+    column: ColumnDefinition<R>;
     columnIndex: number;
   }>;
 }
 
 export interface BaseTableProps<R> extends MuiTableProps {
   rows: R[];
-  columns: BaseTableColumn<R>[];
+  columns: ColumnDefinition<R>[];
 }
 
 export const BaseTable = <R,>({ rows, columns }: BaseTableProps<R>) => {

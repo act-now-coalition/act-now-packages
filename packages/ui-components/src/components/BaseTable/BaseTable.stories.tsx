@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { Region, states } from "@actnowcoalition/regions";
-import { BaseTable, BaseTableColumn, BaseTableProps } from ".";
+import { BaseTable, ColumnDefinition, BaseTableProps } from ".";
 import { TableCellHead, TableCell } from "./BaseTable.style";
 
 export default {
@@ -28,7 +28,7 @@ const Template: Story<BaseTableProps<Row>> = (args) => (
 
 const rows: Row[] = states.all.map((region: Region) => ({ region }));
 
-const columnName: BaseTableColumn<Row> = {
+const columnName: ColumnDefinition<Row> = {
   name: "Name",
   rows,
   sticky: true,
@@ -44,7 +44,7 @@ const columnName: BaseTableColumn<Row> = {
   ),
 };
 
-const columnPopulation: BaseTableColumn<Row> = {
+const columnPopulation: ColumnDefinition<Row> = {
   name: "Population",
   rows,
   renderHeader: ({ column }) => (
@@ -57,7 +57,7 @@ const columnPopulation: BaseTableColumn<Row> = {
   ),
 };
 
-const columns: BaseTableColumn<Row>[] = [
+const columns: ColumnDefinition<Row>[] = [
   columnName,
   columnPopulation,
   columnPopulation,
