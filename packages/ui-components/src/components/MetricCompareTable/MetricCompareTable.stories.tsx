@@ -12,10 +12,10 @@ export default {
 const Template: ComponentStory<typeof MetricCompareTable> = (args) => (
   <div
     style={{
-      width: 400,
+      width: 600,
       height: 600,
       overflow: "auto",
-      border: "solid 1px solid 1px #0969da",
+      border: "solid 1px #0969da",
     }}
   >
     <MetricCompareTable {...args} />
