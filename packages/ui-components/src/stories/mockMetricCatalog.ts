@@ -32,6 +32,10 @@ const testMetricDefs: MetricDefinition[] = [
     },
     thresholds: [10, 100],
     levelSetId: "cases_mock",
+    formatOptions: {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1,
+    },
   },
   {
     id: MetricId.PASS_FAIL,

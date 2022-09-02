@@ -67,7 +67,12 @@ function getMetricColumn(
       }
       return (
         <TableCell align="right">
-          <MetricValue variant="dataTabular" region={row} metric={metric} />
+          <MetricValue
+            variant="dataTabular"
+            region={row}
+            metric={metric}
+            justifyContent="space-between"
+          />
         </TableCell>
       );
     },
