@@ -42,11 +42,10 @@ export const AlignedRight = () => (
 );
 
 export const SpaceBetween = () => (
-  <div style={{ width: 300, border: "dashed 1px #eee" }}>
-    <MetricValue
-      region={washingtonState}
-      metric={MetricId.MOCK_CASES}
-      justifyContent="space-between"
-    />
-  </div>
+  <MetricValue
+    region={washingtonState}
+    metric={MetricId.MOCK_CASES}
+    justifyContent="space-between"
+    style={{ width: 300, border: "dashed 1px #eee" }}
+  />
 );
