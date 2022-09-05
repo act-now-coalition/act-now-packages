@@ -63,11 +63,20 @@ const components: ThemeOptions["components"] = {
       groupedVertical: {
         borderLeft: "none",
         borderRight: "none",
+        borderTop: "none",
+        borderBottom: "none",
+        color: typography.paragraphSmall.color,
+        textTransform: "none",
         ":first-of-type": {
           borderTop: "none",
         },
         ":last-of-type": {
           borderBottom: "none",
+        },
+        "&.Mui-selected": {
+          ...typography.labelSmall,
+          borderRight: `solid 2px ${palette.secondary.dark}`,
+          backgroundColor: "transparent",
         },
       },
     },
