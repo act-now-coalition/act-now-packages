@@ -40,7 +40,7 @@ export type MetricLegendThresholdProps =
   | MetricLegendThresholdHorizontalProps
   | MetricLegendThresholdVerticalProps;
 
-const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
+export const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(props.metric);
   const items = metric.levelSet?.levels;
@@ -69,5 +69,3 @@ const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
     </Stack>
   );
 };
-
-export default MetricLegendThreshold;

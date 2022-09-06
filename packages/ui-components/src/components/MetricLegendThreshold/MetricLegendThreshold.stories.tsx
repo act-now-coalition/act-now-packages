@@ -1,7 +1,8 @@
 import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import MetricLegendThreshold, {
+import {
+  MetricLegendThreshold,
   MetricLegendThresholdProps,
 } from "./MetricLegendThreshold";
 import { Story } from "@storybook/react";
