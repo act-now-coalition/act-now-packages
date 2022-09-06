@@ -1,12 +1,12 @@
 import React from "react";
-import LegendThresholdVertical from "../LegendThreshold/LegendThresholdVertical";
-import LegendThresholdHorizontal from "../LegendThreshold/LegendThresholdHorizontal";
+import { LegendThresholdVertical } from "../LegendThreshold/LegendThresholdVertical";
+import { LegendThresholdHorizontal } from "../LegendThreshold/LegendThresholdHorizontal";
 
 import { Metric } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { assert } from "@actnowcoalition/assert";
 
-function getItemColor(item: unknown, itemIndex: number) {
+function getItemColor(item: number, itemIndex: number) {
   console.log(item, itemIndex);
   return "#999";
 }
@@ -27,7 +27,7 @@ const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
   );
 
   return props.orientation === "horizontal" ? (
-    <LegendThresholdHorizontal<unknown>
+    <LegendThresholdHorizontal<number>
       {...props}
       {...{
         getItemColor: getItemColor,
@@ -36,7 +36,7 @@ const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
       }}
     />
   ) : (
-    <LegendThresholdVertical<unknown>
+    <LegendThresholdVertical<number>
       {...props}
       {...{ getItemColor: getItemColor, orientation: "vertical", items: items }}
     />

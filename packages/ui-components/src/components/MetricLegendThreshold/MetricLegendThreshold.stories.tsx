@@ -7,7 +7,7 @@ import MetricLegendThreshold, {
 import { Story } from "@storybook/react";
 
 export default {
-  title: "Components/MetricLegendCategorical",
+  title: "Components/MetricLegendThreshold",
   component: MetricLegendThreshold,
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
