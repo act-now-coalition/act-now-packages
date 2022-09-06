@@ -19,7 +19,10 @@ export type MetricLegendThresholdProps = {
   width?: number;
   borderRadius?: number;
   showLabels?: boolean;
-  otherSvgProps?: React.SVGProps<SVGSVGElement>;
+  otherSvgProps?: Omit<
+    React.SVGProps<SVGSVGElement>,
+    keyof MetricLegendThresholdProps
+  >;
 };
 
 const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
@@ -40,16 +43,17 @@ const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
       </Stack>
       <LegendThreshold<MetricLevel>
         orientation={props.orientation}
+        height={props.height}
         items={items}
         getItemColor={getItemColor}
         getItemLabel={getItemLabel}
         getItemSublabel={getItemSublabel}
-        height={props.height}
         barHeight={props.barHeight}
         barWidth={props.barWidth}
         width={props.width}
         borderRadius={props.borderRadius}
         showLabels={props.showLabels}
+        {...props.otherSvgProps}
       />
     </Stack>
   );
