@@ -1,6 +1,8 @@
 import React from "react";
-import { LegendThresholdVertical } from "../LegendThreshold/LegendThresholdVertical";
-import { LegendThresholdHorizontal } from "../LegendThreshold/LegendThresholdHorizontal";
+import {
+  LegendThresholdVertical,
+  LegendThresholdHorizontal,
+} from "../LegendThreshold/";
 
 import { Metric, MetricLevel } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
