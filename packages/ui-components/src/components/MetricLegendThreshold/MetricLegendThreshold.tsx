@@ -2,28 +2,43 @@ import React from "react";
 import { LegendThreshold } from "../LegendThreshold";
 import { Metric, MetricLevel } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
+import { LegendThresholdHorizontalProps } from "../LegendThreshold/LegendThresholdHorizontal";
+import { LegendThresholdVerticalProps } from "../LegendThreshold/LegendThresholdVertical";
 import { assert } from "@actnowcoalition/assert";
 import { Stack, Typography } from "@mui/material";
 
 const getItemColor = (item: MetricLevel) => item.color;
 const getItemLabel = (item: MetricLevel) => item.name ?? item.id;
-const getItemSublabel = (item: MetricLevel) => item.description ?? ""; // TODO: add sub-label/description to MetricLevel
+const getItemSublabel = (item: MetricLevel) => item.description ?? "";
 
-export type MetricLegendThresholdProps = {
+interface CommonMetricLegendThresholdProps {
   metric: Metric | string;
-  orientation: "vertical" | "horizontal";
+  startLabel?: string;
+  endLabel?: string;
   supportingText?: string;
-  height?: number;
-  barHeight?: number;
-  barWidth?: number;
-  width?: number;
-  borderRadius?: number;
-  showLabels?: boolean;
   otherSvgProps?: Omit<
     React.SVGProps<SVGSVGElement>,
-    keyof MetricLegendThresholdProps
+    keyof MetricLegendThresholdVerticalProps
   >;
-};
+}
+
+interface MetricLegendThresholdHorizontalProps
+  extends Omit<
+      LegendThresholdHorizontalProps<MetricLevel>,
+      "getItemColor" | "getItemLabel" | "items"
+    >,
+    CommonMetricLegendThresholdProps {}
+
+interface MetricLegendThresholdVerticalProps
+  extends Omit<
+      LegendThresholdVerticalProps<MetricLevel>,
+      "getItemColor" | "getItemLabel" | "getItemSublabel" | "items"
+    >,
+    CommonMetricLegendThresholdProps {}
+
+export type MetricLegendThresholdProps =
+  | MetricLegendThresholdHorizontalProps
+  | MetricLegendThresholdVerticalProps;
 
 const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
   const metricCatalog = useMetricCatalog();
@@ -35,26 +50,22 @@ const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
       `No thresholds found for metric ${metric.id}.`
   );
 
+  const derivedProps =
+    props.orientation === "horizontal"
+      ? { items, getItemColor, getItemLabel }
+      : { items, getItemColor, getItemLabel, getItemSublabel };
+
   return (
     <Stack spacing={props.orientation === "horizontal" ? 2 : 3}>
       <Stack spacing={0.5}>
         <Typography variant="labelLarge">{metric.name}</Typography>
         <Typography variant="paragraphSmall">{props.supportingText}</Typography>
       </Stack>
-      <LegendThreshold<MetricLevel>
-        orientation={props.orientation}
-        height={props.height}
-        items={items}
-        getItemColor={getItemColor}
-        getItemLabel={getItemLabel}
-        getItemSublabel={getItemSublabel}
-        barHeight={props.barHeight}
-        barWidth={props.barWidth}
-        width={props.width}
-        borderRadius={props.borderRadius}
-        showLabels={props.showLabels}
-        {...props.otherSvgProps}
-      />
+      <Stack direction="row" spacing={1}>
+        <Typography variant="paragraphSmall">{props.startLabel}</Typography>
+        <LegendThreshold<MetricLevel> {...props} {...derivedProps} />
+        <Typography variant="paragraphSmall">{props.endLabel}</Typography>
+      </Stack>
     </Stack>
   );
 };

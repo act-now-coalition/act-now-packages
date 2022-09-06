@@ -12,9 +12,7 @@ export default {
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
 const Template: Story<MetricLegendThresholdProps> = (args) => (
-  <div style={{ width: 200, border: "1px solid #ddd" }}>
-    <MetricLegendThreshold {...args} />
-  </div>
+  <MetricLegendThreshold {...args} />
 );
 
 // Horizontal legend threshold props
@@ -38,6 +36,15 @@ HorizontalWithoutLabels.args = {
   ...HorizontalDefault.args,
   height: horizontalBarHeight,
   showLabels: false,
+};
+
+export const HorizontalOnlySideLabels = Template.bind({});
+HorizontalOnlySideLabels.args = {
+  ...HorizontalDefault.args,
+  height: horizontalBarHeight,
+  showLabels: false,
+  startLabel: "lower",
+  endLabel: "higher",
 };
 
 export const HorizontalRounded = Template.bind({});
