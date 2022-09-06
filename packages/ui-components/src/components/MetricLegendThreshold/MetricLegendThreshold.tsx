@@ -1,5 +1,5 @@
 import React from "react";
-import LegendThreshold from "../LegendThreshold";
+import { LegendThreshold } from "../LegendThreshold";
 import { Metric, MetricLevel } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { assert } from "@actnowcoalition/assert";
