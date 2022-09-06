@@ -29,6 +29,7 @@ const Template: Story<BaseTableProps<Row>> = (args) => (
 const rows: Row[] = states.all.map((region: Region) => ({ region }));
 
 const columnName: ColumnDefinition<Row> = {
+  id: "name",
   name: "Name",
   rows,
   sticky: true,
@@ -45,6 +46,7 @@ const columnName: ColumnDefinition<Row> = {
 };
 
 const columnPopulation: ColumnDefinition<Row> = {
+  id: "population",
   name: "Population",
   rows,
   renderHeader: ({ column }) => (

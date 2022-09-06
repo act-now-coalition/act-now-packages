@@ -25,5 +25,12 @@ const Template: ComponentStory<typeof MetricCompareTable> = (args) => (
 export const Example = Template.bind({});
 Example.args = {
   regions: states.all,
-  metrics: [MetricId.MOCK_CASES, MetricId.PI],
+  metrics: [
+    MetricId.MOCK_CASES,
+    MetricId.PI,
+    MetricId.MOCK_CASES,
+    MetricId.MOCK_CASES,
+    MetricId.MOCK_CASES,
+    MetricId.MOCK_CASES,
+  ],
 };

@@ -1,145 +1,68 @@
 import React from "react";
-import { Typography, Stack, IconButton } from "@mui/material";
+import { Typography, Stack } from "@mui/material";
 import { Region } from "@actnowcoalition/regions";
-import { Metric, MetricCatalog } from "@actnowcoalition/metrics";
-import { useMetricCatalog } from "../MetricCatalogContext";
+import { Metric } from "@actnowcoalition/metrics";
 import { formatInteger } from "@actnowcoalition/number-format";
-import {
-  BaseTable,
-  ColumnDefinition,
-  TableCell,
-  TableCellHead,
-} from "../BaseTable";
-import { MetricValue } from "../MetricValue";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { useMetricCatalog } from "../MetricCatalogContext";
+import { BaseTable, ColumnDefinition } from "../BaseTable";
+import { ColumnHeader } from "./ColumnHeader";
+import { getMetricColumn } from "./utils";
+import { TableCell } from "./MetricCompareTable.style";
 
 export interface MetricCompareTableProps {
   regions: Region[];
   metrics: (Metric | string)[];
 }
 
+interface Row {
+  region: Region;
+  otherProps: { rank: number };
+}
+
 export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   regions,
   metrics: metricOrIds,
 }) => {
-  const metricCatalog = useMetricCatalog();
+  const rows: Row[] = regions.map((region, regionIndex) => ({
+    region,
+    otherProps: { rank: regionIndex + 1 },
+  }));
 
-  const metriColumns = metricOrIds.map((metricOrId) => {
+  const metricCatalog = useMetricCatalog();
+  const metricColumns = metricOrIds.map((metricOrId, metricIndex) => {
     const metric = metricCatalog.getMetric(metricOrId);
-    return getMetricColumn(metric, rows, metricCatalog);
+    return getMetricColumn(metric, metricIndex, rows, metricCatalog);
   });
 
-  const rows: Region[] = regions;
-  const columns: ColumnDefinition<Region>[] = [
+  const columns: ColumnDefinition<Row>[] = [
     {
+      id: "location",
       name: "Locations",
       rows,
       renderHeader: ({ column }) => (
-        <TableCellHead
+        <ColumnHeader
           stickyRow
           stickyColumn
-          style={{
-            fontWeight: "normal",
-            verticalAlign: "bottom",
-            backgroundColor: "#fff",
-          }}
-          sx={{ p: 0.5 }}
-        >
-          <Stack direction="column" justifyItems="flex-end">
-            <Typography variant="labelSmall" sx={{ ml: 0.5 }}>
-              {column.name}
-            </Typography>
-            <Typography variant="paragraphSmall" sx={{ ml: 0.5 }}>
-              Population
-            </Typography>
-            <SortControls />
-          </Stack>
-        </TableCellHead>
+          columnTitle={column.name}
+          supportingText="Population"
+          align="left"
+          style={{ minWidth: 170 }}
+        />
       ),
       renderCell: ({ row }) => (
-        <TableCell
-          stickyColumn
-          style={{ backgroundColor: "#fff" }}
-          sx={{ p: 0.5 }}
-        >
+        <TableCell stickyColumn style={{ backgroundColor: "#fff" }}>
           <Stack>
-            <Typography variant="labelSmall">{row.fullName}</Typography>
+            <Typography variant="labelSmall">{row.region.fullName}</Typography>
             <Typography variant="dataTabular">
-              {formatInteger(row.population)}
+              {formatInteger(row.region.population)}
             </Typography>
           </Stack>
         </TableCell>
       ),
       sticky: true,
     },
-    ...metriColumns,
-    ...metriColumns,
+    ...metricColumns,
   ];
 
-  return (
-    <BaseTable
-      rows={regions}
-      columns={columns}
-      size="small"
-      cellPadding="none"
-    />
-  );
-};
-
-function getMetricColumn(
-  metric: Metric,
-  rows: Region[],
-  metricCatalog: MetricCatalog
-): ColumnDefinition<Region> {
-  return {
-    name: metric.name,
-    rows,
-    renderHeader: ({ column }) => (
-      <TableCellHead
-        stickyRow
-        align="right"
-        style={{
-          minWidth: 110,
-          justifyContent: "bottom",
-          backgroundColor: "#fff",
-        }}
-        sx={{ p: 0.5 }}
-      >
-        <Stack direction="column">
-          <Typography variant="labelSmall">{column.name}</Typography>
-        </Stack>
-      </TableCellHead>
-    ),
-    renderCell: ({ row }) => {
-      const { data, error } = metricCatalog.useData(row, metric);
-
-      if (error || !data) {
-        return <TableCell />;
-      }
-      return (
-        <TableCell align="right" sx={{ p: 0.5 }}>
-          <MetricValue
-            variant="dataTabular"
-            region={row}
-            metric={metric}
-            justifyContent="space-between"
-          />
-        </TableCell>
-      );
-    },
-  };
-}
-
-const SortControls: React.FC = () => {
-  return (
-    <Stack direction="row" spacing={0}>
-      <IconButton size="small">
-        <KeyboardArrowDownIcon fontSize="small" />
-      </IconButton>
-      <IconButton size="small">
-        <KeyboardArrowUpIcon fontSize="small" />
-      </IconButton>
-    </Stack>
-  );
+  return <BaseTable rows={rows} columns={columns} />;
 };

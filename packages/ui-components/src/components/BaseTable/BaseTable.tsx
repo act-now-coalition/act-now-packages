@@ -3,6 +3,7 @@ import { Table, TableHead, TableBody, TableRow } from "@mui/material";
 import { TableProps as MuiTableProps } from "@mui/material";
 
 export interface ColumnDefinition<R> {
+  id: string;
   name: string;
   rows: R[];
   sticky?: boolean;
