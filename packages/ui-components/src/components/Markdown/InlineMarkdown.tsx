@@ -8,7 +8,7 @@ const customComponents = {
   p: (props: React.PropsWithChildren<unknown>) => <>{props.children}</>,
 };
 
-const InlineMarkdown: React.FC<ReactMarkdownOptions> = ({
+export const InlineMarkdown: React.FC<ReactMarkdownOptions> = ({
   children,
   className,
   ...otherProps
@@ -22,5 +22,3 @@ const InlineMarkdown: React.FC<ReactMarkdownOptions> = ({
     </MarkdownBody>
   </span>
 );
-
-export default InlineMarkdown;

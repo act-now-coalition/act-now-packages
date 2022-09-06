@@ -20,7 +20,7 @@ export interface LegendCategoricalProps<T> {
 /**
  * LegendCategorical represents a legend of items, each with a color block and a corresponding label.
  */
-const LegendCategorical = <T,>({
+export const LegendCategorical = <T,>({
   items,
   getItemColor,
   getItemLabel,
@@ -47,5 +47,3 @@ const LegendCategorical = <T,>({
     </Stack>
   );
 };
-
-export default LegendCategorical;

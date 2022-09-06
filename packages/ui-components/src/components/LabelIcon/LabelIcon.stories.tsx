@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
-import LabelIcon from ".";
+import { LabelIcon } from ".";
 
 export default {
   title: "Components/LabelIcon",

@@ -1,2 +1,1 @@
-export { default } from "./MetricValue";
-export type { MetricValueProps } from "./MetricValue";
+export * from "./MetricValue";

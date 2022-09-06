@@ -1,11 +1,11 @@
 import React from "react";
-import { Stack, Typography, TypographyProps } from "@mui/material";
+import { Stack, StackProps, Typography, TypographyProps } from "@mui/material";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import MetricDot from "../MetricDot";
+import { MetricDot } from "../MetricDot";
 
-export interface MetricValueProps {
+export interface MetricValueProps extends StackProps {
   /** Region for which we want to show the metric value */
   region: Region;
   /** Metric for which we want to show the metric value  */
@@ -17,16 +17,14 @@ export interface MetricValueProps {
   variant?: TypographyProps["variant"];
 }
 
-const MetricValue: React.FC<MetricValueProps> = ({
+export const MetricValue: React.FC<MetricValueProps> = ({
   region,
   metric: metricOrId,
   variant = "dataEmphasizedLarge",
+  ...stackProps
 }) => {
   const metricCatalog = useMetricCatalog();
-  const metric =
-    typeof metricOrId === "string"
-      ? metricCatalog.getMetric(metricOrId)
-      : metricOrId;
+  const metric = metricCatalog.getMetric(metricOrId);
 
   const { data, error } = metricCatalog.useData(region, metric);
 
@@ -35,7 +33,7 @@ const MetricValue: React.FC<MetricValueProps> = ({
   }
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
+    <Stack direction="row" spacing={1} alignItems="center" {...stackProps}>
       <MetricDot region={region} metric={metric} />
       <Typography variant={variant}>
         {metric.formatValue(data.currentValue, "---")}
@@ -43,5 +41,3 @@ const MetricValue: React.FC<MetricValueProps> = ({
     </Stack>
   );
 };
-
-export default MetricValue;
