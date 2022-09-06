@@ -59,10 +59,12 @@ describe("MetricCatalog", () => {
       new MockDataProvider(),
     ];
     const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders);
-    expect(metricCatalog.getMetric(MetricId.PI).name).toStrictEqual("Pi");
+    const piMetric = metricCatalog.getMetric(MetricId.PI);
+    expect(piMetric.name).toStrictEqual("Pi");
     expect(() => {
       metricCatalog.getMetric("nothing");
     }).toThrow(`No metric found with id nothing`);
+    expect(metricCatalog.getMetric(piMetric)).toBe(piMetric);
   });
 
   test("fetchData()", async () => {

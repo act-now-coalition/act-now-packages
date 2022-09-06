@@ -1,1 +1,1 @@
-export { default } from "./SparkLine";
+export * from "./SparkLine";

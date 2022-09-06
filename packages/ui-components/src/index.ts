@@ -73,28 +73,21 @@ declare module "@mui/material/styles" {
 }
 
 /** UI Components and props */
-export { default as BarChart } from "./components/BarChart";
-export type { BarChartProps, BarChartOwnProps } from "./components/BarChart";
-export { default as InfoTooltip } from "./components/InfoTooltip";
-export { default as LegendThreshold } from "./components/LegendThreshold";
-export type { LegendThresholdProps } from "./components/LegendThreshold";
-export { default as LegendCategorical } from "./components/LegendCategorical";
-export type { LegendCategoricalProps } from "./components/LegendCategorical";
-export { default as LineChart } from "./components/LineChart";
-export type { LineChartProps, LineChartOwnProps } from "./components/LineChart";
-export { default as ProgressBar } from "./components/ProgressBar";
-export type { ProgressBarProps } from "./components/ProgressBar";
-export { default as RegionSearch } from "./components/RegionSearch";
-export { AxisLeft, AxisBottom } from "./components/Axis";
-export type { AxisLeftProps, AxisBottomProps } from "./components/Axis";
-export { GridRows, GridColumns } from "./components/Grid";
-export * from "./components/MetricCatalogContext";
-export { default as Markdown } from "./components/Markdown";
+export * from "./components/Axis";
+export * from "./components/BarChart";
+export * from "./components/Grid";
+export * from "./components/InfoTooltip";
+export * from "./components/LabelIcon";
+export * from "./components/LegendCategorical";
+export * from "./components/LegendThreshold";
+export * from "./components/LineChart";
 export * from "./components/Maps";
-export { default as LabelIcon } from "./components/LabelIcon";
-export type { LabelIconProps } from "./components/LabelIcon";
-
-export { default as MetricDot } from "./components/MetricDot";
-export type { MetricDotProps } from "./components/MetricDot";
-
-export { default as SparkLine } from "./components/SparkLine";
+export * from "./components/SparkLine";
+export * from "./components/Markdown";
+export * from "./components/MetricCatalogContext";
+export * from "./components/MetricDot";
+export * from "./components/MetricLegendCategorical";
+export * from "./components/MetricOverview";
+export * from "./components/MetricValue";
+export * from "./components/ProgressBar";
+export * from "./components/RegionSearch";

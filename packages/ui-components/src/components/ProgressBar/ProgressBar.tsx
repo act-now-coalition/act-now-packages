@@ -32,7 +32,7 @@ export interface ProgressBarProps {
  * https://www.w3.org/WAI/ARIA/apg/patterns/meter/
  * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role
  */
-const ProgressBar = ({
+export const ProgressBar = ({
   width = 300,
   height = 16,
   borderRadius = 4,
@@ -83,5 +83,3 @@ const ProgressBar = ({
     </svg>
   );
 };
-
-export default ProgressBar;

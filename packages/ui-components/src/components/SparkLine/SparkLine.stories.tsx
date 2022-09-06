@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import SparkLine from ".";
+import { SparkLine } from ".";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
 import { appleStock } from "@visx/mock-data";

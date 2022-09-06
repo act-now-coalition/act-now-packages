@@ -1,7 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import Markdown from ".";
-import InlineMarkdown from ".";
+import { InlineMarkdown, Markdown } from ".";
 import { styled } from "../../styles";
 
 export default {

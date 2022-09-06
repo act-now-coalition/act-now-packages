@@ -17,16 +17,12 @@ export interface MetricDotProps {
  * for metrics that don't have levels or categories to keep spacing and
  * alignment consistent across metrics.
  */
-const MetricDot: React.FC<MetricDotProps> = ({
+export const MetricDot: React.FC<MetricDotProps> = ({
   region,
   metric: metricOrId,
 }) => {
   const metricCatalog = useMetricCatalog();
-  // TODO: Maybe add a method to the metricCatalog?
-  const metric =
-    typeof metricOrId === "string"
-      ? metricCatalog.getMetric(metricOrId)
-      : metricOrId;
+  const metric = metricCatalog.getMetric(metricOrId);
 
   if (!(metric.levelSet || metric.categories)) {
     return <PlaceholderDot />;
@@ -41,5 +37,3 @@ const MetricDot: React.FC<MetricDotProps> = ({
   const backgroundColor = metric.getColor(data.currentValue);
   return <Dot style={{ backgroundColor }} />;
 };
-
-export default MetricDot;

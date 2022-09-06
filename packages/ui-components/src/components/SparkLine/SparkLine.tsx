@@ -3,7 +3,7 @@ import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
 import { theme } from "../../styles";
-import LineChart from "../LineChart";
+import { LineChart } from "../LineChart";
 
 export interface SparkLineOwnProps {
   /** Timeseries used to draw the bar chart */
@@ -21,7 +21,7 @@ export interface SparkLineOwnProps {
 
 export type SparkLineProps = SparkLineOwnProps & React.SVGProps<SVGRectElement>;
 
-const SparkLine: React.FC<SparkLineProps> = ({
+export const SparkLine: React.FC<SparkLineProps> = ({
   timeseries,
   xScale,
   yScale,
@@ -55,5 +55,3 @@ const SparkLine: React.FC<SparkLineProps> = ({
     </Group>
   );
 };
-
-export default SparkLine;

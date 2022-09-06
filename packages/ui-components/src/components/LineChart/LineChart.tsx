@@ -53,7 +53,7 @@ export type LineChartProps = LineChartOwnProps &
  *
  * @returns SVG Path element
  */
-const LineChart: React.FC<LineChartProps> = ({
+export const LineChart: React.FC<LineChartProps> = ({
   timeseries,
   xScale,
   yScale,
@@ -78,5 +78,3 @@ const LineChart: React.FC<LineChartProps> = ({
     />
   );
 };
-
-export default LineChart;
