@@ -1,6 +1,6 @@
 import React from "react";
-import LegendThresholdVertical from "../LegendThreshold/LegendThresholdVertical";
-import LegendThresholdHorizontal from "../LegendThreshold/LegendThresholdHorizontal";
+import { LegendThresholdVertical } from "../LegendThreshold/LegendThresholdVertical";
+import { LegendThresholdHorizontal } from "../LegendThreshold/LegendThresholdHorizontal";
 
 import { Metric, MetricLevel } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -59,7 +59,7 @@ const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
     );
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={props.orientation === "horizontal" ? 2 : 3}>
       <Stack spacing={0.5}>
         <Typography variant="labelLarge">{metric.name}</Typography>
         <Typography variant="paragraphSmall">{props.supportingText}</Typography>
