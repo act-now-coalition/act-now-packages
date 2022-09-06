@@ -2,6 +2,8 @@ import React from "react";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
+import { theme } from "../../styles";
+import LineChart from "../LineChart";
 
 export interface SparkLineOwnProps {
   /** Timeseries used to draw the bar chart */
@@ -29,20 +31,27 @@ const SparkLine: React.FC<SparkLineProps> = ({
   const [yStart] = yScale.range();
   return (
     <Group>
-      {timeseries.points.map((p, i) => {
-        const rectY = yScale(p.value);
-        return (
-          <rect
-            key={`bar-${i}`}
-            x={xScale(p.date)}
-            y={Math.min(rectY, yStart)}
-            width={barWidth}
-            height={Math.abs(rectY - yStart)}
-            fill="#000"
-            {...rectProps}
-          />
-        );
-      })}
+      <Group>
+        {timeseries.points.map((p, i) => {
+          const rectY = yScale(p.value);
+          return (
+            <rect
+              key={`bar-${i}`}
+              x={xScale(p.date)}
+              y={Math.min(rectY, yStart)}
+              width={barWidth}
+              height={Math.abs(rectY - yStart)}
+              fill={theme.palette.border.default}
+              {...rectProps}
+            />
+          );
+        })}
+      </Group>
+      <LineChart
+        timeseries={timeseries}
+        xScale={xScale}
+        yScale={yScale}
+      ></LineChart>
     </Group>
   );
 };

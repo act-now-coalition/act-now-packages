@@ -6,19 +6,15 @@ import { Group } from "@visx/group";
 import { appleStock } from "@visx/mock-data";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import LineChart from "../LineChart";
 
 export default {
   title: "Charts/SparkLine",
   component: SparkLine,
 } as ComponentMeta<typeof SparkLine>;
 
-const [width, height] = [600, 400];
-const padding = 30;
-const barPadding = 3;
-const innerWidth = width - 2 * padding;
-const innerHeight = height - 2 * padding;
-const fill = "#2a9d8f";
+const [width, height] = [150, 50];
+const [innerWidth, innerHeight] = [145, 45];
+const padding = 2;
 
 // We format the points from appleStock to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.
@@ -37,11 +33,9 @@ assert(timeseries.hasData(), `Timeseries cannot be empty`);
 
 const { minDate, maxDate, minValue, maxValue } = timeseries;
 
-const numDays = 31;
-const dayWidth = Math.floor(innerWidth / numDays);
 const xScale = scaleUtc({
   domain: [minDate, maxDate],
-  range: [0, innerWidth - dayWidth],
+  range: [0, innerWidth],
 });
 
 const yScale = scaleLinear({
@@ -50,29 +44,13 @@ const yScale = scaleLinear({
 });
 
 const Template: ComponentStory<typeof SparkLine> = (args) => (
-  <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
-    <rect
-      y={padding}
-      x={padding}
-      width={innerWidth}
-      height={innerHeight}
-      fill="#eee"
-    />
-    <Group top={padding} left={padding + 0.5 * dayWidth}>
-      <Group left={-0.5 * dayWidth}>
-        <SparkLine
-          timeseries={args.timeseries}
-          xScale={args.xScale}
-          yScale={args.yScale}
-          fill={args.fill}
-          fillOpacity={0.3}
-          barWidth={args.barWidth}
-        />
-      </Group>
-      <LineChart
+  <svg width={width} height={height}>
+    <Group top={padding} left={padding}>
+      <SparkLine
         timeseries={args.timeseries}
         xScale={args.xScale}
         yScale={args.yScale}
+        barWidth={args.barWidth}
       />
     </Group>
   </svg>
@@ -83,6 +61,4 @@ Example.args = {
   timeseries,
   xScale,
   yScale,
-  fill,
-  barWidth: dayWidth - barPadding,
 };
