@@ -82,6 +82,7 @@ export * from "./components/LegendCategorical";
 export * from "./components/LegendThreshold";
 export * from "./components/LineChart";
 export * from "./components/Maps";
+export * from "./components/SparkLine";
 export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
 export * from "./components/MetricDot";
