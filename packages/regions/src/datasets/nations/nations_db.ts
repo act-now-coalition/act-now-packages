@@ -9,6 +9,7 @@ const nations = nationsJSON.map((country) => {
     /*shortName=*/ country.name,
     /*abbreviation=*/ country.iso3_code,
     /*slug=*/ Region.toSlug(country.name),
+    /*relativeUrl=*/ "",
     /*parent=*/ null,
     /*population=*/ country.population
   );

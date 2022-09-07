@@ -22,6 +22,9 @@ export interface MetricLevel {
   /** Optional user-facing name for this level that could show up in UI or tooltips. */
   name?: string;
 
+  /** Optional user-facing description for this level that could show up in UI or tooltips. */
+  description?: string;
+
   /** The color used to represent this level (e.g. on maps or charts). */
   color: string;
 }
