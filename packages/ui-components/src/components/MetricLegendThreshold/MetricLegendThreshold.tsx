@@ -12,29 +12,34 @@ const getItemLabel = (item: MetricLevel) => item.name ?? item.id;
 const getItemSublabel = (item: MetricLevel) => item.description ?? "";
 
 interface CommonMetricLegendThresholdProps {
+  /** Metric to display thresholds for. */
   metric: Metric | string;
+  /** Optional label for the left side of the thermometer. */
   startLabel?: string;
+  /** Optional label for the right side of the thermometer. */
   endLabel?: string;
+  /** Optional supporting text to give context for the thresholds. */
   supportingText?: string;
+  /** Optional other props. */
   otherSvgProps?: Omit<
     React.SVGProps<SVGSVGElement>,
     keyof MetricLegendThresholdVerticalProps
   >;
 }
 
-interface MetricLegendThresholdHorizontalProps
-  extends Omit<
+export interface MetricLegendThresholdHorizontalProps
+  extends CommonMetricLegendThresholdProps,
+    Omit<
       LegendThresholdHorizontalProps<MetricLevel>,
       "getItemColor" | "getItemLabel" | "items"
-    >,
-    CommonMetricLegendThresholdProps {}
+    > {}
 
-interface MetricLegendThresholdVerticalProps
-  extends Omit<
+export interface MetricLegendThresholdVerticalProps
+  extends CommonMetricLegendThresholdProps,
+    Omit<
       LegendThresholdVerticalProps<MetricLevel>,
       "getItemColor" | "getItemLabel" | "getItemSublabel" | "items"
-    >,
-    CommonMetricLegendThresholdProps {}
+    > {}
 
 export type MetricLegendThresholdProps =
   | MetricLegendThresholdHorizontalProps
@@ -47,21 +52,20 @@ export const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
   assert(
     items,
     "Metric must have thresholds to use MetricLegendThreshold." +
-      `No thresholds found for metric ${metric.id}.`
+      `No thresholds found for metric ${metric}.`
   );
-
-  const derivedProps =
-    props.orientation === "horizontal"
-      ? { items, getItemColor, getItemLabel }
-      : { items, getItemColor, getItemLabel, getItemSublabel };
+  const isHorizontal = props.orientation === "horizontal";
+  const derivedProps = isHorizontal
+    ? { items, getItemColor, getItemLabel }
+    : { items, getItemColor, getItemLabel, getItemSublabel };
 
   return (
-    <Stack spacing={props.orientation === "horizontal" ? 2 : 3}>
+    <Stack spacing={isHorizontal ? 2 : 3}>
       <Stack spacing={0.5}>
         <Typography variant="labelLarge">{metric.name}</Typography>
         <Typography variant="paragraphSmall">{props.supportingText}</Typography>
       </Stack>
-      <Stack direction="row" spacing={1}>
+      <Stack direction={isHorizontal ? "row" : "column"} spacing={1}>
         <Typography variant="paragraphSmall">{props.startLabel}</Typography>
         <LegendThreshold<MetricLevel> {...props} {...derivedProps} />
         <Typography variant="paragraphSmall">{props.endLabel}</Typography>
