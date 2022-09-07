@@ -1,7 +1,7 @@
 import React from "react";
 import { GeoPath } from "d3-geo";
 import Tooltip from "@mui/material/Tooltip";
-import { StateOverlay, StateShape } from "./USNationalMap.style";
+import { StateOverlay, StateShape } from "../Maps.style";
 import { statesGeographies } from "../../../common/geo-shapes";
 import { states } from "@actnowcoalition/regions";
 
