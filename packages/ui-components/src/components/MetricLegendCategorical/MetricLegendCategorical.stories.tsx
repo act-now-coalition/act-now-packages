@@ -7,7 +7,7 @@ import MetricLegendCategorical, {
 import { Story } from "@storybook/react";
 
 export default {
-  title: "Components/MetricLegendCategorical",
+  title: "Metrics/MetricLegendCategorical",
   component: MetricLegendCategorical,
 } as ComponentMeta<typeof MetricLegendCategorical>;
 
