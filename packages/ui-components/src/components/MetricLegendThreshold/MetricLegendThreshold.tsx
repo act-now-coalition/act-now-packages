@@ -71,15 +71,22 @@ export const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
     : { items, getItemColor, getItemLabel, getItemSublabel };
 
   return (
-    <Stack spacing={isHorizontal ? 2 : 3}>
+    <Stack
+      spacing={isHorizontal ? 2 : 3}
+      alignItems={isHorizontal ? "center" : "normal"}
+    >
       <Stack spacing={0.5}>
         <Typography variant="labelLarge">{metric.name}</Typography>
         <Typography variant="paragraphSmall">{props.supportingText}</Typography>
       </Stack>
       <Stack direction={isHorizontal ? "row" : "column"} spacing={1}>
-        <Typography variant="paragraphSmall">{props.startLabel}</Typography>
+        {props.startLabel && (
+          <Typography variant="paragraphSmall">{props.startLabel}</Typography>
+        )}
         <LegendThreshold<MetricLevel> {...props} {...derivedProps} />
-        <Typography variant="paragraphSmall">{props.endLabel}</Typography>
+        {props.endLabel && (
+          <Typography variant="paragraphSmall">{props.endLabel}</Typography>
+        )}
       </Stack>
     </Stack>
   );

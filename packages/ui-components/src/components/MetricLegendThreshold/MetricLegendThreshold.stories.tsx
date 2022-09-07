@@ -13,7 +13,9 @@ export default {
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
 const Template: Story<MetricLegendThresholdProps> = (args) => (
-  <MetricLegendThreshold {...args} />
+  <div style={{ width: 400, border: "1px solid #ddd" }}>
+    <MetricLegendThreshold {...args} />
+  </div>
 );
 
 // Horizontal legend threshold props
