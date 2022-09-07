@@ -12,7 +12,9 @@ export interface LegendThresholdVerticalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "vertical";
+  /** Width of the bars (12 by default) */
   barWidth?: number;
+  /** Secondary labels for each item */
   getItemSublabel?: (item: T, itemIndex: number) => string;
 }
 
@@ -23,7 +25,7 @@ export interface LegendThresholdVerticalProps<T>
 export const LegendThresholdVertical = <T,>({
   height = 265,
   barWidth = 12,
-  borderRadius = 0,
+  borderRadius = 6,
   showLabels = true,
   items,
   getItemColor,

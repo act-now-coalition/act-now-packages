@@ -26,7 +26,7 @@ export const LegendThresholdHorizontal = <T,>({
   height = 40,
   barHeight = 20,
   width = 300,
-  borderRadius = 0,
+  borderRadius = 10,
   items,
   getItemColor,
   getItemLabel,
