@@ -1,7 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { SparkLine } from ".";
-import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
 import { appleStock } from "@visx/mock-data";
 import { assert } from "@actnowcoalition/assert";
@@ -13,7 +12,6 @@ export default {
 } as ComponentMeta<typeof SparkLine>;
 
 const [width, height] = [150, 50];
-const [innerWidth, innerHeight] = [145, 45];
 const padding = 2;
 
 // We format the points from appleStock to match TimeseriesPoint<number>
@@ -31,25 +29,12 @@ const timeseries = new Timeseries(points).filterToDateRange({
 });
 assert(timeseries.hasData(), `Timeseries cannot be empty`);
 
-const { minDate, maxDate, minValue, maxValue } = timeseries;
-
-const xScale = scaleUtc({
-  domain: [minDate, maxDate],
-  range: [0, innerWidth],
-});
-
-const yScale = scaleLinear({
-  domain: [minValue, maxValue],
-  range: [innerHeight, 0],
-});
-
 const Template: ComponentStory<typeof SparkLine> = (args) => (
   <svg width={width} height={height}>
     <Group top={padding} left={padding}>
       <SparkLine
-        timeseries={args.timeseries}
-        xScale={args.xScale}
-        yScale={args.yScale}
+        timeseriesBarChart={args.timeseriesBarChart}
+        timeseriesLineChart={args.timeseriesLineChart}
         barWidth={args.barWidth}
       />
     </Group>
@@ -58,7 +43,6 @@ const Template: ComponentStory<typeof SparkLine> = (args) => (
 
 export const Example = Template.bind({});
 Example.args = {
-  timeseries,
-  xScale,
-  yScale,
+  timeseriesBarChart: timeseries,
+  timeseriesLineChart: timeseries,
 };

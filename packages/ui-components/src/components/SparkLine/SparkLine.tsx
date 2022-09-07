@@ -1,19 +1,20 @@
 import React from "react";
-import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
-import { theme } from "../../styles";
 import { LineChart } from "../LineChart";
+import { scaleUtc, scaleLinear } from "@visx/scale";
+import { useTheme } from "@mui/material";
 
 export interface SparkLineOwnProps {
   /** Timeseries used to draw the bar chart */
-  timeseries: Timeseries<number>;
+  timeseriesBarChart: Timeseries<number>;
 
-  /** d3-scale to transform point dates to pixel positions on the x-axis */
-  xScale: ScaleTime<number, number>;
+  /** Timeseries used to draw the line chart */
+  timeseriesLineChart: Timeseries<number>;
 
-  /** d3-scale to transform point values to pixel positions on the y-axis */
-  yScale: ScaleLinear<number, number>;
+  width?: number;
+
+  height?: number;
 
   /** Width of each bar, in pixels (2px by default) */
   barWidth?: number;
@@ -22,22 +23,50 @@ export interface SparkLineOwnProps {
 export type SparkLineProps = SparkLineOwnProps & React.SVGProps<SVGRectElement>;
 
 export const SparkLine: React.FC<SparkLineProps> = ({
-  timeseries,
-  xScale,
-  yScale,
+  timeseriesBarChart,
+  timeseriesLineChart,
+  width = 150,
+  height = 50,
   barWidth = 2,
   ...rectProps
 }) => {
-  const [yStart] = yScale.range();
+  const theme = useTheme();
+
+  const xScaleBar = scaleUtc({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    domain: [timeseriesBarChart.minDate!, timeseriesBarChart.maxDate!],
+    range: [0, width - 5],
+  });
+
+  const yScaleBar = scaleLinear({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    domain: [timeseriesBarChart.minValue!, timeseriesBarChart.maxValue!],
+    range: [height - 5, 0],
+  });
+
+  const [yStart] = yScaleBar.range();
+
+  const xScaleLine = scaleUtc({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    domain: [timeseriesLineChart.minDate!, timeseriesLineChart.maxDate!],
+    range: [0, width - 5],
+  });
+
+  const yScaleLine = scaleLinear({
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    domain: [timeseriesLineChart.minValue!, timeseriesLineChart.maxValue!],
+    range: [height - 5, 0],
+  });
+
   return (
     <Group>
       <Group>
-        {timeseries.points.map((p, i) => {
-          const rectY = yScale(p.value);
+        {timeseriesBarChart.points.map((p, i) => {
+          const rectY = yScaleBar(p.value);
           return (
             <rect
               key={`bar-${i}`}
-              x={xScale(p.date)}
+              x={xScaleBar(p.date)}
               y={Math.min(rectY, yStart)}
               width={barWidth}
               height={Math.abs(rectY - yStart)}
@@ -48,9 +77,9 @@ export const SparkLine: React.FC<SparkLineProps> = ({
         })}
       </Group>
       <LineChart
-        timeseries={timeseries}
-        xScale={xScale}
-        yScale={yScale}
+        timeseries={timeseriesLineChart}
+        xScale={xScaleLine}
+        yScale={yScaleLine}
       ></LineChart>
     </Group>
   );
