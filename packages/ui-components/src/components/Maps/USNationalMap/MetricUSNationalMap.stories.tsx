@@ -1,13 +1,14 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import MetricUSNationalMap from "./MetricUSNationalMap";
-import { MetricUSNationalMapProps } from "./MetricUSNationalMap";
+import MetricUSNationalMap, {
+  MetricUSNationalMapProps,
+} from "./MetricUSNationalMap";
 import { states } from "@actnowcoalition/regions";
 import { defaultWidth } from "../../../common/geo-shapes";
 import { MetricId } from "../../../stories/mockMetricCatalog";
 
 export default {
-  title: "Components/MetricUSNationalMap",
+  title: "Components/USNationalMap",
   component: MetricUSNationalMap,
 } as ComponentMeta<typeof MetricUSNationalMap>;
 
@@ -20,8 +21,8 @@ const renderSimpleTooltip = (regionId: string) => {
 };
 
 /** States colored by mock metric data */
-export const StatesColoredByMetric = Template.bind({});
-StatesColoredByMetric.args = {
+export const MetricAwareStates = Template.bind({});
+MetricAwareStates.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   width: defaultWidth,
   metric: MetricId.MOCK_CASES,
