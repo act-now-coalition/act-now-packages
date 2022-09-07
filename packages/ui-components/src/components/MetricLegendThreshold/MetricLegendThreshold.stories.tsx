@@ -82,6 +82,14 @@ VerticalNoLabel.args = {
   ...VerticalDefault.args,
 };
 
+export const VerticalOnlySideLabels = Template.bind({});
+VerticalOnlySideLabels.args = {
+  ...VerticalDefault.args,
+  showLabels: false,
+  startLabel: "lower",
+  endLabel: "higher",
+};
+
 export const VerticalSmall = Template.bind({});
 VerticalSmall.args = {
   height: 72,

@@ -2,8 +2,6 @@ import React from "react";
 import { LegendThreshold } from "../LegendThreshold";
 import { Metric, MetricLevel } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { LegendThresholdHorizontalProps } from "../LegendThreshold/LegendThresholdHorizontal";
-import { LegendThresholdVerticalProps } from "../LegendThreshold/LegendThresholdVertical";
 import { assert } from "@actnowcoalition/assert";
 import { Stack, Typography } from "@mui/material";
 
@@ -14,12 +12,18 @@ const getItemSublabel = (item: MetricLevel) => item.description ?? "";
 interface CommonMetricLegendThresholdProps {
   /** Metric to display thresholds for. */
   metric: Metric | string;
-  /** Optional label for the left side of the thermometer. */
+  /** Whether to show level labels. Does not affect start/endLabels */
+  showLabels?: boolean;
+  /** Optional label for the left or top side of the thermometer. */
   startLabel?: string;
-  /** Optional label for the right side of the thermometer. */
+  /** Optional label for the right or bottom side of the thermometer. */
   endLabel?: string;
-  /** Optional supporting text to give context for the thresholds. */
+  /** Optional supporting text to give context for the metric. */
   supportingText?: string;
+  /** Height of the component, including the colored bars and labels. */
+  height?: number;
+  /** Border radius of the bars */
+  borderRadius?: number;
   /** Optional other props. */
   otherSvgProps?: Omit<
     React.SVGProps<SVGSVGElement>,
@@ -28,18 +32,25 @@ interface CommonMetricLegendThresholdProps {
 }
 
 export interface MetricLegendThresholdHorizontalProps
-  extends CommonMetricLegendThresholdProps,
-    Omit<
-      LegendThresholdHorizontalProps<MetricLevel>,
-      "getItemColor" | "getItemLabel" | "items"
-    > {}
+  extends CommonMetricLegendThresholdProps {
+  /** Orientation of the bars. */
+  orientation: "horizontal";
+  /** Width of the component. */
+  width?: number;
+  /**
+   * Height of the bars. When not adding the bars, make sure that
+   * `barHeight` is set to the same value as `height`.
+   */
+  barHeight?: number;
+}
 
 export interface MetricLegendThresholdVerticalProps
-  extends CommonMetricLegendThresholdProps,
-    Omit<
-      LegendThresholdVerticalProps<MetricLevel>,
-      "getItemColor" | "getItemLabel" | "getItemSublabel" | "items"
-    > {}
+  extends CommonMetricLegendThresholdProps {
+  /** Orientation of the bars. */
+  orientation: "vertical";
+  /** Width of the bars. */
+  barWidth?: number;
+}
 
 export type MetricLegendThresholdProps =
   | MetricLegendThresholdHorizontalProps
