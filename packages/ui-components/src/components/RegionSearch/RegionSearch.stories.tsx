@@ -1,7 +1,9 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { states, counties, metros } from "@actnowcoalition/regions";
+import { TextField, InputAdornment } from "@mui/material";
+import MapIcon from "@mui/icons-material/Map";
 import sortBy from "lodash/sortBy";
+import { states, counties, metros } from "@actnowcoalition/regions";
 import { RegionSearch } from ".";
 
 export default {
@@ -13,21 +15,41 @@ const Template: ComponentStory<typeof RegionSearch> = (args) => (
   <RegionSearch {...args} />
 );
 
-const allRegions = [...states.all, ...counties.all, ...metros.all];
-
-export const AllRegions = Template.bind({});
-AllRegions.args = {
-  searchOptions: allRegions,
-};
-
 export const StatesOnly = Template.bind({});
 StatesOnly.args = {
-  searchOptions: states.all,
-  inputLabel: "State",
+  options: states.all,
+  inputLabel: "States",
+};
+
+export const CustomRenderInput = Template.bind({});
+CustomRenderInput.args = {
+  options: states.all,
+  inputLabel: "States",
+  renderInput: (params) => (
+    <TextField
+      {...params}
+      sx={{ backgroundColor: "#E3F2FD" }}
+      label="Custom renderInput"
+      InputProps={{
+        ...params.InputProps,
+        endAdornment: (
+          <InputAdornment position="end">
+            <MapIcon />
+          </InputAdornment>
+        ),
+      }}
+    />
+  ),
 };
 
 export const CountiesOnly = Template.bind({});
 CountiesOnly.args = {
-  searchOptions: sortBy(counties.all, (county) => county.population * -1),
-  inputLabel: "County",
+  options: sortBy(counties.all, (county) => county.population * -1),
+  inputLabel: "Counties",
+};
+
+const allRegions = [...states.all, ...counties.all, ...metros.all];
+export const AllRegions = Template.bind({});
+AllRegions.args = {
+  options: allRegions,
 };
