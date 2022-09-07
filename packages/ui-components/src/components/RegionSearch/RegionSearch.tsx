@@ -24,6 +24,7 @@ export type CustomAutocompleteProps = AutocompleteProps<
 >;
 
 export interface RegionSearchProps extends CustomAutocompleteProps {
+  /** Placeholder text to show in the inner text field  */
   inputLabel?: string;
 }
 
@@ -44,15 +45,13 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
     />
   );
 
-  const renderInput = customRenderInput ?? defaultRenderInput;
-
   return (
     <Container>
       <Autocomplete
         options={options}
         onChange={(e, item: Region | null) => onChange(item)}
         clearIcon={<></>}
-        renderInput={renderInput}
+        renderInput={customRenderInput ?? defaultRenderInput}
         getOptionLabel={stringifyOption}
         filterOptions={createFilterOptions({
           limit: 30,
