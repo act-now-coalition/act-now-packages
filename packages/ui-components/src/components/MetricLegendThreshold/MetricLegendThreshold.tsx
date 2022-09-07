@@ -73,12 +73,12 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   );
   if (legendThresholdProps.orientation === "horizontal") {
     return (
-      <Stack spacing={2} alignItems={"center"}>
+      <Stack spacing={2} alignItems="center">
         <Stack spacing={0.5}>
           <Typography variant="labelLarge">{metric.name}</Typography>
-          <Typography variant="paragraphSmall"> {supportingText}</Typography>
+          <Typography variant="paragraphSmall">{supportingText}</Typography>
         </Stack>
-        <Stack direction={"row"} spacing={1}>
+        <Stack direction="row" spacing={1} alignItems="center">
           {startLabel && startLabel}
           <LegendThreshold<MetricLevel>
             items={items}
@@ -97,7 +97,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
           <Typography variant="labelLarge">{metric.name}</Typography>
           <Typography variant="paragraphSmall">{supportingText}</Typography>
         </Stack>
-        <Stack direction={"column"} spacing={1}>
+        <Stack direction="column" spacing={1}>
           {startLabel && startLabel}
           <LegendThreshold<MetricLevel>
             items={items}
