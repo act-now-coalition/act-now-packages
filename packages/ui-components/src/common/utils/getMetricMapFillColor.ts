@@ -16,10 +16,7 @@ export default function getMetricMapFillColor(
 
   const region = usRegions.findByRegionIdStrict(regionId);
 
-  const metric =
-    typeof metricOrId === "string"
-      ? metricCatalog.getMetric(metricOrId)
-      : metricOrId;
+  const metric = metricCatalog.getMetric(metricOrId);
 
   const { data } = metricCatalog.useData(region, metric);
   const currentValue = data?.currentValue;
