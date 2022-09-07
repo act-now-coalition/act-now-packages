@@ -1,5 +1,5 @@
 import React from "react";
-import { MapContainer, PositionAbsolute } from "./USNationalMap.style";
+import { MapContainer, PositionAbsolute } from "../Maps.style";
 import {
   defaultHeight,
   defaultScale,

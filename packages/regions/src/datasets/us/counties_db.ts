@@ -12,7 +12,8 @@ const counties = countiesJSON.map((county) => {
     `${county.name}, ${state.abbreviation}`,
     countyAbbreviation,
     Region.toSlug(county.name),
-    state,
+    "", // relativeUrl
+    state, // parent
     county.population
   );
 });
