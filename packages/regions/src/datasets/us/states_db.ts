@@ -12,7 +12,8 @@ const states = statesJSON
       state.name,
       state.stateCode,
       `${slugName}-${slugStateCode}`,
-      null,
+      null, // relativeUrl
+      null, // parent
       state.population
     );
   })
