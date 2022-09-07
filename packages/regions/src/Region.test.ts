@@ -25,7 +25,7 @@ describe("Region serialization", () => {
     shortName: "Miami-Dade County, FL",
     abbreviation: "Miami-Dade Co.",
     slug: "miami-dade-county",
-    relativeUrl: null,
+    relativeUrl: "/us/miami-dade-county",
     parent: parentJSON,
     population: 2_716_940,
   };
@@ -35,7 +35,7 @@ describe("Region serialization", () => {
     "Miami-Dade County, FL",
     "Miami-Dade Co.",
     "miami-dade-county",
-    null,
+    "/us/miami-dade-county",
     Region.fromJSON(parentJSON),
     2_716_940
   );

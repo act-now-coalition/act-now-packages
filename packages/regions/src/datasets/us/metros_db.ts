@@ -14,7 +14,7 @@ const metros = metrosJson.map((metro) => {
     `${metro.name} metro`,
     `${metro.name} metro`,
     metroUrlFragment,
-    null, // relativeUrl
+    "", // relativeUrl
     null, // parent
     metro.population
   );

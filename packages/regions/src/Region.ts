@@ -8,7 +8,7 @@ export interface RegionJSON {
   shortName: string;
   abbreviation: string;
   slug: string;
-  relativeUrl: string | null;
+  relativeUrl: string;
   parent: RegionJSON | null;
   population: number;
 }
@@ -20,7 +20,7 @@ export class Region {
     public readonly shortName: string,
     public readonly abbreviation: string,
     public readonly slug: string,
-    public readonly relativeUrl: string | null,
+    public readonly relativeUrl: string,
     public readonly parent: Region | null,
     // TODO: transfrom population and potentially other attributes to Metric.
     // This will allow us to leverage on more advanced Metric functionality,
