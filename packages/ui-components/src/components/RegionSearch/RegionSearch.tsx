@@ -23,9 +23,12 @@ export type CustomAutocompleteProps = AutocompleteProps<
   "div" // ChipComponent
 >;
 
-export interface RegionSearchProps extends CustomAutocompleteProps {
+export interface RegionSearchProps
+  extends Omit<CustomAutocompleteProps, "renderInput"> {
   /** Placeholder text to show in the inner text field  */
   inputLabel?: string;
+  /** Optional renderInput function. See https://mui.com/material-ui/api/autocomplete/ */
+  renderInput?: CustomAutocompleteProps["renderInput"];
 }
 
 export const RegionSearch: React.FC<RegionSearchProps> = ({
@@ -34,7 +37,9 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
   renderInput: customRenderInput,
   ...otherAutocompleteProps
 }) => {
-  const defaultRenderInput: RegionSearchProps["renderInput"] = (params) => (
+  const defaultRenderInput: CustomAutocompleteProps["renderInput"] = (
+    params
+  ) => (
     <TextField
       {...params}
       label={inputLabel}
