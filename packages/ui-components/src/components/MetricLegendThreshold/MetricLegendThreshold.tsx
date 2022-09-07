@@ -15,9 +15,9 @@ interface CommonMetricLegendThresholdProps {
   /** Whether to show level labels. Does not affect start/endLabels */
   showLabels?: boolean;
   /** Optional label for the left or top side of the thermometer. */
-  startLabel?: string;
+  startLabel?: React.ReactNode;
   /** Optional label for the right or bottom side of the thermometer. */
-  endLabel?: string;
+  endLabel?: React.ReactNode;
   /** Optional supporting text to give context for the metric. */
   supportingText?: string;
   /** Height of the component, including the colored bars and labels. */
@@ -38,7 +38,7 @@ export interface MetricLegendThresholdHorizontalProps
   /** Width of the component. */
   width?: number;
   /**
-   * Height of the bars. When not adding the bars, make sure that
+   * Height of the bars. When not adding the labels, make sure that
    * `barHeight` is set to the same value as `height`.
    */
   barHeight?: number;
@@ -56,38 +56,59 @@ export type MetricLegendThresholdProps =
   | MetricLegendThresholdHorizontalProps
   | MetricLegendThresholdVerticalProps;
 
-export const MetricLegendThreshold = (props: MetricLegendThresholdProps) => {
+export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
+  metric,
+  supportingText,
+  startLabel,
+  endLabel,
+  ...legendThresholdProps
+}) => {
   const metricCatalog = useMetricCatalog();
-  const metric = metricCatalog.getMetric(props.metric);
+  metric = metricCatalog.getMetric(metric);
   const items = metric.levelSet?.levels;
   assert(
     items,
     "Metric must have thresholds to use MetricLegendThreshold." +
       `No thresholds found for metric ${metric}.`
   );
-  const isHorizontal = props.orientation === "horizontal";
-  const derivedProps = isHorizontal
-    ? { items, getItemColor, getItemLabel }
-    : { items, getItemColor, getItemLabel, getItemSublabel };
-
-  return (
-    <Stack
-      spacing={isHorizontal ? 2 : 3}
-      alignItems={isHorizontal ? "center" : "normal"}
-    >
-      <Stack spacing={0.5}>
-        <Typography variant="labelLarge">{metric.name}</Typography>
-        <Typography variant="paragraphSmall">{props.supportingText}</Typography>
+  if (legendThresholdProps.orientation === "horizontal") {
+    return (
+      <Stack spacing={2} alignItems={"center"}>
+        <Stack spacing={0.5}>
+          <Typography variant="labelLarge">{metric.name}</Typography>
+          <Typography variant="paragraphSmall"> {supportingText}</Typography>
+        </Stack>
+        <Stack direction={"row"} spacing={1}>
+          {startLabel && startLabel}
+          <LegendThreshold<MetricLevel>
+            items={items}
+            getItemColor={getItemColor}
+            getItemLabel={getItemLabel}
+            {...legendThresholdProps}
+          />
+          {endLabel && endLabel}
+        </Stack>
       </Stack>
-      <Stack direction={isHorizontal ? "row" : "column"} spacing={1}>
-        {props.startLabel && (
-          <Typography variant="paragraphSmall">{props.startLabel}</Typography>
-        )}
-        <LegendThreshold<MetricLevel> {...props} {...derivedProps} />
-        {props.endLabel && (
-          <Typography variant="paragraphSmall">{props.endLabel}</Typography>
-        )}
+    );
+  } else {
+    return (
+      <Stack spacing={3}>
+        <Stack spacing={0.5}>
+          <Typography variant="labelLarge">{metric.name}</Typography>
+          <Typography variant="paragraphSmall">{supportingText}</Typography>
+        </Stack>
+        <Stack direction={"column"} spacing={1}>
+          {startLabel && startLabel}
+          <LegendThreshold<MetricLevel>
+            items={items}
+            getItemColor={getItemColor}
+            getItemLabel={getItemLabel}
+            getItemSublabel={getItemSublabel}
+            {...legendThresholdProps}
+          />
+          {endLabel && endLabel}
+        </Stack>
       </Stack>
-    </Stack>
-  );
+    );
+  }
 };

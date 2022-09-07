@@ -7,7 +7,7 @@ import { MetricId, dataProviders } from "../../stories/mockMetricCatalog";
 import MetricAwareDemo from "./MetricAwareDemo";
 
 export default {
-  title: "Components/MetricCatalogContext",
+  title: "Metrics/MetricCatalogContext",
   component: MetricCatalogProvider,
 } as ComponentMeta<typeof MetricCatalogProvider>;
 

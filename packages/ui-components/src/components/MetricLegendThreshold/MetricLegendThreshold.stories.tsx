@@ -1,4 +1,5 @@
 import React from "react";
+import { Typography } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import {
@@ -8,12 +9,12 @@ import {
 import { Story } from "@storybook/react";
 
 export default {
-  title: "Components/MetricLegendThreshold",
+  title: "Metrics/MetricLegendThreshold",
   component: MetricLegendThreshold,
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
 const Template: Story<MetricLegendThresholdProps> = (args) => (
-  <div style={{ width: 400, border: "1px solid #ddd" }}>
+  <div style={{ width: 500, border: "1px solid #ddd" }}>
     <MetricLegendThreshold {...args} />
   </div>
 );
@@ -46,8 +47,8 @@ HorizontalOnlySideLabels.args = {
   ...HorizontalDefault.args,
   height: horizontalBarHeight,
   showLabels: false,
-  startLabel: "lower",
-  endLabel: "higher",
+  startLabel: <Typography>lower</Typography>,
+  endLabel: <Typography>higher</Typography>,
 };
 
 export const HorizontalRounded = Template.bind({});
@@ -88,8 +89,8 @@ export const VerticalOnlySideLabels = Template.bind({});
 VerticalOnlySideLabels.args = {
   ...VerticalDefault.args,
   showLabels: false,
-  startLabel: "lower",
-  endLabel: "higher",
+  startLabel: <Typography>lower</Typography>,
+  endLabel: <Typography>higher</Typography>,
 };
 
 export const VerticalSmall = Template.bind({});
