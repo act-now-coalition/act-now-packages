@@ -15,7 +15,7 @@ export interface MetricScoreOverviewProps {
   metric: Metric | string;
   /** Optional supporting text for the metric */
   supportingText?: string;
-  /** Optional text to fill tooltip. If undefined, info icon is not rendered. */
+  /** Optional text to fill tooltip. If undefined, info tooltip is not rendered. */
   tooltipText?: string;
 }
 
@@ -33,7 +33,7 @@ export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
       orientation="vertical"
       metric={metric}
       showLabels={false}
-      overview={false}
+      includeOverview={false}
       height={72}
       borderRadius={8}
       barWidth={12}
@@ -41,6 +41,7 @@ export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
   );
   const metricValue = <MetricValue region={region} metric={metric} />;
 
+  // Using color for 'contrast' text color style.
   const tooltipTypography = (
     <Typography variant="paragraphSmall" color="#F6F6F6">
       {tooltipText}
@@ -55,7 +56,7 @@ export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
   return (
     <Container>
       <Stack direction={"column"} spacing={2}>
-        <Stack direction={"row"} spacing={1}>
+        <Stack direction={"row"} spacing={1} alignItems={"center"}>
           {metricLegendThreshold}
           <Stack direction={"column"} spacing={1}>
             <Typography variant="paragraphSmall">

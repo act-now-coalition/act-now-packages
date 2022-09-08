@@ -19,7 +19,7 @@ interface CommonMetricLegendThresholdProps {
   /** Optional label for the right or bottom side of the thermometer. */
   endLabel?: React.ReactNode;
   /** Whether or not to display metric name and info. If false, only thermometer is displayed. */
-  overview?: boolean;
+  includeOverview?: boolean;
   /** Optional supporting text to give context for the metric. */
   supportingText?: string;
   /** Height of the component, including the colored bars and labels. */
@@ -63,7 +63,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   supportingText,
   startLabel,
   endLabel,
-  overview = true,
+  includeOverview = true,
   ...legendThresholdProps
 }) => {
   const metricCatalog = useMetricCatalog();
@@ -78,7 +78,8 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   const derivedProps = isHorizontal
     ? { items, getItemColor, getItemLabel }
     : { items, getItemColor, getItemLabel, getItemSublabel };
-  if (!overview) {
+
+  if (!includeOverview) {
     return <LegendThreshold {...derivedProps} {...legendThresholdProps} />;
   } else if (isHorizontal) {
     return (
@@ -90,9 +91,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
         <Stack direction="row" spacing={1} alignItems="center">
           {startLabel && startLabel}
           <LegendThreshold<MetricLevel>
-            items={items}
-            getItemColor={getItemColor}
-            getItemLabel={getItemLabel}
+            {...derivedProps}
             {...legendThresholdProps}
           />
           {endLabel && endLabel}
@@ -109,10 +108,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
         <Stack direction="column" spacing={1}>
           {startLabel && startLabel}
           <LegendThreshold<MetricLevel>
-            items={items}
-            getItemColor={getItemColor}
-            getItemLabel={getItemLabel}
-            getItemSublabel={getItemSublabel}
+            {...derivedProps}
             {...legendThresholdProps}
           />
           {endLabel && endLabel}

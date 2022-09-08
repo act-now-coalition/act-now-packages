@@ -5,7 +5,7 @@ import { states } from "@actnowcoalition/regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Components/MetricScoreOverview",
+  title: "Metrics/MetricScoreOverview",
   component: MetricScoreOverview,
 } as ComponentMeta<typeof MetricScoreOverview>;
 

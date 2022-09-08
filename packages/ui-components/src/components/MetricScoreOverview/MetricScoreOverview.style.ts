@@ -6,11 +6,11 @@ export const Container = styled("div")`
 `;
 
 export const StyledInfoIcon = styled(InfoOutlinedIcon)`
-  color: #4f4f4f;
+  color: #5f6c72;
   cursor: default;
   margin-left: 0.5rem;
-  height: 18px;
-  width: 18px;
+  height: 19px;
+  width: 19px;
 
   &:focus {
     outline: none;
