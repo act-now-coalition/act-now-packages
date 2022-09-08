@@ -92,3 +92,4 @@ export * from "./components/MetricValue";
 export * from "./components/ProgressBar";
 export * from "./components/RegionSearch";
 export * from "./components/MetricLegendThreshold";
+export * from "./components/MetricScoreOverview";
