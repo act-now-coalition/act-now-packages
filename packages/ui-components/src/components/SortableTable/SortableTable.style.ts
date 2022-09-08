@@ -42,6 +42,7 @@ export const TableCell = styled(MuiTableCell, {
 })<{ stickyRow?: boolean; stickyColumn?: boolean }>(
   ({ theme, stickyRow, stickyColumn }) => ({
     [`&.${tableCellClasses.head}`]: {
+      verticalAlign: "bottom",
       backgroundColor: theme.palette.common.white,
       fontWeight: theme.typography.fontWeightBold,
       ...getStickyRowProps(stickyRow),

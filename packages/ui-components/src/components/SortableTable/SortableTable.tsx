@@ -1,29 +1,36 @@
 import React, { Fragment } from "react";
 import { TableProps as MuiTableProps } from "@mui/material";
 import { Table, TableHead, TableBody, TableRow } from "./SortableTable.style";
+import { SortDirection } from "../SortControls";
 
 export interface ColumnDefinition<R> {
   id: string;
   rows: R[];
   renderHeader: React.FC<{ column: ColumnDefinition<R>; columnIndex: number }>;
   renderCell: React.FC<{ row: R; rowIndex: number; columnIndex: number }>;
+  compareFn?: (a: R, b: R) => number;
 }
 
-export interface SortableTableProps<R> {
+export interface SortableTableProps<R> extends MuiTableProps {
   rows: R[];
   columns: ColumnDefinition<R>[];
-}
-
-export interface BaseTableProps<R> extends MuiTableProps {
-  rows: R[];
-  columns: ColumnDefinition<R>[];
+  sortColumnId?: string;
+  sortDirection?: SortDirection;
 }
 
 export const SortableTable = <R,>({
   rows,
   columns,
+  sortColumnId,
+  sortDirection = SortDirection.DESC,
   ...muiTableProps
-}: BaseTableProps<R>) => {
+}: SortableTableProps<R>) => {
+  const sortColumn = columns.find((column) => column.id === sortColumnId);
+  const sortedRows =
+    sortColumn && sortColumn.compareFn
+      ? sortRows(rows, sortColumn.compareFn, sortDirection)
+      : rows;
+
   return (
     <Table {...muiTableProps}>
       <TableHead>
@@ -36,7 +43,7 @@ export const SortableTable = <R,>({
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map((row, rowIndex) => (
+        {sortedRows.map((row, rowIndex) => (
           <TableRow key={`table-row-${rowIndex}`}>
             {columns.map((column, columnIndex) => (
               <Fragment key={`cell-${rowIndex}-${columnIndex}`}>
@@ -49,3 +56,12 @@ export const SortableTable = <R,>({
     </Table>
   );
 };
+
+function sortRows<R>(
+  rows: R[],
+  compareFn: (a: R, b: R) => number,
+  sortDirection: SortDirection
+): R[] {
+  const sortedAsc = [...rows].sort(compareFn);
+  return sortDirection === SortDirection.ASC ? sortedAsc : sortedAsc.reverse();
+}
