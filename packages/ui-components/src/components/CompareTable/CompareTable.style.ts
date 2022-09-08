@@ -14,6 +14,7 @@ export const TableHead = styled(MuiTableHead)``;
 
 export const TableBody = styled(MuiTableBody)``;
 
+// Alternate white and light grey background for table rows
 export const TableRow = styled(MuiTableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.grey[50],
@@ -37,6 +38,10 @@ const getStickyRowAndColumnProps = (
 const shouldForwardTableCellProps = (name: string) =>
   !["stickyRow", "stickyColumn"].includes(name);
 
+/**
+ *
+ *  | C1 | C2 | C3 | C4
+ */
 export const TableCell = styled(MuiTableCell, {
   shouldForwardProp: shouldForwardTableCellProps,
 })<{ stickyRow?: boolean; stickyColumn?: boolean }>(

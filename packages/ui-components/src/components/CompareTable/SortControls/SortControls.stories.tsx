@@ -1,9 +1,9 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { SortControls, SortDirection } from ".";
+import { SortDirection, SortControls } from "..";
 
 export default {
-  title: "Components/SortControls",
+  title: "Table/SortControls",
   component: SortControls,
 } as ComponentMeta<typeof SortControls>;
 
@@ -13,18 +13,18 @@ const Template: ComponentStory<typeof SortControls> = (args) => (
 
 export const ActiveAsc = Template.bind({});
 ActiveAsc.args = {
-  direction: SortDirection.ASC,
+  sortDirection: SortDirection.ASC,
   active: true,
 };
 
 export const ActiveDesc = Template.bind({});
 ActiveDesc.args = {
-  direction: SortDirection.DESC,
+  sortDirection: SortDirection.DESC,
   active: true,
 };
 
 export const Inactive = Template.bind({});
 Inactive.args = {
-  direction: SortDirection.DESC,
+  sortDirection: SortDirection.DESC,
   active: false,
 };

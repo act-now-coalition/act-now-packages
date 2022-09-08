@@ -1,21 +1,17 @@
 import React from "react";
 import { ArrowUpIcon, ArrowDownIcon } from "./SortControls.style";
 import { IconButton, Stack } from "@mui/material";
-
-export enum SortDirection {
-  ASC = "ascending",
-  DESC = "descending",
-}
+import { SortDirection } from "..";
 
 export interface SortControlsProps {
   active: boolean;
-  direction: SortDirection;
+  sortDirection: SortDirection;
   onClick: (direction: SortDirection) => void;
 }
 
 export const SortControls: React.FC<SortControlsProps> = ({
-  direction,
   active,
+  sortDirection,
   onClick,
 }) => {
   return (
@@ -23,23 +19,23 @@ export const SortControls: React.FC<SortControlsProps> = ({
       <IconButton
         size="small"
         edge="start"
-        aria-label="sort descending"
+        aria-label="Sort descending"
         onClick={() => onClick(SortDirection.DESC)}
       >
         <ArrowDownIcon
           fontSize="small"
-          active={active && direction === SortDirection.DESC}
+          active={active && sortDirection === SortDirection.DESC}
         />
       </IconButton>
       <IconButton
         size="small"
         edge="end"
-        aria-label="sort ascending"
+        aria-label="Sort ascending"
         onClick={() => onClick(SortDirection.ASC)}
       >
         <ArrowUpIcon
           fontSize="small"
-          active={active && direction === SortDirection.ASC}
+          active={active && sortDirection === SortDirection.ASC}
         />
       </IconButton>
     </Stack>

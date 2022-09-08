@@ -75,6 +75,7 @@ declare module "@mui/material/styles" {
 /** UI Components and props */
 export * from "./components/Axis";
 export * from "./components/BarChart";
+export * from "./components/CompareTable";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
 export * from "./components/LabelIcon";
@@ -91,6 +92,4 @@ export * from "./components/MetricOverview";
 export * from "./components/MetricValue";
 export * from "./components/ProgressBar";
 export * from "./components/RegionSearch";
-export * from "./components/SortableTable";
-export * from "./components/SortControls";
 export * from "./components/SparkLine";

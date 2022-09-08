@@ -1,30 +1,20 @@
 import React, { Fragment } from "react";
-import { TableProps as MuiTableProps } from "@mui/material";
-import { Table, TableHead, TableBody, TableRow } from "./SortableTable.style";
-import { SortDirection } from "../SortControls";
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  SortDirection,
+  CompareTableProps,
+} from ".";
 
-export interface ColumnDefinition<R> {
-  id: string;
-  rows: R[];
-  renderHeader: React.FC<{ column: ColumnDefinition<R>; columnIndex: number }>;
-  renderCell: React.FC<{ row: R; rowIndex: number; columnIndex: number }>;
-  compareFn?: (a: R, b: R) => number;
-}
-
-export interface SortableTableProps<R> extends MuiTableProps {
-  rows: R[];
-  columns: ColumnDefinition<R>[];
-  sortColumnId?: string;
-  sortDirection?: SortDirection;
-}
-
-export const SortableTable = <R,>({
+export const CompareTable = <R,>({
   rows,
   columns,
   sortColumnId,
   sortDirection = SortDirection.DESC,
   ...muiTableProps
-}: SortableTableProps<R>) => {
+}: CompareTableProps<R>) => {
   const sortColumn = columns.find((column) => column.id === sortColumnId);
   const sortedRows =
     sortColumn && sortColumn.compareFn

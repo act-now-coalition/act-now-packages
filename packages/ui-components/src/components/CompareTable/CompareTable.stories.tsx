@@ -7,20 +7,21 @@ import { Metric } from "@actnowcoalition/metrics";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricValue } from "../MetricValue";
-import { SortDirection, SortControls } from "../SortControls";
 import {
+  SortDirection,
+  SortControls,
   TableCell,
-  SortableTable,
-  SortableTableProps,
+  CompareTable,
+  CompareTableProps,
   ColumnDefinition,
 } from ".";
 
 type TableCellProps = React.ComponentProps<typeof TableCell>;
 
 export default {
-  title: "Components/SortableTable",
-  component: SortableTable,
-} as ComponentMeta<typeof SortableTable>;
+  title: "Table/CompareTable",
+  component: CompareTable,
+} as ComponentMeta<typeof CompareTable>;
 
 interface RowItem {
   region: Region;
@@ -154,16 +155,16 @@ const ColumnHeader: React.FC<ColumnHeaderProps> = ({
       <Typography variant="labelSmall">{label}</Typography>
       <SortControls
         active={activeSort}
-        direction={direction}
+        sortDirection={direction}
         onClick={(sortDirection) => console.log(sortDirection)}
       />
     </Stack>
   </TableCell>
 );
 
-const Template: Story<SortableTableProps<RowItem>> = (args) => (
+const Template: Story<CompareTableProps<RowItem>> = (args) => (
   <Paper sx={{ width: 400, height: 600, overflow: "auto" }}>
-    <SortableTable {...args} />
+    <CompareTable {...args} />
   </Paper>
 );
 
