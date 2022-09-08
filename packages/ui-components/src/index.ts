@@ -93,3 +93,6 @@ export * from "./components/MetricValue";
 export * from "./components/ProgressBar";
 export * from "./components/RegionSearch";
 export * from "./components/SparkLine";
+
+export * from "./components/ColumnHeader";
+export * from "./components/MetricCell";
