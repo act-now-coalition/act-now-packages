@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@actnowcoalition/assert@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-1.0.0.tgz#060686d3f81aefc5e2f23709c51d0236389104eb"
-  integrity sha512-LVu0iIEnl2tfCFWuynm7pXX6jtLiiD3o3vV5mJSdnKONOsGAWs7CW15tMj30SUrLHLP3zhHFFpu9Y/hXL/Flig==
+"@actnowcoalition/assert@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-1.0.1.tgz#a4c629a16279085abf7958f4a735a0c3b9aee848"
+  integrity sha512-i4k08njxovn3m1jy1mYvCJJv7fLvSpsVwaiocNGB+WC8x44TOxsQuX8iQM62IMKXtu+/5uBIEgn+3QcbT2QLuw==
 
 "@types/lodash@^4.14.182":
   version "4.14.182"
