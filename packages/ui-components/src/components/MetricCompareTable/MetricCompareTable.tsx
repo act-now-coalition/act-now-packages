@@ -57,13 +57,17 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   const columns: ColumnDefinition<Row>[] = [
     {
       id: "location",
-      renderCell: ({ row }) => <TableCell>{row.region.fullName}</TableCell>,
+      renderCell: ({ row }) => (
+        <TableCell stickyColumn>{row.region.fullName}</TableCell>
+      ),
       renderHeader: ({ column }) => (
         <ColumnHeader
           label="Location"
           sortDirection={sortDirection}
           isSortActive={column.id === sortColumnId}
           onClickSort={(dir) => onClickSort(dir, column.id)}
+          stickyColumn
+          stickyRow
         />
       ),
       compareFn: (rowA, rowB) =>
