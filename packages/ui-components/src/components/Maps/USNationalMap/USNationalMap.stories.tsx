@@ -10,7 +10,7 @@ import { defaultWidth } from "../../../common/geo-shapes";
 const regions = new RegionDB([...states.all, ...counties.all]);
 
 export default {
-  title: "Components/USNationalMap",
+  title: "Components/Maps/US National",
   component: USNationalMap,
 } as ComponentMeta<typeof USNationalMap>;
 
@@ -23,15 +23,15 @@ const renderSimpleTooltip = (regionId: string) => {
 };
 
 /** States with no fill color */
-export const StatesWithNoFillColor = Template.bind({});
-StatesWithNoFillColor.args = {
+export const States = Template.bind({});
+States.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   width: defaultWidth,
 };
 
 /** Counties with no fill color */
-export const CountiesWithNoFillColor = Template.bind({});
-CountiesWithNoFillColor.args = {
+export const StatesWithCounties = Template.bind({});
+StatesWithCounties.args = {
   showCounties: true,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   width: defaultWidth,

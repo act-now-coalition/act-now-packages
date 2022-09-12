@@ -8,7 +8,7 @@ import { states, counties, RegionDB } from "@actnowcoalition/regions";
 const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
 
 export default {
-  title: "Components/USStateMap",
+  title: "Components/Maps/US State",
   component: MetricUSStateMap,
 } as ComponentMeta<typeof MetricUSStateMap>;
 

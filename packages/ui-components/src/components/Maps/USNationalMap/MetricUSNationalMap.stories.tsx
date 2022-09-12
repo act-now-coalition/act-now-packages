@@ -7,7 +7,7 @@ import { MetricId } from "../../../stories/mockMetricCatalog";
 import { MetricUSNationalMapProps } from "./interfaces";
 
 export default {
-  title: "Components/USNationalMap",
+  title: "Components/Maps/US National",
   component: MetricUSNationalMap,
 } as ComponentMeta<typeof MetricUSNationalMap>;
 

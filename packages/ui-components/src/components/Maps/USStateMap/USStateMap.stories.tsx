@@ -7,7 +7,7 @@ import { USStateMapProps } from "./interfaces";
 const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
 
 export default {
-  title: "Components/USStateMap",
+  title: "Components/Maps/US State",
   component: USStateMap,
 } as ComponentMeta<typeof USStateMap>;
 
