@@ -15,15 +15,9 @@ import {
   CountyOrCongressionalDistrictShape,
   RegionOverlay,
 } from "../Maps.style";
-import { RenderMapProps } from "../interfaces";
+import { USStateMapProps } from "./interfaces";
 
 const countiesAndStates = new RegionDB([...states.all, ...counties.all]);
-
-export interface USStateMapProps extends RenderMapProps {
-  stateRegionId: string;
-  showCounties?: boolean;
-  showBorderingStates?: boolean;
-}
 
 export const USStateMap: React.FC<USStateMapProps> = ({
   stateRegionId,

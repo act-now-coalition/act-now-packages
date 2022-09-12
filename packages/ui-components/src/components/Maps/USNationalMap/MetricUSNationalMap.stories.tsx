@@ -1,11 +1,10 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import MetricUSNationalMap, {
-  MetricUSNationalMapProps,
-} from "./MetricUSNationalMap";
+import MetricUSNationalMap from "./MetricUSNationalMap";
 import { states } from "@actnowcoalition/regions";
 import { defaultWidth } from "../../../common/geo-shapes";
 import { MetricId } from "../../../stories/mockMetricCatalog";
+import { MetricUSNationalMapProps } from "./interfaces";
 
 export default {
   title: "Components/USNationalMap",

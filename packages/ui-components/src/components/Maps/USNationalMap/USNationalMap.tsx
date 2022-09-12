@@ -9,11 +9,7 @@ import { getCountyGeoId } from "../../../common/geo-shapes";
 import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
-import { RenderMapProps } from "../interfaces";
-
-export interface USNationalMapProps extends RenderMapProps {
-  showCounties?: boolean;
-}
+import { USNationalMapProps } from "./interfaces";
 
 const USNationalMap: React.FC<USNationalMapProps> = ({
   width = defaultWidth,

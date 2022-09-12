@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import USNationalMap, { USNationalMapProps } from "./USNationalMap";
+import USNationalMap from "./USNationalMap";
+import { USNationalMapProps } from "./interfaces";
 import { states, counties, RegionDB } from "@actnowcoalition/regions";
 import { interpolatePiYG } from "d3-scale-chromatic";
 import { scaleOrdinal, scaleLinear } from "@visx/scale";
