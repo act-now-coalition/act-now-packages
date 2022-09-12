@@ -102,10 +102,6 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
       );
     }
     if (includeTimeseries) {
-      assert(
-        metricData.hasTimeseries(),
-        "includeTimeseries set to true but cached data has no timeseries."
-      );
       return metricData;
     } else {
       return metricData.dropTimeseries();
