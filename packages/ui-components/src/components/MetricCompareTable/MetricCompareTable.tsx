@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import isNumber from "lodash/isNumber";
 import { Region } from "@actnowcoalition/regions";
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import { MetricValue } from "../MetricValue";
@@ -79,14 +80,10 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   ];
 
   const sortColumn = columns.find((col) => col.id === sortColumnId);
-  const sortedRowsAsc =
-    sortColumn && sortColumn.compareFn
-      ? sortBy<Row>(rows, sortColumn.compareFn)
-      : rows;
   const sortedRows =
-    sortDirection === SortDirection.ASC
-      ? sortedRowsAsc
-      : sortedRowsAsc.reverse();
+    sortColumn && sortColumn.compareFn
+      ? sortBy<Row>(rows, sortColumn.compareFn, sortDirection)
+      : rows;
 
   return <CompareTable rows={sortedRows} columns={columns} />;
 };
@@ -118,11 +115,29 @@ function createMetricColumn(
       />
     ),
     compareFn: (rowA, rowB) => {
-      return rowA.region.population - rowB.region.population;
+      const { currentValue: valueA } =
+        rowA.multiMetricsDataStore.metricData(metric);
+      const { currentValue: valueB } =
+        rowB.multiMetricsDataStore.metricData(metric);
+
+      if (isNumber(valueA) && isNumber(valueB)) {
+        return valueA - valueB;
+      }
+
+      if (!isNumber(valueA) && !isNumber(valueB)) {
+        return 0;
+      } else {
+        return isNumber(valueA) ? -1 : 1;
+      }
     },
   };
 }
 
-function sortBy<T>(items: T[], sorter: (a: T, b: T) => number): T[] {
-  return items.sort(sorter);
+function sortBy<T>(
+  items: T[],
+  sortAsc: (a: T, b: T) => number,
+  direction: SortDirection
+): T[] {
+  const sortedAsc = [...items].sort(sortAsc);
+  return direction === SortDirection.ASC ? sortedAsc : sortedAsc.reverse();
 }
