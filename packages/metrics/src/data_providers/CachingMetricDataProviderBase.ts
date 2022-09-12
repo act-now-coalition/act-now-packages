@@ -28,7 +28,7 @@ export abstract class CachingMetricDataProviderBase
    *
    * @param regions The set of regions to populate the cache with.
    * @param metrics The set of metrics to populate the cache with.
-   * @param includeTimeseries Whether to include timeseries data.
+   * @param includeTimeseries Whether to include timeseries data if it exists.
    */
   abstract populateCache(
     regions: Region[],
