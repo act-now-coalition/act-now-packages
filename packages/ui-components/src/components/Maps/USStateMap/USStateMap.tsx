@@ -11,7 +11,7 @@ import {
 import { belongsToState } from "../../../common/utils/maps";
 import {
   MapContainer,
-  StateGrey,
+  BorderingRegion,
   HighlightableShape,
   RegionOverlay,
 } from "../Maps.style";
@@ -85,7 +85,7 @@ export const USStateMap: React.FC<USStateMapProps> = ({
               <Tooltip title={renderTooltip(state.regionId)} key={geo.id}>
                 <g>
                   <a href={state.relativeUrl}>
-                    <StateGrey d={geoPath(geo) ?? ""} />
+                    <BorderingRegion d={geoPath(geo) ?? ""} />
                   </a>
                 </g>
               </Tooltip>

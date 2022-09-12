@@ -1,7 +1,7 @@
 import React from "react";
 import { GeoPath } from "d3-geo";
 import Tooltip from "@mui/material/Tooltip";
-import { RegionOverlay, StateShape } from "../Maps.style";
+import { RegionOverlay, RegionShapeBase } from "../Maps.style";
 import { statesGeographies } from "../../../common/geo-shapes";
 import { states } from "@actnowcoalition/regions";
 
@@ -30,7 +30,7 @@ const StatesMap: React.FC<{
             <g>
               <a href={state.relativeUrl}>
                 {!showCounties && (
-                  <StateShape
+                  <RegionShapeBase
                     d={geoPath(geo) ?? ""}
                     fill={getFillColor(stateFips)}
                   />

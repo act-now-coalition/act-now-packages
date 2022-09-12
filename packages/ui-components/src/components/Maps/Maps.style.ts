@@ -1,11 +1,9 @@
 import { styled } from "../../styles";
 
-/** CanvasMap */
 export const StyledCanvas = styled("canvas")`
   pointer-events: none;
 `;
 
-/** USNationalMap */
 export const MapContainer = styled("div")`
   position: relative;
   display: flex;
@@ -27,13 +25,7 @@ export const RegionOverlay = styled("path")`
   }
 `;
 
-export const StateShape = styled("path")`
-  stroke: ${(props) => props.theme.palette.common.white};
-  stroke-width: 1;
-`;
-
-/** USStateMap */
-export const StateGrey = styled("path")`
+export const BorderingRegion = styled("path")`
   fill: ${(props) => props.theme.palette.grey[300]};
   stroke: ${(props) => props.theme.palette.common.white};
   stroke-width: 1;
@@ -43,9 +35,9 @@ export const StateGrey = styled("path")`
   }
 `;
 
-export const StateBorder = styled("path")`
+export const RegionShapeBase = styled("path")`
   stroke: ${(props) => props.theme.palette.common.white};
-  fill: none;
+  stroke-width: 1;
 `;
 
 export const HighlightableShape = styled("path")<{
