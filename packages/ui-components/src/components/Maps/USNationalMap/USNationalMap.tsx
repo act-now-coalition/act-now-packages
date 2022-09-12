@@ -9,11 +9,9 @@ import { getCountyGeoId } from "../../../common/geo-shapes";
 import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
+import { RenderMapProps } from "../interfaces";
 
-export interface USNationalMapProps {
-  width: number;
-  renderTooltip: (regionId: string) => React.ReactElement | string;
-  getFillColor?: (regionId: string) => string;
+export interface USNationalMapProps extends RenderMapProps {
   showCounties?: boolean;
 }
 

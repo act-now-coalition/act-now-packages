@@ -1,7 +1,7 @@
 import React from "react";
 import { GeoPath } from "d3-geo";
 import Tooltip from "@mui/material/Tooltip";
-import { StateOverlay, StateShape } from "../Maps.style";
+import { RegionOverlay, StateShape } from "../Maps.style";
 import { statesGeographies } from "../../../common/geo-shapes";
 import { states } from "@actnowcoalition/regions";
 
@@ -35,7 +35,7 @@ const StatesMap: React.FC<{
                     fill={getFillColor(stateFips)}
                   />
                 )}
-                <StateOverlay d={geoPath(geo) ?? ""} />
+                <RegionOverlay d={geoPath(geo) ?? ""} />
               </a>
             </g>
           </Tooltip>

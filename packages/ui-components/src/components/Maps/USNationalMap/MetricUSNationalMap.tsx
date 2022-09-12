@@ -3,7 +3,7 @@ import { useMetricCatalog } from "../../MetricCatalogContext";
 import USNationalMap from "./USNationalMap";
 import { defaultWidth } from "../../../common/geo-shapes";
 import { Metric } from "@actnowcoalition/metrics";
-import { getMetricMapFillColor } from "../../../common/utils";
+import { getMetricMapFillColor } from "../../../common/utils/maps";
 
 export interface MetricUSNationalMapProps {
   width: number;

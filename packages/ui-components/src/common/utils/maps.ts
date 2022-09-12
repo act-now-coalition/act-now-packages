@@ -3,7 +3,7 @@
 import { Metric, MetricCatalog } from "@actnowcoalition/metrics";
 import { RegionDB, states, counties, metros } from "@actnowcoalition/regions";
 
-export default function getMetricMapFillColor(
+export function getMetricMapFillColor(
   metricCatalog: MetricCatalog,
   metricOrId: Metric | string,
   regionId: string
@@ -22,4 +22,13 @@ export default function getMetricMapFillColor(
   const currentValue = data?.currentValue;
 
   return currentValue ? metric.getColor(currentValue) : "white";
+}
+
+/** Checks if a county or congressional district belongs to a given state */
+
+export function belongsToState(
+  countyOrCongressionalDistrictFips: string,
+  stateFips: string
+) {
+  return countyOrCongressionalDistrictFips.substring(0, 2) === stateFips;
 }
