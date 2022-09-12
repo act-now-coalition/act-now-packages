@@ -56,6 +56,15 @@ describe("CsvDataProvider", () => {
     expect(metricDataTs.timeseries.lastValue).toBe(150);
   });
 
+  test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
+    const metricData = await testFetchingCsvData(
+      mockCsv,
+      /*includeTimeseries=*/ true
+    );
+    expect(metricData.currentValue).toBe(150);
+    expect(metricData.hasTimeseries()).toBe(false);
+  });
+
   test("populateCache() fails if csv does not have at least one row.", async () => {
     const provider = new CsvDataProvider("csv-provider", {
       regionColumn: "region",
