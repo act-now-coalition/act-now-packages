@@ -1,4 +1,4 @@
-import { RenderMapProps } from "../interfaces";
+import { RenderMapProps } from "../RenderMapProps";
 import { Metric } from "@actnowcoalition/metrics";
 
 export interface USStateMapProps extends RenderMapProps {
