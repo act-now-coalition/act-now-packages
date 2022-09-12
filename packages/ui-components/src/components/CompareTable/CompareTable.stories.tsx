@@ -17,12 +17,13 @@ export default {
 } as ComponentMeta<typeof CompareTable>;
 
 interface RowItem {
+  rowId: string;
   region: Region;
 }
 
 const rows: RowItem[] = states.all
   .sort((a, b) => (a.population > b.population ? -1 : 1))
-  .map((region) => ({ region }));
+  .map((region) => ({ region, rowId: region.regionId }));
 
 const StatefulCompareTable: React.FC<{
   rows: RowItem[];
