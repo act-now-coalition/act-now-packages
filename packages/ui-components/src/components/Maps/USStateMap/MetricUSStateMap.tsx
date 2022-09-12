@@ -4,7 +4,7 @@ import { USStateMap } from "./USStateMap";
 import { getMetricMapFillColor } from "../../../common/utils/maps";
 import { MetricUSStateMapProps } from "./interfaces";
 
-const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
+export const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
   metric,
   ...otherProps
 }) => {
@@ -23,5 +23,3 @@ const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
     />
   );
 };
-
-export default MetricUSStateMap;

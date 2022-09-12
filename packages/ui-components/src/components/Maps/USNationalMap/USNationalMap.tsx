@@ -11,7 +11,7 @@ import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
 import { USNationalMapProps } from "./interfaces";
 
-const USNationalMap: React.FC<USNationalMapProps> = ({
+export const USNationalMap: React.FC<USNationalMapProps> = ({
   width = defaultWidth,
   renderTooltip,
   getFillColor = () => "lightGray",
@@ -56,5 +56,3 @@ const USNationalMap: React.FC<USNationalMapProps> = ({
     </MapContainer>
   );
 };
-
-export default USNationalMap;

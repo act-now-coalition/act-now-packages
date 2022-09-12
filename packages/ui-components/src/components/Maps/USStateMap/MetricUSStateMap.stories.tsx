@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import MetricUSStateMap from "./MetricUSStateMap";
+import { MetricUSStateMap } from "./MetricUSStateMap";
 import { MetricId } from "../../../stories/mockMetricCatalog";
 import { MetricUSStateMapProps } from "./interfaces";
 import { states, counties, RegionDB } from "@actnowcoalition/regions";

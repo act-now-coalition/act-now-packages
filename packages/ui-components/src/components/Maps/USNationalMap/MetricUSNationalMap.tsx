@@ -1,10 +1,10 @@
 import React from "react";
 import { useMetricCatalog } from "../../MetricCatalogContext";
-import USNationalMap from "./USNationalMap";
+import { USNationalMap } from "./USNationalMap";
 import { getMetricMapFillColor } from "../../../common/utils/maps";
 import { MetricUSNationalMapProps } from "./interfaces";
 
-const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
+export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
   metric,
   ...otherProps
 }) => {
@@ -23,5 +23,3 @@ const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
     />
   );
 };
-
-export default MetricUSNationalMap;
