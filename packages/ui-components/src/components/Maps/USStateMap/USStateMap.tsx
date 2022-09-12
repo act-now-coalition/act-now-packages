@@ -12,7 +12,7 @@ import { belongsToState } from "../../../common/utils/maps";
 import {
   MapContainer,
   StateGrey,
-  CountyOrCongressionalDistrictShape,
+  HighlightableShape,
   RegionOverlay,
 } from "../Maps.style";
 import { USStateMapProps } from "./interfaces";
@@ -22,7 +22,7 @@ const countiesAndStates = new RegionDB([...states.all, ...counties.all]);
 export const USStateMap: React.FC<USStateMapProps> = ({
   stateRegionId,
   renderTooltip,
-  getFillColor = () => "white",
+  getFillColor = () => "lightGray",
   width = defaultWidth,
   showCounties = true,
   showBorderingStates = true,
@@ -67,7 +67,7 @@ export const USStateMap: React.FC<USStateMapProps> = ({
         {/* Style-able region shapes (ie. colorable by metric) */}
         {regionGeoToShow.map((geo) => {
           return (
-            <CountyOrCongressionalDistrictShape
+            <HighlightableShape
               key={geo.id}
               d={geoPath(geo) ?? ""}
               fill={getFillColor(`${geo.id}`)}

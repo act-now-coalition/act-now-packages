@@ -14,7 +14,7 @@ import { USNationalMapProps } from "./interfaces";
 const USNationalMap: React.FC<USNationalMapProps> = ({
   width = defaultWidth,
   renderTooltip,
-  getFillColor = () => "white",
+  getFillColor = () => "lightGray",
   showCounties = false,
 }) => {
   const height = defaultHeight * (width / defaultWidth);

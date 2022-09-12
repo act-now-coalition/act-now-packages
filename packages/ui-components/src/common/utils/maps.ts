@@ -21,7 +21,7 @@ export function getMetricMapFillColor(
   const { data } = metricCatalog.useData(region, metric);
   const currentValue = data?.currentValue;
 
-  return currentValue ? metric.getColor(currentValue) : "white";
+  return currentValue ? metric.getColor(currentValue) : "lightGray";
 }
 
 /** Checks if a county or congressional district belongs to a given state */

@@ -3,7 +3,7 @@ import { ExtendedFeature, GeoProjection, geoPath as d3GeoPath } from "d3-geo";
 import { StyledCanvas } from "../Maps.style";
 import { stateBorders } from "../../../common/geo-shapes";
 
-const borderColor = "black";
+const borderColor = "white";
 
 const CanvasMap: React.FC<{
   width: number;
@@ -24,7 +24,7 @@ const CanvasMap: React.FC<{
         // Feature shapes and borders
         features.forEach((geo) => {
           ctx.strokeStyle = borderColor;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 1;
           ctx.fillStyle = getFillColor(getGeoId(geo));
           ctx.beginPath();
           path(geo);
