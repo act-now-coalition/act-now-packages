@@ -17,6 +17,7 @@ export interface MetricCompareTableProps {
 }
 
 interface Row {
+  rowId: string;
   region: Region;
   multiMetricsDataStore: MultiMetricDataStore;
 }
@@ -47,9 +48,10 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
     return null;
   }
 
-  const rows: Row[] = data.all.map((multiMetricsDataStore) => ({
-    region: multiMetricsDataStore.region,
-    multiMetricsDataStore,
+  const rows: Row[] = data.all.map((multiMetricDataStore) => ({
+    rowId: multiMetricDataStore.region.regionId,
+    region: multiMetricDataStore.region,
+    multiMetricsDataStore: multiMetricDataStore,
   }));
 
   const columns: ColumnDefinition<Row>[] = [
