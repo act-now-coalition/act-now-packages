@@ -56,16 +56,13 @@ describe("CsvDataProvider", () => {
     expect(metricDataTs.timeseries.lastValue).toBe(150);
   });
 
-  test("fetchData() fails if timeseries is expected, but the CSV does not have timeseries data.", async () => {
-    const provider = new CsvDataProvider("csv-provider", {
-      regionColumn: "region",
-      csvText: mockCsv,
-    });
-    expect(async () => {
-      await provider.fetchData([newYork], [testMetric], true);
-    }).rejects.toThrow(
-      "includeTimeseries set to true but cached data has no timeseries."
+  test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
+    const metricData = await testFetchingCsvData(
+      mockCsv,
+      /*includeTimeseries=*/ true
     );
+    expect(metricData.currentValue).toBe(150);
+    expect(metricData.hasTimeseries()).toBe(false);
   });
 
   test("populateCache() fails if csv does not have at least one row.", async () => {
