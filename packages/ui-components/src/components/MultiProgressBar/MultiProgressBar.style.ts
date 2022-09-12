@@ -1,7 +1,5 @@
 import { styled } from "../../styles";
 
-export const Container = styled("div")``;
-
 export const ProgressBarContainer = styled("div")`
   width: 100%;
   max-width: 350px;

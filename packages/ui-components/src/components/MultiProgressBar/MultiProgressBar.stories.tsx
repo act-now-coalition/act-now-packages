@@ -17,22 +17,22 @@ const items = [
   {
     color: "red",
     label: "Red",
-    value: 0.1,
+    value: 0.9,
   },
   {
     color: "blue",
     label: "Blue",
-    value: 0.15,
+    value: 0.8,
   },
   {
     color: "yellow",
     label: "Yellow",
-    value: 0.2,
+    value: 0.7,
   },
   {
     color: "green",
     label: "Green",
-    value: 0.25,
+    value: 0.6,
   },
 ];
 
@@ -57,8 +57,6 @@ const Template: Story<MultiProgressBarProps<Item>> = (args) => (
 
 export const Example = Template.bind({});
 Example.args = {
-  vaccinationsCompleted: 0.7,
-  vaccinationsInitiated: 0.8,
   items,
   getItemColor,
   getItemLabel,
