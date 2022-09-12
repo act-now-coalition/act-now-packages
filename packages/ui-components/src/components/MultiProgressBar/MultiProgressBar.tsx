@@ -1,17 +1,17 @@
-import React from "react";
-
+import React, { Fragment } from "react";
 import { ProgressBarContainer, StyledSvg } from "./MultiProgressBar.style";
 import { formatPercent } from "@actnowcoalition/number-format";
+import sortBy from "lodash/sortBy";
+import { useTheme } from "@mui/material";
 
 export interface MultiProgressBarProps<T> {
   items: T[];
-  bgColor: string;
-  getItemColor: (item: T, itemIndex: number) => string;
-  getItemLabel: (item: T, itemIndex: number) => string;
-  getItemValue: (item: T, itemIndex: number) => number;
-  vaccinationsInitiated: number;
-  vaccinationsCompleted: number;
-  width: number;
+  getItemColor: (item: T) => string;
+  getItemLabel: (item: T) => string;
+  getItemValue: (item: T) => number;
+  width?: number;
+  height?: number;
+  bgColor?: string;
 }
 
 function getOffsetPercentage(decimal: number) {
@@ -24,34 +24,38 @@ export const MultiProgressBar = <T,>({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getItemLabel,
   getItemValue,
+  width = 100,
+  height = 16,
   bgColor,
-  width,
 }: MultiProgressBarProps<T>) => {
-  const height = 18;
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const color = bgColor;
+  // TODO (Fai): Incorporate aria-labels and/or accessibility attributes.
 
-  items.sort(
-    (a, b) =>
-      getItemValue(b, items.indexOf(b)) - getItemValue(a, items.indexOf(a))
-  );
+  const theme = useTheme();
+
+  const sortedItems = sortBy(items, (item) => getItemValue(item) * -1);
 
   return (
-    <ProgressBarContainer>
+    <ProgressBarContainer width={width}>
       <StyledSvg width={width} height={height} role="img">
-        <g>
-          {items.map((item, i) => {
+        <Fragment>
+          <rect
+            fill={bgColor ?? theme.palette.border.default}
+            x={0}
+            width={width}
+            height={height}
+          />
+          {sortedItems.map((item, i) => {
             return (
               <rect
                 key={`item-${i}`}
-                fill={getItemColor(item, i)}
+                fill={getItemColor(item)}
                 x={0}
-                width={getOffsetPercentage(getItemValue(item, i))}
+                width={getOffsetPercentage(getItemValue(item))}
                 height={height}
               />
             );
           })}
-        </g>
+        </Fragment>
       </StyledSvg>
     </ProgressBarContainer>
   );

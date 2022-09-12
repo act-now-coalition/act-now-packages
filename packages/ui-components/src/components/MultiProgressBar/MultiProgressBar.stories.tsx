@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { MultiProgressBar, MultiProgressBarProps } from "./MultiProgressBar";
+import { Stack } from "@mui/material";
 
 export default {
   title: "Components/MultiProgressBar",
@@ -13,54 +14,68 @@ interface Item {
   value: number;
 }
 
-const items = [
+const sampleItems1 = [
   {
-    color: "red",
-    label: "Red",
-    value: 0.9,
-  },
-  {
-    color: "blue",
-    label: "Blue",
-    value: 0.8,
-  },
-  {
-    color: "yellow",
-    label: "Yellow",
-    value: 0.7,
-  },
-  {
-    color: "green",
-    label: "Green",
-    value: 0.6,
+    color: "#5936B6",
+    label: "Label 1",
+    value: 0.4,
   },
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getItemColor(item: Item, itemIndex: number): string {
+const sampleItems2 = [
+  {
+    color: "#B292F9",
+    label: "Label 1",
+    value: 0.6,
+  },
+  {
+    color: "#5936B6",
+    label: "Label 2",
+    value: 0.4,
+  },
+];
+
+const sampleItems3 = [
+  {
+    color: "#5936B6",
+    label: "Label 1",
+    value: 0.01,
+  },
+];
+
+function getItemColor(item: Item): string {
   return item.color;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getItemLabel(item: Item, itemIndex: number): string {
+function getItemLabel(item: Item): string {
   return item.label;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function getItemValue(item: Item, itemIndex: number): number {
+function getItemValue(item: Item): number {
   return item.value;
 }
 
-const Template: Story<MultiProgressBarProps<Item>> = (args) => (
-  <MultiProgressBar {...args} />
+const Template: Story<MultiProgressBarProps<Item>> = () => (
+  <Stack>
+    <MultiProgressBar
+      items={sampleItems1}
+      getItemColor={getItemColor}
+      getItemLabel={getItemLabel}
+      getItemValue={getItemValue}
+    />
+    <MultiProgressBar
+      items={sampleItems2}
+      getItemColor={getItemColor}
+      getItemLabel={getItemLabel}
+      getItemValue={getItemValue}
+    />
+    <MultiProgressBar
+      items={sampleItems3}
+      getItemColor={getItemColor}
+      getItemLabel={getItemLabel}
+      getItemValue={getItemValue}
+    />
+  </Stack>
 );
 
 export const Example = Template.bind({});
-Example.args = {
-  items,
-  getItemColor,
-  getItemLabel,
-  getItemValue,
-  bgColor: "grey",
-  width: 200,
-};
