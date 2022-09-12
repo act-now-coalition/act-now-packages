@@ -36,8 +36,8 @@ export const MetricOverview: React.FC<MetricOverviewProps> = ({
     return (
       <Stack direction="column" spacing={1}>
         <LabelIcon>{metric.name}</LabelIcon>
-        <MetricValue region={region} metric={metric} />
         {metricChart}
+        <MetricValue region={region} metric={metric} />
         {supportingText && (
           <Typography variant="paragraphSmall">{supportingText}</Typography>
         )}
