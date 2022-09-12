@@ -17,7 +17,6 @@ export const PositionAbsolute = styled("div")`
   position: absolute;
 `;
 
-/** StatesMap */
 export const RegionOverlay = styled("path")`
   stroke: ${(props) => props.theme.palette.common.black};
   fill-opacity: 0;
