@@ -24,6 +24,7 @@ export const MetricValue: React.FC<MetricValueProps> = ({
   ...stackProps
 }) => {
   const metricCatalog = useMetricCatalog();
+  console.log({ metricCatalog });
   const metric = metricCatalog.getMetric(metricOrId);
 
   const { data, error } = metricCatalog.useData(region, metric);

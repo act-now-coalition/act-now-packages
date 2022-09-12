@@ -85,6 +85,7 @@ export * from "./components/LineChart";
 export * from "./components/Maps";
 export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
+export * from "./components/MetricCompareTable";
 export * from "./components/MetricDot";
 export * from "./components/MetricLegendCategorical";
 export * from "./components/MetricLegendThreshold";
