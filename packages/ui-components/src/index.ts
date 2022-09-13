@@ -75,13 +75,13 @@ declare module "@mui/material/styles" {
 /** UI Components and props */
 export * from "./components/Axis";
 export * from "./components/BarChart";
-export * from "./components/CompareTable";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
 export * from "./components/LabelIcon";
 export * from "./components/LegendCategorical";
 export * from "./components/LegendThreshold";
 export * from "./components/LineChart";
+export * from "./components/LineChartLevels";
 export * from "./components/Maps";
 export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
