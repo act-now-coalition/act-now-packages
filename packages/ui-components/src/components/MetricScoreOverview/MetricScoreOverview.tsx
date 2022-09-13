@@ -7,6 +7,7 @@ import { MetricValue } from "../MetricValue";
 import { Stack, StackProps, Typography } from "@mui/material";
 import { InfoTooltip } from "../InfoTooltip";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { IconButton } from "@mui/material";
 
 export interface MetricScoreOverviewProps extends StackProps {
   /** Region for which we want to show the metric overview */
@@ -54,7 +55,9 @@ export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
               <span>{resolvedMetric.name}</span>
               {tooltipTitle && (
                 <InfoTooltip title={tooltipTitle}>
-                  <InfoOutlinedIcon color="inherit" fontSize="small" />
+                  <IconButton>
+                    <InfoOutlinedIcon color="inherit" fontSize="small" />
+                  </IconButton>
                 </InfoTooltip>
               )}
             </Stack>
