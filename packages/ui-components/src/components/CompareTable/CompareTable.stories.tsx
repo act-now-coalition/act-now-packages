@@ -18,11 +18,12 @@ export default {
 
 interface RowItem {
   region: Region;
+  rowId: string;
 }
 
 const rows: RowItem[] = states.all
   .sort((a, b) => (a.population > b.population ? -1 : 1))
-  .map((region) => ({ region }));
+  .map((region) => ({ region, rowId: region.regionId }));
 
 const StatefulCompareTable: React.FC<{
   rows: RowItem[];

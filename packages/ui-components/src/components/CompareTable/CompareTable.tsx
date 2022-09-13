@@ -8,7 +8,12 @@ import {
   CompareTableProps,
 } from ".";
 
-export const CompareTable = <R,>({
+export interface CompareTableRowBase {
+  /** A unique ID that identifies this row*/
+  rowId: string;
+}
+
+export const CompareTable = <R extends CompareTableRowBase>({
   rows,
   columns,
   sortColumnId,
@@ -26,7 +31,7 @@ export const CompareTable = <R,>({
       <TableHead>
         <TableRow>
           {columns.map((column, columnIndex) => (
-            <Fragment key={`column-${columnIndex}`}>
+            <Fragment key={`column-${column.id}`}>
               {column.renderHeader({ column, columnIndex })}
             </Fragment>
           ))}
@@ -34,9 +39,9 @@ export const CompareTable = <R,>({
       </TableHead>
       <TableBody>
         {sortedRows.map((row, rowIndex) => (
-          <TableRow key={`table-row-${rowIndex}`}>
+          <TableRow key={`table-row-${row.rowId}`}>
             {columns.map((column, columnIndex) => (
-              <Fragment key={`cell-${rowIndex}-${columnIndex}`}>
+              <Fragment key={`cell-${row.rowId}-${column.id}`}>
                 {column.renderCell({ row, rowIndex, columnIndex })}
               </Fragment>
             ))}
