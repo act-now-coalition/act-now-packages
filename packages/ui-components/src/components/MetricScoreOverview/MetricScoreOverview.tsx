@@ -14,7 +14,7 @@ export interface MetricScoreOverviewProps extends StackProps {
   /** Metric for which we want to show the metric overview */
   metric: Metric | string;
   /** Optional text to fill tooltip. If undefined, info tooltip is not rendered. */
-  tooltipTitle?: string;
+  tooltipTitle?: React.ReactNode;
 }
 
 export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
