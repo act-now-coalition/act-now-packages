@@ -14,6 +14,7 @@ export interface MultiProgressBarProps<T> {
   width?: number;
   height?: number;
   bgColor?: string;
+  borderRadius?: number;
 }
 
 export const MultiProgressBar = <T,>({
@@ -25,6 +26,7 @@ export const MultiProgressBar = <T,>({
   width = 100,
   height = 16,
   bgColor,
+  borderRadius = 4,
 }: MultiProgressBarProps<T>) => {
   // TODO (Fai): Incorporate aria-labels and/or accessibility attributes.
 
@@ -43,7 +45,12 @@ export const MultiProgressBar = <T,>({
 
   return (
     <svg width={width} height={height}>
-      <RectClipGroup width={width} height={height} rx={4} ry={4}>
+      <RectClipGroup
+        width={width}
+        height={height}
+        rx={borderRadius}
+        ry={borderRadius}
+      >
         <rect
           fill={bgColor ?? theme.palette.border.default}
           width={width}
