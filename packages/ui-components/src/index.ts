@@ -95,3 +95,5 @@ export * from "./components/RegionSearch";
 export * from "./components/SortableTable";
 
 export * from "./components/MetricSparklines";
+
+export * from "./components/RectClipGroup";

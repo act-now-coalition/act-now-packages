@@ -1,7 +1,6 @@
-import { scaleLinear } from "@visx/scale";
-import { Group } from "@visx/group";
-import uniqueId from "lodash/uniqueId";
 import React from "react";
+import { scaleLinear } from "@visx/scale";
+import { RectClipGroup } from "../RectClipGroup";
 
 export interface ProgressBarProps {
   /** Border radius of the progress bar */
@@ -53,8 +52,6 @@ export const ProgressBar = ({
     range: [0, width],
   });
 
-  const clipPathId = uniqueId(`rounded-borders-clippath-`);
-
   return (
     <svg
       width={width}
@@ -65,21 +62,16 @@ export const ProgressBar = ({
       aria-valuenow={value}
       {...otherSvgProps}
     >
-      <defs>
-        <clipPath id={clipPathId}>
-          <rect
-            y={0}
-            width={width}
-            height={height}
-            rx={borderRadius}
-            ry={borderRadius}
-          />
-        </clipPath>
-      </defs>
-      <Group clipPath={`url(#${clipPathId})`}>
+      <RectClipGroup
+        y={0}
+        width={width}
+        height={height}
+        rx={borderRadius}
+        ry={borderRadius}
+      >
         <rect width={width} height={height} fill={backgroundColor} />
         <rect width={xScale(value)} height={height} fill={color} />
-      </Group>
+      </RectClipGroup>
     </svg>
   );
 };
