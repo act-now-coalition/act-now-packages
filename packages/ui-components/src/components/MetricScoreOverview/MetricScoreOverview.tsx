@@ -1,75 +1,67 @@
 import React from "react";
-import { Container, StyledInfoIcon } from "./MetricScoreOverview.style";
 import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { MetricValue } from "../MetricValue";
-import { Stack, Typography } from "@mui/material";
+import { Stack, StackProps, Typography } from "@mui/material";
 import { InfoTooltip } from "../InfoTooltip";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
-export interface MetricScoreOverviewProps {
+export interface MetricScoreOverviewProps extends StackProps {
   /** Region for which we want to show the metric overview */
   region: Region;
   /** Metric for which we want to show the metric overview */
   metric: Metric | string;
-  /** Optional supporting text for the metric */
-  supportingText?: string;
   /** Optional text to fill tooltip. If undefined, info tooltip is not rendered. */
-  tooltipText?: string;
+  tooltipTitle?: string;
 }
 
 export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
   region,
   metric,
-  supportingText,
-  tooltipText,
+  tooltipTitle,
+  ...otherStackProps
 }) => {
   const metricCatalog = useMetricCatalog();
-  metric = metricCatalog.getMetric(metric);
+  const resolvedMetric = metricCatalog.getMetric(metric);
 
   const metricLegendThreshold = (
     <MetricLegendThreshold
       orientation="vertical"
-      metric={metric}
+      metric={resolvedMetric}
       showLabels={false}
       includeOverview={false}
       height={72}
-      borderRadius={8}
+      borderRadius={6}
       barWidth={12}
     />
   );
-  const metricValue = <MetricValue region={region} metric={metric} />;
-
-  // Using color for 'contrast' text color style.
-  const tooltipTypography = (
-    <Typography variant="paragraphSmall" color="#F6F6F6">
-      {tooltipText}
-    </Typography>
-  );
-  const infoIcon = (
-    <InfoTooltip title={tooltipTypography}>
-      <StyledInfoIcon />
-    </InfoTooltip>
-  );
+  const metricValue = <MetricValue region={region} metric={resolvedMetric} />;
 
   return (
-    <Container>
-      <Stack direction={"column"} spacing={2}>
-        <Stack direction={"row"} spacing={1} alignItems={"center"}>
-          {metricLegendThreshold}
-          <Stack direction={"column"} spacing={1}>
-            <Typography variant="paragraphSmall">
-              {metric.name}
-              {tooltipText && infoIcon}
-            </Typography>
-            {metricValue}
-          </Stack>
+    <Stack direction={"column"} spacing={2}>
+      <Stack
+        direction={"row"}
+        spacing={1}
+        alignItems={"center"}
+        {...otherStackProps}
+      >
+        {metricLegendThreshold}
+        <Stack direction={"column"} spacing={1}>
+          <Typography variant="paragraphSmall" color="secondary.light">
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <span>{resolvedMetric.name}</span>
+              {tooltipTitle && (
+                <InfoTooltip title={tooltipTitle}>
+                  <InfoOutlinedIcon color="inherit" fontSize="small" />
+                </InfoTooltip>
+              )}
+            </Stack>
+          </Typography>
+          {metricValue}
         </Stack>
-        {supportingText && (
-          <Typography variant="paragraphLarge">{supportingText}</Typography>
-        )}
       </Stack>
-    </Container>
+    </Stack>
   );
 };
