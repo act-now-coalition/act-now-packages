@@ -16,6 +16,11 @@ export const PositionAbsolute = styled("div")`
   position: absolute;
 `;
 
+export const RegionShapeBase = styled("path")`
+  stroke: ${(props) => props.theme.palette.common.white};
+  stroke-width: 1;
+`;
+
 export const RegionOverlay = styled("path")`
   fill: ${(props) => props.theme.palette.common.white};
   fill-opacity: 0;
@@ -26,19 +31,12 @@ export const RegionOverlay = styled("path")`
   }
 `;
 
-export const BorderingRegion = styled("path")`
+export const BorderingRegion = styled(RegionShapeBase)`
   fill: ${(props) => props.theme.palette.grey[300]};
-  stroke: ${(props) => props.theme.palette.common.white};
-  stroke-width: 1;
   cursor: pointer;
   &:hover {
     fill: ${(props) => props.theme.palette.grey[400]};
   }
-`;
-
-export const RegionShapeBase = styled("path")`
-  stroke: ${(props) => props.theme.palette.common.white};
-  stroke-width: 1;
 `;
 
 export const HighlightableShape = styled("path", {
