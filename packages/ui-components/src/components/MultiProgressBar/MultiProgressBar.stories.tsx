@@ -56,24 +56,27 @@ function getItemValue(item: Item): number {
 }
 
 const Template: Story<MultiProgressBarProps<Item>> = () => (
-  <Stack>
+  <Stack spacing={1}>
     <MultiProgressBar
       items={sampleItems1}
       getItemColor={getItemColor}
       getItemLabel={getItemLabel}
       getItemValue={getItemValue}
+      maxValue={1}
     />
     <MultiProgressBar
       items={sampleItems2}
       getItemColor={getItemColor}
       getItemLabel={getItemLabel}
       getItemValue={getItemValue}
+      maxValue={1}
     />
     <MultiProgressBar
       items={sampleItems3}
       getItemColor={getItemColor}
       getItemLabel={getItemLabel}
       getItemValue={getItemValue}
+      maxValue={1}
     />
   </Stack>
 );

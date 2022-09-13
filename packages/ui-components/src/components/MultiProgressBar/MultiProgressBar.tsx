@@ -1,27 +1,27 @@
-import React, { Fragment } from "react";
-import { ProgressBarContainer, StyledSvg } from "./MultiProgressBar.style";
-import { formatPercent } from "@actnowcoalition/number-format";
+import React from "react";
 import sortBy from "lodash/sortBy";
 import { useTheme } from "@mui/material";
+import { RectClipGroup } from "../RectClipGroup";
+import { scaleLinear } from "@visx/scale";
 
 export interface MultiProgressBarProps<T> {
   items: T[];
   getItemColor: (item: T) => string;
   getItemLabel: (item: T) => string;
   getItemValue: (item: T) => number;
+  minValue?: number;
+  maxValue: number;
   width?: number;
   height?: number;
   bgColor?: string;
-}
-
-function getOffsetPercentage(decimal: number) {
-  return formatPercent(decimal, 1);
 }
 
 export const MultiProgressBar = <T,>({
   items,
   getItemColor,
   getItemValue,
+  minValue = 0,
+  maxValue,
   width = 100,
   height = 16,
   bgColor,
@@ -30,31 +30,40 @@ export const MultiProgressBar = <T,>({
 
   const theme = useTheme();
 
+  const xScale = scaleLinear({
+    domain: [minValue, maxValue],
+    range: [0, width],
+  });
+
+  /**
+   * Items are sorted in descending order to ensure they are layered
+   * in the correct order in the progress bar.
+   * */
   const sortedItems = sortBy(items, (item) => getItemValue(item) * -1);
 
   return (
-    <ProgressBarContainer width={width}>
-      <StyledSvg width={width} height={height}>
-        <Fragment>
-          <rect
-            fill={bgColor ?? theme.palette.border.default}
-            x={0}
-            width={width}
-            height={height}
-          />
-          {sortedItems.map((item, i) => {
-            return (
-              <rect
-                key={`item-${i}`}
-                fill={getItemColor(item)}
-                x={0}
-                width={getOffsetPercentage(getItemValue(item))}
-                height={height}
-              />
-            );
-          })}
-        </Fragment>
-      </StyledSvg>
-    </ProgressBarContainer>
+    <svg width={width} height={height}>
+      <RectClipGroup width={width} height={height} rx={4} ry={4}>
+        <rect
+          fill={bgColor ?? theme.palette.border.default}
+          width={width}
+          height={height}
+        />
+        {sortedItems.map((item) => {
+          return (
+            <rect
+              /**
+               * Using index as key can trigger unexpected behavior.
+               * More info: https://reactjs.org/docs/lists-and-keys.html
+               */
+              key={getItemColor(item)}
+              fill={getItemColor(item)}
+              width={xScale(getItemValue(item))}
+              height={height}
+            />
+          );
+        })}
+      </RectClipGroup>
+    </svg>
   );
 };
