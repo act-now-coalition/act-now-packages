@@ -42,7 +42,9 @@
     "@storybook/testing-library": "^0.0.13",
     "@visx/mock-data": "^2.1.2",
     "babel-loader": "^8.2.5",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@actnowcoalition/metrics": "^0.0.16",
