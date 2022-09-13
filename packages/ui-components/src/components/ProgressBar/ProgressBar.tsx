@@ -63,7 +63,6 @@ export const ProgressBar = ({
       {...otherSvgProps}
     >
       <RectClipGroup
-        y={0}
         width={width}
         height={height}
         rx={borderRadius}
