@@ -21,8 +21,6 @@ function getOffsetPercentage(decimal: number) {
 export const MultiProgressBar = <T,>({
   items,
   getItemColor,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getItemLabel,
   getItemValue,
   width = 100,
   height = 16,
@@ -36,7 +34,7 @@ export const MultiProgressBar = <T,>({
 
   return (
     <ProgressBarContainer width={width}>
-      <StyledSvg width={width} height={height} role="img">
+      <StyledSvg width={width} height={height}>
         <Fragment>
           <rect
             fill={bgColor ?? theme.palette.border.default}
