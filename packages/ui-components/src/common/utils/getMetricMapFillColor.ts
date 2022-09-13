@@ -19,6 +19,10 @@ export default function getMetricMapFillColor(
 
   const metric = metricCatalog.getMetric(metricOrId);
 
+  // TODO(michael): This function should be renamed to useMetricMapFillColor()
+  // since it is using hooks, but that causes additional rules-of-hooks failures
+  // so leaving it as is for now.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const { data } = useData(region, metric);
   const currentValue = data?.currentValue;
 
