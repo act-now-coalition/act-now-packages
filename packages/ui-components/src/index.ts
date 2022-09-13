@@ -93,5 +93,6 @@ export * from "./components/MetricSparklines";
 export * from "./components/MetricValue";
 export * from "./components/MultiProgressBar";
 export * from "./components/ProgressBar";
+export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/SortableTable";
