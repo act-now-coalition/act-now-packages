@@ -5,9 +5,10 @@ import { states, counties, RegionDB } from "@actnowcoalition/regions";
 import { USStateMapProps } from "./interfaces";
 
 const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
+const herkimerCountyNewYorkRegion = counties.findByRegionIdStrict("36043");
 
 export default {
-  title: "Components/Maps/US State",
+  title: "Maps/US State",
   component: USStateMap,
 } as ComponentMeta<typeof USStateMap>;
 
@@ -42,5 +43,12 @@ NewYorkCountiesWithoutBorderingStates.args = {
 export const NewYorkCountiesWithBorderingStates = Template.bind({});
 NewYorkCountiesWithBorderingStates.args = {
   stateRegionId: "36",
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+};
+
+export const NewYorkCountiesWithHighlightedCounty = Template.bind({});
+NewYorkCountiesWithHighlightedCounty.args = {
+  stateRegionId: "36",
+  currentRegion: herkimerCountyNewYorkRegion,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
 };

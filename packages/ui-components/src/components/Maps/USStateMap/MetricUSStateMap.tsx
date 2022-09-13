@@ -16,8 +16,8 @@ export const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
 
   return (
     <USStateMap
-      getFillColor={(regionId) =>
-        getMetricMapFillColor(metricCatalog, metric, regionId)
+      getFillColor={(region) =>
+        getMetricMapFillColor(metricCatalog, metric, region)
       }
       {...otherProps}
     />

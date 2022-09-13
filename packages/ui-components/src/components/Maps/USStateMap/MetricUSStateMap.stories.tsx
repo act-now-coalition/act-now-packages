@@ -6,9 +6,10 @@ import { MetricUSStateMapProps } from "./interfaces";
 import { states, counties, RegionDB } from "@actnowcoalition/regions";
 
 const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
+const herkimerCountyNewYorkRegion = counties.findByRegionIdStrict("36043");
 
 export default {
-  title: "Components/Maps/US State",
+  title: "Maps/US State",
   component: MetricUSStateMap,
 } as ComponentMeta<typeof MetricUSStateMap>;
 
@@ -24,6 +25,14 @@ const renderSimpleTooltip = (regionId: string) => {
 export const MetricAwareNewYork = Template.bind({});
 MetricAwareNewYork.args = {
   stateRegionId: "36",
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  metric: MetricId.MOCK_CASES,
+};
+
+export const MetricAwareNewYorkWithHighlightedCounty = Template.bind({});
+MetricAwareNewYorkWithHighlightedCounty.args = {
+  stateRegionId: "36",
+  currentRegion: herkimerCountyNewYorkRegion,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   metric: MetricId.MOCK_CASES,
 };

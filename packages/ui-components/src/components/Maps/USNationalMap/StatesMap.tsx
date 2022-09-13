@@ -3,7 +3,7 @@ import { GeoPath } from "d3-geo";
 import Tooltip from "@mui/material/Tooltip";
 import { RegionOverlay, RegionShapeBase } from "../Maps.style";
 import { statesGeographies } from "../../../common/geo-shapes";
-import { states } from "@actnowcoalition/regions";
+import { Region, states } from "@actnowcoalition/regions";
 
 const StatesMap: React.FC<{
   width: number;
@@ -11,7 +11,7 @@ const StatesMap: React.FC<{
   geoPath: GeoPath;
   renderTooltip: (regionId: string) => React.ReactElement | string;
   showCounties: boolean;
-  getFillColor: (regionId: string) => string;
+  getFillColor: (region: Region) => string;
 }> = ({
   width,
   height,
@@ -32,7 +32,7 @@ const StatesMap: React.FC<{
                 {!showCounties && (
                   <RegionShapeBase
                     d={geoPath(geo) ?? ""}
-                    fill={getFillColor(stateFips)}
+                    fill={getFillColor(state)}
                   />
                 )}
                 <RegionOverlay d={geoPath(geo) ?? ""} />

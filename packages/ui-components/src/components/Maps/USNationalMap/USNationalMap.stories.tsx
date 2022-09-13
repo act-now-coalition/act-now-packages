@@ -2,15 +2,13 @@ import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { USNationalMap } from "./USNationalMap";
 import { USNationalMapProps } from "./interfaces";
-import { states, counties, RegionDB } from "@actnowcoalition/regions";
+import { states, Region } from "@actnowcoalition/regions";
 import { interpolatePiYG } from "d3-scale-chromatic";
 import { scaleOrdinal, scaleLinear } from "@visx/scale";
 import { defaultWidth } from "../../../common/geo-shapes";
 
-const regions = new RegionDB([...states.all, ...counties.all]);
-
 export default {
-  title: "Components/Maps/US National",
+  title: "Maps/US National",
   component: USNationalMap,
 } as ComponentMeta<typeof USNationalMap>;
 
@@ -61,10 +59,8 @@ const colorScaleAlpha = scaleOrdinal({
   range: colors,
 });
 
-const getFillColorByFirstLetter = (regionId: string) => {
-  const fullNameFromFips = regions
-    .findByRegionIdStrict(regionId)
-    .fullName.toLowerCase();
+const getFillColorByFirstLetter = (region: Region) => {
+  const fullNameFromFips = region.fullName.toLowerCase();
   return colorScaleAlpha(fullNameFromFips[0]);
 };
 
@@ -72,7 +68,7 @@ const getFillColorByFirstLetter = (regionId: string) => {
 export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  getFillColor: (regionId: string) => getFillColorByFirstLetter(regionId),
+  getFillColor: (region: Region) => getFillColorByFirstLetter(region),
   width: defaultWidth,
 };
 
@@ -81,6 +77,6 @@ export const CountiesColoredByFirstLetter = Template.bind({});
 CountiesColoredByFirstLetter.args = {
   showCounties: true,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  getFillColor: (regionId: string) => getFillColorByFirstLetter(regionId),
+  getFillColor: (region: Region) => getFillColorByFirstLetter(region),
   width: defaultWidth,
 };

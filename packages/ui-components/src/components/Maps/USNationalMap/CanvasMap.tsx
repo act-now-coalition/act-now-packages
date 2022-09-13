@@ -2,13 +2,22 @@ import React, { useEffect, useRef } from "react";
 import { ExtendedFeature, GeoProjection, geoPath as d3GeoPath } from "d3-geo";
 import { StyledCanvas } from "../Maps.style";
 import { stateBorders } from "../../../common/geo-shapes";
+import {
+  Region,
+  states,
+  metros,
+  counties,
+  RegionDB,
+} from "@actnowcoalition/regions";
+
+const usRegions = new RegionDB([...states.all, ...counties.all, ...metros.all]);
 
 const borderColor = "white";
 
 const CanvasMap: React.FC<{
   width: number;
   height: number;
-  getFillColor: (fipsCode: string) => string;
+  getFillColor: (region: Region) => string;
   geoProjection: GeoProjection;
   features: ExtendedFeature[];
   getGeoId: (geo: ExtendedFeature) => string;
@@ -23,9 +32,11 @@ const CanvasMap: React.FC<{
         const path = d3GeoPath(geoProjection, ctx);
         // Feature shapes and borders
         features.forEach((geo) => {
+          const geoId = getGeoId(geo);
+          const region = usRegions.findByRegionIdStrict(geoId);
           ctx.strokeStyle = borderColor;
           ctx.lineWidth = 1;
-          ctx.fillStyle = getFillColor(getGeoId(geo));
+          ctx.fillStyle = getFillColor(region);
           ctx.beginPath();
           path(geo);
           ctx.fill();

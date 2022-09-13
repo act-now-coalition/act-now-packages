@@ -1,4 +1,5 @@
 import { styled } from "../../styles";
+import isValidProp from "@emotion/is-prop-valid";
 
 export const StyledCanvas = styled("canvas")`
   pointer-events: none;
@@ -40,9 +41,11 @@ export const RegionShapeBase = styled("path")`
   stroke-width: 1;
 `;
 
-export const HighlightableShape = styled("path")<{
+export const HighlightableShape = styled("path", {
+  shouldForwardProp: isValidProp,
+})<{
   highlight: boolean;
 }>`
   stroke: ${(props) => (props.highlight ? "black" : "white")};
-  stroke-width: ${(props) => (props.highlight ? "2.5" : "1")};
+  stroke-width: ${(props) => (props.highlight ? "4" : "1")};
 `;

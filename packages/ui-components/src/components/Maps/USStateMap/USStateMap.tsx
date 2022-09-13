@@ -24,6 +24,7 @@ export const USStateMap: React.FC<USStateMapProps> = ({
   renderTooltip,
   getFillColor = () => "lightGray",
   width = defaultWidth,
+  currentRegion,
   showCounties = true,
   showBorderingStates = true,
 }) => {
@@ -56,7 +57,7 @@ export const USStateMap: React.FC<USStateMapProps> = ({
   );
 
   const otherStates = statesGeographies.features.filter(
-    (geo) => geo.id !== stateRegionId
+    (geo) => `${geo.id}` !== stateRegionId
   );
 
   const regionGeoToShow = showCounties ? regionsOfState : [stateGeo];
@@ -66,12 +67,15 @@ export const USStateMap: React.FC<USStateMapProps> = ({
       <svg width={width} height={height}>
         {/* Style-able region shapes (ie. colorable by metric) */}
         {regionGeoToShow.map((geo) => {
+          const highlightShape = currentRegion?.regionId === `${geo.id}`;
           return (
             <HighlightableShape
               key={geo.id}
               d={geoPath(geo) ?? ""}
-              fill={getFillColor(`${geo.id}`)}
-              highlight={false}
+              fill={getFillColor(
+                countiesAndStates.findByRegionIdStrict(`${geo.id}`)
+              )}
+              highlight={highlightShape}
             />
           );
         })}
