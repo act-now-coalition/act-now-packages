@@ -1,7 +1,6 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { MultiProgressBar, MultiProgressBarProps } from "./MultiProgressBar";
-import { Stack } from "@mui/material";
 
 export default {
   title: "Components/MultiProgressBar",
@@ -55,30 +54,27 @@ function getItemValue(item: Item): number {
   return item.value;
 }
 
-const Template: Story<MultiProgressBarProps<Item>> = () => (
-  <Stack spacing={1}>
-    <MultiProgressBar
-      items={sampleItems1}
-      getItemColor={getItemColor}
-      getItemLabel={getItemLabel}
-      getItemValue={getItemValue}
-      maxValue={1}
-    />
-    <MultiProgressBar
-      items={sampleItems2}
-      getItemColor={getItemColor}
-      getItemLabel={getItemLabel}
-      getItemValue={getItemValue}
-      maxValue={1}
-    />
-    <MultiProgressBar
-      items={sampleItems3}
-      getItemColor={getItemColor}
-      getItemLabel={getItemLabel}
-      getItemValue={getItemValue}
-      maxValue={1}
-    />
-  </Stack>
+const Template: Story<MultiProgressBarProps<Item>> = (args) => (
+  <MultiProgressBar
+    {...args}
+    getItemColor={getItemColor}
+    getItemLabel={getItemLabel}
+    getItemValue={getItemValue}
+    maxValue={1}
+  />
 );
 
-export const Example = Template.bind({});
+export const SingleItem = Template.bind({});
+SingleItem.args = {
+  items: sampleItems1,
+};
+
+export const TwoItems = Template.bind({});
+TwoItems.args = {
+  items: sampleItems2,
+};
+
+export const SmallItem = Template.bind({});
+SmallItem.args = {
+  items: sampleItems3,
+};
