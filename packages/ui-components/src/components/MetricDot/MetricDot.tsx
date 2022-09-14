@@ -3,6 +3,7 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Dot, PlaceholderDot } from "./MetricDot.style";
+import { useData } from "../../common/hooks";
 
 export interface MetricDotProps {
   /** Region for which we want to represent the current level */
@@ -23,13 +24,9 @@ export const MetricDot: React.FC<MetricDotProps> = ({
 }) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
+  const { data, error } = useData(region, metric);
 
-  if (!(metric.levelSet || metric.categories)) {
-    return <PlaceholderDot />;
-  }
-
-  const { data, error } = metricCatalog.useData(region, metric);
-  if (error || !data) {
+  if (!(metric.levelSet || metric.categories) || error || !data) {
     return <PlaceholderDot />;
   }
 

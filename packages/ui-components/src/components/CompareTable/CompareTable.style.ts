@@ -6,14 +6,18 @@ import {
   TableCell as MuiTableCell,
   tableCellClasses,
 } from "@mui/material";
+import React from "react";
 import { styled } from "../../styles";
 
-export const Table = styled(MuiTable)``;
+export const Table = styled(MuiTable)`
+  border-collapse: separate;
+`;
 
 export const TableHead = styled(MuiTableHead)``;
 
 export const TableBody = styled(MuiTableBody)``;
 
+// Alternate white and light grey background for table rows
 export const TableRow = styled(MuiTableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.grey[50],
@@ -41,9 +45,12 @@ export const TableCell = styled(MuiTableCell, {
   shouldForwardProp: shouldForwardTableCellProps,
 })<{ stickyRow?: boolean; stickyColumn?: boolean }>(
   ({ theme, stickyRow, stickyColumn }) => ({
+    [`.${tableCellClasses.root}`]: {
+      padding: theme.spacing(1),
+    },
     [`&.${tableCellClasses.head}`]: {
+      verticalAlign: "bottom",
       backgroundColor: theme.palette.common.white,
-      fontWeight: theme.typography.fontWeightBold,
       ...getStickyRowProps(stickyRow),
       ...getStickyColumnProps(stickyColumn),
       ...getStickyRowAndColumnProps(stickyRow, stickyColumn),
@@ -54,3 +61,5 @@ export const TableCell = styled(MuiTableCell, {
     },
   })
 );
+
+export type TableCellProps = React.ComponentProps<typeof TableCell>;

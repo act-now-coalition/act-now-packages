@@ -9,18 +9,12 @@ import { getCountyGeoId } from "../../../common/geo-shapes";
 import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
+import { USNationalMapProps } from "./interfaces";
 
-export interface USNationalMapProps {
-  width: number;
-  renderTooltip: (regionId: string) => React.ReactElement | string;
-  getFillColor?: (regionId: string) => string;
-  showCounties?: boolean;
-}
-
-const USNationalMap: React.FC<USNationalMapProps> = ({
+export const USNationalMap: React.FC<USNationalMapProps> = ({
   width = defaultWidth,
   renderTooltip,
-  getFillColor = () => "white",
+  getFillColor = () => "lightGray",
   showCounties = false,
 }) => {
   const height = defaultHeight * (width / defaultWidth);
@@ -62,5 +56,3 @@ const USNationalMap: React.FC<USNationalMapProps> = ({
     </MapContainer>
   );
 };
-
-export default USNationalMap;
