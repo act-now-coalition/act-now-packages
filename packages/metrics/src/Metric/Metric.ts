@@ -22,7 +22,7 @@ const DEFAULT_FORMAT_OPTIONS: Intl.NumberFormatOptions = {
  *
  * The `Metric` itself does not contain any data. It only contains the metadata
  * that defines the metric (name, data source, thresholds, etc.). To fetch data,
- * see e.g. {@link MetricCatalog.fetchData} or {@link MetricCatalog.useData}.
+ * see e.g. {@link MetricCatalog.fetchData}.
  */
 export class Metric {
   /** {@inheritDoc MetricDefinition.id} */

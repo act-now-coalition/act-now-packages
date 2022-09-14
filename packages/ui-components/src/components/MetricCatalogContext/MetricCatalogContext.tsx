@@ -40,7 +40,7 @@ const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
  *
  * const MetricAware: React.FC<MetricAwareProps> = ({ region, metrics }) => {
  *    const metricCatalog = useMetricCatalog();
- *    const { data, error } = metricCatalog.useDataForMetrics(region, metrics);
+ *    const { data, error } = useDataForMetrics(region, metrics);
  *   // ...render component
  * ```
  *
