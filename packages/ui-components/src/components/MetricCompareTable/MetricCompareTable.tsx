@@ -12,6 +12,7 @@ import {
   sortRows,
 } from "../CompareTable";
 import { useMetricCatalog } from "../MetricCatalogContext";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
 
 export interface MetricCompareTableProps {
   /** List of regions (first column)  */
@@ -26,7 +27,7 @@ interface Row {
   /** Region */
   region: Region;
   /** multiMetricDataStore instance, make the data available on each row */
-  multiMetricsDataStore: MultiMetricDataStore;
+  multiMetricDataStore: MultiMetricDataStore;
 }
 
 export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
@@ -46,10 +47,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   const metrics = metricOrIds.map((m) => metricCatalog.getMetric(m));
 
   // Define rows and columns
-  const { data, error } = metricCatalog.useDataForRegionsAndMetrics(
-    regions,
-    metrics
-  );
+  const { data, error } = useDataForRegionsAndMetrics(regions, metrics);
 
   if (!data || error) {
     return null;
@@ -58,7 +56,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   const rows: Row[] = data.all.map((multiMetricDataStore) => ({
     rowId: multiMetricDataStore.region.regionId,
     region: multiMetricDataStore.region,
-    multiMetricsDataStore: multiMetricDataStore,
+    multiMetricDataStore,
   }));
 
   const columns: ColumnDefinition<Row>[] = [
@@ -124,9 +122,9 @@ function createMetricColumn(
     ),
     sorterAsc: (rowA, rowB) => {
       const { currentValue: valueA } =
-        rowA.multiMetricsDataStore.metricData(metric);
+        rowA.multiMetricDataStore.metricData(metric);
       const { currentValue: valueB } =
-        rowB.multiMetricsDataStore.metricData(metric);
+        rowB.multiMetricDataStore.metricData(metric);
 
       if (isNumber(valueA) && isNumber(valueB)) {
         return valueA - valueB;
