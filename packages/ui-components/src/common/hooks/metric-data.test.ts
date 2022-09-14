@@ -6,6 +6,7 @@ import {
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
 import { states } from "@actnowcoalition/regions";
+import { useDataForRegionsAndMetrics } from "./metric-data";
 
 enum MetricId {
   PI = "pi",
@@ -54,7 +55,12 @@ describe("metric data hooks", () => {
     // Render the hook initially.
     const { result, waitForNextUpdate, rerender } = renderHook(
       ({ regions, metrics }) =>
-        catalog.useDataForRegionsAndMetrics(regions, metrics),
+        useDataForRegionsAndMetrics(
+          regions,
+          metrics,
+          /*includeTimeseries=*/ true,
+          catalog
+        ),
       {
         initialProps: {
           regions: [testRegionCA, testRegionWA],

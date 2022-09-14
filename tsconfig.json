@@ -19,15 +19,15 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "jsx": "react"
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "exclude": ["node_modules"],
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "compilerOptions": {
-      "module": "CommonJS",
-      "jsx": "react"
+      "module": "CommonJS"
     }
   }
 }
