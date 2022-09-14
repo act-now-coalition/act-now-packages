@@ -99,3 +99,5 @@ export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/SparkLine";
+
+export * from "./components/SocialMetaTags";
