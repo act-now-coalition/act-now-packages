@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/assert",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Assertion functions",
   "repository": {
     "type": "git",
