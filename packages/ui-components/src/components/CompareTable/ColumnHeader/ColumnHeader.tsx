@@ -10,15 +10,15 @@ export interface ColumnHeaderProps extends TableCellProps {
    * Sort direction of the column. This prop is only used when
    * `isSortActive` is `true`.
    */
-  sortDirection: SortDirection;
+  sortDirection?: SortDirection;
   /** Indicates if the table is currently sorted by this column. */
-  isSortActive: boolean;
+  isSortActive?: boolean;
   /**
    * Handler called when the user clicks either sorting button. The
    * sortDirection parameter corresponds to the button activated by
    * the user.
    */
-  onClickSort: (sortDirection: SortDirection) => void;
+  onClickSort?: (sortDirection: SortDirection) => void;
 }
 
 export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
@@ -27,18 +27,24 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   isSortActive,
   onClickSort,
   ...tableCellProps
-}) => (
-  <StyledTableCell stickyRow isSortActive={isSortActive} {...tableCellProps}>
-    <Stack alignItems={tableCellProps.align === "right" ? "end" : "start"}>
-      {renderLabel(label)}
-      <SortControls
-        isSortActive={isSortActive}
-        sortDirection={sortDirection}
-        onClick={onClickSort}
-      />
-    </Stack>
-  </StyledTableCell>
-);
+}) => {
+  const isSortable =
+    onClickSort && sortDirection && typeof isSortActive === "boolean";
+  return (
+    <StyledTableCell stickyRow isSortActive={isSortActive} {...tableCellProps}>
+      <Stack alignItems={tableCellProps.align === "right" ? "end" : "start"}>
+        {renderLabel(label)}
+        {isSortable && (
+          <SortControls
+            isSortActive={isSortActive}
+            sortDirection={sortDirection}
+            onClick={onClickSort}
+          />
+        )}
+      </Stack>
+    </StyledTableCell>
+  );
+};
 
 function renderLabel(label: React.ReactNode): React.ReactNode {
   return typeof label === "string" ? (

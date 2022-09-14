@@ -21,11 +21,20 @@ const Template: ComponentStory<typeof ColumnHeader> = (args) => (
   </Paper>
 );
 
+const onClickSort = (direction: SortDirection) =>
+  console.log(`Sort direction: ${direction}`);
+
+export const NotSortable = Template.bind({});
+NotSortable.args = {
+  label: "Location",
+};
+
 export const SortInactive = Template.bind({});
 SortInactive.args = {
   label: "Location",
   sortDirection: SortDirection.ASC,
   isSortActive: false,
+  onClickSort,
 };
 
 export const SortActive = Template.bind({});
@@ -33,6 +42,7 @@ SortActive.args = {
   label: "Location",
   sortDirection: SortDirection.ASC,
   isSortActive: true,
+  onClickSort,
 };
 
 export const WithSupportingText = Template.bind({});
@@ -45,6 +55,7 @@ WithSupportingText.args = {
   ),
   sortDirection: SortDirection.ASC,
   isSortActive: true,
+  onClickSort,
 };
 
 export const AlignedRight = Template.bind({});
@@ -57,5 +68,6 @@ AlignedRight.args = {
   ),
   sortDirection: SortDirection.ASC,
   isSortActive: true,
+  onClickSort,
   align: "right",
 };
