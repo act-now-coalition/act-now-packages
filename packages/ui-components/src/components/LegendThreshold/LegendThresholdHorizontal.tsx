@@ -1,9 +1,9 @@
 import React from "react";
 import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
-import uniqueId from "lodash/uniqueId";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
 import { CommonLegendThresholdProps } from "./interfaces";
+import { RectClipGroup } from "../RectClipGroup";
 
 export interface LegendThresholdHorizontalProps<T>
   extends CommonLegendThresholdProps<T> {
@@ -41,26 +41,17 @@ export const LegendThresholdHorizontal = <T,>({
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
 
-  const clipPathId = uniqueId(`bars-clip-path-`);
-
   const labelTickHeight = 4;
   const tickLabelPadding = 2;
 
   return (
     <svg width={width} height={height} {...otherSvgProps}>
-      <defs>
-        <clipPath id={clipPathId}>
-          <rect
-            x={0}
-            y={0}
-            width={width}
-            height={showLabels ? barHeight : height}
-            rx={borderRadius}
-            ry={borderRadius}
-          />
-        </clipPath>
-      </defs>
-      <Group>
+      <RectClipGroup
+        width={width}
+        height={showLabels ? barHeight : height}
+        rx={borderRadius}
+        ry={borderRadius}
+      >
         {items.map((item, itemIndex) => {
           const x = scaleRect(itemIndex) ?? 0;
           return (
@@ -70,7 +61,6 @@ export const LegendThresholdHorizontal = <T,>({
                 height={barHeight}
                 width={rectWidth}
                 fill={getItemColor(item, itemIndex)}
-                clipPath={`url(#${clipPathId})`}
               />
               {showLabels && itemIndex !== items.length - 1 && (
                 <Group top={barHeight} left={x + rectWidth}>
@@ -83,7 +73,7 @@ export const LegendThresholdHorizontal = <T,>({
             </Group>
           );
         })}
-      </Group>
+      </RectClipGroup>
     </svg>
   );
 };

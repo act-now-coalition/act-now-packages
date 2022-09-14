@@ -3,6 +3,7 @@ import { Stack, Typography } from "@mui/material";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "./MetricCatalogContext";
+import { useData } from "../../common/hooks";
 
 const MetricAwareDemo: React.FC<{
   metric: Metric | string;
@@ -15,7 +16,7 @@ const MetricAwareDemo: React.FC<{
   const metric = metricCatalog.getMetric(metricOrId);
 
   // Get data from the metric catalog
-  const { data, error } = metricCatalog.useData(region, metric);
+  const { data, error } = useData(region, metric);
 
   // The component needs to handle error and loading states
   if (error || !data) {

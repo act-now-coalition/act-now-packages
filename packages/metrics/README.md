@@ -91,16 +91,13 @@ const catalog = new MetricCatalog(
 
 ### Metric Data
 
-Data can be fetched from `MetricCatalog` using async fetch methods or react hooks.
+Data can be fetched from `MetricCatalog` using async fetch methods.
 
 Data can be fetched with different granularity depending on the use case (a single metric value, a metric chart, a compare table, etc.) - `MetricData` — data for 1 metric for 1 region - `MultiMetricDataStore` — data for 1+ metrics for 1 region - `MultiRegionMultiMetricDataStore` — data for 1+ metrics for 1+ regions
 
 ```
 // Fetch data for one metric / region, with an async fetch method.
 const metricData = await catalog.fetchData(region, metric);
-
-// Use data for many metrics and regions via a React hook.
-const multiRegionMultiMetricDataStore = catalog.useDataForRegionsAndMetrics([region, ...], [metric, ...]);
 ```
 
 ### Metric Data: Generics

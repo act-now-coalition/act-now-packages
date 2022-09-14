@@ -31,7 +31,7 @@ export const CompareTable = <R extends CompareTableRowBase>({
       <TableHead>
         <TableRow>
           {columns.map((column, columnIndex) => (
-            <Fragment key={`column-${columnIndex}`}>
+            <Fragment key={`column-${column.id}`}>
               {column.renderHeader({ column, columnIndex })}
             </Fragment>
           ))}
@@ -41,7 +41,7 @@ export const CompareTable = <R extends CompareTableRowBase>({
         {sortedRows.map((row, rowIndex) => (
           <TableRow key={`table-row-${row.rowId}`}>
             {columns.map((column, columnIndex) => (
-              <Fragment key={`cell-${row.rowId}-${columnIndex}`}>
+              <Fragment key={`cell-${row.rowId}-${column.id}`}>
                 {column.renderCell({ row, rowIndex, columnIndex })}
               </Fragment>
             ))}
