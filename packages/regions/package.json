@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/regions",
-  "version": "1.3.2",
+  "version": "0.0.1",
   "description": "A package containing classes and datasets to represent geographic areas and administrative divisions with a uniform interface.",
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@actnowcoalition/assert": "^1.0.1",
+    "@actnowcoalition/assert": "^0.0.1",
     "lodash": "^4.17.21"
   },
   "sideEffects": false

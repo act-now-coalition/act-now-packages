@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/ui-components",
-  "version": "1.5.20",
+  "version": "0.0.1",
   "description": "UI components for Act Now",
   "repository": {
     "type": "git",
@@ -26,7 +26,6 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@actnowcoalition/assert": "^1.0.1",
     "@babel/core": "^7.18.9",
     "@storybook/addon-actions": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",
@@ -43,9 +42,10 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@actnowcoalition/metrics": "^0.0.17",
-    "@actnowcoalition/number-format": "^1.1.1",
-    "@actnowcoalition/regions": "^1.3.2",
+    "@actnowcoalition/assert": "^0.0.1",
+    "@actnowcoalition/metrics": "^0.0.1",
+    "@actnowcoalition/number-format": "^0.0.1",
+    "@actnowcoalition/regions": "^0.0.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
