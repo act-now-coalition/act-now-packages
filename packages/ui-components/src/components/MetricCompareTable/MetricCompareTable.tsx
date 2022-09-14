@@ -1,40 +1,22 @@
 import React, { useState } from "react";
-import isNumber from "lodash/isNumber";
-import { Region } from "@actnowcoalition/regions";
-import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-import { MetricValue } from "../MetricValue";
 import {
   ColumnDefinition,
   CompareTable,
-  ColumnHeader,
-  TableCell,
   SortDirection,
   sortRows,
 } from "../CompareTable";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
-
-export interface MetricCompareTableProps {
-  /** List of regions (first column)  */
-  regions: Region[];
-  /** List of metrics or metricID - order of the columns will match */
-  metrics: (Metric | string)[];
-}
-
-interface Row {
-  /** Unique ID for the row */
-  rowId: string;
-  /** Region */
-  region: Region;
-  /** multiMetricDataStore instance, make the data available on each row */
-  multiMetricDataStore: MultiMetricDataStore;
-}
+import { Row, MetricCompareTableProps } from "./interfaces";
+import { createMetricColumn, createLocationColumn } from "./utils";
 
 export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   regions,
   metrics: metricOrIds,
+  ...otherCompareTableProps
 }) => {
-  // sorting state, etc
+  // TODO: It might be better to define and set a context to control the
+  // state of the table if we need to control it from a parent component.
   const [sortDirection, setSortDirection] = useState(SortDirection.DESC);
   const [sortColumnId, setSortColumnId] = useState("location");
 
@@ -46,7 +28,6 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   const metricCatalog = useMetricCatalog();
   const metrics = metricOrIds.map((m) => metricCatalog.getMetric(m));
 
-  // Define rows and columns
   const { data, error } = useDataForRegionsAndMetrics(regions, metrics);
 
   if (!data || error) {
@@ -60,81 +41,20 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   }));
 
   const columns: ColumnDefinition<Row>[] = [
-    {
-      columnId: "location",
-      name: "Location",
-      renderHeader: ({ column }) => (
-        <ColumnHeader
-          label={column.name}
-          sortDirection={sortDirection}
-          isSortActive={column.columnId === sortColumnId}
-          onClickSort={(dir) => onClickSort(dir, column.columnId)}
-          stickyColumn
-          stickyRow
-        />
-      ),
-      renderCell: ({ row }) => (
-        <TableCell stickyColumn>{row.region.fullName}</TableCell>
-      ),
-      sorterAsc: (rowA, rowB) =>
-        rowA.region.fullName < rowB.region.fullName ? -1 : 1,
-    },
+    createLocationColumn(sortDirection, sortColumnId, onClickSort),
     ...metrics.map((metric) =>
       createMetricColumn(metric, sortDirection, sortColumnId, onClickSort)
     ),
   ];
 
   const sortColumn = columns.find((col) => col.columnId === sortColumnId);
-  const sortedRows =
-    sortColumn && sortColumn.sorterAsc
-      ? sortRows<Row>(rows, sortColumn.sorterAsc, sortDirection)
-      : rows;
+  const sortedRows = sortRows<Row>(rows, sortDirection, sortColumn?.sorterAsc);
 
-  return <CompareTable rows={sortedRows} columns={columns} />;
+  return (
+    <CompareTable
+      rows={sortedRows}
+      columns={columns}
+      {...otherCompareTableProps}
+    />
+  );
 };
-
-function createMetricColumn(
-  metric: Metric,
-  sortDirection: SortDirection,
-  sortColumnId: string,
-  onClickSort: (direction: SortDirection, columnId: string) => void
-): ColumnDefinition<Row> {
-  return {
-    columnId: metric.id,
-    name: metric.name,
-    renderHeader: ({ column }) => (
-      <ColumnHeader
-        label={column.name}
-        sortDirection={sortDirection}
-        isSortActive={sortColumnId === column.columnId}
-        onClickSort={(dir) => onClickSort(dir, column.columnId)}
-      />
-    ),
-    renderCell: ({ row }) => (
-      <TableCell>
-        <MetricValue
-          metric={metric}
-          region={row.region}
-          variant="dataTabular"
-          justifyContent="end"
-        />
-      </TableCell>
-    ),
-    sorterAsc: (rowA, rowB) => {
-      const { currentValue: valueA } =
-        rowA.multiMetricDataStore.metricData(metric);
-      const { currentValue: valueB } =
-        rowB.multiMetricDataStore.metricData(metric);
-
-      if (isNumber(valueA) && isNumber(valueB)) {
-        return valueA - valueB;
-      }
-
-      if (!isNumber(valueA) && !isNumber(valueB)) {
-        return 0;
-      } else {
-        return isNumber(valueA) ? -1 : 1;
-      }
-    },
-  };
-}

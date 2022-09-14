@@ -21,10 +21,7 @@ export const CompareTable = <R extends CompareTableRowBase>({
   ...muiTableProps
 }: CompareTableProps<R>) => {
   const sortColumn = columns.find((column) => column.columnId === sortColumnId);
-  const sortedRows =
-    sortColumn && sortColumn.sorterAsc
-      ? sortRows(rows, sortColumn.sorterAsc, sortDirection)
-      : rows;
+  const sortedRows = sortRows(rows, sortDirection, sortColumn?.sorterAsc);
 
   return (
     <Table {...muiTableProps}>
@@ -57,9 +54,13 @@ export const CompareTable = <R extends CompareTableRowBase>({
  */
 export function sortRows<R>(
   rows: R[],
-  sorterAsc: (a: R, b: R) => number,
-  sortDirection: SortDirection
+  sortDirection: SortDirection,
+  sorterAsc?: (a: R, b: R) => number
 ): R[] {
+  if (!sorterAsc) {
+    return rows;
+  }
+
   const sortedAsc = [...rows].sort(sorterAsc);
   return sortDirection === SortDirection.ASC ? sortedAsc : sortedAsc.reverse();
 }
