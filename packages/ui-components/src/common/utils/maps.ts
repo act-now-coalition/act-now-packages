@@ -1,5 +1,6 @@
 import { Metric, MetricCatalog } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
+import { useData } from "../hooks";
 
 /** Returns color associated with a metric's current value for a region. */
 export function getMetricMapFillColor(
@@ -8,7 +9,11 @@ export function getMetricMapFillColor(
   region: Region
 ): string {
   const metric = metricCatalog.getMetric(metricOrId);
-  const { data } = metricCatalog.useData(region, metric);
+  // TODO(michael): getMetricMapFillColor() should be renamed to
+  // useMetricMapFillColor() since it calls hooks and is therefore a custom hook
+  // itself. But that causes additional issues, so I'm leaving it as-is for now.
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const { data } = useData(region, metric);
   const currentValue = data?.currentValue;
   return currentValue ? metric.getColor(currentValue) : "lightGray";
 }
