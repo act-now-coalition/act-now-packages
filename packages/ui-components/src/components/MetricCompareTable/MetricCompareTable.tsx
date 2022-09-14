@@ -58,6 +58,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   const columns: ColumnDefinition<Row>[] = [
     {
       id: "location",
+      rows,
       renderCell: ({ row }) => (
         <TableCell stickyColumn>{row.region.fullName}</TableCell>
       ),
@@ -96,6 +97,7 @@ function createMetricColumn(
 ): ColumnDefinition<Row> {
   return {
     id: metric.id,
+    rows,
     renderCell: ({ row }) => (
       <TableCell>
         <MetricValue
