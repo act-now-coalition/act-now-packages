@@ -4,8 +4,11 @@ import { IconButton, Stack } from "@mui/material";
 import { SortDirection } from "..";
 
 export interface SortControlsProps {
+  /** Is sort active? */
   active: boolean;
+  /** sort direction */
   sortDirection: SortDirection;
+  /** Handler on click (receive the direction of the clicked button) */
   onClick: (direction: SortDirection) => void;
 }
 

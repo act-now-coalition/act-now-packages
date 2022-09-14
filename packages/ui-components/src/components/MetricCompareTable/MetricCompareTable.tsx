@@ -9,17 +9,23 @@ import {
   ColumnHeader,
   TableCell,
   SortDirection,
+  sortRows,
 } from "../CompareTable";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricCompareTableProps {
+  /** List of regions (first column)  */
   regions: Region[];
+  /** List of metrics or metricID - order of the columns will match */
   metrics: (Metric | string)[];
 }
 
 interface Row {
+  /** Unique ID for the row */
   rowId: string;
+  /** Region */
   region: Region;
+  /** multiMetricDataStore instance, make the data available on each row */
   multiMetricsDataStore: MultiMetricDataStore;
 }
 
@@ -57,33 +63,33 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
 
   const columns: ColumnDefinition<Row>[] = [
     {
-      id: "location",
-      rows,
-      renderCell: ({ row }) => (
-        <TableCell stickyColumn>{row.region.fullName}</TableCell>
-      ),
+      columnId: "location",
+      name: "Location",
       renderHeader: ({ column }) => (
         <ColumnHeader
-          label="Location"
+          label={column.name}
           sortDirection={sortDirection}
-          isSortActive={column.id === sortColumnId}
-          onClickSort={(dir) => onClickSort(dir, column.id)}
+          isSortActive={column.columnId === sortColumnId}
+          onClickSort={(dir) => onClickSort(dir, column.columnId)}
           stickyColumn
           stickyRow
         />
       ),
-      compareFn: (rowA, rowB) =>
+      renderCell: ({ row }) => (
+        <TableCell stickyColumn>{row.region.fullName}</TableCell>
+      ),
+      sorterAsc: (rowA, rowB) =>
         rowA.region.fullName < rowB.region.fullName ? -1 : 1,
     },
     ...metrics.map((metric) =>
-      createMetricColumn(metric, rows, sortDirection, sortColumnId, onClickSort)
+      createMetricColumn(metric, sortDirection, sortColumnId, onClickSort)
     ),
   ];
 
-  const sortColumn = columns.find((col) => col.id === sortColumnId);
+  const sortColumn = columns.find((col) => col.columnId === sortColumnId);
   const sortedRows =
-    sortColumn && sortColumn.compareFn
-      ? sortBy<Row>(rows, sortColumn.compareFn, sortDirection)
+    sortColumn && sortColumn.sorterAsc
+      ? sortRows<Row>(rows, sortColumn.sorterAsc, sortDirection)
       : rows;
 
   return <CompareTable rows={sortedRows} columns={columns} />;
@@ -91,14 +97,21 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
 
 function createMetricColumn(
   metric: Metric,
-  rows: Row[],
   sortDirection: SortDirection,
   sortColumnId: string,
   onClickSort: (direction: SortDirection, columnId: string) => void
 ): ColumnDefinition<Row> {
   return {
-    id: metric.id,
-    rows,
+    columnId: metric.id,
+    name: metric.name,
+    renderHeader: ({ column }) => (
+      <ColumnHeader
+        label={column.name}
+        sortDirection={sortDirection}
+        isSortActive={sortColumnId === column.columnId}
+        onClickSort={(dir) => onClickSort(dir, column.columnId)}
+      />
+    ),
     renderCell: ({ row }) => (
       <TableCell>
         <MetricValue
@@ -109,15 +122,7 @@ function createMetricColumn(
         />
       </TableCell>
     ),
-    renderHeader: ({ column }) => (
-      <ColumnHeader
-        label={metric.name}
-        sortDirection={sortDirection}
-        isSortActive={sortColumnId === column.id}
-        onClickSort={(dir) => onClickSort(dir, column.id)}
-      />
-    ),
-    compareFn: (rowA, rowB) => {
+    sorterAsc: (rowA, rowB) => {
       const { currentValue: valueA } =
         rowA.multiMetricsDataStore.metricData(metric);
       const { currentValue: valueB } =
@@ -134,13 +139,4 @@ function createMetricColumn(
       }
     },
   };
-}
-
-function sortBy<T>(
-  items: T[],
-  sortAsc: (a: T, b: T) => number,
-  direction: SortDirection
-): T[] {
-  const sortedAsc = [...items].sort(sortAsc);
-  return direction === SortDirection.ASC ? sortedAsc : sortedAsc.reverse();
 }

@@ -20,10 +20,10 @@ export const CompareTable = <R extends CompareTableRowBase>({
   sortDirection = SortDirection.DESC,
   ...muiTableProps
 }: CompareTableProps<R>) => {
-  const sortColumn = columns.find((column) => column.id === sortColumnId);
+  const sortColumn = columns.find((column) => column.columnId === sortColumnId);
   const sortedRows =
-    sortColumn && sortColumn.compareFn
-      ? sortRows(rows, sortColumn.compareFn, sortDirection)
+    sortColumn && sortColumn.sorterAsc
+      ? sortRows(rows, sortColumn.sorterAsc, sortDirection)
       : rows;
 
   return (
@@ -31,7 +31,7 @@ export const CompareTable = <R extends CompareTableRowBase>({
       <TableHead>
         <TableRow>
           {columns.map((column, columnIndex) => (
-            <Fragment key={`column-${column.id}`}>
+            <Fragment key={`column-${column.columnId}`}>
               {column.renderHeader({ column, columnIndex })}
             </Fragment>
           ))}
@@ -41,7 +41,7 @@ export const CompareTable = <R extends CompareTableRowBase>({
         {sortedRows.map((row, rowIndex) => (
           <TableRow key={`table-row-${row.rowId}`}>
             {columns.map((column, columnIndex) => (
-              <Fragment key={`cell-${row.rowId}-${column.id}`}>
+              <Fragment key={`cell-${row.rowId}-${column.columnId}`}>
                 {column.renderCell({ row, rowIndex, columnIndex })}
               </Fragment>
             ))}
@@ -52,11 +52,14 @@ export const CompareTable = <R extends CompareTableRowBase>({
   );
 };
 
-function sortRows<R>(
+/**
+ * Sort the rows using the given sorter function and direction
+ */
+export function sortRows<R>(
   rows: R[],
-  compareFn: (a: R, b: R) => number,
+  sorterAsc: (a: R, b: R) => number,
   sortDirection: SortDirection
 ): R[] {
-  const sortedAsc = [...rows].sort(compareFn);
+  const sortedAsc = [...rows].sort(sorterAsc);
   return sortDirection === SortDirection.ASC ? sortedAsc : sortedAsc.reverse();
 }
