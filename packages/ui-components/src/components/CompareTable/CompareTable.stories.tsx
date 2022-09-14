@@ -31,6 +31,7 @@ const StatefulCompareTable: React.FC<{
   const columns: ColumnDefinition<RowItem>[] = [
     {
       id: "name",
+      rows,
       renderHeader: ({ column }) => (
         <ColumnHeader
           stickyColumn
@@ -51,6 +52,7 @@ const StatefulCompareTable: React.FC<{
     },
     {
       id: "fips",
+      rows,
       renderHeader: ({ column }) => (
         <ColumnHeader
           label="FIPS"
@@ -70,6 +72,7 @@ const StatefulCompareTable: React.FC<{
     },
     {
       id: "population",
+      rows,
       renderHeader: ({ column }) => (
         <ColumnHeader
           label="Population"
@@ -91,6 +94,7 @@ const StatefulCompareTable: React.FC<{
     },
     {
       id: "words",
+      rows,
       renderHeader: ({ column }) => (
         <ColumnHeader
           label="Character Count"

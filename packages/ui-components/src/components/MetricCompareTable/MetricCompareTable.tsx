@@ -76,7 +76,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
         rowA.region.fullName < rowB.region.fullName ? -1 : 1,
     },
     ...metrics.map((metric) =>
-      createMetricColumn(metric, sortDirection, sortColumnId, onClickSort)
+      createMetricColumn(metric, rows, sortDirection, sortColumnId, onClickSort)
     ),
   ];
 
@@ -91,6 +91,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
 
 function createMetricColumn(
   metric: Metric,
+  rows: Row[],
   sortDirection: SortDirection,
   sortColumnId: string,
   onClickSort: (direction: SortDirection, columnId: string) => void
