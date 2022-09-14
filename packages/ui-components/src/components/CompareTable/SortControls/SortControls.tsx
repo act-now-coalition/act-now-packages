@@ -4,16 +4,25 @@ import { IconButton, Stack } from "@mui/material";
 import { SortDirection } from "..";
 
 export interface SortControlsProps {
-  /** Is sort active? */
-  active: boolean;
-  /** sort direction */
+  /**
+   * Current sort direction. This prop is only used when
+   * `isSortActive` is `true`.
+   */
   sortDirection: SortDirection;
-  /** Handler on click (receive the direction of the clicked button) */
+  /**
+   * Indicates if the the current sort direction should be
+   *  highlighted.
+   */
+  isSortActive: boolean;
+  /**
+   * Handler of the sorting buttons. It receives the sorting direction
+   * corresponding to the option activated by the user.
+   */
   onClick: (direction: SortDirection) => void;
 }
 
 export const SortControls: React.FC<SortControlsProps> = ({
-  active,
+  isSortActive,
   sortDirection,
   onClick,
 }) => {
@@ -27,7 +36,7 @@ export const SortControls: React.FC<SortControlsProps> = ({
       >
         <ArrowDownIcon
           fontSize="small"
-          active={active && sortDirection === SortDirection.DESC}
+          active={isSortActive && sortDirection === SortDirection.DESC}
         />
       </IconButton>
       <IconButton
@@ -38,7 +47,7 @@ export const SortControls: React.FC<SortControlsProps> = ({
       >
         <ArrowUpIcon
           fontSize="small"
-          active={active && sortDirection === SortDirection.ASC}
+          active={isSortActive && sortDirection === SortDirection.ASC}
         />
       </IconButton>
     </Stack>

@@ -4,9 +4,20 @@ import { TableCellProps, SortDirection, SortControls } from "..";
 import { StyledTableCell } from "./ColumnHeader.style";
 
 export interface ColumnHeaderProps extends TableCellProps {
+  /** Element to render as column header */
   label: React.ReactNode;
+  /**
+   * Sort direction of the column. This prop is only used when
+   * `isSortActive` is `true`.
+   */
   sortDirection: SortDirection;
+  /** Indicates if the table is currently sorted by this column. */
   isSortActive: boolean;
+  /**
+   * Handler called when the user clicks either sorting button. The
+   * sortDirection parameter corresponds to the button activated by
+   * the user.
+   */
   onClickSort: (sortDirection: SortDirection) => void;
 }
 
@@ -21,7 +32,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
     <Stack alignItems={tableCellProps.align === "right" ? "end" : "start"}>
       {renderLabel(label)}
       <SortControls
-        active={isSortActive}
+        isSortActive={isSortActive}
         sortDirection={sortDirection}
         onClick={onClickSort}
       />

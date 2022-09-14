@@ -14,17 +14,17 @@ const Template: ComponentStory<typeof SortControls> = (args) => (
 export const ActiveAsc = Template.bind({});
 ActiveAsc.args = {
   sortDirection: SortDirection.ASC,
-  active: true,
+  isSortActive: true,
 };
 
 export const ActiveDesc = Template.bind({});
 ActiveDesc.args = {
   sortDirection: SortDirection.DESC,
-  active: true,
+  isSortActive: true,
 };
 
 export const Inactive = Template.bind({});
 Inactive.args = {
   sortDirection: SortDirection.DESC,
-  active: false,
+  isSortActive: false,
 };
