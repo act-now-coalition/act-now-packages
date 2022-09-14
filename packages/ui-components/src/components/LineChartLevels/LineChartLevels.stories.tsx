@@ -44,10 +44,22 @@ Example.args = {
   timeseries,
   xScale,
   yScale,
-  chartLevels: [
-    { from: minValue, to: 200, level: levelLow },
-    { from: 200, to: 500, level: levelMedium },
-    { from: 500, to: maxValue, level: levelHigh },
+  intervals: [
+    {
+      lowerBound: minValue,
+      upperBound: 200,
+      level: levelLow,
+    },
+    {
+      lowerBound: 200,
+      upperBound: 500,
+      level: levelMedium,
+    },
+    {
+      lowerBound: 500,
+      upperBound: maxValue,
+      level: levelHigh,
+    },
   ],
 };
 
@@ -56,9 +68,9 @@ TwoLevels.args = {
   timeseries,
   xScale,
   yScale,
-  chartLevels: [
-    { from: minValue, to: 200, level: levelLow },
-    { from: 200, to: maxValue, level: levelHigh },
+  intervals: [
+    { lowerBound: minValue, upperBound: 200, level: levelLow },
+    { lowerBound: 200, upperBound: maxValue, level: levelHigh },
   ],
 };
 
@@ -72,8 +84,8 @@ Inverted.args = {
   timeseries,
   xScale,
   yScale: yScaleInverted,
-  chartLevels: [
-    { from: minValue, to: 150, level: levelLow },
-    { from: 150, to: maxValue, level: levelHigh },
+  intervals: [
+    { lowerBound: minValue, upperBound: 150, level: levelLow },
+    { lowerBound: 150, upperBound: maxValue, level: levelHigh },
   ],
 };

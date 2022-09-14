@@ -4,23 +4,50 @@ import { assert } from "@actnowcoalition/assert";
 import { LineChart, LineChartProps } from "../LineChart";
 import { RectClipGroup } from "../RectClipGroup";
 
-export interface ChartLevel {
-  /** Data units, starting point on the interval */
-  from: number;
-  /** Data units, ending point on the interval */
-  to: number;
-  /** Metric level */
+/**
+ *
+ */
+export interface ChartInterval {
+  /** */
+  lowerBound: number;
+  /** */
+  upperBound: number;
+  /**  */
   level: MetricLevel;
 }
 
 export interface LineChartLevelsProps extends LineChartProps {
-  chartLevels: ChartLevel[];
+  intervals: ChartInterval[];
 }
 
+/**
+ * Renders a line chart colored according to the y v
+ * in the `intervals` parameter.
+ *
+ * @example
+ * ```tsx
+ * const intervals = [
+ *   { from: 0, to: 100, level: { color: 'green', id: 'low' } },
+ *   { from: 100, to: 200, level: { color: 'red', id: 'high' }}
+ * ];
+ *
+ * <svg width={width} height={height}>
+ *   <LineChartLevels
+ *     timeseries={timeseries}
+ *     xScale={xScale}
+ *     yScale={yScale}
+ *     intervals={intervals}
+ * </svg>
+ * ```
+ *
+ *
+ * @param param0
+ * @returns
+ */
 export const LineChartLevels: React.FC<LineChartLevelsProps> = ({
   xScale,
   yScale,
-  chartLevels,
+  intervals,
   ...otherLineChartProps
 }) => {
   const [xMin, xMax] = extent(xScale.range());
@@ -28,15 +55,15 @@ export const LineChartLevels: React.FC<LineChartLevelsProps> = ({
 
   return (
     <Fragment>
-      {chartLevels.map(({ from, to, level }) => {
-        const yFrom = yScale(from);
-        const yTo = yScale(to);
+      {intervals.map((interval) => {
+        const yFrom = yScale(interval.lowerBound);
+        const yTo = yScale(interval.upperBound);
         const [yMin, yMax] = extent([yFrom, yTo]);
         const height = Math.abs(yMax - yMin);
 
         return (
           <RectClipGroup
-            key={`chart-level-${level.id}`}
+            key={`chart-level-${interval.level.id}`}
             x={xMin}
             y={yMin}
             width={width}
@@ -46,7 +73,7 @@ export const LineChartLevels: React.FC<LineChartLevelsProps> = ({
               {...otherLineChartProps}
               xScale={xScale}
               yScale={yScale}
-              stroke={level.color}
+              stroke={interval.level.color}
             />
           </RectClipGroup>
         );
