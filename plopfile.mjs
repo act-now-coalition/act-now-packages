@@ -26,7 +26,7 @@ yarn add @actnowcoalition/{{dashCase name}}
 const templatePackage = prepareTemplate(`
 {
   "name": "@actnowcoalition/{{dashCase name}}",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "{{sentenceCase description}}",
   "repository": {
     "type": "git",
@@ -189,13 +189,6 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
         type: "add",
         path: `packages/{{dashCase name}}/tsconfig.esm.json`,
         template: templateTSConfigESM,
-      },
-      {
-        type: "append",
-        path: ".github/workflows/publish-package.yml",
-        pattern: "package-list",
-        template: "          - {{dashCase name}}",
-        unique: true,
       },
       {
         type: "yarn",
