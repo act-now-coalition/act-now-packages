@@ -81,7 +81,9 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
 
   if (!includeOverview) {
     return <LegendThreshold {...derivedProps} {...legendThresholdProps} />;
-  } else if (isHorizontal) {
+  }
+
+  if (isHorizontal) {
     return (
       <Stack spacing={2} alignItems="center">
         <Stack spacing={0.5}>
