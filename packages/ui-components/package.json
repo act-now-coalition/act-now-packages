@@ -25,6 +25,10 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.18.9",
     "@storybook/addon-actions": "^6.5.10",
@@ -39,7 +43,9 @@
     "@visx/mock-data": "^2.1.2",
     "babel-loader": "^8.2.5",
     "react-test-renderer": "^18.2.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.6.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "dependencies": {
     "@actnowcoalition/assert": "^0.1.0",
@@ -63,8 +69,6 @@
     "d3-geo": "^2.0.2",
     "d3-scale-chromatic": "^3.0.0",
     "geo-albers-usa-territories": "^0.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "react-markdown": "^8.0.3",
     "react-simple-maps": "^3.0.0",
     "react-singleton-hook": "^4.0.0",
