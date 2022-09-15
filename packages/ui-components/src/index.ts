@@ -94,6 +94,7 @@ export * from "./components/MetricLegendThreshold";
 export * from "./components/MetricOverview";
 export * from "./components/MetricSparklines";
 export * from "./components/MetricValue";
+export * from "./components/MultiProgressBar";
 export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
