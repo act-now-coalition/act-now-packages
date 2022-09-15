@@ -23,6 +23,7 @@
     "test:ci": "CI=true yarn test",
     "lint": "eslint .",
     "build:all": "yarn workspaces run build",
+    "release": "yarn build:all && yarn changeset publish",
     "create-package": "yarn plop package",
     "create-component": "yarn plop component",
     "generate-docs": "yarn typedoc --out public/docs --entryPointStrategy packages --name 'Act Now Packages' .",
@@ -34,6 +35,7 @@
     "*": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.24.4",
     "@types/jest": "^27.5.1",
     "@types/node": "^17.0.33",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
