@@ -51,6 +51,18 @@ const StatefulCompareTable: React.FC<{
         rowA.region.shortName < rowB.region.shortName ? -1 : 1,
     },
     {
+      columnId: "missing-data",
+      name: "Missing Data",
+      renderHeader: ({ column }) => (
+        <ColumnHeader label={column.name} align="right" />
+      ),
+      renderCell: () => (
+        <TableCell align="right">
+          <Typography variant="dataTabular">---</Typography>
+        </TableCell>
+      ),
+    },
+    {
       columnId: "fips",
       name: "FIPS Code",
       renderHeader: ({ column }) => (
@@ -68,7 +80,7 @@ const StatefulCompareTable: React.FC<{
         </TableCell>
       ),
       sorterAsc: (rowA, rowB) =>
-        rowA.region.regionId < rowB.region.regionId ? -1 : 1,
+        rowA.region.regionId > rowB.region.regionId ? -1 : 1,
     },
     {
       columnId: "population",
@@ -93,7 +105,7 @@ const StatefulCompareTable: React.FC<{
         rowA.region.population - rowB.region.population,
     },
     {
-      columnId: "words",
+      columnId: "character-count",
       name: "Character count",
       renderHeader: ({ column }) => (
         <ColumnHeader

@@ -31,7 +31,12 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   const isSortable =
     onClickSort && sortDirection && typeof isSortActive === "boolean";
   return (
-    <StyledTableCell stickyRow isSortActive={isSortActive} {...tableCellProps}>
+    <StyledTableCell
+      stickyRow
+      isSortActive={isSortActive}
+      isSortable={isSortable}
+      {...tableCellProps}
+    >
       <Stack alignItems={tableCellProps.align === "right" ? "end" : "start"}>
         {renderLabel(label)}
         {isSortable && (
