@@ -92,15 +92,15 @@ const metricDefsB: MetricDefinition[] = [
     },
     formatOptions: { minimumFractionDigits: 2 },
   },
-  // {
-  //   id: MetricId.MOCK_CASES,
-  //   name: "Cases Per 100k (mock)",
-  //   extendedName: "Cases per 100k population (using mock data)",
-  //   dataReference: {
-  //     providerId: "mock",
-  //     startDate: "2020-01-01",
-  //   },
-  // },
+  {
+    id: MetricId.MOCK_CASES,
+    name: "Cases Per 100k (mock)",
+    extendedName: "Cases per 100k population (using mock data)",
+    dataReference: {
+      providerId: "mock",
+      startDate: "2020-01-01",
+    },
+  },
 ];
 
 export const metricCatalogB = new MetricCatalog(metricDefsB, dataProviders);
