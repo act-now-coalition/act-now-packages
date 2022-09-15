@@ -18,6 +18,8 @@ interface CommonMetricLegendThresholdProps {
   startLabel?: React.ReactNode;
   /** Optional label for the right or bottom side of the thermometer. */
   endLabel?: React.ReactNode;
+  /** Whether or not to display metric name and info. If false, only thermometer is displayed. */
+  includeOverview?: boolean;
   /** Optional supporting text to give context for the metric. */
   supportingText?: string;
   /** Height of the component, including the colored bars and labels. */
@@ -61,6 +63,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   supportingText,
   startLabel,
   endLabel,
+  includeOverview = true,
   ...legendThresholdProps
 }) => {
   const metricCatalog = useMetricCatalog();
@@ -71,7 +74,16 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
     "Metric must have thresholds to use MetricLegendThreshold." +
       `No thresholds found for metric ${metric}.`
   );
-  if (legendThresholdProps.orientation === "horizontal") {
+  const isHorizontal = legendThresholdProps.orientation === "horizontal";
+  const derivedProps = isHorizontal
+    ? { items, getItemColor, getItemLabel }
+    : { items, getItemColor, getItemLabel, getItemSublabel };
+
+  if (!includeOverview) {
+    return <LegendThreshold {...derivedProps} {...legendThresholdProps} />;
+  }
+
+  if (isHorizontal) {
     return (
       <Stack spacing={2} alignItems="center">
         <Stack spacing={0.5}>
@@ -81,9 +93,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
         <Stack direction="row" spacing={1} alignItems="center">
           {startLabel && startLabel}
           <LegendThreshold<MetricLevel>
-            items={items}
-            getItemColor={getItemColor}
-            getItemLabel={getItemLabel}
+            {...derivedProps}
             {...legendThresholdProps}
           />
           {endLabel && endLabel}
@@ -100,10 +110,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
         <Stack direction="column" spacing={1}>
           {startLabel && startLabel}
           <LegendThreshold<MetricLevel>
-            items={items}
-            getItemColor={getItemColor}
-            getItemLabel={getItemLabel}
-            getItemSublabel={getItemSublabel}
+            {...derivedProps}
             {...legendThresholdProps}
           />
           {endLabel && endLabel}
