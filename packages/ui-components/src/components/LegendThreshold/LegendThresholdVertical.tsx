@@ -34,9 +34,11 @@ export const LegendThresholdVertical = <T,>({
 }: LegendThresholdVerticalProps<T>) => {
   const numberOfItems = items.length;
   const legendColorHeight = height / numberOfItems;
+  // Reverse the order of the items so that the lowest levels are rendered at the bottom.
+  const orderedItems = items.slice().reverse();
   return (
     <LegendThresholdVerticalWrapper>
-      {items.map((item, itemIndex) => (
+      {orderedItems.map((item, itemIndex) => (
         <LegendContainer key={itemIndex} style={{ height: legendColorHeight }}>
           <LegendColor
             style={{
