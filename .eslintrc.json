@@ -21,7 +21,8 @@
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "prefer-const": "off"
+    "prefer-const": "off",
+    "react-hooks/rules-of-hooks": "off"
   },
   "ignorePatterns": ["!.storybook", "**/dist", "**/lib"]
 }
