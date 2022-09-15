@@ -2,8 +2,8 @@ import { TableProps as MuiTableProps } from "@mui/material";
 
 /** Represents sorting directions for a column. */
 export enum SortDirection {
-  ASC = "asc",
-  DESC = "desc",
+  ASC = "ascending",
+  DESC = "descending",
 }
 
 export interface ColumnDefinition<R> {

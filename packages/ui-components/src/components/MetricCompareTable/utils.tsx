@@ -19,14 +19,18 @@ export function createMetricColumn(
   return {
     columnId: metric.id,
     name: metric.name,
-    renderHeader: ({ column }) => (
-      <ColumnHeader
-        label={column.name}
-        sortDirection={sortDirection}
-        isSortActive={sortColumnId === column.columnId}
-        onClickSort={(dir) => onClickSort(dir, column.columnId)}
-      />
-    ),
+    renderHeader: ({ column }) => {
+      const isSortActive = sortColumnId === column.columnId;
+      return (
+        <ColumnHeader
+          label={column.name}
+          sortDirection={sortDirection}
+          isSortActive={isSortActive}
+          onClickSort={(dir) => onClickSort(dir, column.columnId)}
+          aria-sort={isSortActive ? sortDirection : undefined}
+        />
+      );
+    },
     renderCell: ({ row }) => (
       <TableCell>
         <MetricValue
@@ -64,16 +68,20 @@ export function createLocationColumn(
   return {
     columnId: "location",
     name: "Location",
-    renderHeader: ({ column }) => (
-      <ColumnHeader
-        label={column.name}
-        sortDirection={sortDirection}
-        isSortActive={column.columnId === sortColumnId}
-        onClickSort={(dir) => onClickSort(dir, column.columnId)}
-        stickyColumn
-        stickyRow
-      />
-    ),
+    renderHeader: ({ column }) => {
+      const isSortActive = sortColumnId === column.columnId;
+      return (
+        <ColumnHeader
+          label={column.name}
+          sortDirection={sortDirection}
+          isSortActive={column.columnId === sortColumnId}
+          onClickSort={(dir) => onClickSort(dir, column.columnId)}
+          aria-sort={isSortActive ? sortDirection : undefined}
+          stickyColumn
+          stickyRow
+        />
+      );
+    },
     renderCell: ({ row }) => (
       <TableCell stickyColumn>{row.region.fullName}</TableCell>
     ),
