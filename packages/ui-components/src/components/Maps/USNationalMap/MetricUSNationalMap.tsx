@@ -1,11 +1,9 @@
-// import React, { useEffect, useState } from "react";
-import React from "react";
-import { useMetricCatalog } from "../../MetricCatalogContext";
+import React, { useEffect, useState } from "react";
 import { USNationalMap } from "./USNationalMap";
-import { useMetricMapFillColor } from "../../../common/hooks";
 import { MetricUSNationalMapProps } from "./interfaces";
 import { states, counties, RegionDB } from "@actnowcoalition/regions";
 import { keyBy } from "lodash";
+import { useDataForRegionsAndMetrics } from "../../../common/hooks";
 
 const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
 
@@ -18,29 +16,36 @@ interface FillColorForRegionId {
 
 export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
   metric,
+  showCounties,
   ...otherProps
 }) => {
-  // const [regionsToRender, setRegionsToRender] = useState(states.all)
+  const [regionsToRender, setRegionsToRender] = useState(states.all);
 
-  // useEffect(() => {
-  //   if (showCounties) {
-  //     setRegionsToRender(statesAndCounties.all)
-  //   } if (!showCounties) {
-  //     setRegionsToRender(states.all)
-  //   }
-  // }, [showCounties])
+  useEffect(() => {
+    if (showCounties) {
+      setRegionsToRender(statesAndCounties.all);
+    }
+    if (!showCounties) {
+      setRegionsToRender(states.all);
+    }
+  }, [showCounties]);
 
-  const metricCatalog = useMetricCatalog();
+  const { data } = useDataForRegionsAndMetrics(
+    regionsToRender,
+    [metric],
+    false
+  );
 
-  if (!metricCatalog) {
+  if (!data) {
     return null;
   }
 
-  // const regionIdAndFillColor = regionsToRender.map((region) => {
-  const regionIdAndFillColor = statesAndCounties.all.map((region) => {
+  const regionIdAndFillColor = regionsToRender.map((region) => {
+    const currentValue = data.metricData(region, metric)?.currentValue;
+    const metricFromData = data.metricData(region, metric).metric;
     return {
       regionId: region.regionId,
-      fillColor: useMetricMapFillColor(metricCatalog, metric, region),
+      fillColor: metricFromData.getColor(currentValue),
     };
   });
 
@@ -54,6 +59,7 @@ export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
       getFillColor={(region) =>
         regionIdToFillColorMap[region.regionId].fillColor
       }
+      showCounties={showCounties}
       {...otherProps}
     />
   );
