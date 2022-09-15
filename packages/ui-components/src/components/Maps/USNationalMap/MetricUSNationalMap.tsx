@@ -1,22 +1,12 @@
 import React from "react";
 import { useMetricCatalog } from "../../MetricCatalogContext";
-import USNationalMap from "./USNationalMap";
-import { defaultWidth } from "../../../common/geo-shapes";
-import { Metric } from "@actnowcoalition/metrics";
-import { getMetricMapFillColor } from "../../../common/utils";
+import { USNationalMap } from "./USNationalMap";
+import { getMetricMapFillColor } from "../../../common/utils/maps";
+import { MetricUSNationalMapProps } from "./interfaces";
 
-export interface MetricUSNationalMapProps {
-  width: number;
-  renderTooltip: (regionId: string) => React.ReactElement | string;
-  showCounties?: boolean;
-  metric: Metric | string;
-}
-
-const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
-  width = defaultWidth,
-  renderTooltip,
-  showCounties = false,
+export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
   metric,
+  ...otherProps
 }) => {
   const metricCatalog = useMetricCatalog();
 
@@ -26,14 +16,10 @@ const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
 
   return (
     <USNationalMap
-      width={width}
-      renderTooltip={renderTooltip}
-      showCounties={showCounties}
-      getFillColor={(regionId) =>
-        getMetricMapFillColor(metricCatalog, metric, regionId)
+      getFillColor={(region) =>
+        getMetricMapFillColor(metricCatalog, metric, region)
       }
+      {...otherProps}
     />
   );
 };
-
-export default MetricUSNationalMap;

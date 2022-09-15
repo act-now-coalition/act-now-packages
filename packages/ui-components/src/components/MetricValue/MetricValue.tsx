@@ -4,6 +4,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricDot } from "../MetricDot";
+import { useData } from "../../common/hooks";
 
 export interface MetricValueProps extends StackProps {
   /** Region for which we want to show the metric value */
@@ -26,7 +27,7 @@ export const MetricValue: React.FC<MetricValueProps> = ({
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 
-  const { data, error } = metricCatalog.useData(region, metric);
+  const { data, error } = useData(region, metric);
 
   if (!data || error) {
     return <Typography variant={variant} />;

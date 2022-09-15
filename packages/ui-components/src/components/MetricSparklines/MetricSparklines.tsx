@@ -5,6 +5,7 @@ import { SparkLine } from "../SparkLine";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Skeleton } from "@mui/material";
 import { SparkLineProps } from "../SparkLine";
+import { useDataForMetrics } from "../../common/hooks";
 
 export interface MetricSparklinesProps
   extends Omit<SparkLineProps, "timeseriesBarChart" | "timeseriesLineChart"> {
@@ -28,7 +29,7 @@ export const MetricSparklines: React.FC<MetricSparklinesProps> = ({
   const metricCatalog = useMetricCatalog();
   metricLineChart = metricCatalog.getMetric(metricLineChart);
   metricBarChart = metricCatalog.getMetric(metricBarChart);
-  const { data, error } = metricCatalog.useDataForMetrics(region, [
+  const { data, error } = useDataForMetrics(region, [
     metricLineChart,
     metricBarChart,
   ]);
