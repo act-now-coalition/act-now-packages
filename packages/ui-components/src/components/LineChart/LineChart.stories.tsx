@@ -1,9 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleTime } from "@visx/scale";
-import { appleStock } from "@visx/mock-data";
 import { assert } from "@actnowcoalition/assert";
-import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { appleStockTimeseries } from "../../stories/mockData";
 import { LineChart } from ".";
 
 export default {
@@ -20,19 +19,9 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
   </svg>
 );
 
-// We format the points from appleStock to match TimeseriesPoint<number>
-// so we can use them to initialize Timeseries.
-const points = appleStock.map(
-  (p: { date: string; close: number }): TimeseriesPoint<number> => ({
-    date: new Date(p.date.substring(0, 10)),
-    value: p.close,
-  })
-);
+assert(appleStockTimeseries.hasData(), `Timeseries cannot be empty`);
 
-const timeseries = new Timeseries(points);
-assert(timeseries.hasData(), `Timeseries cannot be empty`);
-
-const { minDate, maxDate, minValue, maxValue } = timeseries;
+const { minDate, maxDate, minValue, maxValue } = appleStockTimeseries;
 
 const xScale = scaleTime({
   domain: [minDate, maxDate],
@@ -46,7 +35,7 @@ const yScale = scaleLinear({
 
 export const SolidLine = Template.bind({});
 SolidLine.args = {
-  timeseries,
+  timeseries: appleStockTimeseries,
   xScale,
   yScale,
   stroke: "#2a9d8f",
@@ -54,7 +43,7 @@ SolidLine.args = {
 
 export const DottedLine = Template.bind({});
 DottedLine.args = {
-  timeseries,
+  timeseries: appleStockTimeseries,
   xScale,
   yScale,
   strokeWidth: 1,
