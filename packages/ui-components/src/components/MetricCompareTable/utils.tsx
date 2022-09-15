@@ -7,6 +7,7 @@ import {
   ColumnHeader,
   TableCell,
   SortDirection,
+  getAriaSort,
 } from "../CompareTable";
 import { Row } from "./interfaces";
 
@@ -27,7 +28,7 @@ export function createMetricColumn(
           sortDirection={sortDirection}
           isSortActive={isSortActive}
           onClickSort={(dir) => onClickSort(dir, column.columnId)}
-          aria-sort={isSortActive ? sortDirection : undefined}
+          aria-sort={getAriaSort(isSortActive, sortDirection)}
         />
       );
     },
@@ -76,7 +77,7 @@ export function createLocationColumn(
           sortDirection={sortDirection}
           isSortActive={column.columnId === sortColumnId}
           onClickSort={(dir) => onClickSort(dir, column.columnId)}
-          aria-sort={isSortActive ? sortDirection : undefined}
+          aria-sort={getAriaSort(isSortActive, sortDirection)}
           stickyColumn
           stickyRow
         />

@@ -60,3 +60,19 @@ function renderLabel(label: React.ReactNode): React.ReactNode {
     label
   );
 }
+
+type AriaSortDirection = ColumnHeaderProps["aria-sort"];
+
+/**
+ * Returns the value for the aria-sort property
+ */
+export function getAriaSort(
+  isSorted: boolean,
+  sortDirection: SortDirection
+): AriaSortDirection {
+  return isSorted
+    ? sortDirection === SortDirection.ASC
+      ? "ascending"
+      : "descending"
+    : undefined;
+}

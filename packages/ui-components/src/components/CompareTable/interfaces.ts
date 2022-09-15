@@ -1,9 +1,15 @@
 import { TableProps as MuiTableProps } from "@mui/material";
 
-/** Represents sorting directions for a column. */
+/**
+ * Represents sorting directions for a column.
+ *
+ * Note: It will be better to use "ascending" and "descending" as values for
+ * the enum so we can use the value for the aria-sort property, but MUI's
+ * SortDirection uses "asc" and "desc".
+ * */
 export enum SortDirection {
-  ASC = "ascending",
-  DESC = "descending",
+  ASC = "asc",
+  DESC = "desc",
 }
 
 export interface ColumnDefinition<R> {
