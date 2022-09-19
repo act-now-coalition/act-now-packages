@@ -13,7 +13,7 @@ export enum SortDirection {
 }
 
 export interface ColumnDefinition<R> {
-  /** A unique ID that identifies the this column. */
+  /** A unique ID that identifies this column. */
   columnId: string;
   /**
    * The name of the column. It can be used to render the header

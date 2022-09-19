@@ -15,7 +15,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   metrics: metricOrIds,
   ...otherCompareTableProps
 }) => {
-  // TODO: It might be better to define and set a context to control the
+  // TODO(Pablo): It might be better to define and set a context to control the
   // state of the table if we need to control it from a parent component.
   const [sortDirection, setSortDirection] = useState(SortDirection.DESC);
   const [sortColumnId, setSortColumnId] = useState("location");

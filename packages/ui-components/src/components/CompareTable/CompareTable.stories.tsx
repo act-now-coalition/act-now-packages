@@ -9,6 +9,7 @@ import {
   CompareTable,
   ColumnDefinition,
   ColumnHeader,
+  compare,
 } from ".";
 
 export default {
@@ -22,7 +23,7 @@ interface RowItem {
 }
 
 const rows: RowItem[] = states.all
-  .sort((a, b) => (a.population > b.population ? -1 : 1))
+  .sort((a, b) => compare(a.population, b.population))
   .map((region) => ({ region, rowId: region.regionId }));
 
 const StatefulCompareTable: React.FC<{
@@ -48,7 +49,7 @@ const StatefulCompareTable: React.FC<{
         <TableCell stickyColumn>{row.region.shortName}</TableCell>
       ),
       sorterAsc: (rowA, rowB) =>
-        rowA.region.shortName < rowB.region.shortName ? -1 : 1,
+        compare(rowA.region.shortName, rowB.region.shortName),
     },
     {
       columnId: "missing-data",
@@ -80,7 +81,7 @@ const StatefulCompareTable: React.FC<{
         </TableCell>
       ),
       sorterAsc: (rowA, rowB) =>
-        rowA.region.regionId > rowB.region.regionId ? -1 : 1,
+        compare(rowA.region.regionId, rowB.region.regionId),
     },
     {
       columnId: "population",
@@ -102,7 +103,7 @@ const StatefulCompareTable: React.FC<{
         </TableCell>
       ),
       sorterAsc: (rowA, rowB) =>
-        rowA.region.population - rowB.region.population,
+        compare(rowA.region.population, rowB.region.population),
     },
     {
       columnId: "character-count",
@@ -125,7 +126,7 @@ const StatefulCompareTable: React.FC<{
         </TableCell>
       ),
       sorterAsc: (rowA, rowB) =>
-        rowA.region.fullName.length - rowB.region.fullName.length,
+        compare(rowA.region.fullName.length, rowB.region.fullName.length),
     },
   ];
 
