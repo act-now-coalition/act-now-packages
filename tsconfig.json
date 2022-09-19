@@ -16,11 +16,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "@actnowcoalition/*": ["./packages/*/src"]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
   "exclude": ["node_modules"],
