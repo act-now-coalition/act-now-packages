@@ -34,14 +34,10 @@ export function generateFillColorMap(
   metric: string | Metric,
   data: MultiRegionMultiMetricDataStore
 ): FillColorForRegionId {
-  const regionIdAndFillColor = regions.map((region) => {
-    const currentValue = data.metricData(region, metric)?.currentValue;
-    const metricFromData = data.metricData(region, metric).metric;
-    return {
-      regionId: region.regionId,
-      fillColor: metricFromData.getColor(currentValue),
-    };
-  });
+  const regionIdAndFillColor = regions.map((region) => ({
+    regionId: region.regionId,
+    fillColor: data.metricData(region, metric).getColor(),
+  }));
 
   return keyBy(regionIdAndFillColor, (item) => item.regionId);
 }
