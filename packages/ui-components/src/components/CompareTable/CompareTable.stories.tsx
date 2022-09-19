@@ -9,6 +9,7 @@ import {
   CompareTable,
   ColumnDefinition,
   ColumnHeader,
+  compare,
 } from ".";
 
 export default {
@@ -17,12 +18,12 @@ export default {
 } as ComponentMeta<typeof CompareTable>;
 
 interface RowItem {
-  region: Region;
   rowId: string;
+  region: Region;
 }
 
 const rows: RowItem[] = states.all
-  .sort((a, b) => (a.population > b.population ? -1 : 1))
+  .sort((a, b) => compare(a.population, b.population))
   .map((region) => ({ region, rowId: region.regionId }));
 
 const StatefulCompareTable: React.FC<{
@@ -30,36 +31,50 @@ const StatefulCompareTable: React.FC<{
 }> = () => {
   const columns: ColumnDefinition<RowItem>[] = [
     {
-      id: "name",
-      rows,
+      columnId: "name",
+      name: "Location",
       renderHeader: ({ column }) => (
         <ColumnHeader
           stickyColumn
           stickyRow
-          label="Location"
+          label={column.name}
           align="left"
-          sortDirection={sortDirection}
-          isSortActive={column.id === sortColumnId}
-          onClickSort={(direction) => onClickSort(direction, column.id)}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
+          onClickSort={(direction) => onClickSort(direction, column.columnId)}
           sx={{ minWidth: 200 }}
         />
       ),
       renderCell: ({ row }) => (
         <TableCell stickyColumn>{row.region.shortName}</TableCell>
       ),
-      compareFn: (rowA, rowB) =>
-        rowA.region.shortName < rowB.region.shortName ? -1 : 1,
+      sorterAsc: (rowA, rowB) =>
+        compare(rowA.region.shortName, rowB.region.shortName),
     },
     {
-      id: "fips",
-      rows,
+      columnId: "missing-data",
+      name: "Missing Data",
+      renderHeader: ({ column }) => (
+        <ColumnHeader label={column.name} align="right" />
+      ),
+      renderCell: () => (
+        <TableCell align="right">
+          <Typography variant="dataTabular">---</Typography>
+        </TableCell>
+      ),
+    },
+    {
+      columnId: "fips",
+      name: "FIPS Code",
       renderHeader: ({ column }) => (
         <ColumnHeader
           label="FIPS"
           align="right"
-          sortDirection={sortDirection}
-          isSortActive={column.id === sortColumnId}
-          onClickSort={(direction) => onClickSort(direction, column.id)}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
+          onClickSort={(direction) => onClickSort(direction, column.columnId)}
         />
       ),
       renderCell: ({ row }) => (
@@ -67,19 +82,20 @@ const StatefulCompareTable: React.FC<{
           <Typography variant="dataTabular">{row.region.regionId}</Typography>
         </TableCell>
       ),
-      compareFn: (rowA, rowB) =>
-        rowA.region.regionId < rowB.region.regionId ? -1 : 1,
+      sorterAsc: (rowA, rowB) =>
+        compare(rowA.region.regionId, rowB.region.regionId),
     },
     {
-      id: "population",
-      rows,
+      columnId: "population",
+      name: "Population",
       renderHeader: ({ column }) => (
         <ColumnHeader
-          label="Population"
+          label={column.name}
           align="right"
-          sortDirection={sortDirection}
-          isSortActive={column.id === sortColumnId}
-          onClickSort={(direction) => onClickSort(direction, column.id)}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
+          onClickSort={(direction) => onClickSort(direction, column.columnId)}
         />
       ),
       renderCell: ({ row }) => (
@@ -89,19 +105,20 @@ const StatefulCompareTable: React.FC<{
           </Typography>
         </TableCell>
       ),
-      compareFn: (rowA, rowB) =>
-        rowA.region.population - rowB.region.population,
+      sorterAsc: (rowA, rowB) =>
+        compare(rowA.region.population, rowB.region.population),
     },
     {
-      id: "words",
-      rows,
+      columnId: "character-count",
+      name: "Character count",
       renderHeader: ({ column }) => (
         <ColumnHeader
-          label="Character Count"
+          label={column.name}
           align="right"
-          sortDirection={sortDirection}
-          isSortActive={column.id === sortColumnId}
-          onClickSort={(direction) => onClickSort(direction, column.id)}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
+          onClickSort={(direction) => onClickSort(direction, column.columnId)}
           sx={{ minWidth: 160 }}
         />
       ),
@@ -112,12 +129,12 @@ const StatefulCompareTable: React.FC<{
           </Typography>
         </TableCell>
       ),
-      compareFn: (rowA, rowB) =>
-        rowA.region.fullName.length - rowB.region.fullName.length,
+      sorterAsc: (rowA, rowB) =>
+        compare(rowA.region.fullName.length, rowB.region.fullName.length),
     },
   ];
 
-  const [sortColumnId, setSortColumnId] = useState(columns[0].id);
+  const [sortColumnId, setSortColumnId] = useState(columns[0].columnId);
   const [sortDirection, setSortDirection] = useState(SortDirection.ASC);
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
