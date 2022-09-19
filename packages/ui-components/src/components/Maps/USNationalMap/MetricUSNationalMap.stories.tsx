@@ -26,3 +26,12 @@ MetricAwareStates.args = {
   width: defaultWidth,
   metric: MetricId.MOCK_CASES,
 };
+
+/** Counties colored by mock metric data */
+export const MetricAwareCounties = Template.bind({});
+MetricAwareCounties.args = {
+  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  width: defaultWidth,
+  metric: MetricId.MOCK_CASES,
+  showCounties: true,
+};

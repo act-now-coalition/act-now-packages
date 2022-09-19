@@ -1,24 +1,28 @@
 import React from "react";
-import { useMetricCatalog } from "../../MetricCatalogContext";
 import { USNationalMap } from "./USNationalMap";
-import { getMetricMapFillColor } from "../../../common/utils/maps";
 import { MetricUSNationalMapProps } from "./interfaces";
+import { states, counties, RegionDB } from "@actnowcoalition/regions";
+import { useDataForRegionsAndMetrics } from "../../../common/hooks";
+
+const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
 
 export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
   metric,
+  showCounties,
   ...otherProps
 }) => {
-  const metricCatalog = useMetricCatalog();
+  const mapRegions = showCounties ? statesAndCounties.all : states.all;
 
-  if (!metricCatalog) {
+  const { data } = useDataForRegionsAndMetrics(mapRegions, [metric], false);
+
+  if (!data) {
     return null;
   }
 
   return (
     <USNationalMap
-      getFillColor={(region) =>
-        getMetricMapFillColor(metricCatalog, metric, region)
-      }
+      getFillColor={(region) => data.metricData(region, metric).getColor()}
+      showCounties={showCounties}
       {...otherProps}
     />
   );
