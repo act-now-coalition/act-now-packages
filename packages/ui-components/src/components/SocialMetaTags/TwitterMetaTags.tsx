@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 export interface TwitterMetaTagsProps {
-  twitterCard?: string;
+  twitterCard?: "summary" | "summary_large_image" | "app" | "player";
   twitterImg?: string;
 }
 
