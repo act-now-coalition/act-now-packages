@@ -32,8 +32,6 @@ NotSortable.args = {
 export const SortInactive = Template.bind({});
 SortInactive.args = {
   label: "Location",
-  sortDirection: SortDirection.ASC,
-  isSortActive: false,
   onClickSort,
 };
 
@@ -41,7 +39,6 @@ export const SortActive = Template.bind({});
 SortActive.args = {
   label: "Location",
   sortDirection: SortDirection.ASC,
-  isSortActive: true,
   onClickSort,
 };
 
@@ -54,7 +51,6 @@ WithSupportingText.args = {
     </Stack>
   ),
   sortDirection: SortDirection.ASC,
-  isSortActive: true,
   onClickSort,
 };
 
@@ -67,7 +63,6 @@ AlignedRight.args = {
     </Stack>
   ),
   sortDirection: SortDirection.ASC,
-  isSortActive: true,
   onClickSort,
   align: "right",
 };

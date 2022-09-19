@@ -1,4 +1,5 @@
 import React from "react";
+import isNil from "lodash/isNil";
 import { Typography, Stack } from "@mui/material";
 import { TableCellProps, SortDirection, SortControls } from "..";
 import { StyledTableCell } from "./ColumnHeader.style";
@@ -7,12 +8,10 @@ export interface ColumnHeaderProps extends TableCellProps {
   /** Element to render as column header */
   label: React.ReactNode;
   /**
-   * Sort direction of the column. This prop is only used when
-   * `isSortActive` is `true`.
+   * Sort direction of the column. If sortDirection is undefined, the
+   * column header will render as not sorted (sort buttons not highlighted).
    */
   sortDirection?: SortDirection;
-  /** Indicates if the table is currently sorted by this column. */
-  isSortActive?: boolean;
   /**
    * Handler called when the user clicks either sorting button. The
    * sortDirection parameter corresponds to the button activated by
@@ -24,12 +23,11 @@ export interface ColumnHeaderProps extends TableCellProps {
 export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
   label,
   sortDirection,
-  isSortActive,
   onClickSort,
   ...tableCellProps
 }) => {
-  const isSortable =
-    onClickSort && sortDirection && typeof isSortActive === "boolean";
+  const isSortable = !isNil(onClickSort);
+  const isSortActive = !isNil(sortDirection);
   return (
     <StyledTableCell
       stickyRow
@@ -40,11 +38,7 @@ export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
       <Stack alignItems={tableCellProps.align === "right" ? "end" : "start"}>
         {renderLabel(label)}
         {isSortable && (
-          <SortControls
-            isSortActive={isSortActive}
-            sortDirection={sortDirection}
-            onClick={onClickSort}
-          />
+          <SortControls sortDirection={sortDirection} onClick={onClickSort} />
         )}
       </Stack>
     </StyledTableCell>

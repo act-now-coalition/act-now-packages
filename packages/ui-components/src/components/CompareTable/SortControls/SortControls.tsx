@@ -1,19 +1,15 @@
 import React from "react";
+import isNil from "lodash/isNil";
 import { ArrowUpIcon, ArrowDownIcon } from "./SortControls.style";
 import { IconButton, Stack } from "@mui/material";
 import { SortDirection } from "..";
 
 export interface SortControlsProps {
   /**
-   * Current sort direction. This prop is only used when
-   * `isSortActive` is `true`.
+   * Current sort direction. When undefined, both buttons will be dimmed to
+   * indicate that the table is not sorted by the current column.
    */
-  sortDirection: SortDirection;
-  /**
-   * Indicates if the the current sort direction should be
-   *  highlighted.
-   */
-  isSortActive: boolean;
+  sortDirection?: SortDirection;
   /**
    * Handler of the sorting buttons. It receives the sorting direction
    * corresponding to the option activated by the user.
@@ -22,10 +18,10 @@ export interface SortControlsProps {
 }
 
 export const SortControls: React.FC<SortControlsProps> = ({
-  isSortActive,
   sortDirection,
   onClick,
 }) => {
+  const isSortActive = !isNil(sortDirection);
   return (
     <Stack direction="row" spacing={0}>
       <IconButton

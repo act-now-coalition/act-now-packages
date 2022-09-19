@@ -39,8 +39,9 @@ const StatefulCompareTable: React.FC<{
           stickyRow
           label={column.name}
           align="left"
-          sortDirection={sortDirection}
-          isSortActive={column.columnId === sortColumnId}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
           onClickSort={(direction) => onClickSort(direction, column.columnId)}
           sx={{ minWidth: 200 }}
         />
@@ -70,8 +71,9 @@ const StatefulCompareTable: React.FC<{
         <ColumnHeader
           label="FIPS"
           align="right"
-          sortDirection={sortDirection}
-          isSortActive={column.columnId === sortColumnId}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
           onClickSort={(direction) => onClickSort(direction, column.columnId)}
         />
       ),
@@ -90,8 +92,9 @@ const StatefulCompareTable: React.FC<{
         <ColumnHeader
           label={column.name}
           align="right"
-          sortDirection={sortDirection}
-          isSortActive={column.columnId === sortColumnId}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
           onClickSort={(direction) => onClickSort(direction, column.columnId)}
         />
       ),
@@ -112,8 +115,9 @@ const StatefulCompareTable: React.FC<{
         <ColumnHeader
           label={column.name}
           align="right"
-          sortDirection={sortDirection}
-          isSortActive={column.columnId === sortColumnId}
+          sortDirection={
+            column.columnId === sortColumnId ? sortDirection : undefined
+          }
           onClickSort={(direction) => onClickSort(direction, column.columnId)}
           sx={{ minWidth: 160 }}
         />

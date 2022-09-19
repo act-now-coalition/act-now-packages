@@ -25,8 +25,7 @@ export function createMetricColumn(
       return (
         <ColumnHeader
           label={column.name}
-          sortDirection={sortDirection}
-          isSortActive={isSortActive}
+          sortDirection={isSortActive ? sortDirection : undefined}
           onClickSort={(dir) => onClickSort(dir, column.columnId)}
           aria-sort={getAriaSort(isSortActive, sortDirection)}
         />
@@ -55,6 +54,8 @@ export function createMetricColumn(
       if (!isNumber(valueA) && !isNumber(valueB)) {
         return 0;
       } else {
+        // Sort locations with a metric value before locations that are
+        // missing the value
         return isNumber(valueA) ? -1 : 1;
       }
     },
@@ -74,8 +75,7 @@ export function createLocationColumn(
       return (
         <ColumnHeader
           label={column.name}
-          sortDirection={sortDirection}
-          isSortActive={column.columnId === sortColumnId}
+          sortDirection={isSortActive ? sortDirection : undefined}
           onClickSort={(dir) => onClickSort(dir, column.columnId)}
           aria-sort={getAriaSort(isSortActive, sortDirection)}
           stickyColumn
