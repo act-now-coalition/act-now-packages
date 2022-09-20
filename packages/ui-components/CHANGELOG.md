@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.2.1
+
+### Patch Changes
+
+- 2d63a74: Make maps responsive, fix map bug caused by absolute positioning
+
 ## 0.2.0
 
 ### Minor Changes
