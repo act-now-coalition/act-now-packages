@@ -1,30 +1,23 @@
 import React from "react";
 import * as ReactShare from "react-share";
-import { SocialShareButton } from "./ShareButton.style";
-
-export const COLOR_FACEBOOK = "#3b5998";
-
-export const FacebookShareButtonInner: React.FC<{
-  url: string;
-  quote: string;
-  socialIconSize: number;
-}> = ({ url, quote, socialIconSize }) => (
-  <ReactShare.FacebookShareButton url={url} quote={quote}>
-    <ReactShare.FacebookIcon size={socialIconSize} round={false} fill="auto" />
-  </ReactShare.FacebookShareButton>
-);
+import FacebookIcon from "@mui/icons-material/Facebook";
+import { Button } from "@mui/material";
 
 export const FacebookShareButton: React.FC<{
   url: string;
   quote: string;
-  socialIconSize: number;
   onClickShare: () => void;
-}> = ({ url, quote, socialIconSize, onClickShare }) => (
-  <SocialShareButton color={COLOR_FACEBOOK} onClick={onClickShare}>
-    <FacebookShareButtonInner
-      url={url}
-      quote={quote}
-      socialIconSize={socialIconSize}
-    />
-  </SocialShareButton>
+  hideSocialButtons: () => void;
+}> = ({ url, quote, onClickShare, hideSocialButtons }) => (
+  <Button
+    onClick={() => {
+      onClickShare();
+      setTimeout(() => hideSocialButtons(), 1000);
+    }}
+    endIcon={<FacebookIcon />}
+  >
+    <ReactShare.FacebookShareButton url={url} quote={quote}>
+      Facebook
+    </ReactShare.FacebookShareButton>
+  </Button>
 );

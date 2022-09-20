@@ -1,21 +1,16 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, ButtonGroup, Box } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
-import { useMediaQuery, useTheme, ClickAwayListener } from "@mui/material";
-import { SocialButtonBlock } from ".";
-
-// TODO (Fai): Establish useBreakpoint as a separate util function.
-function useBreakpoint(breakpointWidth: number): boolean {
-  const theme = useTheme();
-  const isBelowBreakpoint = useMediaQuery(
-    theme.breakpoints.down(breakpointWidth)
-  );
-  return isBelowBreakpoint;
-}
+import { ClickAwayListener } from "@mui/material";
+import { CopyLinkButton } from "./CopyLinkButton";
+import { TwitterShareButton } from "./TwitterShareButton";
+import { FacebookShareButton } from "./FacebookShareButton";
 
 export interface ShareButtonProps {
   url: string | (() => Promise<string>);
   quote: string;
+  hashtags: string[];
+  onCopyLink: () => void;
   onShareTwitter: () => void;
   onShareFacebook: () => void;
 }
@@ -23,6 +18,8 @@ export interface ShareButtonProps {
 export const ShareButton: React.FC<ShareButtonProps> = ({
   url,
   quote,
+  hashtags,
+  onCopyLink,
   onShareTwitter,
   onShareFacebook,
 }) => {
@@ -32,11 +29,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   const [socialSharingProps, setSocialSharingProps] = useState<{
     url: string;
     quote: string;
-    socialIconSize: number;
+    hashtags: string[];
   } | null>(null);
-
-  const isMobile = useBreakpoint(600);
-  const socialIconSize = isMobile ? 40 : 50;
 
   // TODO (Fai): Implement useEscToClose in addition to ClickAwayListener.
   const hideSocialButtons = (delay = 0) => {
@@ -49,7 +43,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
       setSocialSharingProps({
         url,
         quote,
-        socialIconSize,
+        hashtags,
       });
     });
   };
@@ -64,26 +58,40 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
 
   return (
     <ClickAwayListener onClickAway={() => hideSocialButtons()}>
-      <div>
-        <Button
-          variant="outlined"
-          endIcon={<ShareIcon />}
-          onClick={toggleSocialButtons}
-          style={{ position: "relative" }}
-        >
-          Share
-        </Button>
+      <>
+        <Box mb={1}>
+          <Button
+            variant="outlined"
+            endIcon={<ShareIcon />}
+            onClick={toggleSocialButtons}
+            style={{ position: "relative" }}
+          >
+            Share
+          </Button>
+        </Box>
         {socialSharingProps && (
-          <SocialButtonBlock
-            {...socialSharingProps}
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            onCopyLink={() => {}}
-            onShareOnTwitter={onShareTwitter}
-            onShareOnFacebook={onShareFacebook}
-            hideSocialButton={() => hideSocialButtons}
-          />
+          <ButtonGroup orientation="vertical">
+            <CopyLinkButton
+              url={socialSharingProps.url}
+              onCopyLink={onCopyLink}
+              hideSocialButtons={hideSocialButtons}
+            />
+            <TwitterShareButton
+              url={socialSharingProps.url}
+              quote={socialSharingProps.quote}
+              hashtags={socialSharingProps.hashtags}
+              onClickShare={() => onShareTwitter}
+              hideSocialButtons={hideSocialButtons}
+            />
+            <FacebookShareButton
+              url={socialSharingProps.url}
+              quote={socialSharingProps.quote}
+              onClickShare={() => onShareFacebook}
+              hideSocialButtons={hideSocialButtons}
+            />
+          </ButtonGroup>
         )}
-      </div>
+      </>
     </ClickAwayListener>
   );
 };

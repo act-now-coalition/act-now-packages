@@ -15,6 +15,7 @@ export const Example = Template.bind({});
 Example.args = {
   url: "https://www.google.ca",
   quote: "This is google",
+  onCopyLink: () => console.log("Link copied"),
   onShareTwitter: () => console.log("Twitter button clicked"),
   onShareFacebook: () => console.log("Facebook button clicked"),
 };
