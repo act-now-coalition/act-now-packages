@@ -10,8 +10,9 @@ import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
 import { USNationalMapProps } from "./interfaces";
+import { ParentSize } from "@visx/responsive";
 
-export const USNationalMap: React.FC<USNationalMapProps> = ({
+const USNationalMapInner: React.FC<USNationalMapProps> = ({
   width = defaultWidth,
   renderTooltip,
   getFillColor = () => "lightGray",
@@ -56,3 +57,9 @@ export const USNationalMap: React.FC<USNationalMapProps> = ({
     </MapContainer>
   );
 };
+
+export const USNationalMap: React.FC<USNationalMapProps> = (props) => (
+  <ParentSize>
+    {({ width }) => <USNationalMapInner width={width} {...props} />}
+  </ParentSize>
+);

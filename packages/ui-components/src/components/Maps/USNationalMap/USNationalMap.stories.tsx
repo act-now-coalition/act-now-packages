@@ -5,7 +5,6 @@ import { USNationalMapProps } from "./interfaces";
 import { states, Region } from "@actnowcoalition/regions";
 import { interpolatePiYG } from "d3-scale-chromatic";
 import { scaleOrdinal, scaleLinear } from "@visx/scale";
-import { defaultWidth } from "../../../common/geo-shapes";
 
 export default {
   title: "Maps/US National",
@@ -24,7 +23,6 @@ const renderSimpleTooltip = (regionId: string) => {
 export const States = Template.bind({});
 States.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  width: defaultWidth,
 };
 
 /** Counties with no fill color */
@@ -32,7 +30,6 @@ export const StatesWithCounties = Template.bind({});
 StatesWithCounties.args = {
   showCounties: true,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  width: defaultWidth,
 };
 
 const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
@@ -69,7 +66,6 @@ export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   getFillColor: (region: Region) => getFillColorByFirstLetter(region),
-  width: defaultWidth,
 };
 
 /** Counties colored by first letter of fullName */
@@ -78,5 +74,4 @@ CountiesColoredByFirstLetter.args = {
   showCounties: true,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   getFillColor: (region: Region) => getFillColorByFirstLetter(region),
-  width: defaultWidth,
 };
