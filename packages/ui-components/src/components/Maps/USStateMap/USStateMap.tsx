@@ -31,8 +31,6 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
 }) => {
   const height = defaultHeight * (width / defaultWidth);
 
-  console.log("width", width);
-
   const stateGeo = statesGeographies.features.find(
     (geo) => geo.id === stateRegionId
   );
