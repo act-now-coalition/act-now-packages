@@ -2,7 +2,6 @@ import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { MetricUSNationalMap } from "./MetricUSNationalMap";
 import { states } from "@actnowcoalition/regions";
-import { defaultWidth } from "../../../common/geo-shapes";
 import { MetricId } from "../../../stories/mockMetricCatalog";
 import { MetricUSNationalMapProps } from "./interfaces";
 
@@ -23,7 +22,6 @@ const renderSimpleTooltip = (regionId: string) => {
 export const MetricAwareStates = Template.bind({});
 MetricAwareStates.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  width: defaultWidth,
   metric: MetricId.MOCK_CASES,
 };
 
@@ -31,7 +29,6 @@ MetricAwareStates.args = {
 export const MetricAwareCounties = Template.bind({});
 MetricAwareCounties.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  width: defaultWidth,
   metric: MetricId.MOCK_CASES,
   showCounties: true,
 };

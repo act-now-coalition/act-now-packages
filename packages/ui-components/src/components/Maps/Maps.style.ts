@@ -5,11 +5,15 @@ export const StyledCanvas = styled("canvas")`
   pointer-events: none;
 `;
 
-export const MapContainer = styled("div")`
+export const MapContainer = styled("div", {
+  shouldForwardProp: isValidProp,
+})<{
+  height?: number;
+}>`
   position: relative;
   display: flex;
   justify-content: center;
-  height: 100%;
+  height: ${({ height }) => (height ? `${height}px` : "100%")};
 `;
 
 export const PositionAbsolute = styled("div")`

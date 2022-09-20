@@ -10,8 +10,9 @@ import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
 import { USNationalMapProps } from "./interfaces";
+import { ParentSize } from "@visx/responsive";
 
-export const USNationalMap: React.FC<USNationalMapProps> = ({
+const USNationalMapInner: React.FC<USNationalMapProps> = ({
   width = defaultWidth,
   renderTooltip,
   getFillColor = () => "lightGray",
@@ -31,7 +32,9 @@ export const USNationalMap: React.FC<USNationalMapProps> = ({
   const geoPath = d3GeoPath().projection(projection);
 
   return (
-    <MapContainer>
+    // We need to be explicit in declaring the height of the national map's container
+    // because of the component pieces' absolute positioning.
+    <MapContainer height={height}>
       {showCounties && (
         <PositionAbsolute>
           <CountiesMap
@@ -56,3 +59,9 @@ export const USNationalMap: React.FC<USNationalMapProps> = ({
     </MapContainer>
   );
 };
+
+export const USNationalMap: React.FC<USNationalMapProps> = (props) => (
+  <ParentSize>
+    {({ width }) => <USNationalMapInner width={width} {...props} />}
+  </ParentSize>
+);
