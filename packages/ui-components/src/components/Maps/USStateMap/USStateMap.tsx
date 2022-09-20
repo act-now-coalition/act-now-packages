@@ -16,10 +16,11 @@ import {
   RegionOverlay,
 } from "../Maps.style";
 import { USStateMapProps } from "./interfaces";
+import { ParentSize } from "@visx/responsive";
 
 const countiesAndStates = new RegionDB([...states.all, ...counties.all]);
 
-export const USStateMap: React.FC<USStateMapProps> = ({
+const USStateMapInner: React.FC<USStateMapProps> = ({
   stateRegionId,
   renderTooltip,
   getFillColor = () => "lightGray",
@@ -29,6 +30,8 @@ export const USStateMap: React.FC<USStateMapProps> = ({
   showBorderingStates = true,
 }) => {
   const height = defaultHeight * (width / defaultWidth);
+
+  console.log("width", width);
 
   const stateGeo = statesGeographies.features.find(
     (geo) => geo.id === stateRegionId
@@ -113,3 +116,9 @@ export const USStateMap: React.FC<USStateMapProps> = ({
     </MapContainer>
   );
 };
+
+export const USStateMap: React.FC<USStateMapProps> = (props) => (
+  <ParentSize>
+    {({ width }) => <USStateMapInner width={width} {...props} />}
+  </ParentSize>
+);

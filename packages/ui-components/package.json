@@ -42,10 +42,10 @@
     "@testing-library/react-hooks": "^8.0.1",
     "@visx/mock-data": "^2.1.2",
     "babel-loader": "^8.2.5",
-    "react-test-renderer": "^18.2.0",
-    "typescript": "^4.6.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-test-renderer": "^18.2.0",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
     "@actnowcoalition/assert": "^0.1.0",
@@ -64,6 +64,7 @@
     "@visx/curve": "^2.1.0",
     "@visx/grid": "^2.12.2",
     "@visx/group": "^2.10.0",
+    "@visx/responsive": "^2.10.0",
     "@visx/scale": "^2.2.2",
     "@visx/shape": "^2.12.2",
     "d3-geo": "^2.0.2",
