@@ -1,14 +1,14 @@
 import React from "react";
 // import FacebookShareButton from './FacebookShareButton';
-// import TwitterShareButton from './TwitterShareButton';
-import CopyLinkButton from "./CopyLinkButton";
+import { TwitterShareButton } from "./TwitterShareButton";
+import { CopyLinkButton } from "./CopyLinkButton";
 
 export const SocialButtonBlock: React.FC<{
   url: string;
   quote: string;
   socialIconSize: number;
   // onShareOnFacebook: () => void;
-  // onShareOnTwitter: () => void;
+  onShareOnTwitter: () => void;
   onCopyLink: () => void;
   hideSocialButton: () => void;
 }> = ({
@@ -16,7 +16,7 @@ export const SocialButtonBlock: React.FC<{
   quote,
   socialIconSize,
   // onShareOnFacebook,
-  // onShareOnTwitter,
+  onShareOnTwitter,
   onCopyLink,
   hideSocialButton,
 }) => {
@@ -37,14 +37,14 @@ export const SocialButtonBlock: React.FC<{
           closeShareButtonGroup();
         }}
       />
-      {/* <TwitterShareButton
+      <TwitterShareButton
         onClickShare={() => {
           onShareOnTwitter();
           closeShareButtonGroup();
         }}
         {...socialSharingProps}
-        hashtags={['COVIDActNow']}
-      /> */}
+        hashtags={["COVIDActNow"]}
+      />
       {/* <FacebookShareButton
         onClickShare={() => {
           onShareOnFacebook();

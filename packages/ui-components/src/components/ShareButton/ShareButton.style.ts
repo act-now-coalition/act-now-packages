@@ -1,6 +1,7 @@
 import { styled } from "../../styles";
 import { css } from "@emotion/react";
 import { Button } from "@mui/material";
+import isValidProp from "@emotion/is-prop-valid";
 
 export const Container = styled("div")``;
 
@@ -28,19 +29,11 @@ export const StyledShareButtonStyles = css`
     display: flex;
     justify-content: center;
   }
-
-  svg {
-    display: block;
-    rect {
-      fill: transparent;
-    }
-    path {
-      fill: "#000";
-    }
-  }
 `;
 
-export const SocialShareButton = styled("div")`
+export const SocialShareButton = styled("div", {
+  shouldForwardProp: isValidProp,
+})<{ color?: string }>`
   ${StyledShareButtonStyles};
   border-right: 1px solid ${(props) => props.theme.palette.grey[500]};
   display: "block";
@@ -57,6 +50,16 @@ export const SocialShareButton = styled("div")`
 
   button {
     align-items: center;
+  }
+
+  svg {
+    display: block;
+    rect {
+      fill: transparent;
+    }
+    path {
+      fill: ${(props) => (props.color ? props.color : "#000")};
+    }
   }
 `;
 

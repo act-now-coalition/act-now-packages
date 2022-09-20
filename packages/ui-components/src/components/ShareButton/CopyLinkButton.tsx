@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { SocialButton, SocialShareButton } from "./ShareButton.style";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
-const CopyLinkButton = ({
+export const CopyLinkButton = ({
   url,
   onCopyLink,
 }: {
@@ -34,5 +34,3 @@ const CopyLinkButton = ({
     </CopyToClipboard>
   );
 };
-
-export default CopyLinkButton;
