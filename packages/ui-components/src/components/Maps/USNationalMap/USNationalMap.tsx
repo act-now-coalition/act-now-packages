@@ -32,7 +32,9 @@ const USNationalMapInner: React.FC<USNationalMapProps> = ({
   const geoPath = d3GeoPath().projection(projection);
 
   return (
-    <MapContainer>
+    // We need to be explicit in declaring the height of the national map's container
+    // because of the component pieces' absolute positioning.
+    <MapContainer height={height}>
       {showCounties && (
         <PositionAbsolute>
           <CountiesMap
