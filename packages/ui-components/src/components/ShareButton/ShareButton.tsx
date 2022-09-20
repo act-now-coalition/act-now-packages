@@ -9,7 +9,7 @@ import { FacebookShareButton } from "./FacebookShareButton";
 export interface ShareButtonProps {
   url: string | (() => Promise<string>);
   quote: string;
-  hashtags: string[];
+  hashtags?: string[];
   onCopyLink: () => void;
   onShareTwitter: () => void;
   onShareFacebook: () => void;
@@ -18,7 +18,7 @@ export interface ShareButtonProps {
 export const ShareButton: React.FC<ShareButtonProps> = ({
   url,
   quote,
-  hashtags,
+  hashtags = [],
   onCopyLink,
   onShareTwitter,
   onShareFacebook,
@@ -64,7 +64,6 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
             variant="outlined"
             endIcon={<ShareIcon />}
             onClick={toggleSocialButtons}
-            style={{ position: "relative" }}
           >
             Share
           </Button>
