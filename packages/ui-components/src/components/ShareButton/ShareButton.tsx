@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Container } from "./ShareButton.style";
 import { Button } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import { useMediaQuery, useTheme, ClickAwayListener } from "@mui/material";
@@ -17,9 +16,16 @@ function useBreakpoint(breakpointWidth: number): boolean {
 export interface ShareButtonProps {
   url: string | (() => Promise<string>);
   quote: string;
+  onShareTwitter: () => void;
+  onShareFacebook: () => void;
 }
 
-export const ShareButton: React.FC<ShareButtonProps> = ({ url, quote }) => {
+export const ShareButton: React.FC<ShareButtonProps> = ({
+  url,
+  quote,
+  onShareTwitter,
+  onShareFacebook,
+}) => {
   // Turn url / imageUrl into asynchronous getters if they aren't already.
   const getUrl = typeof url === "string" ? () => Promise.resolve(url) : url;
 
@@ -58,11 +64,12 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ url, quote }) => {
 
   return (
     <ClickAwayListener onClickAway={() => hideSocialButtons()}>
-      <Container>
+      <div>
         <Button
           variant="outlined"
           endIcon={<ShareIcon />}
           onClick={toggleSocialButtons}
+          style={{ position: "relative" }}
         >
           Share
         </Button>
@@ -71,10 +78,12 @@ export const ShareButton: React.FC<ShareButtonProps> = ({ url, quote }) => {
             {...socialSharingProps}
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             onCopyLink={() => {}}
+            onShareOnTwitter={onShareTwitter}
+            onShareOnFacebook={onShareFacebook}
             hideSocialButton={() => hideSocialButtons}
           />
         )}
-      </Container>
+      </div>
     </ClickAwayListener>
   );
 };

@@ -1,13 +1,14 @@
 import React from "react";
-// import FacebookShareButton from './FacebookShareButton';
+import { FacebookShareButton } from "./FacebookShareButton";
 import { TwitterShareButton } from "./TwitterShareButton";
 import { CopyLinkButton } from "./CopyLinkButton";
+import { Stack, useTheme } from "@mui/material";
 
 export const SocialButtonBlock: React.FC<{
   url: string;
   quote: string;
   socialIconSize: number;
-  // onShareOnFacebook: () => void;
+  onShareOnFacebook: () => void;
   onShareOnTwitter: () => void;
   onCopyLink: () => void;
   hideSocialButton: () => void;
@@ -15,7 +16,7 @@ export const SocialButtonBlock: React.FC<{
   url,
   quote,
   socialIconSize,
-  // onShareOnFacebook,
+  onShareOnFacebook,
   onShareOnTwitter,
   onCopyLink,
   hideSocialButton,
@@ -25,11 +26,21 @@ export const SocialButtonBlock: React.FC<{
     quote,
     socialIconSize,
   };
+
   function closeShareButtonGroup() {
     setTimeout(() => hideSocialButton(), 1000);
   }
+
+  const theme = useTheme();
+
   return (
-    <div>
+    <Stack
+      direction="row"
+      position="absolute"
+      marginTop="8px"
+      borderRadius="4px"
+      boxShadow={`${theme.palette.grey[300]} 0px 8px 32px`}
+    >
       <CopyLinkButton
         url={socialSharingProps.url}
         onCopyLink={() => {
@@ -45,13 +56,15 @@ export const SocialButtonBlock: React.FC<{
         {...socialSharingProps}
         hashtags={["COVIDActNow"]}
       />
-      {/* <FacebookShareButton
+      <FacebookShareButton
         onClickShare={() => {
           onShareOnFacebook();
           closeShareButtonGroup();
         }}
         {...socialSharingProps}
-      /> */}
-    </div>
+      />
+    </Stack>
   );
 };
+
+//box-shadow: 0px ${theme.spacing(1)}px ${theme.spacing(4)}px rgba(0, 0, 0, 0.2);

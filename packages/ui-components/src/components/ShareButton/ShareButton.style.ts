@@ -1,26 +1,20 @@
-import { styled } from "../../styles";
-import { css } from "@emotion/react";
+import { styled, theme } from "../../styles";
 import { Button } from "@mui/material";
 import isValidProp from "@emotion/is-prop-valid";
 
-export const Container = styled("div")``;
+export const SocialShareButton = styled("div", {
+  shouldForwardProp: isValidProp,
+})<{ color?: string }>`
+  width: 64px;
+  height: 48px;
 
-export const StyledShareButtonStyles = css`
-  cursor: pointer;
-  color: white;
-  display: block;
-  flex: 1;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 0.875rem;
-  font-weight: 700;
-  height: 2.5rem;
-  line-height: 2.5rem;
-  text-transform: uppercase;
-  user-select: none;
-  text-align: center;
+  border-right: 1px solid ${(props) => props.theme.palette.grey[200]};
+  &:last-child {
+    border-right: none;
+  }
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.12);
+    background-color: ${theme.palette.grey[200]};
   }
 
   > button {
@@ -29,44 +23,25 @@ export const StyledShareButtonStyles = css`
     display: flex;
     justify-content: center;
   }
-`;
-
-export const SocialShareButton = styled("div", {
-  shouldForwardProp: isValidProp,
-})<{ color?: string }>`
-  ${StyledShareButtonStyles};
-  border-right: 1px solid ${(props) => props.theme.palette.grey[500]};
-  display: "block";
-  width: 60px;
-  height: 42px;
-  ∂ &:last-child {
-    border-right: none;
-  }
-
-  ${({ theme }) => theme.breakpoints.up("sm")} {
-    width: 80px;
-    height: 56px;
-  }
 
   button {
     align-items: center;
   }
 
   svg {
-    display: block;
     rect {
       fill: transparent;
     }
     path {
-      fill: ${(props) => (props.color ? props.color : "#000")};
+      fill: ${(props) => props.color ?? "#000"};
     }
   }
-`;
 
-// disableElevation: true,
-// disableRipple: true,
-// disableFocusRipple: true,
-// disableTouchRipple: true,
+  ${({ theme }) => theme.breakpoints.up("sm")} {
+    width: 80px;
+    height: 56px;
+  }
+`;
 
 export const SocialButton = styled(Button)`
   width: 60px;
