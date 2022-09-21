@@ -13,6 +13,7 @@ export interface ShareButtonProps {
   onCopyLink: () => void;
   onShareTwitter: () => void;
   onShareFacebook: () => void;
+  justifyButton?: "flex-start" | "flex-end" | "center";
 }
 
 export const ShareButton: React.FC<ShareButtonProps> = ({
@@ -22,6 +23,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   onCopyLink,
   onShareTwitter,
   onShareFacebook,
+  justifyButton = "flex-start",
 }) => {
   // Turn url / imageUrl into asynchronous getters if they aren't already.
   const getUrl = typeof url === "string" ? () => Promise.resolve(url) : url;
@@ -58,8 +60,8 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
 
   return (
     <ClickAwayListener onClickAway={() => hideSocialButtons()}>
-      <>
-        <Box mb={1}>
+      <Box display="flex" flexDirection="column">
+        <Box display="flex" justifyContent={justifyButton}>
           <Button
             variant="outlined"
             endIcon={<ShareIcon />}
@@ -69,28 +71,30 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
           </Button>
         </Box>
         {socialSharingProps && (
-          <ButtonGroup orientation="vertical">
-            <CopyLinkButton
-              url={socialSharingProps.url}
-              onCopyLink={onCopyLink}
-              hideSocialButtons={hideSocialButtons}
-            />
-            <TwitterShareButton
-              url={socialSharingProps.url}
-              quote={socialSharingProps.quote}
-              hashtags={socialSharingProps.hashtags}
-              onClickShare={() => onShareTwitter}
-              hideSocialButtons={hideSocialButtons}
-            />
-            <FacebookShareButton
-              url={socialSharingProps.url}
-              quote={socialSharingProps.quote}
-              onClickShare={() => onShareFacebook}
-              hideSocialButtons={hideSocialButtons}
-            />
-          </ButtonGroup>
+          <Box display="flex" justifyContent={justifyButton} mt={1}>
+            <ButtonGroup orientation="vertical">
+              <CopyLinkButton
+                url={socialSharingProps.url}
+                onCopyLink={onCopyLink}
+                hideSocialButtons={hideSocialButtons}
+              />
+              <TwitterShareButton
+                url={socialSharingProps.url}
+                quote={socialSharingProps.quote}
+                hashtags={socialSharingProps.hashtags}
+                onClickShare={() => onShareTwitter}
+                hideSocialButtons={hideSocialButtons}
+              />
+              <FacebookShareButton
+                url={socialSharingProps.url}
+                quote={socialSharingProps.quote}
+                onClickShare={() => onShareFacebook}
+                hideSocialButtons={hideSocialButtons}
+              />
+            </ButtonGroup>
+          </Box>
         )}
-      </>
+      </Box>
     </ClickAwayListener>
   );
 };
