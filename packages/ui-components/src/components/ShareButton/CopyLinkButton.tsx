@@ -5,12 +5,10 @@ import LinkIcon from "@mui/icons-material/Link";
 
 export const CopyLinkButton = ({
   url,
-  onCopyLink,
-  hideSocialButtons,
+  onClick,
 }: {
   url: string;
-  onCopyLink: () => void;
-  hideSocialButtons: () => void;
+  onClick: () => void;
 }) => {
   const [copiedLink, setCopiedLink] = useState(false);
   return (
@@ -18,8 +16,7 @@ export const CopyLinkButton = ({
       text={url}
       onCopy={() => {
         setCopiedLink(true);
-        onCopyLink();
-        setTimeout(() => hideSocialButtons(), 1000);
+        onClick();
       }}
     >
       <Button endIcon={<LinkIcon />}>

@@ -6,16 +6,9 @@ import { Button } from "@mui/material";
 export const FacebookShareButton: React.FC<{
   url: string;
   quote: string;
-  onClickShare: () => void;
-  hideSocialButtons: () => void;
-}> = ({ url, quote, onClickShare, hideSocialButtons }) => (
-  <Button
-    onClick={() => {
-      onClickShare();
-      setTimeout(() => hideSocialButtons(), 1000);
-    }}
-    endIcon={<FacebookIcon />}
-  >
+  onClick: () => void;
+}> = ({ url, quote, onClick }) => (
+  <Button onClick={() => onClick()} endIcon={<FacebookIcon />}>
     <ReactShare.FacebookShareButton url={url} quote={quote}>
       Facebook
     </ReactShare.FacebookShareButton>

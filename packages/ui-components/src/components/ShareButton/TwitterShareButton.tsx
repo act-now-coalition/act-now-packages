@@ -7,16 +7,9 @@ export const TwitterShareButton: React.FC<{
   url: string;
   quote: string;
   hashtags?: string[];
-  onClickShare: () => void;
-  hideSocialButtons: () => void;
-}> = ({ url, quote, hashtags, onClickShare, hideSocialButtons }) => (
-  <Button
-    onClick={() => {
-      onClickShare();
-      setTimeout(() => hideSocialButtons(), 1000);
-    }}
-    endIcon={<TwitterIcon />}
-  >
+  onClick: () => void;
+}> = ({ url, quote, hashtags, onClick }) => (
+  <Button onClick={() => onClick()} endIcon={<TwitterIcon />}>
     <ReactShare.TwitterShareButton url={url} hashtags={hashtags} title={quote}>
       Twitter
     </ReactShare.TwitterShareButton>

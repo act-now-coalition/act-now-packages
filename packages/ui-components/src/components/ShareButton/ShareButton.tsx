@@ -7,7 +7,7 @@ import { TwitterShareButton } from "./TwitterShareButton";
 import { FacebookShareButton } from "./FacebookShareButton";
 
 export interface ShareButtonProps {
-  url: string | (() => Promise<string>);
+  url: string;
   quote: string;
   hashtags?: string[];
   onCopyLink: () => void;
@@ -25,43 +25,22 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   onShareFacebook,
   justifyButton = "flex-start",
 }) => {
-  // Turn url / imageUrl into asynchronous getters if they aren't already.
-  const getUrl = typeof url === "string" ? () => Promise.resolve(url) : url;
-
-  const [socialSharingProps, setSocialSharingProps] = useState<{
-    url: string;
-    quote: string;
-    hashtags: string[];
-  } | null>(null);
+  const [visibleSocialButtons, setVisibleSocialButtons] = useState(false);
 
   // TODO (Fai): Implement useEscToClose in addition to ClickAwayListener.
-  const hideSocialButtons = (delay = 0) => {
-    const timeoutId = setTimeout(() => setSocialSharingProps(null), delay);
-    return () => clearTimeout(timeoutId);
-  };
-
-  const showSocialButtons = () => {
-    getUrl().then((url) => {
-      setSocialSharingProps({
-        url,
-        quote,
-        hashtags,
-      });
-    });
+  const hideSocialButtons = () => {
+    const timer = setTimeout(() => setVisibleSocialButtons(false), 1000);
+    return () => clearTimeout(timer);
   };
 
   const toggleSocialButtons = () => {
-    if (socialSharingProps) {
-      hideSocialButtons();
-    } else {
-      showSocialButtons();
-    }
+    setVisibleSocialButtons(!visibleSocialButtons);
   };
 
   return (
     <ClickAwayListener onClickAway={() => hideSocialButtons()}>
       <Box display="flex" flexDirection="column">
-        <Box display="flex" justifyContent={justifyButton}>
+        <Box display="flex">
           <Button
             variant="outlined"
             endIcon={<ShareIcon />}
@@ -70,26 +49,32 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
             Share
           </Button>
         </Box>
-        {socialSharingProps && (
+        {visibleSocialButtons && (
           <Box display="flex" justifyContent={justifyButton} mt={1}>
             <ButtonGroup orientation="vertical">
               <CopyLinkButton
-                url={socialSharingProps.url}
-                onCopyLink={onCopyLink}
-                hideSocialButtons={hideSocialButtons}
+                url={url}
+                onClick={() => {
+                  onCopyLink();
+                  hideSocialButtons();
+                }}
               />
               <TwitterShareButton
-                url={socialSharingProps.url}
-                quote={socialSharingProps.quote}
-                hashtags={socialSharingProps.hashtags}
-                onClickShare={() => onShareTwitter}
-                hideSocialButtons={hideSocialButtons}
+                url={url}
+                quote={quote}
+                hashtags={hashtags}
+                onClick={() => {
+                  onShareTwitter();
+                  hideSocialButtons();
+                }}
               />
               <FacebookShareButton
-                url={socialSharingProps.url}
-                quote={socialSharingProps.quote}
-                onClickShare={() => onShareFacebook}
-                hideSocialButtons={hideSocialButtons}
+                url={url}
+                quote={quote}
+                onClick={() => {
+                  onShareFacebook();
+                  hideSocialButtons();
+                }}
               />
             </ButtonGroup>
           </Box>
