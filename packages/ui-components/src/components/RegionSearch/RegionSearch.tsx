@@ -1,9 +1,9 @@
-import React from "react";
-import { Container } from "./RegionSearch.style";
+import React, { HTMLAttributes } from "react";
 import { Region } from "@actnowcoalition/regions";
 import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { createFilterOptions } from "@mui/material/useAutocomplete";
+import { SearchItem } from "./SearchItem/SearchItem";
 
 function stringifyOption(region: Region) {
   return region.fullName;
@@ -51,12 +51,25 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
   );
 
   return (
-    <Container>
+    <div>
       <Autocomplete
         options={options}
         onChange={(e, item: Region | null) => onChange(item)}
         clearIcon={<></>}
         renderInput={customRenderInput ?? defaultRenderInput}
+        renderOption={(
+          props: HTMLAttributes<HTMLLIElement>,
+          option: Region
+        ) => {
+          return (
+            <SearchItem
+              itemLabel={option.shortName}
+              itemSublabel={`${option.population} population`}
+              itemUrl={option.relativeUrl}
+              {...props}
+            />
+          );
+        }}
         getOptionLabel={stringifyOption}
         filterOptions={createFilterOptions({
           limit: 30,
@@ -64,6 +77,6 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
         })}
         {...otherAutocompleteProps}
       />
-    </Container>
+    </div>
   );
 };
