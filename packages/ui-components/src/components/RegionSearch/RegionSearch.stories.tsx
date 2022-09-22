@@ -15,16 +15,27 @@ const Template: ComponentStory<typeof RegionSearch> = (args) => (
   <RegionSearch {...args} />
 );
 
+const AnchorLinkComponent: React.FC<{
+  children: React.ReactElement;
+  targetUrl: string;
+}> = ({ children, targetUrl }) => (
+  <a href={targetUrl} style={{ textDecoration: "none" }}>
+    {children}
+  </a>
+);
+
 export const StatesOnly = Template.bind({});
 StatesOnly.args = {
   options: states.all,
   inputLabel: "States",
+  LinkComponent: AnchorLinkComponent,
 };
 
 export const CustomRenderInput = Template.bind({});
 CustomRenderInput.args = {
   options: states.all,
   inputLabel: "States",
+  LinkComponent: AnchorLinkComponent,
   renderInput: (params) => (
     <TextField
       {...params}
@@ -46,10 +57,12 @@ export const CountiesOnly = Template.bind({});
 CountiesOnly.args = {
   options: sortBy(counties.all, (county) => county.population * -1),
   inputLabel: "Counties",
+  LinkComponent: AnchorLinkComponent,
 };
 
 const allRegions = [...states.all, ...counties.all, ...metros.all];
 export const AllRegions = Template.bind({});
 AllRegions.args = {
   options: allRegions,
+  LinkComponent: AnchorLinkComponent,
 };

@@ -27,10 +27,6 @@ export const Container = styled(Box)`
   padding: ${({ theme }) => theme.spacing(1, 1.5)};
 
   &:hover {
-    background-color: ${({ theme }) => theme.palette.grey[100]};
+    background-color: ${({ theme }) => theme.palette.action.hover};
   }
-`;
-
-export const WrappingLink = styled("a")`
-  text-decoration: none;
 `;

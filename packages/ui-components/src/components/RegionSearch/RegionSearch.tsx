@@ -25,6 +25,10 @@ export type CustomAutocompleteProps = AutocompleteProps<
 
 export interface RegionSearchProps
   extends Omit<CustomAutocompleteProps, "renderInput"> {
+  LinkComponent: React.FC<{
+    children: React.ReactElement;
+    targetUrl: string;
+  }>;
   /** Placeholder text to show in the inner text field  */
   inputLabel?: string;
   /** Optional renderInput function. See https://mui.com/material-ui/api/autocomplete/ */
@@ -35,6 +39,7 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
   options,
   inputLabel = "City, county, state, or district",
   renderInput: customRenderInput,
+  LinkComponent,
   ...otherAutocompleteProps
 }) => {
   const defaultRenderInput: CustomAutocompleteProps["renderInput"] = (
@@ -62,12 +67,13 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
           option: Region
         ) => {
           return (
-            <SearchItem
-              itemLabel={option.shortName}
-              itemSublabel={`${option.population} population`}
-              itemUrl={option.relativeUrl}
-              {...props}
-            />
+            <LinkComponent targetUrl={option.relativeUrl}>
+              <SearchItem
+                itemLabel={option.shortName}
+                itemSublabel={`${option.population} population`}
+                {...props}
+              />
+            </LinkComponent>
           );
         }}
         getOptionLabel={stringifyOption}

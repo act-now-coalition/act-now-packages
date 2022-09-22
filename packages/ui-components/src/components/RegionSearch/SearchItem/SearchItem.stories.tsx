@@ -17,14 +17,12 @@ export const NewYork = Template.bind({});
 NewYork.args = {
   itemLabel: newYork.fullName,
   itemSublabel: `${newYork.population} population`,
-  itemUrl: newYork.relativeUrl,
 };
 
 export const NewYorkWithIndicator = Template.bind({});
 NewYorkWithIndicator.args = {
   itemLabel: newYork.fullName,
   itemSublabel: `${newYork.population} population`,
-  itemUrl: newYork.relativeUrl,
   iconColor: "red",
 };
 
@@ -32,5 +30,4 @@ export const MaricopaCounty = Template.bind({});
 MaricopaCounty.args = {
   itemLabel: maricopaCounty.shortName,
   itemSublabel: `${maricopaCounty.population} population`,
-  itemUrl: maricopaCounty.relativeUrl,
 };
