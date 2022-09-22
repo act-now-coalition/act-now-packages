@@ -52,28 +52,32 @@ export const LegendThresholdHorizontal = <T,>({
         rx={borderRadius}
         ry={borderRadius}
       >
-        {items.map((item, itemIndex) => {
-          const x = scaleRect(itemIndex) ?? 0;
-          return (
-            <Group key={`item-${itemIndex}`}>
-              <rect
-                x={x}
-                height={barHeight}
-                width={rectWidth}
-                fill={getItemColor(item, itemIndex)}
-              />
-              {showLabels && itemIndex !== items.length - 1 && (
-                <Group top={barHeight} left={x + rectWidth}>
-                  <TickMark y1={0} y2={labelTickHeight} />
-                  <TickLabel y={labelTickHeight + tickLabelPadding}>
-                    {getItemLabel && getItemLabel(item, itemIndex)}
-                  </TickLabel>
-                </Group>
-              )}
-            </Group>
-          );
-        })}
+        {items.map((item, itemIndex) => (
+          <rect
+            key={`item-${itemIndex}`}
+            x={scaleRect(itemIndex) ?? 0}
+            height={barHeight}
+            width={rectWidth}
+            fill={getItemColor(item, itemIndex)}
+          />
+        ))}
       </RectClipGroup>
+      {items.map(
+        (item, itemIndex) =>
+          showLabels &&
+          itemIndex !== items.length - 1 && (
+            <Group
+              key={`item-${itemIndex}`}
+              top={barHeight}
+              left={(scaleRect(itemIndex) ?? 0) + rectWidth}
+            >
+              <TickMark y1={0} y2={labelTickHeight} />
+              <TickLabel y={labelTickHeight + tickLabelPadding}>
+                {getItemLabel && getItemLabel(item, itemIndex)}
+              </TickLabel>
+            </Group>
+          )
+      )}
     </svg>
   );
 };
