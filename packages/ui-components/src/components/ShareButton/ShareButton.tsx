@@ -63,13 +63,15 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
         <MenuItem>
           <TwitterShareButton
             url={url}
-            quote={quote}
+            title={quote}
             hashtags={hashtags}
             onClick={() => {
               onShareTwitter();
               handleClose();
             }}
-          />
+          >
+            Twitter
+          </TwitterShareButton>
         </MenuItem>
         <MenuItem>
           <FacebookShareButton
@@ -79,7 +81,9 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
               onShareFacebook();
               handleClose();
             }}
-          />
+          >
+            Facebook
+          </FacebookShareButton>
         </MenuItem>
       </Menu>
     </>

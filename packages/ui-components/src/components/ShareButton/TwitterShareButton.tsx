@@ -3,15 +3,17 @@ import * as ReactShare from "react-share";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Button } from "./ShareButton.style";
 
-export const TwitterShareButton: React.FC<{
-  url: string;
-  quote: string;
-  hashtags?: string[];
+type BaseProps = React.ComponentProps<typeof ReactShare.TwitterShareButton>;
+
+export interface TwitterShareButtonProps extends BaseProps {
   onClick: () => void;
-}> = ({ url, quote, hashtags, onClick }) => (
+}
+
+export const TwitterShareButton: React.FC<TwitterShareButtonProps> = ({
+  onClick,
+  ...otherProps
+}) => (
   <Button onClick={() => onClick()} endIcon={<TwitterIcon />} fullWidth>
-    <ReactShare.TwitterShareButton url={url} hashtags={hashtags} title={quote}>
-      Twitter
-    </ReactShare.TwitterShareButton>
+    <ReactShare.TwitterShareButton {...otherProps} />
   </Button>
 );
