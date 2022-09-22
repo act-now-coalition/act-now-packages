@@ -10,7 +10,7 @@ export const CircleIcon = styled(Dot, {
   iconColor: string;
 }>`
   background-color: ${({ iconColor }) => iconColor};
-  margin-top: ${({ theme }) => theme.spacing(0.8)};
+  margin-top: ${({ theme }) => theme.spacing(1)};
   margin-right: ${({ theme }) => theme.spacing(1)};
 `;
 
