@@ -1,6 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { ShareButton, ShareButtonProps } from ".";
+import { Box } from "@mui/material";
 
 export default {
   title: "Components/ShareButton",
@@ -8,7 +9,9 @@ export default {
 } as ComponentMeta<typeof ShareButton>;
 
 const Template: ComponentStory<typeof ShareButton> = (args) => (
-  <ShareButton {...args} />
+  <Box display="flex" justifyContent="center">
+    <ShareButton {...args} />
+  </Box>
 );
 
 const args: ShareButtonProps = {
@@ -23,14 +26,14 @@ const args: ShareButtonProps = {
 export const Default = Template.bind({});
 Default.args = args;
 
-export const CenterJustified = Template.bind({});
-CenterJustified.args = {
+export const CenterMenuOrigin = Template.bind({});
+CenterMenuOrigin.args = {
   ...args,
-  justifyButton: "center",
+  menuOrigin: "center",
 };
 
-export const RightJustified = Template.bind({});
-RightJustified.args = {
+export const RightMenuOrigin = Template.bind({});
+RightMenuOrigin.args = {
   ...args,
-  justifyButton: "flex-end",
+  menuOrigin: "right",
 };

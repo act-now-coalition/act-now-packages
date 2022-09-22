@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Button, ButtonGroup, Box } from "@mui/material";
+import { Button } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
-import { ClickAwayListener } from "@mui/material";
 import { CopyLinkButton } from "./CopyLinkButton";
 import { TwitterShareButton } from "./TwitterShareButton";
 import { FacebookShareButton } from "./FacebookShareButton";
+import { Menu, MenuItem } from "./ShareButton.style";
 
 export interface ShareButtonProps {
   url: string;
@@ -13,7 +13,7 @@ export interface ShareButtonProps {
   onCopyLink: () => void;
   onShareTwitter: () => void;
   onShareFacebook: () => void;
-  justifyButton?: "flex-start" | "flex-end" | "center";
+  menuOrigin?: "left" | "center" | "right";
 }
 
 export const ShareButton: React.FC<ShareButtonProps> = ({
@@ -23,63 +23,65 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   onCopyLink,
   onShareTwitter,
   onShareFacebook,
-  justifyButton = "flex-start",
+  menuOrigin = "left",
 }) => {
-  const [visibleSocialButtons, setVisibleSocialButtons] = useState(false);
-
-  // TODO (Fai): Implement useEscToClose in addition to ClickAwayListener.
-  const hideSocialButtons = () => {
-    const timer = setTimeout(() => setVisibleSocialButtons(false), 1000);
+  const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorButton(event.currentTarget);
+  };
+  const handleClose = () => {
+    const timer = setTimeout(() => setAnchorButton(null), 1000);
     return () => clearTimeout(timer);
   };
-
-  const toggleSocialButtons = () => {
-    setVisibleSocialButtons(!visibleSocialButtons);
-  };
-
   return (
-    <ClickAwayListener onClickAway={() => hideSocialButtons()}>
-      <Box display="flex" flexDirection="column">
-        <Box display="flex">
-          <Button
-            variant="outlined"
-            endIcon={<ShareIcon />}
-            onClick={toggleSocialButtons}
-          >
-            Share
-          </Button>
-        </Box>
-        {visibleSocialButtons && (
-          <Box display="flex" justifyContent={justifyButton} mt={1}>
-            <ButtonGroup orientation="vertical">
-              <CopyLinkButton
-                url={url}
-                onClick={() => {
-                  onCopyLink();
-                  hideSocialButtons();
-                }}
-              />
-              <TwitterShareButton
-                url={url}
-                quote={quote}
-                hashtags={hashtags}
-                onClick={() => {
-                  onShareTwitter();
-                  hideSocialButtons();
-                }}
-              />
-              <FacebookShareButton
-                url={url}
-                quote={quote}
-                onClick={() => {
-                  onShareFacebook();
-                  hideSocialButtons();
-                }}
-              />
-            </ButtonGroup>
-          </Box>
-        )}
-      </Box>
-    </ClickAwayListener>
+    <>
+      <Button variant="outlined" endIcon={<ShareIcon />} onClick={handleClick}>
+        Share
+      </Button>
+      <Menu
+        anchorEl={anchorButton}
+        open={Boolean(anchorButton)}
+        onClose={() => setAnchorButton(null)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: menuOrigin,
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: menuOrigin,
+        }}
+      >
+        <MenuItem>
+          <CopyLinkButton
+            url={url}
+            onClick={() => {
+              onCopyLink();
+              handleClose();
+            }}
+          />
+        </MenuItem>
+        <MenuItem>
+          <TwitterShareButton
+            url={url}
+            quote={quote}
+            hashtags={hashtags}
+            onClick={() => {
+              onShareTwitter();
+              handleClose();
+            }}
+          />
+        </MenuItem>
+        <MenuItem>
+          <FacebookShareButton
+            url={url}
+            quote={quote}
+            onClick={() => {
+              onShareFacebook();
+              handleClose();
+            }}
+          />
+        </MenuItem>
+      </Menu>
+    </>
   );
 };
