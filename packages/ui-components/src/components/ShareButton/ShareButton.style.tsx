@@ -7,8 +7,8 @@ import {
 
 export const Menu = styled(MuiMenu)`
   .MuiMenu-paper {
-    margin-top: 8px;
-    min-width: ${(props) => props.theme.spacing(18)};
+    margin-top: ${(props) => props.theme.spacing(1)};
+    min-width: 125px;
   }
   .MuiMenu-list {
     padding: 0;

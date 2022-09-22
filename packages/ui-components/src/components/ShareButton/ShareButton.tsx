@@ -31,7 +31,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   };
   const handleClose = () => {
     const timer = setTimeout(() => setAnchorButton(null), 1000);
-    return () => clearTimeout(timer);
+    () => clearTimeout(timer);
   };
   return (
     <>
