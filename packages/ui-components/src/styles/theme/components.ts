@@ -81,6 +81,25 @@ const components: ThemeOptions["components"] = {
       },
     },
   },
+  MuiChip: {
+    styleOverrides: {
+      root: {
+        border: `solid 1px ${palette.border.default}`,
+      },
+      label: {
+        fontFamily: typography.labelSmall.fontFamily,
+        fontSize: typography.labelSmall.fontSize,
+        fontWeight: typography.labelSmall.fontWeight,
+        lineHeight: typography.labelSmall.lineHeight,
+        color: palette.secondary.dark,
+      },
+      deleteIcon: {
+        ":hover": {
+          color: palette.secondary.dark,
+        },
+      },
+    },
+  },
 };
 
 export default components;

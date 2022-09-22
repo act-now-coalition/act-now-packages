@@ -1,6 +1,6 @@
 import React from "react";
 import isObject from "lodash/isObject";
-import { Typography, Palette, Grid, Box } from "@mui/material";
+import { Typography, Palette, Grid, Box, Stack } from "@mui/material";
 import theme from "../styles/theme";
 
 export default {
@@ -55,7 +55,10 @@ const ColorGroup: React.FC<{
           <ColorBox color={item.color} />
         </Grid>
         <Grid item sm={11} xs={12}>
-          <Typography variant="labelSmall">{item.name}</Typography>
+          <Stack direction="column" spacing={0.5}>
+            <Typography variant="labelSmall">{item.name}</Typography>
+            <Typography variant="dataTabular">{item.color}</Typography>
+          </Stack>
         </Grid>
       </Grid>
     ))}
