@@ -1,5 +1,14 @@
 # @actnowcoalition/ui-components
 
+## 0.2.2
+
+### Patch Changes
+
+- 0ff0d78: Fix a a bug that prevented the labels to show on LegendThreshold (horizontal)
+- e085226: style region search items
+- 4926c4c: Implement share button
+- da42672: Style the Chip component and minor fixes on theme/components'
+
 ## 0.2.1
 
 ### Patch Changes
