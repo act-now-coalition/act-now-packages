@@ -1,17 +1,16 @@
 import { styled } from "../../../styles";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import isValidProp from "@emotion/is-prop-valid";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Box from "@mui/material/Box";
+import { Dot } from "../../MetricDot/MetricDot.style";
 
-export const CircleIcon = styled(FiberManualRecordIcon, {
+export const CircleIcon = styled(Dot, {
   shouldForwardProp: isValidProp,
 })<{
   iconColor: string;
 }>`
-  font-size: 12px;
-  color: ${({ iconColor }) => iconColor};
-  margin-top: ${({ theme }) => theme.spacing(0.75)};
+  background-color: ${({ iconColor }) => iconColor};
+  margin-top: ${({ theme }) => theme.spacing(0.8)};
   margin-right: ${({ theme }) => theme.spacing(1)};
 `;
 
