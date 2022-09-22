@@ -25,6 +25,7 @@ export type CustomAutocompleteProps = AutocompleteProps<
 
 export interface RegionSearchProps
   extends Omit<CustomAutocompleteProps, "renderInput"> {
+  /** Link component in which to wrap the search item. */
   LinkComponent: React.FC<{
     children: React.ReactElement;
     targetUrl: string;
