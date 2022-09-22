@@ -1,32 +1,30 @@
 /** MUI theme components */
 import { ThemeOptions, createTheme } from "@mui/material";
-import typography, { typographyConstants } from "./typography";
-import palette from "./palette";
 
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
   MuiButton: {
     styleOverrides: {
-      root: {
+      root: ({ theme }) => ({
         textTransform: "none",
-        fontFamily: typography.labelLarge.fontFamily,
-        fontSize: typography.labelLarge.fontSize,
-        fontWeight: typography.labelLarge.fontWeight,
-        lineHeight: typography.labelLarge.lineHeight,
-      },
-      outlinedPrimary: {
-        borderColor: palette.border.default,
-      },
+        fontFamily: theme.typography.labelLarge.fontFamily,
+        fontSize: theme.typography.labelLarge.fontSize,
+        fontWeight: theme.typography.labelLarge.fontWeight,
+        lineHeight: theme.typography.labelLarge.lineHeight,
+      }),
+      outlinedPrimary: ({ theme }) => ({
+        borderColor: theme.palette.border.default,
+      }),
     },
   },
   MuiTooltip: {
     styleOverrides: {
-      tooltip: {
+      tooltip: ({ theme }) => ({
         backgroundColor: "black",
         color: "white",
-        fontSize: typographyConstants.fontSizeBase,
-        lineHeight: typographyConstants.lineHeightBase,
+        fontSize: theme.typography.paragraphLarge.fontSize,
+        lineHeight: theme.typography.paragraphLarge.lineHeight,
         padding: "16px",
         "& a": {
           color: "white",
@@ -34,7 +32,7 @@ const components: ThemeOptions["components"] = {
         [referenceTheme.breakpoints.down("sm")]: {
           padding: "20px 24px",
         },
-      },
+      }),
       arrow: {
         color: "black",
       },
@@ -42,30 +40,30 @@ const components: ThemeOptions["components"] = {
   },
   MuiToggleButtonGroup: {
     styleOverrides: {
-      root: {
-        ...typography.paragraphSmall,
-        border: `solid 1px ${palette.border.default}`,
-      },
-      groupedHorizontal: {
+      root: ({ theme }) => ({
+        ...theme.typography.paragraphSmall,
+        border: `solid 1px ${theme.palette.border.default}`,
+      }),
+      groupedHorizontal: ({ theme }) => ({
         border: "none",
-        color: typography.paragraphSmall.color,
+        color: theme.typography.paragraphSmall.color,
         textTransform: "none",
         borderBottom: `solid 2px transparent`,
         ":not(:first-of-type)": {
           borderLeft: "none",
         },
         "&.Mui-selected": {
-          ...typography.labelSmall,
-          borderBottom: `solid 2px ${palette.secondary.dark}`,
+          ...theme.typography.labelSmall,
+          borderBottom: `solid 2px ${theme.palette.secondary.dark}`,
           backgroundColor: "transparent",
         },
-      },
-      groupedVertical: {
+      }),
+      groupedVertical: ({ theme }) => ({
         borderLeft: "none",
         borderRight: "none",
         borderTop: "none",
         borderBottom: "none",
-        color: typography.paragraphSmall.color,
+        color: theme.typography.paragraphSmall.color,
         textTransform: "none",
         ":first-of-type": {
           borderTop: "none",
@@ -74,11 +72,28 @@ const components: ThemeOptions["components"] = {
           borderBottom: "none",
         },
         "&.Mui-selected": {
-          ...typography.labelSmall,
-          borderRight: `solid 2px ${palette.secondary.dark}`,
+          ...theme.typography.labelSmall,
+          borderRight: `solid 2px ${theme.palette.secondary.dark}`,
           backgroundColor: "transparent",
         },
-      },
+      }),
+    },
+  },
+  MuiChip: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        borderColor: theme.palette.border.default,
+      }),
+      label: ({ theme }) => ({
+        ...theme.typography.labelSmall,
+        color: theme.palette.secondary.dark,
+      }),
+      deleteIcon: ({ theme }) => ({
+        color: theme.palette.text.disabled,
+        ":hover": {
+          color: theme.palette.secondary.dark,
+        },
+      }),
     },
   },
 };
