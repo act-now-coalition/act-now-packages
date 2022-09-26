@@ -22,7 +22,7 @@ export class Region {
     public readonly slug: string,
     public readonly relativeUrl: string,
     public readonly parent: Region | null,
-    // TODO: transfrom population and potentially other attributes to Metric.
+    // TODO: transform population and potentially other attributes to Metric.
     // This will allow us to leverage on more advanced Metric functionality,
     // such as display sources, number formatting options, etc.
     public readonly population: number
@@ -38,7 +38,7 @@ export class Region {
 
   /**
    * Generates a slug from the input string by replacing accented
-   * characters with their basic Latin equivalents, replacing whitespaces
+   * characters with their basic Latin equivalents, replacing white spaces
    * with underscores and splitting words when capitalization changes.
    *
    * @example
