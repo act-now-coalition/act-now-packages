@@ -12,34 +12,51 @@ const washingtonState = states.findByRegionIdStrict("53");
 
 const TabContent = () => {
   return (
-    <Stack>
-      <Typography variant="labelLarge" textAlign="left" mb={1}>
+    <Stack spacing={1}>
+      <Typography variant="labelLarge" textAlign="left">
         Metric Name
       </Typography>
       <MetricValue
         metric={MetricId.MOCK_CASES}
         region={washingtonState}
-        mb={1}
+        variant="dataEmphasizedSmall"
       />
-      <Typography variant="paragraphSmall" mb={1}>
-        Supporting text
-      </Typography>
+      <Typography variant="paragraphSmall">Supporting text</Typography>
     </Stack>
   );
 };
 
 export const SingleTab = () => <Tab label={<TabContent />} />;
 
-export const MultiTabs = () => {
+export const MultiTabsWithIndicator = () => {
   const [value, setValue] = useState(1);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
   return (
     <Tabs value={value} onChange={handleChange}>
-      <Tab value={1} label={<TabContent />} />
-      <Tab value={2} label={<TabContent />} />
-      <Tab value={3} label={<TabContent />} />
+      <Tab value={1} label={<TabContent />} disableRipple />
+      <Tab value={2} label={<TabContent />} disableRipple />
+      <Tab value={3} label={<TabContent />} disableRipple />
+    </Tabs>
+  );
+};
+
+export const MultiTabsWithoutIndicator = () => {
+  const [value, setValue] = useState(1);
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+  return (
+    <Tabs
+      value={value}
+      onChange={handleChange}
+      TabIndicatorProps={{ sx: { backgroundColor: "transparent" } }}
+      style={{ borderBottom: "none" }}
+    >
+      <Tab value={1} label={<TabContent />} disableRipple />
+      <Tab value={2} label={<TabContent />} disableRipple />
+      <Tab value={3} label={<TabContent />} disableRipple />
     </Tabs>
   );
 };

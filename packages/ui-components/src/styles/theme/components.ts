@@ -4,6 +4,38 @@ import { ThemeOptions, createTheme } from "@mui/material";
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
+  MuiTabs: {
+    styleOverrides: {
+      indicator: {
+        height: "3px",
+        backgroundColor: "black",
+      },
+      flexContainer: ({ theme }) => ({
+        borderBottom: `1px solid ${theme.palette.border.default}`,
+        width: "fit-content",
+      }),
+    },
+  },
+  MuiTab: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        textTransform: "none",
+        padding: "0px 0px 16px 0px",
+        margin: "0px 13px",
+        ":first-of-type": {
+          marginLeft: "0px",
+        },
+        ":last-of-type": {
+          marginRight: "0px",
+        },
+        ":not(&.Mui-selected)": {
+          span: {
+            color: theme.palette.text.secondary,
+          },
+        },
+      }),
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: ({ theme }) => ({
