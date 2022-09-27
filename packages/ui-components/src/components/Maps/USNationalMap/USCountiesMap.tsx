@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { ExtendedFeature, GeoProjection, geoPath as d3GeoPath } from "d3-geo";
 import { StyledCanvas } from "../Maps.style";
-import { stateBorders } from "../../../common/geo-shapes";
-import { countiesGeographies } from "../../../common/geo-shapes";
+import { countiesGeographies, stateBorders } from "../../../common/geo-shapes";
 
 const borderColor = "white";
 
