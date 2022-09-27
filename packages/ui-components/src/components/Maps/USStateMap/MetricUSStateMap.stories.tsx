@@ -27,6 +27,7 @@ MetricAwareNewYork.args = {
   stateRegionId: "36",
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   metric: MetricId.MOCK_CASES,
+  regionDB: statesAndCounties,
 };
 
 export const MetricAwareNewYorkWithHighlightedCounty = Template.bind({});
@@ -35,4 +36,5 @@ MetricAwareNewYorkWithHighlightedCounty.args = {
   currentRegion: herkimerCountyNewYorkRegion,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
   metric: MetricId.MOCK_CASES,
+  regionDB: statesAndCounties,
 };
