@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 export interface PageMetaTagsProps {
   siteName: string;
@@ -22,8 +22,8 @@ export const PageMetaTags: React.FC<PageMetaTagsProps> = ({
   imgType = "image/png",
 }) => {
   return (
-    <Fragment>
-      <title>{title}</title>
+    <>
+      <title key="title">{title}</title>
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />
       <meta property="og:type" content="website" />
@@ -41,6 +41,6 @@ export const PageMetaTags: React.FC<PageMetaTagsProps> = ({
       )}
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-    </Fragment>
+    </>
   );
 };
