@@ -41,22 +41,3 @@ export const MultiTabsWithIndicator = () => {
     </Tabs>
   );
 };
-
-export const MultiTabsWithoutIndicator = () => {
-  const [value, setValue] = useState(1);
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-  return (
-    <Tabs
-      value={value}
-      onChange={handleChange}
-      TabIndicatorProps={{ sx: { backgroundColor: "transparent" } }}
-      style={{ borderBottom: "none" }}
-    >
-      <Tab value={1} label={<TabContent />} disableRipple />
-      <Tab value={2} label={<TabContent />} disableRipple />
-      <Tab value={3} label={<TabContent />} disableRipple />
-    </Tabs>
-  );
-};

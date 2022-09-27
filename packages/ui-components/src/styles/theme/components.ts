@@ -6,10 +6,10 @@ const referenceTheme = createTheme();
 const components: ThemeOptions["components"] = {
   MuiTabs: {
     styleOverrides: {
-      indicator: {
-        height: "3px",
-        backgroundColor: "black",
-      },
+      indicator: ({ theme }) => ({
+        height: theme.spacing(0.375),
+        backgroundColor: theme.palette.common.black,
+      }),
       flexContainer: ({ theme }) => ({
         borderBottom: `1px solid ${theme.palette.border.default}`,
         width: "fit-content",
@@ -20,8 +20,8 @@ const components: ThemeOptions["components"] = {
     styleOverrides: {
       root: ({ theme }) => ({
         textTransform: "none",
-        padding: "0px 0px 16px 0px",
-        margin: "0px 13px",
+        padding: `0px 0px ${theme.spacing(2)} 0px`,
+        margin: `0px ${theme.spacing(2)}`,
         ":first-of-type": {
           marginLeft: "0px",
         },
