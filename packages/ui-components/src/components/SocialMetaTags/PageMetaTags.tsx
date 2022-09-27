@@ -23,13 +23,12 @@ export const PageMetaTags: React.FC<PageMetaTagsProps> = ({
 }) => {
   return (
     <>
-      <title key="title">{title}</title>
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={siteName} />
       <meta property="og:url" content={url} />
-      <meta property="og:title" content={title} />
+      <meta property="og:title" key="title" content={title} />
       <meta property="og:description" content={description} />
       {img && imgWidth && imgHeight && (
         <>
