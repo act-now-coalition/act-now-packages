@@ -100,7 +100,5 @@ export * from "./components/MultiProgressBar";
 export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
-export * from "./components/SparkLine";
-export * from "./components/SocialMetaTags";
-
 export * from "./components/ShareButton";
+export * from "./components/SparkLine";
