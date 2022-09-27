@@ -88,6 +88,7 @@ export * from "./components/LineChart";
 export * from "./components/Maps";
 export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
+export * from "./components/MetricChart";
 export * from "./components/MetricCompareTable";
 export * from "./components/MetricDot";
 export * from "./components/MetricLegendCategorical";
@@ -100,7 +101,6 @@ export * from "./components/MultiProgressBar";
 export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
-export * from "./components/SparkLine";
-export * from "./components/SocialMetaTags";
-
 export * from "./components/ShareButton";
+export * from "./components/SocialMetaTags";
+export * from "./components/SparkLine";
