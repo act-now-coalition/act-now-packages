@@ -7,7 +7,7 @@ const components: ThemeOptions["components"] = {
   MuiTabs: {
     styleOverrides: {
       indicator: ({ theme }) => ({
-        height: theme.spacing(0.375),
+        height: "2px",
         backgroundColor: theme.palette.common.black,
       }),
       flexContainer: ({ theme }) => ({
@@ -20,13 +20,13 @@ const components: ThemeOptions["components"] = {
     styleOverrides: {
       root: ({ theme }) => ({
         textTransform: "none",
-        padding: `0px 0px ${theme.spacing(2)} 0px`,
-        margin: `0px ${theme.spacing(2)}`,
+        padding: `0 0 ${theme.spacing(2)} 0`,
+        margin: `0 ${theme.spacing(2)}`,
         ":first-of-type": {
-          marginLeft: "0px",
+          marginLeft: "0",
         },
         ":last-of-type": {
-          marginRight: "0px",
+          marginRight: "0",
         },
         ":not(&.Mui-selected)": {
           span: {
