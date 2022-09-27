@@ -1,19 +1,15 @@
 import React from "react";
+import { useDataForRegionsAndMetrics } from "../../../common/hooks";
 import { USNationalMap } from "./USNationalMap";
 import { MetricUSNationalMapProps } from "./interfaces";
-import { states, counties, RegionDB } from "@actnowcoalition/regions";
-import { useDataForRegionsAndMetrics } from "../../../common/hooks";
-
-const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
 
 export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
   metric,
+  regionDB,
   showCounties,
   ...otherProps
 }) => {
-  const mapRegions = showCounties ? statesAndCounties.all : states.all;
-
-  const { data } = useDataForRegionsAndMetrics(mapRegions, [metric], false);
+  const { data } = useDataForRegionsAndMetrics(regionDB.all, [metric], false);
 
   if (!data) {
     return null;
@@ -21,7 +17,10 @@ export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
 
   return (
     <USNationalMap
-      getFillColor={(region) => data.metricData(region, metric).getColor()}
+      getFillColor={(regionId: string) => {
+        const region = regionDB.findByRegionId(regionId);
+        return region ? data.metricData(region, metric).getColor() : "#eee";
+      }}
       showCounties={showCounties}
       {...otherProps}
     />

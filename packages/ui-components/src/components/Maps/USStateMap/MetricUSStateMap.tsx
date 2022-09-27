@@ -8,6 +8,7 @@ import { getCountiesOfState } from "../../../common/utils/maps";
 export const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
   metric,
   stateRegionId,
+  regionDB,
   ...otherProps
 }) => {
   const state = states.findByRegionIdStrict(stateRegionId);
@@ -22,7 +23,10 @@ export const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
 
   return (
     <USStateMap
-      getFillColor={(region) => data.metricData(region, metric).getColor()}
+      getFillColor={(regionId: string) => {
+        const region = regionDB.findByRegionId(regionId);
+        return region ? data.metricData(region, metric).getColor() : "#eee";
+      }}
       stateRegionId={stateRegionId}
       {...otherProps}
     />

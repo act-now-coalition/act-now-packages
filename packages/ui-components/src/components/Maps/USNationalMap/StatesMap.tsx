@@ -1,9 +1,8 @@
 import React from "react";
 import { GeoPath } from "d3-geo";
 import Tooltip from "@mui/material/Tooltip";
-import { RegionOverlay, RegionShapeBase } from "../Maps.style";
 import { statesGeographies } from "../../../common/geo-shapes";
-import { Region, states } from "@actnowcoalition/regions";
+import { RegionOverlay, RegionShapeBase } from "../Maps.style";
 
 const StatesMap: React.FC<{
   width: number;
@@ -11,7 +10,7 @@ const StatesMap: React.FC<{
   geoPath: GeoPath;
   renderTooltip: (regionId: string) => React.ReactElement | string;
   showCounties: boolean;
-  getFillColor: (region: Region) => string;
+  getFillColor: (regionId: string) => string;
 }> = ({
   width,
   height,
@@ -20,23 +19,21 @@ const StatesMap: React.FC<{
   showCounties,
   getFillColor,
 }) => {
+  // TODO(Pablo): Add wrapping link once we update the RegionsDB API
   return (
     <svg width={width} height={height}>
       {statesGeographies.features.map((geo) => {
         const stateFips = `${geo.id}`;
-        const state = states.findByRegionIdStrict(stateFips);
         return (
           <Tooltip key={stateFips} title={renderTooltip(stateFips)}>
             <g>
-              <a href={state.relativeUrl}>
-                {!showCounties && (
-                  <RegionShapeBase
-                    d={geoPath(geo) ?? ""}
-                    fill={getFillColor(state)}
-                  />
-                )}
-                <RegionOverlay d={geoPath(geo) ?? ""} />
-              </a>
+              {!showCounties && (
+                <RegionShapeBase
+                  d={geoPath(geo) ?? ""}
+                  fill={getFillColor(stateFips)}
+                />
+              )}
+              <RegionOverlay d={geoPath(geo) ?? ""} />
             </g>
           </Tooltip>
         );

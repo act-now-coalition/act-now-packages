@@ -1,13 +1,12 @@
 import React from "react";
 import { ExtendedFeature, GeoProjection } from "d3-geo";
-import CanvasMap from "./CanvasMap";
 import { countiesGeographies } from "../../../common/geo-shapes";
-import { Region } from "@actnowcoalition/regions";
+import CanvasMap from "./CanvasMap";
 
 const CountiesMap: React.FC<{
   width: number;
   height: number;
-  getFillColor: (region: Region) => string;
+  getFillColor: (regionId: string) => string;
   geoProjection: GeoProjection;
   getGeoId: (geo: ExtendedFeature) => string;
 }> = (props) => (
