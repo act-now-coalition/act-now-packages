@@ -7,6 +7,7 @@ import {
   dataRowToMetricData,
 } from "./data_provider_utils";
 import { DataRow } from "./data_provider_utils";
+import fetch from "node-fetch";
 
 /**
  * Data provider to ingest data from the Covid Act Now API.
