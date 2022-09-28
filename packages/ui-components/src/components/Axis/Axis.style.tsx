@@ -22,7 +22,8 @@ export const AxisLeft = styled((props: AxisLeftProps) => (
   <VxAxisLeft
     axisClassName={props.className ?? ""}
     numTicks={props.numTicks ?? 5}
-    hideTicks={props.hideTicks ?? true}
+    hideTicks={props.hideTicks}
+    tickStroke={theme.palette.border.default}
     tickLabelProps={() => ({
       textAnchor: "end", // Horizontal anchor
       verticalAnchor: "middle",
