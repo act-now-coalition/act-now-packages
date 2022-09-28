@@ -2,7 +2,6 @@ import React from "react";
 import { TimeseriesLineChart } from "./TimeseriesLineChart";
 import { MetricLineChartProps } from "./interfaces";
 import { useData } from "../../common/hooks";
-import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 
 export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   metric,
@@ -16,7 +15,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
     return null;
   }
 
-  const { timeseries } = data;
+  const timeseries = data.timeseries.assertFiniteNumbers();
 
   if (!timeseries.hasData()) {
     return null;
@@ -26,7 +25,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
     <TimeseriesLineChart
       width={width}
       height={height}
-      timeseries={timeseries as NonEmptyTimeseries<number>}
+      timeseries={timeseries}
     />
   );
 };
