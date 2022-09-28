@@ -1,11 +1,11 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleTime } from "@visx/scale";
-import { Axes, AxesProps } from "./Axes";
+import { AxesTimeseries, AxesTimeseriesProps } from "./AxesTimeseries";
 
 export default {
   title: "Charts/Axes",
-} as ComponentMeta<typeof Axes>;
+} as ComponentMeta<typeof AxesTimeseries>;
 
 const width = 600;
 const height = 400;
@@ -21,9 +21,9 @@ const yScale = scaleLinear({
   range: [height - 2 * padding, 0],
 });
 
-const Template: Story<AxesProps> = (args) => (
+const Template: Story<AxesTimeseriesProps> = (args) => (
   <svg width={width} height={height}>
-    <Axes {...args} />
+    <AxesTimeseries {...args} />
   </svg>
 );
 

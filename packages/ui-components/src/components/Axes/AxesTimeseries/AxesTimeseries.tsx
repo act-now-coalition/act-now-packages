@@ -1,10 +1,10 @@
 import React from "react";
-import { AxisLeft, AxisBottom } from "./Axis.style";
+import { AxisLeft, AxisBottom } from "../../Axis/Axis.style";
 import { ScaleTime, ScaleLinear } from "d3-scale";
 import { TimeUnit } from "@actnowcoalition/time-utils";
-import { getTimeAxisTicks, getXTickFormat } from "../../common/utils/charts";
+import { getTimeAxisTicks, getXTickFormat } from "../../../common/utils/charts";
 
-export interface AxesProps {
+export interface AxesTimeseriesProps {
   height: number;
   padding: number;
   dateScale: ScaleTime<number, number>;
@@ -13,7 +13,7 @@ export interface AxesProps {
   xTickTimeUnit?: TimeUnit;
 }
 
-export const Axes: React.FC<AxesProps> = ({
+export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
   height,
   padding,
   dateScale,
