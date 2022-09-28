@@ -7,17 +7,18 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-0.1.0.tgz#fa83caa21c419f20d7be7c10dafd70986613e6a0"
   integrity sha512-8dBa6CHFDuY/jAVtazVCDSl9796gaOLmsdMFX+uGBwQruEWpCq2jOkf/wvLypt9eoE+Dzi63Q5zbOIVXmlQRtQ==
 
-"@actnowcoalition/metrics@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.1.0.tgz#ac17dcfe207a69d62cda7b761b01ca9ab27daf3c"
-  integrity sha512-bckD03B71AQMC/WHO/meoQ5cVu1aiClu4yXKRALriS7haBTuAFI5tu2Mq2vM0f49ng0WVshNxKZPJh4bT2jpiA==
+"@actnowcoalition/metrics@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.2.0.tgz#28e156481bd4d0ecaac8f51f42ba0ce384d0a794"
+  integrity sha512-ohCbCUwD2tAABz/gzbX/omEMgn7Z4faz39ASatACb+jrc8QkFWmi+W5ckp0kgtHfp5hZFuUNebOvQTIbp54MWA==
   dependencies:
     "@actnowcoalition/assert" "^0.1.0"
     "@actnowcoalition/number-format" "^0.1.0"
-    "@actnowcoalition/regions" "^0.1.0"
+    "@actnowcoalition/regions" "^0.1.1"
     "@actnowcoalition/time-utils" "^0.1.0"
     "@types/papaparse" "^5.3.3"
     lodash "^4.17.21"
+    node-fetch "^2.6.7"
     papaparse "^5.3.2"
 
 "@actnowcoalition/number-format@^0.1.0":
@@ -25,10 +26,10 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/number-format/-/number-format-0.1.0.tgz#0d6bf419c6e9f5622fe8cde7940f68ea0fdb5320"
   integrity sha512-BTdtEEqgV0zRk6sj2E/XU5j7tSiR/cE0sOVmISGW9pz58WNLVcFraIUH5XSArfzh7WLnWlsh5N+rJDgUoVsG/A==
 
-"@actnowcoalition/regions@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-0.1.0.tgz#4dba709a76cd3213222a5e9e0dfdaa83afa5c308"
-  integrity sha512-9DwFMXdGBFeW6JrW+bi6hiLIcyxcxOM01+3sube2r6KgHglc0c+V6M6PP2jr18nVK7H+ZU1DQ6hEwUJKYWw80w==
+"@actnowcoalition/regions@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-0.1.1.tgz#566cee94ed8a15b29578ce97511d58acfd18598c"
+  integrity sha512-qd03POpHNBJVYBPWu8DnEbdkUYd31iYYBYETwIuKzW/NQntgSkXD9zd8dvkkACMopYH3+cAvuP7jtyHoI0DJTg==
   dependencies:
     "@actnowcoalition/assert" "^0.1.0"
     lodash "^4.17.21"
