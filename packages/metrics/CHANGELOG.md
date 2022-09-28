@@ -1,5 +1,11 @@
 # @actnowcoalition/metrics
 
+## 0.2.0
+
+### Minor Changes
+
+- 7d4bd88: Change the default for includeTimeseries to false when fetching data and fix the MetricCompareTable, MetricDot, and MetricValue to not fetch timeseries.
+
 ## 0.1.1
 
 ### Patch Changes
