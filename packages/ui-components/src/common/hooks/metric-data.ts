@@ -24,13 +24,13 @@ export type DataOrError<T> = { data?: T; error?: Error };
  *
  * @param region The region to get data for.
  * @param metric The metric to get data for as either a string or `Metric` object.
- * @param includeTimeseries Whether to fetch timeseries data or not.
+ * @param includeTimeseries Whether to fetch timeseries data or not (default false).
  * @returns The metric data.
  */
 export function useData(
   region: Region,
   metric: string | Metric,
-  includeTimeseries = true
+  includeTimeseries = false
 ): DataOrError<MetricData> {
   const { data: dataStore, error } = useDataForMetrics(
     region,
@@ -46,13 +46,13 @@ export function useData(
  *
  * @param region The region to get data for.
  * @param metrics The metrics to get data for as either strings or `Metric` objects.
- * @param includeTimeseries Whether to fetch timeseries data or not.
+ * @param includeTimeseries Whether to fetch timeseries data or not (default false).
  * @returns The metric data.
  */
 export function useDataForMetrics(
   region: Region,
   metrics: Array<string | Metric>,
-  includeTimeseries = true
+  includeTimeseries = false
 ): DataOrError<MultiMetricDataStore> {
   const { data: dataStore, error } = useDataForRegionsAndMetrics(
     [region],
@@ -68,7 +68,7 @@ export function useDataForMetrics(
  *
  * @param regions The regions to get data for.
  * @param metrics The metrics to get data for as either strings or `Metric` objects.
- * @param includeTimeseries Whether to fetch timeseries data or not.
+ * @param includeTimeseries Whether to fetch timeseries data or not (default false).
  * @param optCatalog Optional metric catalog to use. If not provided, the
  * catalog is fetched via useMetricCatalog().
  * @returns The metric data.
@@ -76,7 +76,7 @@ export function useDataForMetrics(
 export function useDataForRegionsAndMetrics(
   regions: Region[],
   metrics: Array<string | Metric>,
-  includeTimeseries = true,
+  includeTimeseries = false,
   optCatalog?: MetricCatalog
 ): DataOrError<MultiRegionMultiMetricDataStore> {
   // HACK: optCatalog should override the context catalog, but

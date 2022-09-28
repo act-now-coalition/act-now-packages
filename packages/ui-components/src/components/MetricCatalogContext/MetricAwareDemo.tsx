@@ -16,7 +16,7 @@ const MetricAwareDemo: React.FC<{
   const metric = metricCatalog.getMetric(metricOrId);
 
   // Get data from the metric catalog
-  const { data, error } = useData(region, metric);
+  const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);
 
   // The component needs to handle error and loading states
   if (error || !data) {

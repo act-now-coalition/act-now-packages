@@ -28,7 +28,11 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   const metricCatalog = useMetricCatalog();
   const metrics = metricOrIds.map((m) => metricCatalog.getMetric(m));
 
-  const { data, error } = useDataForRegionsAndMetrics(regions, metrics);
+  const { data, error } = useDataForRegionsAndMetrics(
+    regions,
+    metrics,
+    /*includeTimeseries=*/ false
+  );
 
   if (!data || error) {
     return null;
