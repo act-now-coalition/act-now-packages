@@ -27,7 +27,7 @@ export const MetricValue: React.FC<MetricValueProps> = ({
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 
-  const { data, error } = useData(region, metric);
+  const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);
 
   if (!data || error) {
     return <Typography variant={variant} />;

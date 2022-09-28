@@ -76,6 +76,7 @@ declare module "@mui/material/styles" {
 export * from "./common/hooks";
 
 /** UI Components and props */
+export * from "./components/Axes";
 export * from "./components/Axis";
 export * from "./components/BarChart";
 export * from "./components/CompareTable";

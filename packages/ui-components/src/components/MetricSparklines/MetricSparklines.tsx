@@ -29,10 +29,11 @@ export const MetricSparklines: React.FC<MetricSparklinesProps> = ({
   const metricCatalog = useMetricCatalog();
   metricLineChart = metricCatalog.getMetric(metricLineChart);
   metricBarChart = metricCatalog.getMetric(metricBarChart);
-  const { data, error } = useDataForMetrics(region, [
-    metricLineChart,
-    metricBarChart,
-  ]);
+  const { data, error } = useDataForMetrics(
+    region,
+    [metricLineChart, metricBarChart],
+    /*includeTimeseries=*/ true
+  );
   if (error) {
     throw error;
   } else if (!data) {

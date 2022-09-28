@@ -23,7 +23,6 @@ export const AxisLeft = styled((props: AxisLeftProps) => (
     axisClassName={props.className ?? ""}
     numTicks={props.numTicks ?? 5}
     hideTicks={props.hideTicks}
-    tickLength={4}
     tickStroke={theme.palette.border.default}
     tickLabelProps={() => ({
       textAnchor: "end", // Horizontal anchor

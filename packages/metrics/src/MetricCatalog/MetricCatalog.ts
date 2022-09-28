@@ -102,13 +102,13 @@ export class MetricCatalog {
    *
    * @param region The region to get data for.
    * @param metric The metric to get data for as either a string or `Metric` object.
-   * @param includeTimeseries Whether to fetch timeseries data or not.
+   * @param includeTimeseries Whether to fetch timeseries data or not (default false).
    * @returns The metric data.
    */
   async fetchData(
     region: Region,
     metric: string | Metric,
-    includeTimeseries = true
+    includeTimeseries = false
   ): Promise<MetricData> {
     const dataStore = await this.fetchDataForMetrics(
       region,
@@ -123,13 +123,13 @@ export class MetricCatalog {
    *
    * @param region The region to get data for.
    * @param metrics The metrics to get data for as either strings or `Metric` objects.
-   * @param includeTimeseries Whether to fetch timeseries data or not.
+   * @param includeTimeseries Whether to fetch timeseries data or not (default false).
    * @returns The metric data.
    */
   async fetchDataForMetrics(
     region: Region,
     metrics: Array<string | Metric>,
-    includeTimeseries = true
+    includeTimeseries = false
   ): Promise<MultiMetricDataStore> {
     const dataStore = await this.fetchDataForRegionsAndMetrics(
       [region],
@@ -144,13 +144,13 @@ export class MetricCatalog {
    *
    * @param regions The regions to get data for.
    * @param metrics The metrics to get data for as either strings or `Metric` objects.
-   * @param includeTimeseries Whether to fetch timeseries data or not.
+   * @param includeTimeseries Whether to fetch timeseries data or not (default false).
    * @returns The metric data.
    */
   async fetchDataForRegionsAndMetrics(
     regions: Region[],
     metrics: Array<string | Metric>,
-    includeTimeseries = true
+    includeTimeseries = false
   ): Promise<MultiRegionMultiMetricDataStore> {
     this.dataFetchesCount++;
 

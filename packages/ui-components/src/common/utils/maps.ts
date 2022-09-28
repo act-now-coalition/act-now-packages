@@ -1,4 +1,4 @@
-import { counties, Region } from "@actnowcoalition/regions";
+import { RegionDB, Region } from "@actnowcoalition/regions";
 
 /** Checks if a county or congressional district belongs to a given state */
 export function belongsToState(
@@ -11,8 +11,11 @@ export function belongsToState(
 }
 
 /** Returns an array of all counties of a given state */
-export function getCountiesOfState(stateRegionId: string): Region[] {
-  return counties.all.filter(
+export function getCountiesOfState(
+  regionDB: RegionDB,
+  stateRegionId: string
+): Region[] {
+  return regionDB.all.filter(
     (county) => county.parent?.regionId === stateRegionId
   );
 }

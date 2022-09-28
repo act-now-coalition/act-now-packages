@@ -10,6 +10,7 @@ import {
 } from "./data_provider_utils";
 import { groupBy } from "lodash";
 import Papa from "papaparse";
+import fetch from "node-fetch";
 
 export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
@@ -41,6 +42,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
   private readonly dateColumn?: string;
   private readonly url?: string;
   private readonly csvText?: string;
+  private fetchedTextPromise: Promise<string> | undefined;
 
   private dataRowsByRegionId: { [regionId: string]: DataRow[] } = {};
 
@@ -59,7 +61,10 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
   async populateCache(): Promise<void> {
     let csvText;
     if (this.url) {
-      csvText = await this.fetchCsvText();
+      // We might already be fetching the CSV, in which case we can just wait on
+      // the existing promise.
+      this.fetchedTextPromise = this.fetchedTextPromise ?? this.fetchCsvText();
+      csvText = await this.fetchedTextPromise;
     } else {
       assert(this.csvText, "Either url or csvData must be provided.");
       csvText = this.csvText;
@@ -115,6 +120,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
    */
   private async fetchCsvText(): Promise<string> {
     assert(this.url, "URL must be specified in order to use fetchCsvText()");
+    console.log("Fetching", this.url);
     const response = await fetch(this.url);
     if (response.status !== 200) {
       throw new Error(

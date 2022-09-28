@@ -1,5 +1,11 @@
 # @actnowcoalition/regions
 
+## 0.1.1
+
+### Patch Changes
+
+- e8f6d2b: Add a getRegionUrl option and function to RegionDB
+
 ## 0.1.0
 
 ### Minor Changes

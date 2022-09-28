@@ -1,10 +1,10 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
+import { scaleOrdinal, scaleLinear } from "@visx/scale";
+import { interpolatePiYG } from "d3-scale-chromatic";
+import { states, counties, Region } from "@actnowcoalition/regions";
 import { USNationalMap } from "./USNationalMap";
 import { USNationalMapProps } from "./interfaces";
-import { states, Region } from "@actnowcoalition/regions";
-import { interpolatePiYG } from "d3-scale-chromatic";
-import { scaleOrdinal, scaleLinear } from "@visx/scale";
 
 export default {
   title: "Maps/US National",
@@ -65,7 +65,10 @@ const getFillColorByFirstLetter = (region: Region) => {
 export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  getFillColor: (region: Region) => getFillColorByFirstLetter(region),
+  getFillColor: (regionId: string) => {
+    const region = states.findByRegionIdStrict(regionId);
+    return getFillColorByFirstLetter(region);
+  },
 };
 
 /** Counties colored by first letter of fullName */
@@ -73,5 +76,8 @@ export const CountiesColoredByFirstLetter = Template.bind({});
 CountiesColoredByFirstLetter.args = {
   showCounties: true,
   renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  getFillColor: (region: Region) => getFillColorByFirstLetter(region),
+  getFillColor: (regionId: string) => {
+    const region = counties.findByRegionIdStrict(regionId);
+    return getFillColorByFirstLetter(region);
+  },
 };
