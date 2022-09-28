@@ -1,16 +1,16 @@
 import React from "react";
-import { MapContainer, PositionAbsolute } from "../Maps.style";
+import { ParentSize } from "@visx/responsive";
+import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import {
   defaultHeight,
   defaultScale,
   defaultWidth,
+  getCountyGeoId,
 } from "../../../common/geo-shapes";
-import { getCountyGeoId } from "../../../common/geo-shapes";
-import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
+import { MapContainer, PositionAbsolute } from "../Maps.style";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
 import { USNationalMapProps } from "./interfaces";
-import { ParentSize } from "@visx/responsive";
 
 const USNationalMapInner: React.FC<USNationalMapProps> = ({
   width = defaultWidth,

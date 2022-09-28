@@ -1,6 +1,6 @@
 import { RenderMapProps } from "../RenderMapProps";
 import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 export interface USStateMapProps extends RenderMapProps {
   stateRegionId: string;
@@ -11,4 +11,5 @@ export interface USStateMapProps extends RenderMapProps {
 
 export interface MetricUSStateMapProps extends USStateMapProps {
   metric: Metric | string;
+  regionDB: RegionDB;
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { Tooltip } from "@mui/material";
-import { counties, RegionDB, states } from "@actnowcoalition/regions";
+import { ParentSize } from "@visx/responsive";
 import { geoPath as d3GeoPath, geoAlbersUsa, geoMercator } from "d3-geo";
 import {
   statesGeographies,
@@ -16,9 +16,6 @@ import {
   RegionOverlay,
 } from "../Maps.style";
 import { USStateMapProps } from "./interfaces";
-import { ParentSize } from "@visx/responsive";
-
-const countiesAndStates = new RegionDB([...states.all, ...counties.all]);
 
 const USStateMapInner: React.FC<USStateMapProps> = ({
   stateRegionId,
@@ -63,19 +60,19 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
 
   const regionGeoToShow = showCounties ? regionsOfState : [stateGeo];
 
+  // TODO(Pablo): Restore the state link once we update the RegionDB API
   return (
     <MapContainer>
       <svg width={width} height={height}>
         {/* Style-able region shapes (ie. colorable by metric) */}
         {regionGeoToShow.map((geo) => {
-          const highlightShape = currentRegion?.regionId === `${geo.id}`;
+          const geoId = `${geo.id}`;
+          const highlightShape = currentRegion?.regionId === geoId;
           return (
             <HighlightableShape
-              key={geo.id}
+              key={geoId}
               d={geoPath(geo) ?? ""}
-              fill={getFillColor(
-                countiesAndStates.findByRegionIdStrict(`${geo.id}`)
-              )}
+              fill={getFillColor(geoId)}
               highlight={highlightShape}
             />
           );
@@ -85,13 +82,10 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
         {showBorderingStates &&
           otherStates.map((geo) => {
             const stateFips = `${geo.id}`;
-            const state = states.findByRegionIdStrict(stateFips);
             return (
-              <Tooltip title={renderTooltip(state.regionId)} key={geo.id}>
+              <Tooltip title={renderTooltip(stateFips)} key={stateFips}>
                 <g>
-                  <a href={state.relativeUrl}>
-                    <BorderingRegion d={geoPath(geo) ?? ""} />
-                  </a>
+                  <BorderingRegion d={geoPath(geo) ?? ""} />
                 </g>
               </Tooltip>
             );
@@ -99,13 +93,11 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
 
         {/* Clickable region overlay */}
         {regionGeoToShow.map((geo) => {
-          const region = countiesAndStates.findByRegionIdStrict(`${geo.id}`);
+          const geoId = `${geo.id}`;
           return (
-            <Tooltip title={renderTooltip(region.regionId)} key={geo.id}>
+            <Tooltip title={renderTooltip(geoId)} key={geoId}>
               <g>
-                <a href={region.relativeUrl}>
-                  <RegionOverlay d={geoPath(geo) ?? ""} />
-                </a>
+                <RegionOverlay d={geoPath(geo) ?? ""} />
               </g>
             </Tooltip>
           );
