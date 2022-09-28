@@ -10,6 +10,7 @@ import {
 } from "./data_provider_utils";
 import { groupBy } from "lodash";
 import Papa from "papaparse";
+import fetch from "node-fetch";
 
 export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
