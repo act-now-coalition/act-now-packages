@@ -1,10 +1,13 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { USStateMap } from "./USStateMap";
-import { states, counties, RegionDB } from "@actnowcoalition/regions";
+import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { USStateMapProps } from "./interfaces";
 
-const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
+const regionDB = new RegionDB([...states.all, ...counties.all], {
+  getRegionUrl: (region: Region) => `/us/${region.slug}`,
+});
+
 const herkimerCountyNewYorkRegion = counties.findByRegionIdStrict("36043");
 
 export default {
@@ -14,14 +17,24 @@ export default {
 
 const Template: Story<USStateMapProps> = (args) => <USStateMap {...args} />;
 
-const renderSimpleTooltip = (regionId: string) => {
-  return statesAndCounties.findByRegionIdStrict(regionId).fullName;
+const renderTooltip = (regionId: string) => {
+  return regionDB.findByRegionIdStrict(regionId).fullName;
+};
+
+import { assert } from "@actnowcoalition/assert";
+
+const getRegionUrl = (regionId: string): string => {
+  const region = regionDB.findByRegionIdStrict(regionId);
+  const url = regionDB.getRegionUrl(region);
+  assert(typeof url === "string", "RegionDB.getRegionUrl must be configured");
+  return url;
 };
 
 export const NewYorkWithoutBorderingStates = Template.bind({});
 NewYorkWithoutBorderingStates.args = {
   stateRegionId: "36",
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
+  getRegionUrl,
   showBorderingStates: false,
   showCounties: false,
 };
@@ -29,26 +42,30 @@ NewYorkWithoutBorderingStates.args = {
 export const NewYorkWithBorderingStates = Template.bind({});
 NewYorkWithBorderingStates.args = {
   stateRegionId: "36",
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
+  getRegionUrl,
   showCounties: false,
 };
 
 export const NewYorkCountiesWithoutBorderingStates = Template.bind({});
 NewYorkCountiesWithoutBorderingStates.args = {
   stateRegionId: "36",
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
+  getRegionUrl,
   showBorderingStates: false,
 };
 
 export const NewYorkCountiesWithBorderingStates = Template.bind({});
 NewYorkCountiesWithBorderingStates.args = {
   stateRegionId: "36",
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
+  getRegionUrl,
 };
 
 export const NewYorkCountiesWithHighlightedCounty = Template.bind({});
 NewYorkCountiesWithHighlightedCounty.args = {
   stateRegionId: "36",
   currentRegion: herkimerCountyNewYorkRegion,
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
+  getRegionUrl,
 };

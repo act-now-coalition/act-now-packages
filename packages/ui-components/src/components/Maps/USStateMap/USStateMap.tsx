@@ -25,6 +25,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
   currentRegion,
   showCounties = true,
   showBorderingStates = true,
+  getRegionUrl,
 }) => {
   const height = defaultHeight * (width / defaultWidth);
 
@@ -84,9 +85,11 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
             const stateFips = `${geo.id}`;
             return (
               <Tooltip title={renderTooltip(stateFips)} key={stateFips}>
-                <g>
-                  <BorderingRegion d={geoPath(geo) ?? ""} />
-                </g>
+                <a href={getRegionUrl && getRegionUrl(stateFips)}>
+                  <g>
+                    <BorderingRegion d={geoPath(geo) ?? ""} />
+                  </g>
+                </a>
               </Tooltip>
             );
           })}
@@ -96,9 +99,11 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
           const geoId = `${geo.id}`;
           return (
             <Tooltip title={renderTooltip(geoId)} key={geoId}>
-              <g>
-                <RegionOverlay d={geoPath(geo) ?? ""} />
-              </g>
+              <a href={getRegionUrl && getRegionUrl(geoId)}>
+                <g>
+                  <RegionOverlay d={geoPath(geo) ?? ""} />
+                </g>
+              </a>
             </Tooltip>
           );
         })}

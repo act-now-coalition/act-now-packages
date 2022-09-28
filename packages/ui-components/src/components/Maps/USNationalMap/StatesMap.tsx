@@ -11,7 +11,7 @@ const StatesMap: React.FC<{
   renderTooltip: (regionId: string) => React.ReactElement | string;
   showCounties: boolean;
   getFillColor: (regionId: string) => string;
-  getRegionUrl?: (regionId: string) => string;
+  getRegionUrl?: (regionId: string) => string | undefined;
 }> = ({
   width,
   height,
