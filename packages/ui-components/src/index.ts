@@ -98,6 +98,7 @@ export * from "./components/MetricLineChart";
 export * from "./components/MetricOverview";
 export * from "./components/MetricScoreOverview";
 export * from "./components/MetricSparklines";
+export * from "./components/MetricTooltip";
 export * from "./components/MetricValue";
 export * from "./components/MultiProgressBar";
 export * from "./components/ProgressBar";

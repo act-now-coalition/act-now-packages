@@ -57,7 +57,7 @@ const components: ThemeOptions["components"] = {
         color: "white",
         fontSize: theme.typography.paragraphLarge.fontSize,
         lineHeight: theme.typography.paragraphLarge.lineHeight,
-        padding: "16px",
+        padding: theme.spacing(2),
         "& a": {
           color: "white",
         },

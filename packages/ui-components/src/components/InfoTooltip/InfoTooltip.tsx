@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { Tooltip, TooltipProps as MuiTooltipProps } from "@mui/material";
 import { CloseIcon } from "./InfoTooltip.style";
 
-export const InfoTooltip: React.FC<MuiTooltipProps> = ({
+export type InfoTooltipProps = MuiTooltipProps;
+
+export const InfoTooltip: React.FC<InfoTooltipProps> = ({
   children,
   title,
   ...otherProps
