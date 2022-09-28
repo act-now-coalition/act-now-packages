@@ -6,7 +6,6 @@ import { getTimeAxisTicks, getXTickFormat } from "../../../common/utils/charts";
 
 export interface AxesTimeseriesProps {
   height: number;
-  padding: number;
   dateScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
   yNumTicks?: number;
@@ -15,7 +14,6 @@ export interface AxesTimeseriesProps {
 
 export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
   height,
-  padding,
   dateScale,
   yScale,
   yNumTicks = 10,
@@ -26,15 +24,9 @@ export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
 
   return (
     <>
-      <AxisLeft
-        left={padding}
-        top={padding}
-        scale={yScale}
-        numTicks={yNumTicks}
-      />
+      <AxisLeft scale={yScale} numTicks={yNumTicks} />
       <AxisBottom
-        top={height - padding}
-        left={padding}
+        top={height}
         scale={dateScale}
         tickValues={timeTicks}
         tickFormat={(date: Date) => getXTickFormat(date, xTickTimeUnit)}
