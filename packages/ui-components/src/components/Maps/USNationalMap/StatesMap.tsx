@@ -19,7 +19,7 @@ const StatesMap: React.FC<{
   renderTooltip,
   showCounties,
   getFillColor,
-  getRegionUrl,
+  getRegionUrl = () => undefined,
 }) => {
   return (
     <svg width={width} height={height}>
@@ -27,7 +27,7 @@ const StatesMap: React.FC<{
         const stateFips = `${geo.id}`;
         return (
           <Tooltip key={stateFips} title={renderTooltip(stateFips)}>
-            <a href={getRegionUrl && getRegionUrl(stateFips)}>
+            <a href={getRegionUrl(stateFips)}>
               <g>
                 {!showCounties && (
                   <RegionShapeBase

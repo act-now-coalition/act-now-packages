@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
+import { assert } from "@actnowcoalition/assert";
 import { USStateMap } from "./USStateMap";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { USStateMapProps } from "./interfaces";
@@ -20,8 +21,6 @@ const Template: Story<USStateMapProps> = (args) => <USStateMap {...args} />;
 const renderTooltip = (regionId: string) => {
   return regionDB.findByRegionIdStrict(regionId).fullName;
 };
-
-import { assert } from "@actnowcoalition/assert";
 
 const getRegionUrl = (regionId: string): string => {
   const region = regionDB.findByRegionIdStrict(regionId);
