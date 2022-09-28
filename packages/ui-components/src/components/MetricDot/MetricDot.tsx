@@ -24,7 +24,7 @@ export const MetricDot: React.FC<MetricDotProps> = ({
 }) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
-  const { data, error } = useData(region, metric);
+  const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);
 
   if (!(metric.levelSet || metric.categories) || error || !data) {
     return <PlaceholderDot />;
