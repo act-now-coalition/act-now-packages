@@ -1,5 +1,18 @@
 # @actnowcoalition/ui-components
 
+## 0.4.0
+
+### Minor Changes
+
+- 2d63116: Add AxesTimeseries component
+- a105910: Update the maps to not import regions directly
+- 90ae768: Add metric timeseries chart component
+
+### Patch Changes
+
+- ed4c594: Implement ChartOverlayX component
+- 359855f: Remove social meta tags
+
 ## 0.3.0
 
 ### Minor Changes
