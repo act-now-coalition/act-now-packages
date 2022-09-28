@@ -1,11 +1,11 @@
 import React from "react";
-import { TimeseriesChartProps } from "./interfaces";
+import { TimeseriesLineChartProps } from "./interfaces";
 import { LineChart } from "../LineChart";
 import { AxesTimeseries } from "../Axes";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
 
-export const TimeseriesChart: React.FC<TimeseriesChartProps> = ({
+export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
   width,
   height,
   timeseries,

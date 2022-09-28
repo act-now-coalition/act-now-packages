@@ -11,11 +11,11 @@ interface BaseChartProps {
   marginRight?: number;
 }
 
-export interface TimeseriesChartProps extends BaseChartProps {
+export interface TimeseriesLineChartProps extends BaseChartProps {
   timeseries: NonEmptyTimeseries<number>;
 }
 
-export interface MetricTimeseriesChartProps extends BaseChartProps {
+export interface MetricLineChartProps extends BaseChartProps {
   metric: Metric | string;
   region: Region;
 }

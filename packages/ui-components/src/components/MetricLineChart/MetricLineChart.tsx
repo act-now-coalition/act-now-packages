@@ -1,10 +1,10 @@
 import React from "react";
-import { TimeseriesChart } from "./TimeseriesChart";
-import { MetricTimeseriesChartProps } from "./interfaces";
+import { TimeseriesLineChart } from "./TimeseriesLineChart";
+import { MetricLineChartProps } from "./interfaces";
 import { useData } from "../../common/hooks";
 import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 
-export const MetricTimeseriesChart: React.FC<MetricTimeseriesChartProps> = ({
+export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   metric,
   region,
   width,
@@ -23,7 +23,7 @@ export const MetricTimeseriesChart: React.FC<MetricTimeseriesChartProps> = ({
   }
 
   return (
-    <TimeseriesChart
+    <TimeseriesLineChart
       width={width}
       height={height}
       timeseries={timeseries as NonEmptyTimeseries<number>}
