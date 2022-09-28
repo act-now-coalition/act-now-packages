@@ -4,7 +4,7 @@ import { scaleLinear, scaleTime } from "@visx/scale";
 import { AxesTimeseries, AxesTimeseriesProps } from "./AxesTimeseries";
 
 export default {
-  title: "Charts/Axes",
+  title: "Charts/AxesTimeseries",
 } as ComponentMeta<typeof AxesTimeseries>;
 
 const width = 600;
