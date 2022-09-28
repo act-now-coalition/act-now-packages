@@ -1,5 +1,16 @@
 # @actnowcoalition/ui-components
 
+## 0.2.3
+
+### Patch Changes
+
+- 05fa5e7: Implement tabs
+- Updated dependencies [e8f6d2b]
+- Updated dependencies [a342e24]
+- Updated dependencies [464f4a4]
+  - @actnowcoalition/regions@0.1.1
+  - @actnowcoalition/metrics@0.1.1
+
 ## 0.2.2
 
 ### Patch Changes
