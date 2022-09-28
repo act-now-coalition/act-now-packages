@@ -1,5 +1,14 @@
 # @actnowcoalition/metrics
 
+## 0.1.1
+
+### Patch Changes
+
+- a342e24: Add node-fetch dependency so that metrics can be fetched from node.js apps.
+- 464f4a4: Avoid re-fetching CSV files when a fetch is already in progress.
+- Updated dependencies [e8f6d2b]
+  - @actnowcoalition/regions@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
