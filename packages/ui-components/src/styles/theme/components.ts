@@ -4,6 +4,18 @@ import { ThemeOptions, createTheme } from "@mui/material";
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
+  MuiTextField: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        backgroundColor: theme.palette.common.white,
+        "& .MuiFilledInput-root": {
+          backgroundColor: theme.palette.common.white,
+          border: "1px solid #e2e2e1",
+          borderRadius: 4,
+        },
+      }),
+    },
+  },
   MuiTabs: {
     styleOverrides: {
       indicator: ({ theme }) => ({
