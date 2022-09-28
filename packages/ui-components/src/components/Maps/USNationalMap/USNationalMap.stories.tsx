@@ -2,7 +2,8 @@ import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { scaleOrdinal, scaleLinear } from "@visx/scale";
 import { interpolatePiYG } from "d3-scale-chromatic";
-import { states, counties, Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
+import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { USNationalMap } from "./USNationalMap";
 import { USNationalMapProps } from "./interfaces";
 
@@ -11,26 +12,32 @@ export default {
   component: USNationalMap,
 } as ComponentMeta<typeof USNationalMap>;
 
+const regionDB = new RegionDB([...states.all, ...counties.all], {
+  getRegionUrl: (region: Region): string => `/us/${region.slug}`,
+});
+
 const Template: Story<USNationalMapProps> = (args) => (
   <USNationalMap {...args} />
 );
 
-const renderSimpleTooltip = (regionId: string) => {
-  return states.findByRegionIdStrict(regionId).fullName;
+const renderTooltip = (regionId: string) => {
+  return regionDB.findByRegionIdStrict(regionId).fullName;
+};
+
+const getRegionUrl = (regionId: string): string => {
+  const region = regionDB.findByRegionIdStrict(regionId);
+  const url = regionDB.getRegionUrl(region);
+  assert(typeof url === "string", "RegionDB.getRegionUrl must be configured");
+  return url;
 };
 
 /** States with no fill color */
 export const States = Template.bind({});
-States.args = {
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-};
+States.args = { renderTooltip, getRegionUrl };
 
 /** Counties with no fill color */
 export const StatesWithCounties = Template.bind({});
-StatesWithCounties.args = {
-  showCounties: true,
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-};
+StatesWithCounties.args = { showCounties: true, renderTooltip, getRegionUrl };
 
 const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -61,23 +68,24 @@ const getFillColorByFirstLetter = (region: Region) => {
   return colorScaleAlpha(fullNameFromFips[0]);
 };
 
+const getFillColor = (regionId: string) => {
+  const region = regionDB.findByRegionIdStrict(regionId);
+  return getFillColorByFirstLetter(region);
+};
+
 /** States colored by first letter of fullName */
 export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  getFillColor: (regionId: string) => {
-    const region = states.findByRegionIdStrict(regionId);
-    return getFillColorByFirstLetter(region);
-  },
+  renderTooltip,
+  getFillColor,
+  getRegionUrl,
 };
 
 /** Counties colored by first letter of fullName */
 export const CountiesColoredByFirstLetter = Template.bind({});
 CountiesColoredByFirstLetter.args = {
   showCounties: true,
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
-  getFillColor: (regionId: string) => {
-    const region = counties.findByRegionIdStrict(regionId);
-    return getFillColorByFirstLetter(region);
-  },
+  renderTooltip,
+  getFillColor,
+  getRegionUrl,
 };

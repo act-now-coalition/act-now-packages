@@ -7,6 +7,7 @@ export interface USStateMapProps extends RenderMapProps {
   currentRegion?: Region;
   showCounties?: boolean;
   showBorderingStates?: boolean;
+  getRegionUrl?: (regionId: string) => string | undefined;
 }
 
 export interface MetricUSStateMapProps extends USStateMapProps {

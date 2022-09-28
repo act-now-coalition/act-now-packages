@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import { states, counties, RegionDB } from "@actnowcoalition/regions";
+import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { MetricId } from "../../../stories/mockMetricCatalog";
 import { MetricUSNationalMap } from "./MetricUSNationalMap";
 import { MetricUSNationalMapProps } from "./interfaces";
@@ -10,29 +10,31 @@ export default {
   component: MetricUSNationalMap,
 } as ComponentMeta<typeof MetricUSNationalMap>;
 
-const statesAndCounties = new RegionDB([...states.all, ...counties.all]);
+const regionDB = new RegionDB([...states.all, ...counties.all], {
+  getRegionUrl: (region: Region) => `/us/${region.slug}`,
+});
 
 const Template: Story<MetricUSNationalMapProps> = (args) => (
   <MetricUSNationalMap {...args} />
 );
 
-const renderSimpleTooltip = (regionId: string) => {
-  return states.findByRegionIdStrict(regionId).fullName;
+const renderTooltip = (regionId: string) => {
+  return regionDB.findByRegionIdStrict(regionId).fullName;
 };
 
 /** States colored by mock metric data */
 export const MetricAwareStates = Template.bind({});
 MetricAwareStates.args = {
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
   metric: MetricId.MOCK_CASES,
-  regionDB: states,
+  regionDB,
 };
 
 /** Counties colored by mock metric data */
 export const MetricAwareCounties = Template.bind({});
 MetricAwareCounties.args = {
-  renderTooltip: (regionId: string) => renderSimpleTooltip(regionId),
+  renderTooltip,
   metric: MetricId.MOCK_CASES,
   showCounties: true,
-  regionDB: statesAndCounties,
+  regionDB,
 };

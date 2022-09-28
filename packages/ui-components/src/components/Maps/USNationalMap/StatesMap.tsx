@@ -11,6 +11,7 @@ const StatesMap: React.FC<{
   renderTooltip: (regionId: string) => React.ReactElement | string;
   showCounties: boolean;
   getFillColor: (regionId: string) => string;
+  getRegionUrl?: (regionId: string) => string | undefined;
 }> = ({
   width,
   height,
@@ -18,23 +19,25 @@ const StatesMap: React.FC<{
   renderTooltip,
   showCounties,
   getFillColor,
+  getRegionUrl = () => undefined,
 }) => {
-  // TODO(Pablo): Add wrapping link once we update the RegionsDB API
   return (
     <svg width={width} height={height}>
       {statesGeographies.features.map((geo) => {
         const stateFips = `${geo.id}`;
         return (
           <Tooltip key={stateFips} title={renderTooltip(stateFips)}>
-            <g>
-              {!showCounties && (
-                <RegionShapeBase
-                  d={geoPath(geo) ?? ""}
-                  fill={getFillColor(stateFips)}
-                />
-              )}
-              <RegionOverlay d={geoPath(geo) ?? ""} />
-            </g>
+            <a href={getRegionUrl(stateFips)}>
+              <g>
+                {!showCounties && (
+                  <RegionShapeBase
+                    d={geoPath(geo) ?? ""}
+                    fill={getFillColor(stateFips)}
+                  />
+                )}
+                <RegionOverlay d={geoPath(geo) ?? ""} />
+              </g>
+            </a>
           </Tooltip>
         );
       })}
