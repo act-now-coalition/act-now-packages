@@ -18,8 +18,8 @@ const Template: Story<TimeseriesChartProps> = (args) => (
   <TimeseriesChart {...args} />
 );
 
-export const Example = Template.bind({});
-Example.args = {
+export const AppleStockExample = Template.bind({});
+AppleStockExample.args = {
   width,
   height,
   timeseries: appleStockTimeseries,
