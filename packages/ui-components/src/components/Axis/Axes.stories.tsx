@@ -12,7 +12,7 @@ const height = 400;
 const padding = 60;
 
 const dateScale = scaleTime({
-  domain: [new Date("2022-01-01"), new Date("2022-06-01")],
+  domain: [new Date("2022-01-01"), new Date()],
   range: [0, width - 2 * padding],
 });
 
@@ -27,10 +27,19 @@ const Template: Story<AxesProps> = (args) => (
   </svg>
 );
 
-export const DefaultAxes = Template.bind({});
-DefaultAxes.args = {
+export const DefaultSettings = Template.bind({});
+DefaultSettings.args = {
   height,
   padding,
   dateScale,
   yScale,
+};
+
+export const CustomNumYTicks = Template.bind({});
+CustomNumYTicks.args = {
+  height,
+  padding,
+  dateScale,
+  yScale,
+  yNumTicks: 5,
 };
