@@ -17,6 +17,7 @@ const USNationalMapInner: React.FC<USNationalMapProps> = ({
   renderTooltip,
   getFillColor = () => "lightGray",
   showCounties = false,
+  getRegionUrl,
 }) => {
   const height = defaultHeight * (width / defaultWidth);
   const scale = (defaultScale * width) / defaultWidth;
@@ -54,6 +55,7 @@ const USNationalMapInner: React.FC<USNationalMapProps> = ({
           renderTooltip={renderTooltip}
           showCounties={showCounties}
           getFillColor={getFillColor}
+          getRegionUrl={getRegionUrl}
         />
       </PositionAbsolute>
     </MapContainer>
