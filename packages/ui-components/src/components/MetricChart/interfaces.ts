@@ -1,21 +1,21 @@
 import { Timeseries } from "@actnowcoalition/metrics";
-import { ScaleLinear, ScaleTime } from "d3-scale";
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
-export interface MetricChartProps {
+interface BaseChartProps {
   width: number;
   height: number;
-  timeseries: Timeseries<number>;
   marginTop?: number;
   marginBottom?: number;
   marginLeft?: number;
   marginRight?: number;
-  barOpacity?: number;
-  barOpacityHover?: number;
-  dateRange: Date[];
+}
 
-  /** d3-scale to transform point dates to pixel positions on the x-axis */
-  xScale: ScaleTime<number, number>;
+export interface TimeseriesChartProps extends BaseChartProps {
+  timeseries: Timeseries<number>;
+}
 
-  /** d3-scale to transform point values to pixel positions on the y-axis */
-  yScale: ScaleLinear<number, number>;
+export interface MetricTimeseriesChartProps extends BaseChartProps {
+  metric: Metric | string;
+  region: Region;
 }
