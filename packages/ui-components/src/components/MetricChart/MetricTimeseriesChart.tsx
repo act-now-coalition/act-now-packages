@@ -19,13 +19,10 @@ export const MetricTimeseriesChart: React.FC<MetricTimeseriesChartProps> = ({
   const { timeseries } = data;
 
   return (
-    <>
-      <div>Metric Timeseries Chart</div>
-      <TimeseriesChart
-        width={width}
-        height={height}
-        timeseries={timeseries as Timeseries<number>}
-      />
-    </>
+    <TimeseriesChart
+      width={width}
+      height={height}
+      timeseries={timeseries as Timeseries<number>}
+    />
   );
 };
