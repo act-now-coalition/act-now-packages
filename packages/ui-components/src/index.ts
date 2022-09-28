@@ -79,6 +79,7 @@ export * from "./common/hooks";
 export * from "./components/Axes";
 export * from "./components/Axis";
 export * from "./components/BarChart";
+export * from "./components/ChartOverlayX";
 export * from "./components/CompareTable";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
