@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import {
   ColumnDefinition,
   CompareTable,
@@ -13,6 +13,7 @@ import { createMetricColumn, createLocationColumn } from "./utils";
 export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   regions,
   metrics: metricOrIds,
+  RegionLinkComponent = Fragment,
   ...otherCompareTableProps
 }) => {
   // TODO(Pablo): It might be better to define and set a context to control the
@@ -41,9 +42,20 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   }));
 
   const columns: ColumnDefinition<Row>[] = [
-    createLocationColumn(sortDirection, sortColumnId, onClickSort),
+    createLocationColumn(
+      sortDirection,
+      sortColumnId,
+      onClickSort,
+      RegionLinkComponent
+    ),
     ...metrics.map((metric) =>
-      createMetricColumn(metric, sortDirection, sortColumnId, onClickSort)
+      createMetricColumn(
+        metric,
+        sortDirection,
+        sortColumnId,
+        onClickSort,
+        RegionLinkComponent
+      )
     ),
   ];
 

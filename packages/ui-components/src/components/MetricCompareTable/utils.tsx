@@ -9,13 +9,14 @@ import {
   SortDirection,
   getAriaSort,
 } from "../CompareTable";
-import { Row } from "./interfaces";
+import { Row, RegionLinkComponentProp } from "./interfaces";
 
 export function createMetricColumn(
   metric: Metric,
   sortDirection: SortDirection,
   sortColumnId: string,
-  onClickSort: (direction: SortDirection, columnId: string) => void
+  onClickSort: (direction: SortDirection, columnId: string) => void,
+  RegionLinkComponent: RegionLinkComponentProp
 ): ColumnDefinition<Row> {
   return {
     columnId: metric.id,
@@ -33,12 +34,14 @@ export function createMetricColumn(
     },
     renderCell: ({ row }) => (
       <TableCell>
-        <MetricValue
-          metric={metric}
-          region={row.region}
-          variant="dataTabular"
-          justifyContent="end"
-        />
+        <RegionLinkComponent region={row.region}>
+          <MetricValue
+            metric={metric}
+            region={row.region}
+            variant="dataTabular"
+            justifyContent="end"
+          />
+        </RegionLinkComponent>
       </TableCell>
     ),
     sorterAsc: (rowA, rowB) => {
@@ -65,7 +68,8 @@ export function createMetricColumn(
 export function createLocationColumn(
   sortDirection: SortDirection,
   sortColumnId: string,
-  onClickSort: (direction: SortDirection, columnId: string) => void
+  onClickSort: (direction: SortDirection, columnId: string) => void,
+  RegionLinkComponent: RegionLinkComponentProp
 ): ColumnDefinition<Row> {
   return {
     columnId: "location",
@@ -84,7 +88,11 @@ export function createLocationColumn(
       );
     },
     renderCell: ({ row }) => (
-      <TableCell stickyColumn>{row.region.fullName}</TableCell>
+      <TableCell stickyColumn>
+        <RegionLinkComponent region={row.region}>
+          {row.region.fullName}
+        </RegionLinkComponent>
+      </TableCell>
     ),
     sorterAsc: (rowA, rowB) =>
       rowA.region.fullName < rowB.region.fullName ? -1 : 1,
