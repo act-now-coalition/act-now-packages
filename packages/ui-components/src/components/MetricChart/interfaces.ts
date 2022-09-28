@@ -1,4 +1,4 @@
-import { Timeseries } from "@actnowcoalition/metrics";
+import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
@@ -12,7 +12,7 @@ interface BaseChartProps {
 }
 
 export interface TimeseriesChartProps extends BaseChartProps {
-  timeseries: Timeseries<number>;
+  timeseries: NonEmptyTimeseries<number>;
 }
 
 export interface MetricTimeseriesChartProps extends BaseChartProps {

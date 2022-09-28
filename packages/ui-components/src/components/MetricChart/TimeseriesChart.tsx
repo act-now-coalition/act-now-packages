@@ -17,19 +17,15 @@ export const TimeseriesChart: React.FC<TimeseriesChartProps> = ({
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxValue } = timeseries;
-
-  if (!minDate || !maxValue) {
-    return null;
-  }
+  const { minDate, maxDate, maxValue } = timeseries;
 
   const dateScale = scaleTime({
-    domain: [minDate, new Date()], // end at new Date()?
+    domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
 
   const yScale = scaleLinear({
-    domain: [0, maxValue], // start at zero?
+    domain: [0, maxValue],
     range: [chartHeight, 0],
   });
 

@@ -2,7 +2,7 @@ import React from "react";
 import { TimeseriesChart } from "./TimeseriesChart";
 import { MetricTimeseriesChartProps } from "./interfaces";
 import { useData } from "../../common/hooks";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 
 export const MetricTimeseriesChart: React.FC<MetricTimeseriesChartProps> = ({
   metric,
@@ -18,11 +18,15 @@ export const MetricTimeseriesChart: React.FC<MetricTimeseriesChartProps> = ({
 
   const { timeseries } = data;
 
+  if (!timeseries.hasData()) {
+    return null;
+  }
+
   return (
     <TimeseriesChart
       width={width}
       height={height}
-      timeseries={timeseries as Timeseries<number>}
+      timeseries={timeseries as NonEmptyTimeseries<number>}
     />
   );
 };
