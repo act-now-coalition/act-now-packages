@@ -5,11 +5,24 @@ import MapIcon from "@mui/icons-material/Map";
 import sortBy from "lodash/sortBy";
 import { states, counties, metros } from "@actnowcoalition/regions";
 import { RegionSearch } from ".";
+import { RegionDB, Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
 
 export default {
   title: "Components/RegionSearch",
   component: RegionSearch,
 } as ComponentMeta<typeof RegionSearch>;
+
+const regionDB = new RegionDB([...states.all, ...counties.all], {
+  getRegionUrl: (region: Region): string => `/us/${region.slug}`,
+});
+
+const getRegionUrl = (regionId: string): string => {
+  const region = regionDB.findByRegionIdStrict(regionId);
+  const url = regionDB.getRegionUrl(region);
+  assert(typeof url === "string", "RegionDB.getRegionUrl must be configured");
+  return url;
+};
 
 const Template: ComponentStory<typeof RegionSearch> = (args) => (
   <RegionSearch {...args} />
@@ -29,6 +42,7 @@ StatesOnly.args = {
   options: states.all,
   inputLabel: "States",
   LinkComponent: AnchorLinkComponent,
+  getRegionUrl: getRegionUrl,
 };
 
 export const CustomRenderInput = Template.bind({});
@@ -36,6 +50,7 @@ CustomRenderInput.args = {
   options: states.all,
   inputLabel: "States",
   LinkComponent: AnchorLinkComponent,
+  getRegionUrl: getRegionUrl,
   renderInput: (params) => (
     <TextField
       {...params}
@@ -58,6 +73,7 @@ CountiesOnly.args = {
   options: sortBy(counties.all, (county) => county.population * -1),
   inputLabel: "Counties",
   LinkComponent: AnchorLinkComponent,
+  getRegionUrl: getRegionUrl,
 };
 
 const allRegions = [...states.all, ...counties.all, ...metros.all];
@@ -65,4 +81,5 @@ export const AllRegions = Template.bind({});
 AllRegions.args = {
   options: allRegions,
   LinkComponent: AnchorLinkComponent,
+  getRegionUrl: getRegionUrl,
 };
