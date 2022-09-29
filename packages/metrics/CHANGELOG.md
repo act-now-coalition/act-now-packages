@@ -1,5 +1,11 @@
 # @actnowcoalition/metrics
 
+## 0.2.1
+
+### Patch Changes
+
+- 282e765: Remove null values from timeseries fetched from CSV or CAN.
+
 ## 0.2.0
 
 ### Minor Changes
