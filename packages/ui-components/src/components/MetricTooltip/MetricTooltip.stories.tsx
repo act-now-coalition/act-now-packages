@@ -1,7 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { TimeseriesPoint } from "@actnowcoalition/metrics";
-import { Group } from "@visx/group";
 import { states } from "@actnowcoalition/regions";
 import { colors } from "@mui/material";
 import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
@@ -28,12 +27,12 @@ const Template: ComponentStory<typeof MetricTooltip> = (args) => (
     style={{ backgroundColor: colors.blue[50] }}
   >
     <MetricTooltip {...args}>
-      <Group left={width / 2} top={height / 2}>
+      <g transform={`translate(${width / 2}, ${height / 2})`}>
         <circle r={60} fill={colors.purple[900]} />
         <text fill="white" textAnchor="middle" dominantBaseline="middle">
           Hover me
         </text>
-      </Group>
+      </g>
     </MetricTooltip>
   </svg>
 );
