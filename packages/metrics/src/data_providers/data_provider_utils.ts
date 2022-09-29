@@ -71,11 +71,11 @@ export function dataRowsToMetricData(
         value: value as unknown,
       };
     })
-  );
+  ).removeNils();
   return new MetricData(
     metric,
     region,
-    timeseries.removeNils().lastValue ?? null,
+    timeseries.lastValue ?? null,
     timeseries
   );
 }
