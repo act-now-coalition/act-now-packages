@@ -76,10 +76,9 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
           <MetricTooltip
             metric={metric}
             region={region}
-            date={hoveredPoint.date}
-            value={hoveredPoint.value}
+            point={hoveredPoint}
             placement="top"
-            open={true}
+            open
           >
             <CircleMarker
               cx={dateScale(hoveredPoint.date)}
