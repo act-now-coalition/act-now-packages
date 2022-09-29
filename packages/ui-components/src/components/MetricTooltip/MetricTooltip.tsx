@@ -1,9 +1,8 @@
 import React from "react";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Tooltip, TooltipProps } from "@mui/material";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { formatDateTime, DateFormat } from "@actnowcoalition/time-utils";
-import { InfoTooltip, InfoTooltipProps } from "../InfoTooltip";
 
 export interface MetricTooltipProps extends MetricTooltipContentProps {
   children: React.ReactNode;
@@ -15,9 +14,10 @@ export const MetricTooltip = ({
   date,
   value,
   ...tooltipProps
-}: MetricTooltipProps & Omit<InfoTooltipProps, "title">) => {
+}: MetricTooltipProps & Omit<TooltipProps, "title">) => {
   return (
-    <InfoTooltip
+    <Tooltip
+      arrow
       title={
         <MetricTooltipContent
           metric={metric}

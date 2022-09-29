@@ -1,6 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { states } from "@actnowcoalition/regions";
+import { colors } from "@mui/material";
+
 import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
 import { MetricTooltip, MetricTooltipContent } from ".";
 
@@ -14,10 +16,32 @@ const value = 12.54;
 const metric = metricCatalog.getMetric(MetricId.MOCK_CASES);
 const region = states.findByRegionIdStrict("53");
 
+const [width, height] = [600, 400];
+
 const Template: ComponentStory<typeof MetricTooltip> = (args) => (
-  <svg width={600} height={400} style={{ border: "solid 1px #ddd" }}>
+  <svg
+    width={width}
+    height={height}
+    style={{ backgroundColor: colors.blue[50] }}
+  >
     <MetricTooltip {...args}>
-      <circle cx={300} cy={200} r={30} />
+      <g>
+        <circle
+          cx={width / 2}
+          cy={height / 2}
+          r={60}
+          fill={colors.purple[900]}
+        />
+        <text
+          x={300}
+          y={200}
+          fill="white"
+          textAnchor="middle"
+          dominantBaseline="middle"
+        >
+          Hover me
+        </text>
+      </g>
     </MetricTooltip>
   </svg>
 );
