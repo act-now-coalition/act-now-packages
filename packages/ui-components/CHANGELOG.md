@@ -1,5 +1,13 @@
 # @actnowcoalition/ui-components
 
+## 0.4.1
+
+### Patch Changes
+
+- a5df187: Add tooltip and line marker to MetricLineChart
+- Updated dependencies [282e765]
+  - @actnowcoalition/metrics@0.2.1
+
 ## 0.4.0
 
 ### Minor Changes
