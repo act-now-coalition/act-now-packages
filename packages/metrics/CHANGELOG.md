@@ -1,5 +1,11 @@
 # @actnowcoalition/metrics
 
+## 0.2.2
+
+### Patch Changes
+
+- 3286d2e: Add parallelization and retries to CovidActNowDataProvider.
+
 ## 0.2.1
 
 ### Patch Changes
