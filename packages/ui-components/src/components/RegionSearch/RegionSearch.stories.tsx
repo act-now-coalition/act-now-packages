@@ -17,11 +17,8 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region): string => `/us/${region.slug}`,
 });
 
-const getRegionUrl = (regionOrId: string | Region): string => {
-  const region =
-    typeof regionOrId === "string"
-      ? regionDB.findByRegionIdStrict(regionOrId)
-      : regionOrId;
+const getRegionUrl = (regionId: string): string => {
+  const region = regionDB.findByRegionIdStrict(regionId);
   const url = regionDB.getRegionUrl(region);
   assert(typeof url === "string", "RegionDB.getRegionUrl must be configured");
   return url;
