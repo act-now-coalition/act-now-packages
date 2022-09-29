@@ -8,6 +8,8 @@ import {
 } from "./data_provider_utils";
 import { DataRow } from "./data_provider_utils";
 import fetch from "node-fetch";
+import chunk from "lodash/chunk";
+import { MetricData } from "../data/MetricData";
 
 /**
  * Data provider to ingest data from the Covid Act Now API.
@@ -40,22 +42,41 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
     metrics: Metric[],
     includeTimeseries: boolean
   ) {
-    for (const region of regions) {
-      const cacheKey = `${region.regionId}-${includeTimeseries}`;
-      // If timeseries data exists in the cache, skip the fetch no matter what,
-      // as the timeseries endpoints also contain all of the non-timeseries data,
-      // and we will use this data if necessary via the getCachedData method.
-      if (!this.getCachedData(region, includeTimeseries)) {
-        const url = this.buildFetchUrl(region, includeTimeseries);
-        const response = await fetch(url);
-        if (response.status !== 200) {
-          throw new Error(
-            `Error fetching data from ${url}: ${response.status}`
-          );
-        }
-        const json = await response.json();
-        this.apiJson[cacheKey] = json;
-      }
+    // TODO(#240): This parallelization and retry logic is very crude and should be
+    // cleaned up and generalized, or better yet replaced with some sort of
+    // networking library that handles it for us.
+    const chunks = chunk(regions, 50);
+    for (const chunk of chunks) {
+      await Promise.all(
+        chunk.map(async (region) => {
+          const cacheKey = `${region.regionId}-${includeTimeseries}`;
+          // If timeseries data exists in the cache, skip the fetch no matter what,
+          // as the timeseries endpoints also contain all of the non-timeseries data,
+          // and we will use this data if necessary via the getCachedData method.
+          if (!this.getCachedData(region, includeTimeseries)) {
+            const url = this.buildFetchUrl(region, includeTimeseries);
+            for (let attempt = 0; attempt < 3; attempt++) {
+              try {
+                console.log("Fetching", url);
+                const response = await fetch(url);
+                if (response.status !== 200) {
+                  throw new Error(
+                    `Error fetching data from ${url}: ${response.status}`
+                  );
+                }
+                const json = await response.json();
+                this.apiJson[cacheKey] = json;
+                break;
+              } catch (e) {
+                console.error(e);
+                if (attempt < 2) {
+                  console.log(`Attempt ${attempt} failed. Retrying...`);
+                }
+              }
+            }
+          }
+        })
+      );
     }
   }
 
@@ -67,10 +88,12 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
         `CAN API field to access via the dataReference.column property.`
     );
     const cachedData = this.getCachedData(region, includeTimeseries);
-    assert(
-      cachedData,
-      `No data found in cache for ${region.regionId} with includeTimeseries=${includeTimeseries}`
-    );
+    if (!cachedData) {
+      console.warn(
+        `No data found in cache for ${region.regionId} with includeTimeseries=${includeTimeseries}. Perhaps the fetch failed?`
+      );
+      return new MetricData(metric, region, /*currentValue=*/ null);
+    }
     const metricKeyParts = metricKey.split(/\.(.*)/);
     const tsLabel = `${metricKeyParts[0]}Timeseries`;
     const timeseriesData = cachedData[tsLabel] as DataRow[];
