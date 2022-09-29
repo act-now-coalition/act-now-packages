@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.4.2
+
+### Patch Changes
+
+- 057a491: Update URL routing for RegionSearch
+
 ## 0.4.1
 
 ### Patch Changes
