@@ -132,7 +132,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
    * @param metric The metric to check for data for.
    * @returns Whether the data store contains data for the given region and metric.
    */
-  hasMetricData(region: Region, metric: Metric): boolean {
+  hasMetricData(region: Region, metric: Metric | string): boolean {
     return (
       this.hasRegionData(region) &&
       this.regionData(region).hasMetricData(metric)

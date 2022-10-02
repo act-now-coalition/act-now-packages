@@ -57,8 +57,9 @@ export class MultiMetricDataStore<T = unknown> {
    * @param metric The metric to check for data for.
    * @returns Whether this data store contains data for the given metric.
    */
-  hasMetricData(metric: Metric): boolean {
-    return this.data[metric.id] !== undefined;
+  hasMetricData(metric: Metric | string): boolean {
+    const metricId = metric instanceof Metric ? metric.id : metric;
+    return this.data[metricId] !== undefined;
   }
 
   /**

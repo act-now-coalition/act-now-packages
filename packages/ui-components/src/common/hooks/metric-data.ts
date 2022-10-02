@@ -1,7 +1,6 @@
 import { Region } from "@actnowcoalition/regions";
 import {
   Metric,
-  MetricCatalog,
   MetricData,
   MultiMetricDataStore,
   MultiRegionMultiMetricDataStore,
@@ -78,21 +77,14 @@ export function useDataForMetrics(
  * @param regions The regions to get data for.
  * @param metrics The metrics to get data for as either strings or `Metric` objects.
  * @param includeTimeseries Whether to fetch timeseries data or not (default false).
- * @param optCatalog Optional metric catalog to use. If not provided, the
- * catalog is fetched via useMetricCatalog().
  * @returns The metric data.
  */
 export function useDataForRegionsAndMetrics(
   regions: Region[],
   metrics: Array<string | Metric>,
-  includeTimeseries = false,
-  optCatalog?: MetricCatalog
+  includeTimeseries = false
 ): DataOrError<MultiRegionMultiMetricDataStore> {
-  // HACK: optCatalog should override the context catalog, but
-  // react-hooks/rules-of-hooks won't let us skip calling useMetricCatalog(), so
-  // we call it regardless.
-  let catalog = useMetricCatalog();
-  catalog = optCatalog ?? catalog;
+  const catalog = useMetricCatalog();
   let resolvedMetrics = metrics.map((m) => catalog.getMetric(m));
 
   // In order to allow people to pass in a new array of regions / metrics that
