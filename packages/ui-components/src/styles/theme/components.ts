@@ -13,8 +13,10 @@ const components: ThemeOptions["components"] = {
           backgroundColor: theme.palette.common.white,
           border: `1px solid ${theme.palette.border.default}`,
           borderRadius: theme.shape.borderRadius,
-          fontWeight: theme.typography.fontWeightBold,
           color: theme.palette.secondary.dark,
+          "& p": {
+            fontWeight: theme.typography.fontWeightBold,
+          },
           "& .MuiSelect-icon": {
             color: theme.palette.secondary.dark,
           },
