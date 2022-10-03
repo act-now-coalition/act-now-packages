@@ -70,6 +70,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
           height={chartHeight}
           dateScale={dateScale}
           yScale={yScale}
+          axisLeftProps={{ tickFormat: (value) => metric.formatValue(value) }}
         />
         <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />
         {hoveredPoint && (

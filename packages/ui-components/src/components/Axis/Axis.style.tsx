@@ -27,6 +27,7 @@ export const AxisLeft = styled((props: AxisLeftProps) => (
     tickLabelProps={() => ({
       textAnchor: "end", // Horizontal anchor
       verticalAnchor: "middle",
+      dx: "-.25em",
       ...baseTickLabelProps,
     })}
     stroke={theme.palette.border.default}
