@@ -1,5 +1,14 @@
 # @actnowcoalition/ui-components
 
+## 0.4.3
+
+### Patch Changes
+
+- 1fa74a3: Fix issue with useData() hooks crashing when you change the regions / metrics you're using from one call of the hook to the next.
+- Updated dependencies [1fa74a3]
+- Updated dependencies [a7a4188]
+  - @actnowcoalition/metrics@0.2.3
+
 ## 0.4.2
 
 ### Patch Changes

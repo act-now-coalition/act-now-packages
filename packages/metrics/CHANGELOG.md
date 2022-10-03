@@ -1,5 +1,12 @@
 # @actnowcoalition/metrics
 
+## 0.2.3
+
+### Patch Changes
+
+- 1fa74a3: Fix issue with useData() hooks crashing when you change the regions / metrics you're using from one call of the hook to the next.
+- a7a4188: Fix JSON fetching when not all fields are present
+
 ## 0.2.2
 
 ### Patch Changes
