@@ -1,13 +1,12 @@
 import { Region } from "@actnowcoalition/regions";
 import {
   Metric,
-  MetricCatalog,
   MetricData,
   MultiMetricDataStore,
   MultiRegionMultiMetricDataStore,
 } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../../components/MetricCatalogContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useCachedArrayIfEqual } from "./useCachedArrayIfEqual";
 
 /**
@@ -32,13 +31,13 @@ export function useData(
   metric: string | Metric,
   includeTimeseries = false
 ): DataOrError<MetricData> {
-  const { data: dataStore, error } = useDataForMetrics(
-    region,
-    [metric],
-    includeTimeseries
-  );
-  const data = dataStore?.metricData(metric);
-  return { data, error };
+  const catalog = useMetricCatalog();
+
+  const fetchData = useCallback(() => {
+    return catalog.fetchData(region, metric, includeTimeseries);
+  }, [catalog, region, metric, includeTimeseries]);
+
+  return useFetchedData(fetchData);
 }
 
 /**
@@ -54,13 +53,22 @@ export function useDataForMetrics(
   metrics: Array<string | Metric>,
   includeTimeseries = false
 ): DataOrError<MultiMetricDataStore> {
-  const { data: dataStore, error } = useDataForRegionsAndMetrics(
-    [region],
-    metrics,
-    includeTimeseries
-  );
-  const data = dataStore?.regionData(region);
-  return { data, error };
+  const catalog = useMetricCatalog();
+  let resolvedMetrics = metrics.map((m) => catalog.getMetric(m));
+
+  // In order to allow people to pass in a new array of metrics that
+  // contain the same metrics as before without triggering additional
+  // fetches, we need this caching trick.
+  resolvedMetrics = useCachedArrayIfEqual(resolvedMetrics);
+  const fetchData = useCallback(() => {
+    return catalog.fetchDataForMetrics(
+      region,
+      resolvedMetrics,
+      includeTimeseries
+    );
+  }, [catalog, region, resolvedMetrics, includeTimeseries]);
+
+  return useFetchedData(fetchData);
 }
 
 /**
@@ -69,22 +77,14 @@ export function useDataForMetrics(
  * @param regions The regions to get data for.
  * @param metrics The metrics to get data for as either strings or `Metric` objects.
  * @param includeTimeseries Whether to fetch timeseries data or not (default false).
- * @param optCatalog Optional metric catalog to use. If not provided, the
- * catalog is fetched via useMetricCatalog().
  * @returns The metric data.
  */
 export function useDataForRegionsAndMetrics(
   regions: Region[],
   metrics: Array<string | Metric>,
-  includeTimeseries = false,
-  optCatalog?: MetricCatalog
+  includeTimeseries = false
 ): DataOrError<MultiRegionMultiMetricDataStore> {
-  // HACK: optCatalog should override the context catalog, but
-  // react-hooks/rules-of-hooks won't let us skip calling useMetricCatalog(), so
-  // we call it regardless.
-  let catalog = useMetricCatalog();
-  catalog = optCatalog ?? catalog;
-  const [data, setData] = useState<MultiRegionMultiMetricDataStore>();
+  const catalog = useMetricCatalog();
   let resolvedMetrics = metrics.map((m) => catalog.getMetric(m));
 
   // In order to allow people to pass in a new array of regions / metrics that
@@ -92,21 +92,34 @@ export function useDataForRegionsAndMetrics(
   // fetches, we need this caching trick.
   resolvedMetrics = useCachedArrayIfEqual(resolvedMetrics);
   regions = useCachedArrayIfEqual(regions);
+  const fetchData = useCallback(() => {
+    return catalog.fetchDataForRegionsAndMetrics(
+      regions,
+      resolvedMetrics,
+      includeTimeseries
+    );
+  }, [catalog, regions, resolvedMetrics, includeTimeseries]);
+
+  return useFetchedData(fetchData);
+}
+
+/**
+ * Helper to implement the useData*() hooks. It calls the provided fetchData()
+ * callback that returns a Promise and uses the result of the promise to
+ * populate the DataOrError result once the promise completes.
+ */
+function useFetchedData<T>(fetchData: () => Promise<T>): DataOrError<T> {
+  const [data, setData] = useState<T>();
 
   useEffect(() => {
-    catalog
-      .fetchDataForRegionsAndMetrics(
-        regions,
-        resolvedMetrics,
-        includeTimeseries
-      )
-      .then((multiRegionMetricDataStore) => {
-        setData(multiRegionMetricDataStore);
+    fetchData()
+      .then((result) => {
+        setData(result);
       })
       .catch((error) => {
         console.error(`Error fetching metric data: ${error}`);
         return { error };
       });
-  }, [catalog, resolvedMetrics, regions, includeTimeseries]);
+  }, [fetchData]);
   return { data };
 }
