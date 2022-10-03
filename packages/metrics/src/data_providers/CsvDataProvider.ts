@@ -96,7 +96,8 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
         region,
         metric,
         metricKey,
-        this.dateColumn
+        this.dateColumn,
+        /* strict= */ true
       );
     } else {
       metricData = dataRowToMetricData(

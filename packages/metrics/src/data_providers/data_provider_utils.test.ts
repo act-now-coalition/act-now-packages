@@ -20,6 +20,7 @@ describe("dataRowsToMetricData()", () => {
       [
         { date: "2022-08-01", region: "36", cool_metric: 100 },
         { date: "2022-07-31", region: "36", cool_metric: 90 },
+        { date: "2022-07-30", region: "36" }, // Ensure that missing data is handled correctly when strict === false.
       ],
       (row) => row.region
     );
@@ -37,7 +38,7 @@ describe("dataRowsToMetricData()", () => {
     expect(data.timeseries.minDate).toStrictEqual(new Date("2022-07-31"));
   });
 
-  test("dataRowsToMetricData() fails when there's no data for metric.", () => {
+  test("dataRowsToMetricData() fails when there's no data for metric and strict === true.", () => {
     const column = testMetric.dataReference?.column as string;
     const dataRows: Dictionary<DataRow[]> = groupBy(
       [{ date: "2022-08-01", region: "36", another_metric: 100 }],
@@ -49,7 +50,8 @@ describe("dataRowsToMetricData()", () => {
         newYork,
         testMetric,
         column,
-        /*dateKey=*/ "date"
+        /*dateKey=*/ "date",
+        /*strict=*/ true
       );
     }).toThrow();
   });

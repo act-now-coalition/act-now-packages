@@ -48,6 +48,7 @@ export function dataRowToMetricData(
  * @param metric Metric to parse data for.
  * @param metricKey Key name of the items in the data-rows containing the metric values.
  * @param dateKey Key name of the items in the data-rows that contain the date-time values.
+ * @param strict If true, will throw an error if any field is missing in any row.
  * @returns Metric Data for the specified region and metric.
  */
 export function dataRowsToMetricData(
@@ -55,13 +56,16 @@ export function dataRowsToMetricData(
   region: Region,
   metric: Metric,
   metricKey: string,
-  dateKey: string
+  dateKey: string,
+  strict = false
 ) {
   const rows = dataRowsByRegionId[region.regionId] ?? [];
   const timeseries = new Timeseries(
     rows.map((row) => {
       const value = get(row, metricKey);
-      assert(value !== undefined, `Metric key ${metricKey} missing.`);
+      if (strict) {
+        assert(value !== undefined, `Metric key ${metricKey} missing.`);
+      }
       assert(
         typeof row[dateKey] === "string",
         `Date column must be a string. ${typeof row[dateKey]} found.`
