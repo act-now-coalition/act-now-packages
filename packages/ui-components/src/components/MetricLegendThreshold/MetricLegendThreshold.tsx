@@ -13,11 +13,11 @@ interface LevelItem {
   /** Description of the level */
   description: string | undefined;
   /** Formatted value of the threshold at the end of the current level */
-  endThreshold: string;
+  endThreshold?: string;
 }
 
 const getItemColor = (item: LevelItem) => item.color;
-const getItemLabelHorizontal = (item: LevelItem) => item.endThreshold;
+const getItemLabelHorizontal = (item: LevelItem) => item.endThreshold ?? "";
 const getItemLabelVertical = (item: LevelItem) => item.name;
 const getItemSublabel = (item: LevelItem) => item.description ?? "";
 
@@ -82,10 +82,12 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   metric = metricCatalog.getMetric(metric);
 
   const items = getLevelItems(metric);
+
+  // Common props regardless of horizontal / vertical orientation
   const commonProps = { items, getItemColor, ...legendThresholdProps };
 
   if (!includeOverview) {
-    return <LegendThreshold {...commonProps} {...legendThresholdProps} />;
+    return <LegendThreshold {...commonProps} />;
   }
 
   if (legendThresholdProps.orientation === "horizontal") {
@@ -96,12 +98,12 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
           <Typography variant="paragraphSmall">{supportingText}</Typography>
         </Stack>
         <Stack direction="row" spacing={1} alignItems="center">
-          {startLabel && startLabel}
+          {startLabel}
           <LegendThreshold<LevelItem>
             {...commonProps}
             getItemLabel={getItemLabelHorizontal}
           />
-          {endLabel && endLabel}
+          {endLabel}
         </Stack>
       </Stack>
     );
@@ -113,14 +115,14 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
           <Typography variant="paragraphSmall">{supportingText}</Typography>
         </Stack>
         <Stack direction="column" spacing={1}>
-          {startLabel && startLabel}
+          {startLabel}
           <LegendThreshold<LevelItem>
             {...commonProps}
             orientation="vertical"
             getItemLabel={getItemLabelVertical}
             getItemSublabel={getItemSublabel}
           />
-          {endLabel && endLabel}
+          {endLabel}
         </Stack>
       </Stack>
     );
@@ -135,16 +137,12 @@ function getLevelItems(metric: Metric): LevelItem[] {
     "Metric must have levels and thresholds to use MetricLegendThreshold." +
       `No levels found for metric ${metric}.`
   );
-  assert(
-    metricThresholds,
-    "Metric must have levels and thresholds to use MetricLegendThreshold." +
-      `No thresholds found for metric ${metric}.`
-  );
-
   return metricLevels.map((level, levelIndex) => ({
     name: level.name ?? level.id,
     color: level.color,
     description: level.description,
-    endThreshold: metric.formatValue(metricThresholds[levelIndex]),
+    endThreshold: metricThresholds
+      ? metric.formatValue(metricThresholds[levelIndex])
+      : undefined,
   }));
 }
