@@ -8,10 +8,16 @@ const components: ThemeOptions["components"] = {
     styleOverrides: {
       root: ({ theme }) => ({
         backgroundColor: theme.palette.common.white,
+        margin: "8px 16px",
         "& .MuiFilledInput-root": {
           backgroundColor: theme.palette.common.white,
-          border: "1px solid #e2e2e1",
+          border: `1px solid ${theme.palette.border.default}`,
           borderRadius: 4,
+          fontWeight: 700,
+          color: theme.palette.secondary.dark,
+          "& .MuiSelect-icon": {
+            color: theme.palette.secondary.dark,
+          },
         },
       }),
     },

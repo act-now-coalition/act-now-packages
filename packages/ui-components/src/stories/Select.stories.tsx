@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Typography } from "@mui/material";
 
 export default {
   title: "Design System/Select",
@@ -44,7 +45,7 @@ export const SelectTextFields = () => {
       <TextField
         id="filled-select-currency"
         select
-        label="Select"
+        label={<Typography fontSize={14}>Select</Typography>}
         value={currency}
         onChange={handleChange}
         variant="filled"
