@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography } from "@mui/material";
+import { Typography, Paper } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import {
@@ -14,9 +14,9 @@ export default {
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
 const Template: Story<MetricLegendThresholdProps> = (args) => (
-  <div style={{ width: 500, border: "1px solid #ddd" }}>
+  <Paper sx={{ width: 500, padding: 2 }}>
     <MetricLegendThreshold {...args} />
-  </div>
+  </Paper>
 );
 
 // Horizontal legend threshold props

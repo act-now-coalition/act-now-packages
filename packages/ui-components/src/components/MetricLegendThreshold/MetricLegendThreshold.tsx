@@ -1,13 +1,25 @@
 import React from "react";
-import { LegendThreshold } from "../LegendThreshold";
-import { Metric, MetricLevel } from "@actnowcoalition/metrics";
-import { useMetricCatalog } from "../MetricCatalogContext";
-import { assert } from "@actnowcoalition/assert";
 import { Stack, Typography } from "@mui/material";
+import { Metric } from "@actnowcoalition/metrics";
+import { assert } from "@actnowcoalition/assert";
+import { LegendThreshold } from "../LegendThreshold";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
-const getItemColor = (item: MetricLevel) => item.color;
-const getItemLabel = (item: MetricLevel) => item.name ?? item.id;
-const getItemSublabel = (item: MetricLevel) => item.description ?? "";
+interface LevelItem {
+  /** Level name (e.g. "High") */
+  name: string;
+  /** Level color */
+  color: string;
+  /** Description of the level */
+  description: string | undefined;
+  /** Formatted value of the threshold at the end of the current level */
+  endThreshold?: string;
+}
+
+const getItemColor = (item: LevelItem) => item.color;
+const getItemLabelHorizontal = (item: LevelItem) => item.endThreshold ?? "";
+const getItemLabelVertical = (item: LevelItem) => item.name;
+const getItemSublabel = (item: LevelItem) => item.description ?? "";
 
 interface CommonMetricLegendThresholdProps {
   /** Metric to display thresholds for. */
@@ -68,22 +80,17 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
 }) => {
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
-  const items = metric.levelSet?.levels;
-  assert(
-    items,
-    "Metric must have thresholds to use MetricLegendThreshold." +
-      `No thresholds found for metric ${metric}.`
-  );
-  const isHorizontal = legendThresholdProps.orientation === "horizontal";
-  const derivedProps = isHorizontal
-    ? { items, getItemColor, getItemLabel }
-    : { items, getItemColor, getItemLabel, getItemSublabel };
+
+  const items = getLevelItems(metric);
+
+  // Common props regardless of horizontal / vertical orientation
+  const commonProps = { items, getItemColor, ...legendThresholdProps };
 
   if (!includeOverview) {
-    return <LegendThreshold {...derivedProps} {...legendThresholdProps} />;
+    return <LegendThreshold {...commonProps} />;
   }
 
-  if (isHorizontal) {
+  if (legendThresholdProps.orientation === "horizontal") {
     return (
       <Stack spacing={2} alignItems="center">
         <Stack spacing={0.5}>
@@ -91,12 +98,12 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
           <Typography variant="paragraphSmall">{supportingText}</Typography>
         </Stack>
         <Stack direction="row" spacing={1} alignItems="center">
-          {startLabel && startLabel}
-          <LegendThreshold<MetricLevel>
-            {...derivedProps}
-            {...legendThresholdProps}
+          {startLabel}
+          <LegendThreshold<LevelItem>
+            {...commonProps}
+            getItemLabel={getItemLabelHorizontal}
           />
-          {endLabel && endLabel}
+          {endLabel}
         </Stack>
       </Stack>
     );
@@ -108,14 +115,34 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
           <Typography variant="paragraphSmall">{supportingText}</Typography>
         </Stack>
         <Stack direction="column" spacing={1}>
-          {startLabel && startLabel}
-          <LegendThreshold<MetricLevel>
-            {...derivedProps}
-            {...legendThresholdProps}
+          {startLabel}
+          <LegendThreshold<LevelItem>
+            {...commonProps}
+            orientation="vertical"
+            getItemLabel={getItemLabelVertical}
+            getItemSublabel={getItemSublabel}
           />
-          {endLabel && endLabel}
+          {endLabel}
         </Stack>
       </Stack>
     );
   }
 };
+
+function getLevelItems(metric: Metric): LevelItem[] {
+  const metricLevels = metric.levelSet?.levels;
+  const metricThresholds = metric.thresholds;
+  assert(
+    metricLevels,
+    "Metric must have levels and thresholds to use MetricLegendThreshold." +
+      `No levels found for metric ${metric}.`
+  );
+  return metricLevels.map((level, levelIndex) => ({
+    name: level.name ?? level.id,
+    color: level.color,
+    description: level.description,
+    endThreshold: metricThresholds
+      ? metric.formatValue(metricThresholds[levelIndex])
+      : undefined,
+  }));
+}
