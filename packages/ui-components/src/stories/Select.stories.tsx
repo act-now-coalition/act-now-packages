@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import Box from "@mui/material/Box";
-import MenuItem from "@mui/material/MenuItem";
-import TextField from "@mui/material/TextField";
+import { Box, MenuItem, TextField, Typography } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Typography } from "@mui/material";
 
 export default {
   title: "Design System/Select",
@@ -43,11 +40,11 @@ export const Select = () => {
         value={option}
         onChange={handleChange}
         variant="filled"
+        fullWidth
         SelectProps={{
           disableUnderline: true,
           IconComponent: KeyboardArrowDownIcon,
         }}
-        fullWidth
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
