@@ -9,52 +9,47 @@ export default {
   title: "Design System/Select",
 };
 
-const currencies = [
+const options = [
   {
-    value: "USD",
-    label: "$",
+    value: "option 1",
+    label: "Option 1",
   },
   {
-    value: "EUR",
-    label: "€",
+    value: "option 2",
+    label: "Option 2",
   },
   {
-    value: "BTC",
-    label: "฿",
+    value: "option 3",
+    label: "Option 3",
   },
   {
-    value: "JPY",
-    label: "¥",
+    value: "option 4",
+    label: "Option 4",
   },
 ];
 
-export const SelectTextFields = () => {
-  const [currency, setCurrency] = useState("EUR");
+export const Select = () => {
+  const [option, setOption] = useState("option 1");
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrency(event.target.value);
+    setOption(event.target.value);
   };
 
   return (
-    <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" },
-      }}
-    >
+    <Box component="form" width={320}>
       <TextField
-        id="filled-select-currency"
         select
         label={<Typography fontSize={14}>Select</Typography>}
-        value={currency}
+        value={option}
         onChange={handleChange}
         variant="filled"
         SelectProps={{
           disableUnderline: true,
           IconComponent: KeyboardArrowDownIcon,
         }}
+        fullWidth
       >
-        {currencies.map((option) => (
+        {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>
