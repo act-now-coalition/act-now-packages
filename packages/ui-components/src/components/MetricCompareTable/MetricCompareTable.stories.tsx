@@ -1,8 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { Paper } from "@mui/material";
 import { states } from "@actnowcoalition/regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
+import { TableContainer } from "../CompareTable";
 import { MetricCompareTable } from ".";
 
 export default {
@@ -11,9 +11,9 @@ export default {
 } as ComponentMeta<typeof MetricCompareTable>;
 
 const Template: ComponentStory<typeof MetricCompareTable> = (args) => (
-  <Paper sx={{ maxWidth: 600, height: 500, overflow: "auto" }}>
+  <TableContainer sx={{ maxWidth: 600, height: 500 }}>
     <MetricCompareTable {...args} />
-  </Paper>
+  </TableContainer>
 );
 
 export const Example = Template.bind({});
