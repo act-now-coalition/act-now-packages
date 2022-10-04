@@ -42,12 +42,12 @@ SortActive.args = {
   onClickSort,
 };
 
-export const WithSupportingText = Template.bind({});
-WithSupportingText.args = {
+export const WithExtendedName = Template.bind({});
+WithExtendedName.args = {
   label: (
     <Stack spacing={1}>
       <Typography variant="labelSmall">Metric name</Typography>
-      <Typography variant="paragraphSmall">Supporting text</Typography>
+      <Typography variant="paragraphSmall">Metric name extended</Typography>
     </Stack>
   ),
   sortDirection: SortDirection.ASC,
@@ -59,7 +59,7 @@ AlignedRight.args = {
   label: (
     <Stack spacing={1}>
       <Typography variant="labelSmall">Metric name</Typography>
-      <Typography variant="paragraphSmall">Supporting text</Typography>
+      <Typography variant="paragraphSmall">Metric name extended</Typography>
     </Stack>
   ),
   sortDirection: SortDirection.ASC,

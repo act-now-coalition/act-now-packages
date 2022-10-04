@@ -11,8 +11,6 @@ export interface MetricOverviewProps {
   region: Region;
   /** Metric for which we want to show the metric overview */
   metric: Metric | string;
-  /** Optional supporting text for the metric */
-  supportingText?: string;
   /** Optional metricChart. It only renders if orientation="vertical" */
   metricChart?: React.ReactNode;
   /**
@@ -26,7 +24,6 @@ export const MetricOverview: React.FC<MetricOverviewProps> = ({
   region,
   metric: metricOrId,
   metricChart,
-  supportingText,
   orientation = "vertical",
 }) => {
   const metricCatalog = useMetricCatalog();
@@ -38,9 +35,7 @@ export const MetricOverview: React.FC<MetricOverviewProps> = ({
         <LabelIcon>{metric.name}</LabelIcon>
         {metricChart}
         <MetricValue region={region} metric={metric} />
-        {supportingText && (
-          <Typography variant="paragraphSmall">{supportingText}</Typography>
-        )}
+        <Typography variant="paragraphSmall">{metric.extendedName}</Typography>
       </Stack>
     );
   }
@@ -55,9 +50,7 @@ export const MetricOverview: React.FC<MetricOverviewProps> = ({
           metric={metric}
         />
       </Stack>
-      {supportingText && (
-        <Typography variant="paragraphSmall">{supportingText}</Typography>
-      )}
+      <Typography variant="paragraphSmall">{metric.extendedName}</Typography>
     </Stack>
   );
 };

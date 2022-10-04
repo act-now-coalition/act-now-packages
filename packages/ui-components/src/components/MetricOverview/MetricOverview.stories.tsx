@@ -2,7 +2,7 @@ import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Typography } from "@mui/material";
 import { states } from "@actnowcoalition/regions";
-import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
+import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricOverview } from ".";
 
 export default {
@@ -36,7 +36,6 @@ const ChartPlaceholder = () => (
   </div>
 );
 
-const metricCases = metricCatalog.getMetric(MetricId.MOCK_CASES);
 const newYorkState = states.findByRegionIdStrict("36");
 
 export const DefaultProps = Template.bind({});
@@ -45,11 +44,10 @@ DefaultProps.args = {
   metric: MetricId.MOCK_CASES,
 };
 
-export const WithSupportingText = Template.bind({});
-WithSupportingText.args = {
+export const NoExtendedName = Template.bind({});
+NoExtendedName.args = {
   region: newYorkState,
-  metric: MetricId.MOCK_CASES,
-  supportingText: metricCases.extendedName,
+  metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
 };
 
 export const VerticalWithChart = Template.bind({});
@@ -57,7 +55,6 @@ VerticalWithChart.args = {
   region: newYorkState,
   metric: MetricId.MOCK_CASES,
   metricChart: <ChartPlaceholder />,
-  supportingText: metricCases.extendedName,
 };
 
 export const DefaultHorizontal = Template.bind({});
@@ -67,10 +64,9 @@ DefaultHorizontal.args = {
   orientation: "horizontal",
 };
 
-export const HorizontalWithSupportingText = Template.bind({});
-HorizontalWithSupportingText.args = {
+export const HorizontalNoExtendedName = Template.bind({});
+HorizontalNoExtendedName.args = {
   region: newYorkState,
-  metric: MetricId.MOCK_CASES,
-  supportingText: metricCases.extendedName,
+  metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
   orientation: "horizontal",
 };

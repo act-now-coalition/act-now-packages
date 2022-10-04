@@ -27,7 +27,6 @@ const horizontalWidth = 300;
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  supportingText: "A description of the metric",
   height: horizontalHeight,
   width: horizontalWidth,
   barHeight: horizontalBarHeight,
@@ -69,7 +68,6 @@ HorizontalSquared.args = {
 export const VerticalDefault = Template.bind({});
 VerticalDefault.args = {
   orientation: "vertical",
-  supportingText: "A description of the metric",
   metric: MetricId.MOCK_CASES,
 };
 
