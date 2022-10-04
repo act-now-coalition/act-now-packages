@@ -1,9 +1,43 @@
 /** MUI theme components */
 import { ThemeOptions, createTheme } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
+  MuiTextField: {
+    defaultProps: {
+      SelectProps: {
+        disableUnderline: true,
+        IconComponent: KeyboardArrowDownIcon,
+      },
+    },
+    styleOverrides: {
+      root: ({ theme }) => ({
+        backgroundColor: theme.palette.common.white,
+        margin: theme.spacing(1, 2),
+        "& .MuiFilledInput-root": {
+          backgroundColor: theme.palette.common.white,
+          border: `1px solid ${theme.palette.border.default}`,
+          borderRadius: theme.shape.borderRadius,
+          color: theme.palette.secondary.dark,
+          "& p": {
+            fontWeight: theme.typography.fontWeightBold,
+          },
+          "& .MuiSelect-icon": {
+            color: theme.palette.secondary.dark,
+          },
+          "&:hover": {
+            backgroundColor: theme.palette.common.white,
+            border: `1px solid ${theme.palette.primary.main}`,
+          },
+          "&.Mui-focused": {
+            backgroundColor: theme.palette.common.white,
+          },
+        },
+      }),
+    },
+  },
   MuiTabs: {
     styleOverrides: {
       indicator: ({ theme }) => ({
