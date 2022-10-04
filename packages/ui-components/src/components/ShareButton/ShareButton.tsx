@@ -5,6 +5,7 @@ import { CopyLinkButton } from "./CopyLinkButton";
 import { TwitterShareButton } from "./TwitterShareButton";
 import { FacebookShareButton } from "./FacebookShareButton";
 import { Menu, MenuItem } from "./ShareButton.style";
+import isNull from "lodash/isNull";
 
 export interface ShareButtonProps {
   url: string;
@@ -40,7 +41,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
       </Button>
       <Menu
         anchorEl={anchorButton}
-        open={Boolean(anchorButton)}
+        open={!isNull(anchorButton)}
         onClose={() => setAnchorButton(null)}
         anchorOrigin={{
           vertical: "bottom",
