@@ -7,9 +7,6 @@ const referenceTheme = createTheme();
 const components: ThemeOptions["components"] = {
   MuiTextField: {
     defaultProps: {
-      select: true,
-      variant: "filled",
-      fullWidth: true,
       SelectProps: {
         disableUnderline: true,
         IconComponent: KeyboardArrowDownIcon,

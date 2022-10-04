@@ -34,6 +34,9 @@ const longOptions = sampleOptions.concat({
 });
 
 const defaultProps: TextFieldProps = {
+  select: true,
+  variant: "filled",
+  fullWidth: true,
   label: <Typography variant="paragraphSmall">Select</Typography>,
 };
 
