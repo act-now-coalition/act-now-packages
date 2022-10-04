@@ -1,5 +1,6 @@
 import React, { HTMLAttributes } from "react";
 import { Region } from "@actnowcoalition/regions";
+import { formatDecimal } from "@actnowcoalition/number-format";
 import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { createFilterOptions } from "@mui/material/useAutocomplete";
@@ -19,7 +20,7 @@ export type CustomAutocompleteProps = AutocompleteProps<
   Region,
   false, // multiple
   false, // disableClearable
-  false, // freeSsolo
+  false, // freeSolo
   "div" // ChipComponent
 >;
 
@@ -73,7 +74,9 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
             <LinkComponent targetUrl={getRegionUrl(option.regionId)}>
               <SearchItem
                 itemLabel={option.shortName}
-                itemSublabel={`${option.population} population`}
+                itemSublabel={`${formatPopulation(
+                  option.population
+                )} population`}
                 {...props}
               />
             </LinkComponent>
@@ -89,3 +92,19 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
     </div>
   );
 };
+
+/**
+ * Format the population with thousands separator and keeping 3 significant
+ * digits.
+ *
+ * @example
+ * ```ts
+ * formatPopulation(107766) // 108,000
+ * ```
+ */
+function formatPopulation(population: number) {
+  return formatDecimal(population, {
+    maximumSignificantDigits: 3,
+    maximumFractionDigits: 0,
+  });
+}
