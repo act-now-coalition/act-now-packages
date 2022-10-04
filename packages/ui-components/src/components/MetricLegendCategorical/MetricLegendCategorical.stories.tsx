@@ -21,12 +21,10 @@ export const Horizontal = Template.bind({});
 Horizontal.args = {
   metric: MetricId.PASS_FAIL,
   orientation: "horizontal",
-  supportingText: "Whether or not metric value is passing or failing.",
 };
 
 export const Vertical = Template.bind({});
 Vertical.args = {
   metric: MetricId.PASS_FAIL,
   orientation: "vertical",
-  supportingText: "Whether or not metric value is passing or failing.",
 };

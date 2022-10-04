@@ -9,6 +9,7 @@ import { theme } from "../styles";
 export enum MetricId {
   PI = "pi",
   MOCK_CASES = "mock_cases",
+  MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
   PASS_FAIL = "pass_fail",
 }
 
@@ -24,8 +25,19 @@ const testMetricDefs: MetricDefinition[] = [
   },
   {
     id: MetricId.MOCK_CASES,
-    name: "Cases Per 100k (mock)",
+    name: "Cases (mock)",
     extendedName: "Cases per 100k population (using mock data)",
+    dataReference: {
+      providerId: "mock",
+      startDate: "2020-01-01",
+    },
+    thresholds: [10, 100],
+    levelSetId: "cases_mock",
+  },
+  {
+    id: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
+    name: "Cases (mock)",
+    extendedName: "",
     dataReference: {
       providerId: "mock",
       startDate: "2020-01-01",

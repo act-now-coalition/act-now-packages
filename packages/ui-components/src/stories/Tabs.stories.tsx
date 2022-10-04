@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Stack, Tab, Typography, Tabs } from "@mui/material";
-import { MetricId } from "./mockMetricCatalog";
+import { metricCatalog, MetricId } from "./mockMetricCatalog";
 import { states } from "@actnowcoalition/regions";
 import { MetricValue } from "../components/MetricValue";
 
@@ -11,6 +11,7 @@ export default {
 const washingtonState = states.findByRegionIdStrict("53");
 
 const TabContent = () => {
+  const metric = metricCatalog.getMetric(MetricId.MOCK_CASES);
   return (
     <Stack spacing={1}>
       <Typography variant="labelLarge" textAlign="left">
@@ -21,7 +22,7 @@ const TabContent = () => {
         region={washingtonState}
         variant="dataEmphasizedSmall"
       />
-      <Typography variant="paragraphSmall">Supporting text</Typography>
+      <Typography variant="paragraphSmall">{metric.extendedName}</Typography>
     </Stack>
   );
 };

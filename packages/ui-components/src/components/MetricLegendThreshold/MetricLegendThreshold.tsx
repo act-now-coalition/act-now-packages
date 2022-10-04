@@ -32,8 +32,6 @@ interface CommonMetricLegendThresholdProps {
   endLabel?: React.ReactNode;
   /** Whether or not to display metric name and info. If false, only thermometer is displayed. */
   includeOverview?: boolean;
-  /** Optional supporting text to give context for the metric. */
-  supportingText?: string;
   /** Height of the component, including the colored bars and labels. */
   height?: number;
   /** Border radius of the bars */
@@ -72,7 +70,6 @@ export type MetricLegendThresholdProps =
 
 export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   metric,
-  supportingText,
   startLabel,
   endLabel,
   includeOverview = true,
@@ -95,7 +92,9 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
       <Stack spacing={2} alignItems="center">
         <Stack spacing={0.5}>
           <Typography variant="labelLarge">{metric.name}</Typography>
-          <Typography variant="paragraphSmall">{supportingText}</Typography>
+          <Typography variant="paragraphSmall">
+            {metric.extendedName}
+          </Typography>
         </Stack>
         <Stack direction="row" spacing={1} alignItems="center">
           {startLabel}
@@ -112,7 +111,9 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
       <Stack spacing={3}>
         <Stack spacing={0.5}>
           <Typography variant="labelLarge">{metric.name}</Typography>
-          <Typography variant="paragraphSmall">{supportingText}</Typography>
+          <Typography variant="paragraphSmall">
+            {metric.extendedName}
+          </Typography>
         </Stack>
         <Stack direction="column" spacing={1}>
           {startLabel}
