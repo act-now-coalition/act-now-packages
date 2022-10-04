@@ -1,14 +1,24 @@
 /** MUI theme components */
 import { ThemeOptions, createTheme } from "@mui/material";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
   MuiTextField: {
+    defaultProps: {
+      select: true,
+      variant: "filled",
+      fullWidth: true,
+      SelectProps: {
+        disableUnderline: true,
+        IconComponent: KeyboardArrowDownIcon,
+      },
+    },
     styleOverrides: {
       root: ({ theme }) => ({
         backgroundColor: theme.palette.common.white,
-        margin: `${theme.spacing(1)} ${theme.spacing(2)}`,
+        margin: theme.spacing(1, 2),
         "& .MuiFilledInput-root": {
           backgroundColor: theme.palette.common.white,
           border: `1px solid ${theme.palette.border.default}`,
@@ -19,6 +29,10 @@ const components: ThemeOptions["components"] = {
           },
           "& .MuiSelect-icon": {
             color: theme.palette.secondary.dark,
+          },
+          ":hover": {
+            backgroundColor: theme.palette.common.white,
+            border: `1px solid ${theme.palette.primary.main}`,
           },
         },
       }),

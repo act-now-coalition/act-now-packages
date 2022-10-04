@@ -34,14 +34,7 @@ const longOptions = sampleOptions.concat({
 });
 
 const defaultProps: TextFieldProps = {
-  select: true,
-  label: <Typography fontSize={14}>Select</Typography>,
-  variant: "filled",
-  fullWidth: true,
-  SelectProps: {
-    disableUnderline: true,
-    IconComponent: KeyboardArrowDownIcon,
-  },
+  label: <Typography variant="paragraphSmall">Select</Typography>,
 };
 
 export const Select = () => {
