@@ -27,9 +27,12 @@ const components: ThemeOptions["components"] = {
           "& .MuiSelect-icon": {
             color: theme.palette.secondary.dark,
           },
-          ":hover": {
+          "&:hover": {
             backgroundColor: theme.palette.common.white,
             border: `1px solid ${theme.palette.primary.main}`,
+          },
+          "&.Mui-focused": {
+            backgroundColor: theme.palette.common.white,
           },
         },
       }),
