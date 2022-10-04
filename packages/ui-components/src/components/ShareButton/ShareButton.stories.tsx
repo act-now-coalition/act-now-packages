@@ -26,6 +26,18 @@ const args: ShareButtonProps = {
 export const Default = Template.bind({});
 Default.args = args;
 
+export const SmallMainShareButton = Template.bind({});
+SmallMainShareButton.args = {
+  ...args,
+  size: "small",
+};
+
+export const LargeMainShareButton = Template.bind({});
+LargeMainShareButton.args = {
+  ...args,
+  size: "large",
+};
+
 export const CenterMenuOrigin = Template.bind({});
 CenterMenuOrigin.args = {
   ...args,

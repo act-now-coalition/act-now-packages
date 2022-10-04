@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, ButtonProps } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import { CopyLinkButton } from "./CopyLinkButton";
 import { TwitterShareButton } from "./TwitterShareButton";
@@ -11,7 +11,7 @@ const noop = () => {
   return;
 };
 
-export interface ShareButtonProps {
+interface ShareButtonOwnProps {
   url: string;
   quote: string;
   hashtags?: string[];
@@ -21,6 +21,8 @@ export interface ShareButtonProps {
   menuOrigin?: "left" | "center" | "right";
 }
 
+export type ShareButtonProps = ButtonProps & ShareButtonOwnProps;
+
 export const ShareButton: React.FC<ShareButtonProps> = ({
   url,
   quote,
@@ -29,6 +31,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   onShareTwitter = noop,
   onShareFacebook = noop,
   menuOrigin = "left",
+  ...muiButtonProps
 }) => {
   const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -40,7 +43,12 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   };
   return (
     <>
-      <Button variant="outlined" endIcon={<ShareIcon />} onClick={handleClick}>
+      <Button
+        variant="outlined"
+        endIcon={<ShareIcon />}
+        onClick={handleClick}
+        {...muiButtonProps}
+      >
         Share
       </Button>
       <Menu
