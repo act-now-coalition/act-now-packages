@@ -3,6 +3,7 @@ import { Story, ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { AxesTimeseries, AxesTimeseriesProps } from "./AxesTimeseries";
 import { Group } from "@visx/group";
+import { formatPercent } from "@actnowcoalition/number-format";
 
 export default {
   title: "Charts/AxesTimeseries",
@@ -21,6 +22,11 @@ const dateScale = scaleTime({
 
 const yScale = scaleLinear({
   domain: [0, 500],
+  range: [chartHeight, 0],
+});
+
+const yScalePercent = scaleLinear({
+  domain: [0, 1.2],
   range: [chartHeight, 0],
 });
 
@@ -44,5 +50,17 @@ CustomNumYTicks.args = {
   height: chartHeight,
   dateScale,
   yScale,
-  yNumTicks: 5,
+  axisLeftProps: {
+    numTicks: 10,
+  },
+};
+
+export const CustomTickFormat = Template.bind({});
+CustomTickFormat.args = {
+  height: chartHeight,
+  dateScale,
+  yScale: yScalePercent,
+  axisLeftProps: {
+    tickFormat: (value: number) => formatPercent(value),
+  },
 };
