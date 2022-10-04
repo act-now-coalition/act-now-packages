@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Button } from "./ShareButton.style";
 import LinkIcon from "@mui/icons-material/Link";
+import Button from "@mui/material/Button";
 
 export const CopyLinkButton = ({
   url,
@@ -19,7 +19,11 @@ export const CopyLinkButton = ({
         onClick();
       }}
     >
-      <Button endIcon={<LinkIcon />} fullWidth>
+      <Button
+        endIcon={<LinkIcon />}
+        fullWidth
+        sx={{ ":hover": { backgroundColor: "transparent" } }}
+      >
         {copiedLink ? "Copied!" : "Copy Link"}
       </Button>
     </CopyToClipboard>

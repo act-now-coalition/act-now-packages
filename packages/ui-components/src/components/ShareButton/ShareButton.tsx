@@ -7,13 +7,17 @@ import { FacebookShareButton } from "./FacebookShareButton";
 import { Menu, MenuItem } from "./ShareButton.style";
 import isNull from "lodash/isNull";
 
+const noop = () => {
+  return;
+};
+
 export interface ShareButtonProps {
   url: string;
   quote: string;
   hashtags?: string[];
-  onCopyLink: () => void;
-  onShareTwitter: () => void;
-  onShareFacebook: () => void;
+  onCopyLink?: () => void;
+  onShareTwitter?: () => void;
+  onShareFacebook?: () => void;
   menuOrigin?: "left" | "center" | "right";
 }
 
@@ -21,9 +25,9 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   url,
   quote,
   hashtags = [],
-  onCopyLink,
-  onShareTwitter,
-  onShareFacebook,
+  onCopyLink = noop,
+  onShareTwitter = noop,
+  onShareFacebook = noop,
   menuOrigin = "left",
 }) => {
   const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);

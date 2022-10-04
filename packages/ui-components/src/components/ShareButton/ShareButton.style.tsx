@@ -1,9 +1,7 @@
 import { styled } from "../../styles";
-import {
-  Menu as MuiMenu,
-  MenuItem as MuiMenuItem,
-  Button as MuiButton,
-} from "@mui/material";
+import { Menu as MuiMenu, MenuItem as MuiMenuItem } from "@mui/material";
+import { FacebookShareButton, TwitterShareButton } from "react-share";
+import { css } from "@emotion/react";
 
 export const Menu = styled(MuiMenu)`
   .MuiMenu-paper {
@@ -19,6 +17,18 @@ export const MenuItem = styled(MuiMenuItem)`
   padding: 0;
 `;
 
-export const Button = styled(MuiButton)`
-  min-height: ${(props) => props.theme.spacing(5)};
+const ReactShareButtonStyles = css`
+  width: 100%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 6px 8px;
+`;
+
+export const StyledReactShareFacebookButton = styled(FacebookShareButton)`
+  ${ReactShareButtonStyles};
+`;
+
+export const StyledReactShareTwitterButton = styled(TwitterShareButton)`
+  ${ReactShareButtonStyles};
 `;
