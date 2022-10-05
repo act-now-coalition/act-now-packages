@@ -19,11 +19,7 @@ export const CopyLinkButton = ({
         onClick();
       }}
     >
-      <Button
-        endIcon={<LinkIcon />}
-        fullWidth
-        sx={{ ":hover": { backgroundColor: "transparent" } }}
-      >
+      <Button endIcon={<LinkIcon />} fullWidth>
         {copiedLink ? "Copied!" : "Copy Link"}
       </Button>
     </CopyToClipboard>
