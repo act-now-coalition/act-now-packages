@@ -11,6 +11,7 @@ export const Menu = styled(MuiMenu)`
     padding: 0;
   }
 
+  /* Makes ReactShare buttons full-width */
   button {
     width: 100%;
   }
