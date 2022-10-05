@@ -1,6 +1,6 @@
 import React from "react";
 import { GeoPath } from "d3-geo";
-import Tooltip from "@mui/material/Tooltip";
+import { Tooltip, Link } from "@mui/material";
 import { statesGeographies } from "../../../common/geo-shapes";
 import { RegionOverlay, RegionShapeBase } from "../Maps.style";
 
@@ -27,7 +27,7 @@ const StatesMap: React.FC<{
         const stateFips = `${geo.id}`;
         return (
           <Tooltip key={stateFips} title={renderTooltip(stateFips)}>
-            <a href={getRegionUrl(stateFips)}>
+            <Link href={getRegionUrl(stateFips)}>
               <g>
                 {!showCounties && (
                   <RegionShapeBase
@@ -37,7 +37,7 @@ const StatesMap: React.FC<{
                 )}
                 <RegionOverlay d={geoPath(geo) ?? ""} />
               </g>
-            </a>
+            </Link>
           </Tooltip>
         );
       })}
