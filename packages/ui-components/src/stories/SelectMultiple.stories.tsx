@@ -1,8 +1,13 @@
 import React from "react";
-import { Box, TextField, TextFieldProps, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  Chip,
+  TextField,
+  TextFieldProps,
+  Typography,
+} from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Chip from "@mui/material/Chip";
-import Autocomplete from "@mui/material/Autocomplete";
 
 export default {
   title: "Design System/SelectMultiple",
