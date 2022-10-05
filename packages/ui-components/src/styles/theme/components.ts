@@ -167,7 +167,7 @@ const components: ThemeOptions["components"] = {
           color: "white",
         },
         [referenceTheme.breakpoints.down("sm")]: {
-          padding: "20px 24px",
+          padding: theme.spacing(2.5, 3),
         },
       }),
       arrow: {
