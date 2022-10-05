@@ -36,3 +36,14 @@ export const Group = () => (
     <Button endIcon={<FacebookIcon />}>Facebook</Button>
   </ButtonGroup>
 );
+
+export const InLargeContainer = () => (
+  <Stack direction="row" height={200} border="1px solid blue" gap={1}>
+    <Button variant="contained" endIcon={<LinkIcon />}>
+      Copy Link
+    </Button>
+    <Button variant="outlined" endIcon={<TwitterIcon />}>
+      Twitter
+    </Button>
+  </Stack>
+);
