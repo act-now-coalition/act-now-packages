@@ -25,12 +25,16 @@ const sampleOptions = [
     value: "option 3",
     label: "Option 3",
   },
+  {
+    value: "option 4",
+    label: "Option 4",
+  },
 ];
 
 const longOptions = sampleOptions.concat({
-  value: "option 4",
+  value: "option 5",
   label:
-    "Option 4. I am a very long option. I may extend past the width of the component. Some might even mysteriously decide to make me a long paragraph...",
+    "Option 5. I am a very long option. I may extend past the width of the component. Some might even mysteriously decide to make me a long paragraph...",
 });
 
 const defaultProps: TextFieldProps = {
