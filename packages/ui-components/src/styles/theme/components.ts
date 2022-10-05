@@ -5,6 +5,20 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
+  MuiAutocomplete: {
+    defaultProps: {
+      filterSelectedOptions: true,
+      disableClearable: true,
+    },
+    styleOverrides: {
+      root: ({ theme }) => ({
+        "& .MuiFilledInput-root": {
+          paddingTop: theme.spacing(3),
+          paddingBottom: theme.spacing(1),
+        },
+      }),
+    },
+  },
   MuiTextField: {
     defaultProps: {
       SelectProps: {
