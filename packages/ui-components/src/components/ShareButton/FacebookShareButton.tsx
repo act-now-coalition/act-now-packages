@@ -1,9 +1,9 @@
 import React from "react";
-import * as ReactShare from "react-share";
+import { FacebookShareButton as ReactShareFacebookShareButton } from "react-share";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { Button } from "./ShareButton.style";
+import { Button } from "@mui/material";
 
-type BaseProps = React.ComponentProps<typeof ReactShare.FacebookShareButton>;
+type BaseProps = React.ComponentProps<typeof ReactShareFacebookShareButton>;
 
 export interface FacebookShareButtonProps extends BaseProps {
   onClick: () => void;
@@ -13,7 +13,14 @@ export const FacebookShareButton: React.FC<FacebookShareButtonProps> = ({
   onClick,
   ...otherProps
 }) => (
-  <Button onClick={() => onClick()} endIcon={<FacebookIcon />} fullWidth>
-    <ReactShare.FacebookShareButton {...otherProps} />
-  </Button>
+  <ReactShareFacebookShareButton {...otherProps}>
+    <Button
+      onClick={onClick}
+      endIcon={<FacebookIcon />}
+      fullWidth
+      component="div"
+    >
+      Facebook
+    </Button>
+  </ReactShareFacebookShareButton>
 );
