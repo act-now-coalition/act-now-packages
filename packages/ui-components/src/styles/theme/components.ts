@@ -13,6 +13,13 @@ const components: ThemeOptions["components"] = {
         fontSize: theme.typography.labelLarge.fontSize,
         fontWeight: theme.typography.labelLarge.fontWeight,
         lineHeight: theme.typography.labelLarge.lineHeight,
+        height: "fit-content",
+        minWidth: "fit-content",
+        width: "fit-content",
+        boxShadow: "none",
+        "&: hover": {
+          boxShadow: "none",
+        },
       }),
       outlinedPrimary: ({ theme }) => ({
         borderColor: theme.palette.border.default,
