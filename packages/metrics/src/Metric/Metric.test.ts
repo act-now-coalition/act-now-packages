@@ -9,6 +9,8 @@ const testMetricDef: MetricDefinition = {
   id: "cases",
   name: "Cases per 100k",
 };
+// Thresholds consistent with the testLevelSet
+const testMetricThresholds = [10, 20];
 
 // Example of a typical MetricLevelSet with id "default", to be used by metrics
 // that don't specify a non-default one.
@@ -35,9 +37,28 @@ const testCatalogOptions: MetricCatalogOptions = {
 
 describe("Metric", () => {
   test("constructor smoke test", () => {
-    const metric = new Metric(testMetricDef, testCatalogOptions);
+    const metricDef = { ...testMetricDef, thresholds: testMetricThresholds };
+    const metric = new Metric(metricDef, testCatalogOptions);
     expect(metric.id).toBe("cases");
     expect(metric.name).toBe("Cases per 100k");
+  });
+
+  test("constructor throws if levels and thresholds are not compatible", () => {
+    // We have a levelSet, but no thresholds
+    expect(() => {
+      new Metric(testMetricDef, testCatalogOptions);
+    }).toThrowError("Missing thresholds for metric");
+
+    // We have thresholds, but not a levelSet for the metric
+    expect(() => {
+      new Metric({ ...testMetricDef, thresholds: testMetricThresholds });
+    }).toThrowError("Missing levels for metric");
+
+    // The number of thresholds and levels are not compatible
+    expect(() => {
+      const metricDef = { ...testMetricDef, thresholds: [10] };
+      new Metric(metricDef, testCatalogOptions);
+    }).toThrowError("There should be 1 fewer thresholds than levels.");
   });
 
   test("constructor resolves levelSetId to correct levelSet", () => {
@@ -46,11 +67,18 @@ describe("Metric", () => {
       metricLevelSets: [testLevelSet, customLevelSet],
     };
 
-    const metric = new Metric(testMetricDef, catalogOptions);
+    const metric = new Metric(
+      { ...testMetricDef, thresholds: [10, 20] },
+      catalogOptions
+    );
     expect(metric.levelSet).toBe(testLevelSet);
 
     // Test with custom levelSetId.
-    const metric2Def = { ...testMetricDef, levelSetId: "custom" };
+    const metric2Def = {
+      ...testMetricDef,
+      thresholds: [10, 20],
+      levelSetId: "custom",
+    };
     const metric2 = new Metric(metric2Def, catalogOptions);
     expect(metric2.levelSet).toBe(customLevelSet);
   });

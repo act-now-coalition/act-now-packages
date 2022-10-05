@@ -96,9 +96,17 @@ export class Metric {
       "Categories and levels should not both be defined."
     );
 
+    // We should either have both levels and thresholds, or both should
+    // be undefined
+    if (!!this.thresholds !== !!this.levelSet) {
+      assert(this.thresholds, `Missing thresholds for metric ${this}`);
+      assert(this.levelSet, `Missing levels for metric ${this}`);
+    }
+
     assert(
       this.thresholds === undefined ||
         (this.levelSet &&
+          this.thresholds &&
           this.thresholds.length === this.levelSet.levels.length - 1),
       "There should be 1 fewer thresholds than levels."
     );
