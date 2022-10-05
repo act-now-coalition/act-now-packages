@@ -10,6 +10,8 @@ import {
   getAriaSort,
 } from "../CompareTable";
 import { Row } from "./interfaces";
+import { Stack, Typography } from "@mui/material";
+import { formatPopulation } from "../../common/utils";
 
 export function createMetricColumn(
   metric: Metric,
@@ -24,7 +26,12 @@ export function createMetricColumn(
       const isSortActive = sortColumnId === column.columnId;
       return (
         <ColumnHeader
-          label={column.name}
+          label={
+            <HeaderLabel
+              primary={column.name}
+              secondary={metric.extendedName}
+            />
+          }
           sortDirection={isSortActive ? sortDirection : undefined}
           onClickSort={(dir) => onClickSort(dir, column.columnId)}
           aria-sort={getAriaSort(isSortActive, sortDirection)}
@@ -74,7 +81,7 @@ export function createLocationColumn(
       const isSortActive = sortColumnId === column.columnId;
       return (
         <ColumnHeader
-          label={column.name}
+          label={<HeaderLabel primary={column.name} secondary="Population" />}
           sortDirection={isSortActive ? sortDirection : undefined}
           onClickSort={(dir) => onClickSort(dir, column.columnId)}
           aria-sort={getAriaSort(isSortActive, sortDirection)}
@@ -84,9 +91,31 @@ export function createLocationColumn(
       );
     },
     renderCell: ({ row }) => (
-      <TableCell stickyColumn>{row.region.fullName}</TableCell>
+      <TableCell stickyColumn>
+        <Stack spacing={0.5}>
+          <Typography variant="labelSmall">{row.region.fullName}</Typography>
+          <Typography variant="paragraphSmall">
+            {formatPopulation(row.region.population)}
+          </Typography>
+        </Stack>
+      </TableCell>
     ),
     sorterAsc: (rowA, rowB) =>
       rowA.region.fullName < rowB.region.fullName ? -1 : 1,
   };
+}
+
+function HeaderLabel({
+  primary,
+  secondary,
+}: {
+  primary: string;
+  secondary: string;
+}) {
+  return (
+    <Stack spacing={1}>
+      <Typography variant="labelSmall">{primary}</Typography>
+      <Typography variant="paragraphSmall">{secondary}</Typography>
+    </Stack>
+  );
 }
