@@ -1,5 +1,20 @@
 # @actnowcoalition/ui-components
 
+## 0.5.0
+
+### Minor Changes
+
+- f4a8791: AxisTimeseries now allows custom options for the axis
+
+### Patch Changes
+
+- 9a385e3: Update the number format of the population on RegionSearch options
+- 22514ac: Improvements to share buttons
+- 1ba706f: Use MuiLinks on StateMap instead of a
+- 8ea282b: Style select component
+- 4ce47f6: Replace supportingText with just using the extended metric name.
+- 6acae4e: Update the MetricLegendThreshold component to show threshold values between labels
+
 ## 0.4.3
 
 ### Patch Changes
