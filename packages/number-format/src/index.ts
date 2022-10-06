@@ -9,8 +9,14 @@
  * @param value Number to format
  * @returns Formatted number (as string)
  */
-export function formatInteger(value: number): string {
-  return value.toLocaleString(undefined, { maximumFractionDigits: 0 });
+export function formatInteger(
+  value: number,
+  options?: Intl.NumberFormatOptions
+): string {
+  return value.toLocaleString(undefined, {
+    ...options,
+    maximumFractionDigits: 0,
+  });
 }
 
 /**

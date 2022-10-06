@@ -1,5 +1,5 @@
 export { default as importJson } from "./importJson";
-import { formatDecimal } from "@actnowcoalition/number-format";
+import { formatInteger } from "@actnowcoalition/number-format";
 
 /**
  * Format the population with thousands separator and keeping 3 significant
@@ -11,8 +11,7 @@ import { formatDecimal } from "@actnowcoalition/number-format";
  * ```
  */
 export function formatPopulation(population: number) {
-  return formatDecimal(population, {
+  return formatInteger(population, {
     maximumSignificantDigits: 3,
-    maximumFractionDigits: 0,
   });
 }
