@@ -48,7 +48,12 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
   // in this case.
   const geoProjection = stateGeo.id === "02" ? geoAlbersUsa : geoMercator;
 
-  const projection = geoProjection().fitSize([width, height], stateGeo);
+  const projection = geoProjection()
+    .fitSize([width, height], stateGeo)
+    .clipExtent([
+      [0, 0],
+      [width, height],
+    ]);
   const geoPath = d3GeoPath().projection(projection);
 
   const regionsOfState = countiesGeographies.features.filter((geo) =>
