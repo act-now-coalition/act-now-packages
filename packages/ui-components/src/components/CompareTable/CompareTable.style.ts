@@ -5,9 +5,12 @@ import {
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
   tableCellClasses,
+  TableContainer as MuiTableContainer,
 } from "@mui/material";
 import React from "react";
 import { styled } from "../../styles";
+
+export const TableContainer = styled(MuiTableContainer)``;
 
 export const Table = styled(MuiTable)`
   border-collapse: separate;

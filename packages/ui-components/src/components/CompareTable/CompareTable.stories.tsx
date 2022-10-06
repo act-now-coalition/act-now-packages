@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ComponentMeta } from "@storybook/react";
-import { Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { formatInteger } from "@actnowcoalition/number-format";
 import { states, Region } from "@actnowcoalition/regions";
 import {
@@ -10,6 +10,7 @@ import {
   ColumnDefinition,
   ColumnHeader,
   compare,
+  TableContainer,
 } from ".";
 
 export default {
@@ -154,8 +155,8 @@ const StatefulCompareTable: React.FC<{
 
 export const Example = () => {
   return (
-    <Paper sx={{ maxWidth: 400, height: 600, overflow: "auto" }}>
+    <TableContainer sx={{ maxWidth: 400, height: 600 }}>
       <StatefulCompareTable rows={rows} />
-    </Paper>
+    </TableContainer>
   );
 };
