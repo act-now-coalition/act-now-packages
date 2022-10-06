@@ -75,10 +75,7 @@ export const ChartOverlayXY = ({
         <VoronoiPolygon
           key={`polygon-${polygonIndex}`}
           polygon={polygon}
-          fill="#e3f2fd"
-          fillOpacity={0.5}
-          stroke="white"
-          strokeWidth={2}
+          fillOpacity={0}
           onMouseEnter={() => onMouseMove(polygon.data)}
           onMouseOut={onMouseOut}
         />
