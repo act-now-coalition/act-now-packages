@@ -1,6 +1,8 @@
 interface CommonLegendThresholdProps<T> {
   /** Height of the thermometer */
   height?: number;
+  /** Width of the thermometer */
+  width?: number;
   /** Border radius of the thermometer bar */
   borderRadius?: number;
   /** List of items representing the labels */
@@ -19,16 +21,12 @@ interface LegendThresholdHorizontalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "horizontal";
-  /** Width of the thermometer */
-  width?: number;
 }
 
 interface LegendThresholdVerticalProps<T>
   extends CommonLegendThresholdProps<T> {
   /** Orientation of the bars */
   orientation: "vertical";
-  /** Width of the thermometer */
-  width?: number;
   /** Function that returns the item's secondary label */
   getItemSublabel?: (item: T, itemIndex: number) => string;
 }

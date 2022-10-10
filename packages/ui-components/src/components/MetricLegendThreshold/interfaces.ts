@@ -1,16 +1,5 @@
 import { Metric } from "@actnowcoalition/metrics";
 
-export interface LevelItem {
-  /** Level name (e.g. "High") */
-  name: string;
-  /** Level color */
-  color: string;
-  /** Description of the level */
-  description: string | undefined;
-  /** Formatted value of the threshold at the end of the current level */
-  endThreshold?: string;
-}
-
 interface CommonMetricLegendThresholdProps {
   /** Metric to display thresholds for. */
   metric: Metric | string;
@@ -24,6 +13,10 @@ interface CommonMetricLegendThresholdProps {
   includeOverview?: boolean;
   /** Border radius of the bars */
   borderRadius?: number;
+  /** Width of the bars */
+  width?: number;
+  /** Height of the bars */
+  height?: number;
   /** Optional other props. */
   otherSvgProps?: Omit<
     React.SVGProps<SVGSVGElement>,
@@ -35,22 +28,25 @@ interface MetricLegendThresholdHorizontalProps
   extends CommonMetricLegendThresholdProps {
   /** Orientation of the bars. */
   orientation: "horizontal";
-  /** Width of the component. */
-  width?: number;
-  /** Height of the bars. */
-  height?: number;
 }
 
 interface MetricLegendThresholdVerticalProps
   extends CommonMetricLegendThresholdProps {
   /** Orientation of the bars. */
   orientation: "vertical";
-  /** Width of the bars. */
-  width?: number;
-  /** Height of the bars. */
-  height?: number;
 }
 
 export type MetricLegendThresholdProps =
   | MetricLegendThresholdHorizontalProps
   | MetricLegendThresholdVerticalProps;
+
+export interface LevelItem {
+  /** Level name (e.g. "High") */
+  name: string;
+  /** Level color */
+  color: string;
+  /** Description of the level */
+  description: string | undefined;
+  /** Formatted value of the threshold at the end of the current level */
+  endThreshold?: string;
+}
