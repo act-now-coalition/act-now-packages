@@ -18,5 +18,3 @@ export interface LegendThresholdProps<T> {
   /** Function that returns the sublabel of each item */
   getItemSublabel?: (item: T, itemIndex: number) => string;
 }
-
-// TODO (chelsi) - can you have showLabels without getItemLabel?
