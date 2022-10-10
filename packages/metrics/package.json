@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/metrics",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Classes for representing metrics and loading metric data",
   "repository": {
     "type": "git",
@@ -30,7 +30,7 @@
   "sideEffects": false,
   "dependencies": {
     "@actnowcoalition/assert": "^0.1.0",
-    "@actnowcoalition/number-format": "^0.1.0",
+    "@actnowcoalition/number-format": "^0.1.1",
     "@actnowcoalition/regions": "^0.1.1",
     "@actnowcoalition/time-utils": "^0.1.0",
     "@types/papaparse": "^5.3.3",

@@ -1,5 +1,13 @@
 # @actnowcoalition/metrics
 
+## 0.2.4
+
+### Patch Changes
+
+- b5d8928: Better error messages when thresholds and levels are incompatible
+- Updated dependencies [c6e34c7]
+  - @actnowcoalition/number-format@0.1.1
+
 ## 0.2.3
 
 ### Patch Changes
