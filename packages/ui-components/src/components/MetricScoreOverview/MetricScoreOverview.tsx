@@ -35,7 +35,7 @@ export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
       includeOverview={false}
       height={72}
       borderRadius={6}
-      barWidth={12}
+      width={12}
     />
   );
   const metricValue = <MetricValue region={region} metric={resolvedMetric} />;
