@@ -2,7 +2,7 @@ import React from "react";
 import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
-import { LegendThresholdHorizontalProps } from "./interfaces";
+import { LegendThresholdProps } from "./interfaces";
 import { RectClipGroup } from "../RectClipGroup";
 
 /**
@@ -19,11 +19,8 @@ export const LegendThresholdHorizontal = <T,>({
   getItemLabel,
   showLabels = true,
   ...otherSvgProps
-}: LegendThresholdHorizontalProps<T> &
-  Omit<
-    React.SVGProps<SVGSVGElement>,
-    keyof LegendThresholdHorizontalProps<T>
-  >) => {
+}: LegendThresholdProps<T> &
+  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();

@@ -1,5 +1,5 @@
 import React from "react";
-import { LegendThresholdVerticalProps } from "./interfaces";
+import { LegendThresholdProps } from "./interfaces";
 import {
   LegendThresholdVerticalWrapper,
   LegendContainer,
@@ -21,7 +21,7 @@ export const LegendThresholdVertical = <T,>({
   getItemColor,
   getItemLabel,
   getItemSublabel,
-}: LegendThresholdVerticalProps<T>) => {
+}: LegendThresholdProps<T>) => {
   const numberOfItems = items.length;
   const legendColorHeight = height / numberOfItems;
   // Reverse the order of the items so that the lowest levels are rendered at the bottom.

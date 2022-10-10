@@ -1,4 +1,6 @@
-interface CommonLegendThresholdProps<T> {
+export interface LegendThresholdProps<T> {
+  /** Orientation of the bars */
+  orientation: "horizontal" | "vertical";
   /** Height of the thermometer */
   height?: number;
   /** Width of the thermometer */
@@ -13,24 +15,8 @@ interface CommonLegendThresholdProps<T> {
   showLabels?: boolean;
   /** Function that returns the label of each item */
   getItemLabel?: (item: T, itemIndex: number) => string;
-}
-
-// TODO (chelsi) - can you have showLabels without getItemLabel?
-
-interface LegendThresholdHorizontalProps<T>
-  extends CommonLegendThresholdProps<T> {
-  /** Orientation of the bars */
-  orientation: "horizontal";
-}
-
-interface LegendThresholdVerticalProps<T>
-  extends CommonLegendThresholdProps<T> {
-  /** Orientation of the bars */
-  orientation: "vertical";
-  /** Function that returns the item's secondary label */
+  /** Function that returns the sublabel of each item */
   getItemSublabel?: (item: T, itemIndex: number) => string;
 }
 
-export type LegendThresholdProps<T> =
-  | LegendThresholdHorizontalProps<T>
-  | LegendThresholdVerticalProps<T>;
+// TODO (chelsi) - can you have showLabels without getItemLabel?
