@@ -1,5 +1,5 @@
 import React from "react";
-import { CommonLegendThresholdProps } from "./interfaces";
+import { LegendThresholdProps } from "./interfaces";
 import {
   LegendThresholdVerticalWrapper,
   LegendContainer,
@@ -8,30 +8,20 @@ import {
 } from "./LegendThreshold.style";
 import { Typography } from "@mui/material";
 
-export interface LegendThresholdVerticalProps<T>
-  extends CommonLegendThresholdProps<T> {
-  /** Orientation of the bars */
-  orientation: "vertical";
-  /** Width of the bars (12 by default) */
-  barWidth?: number;
-  /** Secondary labels for each item */
-  getItemSublabel?: (item: T, itemIndex: number) => string;
-}
-
 /**
  * `LegendThresholdVertical` represents a scale with thresholds that separate
  * a set of levels. By default, the labels between each level are shown.
  */
 export const LegendThresholdVertical = <T,>({
   height = 265,
-  barWidth = 12,
+  width = 12,
   borderRadius = 6,
   showLabels = true,
   items,
   getItemColor,
   getItemLabel,
   getItemSublabel,
-}: LegendThresholdVerticalProps<T>) => {
+}: LegendThresholdProps<T>) => {
   const numberOfItems = items.length;
   const legendColorHeight = height / numberOfItems;
   // Reverse the order of the items so that the lowest levels are rendered at the bottom.
@@ -42,7 +32,7 @@ export const LegendThresholdVertical = <T,>({
         <LegendContainer key={itemIndex} style={{ height: legendColorHeight }}>
           <LegendColor
             style={{
-              width: barWidth,
+              width,
               backgroundColor: getItemColor(item, itemIndex),
             }}
             roundTop={itemIndex === 0 ? borderRadius : 0}

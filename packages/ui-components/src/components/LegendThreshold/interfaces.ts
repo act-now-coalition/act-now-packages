@@ -1,16 +1,20 @@
-export interface CommonLegendThresholdProps<T> {
-  /** Height of the component, including the colored bars and labels. */
+export interface LegendThresholdProps<T> {
+  /** Orientation of the bars */
+  orientation: "horizontal" | "vertical";
+  /** Height of the thermometer */
   height?: number;
-  /** Border radius of the colored bars */
+  /** Width of the thermometer */
+  width?: number;
+  /** Border radius of the thermometer bar */
   borderRadius?: number;
   /** List of items representing the labels */
   items: T[];
-  /** Function that returns the color of each level */
+  /** Function that returns the color of each item */
   getItemColor: (item: T, itemIndex: number) => string;
-  /**
-   * Whether to show the labels or not (true by default). Make sure to set
-   * `barHeight` to `height` when not including the labels.
-   */
+  /** Whether to show the labels or not */
   showLabels?: boolean;
+  /** Function that returns the label of each item */
   getItemLabel?: (item: T, itemIndex: number) => string;
+  /** Function that returns the sublabel of each item */
+  getItemSublabel?: (item: T, itemIndex: number) => string;
 }
