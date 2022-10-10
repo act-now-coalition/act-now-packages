@@ -2,10 +2,8 @@ import React from "react";
 import { Typography, Paper } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import {
-  MetricLegendThreshold,
-  MetricLegendThresholdProps,
-} from "./MetricLegendThreshold";
+import { MetricLegendThreshold } from "./MetricLegendThreshold";
+import { MetricLegendThresholdProps } from "./interfaces";
 import { Story } from "@storybook/react";
 
 export default {
@@ -20,23 +18,20 @@ const Template: Story<MetricLegendThresholdProps> = (args) => (
 );
 
 // Horizontal legend threshold props
-const horizontalHeight = 40;
 const horizontalBarHeight = 20;
 const horizontalWidth = 300;
 
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  height: horizontalHeight,
   width: horizontalWidth,
   barHeight: horizontalBarHeight,
   metric: MetricId.MOCK_CASES,
 };
 
-export const HorizontalWithoutLabels = Template.bind({});
-HorizontalWithoutLabels.args = {
+export const HorizontalNoLabels = Template.bind({});
+HorizontalNoLabels.args = {
   ...HorizontalDefault.args,
-  height: horizontalBarHeight,
   showLabels: false,
 };
 
@@ -49,18 +44,19 @@ HorizontalOnlySideLabels.args = {
   endLabel: <Typography variant="paragraphSmall">higher</Typography>,
 };
 
-export const HorizontalRounded = Template.bind({});
-HorizontalRounded.args = {
+export const HorizontalRoundedNoLabels = Template.bind({});
+HorizontalRoundedNoLabels.args = {
   ...HorizontalDefault.args,
   height: horizontalBarHeight,
   borderRadius: horizontalBarHeight / 2,
   showLabels: false,
 };
 
-export const HorizontalSquared = Template.bind({});
-HorizontalSquared.args = {
+export const HorizontalSquaredNoLabels = Template.bind({});
+HorizontalSquaredNoLabels.args = {
   ...HorizontalDefault.args,
   borderRadius: 0,
+  showLabels: false,
 };
 
 export const VerticalDefault = Template.bind({});
