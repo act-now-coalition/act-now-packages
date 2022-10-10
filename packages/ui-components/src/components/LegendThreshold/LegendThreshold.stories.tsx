@@ -19,8 +19,7 @@ const Template: Story<LegendThresholdProps<Item>> = (args) => (
 );
 
 // Horizontal legend threshold props
-const horizontalHeight = 40;
-const horizontalBarHeight = 20;
+const horizontalHeight = 20;
 const horizontalWidth = 300;
 
 const items: Item[] = [
@@ -41,9 +40,8 @@ const getItemSublabel = (item: Item, itemIndex: number) => item.sublabel;
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  height: horizontalHeight,
   width: horizontalWidth,
-  barHeight: horizontalBarHeight,
+  height: horizontalHeight,
   items,
   getItemColor,
   getItemLabel,
@@ -52,15 +50,15 @@ HorizontalDefault.args = {
 export const HorizontalWithoutLabels = Template.bind({});
 HorizontalWithoutLabels.args = {
   ...HorizontalDefault.args,
-  height: horizontalBarHeight,
+  height: horizontalHeight,
   showLabels: false,
 };
 
 export const HorizontalRounded = Template.bind({});
 HorizontalRounded.args = {
   ...HorizontalDefault.args,
-  height: horizontalBarHeight,
-  borderRadius: horizontalBarHeight / 2,
+  height: horizontalHeight,
+  borderRadius: horizontalHeight / 2,
   showLabels: false,
 };
 

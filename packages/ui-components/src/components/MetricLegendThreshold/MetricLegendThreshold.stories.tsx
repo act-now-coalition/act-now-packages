@@ -25,7 +25,7 @@ export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
   width: horizontalWidth,
-  barHeight: horizontalBarHeight,
+  height: horizontalBarHeight,
   metric: MetricId.MOCK_CASES,
 };
 
