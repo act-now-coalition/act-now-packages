@@ -1,6 +1,8 @@
 import { Metric } from "@actnowcoalition/metrics";
 
-interface CommonMetricLegendThresholdProps {
+export interface MetricLegendThresholdProps {
+  /** Orientation of the bars. */
+  orientation: "horizontal" | "vertical";
   /** Metric to display thresholds for. */
   metric: Metric | string;
   /** Whether to show level labels. Does not affect start/endLabels */
@@ -20,25 +22,9 @@ interface CommonMetricLegendThresholdProps {
   /** Optional other props. */
   otherSvgProps?: Omit<
     React.SVGProps<SVGSVGElement>,
-    keyof MetricLegendThresholdVerticalProps
+    keyof MetricLegendThresholdProps
   >;
 }
-
-interface MetricLegendThresholdHorizontalProps
-  extends CommonMetricLegendThresholdProps {
-  /** Orientation of the bars. */
-  orientation: "horizontal";
-}
-
-interface MetricLegendThresholdVerticalProps
-  extends CommonMetricLegendThresholdProps {
-  /** Orientation of the bars. */
-  orientation: "vertical";
-}
-
-export type MetricLegendThresholdProps =
-  | MetricLegendThresholdHorizontalProps
-  | MetricLegendThresholdVerticalProps;
 
 export interface LevelItem {
   /** Level name (e.g. "High") */
