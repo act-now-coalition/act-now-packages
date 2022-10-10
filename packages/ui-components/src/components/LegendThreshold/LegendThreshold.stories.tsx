@@ -43,7 +43,6 @@ HorizontalDefault.args = {
   height: horizontalHeight,
   width: horizontalWidth,
   barHeight: horizontalBarHeight,
-  showLabels: true,
   items,
   getItemColor,
   getItemLabel,
@@ -68,7 +67,6 @@ export const HorizontalSquared = Template.bind({});
 HorizontalSquared.args = {
   ...HorizontalDefault.args,
   borderRadius: 0,
-  showLabels: true,
 };
 
 export const VerticalDefault = Template.bind({});

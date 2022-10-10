@@ -30,7 +30,6 @@ HorizontalDefault.args = {
   height: horizontalHeight,
   width: horizontalWidth,
   barHeight: horizontalBarHeight,
-  showLabels: true,
   metric: MetricId.MOCK_CASES,
 };
 
@@ -46,8 +45,8 @@ HorizontalOnlySideLabels.args = {
   ...HorizontalDefault.args,
   height: horizontalBarHeight,
   showLabels: false,
-  startLabel: <Typography>lower</Typography>,
-  endLabel: <Typography>higher</Typography>,
+  startLabel: <Typography variant="paragraphSmall">lower</Typography>,
+  endLabel: <Typography variant="paragraphSmall">higher</Typography>,
 };
 
 export const HorizontalRounded = Template.bind({});
@@ -62,7 +61,6 @@ export const HorizontalSquared = Template.bind({});
 HorizontalSquared.args = {
   ...HorizontalDefault.args,
   borderRadius: 0,
-  showLabels: true,
 };
 
 export const VerticalDefault = Template.bind({});
