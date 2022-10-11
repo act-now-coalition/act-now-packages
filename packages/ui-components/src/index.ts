@@ -95,6 +95,7 @@ export * from "./components/MetricDot";
 export * from "./components/MetricLegendCategorical";
 export * from "./components/MetricLegendThreshold";
 export * from "./components/MetricLineChart";
+export * from "./components/MetricMultiProgressBar";
 export * from "./components/MetricOverview";
 export * from "./components/MetricScoreOverview";
 export * from "./components/MetricSparklines";
