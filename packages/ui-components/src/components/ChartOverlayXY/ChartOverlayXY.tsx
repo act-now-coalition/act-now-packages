@@ -41,6 +41,10 @@ export interface PointInfo {
   pointIndex: number;
 }
 
+const noop = () => {
+  // Do nothing
+};
+
 /**
  * This component is an overlay that helps capture the information of the
  * point that is being hovered by the user. Given a list of timeseries,
@@ -56,10 +60,8 @@ export const ChartOverlayXY = ({
   xScale,
   yScale,
   timeseriesList,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onMouseMove = () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onMouseOut = () => {},
+  onMouseMove = noop,
+  onMouseOut = noop,
 }: ChartOverlayXYProps) => {
   // Put all the points together in one array. Each pointInfo includes
   // the index of the timeseries it belongs to, and its own index
