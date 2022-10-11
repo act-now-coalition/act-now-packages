@@ -5,7 +5,9 @@ import {
   dataRowsToMetricData,
   dataRowToMetricData,
 } from "./data_provider_utils";
-import { Dictionary, groupBy } from "lodash";
+import groupBy from "lodash/groupBy";
+// eslint-disable-next-line lodash/import-scope
+import { Dictionary } from "lodash";
 
 const newYork = states.findByRegionIdStrict("36");
 const testMetric = new Metric({
