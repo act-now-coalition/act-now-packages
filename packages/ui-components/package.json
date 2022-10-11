@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/ui-components",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "UI components for Act Now",
   "repository": {
     "type": "git",
@@ -50,8 +50,8 @@
   },
   "dependencies": {
     "@actnowcoalition/assert": "^0.1.0",
-    "@actnowcoalition/metrics": "^0.2.3",
-    "@actnowcoalition/number-format": "^0.1.0",
+    "@actnowcoalition/metrics": "^0.2.4",
+    "@actnowcoalition/number-format": "^0.1.1",
     "@actnowcoalition/regions": "^0.1.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",

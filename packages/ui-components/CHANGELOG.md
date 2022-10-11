@@ -1,5 +1,20 @@
 # @actnowcoalition/ui-components
 
+## 0.5.1
+
+### Patch Changes
+
+- 799b084: Improve button styling
+- d87ac83: Export TableContainer to contain and size compare tables
+- cc7af9c: Clip the map extent to fix the tooltip positioning (and more efficient rendering)
+- c6e34c7: Update metric compare table: Add metric extended names to column headers; add population to location column.
+- c6e34c7: Add formatInteger() overload that takes options and use it from ui-components.
+- 0b4e368: Improvements to LegendThreshold components
+- Updated dependencies [b5d8928]
+- Updated dependencies [c6e34c7]
+  - @actnowcoalition/metrics@0.2.4
+  - @actnowcoalition/number-format@0.1.1
+
 ## 0.5.0
 
 ### Minor Changes
