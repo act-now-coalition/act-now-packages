@@ -15,7 +15,7 @@ export interface AutoWidthProps {
  * parent has been fully measured (width > 0) to prevent from rendering
  * the component too early.
  */
-export const AutoWidth: React.FC<AutoWidthProps> = ({ children }) => (
+export const AutoWidth = ({ children }: AutoWidthProps) => (
   <ParentSize>
     {({ width: parentWidth }) => {
       const child = React.Children.only(children);
