@@ -4,7 +4,7 @@ import { MultiProgressBar } from "./MultiProgressBar";
 import { MultiProgressBarProps } from "./interfaces";
 
 export default {
-  title: "Components/MultiProgressBar",
+  title: "Charts/MultiProgressBar",
   component: MultiProgressBar,
 } as ComponentMeta<typeof MultiProgressBar>;
 
