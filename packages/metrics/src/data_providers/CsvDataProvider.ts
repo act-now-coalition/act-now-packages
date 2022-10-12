@@ -8,7 +8,7 @@ import {
   dataRowToMetricData,
   dataRowsToMetricData,
 } from "./data_provider_utils";
-import { groupBy } from "lodash";
+import groupBy from "lodash/groupBy";
 import Papa from "papaparse";
 import fetch from "node-fetch";
 

@@ -18,10 +18,11 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": ["react", "@typescript-eslint", "lodash"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "prefer-const": "off"
+    "prefer-const": "off",
+    "lodash/import-scope": "warn"
   },
   "ignorePatterns": ["!.storybook", "**/dist", "**/lib"]
 }

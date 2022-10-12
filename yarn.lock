@@ -3386,6 +3386,11 @@
   resolved "https://registry.yarnpkg.com/@types/d3-time/-/d3-time-2.1.1.tgz#743fdc821c81f86537cbfece07093ac39b4bc342"
   integrity sha512-9MVYlmIgmRR31C5b4FVSWtuMmBHh2mOWQYfl7XAYOa8dsnb7iEmUmRSWSFgXFtkjxO65d7hTUHQC+RhR/9IWFg==
 
+"@types/d3-voronoi@^1.1.9":
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/@types/d3-voronoi/-/d3-voronoi-1.1.9.tgz#7bbc210818a3a5c5e0bafb051420df206617c9e5"
+  integrity sha512-DExNQkaHd1F3dFPvGA/Aw2NGyjMln6E9QzsiqOcBgnE+VInYnFBHBBySbZQts6z6xD+5jTfKCP7M4OqMyVjdwQ==
+
 "@types/d3-zoom@^1":
   version "1.8.3"
   resolved "https://registry.yarnpkg.com/@types/d3-zoom/-/d3-zoom-1.8.3.tgz#00237900c6fdc2bb4fe82679ee4d74eb8fbe7b3c"
@@ -3985,6 +3990,17 @@
     lodash "^4.17.21"
     prop-types "^15.7.2"
     reduce-css-calc "^1.3.0"
+
+"@visx/voronoi@^2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@visx/voronoi/-/voronoi-2.10.0.tgz#2a81b7d00c1eb6c10e6537c107a3c49f625f1364"
+  integrity sha512-2GSosmQ25a9OctY4xPpPTwY6N4CW53Ssos8kzPHTo5Si/2h9AUNqVg7eGUb8lrEjakQYAAdX0J4U8D02tsQI+w==
+  dependencies:
+    "@types/d3-voronoi" "^1.1.9"
+    "@types/react" "*"
+    classnames "^2.3.1"
+    d3-voronoi "^1.1.2"
+    prop-types "^15.6.1"
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -6249,6 +6265,11 @@ d3-transition@2:
     d3-interpolate "1 - 2"
     d3-timer "1 - 2"
 
+d3-voronoi@^1.1.2:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/d3-voronoi/-/d3-voronoi-1.1.4.tgz#dd3c78d7653d2bb359284ae478645d95944c8297"
+  integrity sha512-dArJ32hchFsrQ8uMiTBLq256MpnZjeuBtdHpaDlYuQyjU0CVzCJl/BVW+SkszaAeH95D/8gxqAhgx0ouAWAfRg==
+
 d3-zoom@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/d3-zoom/-/d3-zoom-2.0.0.tgz#f04d0afd05518becce879d04709c47ecd93fba54"
@@ -6869,6 +6890,13 @@ escodegen@^2.0.0:
     optionator "^0.8.1"
   optionalDependencies:
     source-map "~0.6.1"
+
+eslint-plugin-lodash@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lodash/-/eslint-plugin-lodash-7.4.0.tgz#14a761547f126c92ff56789662a20a44f8bb6290"
+  integrity sha512-Tl83UwVXqe1OVeBRKUeWcfg6/pCW1GTRObbdnbEJgYwjxp5Q92MEWQaH9+dmzbRt6kvYU1Mp893E79nJiCSM8A==
+  dependencies:
+    lodash "^4.17.21"
 
 eslint-plugin-react-hooks@^4.6.0:
   version "4.6.0"

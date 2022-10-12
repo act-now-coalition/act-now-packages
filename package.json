@@ -41,6 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "eslint": "^8.15.0",
+    "eslint-plugin-lodash": "^7.4.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.1",
