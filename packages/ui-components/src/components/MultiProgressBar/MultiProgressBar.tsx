@@ -3,25 +3,12 @@ import sortBy from "lodash/sortBy";
 import { useTheme } from "@mui/material";
 import { RectClipGroup } from "../RectClipGroup";
 import { scaleLinear } from "@visx/scale";
-
-export interface MultiProgressBarProps<T> {
-  items: T[];
-  getItemColor: (item: T) => string;
-  getItemLabel: (item: T) => string;
-  getItemValue: (item: T) => number;
-  minValue?: number;
-  maxValue: number;
-  width?: number;
-  height?: number;
-  bgColor?: string;
-  borderRadius?: number;
-}
+import { MultiProgressBarProps } from "./interfaces";
 
 export const MultiProgressBar = <T,>({
   items,
   getItemColor,
   getItemValue,
-  minValue = 0,
   maxValue,
   width = 100,
   height = 16,
@@ -33,7 +20,7 @@ export const MultiProgressBar = <T,>({
   const theme = useTheme();
 
   const xScale = scaleLinear({
-    domain: [minValue, maxValue],
+    domain: [0, maxValue],
     range: [0, width],
   });
 

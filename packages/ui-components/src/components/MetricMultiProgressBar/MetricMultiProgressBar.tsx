@@ -1,11 +1,13 @@
 import React from "react";
-import { maxBy } from "lodash";
 import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
-import { MultiProgressBar } from "../MultiProgressBar";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import {
+  MultiProgressBar,
+  BaseMultiProgressBarProps,
+} from "../MultiProgressBar";
+import { useDataForMetrics } from "../../common/hooks";
 
-export interface MetricMultiProgressBarProps {
+export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
   /* Region for which to chart */
   region: Region;
   /* Metrics of which the progress bar will chart current values */
@@ -23,12 +25,12 @@ interface MetricProgressBarItem {
   label: string;
 }
 
-export const MetricMultiProgressBar: React.FC<MetricMultiProgressBarProps> = ({
+export const MetricMultiProgressBar = ({
   region,
   metrics,
   ...otherProgressBarProps
-}) => {
-  const { data } = useDataForRegionsAndMetrics([region], metrics, false);
+}: MetricMultiProgressBarProps) => {
+  const { data } = useDataForMetrics(region, metrics, false);
 
   if (!data) {
     return null;
@@ -36,7 +38,7 @@ export const MetricMultiProgressBar: React.FC<MetricMultiProgressBarProps> = ({
 
   const progressBarItems: MetricProgressBarItem[] = metrics.map(
     (metric: Metric | string) => {
-      const metricData = data.metricData(region, metric);
+      const metricData = data.metricData(metric);
       return {
         color: metricData.getColor(),
         currentValue: metricData.currentValue as number, // improve this
@@ -45,14 +47,9 @@ export const MetricMultiProgressBar: React.FC<MetricMultiProgressBarProps> = ({
     }
   );
 
-  const maxValue =
-    maxBy(progressBarItems, (item: MetricProgressBarItem) => item.currentValue)
-      ?.currentValue ?? 1000; // fix this + how to treat min?
-
   return (
     <MultiProgressBar
       items={progressBarItems}
-      maxValue={maxValue}
       getItemValue={(item) => item.currentValue}
       getItemColor={(item) => item.color}
       getItemLabel={(item) => item.label}

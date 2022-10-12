@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import { MultiProgressBar, MultiProgressBarProps } from "./MultiProgressBar";
+import { MultiProgressBar } from "./MultiProgressBar";
+import { MultiProgressBarProps } from "./interfaces";
 
 export default {
   title: "Components/MultiProgressBar",

@@ -19,4 +19,5 @@ export const Example = Template.bind({});
 Example.args = {
   region: newYorkRegion,
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
+  maxValue: 500,
 };
