@@ -7,7 +7,6 @@ import {
   TextFieldProps,
   Typography,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 export default {
   title: "Design System/SelectMultiple",
@@ -31,6 +30,12 @@ const textFieldProps: TextFieldProps = {
   fullWidth: true,
   label: <Typography variant="paragraphSmall">Locations</Typography>,
   InputLabelProps: { shrink: true },
+  sx: {
+    "& .MuiFilledInput-root": {
+      paddingTop: 3,
+      paddingBottom: 1,
+    },
+  },
 };
 
 export const ShortMultiSelect = () => {
@@ -38,7 +43,6 @@ export const ShortMultiSelect = () => {
     <Box width={320}>
       <Autocomplete
         multiple
-        popupIcon={<KeyboardArrowDownIcon />}
         options={cities.map((option) => option.name)}
         defaultValue={[cities[0].name]}
         renderTags={(location, getTagProps) =>
@@ -68,7 +72,6 @@ export const LongMultiSelect = () => {
     <Box width={600}>
       <Autocomplete
         multiple
-        popupIcon={<KeyboardArrowDownIcon />}
         options={cities.map((option) =>
           option.name.concat(", ", option.country)
         )}

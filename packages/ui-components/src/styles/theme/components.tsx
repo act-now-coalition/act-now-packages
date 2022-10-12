@@ -1,4 +1,5 @@
 /** MUI theme components */
+import React from "react";
 import { ThemeOptions, createTheme } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
@@ -9,14 +10,7 @@ const components: ThemeOptions["components"] = {
     defaultProps: {
       filterSelectedOptions: true,
       disableClearable: true,
-    },
-    styleOverrides: {
-      root: ({ theme }) => ({
-        "& .MuiFilledInput-root": {
-          paddingTop: theme.spacing(3),
-          paddingBottom: theme.spacing(1),
-        },
-      }),
+      popupIcon: <KeyboardArrowDownIcon />,
     },
   },
 
