@@ -1,10 +1,19 @@
 /** MUI theme components */
+import React from "react";
 import { ThemeOptions, createTheme } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const referenceTheme = createTheme();
 
 const components: ThemeOptions["components"] = {
+  MuiAutocomplete: {
+    defaultProps: {
+      filterSelectedOptions: true,
+      disableClearable: true,
+      popupIcon: <KeyboardArrowDownIcon />,
+    },
+  },
+
   MuiButton: {
     styleOverrides: {
       root: ({ theme }) => ({
