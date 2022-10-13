@@ -1,27 +1,23 @@
 import React from "react";
 import { Region } from "@actnowcoalition/regions";
-import { Metric } from "@actnowcoalition/metrics";
+import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import {
   MultiProgressBar,
   BaseMultiProgressBarProps,
 } from "../MultiProgressBar";
 import { useDataForMetrics } from "../../common/hooks";
 
+type MetricProp = Metric | string;
+
 export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
   /* Region for which to chart */
   region: Region;
-  /* Metrics of which the progress bar will chart current values */
-  metrics: (Metric | string)[];
-  /* All props below - MultiProgressBar props to pass down */
-  width?: number;
-  height?: number;
-  bgColor?: string;
-  borderRadius?: number;
+  /* Metrics (2) of which the progress bar will chart current values */
+  metrics: [MetricProp, MetricProp];
 }
 
 interface MetricProgressBarItem {
   currentValue: number;
-  color: string;
   label: string;
 }
 
@@ -36,24 +32,26 @@ export const MetricMultiProgressBar = ({
     return null;
   }
 
-  const progressBarItems: MetricProgressBarItem[] = metrics.map(
-    (metric: Metric | string) => {
-      const metricData = data.metricData(metric);
-      return {
-        color: metricData.getColor(),
-        currentValue: metricData.currentValue as number, // improve this
-        label: metricData.formatValue(),
-      };
-    }
-  );
+  const [firstMetric, secondMetric] = metrics;
 
   return (
     <MultiProgressBar
-      items={progressBarItems}
+      firstItem={getItemFromMetricData(data, firstMetric)}
+      secondItem={getItemFromMetricData(data, secondMetric)}
       getItemValue={(item) => item.currentValue}
-      getItemColor={(item) => item.color}
       getItemLabel={(item) => item.label}
       {...otherProgressBarProps}
     />
   );
 };
+
+function getItemFromMetricData(
+  data: MultiMetricDataStore,
+  metric: Metric | string
+): MetricProgressBarItem {
+  const metricData = data.metricData(metric);
+  return {
+    currentValue: metricData.currentValue as number, // improve this
+    label: metricData.formatValue(),
+  };
+}
