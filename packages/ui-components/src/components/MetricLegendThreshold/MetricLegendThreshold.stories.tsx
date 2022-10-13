@@ -44,31 +44,18 @@ HorizontalOnlySideLabels.args = {
   endLabel: <Typography variant="paragraphSmall">higher</Typography>,
 };
 
-export const HorizontalRoundedNoLabels = Template.bind({});
-HorizontalRoundedNoLabels.args = {
-  ...HorizontalDefault.args,
+export const HorizontalCategories = Template.bind({});
+HorizontalCategories.args = {
+  orientation: "horizontal",
+  width: horizontalWidth,
   height: horizontalBarHeight,
-  borderRadius: horizontalBarHeight / 2,
-  showLabels: false,
-};
-
-export const HorizontalSquaredNoLabels = Template.bind({});
-HorizontalSquaredNoLabels.args = {
-  ...HorizontalDefault.args,
-  borderRadius: 0,
-  showLabels: false,
+  metric: MetricId.PASS_FAIL,
 };
 
 export const VerticalDefault = Template.bind({});
 VerticalDefault.args = {
   orientation: "vertical",
   metric: MetricId.MOCK_CASES,
-};
-
-export const VerticalRounded = Template.bind({});
-VerticalRounded.args = {
-  borderRadius: 8,
-  ...VerticalDefault.args,
 };
 
 export const VerticalNoLabel = Template.bind({});

@@ -1,10 +1,9 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import { Metric } from "@actnowcoalition/metrics";
-import { assert } from "@actnowcoalition/assert";
 import { LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { LevelItem, MetricLegendThresholdProps } from "./interfaces";
+import { getMetricLevelItems } from "./utils";
 
 const getItemColor = (item: LevelItem) => item.color;
 const getItemLabelHorizontal = (item: LevelItem) => item.endThreshold ?? "";
@@ -21,7 +20,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
 
-  const items = getLevelItems(metric);
+  const items = getMetricLevelItems(metric);
 
   // Common props regardless of horizontal / vertical orientation
   const commonProps = { items, getItemColor, ...legendThresholdProps };
@@ -33,7 +32,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   if (legendThresholdProps.orientation === "horizontal") {
     return (
       <Stack spacing={2} alignItems="center">
-        <Stack spacing={0.5}>
+        <Stack spacing={0.5} alignItems="center">
           <Typography variant="labelLarge">{metric.name}</Typography>
           <Typography variant="paragraphSmall">
             {metric.extendedName}
@@ -72,21 +71,3 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
     );
   }
 };
-
-function getLevelItems(metric: Metric): LevelItem[] {
-  const metricLevels = metric.levelSet?.levels;
-  const metricThresholds = metric.thresholds;
-  assert(
-    metricLevels,
-    "Metric must have levels and thresholds to use MetricLegendThreshold." +
-      `No levels found for metric ${metric}.`
-  );
-  return metricLevels.map((level, levelIndex) => ({
-    name: level.name ?? level.id,
-    color: level.color,
-    description: level.description,
-    endThreshold: metricThresholds
-      ? metric.formatValue(metricThresholds[levelIndex])
-      : undefined,
-  }));
-}
