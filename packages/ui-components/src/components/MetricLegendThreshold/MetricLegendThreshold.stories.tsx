@@ -58,6 +58,12 @@ VerticalDefault.args = {
   metric: MetricId.MOCK_CASES,
 };
 
+export const VerticalCategories = Template.bind({});
+VerticalCategories.args = {
+  orientation: "vertical",
+  metric: MetricId.PASS_FAIL,
+};
+
 export const VerticalNoLabel = Template.bind({});
 VerticalNoLabel.args = {
   showLabels: false,
