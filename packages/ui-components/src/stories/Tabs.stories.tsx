@@ -36,9 +36,9 @@ export const MultiTabsWithIndicator = () => {
   };
   return (
     <Tabs value={value} onChange={handleChange}>
-      <Tab value={1} label={<TabContent />} disableRipple />
-      <Tab value={2} label={<TabContent />} disableRipple />
-      <Tab value={3} label={<TabContent />} disableRipple />
+      <Tab value={1} label={<TabContent />} />
+      <Tab value={2} label={<TabContent />} />
+      <Tab value={3} label={<TabContent />} />
     </Tabs>
   );
 };
