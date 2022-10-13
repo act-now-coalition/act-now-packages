@@ -1,11 +1,11 @@
 import React from "react";
+import { ComponentMeta } from "@storybook/react";
 import { Grid, Box, colors } from "@mui/material";
 import { states } from "@actnowcoalition/regions";
-import { ComponentMeta } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricSparklines } from "../MetricSparklines";
-import { AutoWidth } from ".";
 import { styled } from "../../styles";
+import { AutoWidth } from ".";
 
 export default {
   title: "Components/AutoWidth",
@@ -59,7 +59,7 @@ export const StaticWidth = () => (
  * This case just shows that AutoWidth will preserve the width of the child
  * component, if we explicitly pass it.
  */
-export const ExampleSizedChild = () => (
+export const SizedChild = () => (
   <StyledDiv>
     <AutoWidth>
       <MockChart color={chartColor} width={120} />
@@ -72,7 +72,7 @@ export const ExampleSizedChild = () => (
  * the chart. The AutoWidth component measures the width of the last Grid item
  * element and passes the value to the Chart component.
  */
-export const ExampleGrid = () => (
+export const UsingGrid = () => (
   <Grid container spacing={2}>
     <StyledGridItem item xs={4} />
     <StyledGridItem item xs={4} />
@@ -89,7 +89,7 @@ const region = states.findByRegionIdStrict("12");
 /**
  * Using a real chart this time, we create a Grid with 4 columns.
  */
-export const ExampleSparklines = () => (
+export const Sparklines = () => (
   <Grid container spacing={2}>
     {[1, 2, 3, 4].map((n) => (
       <StyledGridItem item xs={3} key={`grid-item-${n}`}>
