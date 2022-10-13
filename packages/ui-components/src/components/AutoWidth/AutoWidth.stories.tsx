@@ -1,94 +1,108 @@
 import React from "react";
-import { Grid } from "@mui/material";
+import { Grid, Box, colors } from "@mui/material";
 import { states } from "@actnowcoalition/regions";
 import { ComponentMeta } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricSparklines } from "../MetricSparklines";
 import { AutoWidth } from ".";
+import { styled } from "../../styles";
 
 export default {
   title: "Components/AutoWidth",
   component: AutoWidth,
 } as ComponentMeta<typeof AutoWidth>;
 
-const Chart = ({ width, color }: { width?: number; color: string }) => (
-  <div
-    style={{
-      width,
-      height: 60,
-      backgroundColor: color,
-      display: "grid",
-      placeItems: "center",
-    }}
-  >
+const height = 60;
+const chartColor = colors.purple[100];
+const borderColor = colors.blue[700];
+
+const StyledGridItem = styled(Grid)`
+  border: dashed 1px ${borderColor};
+`;
+
+const StyledDiv = styled("div")`
+  border: dashed 1px ${borderColor};
+  width: 450px;
+`;
+
+const StyledBox = styled(Box)`
+  display: grid;
+  place-items: center;
+  border: solid 1px ${colors.purple[300]};
+`;
+
+/**
+ * The AutoWidth component can be used to wrap any child elements that have
+ * an optional width property. In this case, we use a mock chart component
+ * just to demonstrate the concept and to show the width value.
+ */
+const MockChart = ({ width, color }: { width?: number; color: string }) => (
+  <StyledBox sx={{ width, height, backgroundColor: color }}>
     <div>{`width = ${width}px`}</div>
-  </div>
+  </StyledBox>
 );
 
-export const DefaultExample = () => (
-  <div style={{ width: 450, border: "solid 1px black" }}>
+/**
+ * A somewhat contrived example. If we do know the width of the parent
+ * component, we would just use it instead of wrapping the `Chart` inside
+ * `AutoWidth`.
+ */
+export const StaticWidth = () => (
+  <StyledDiv>
     <AutoWidth>
-      <Chart color="#fff9c4" />
+      <MockChart color={chartColor} />
     </AutoWidth>
-  </div>
+  </StyledDiv>
 );
 
-export const ExampleSized = () => (
-  <div style={{ width: 450, border: "solid 1px black" }}>
+/**
+ * This case just shows that AutoWidth will preserve the width of the child
+ * component, if we explicitly pass it.
+ */
+export const ExampleSizedChild = () => (
+  <StyledDiv>
     <AutoWidth>
-      <Chart color="#fff9c4" width={120} />
+      <MockChart color={chartColor} width={120} />
     </AutoWidth>
-  </div>
+  </StyledDiv>
 );
 
+/**
+ * When using grid, we don't know the width of each box, but we need it for
+ * the chart. The AutoWidth component measures the width of the last Grid item
+ * element and passes the value to the Chart component.
+ */
 export const ExampleGrid = () => (
   <Grid container spacing={2}>
-    <Grid item xs={4}></Grid>
-    <Grid item xs={4}></Grid>
-    <Grid item xs>
+    <StyledGridItem item xs={4} />
+    <StyledGridItem item xs={4} />
+    <StyledGridItem item xs={4}>
       <AutoWidth>
-        <Chart color="#ffecb3" />
+        <MockChart color={chartColor} />
       </AutoWidth>
-    </Grid>
+    </StyledGridItem>
   </Grid>
 );
 
 const region = states.findByRegionIdStrict("12");
 
+/**
+ * Using a real chart this time, we create a Grid with 4 columns.
+ */
 export const ExampleSparklines = () => (
   <Grid container spacing={2}>
-    <Grid item xs={4}>
-      <AutoWidth>
-        <MetricSparklines
-          height={90}
-          region={region}
-          metricBarChart={MetricId.MOCK_CASES}
-          metricLineChart={MetricId.MOCK_CASES}
-          numDays={30}
-        />
-      </AutoWidth>
-    </Grid>
-    <Grid item xs={4}>
-      <AutoWidth>
-        <MetricSparklines
-          height={90}
-          region={region}
-          metricBarChart={MetricId.MOCK_CASES}
-          metricLineChart={MetricId.MOCK_CASES}
-          numDays={30}
-        />
-      </AutoWidth>
-    </Grid>
-    <Grid item xs>
-      <AutoWidth>
-        <MetricSparklines
-          height={90}
-          region={region}
-          metricBarChart={MetricId.MOCK_CASES}
-          metricLineChart={MetricId.MOCK_CASES}
-          numDays={30}
-        />
-      </AutoWidth>
-    </Grid>
+    {[1, 2, 3, 4].map((n) => (
+      <StyledGridItem item xs={3} key={`grid-item-${n}`}>
+        <AutoWidth>
+          <MetricSparklines
+            height={height}
+            region={region}
+            metricBarChart={MetricId.MOCK_CASES}
+            metricLineChart={MetricId.MOCK_CASES}
+            numDays={30}
+          />
+        </AutoWidth>
+      </StyledGridItem>
+    ))}
   </Grid>
 );
