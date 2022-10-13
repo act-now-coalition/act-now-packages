@@ -47,7 +47,7 @@ export const MetricMultiProgressBar = ({
 
 function getItemFromMetricData(
   data: MultiMetricDataStore,
-  metric: Metric | string
+  metric: MetricProp
 ): MetricProgressBarItem {
   const metricData = data.metricData(metric);
   return {
