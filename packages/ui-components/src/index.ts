@@ -76,10 +76,12 @@ declare module "@mui/material/styles" {
 export * from "./common/hooks";
 
 /** UI Components and props */
+export * from "./components/AutoWidth";
 export * from "./components/Axes";
 export * from "./components/Axis";
 export * from "./components/BarChart";
 export * from "./components/ChartOverlayX";
+export * from "./components/ChartOverlayXY";
 export * from "./components/CompareTable";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
@@ -107,5 +109,3 @@ export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";
-
-export * from "./components/ChartOverlayXY";
