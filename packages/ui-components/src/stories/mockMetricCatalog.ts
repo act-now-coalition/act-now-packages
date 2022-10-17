@@ -92,7 +92,7 @@ export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders, {
 });
 
 // Exporting a second metric catalog to confirm that the closest
-// MetricCatalocProvider instance is used
+// MetricCatalogProvider instance is used
 const metricDefsB: MetricDefinition[] = [
   {
     id: MetricId.PI,

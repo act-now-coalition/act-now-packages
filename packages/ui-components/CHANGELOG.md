@@ -1,5 +1,17 @@
 # @actnowcoalition/ui-components
 
+## 0.5.2
+
+### Patch Changes
+
+- 2099726: Implement ChartOverlayXY component
+- ed44577: Add metric aware MultiProgressBar component
+- 7359e2b: Style select multiple component
+- 3a84a74: Set the minimum width of tooltips to 200px
+- a9b444d: MetricLegendThreshold now supports metrics with categories
+- 4b9abec: Improvements to multi progress bar
+- 1cfe67a: Implement AutoWidth component
+
 ## 0.5.1
 
 ### Patch Changes

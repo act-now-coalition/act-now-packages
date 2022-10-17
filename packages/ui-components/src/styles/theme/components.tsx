@@ -167,6 +167,7 @@ const components: ThemeOptions["components"] = {
   MuiTooltip: {
     styleOverrides: {
       tooltip: ({ theme }) => ({
+        minWidth: 200,
         backgroundColor: "black",
         color: "white",
         fontSize: theme.typography.paragraphLarge.fontSize,

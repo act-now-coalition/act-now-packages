@@ -7,13 +7,13 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-0.1.0.tgz#fa83caa21c419f20d7be7c10dafd70986613e6a0"
   integrity sha512-8dBa6CHFDuY/jAVtazVCDSl9796gaOLmsdMFX+uGBwQruEWpCq2jOkf/wvLypt9eoE+Dzi63Q5zbOIVXmlQRtQ==
 
-"@actnowcoalition/metrics@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.2.3.tgz#a56f529363543b2d65fe020bc7d59a75631694c2"
-  integrity sha512-TSwqn0aMFNLrmdqTMdGlf4MaCj5mfx3BBWX9Fq4eS4lA5bbT8YJVVDjX/WSl61VZNxXXYLUIJ21YXyxgJUUuIA==
+"@actnowcoalition/metrics@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.2.4.tgz#b65e506769bee33d64aac1593d705b6386f23291"
+  integrity sha512-h125oR5MLAv4kmN/qglxHdiZVxD40wKwCGz8Dft4Fb2DV4l9mBHnuHsCXjGq7U5QziiGZggADW4ZlC+v0Jc9sg==
   dependencies:
     "@actnowcoalition/assert" "^0.1.0"
-    "@actnowcoalition/number-format" "^0.1.0"
+    "@actnowcoalition/number-format" "^0.1.1"
     "@actnowcoalition/regions" "^0.1.1"
     "@actnowcoalition/time-utils" "^0.1.0"
     "@types/papaparse" "^5.3.3"
@@ -21,10 +21,10 @@
     node-fetch "^2.6.7"
     papaparse "^5.3.2"
 
-"@actnowcoalition/number-format@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/number-format/-/number-format-0.1.0.tgz#0d6bf419c6e9f5622fe8cde7940f68ea0fdb5320"
-  integrity sha512-BTdtEEqgV0zRk6sj2E/XU5j7tSiR/cE0sOVmISGW9pz58WNLVcFraIUH5XSArfzh7WLnWlsh5N+rJDgUoVsG/A==
+"@actnowcoalition/number-format@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/number-format/-/number-format-0.1.1.tgz#d80e6fc9d0223f7500af390e4812fbdecc966d8e"
+  integrity sha512-NgArNpGeHAE5uil+MEkkKjsCGfXi2sPosRkIDF6lodVjTzWzq1e+7yAw9VD7pmi2qPgJxPw25TrOH/UTuNHIkw==
 
 "@actnowcoalition/regions@^0.1.1":
   version "0.1.1"
