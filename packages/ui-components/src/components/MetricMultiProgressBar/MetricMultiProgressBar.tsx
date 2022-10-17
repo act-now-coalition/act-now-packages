@@ -36,8 +36,10 @@ export const MetricMultiProgressBar = ({
 
   return (
     <MultiProgressBar
-      firstItem={getItemFromMetricData(data, firstMetric)}
-      secondItem={getItemFromMetricData(data, secondMetric)}
+      items={[
+        getItemFromMetricData(data, firstMetric),
+        getItemFromMetricData(data, secondMetric),
+      ]}
       getItemValue={(item) => item.currentValue}
       getItemLabel={(item) => item.label}
       {...otherProgressBarProps}

@@ -10,8 +10,7 @@ export interface BaseMultiProgressBarProps {
 }
 
 export interface MultiProgressBarProps<T> extends BaseMultiProgressBarProps {
-  firstItem: T;
-  secondItem: T;
+  items: [T, T];
   getItemLabel: (item: T) => string;
   getItemValue: (item: T) => number;
 }
