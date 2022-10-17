@@ -15,11 +15,13 @@ export const MultiProgressBar = <T,>({
   barColor = "#000000",
   bgColor,
   borderRadius = 4,
+  title,
 }: MultiProgressBarProps<T>) => {
   // TODO (Fai): Incorporate aria-labels and/or accessibility attributes.
 
   const theme = useTheme();
   const hatchPatternId = useId();
+  const titleId = useId();
 
   const xScale = scaleLinear({
     domain: [0, maxValue],
@@ -36,7 +38,14 @@ export const MultiProgressBar = <T,>({
   );
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} aria-labelledby={titleId} role="meter">
+      <title id={titleId}>
+        {title
+          ? title
+          : `A progress bar showing ${getItemLabel(
+              sortedFirstItem
+            )} and ${getItemLabel(sortedSecondItem)}`}
+      </title>
       <defs>
         <pattern
           id={hatchPatternId}
