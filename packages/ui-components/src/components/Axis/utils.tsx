@@ -20,13 +20,13 @@ export function getNumTicks(width: number): number {
   return 10;
 }
 
-export function isOverOneYear(startDate: Date, endDate: Date): boolean {
-  const dateRange = getTimeDiff(endDate, startDate, TimeUnit.DAYS);
-  return dateRange > 365;
+export function isOverTwoMonths(startDate: Date, endDate: Date): boolean {
+  const dateRange = getTimeDiff(endDate, startDate, TimeUnit.MONTHS);
+  return dateRange > 2;
 }
 
-export function formatDateTick(date: Date, overOneYear: boolean): string {
-  if (overOneYear) {
+export function formatDateTick(date: Date, isOverTwoMonths: boolean): string {
+  if (isOverTwoMonths) {
     // To-do (Fai): Add month and year separated by apostrophe as a date format.
     return date.getMonth() === 0
       ? formatDateTime(date, DateFormat.MMM_YY)

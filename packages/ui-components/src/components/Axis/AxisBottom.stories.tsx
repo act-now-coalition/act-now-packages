@@ -1,11 +1,11 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleTime } from "@visx/scale";
+import { scaleTime, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisBottomProps } from ".";
-import { isOverOneYear, getNumTicks, formatDateTick } from "./utils";
+import { isOverTwoMonths, getNumTicks, formatDateTick } from "./utils";
 
 export default {
-  title: "Charts/Axis Lengths",
+  title: "Charts/Axis Bottom",
 } as ComponentMeta<typeof AxisBottom>;
 
 const wideWidth = 900;
@@ -20,6 +20,17 @@ const commonProps: Partial<AxisBottomProps> = {
   top: padding,
 };
 
+const bottomUnitsScale = scaleLinear({
+  domain: [10, 0],
+  range: [height - 2 * padding, 0],
+});
+
+const UnitsTemplate: ComponentStory<typeof AxisBottom> = (args) => (
+  <svg width={mediumWidth} height={height}>
+    <AxisBottom {...args} left={padding} top={padding} />
+  </svg>
+);
+
 const WideScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
   const [startDate, endDate] = args.scale.domain();
   return (
@@ -28,7 +39,7 @@ const WideScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
         {...args}
         {...commonProps}
         tickFormat={(date: Date) =>
-          formatDateTick(date, isOverOneYear(startDate, endDate))
+          formatDateTick(date, isOverTwoMonths(startDate, endDate))
         }
         numTicks={getNumTicks(wideWidth)}
       />
@@ -44,7 +55,7 @@ const MediumScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
         {...args}
         {...commonProps}
         tickFormat={(date: Date) =>
-          formatDateTick(date, isOverOneYear(startDate, endDate))
+          formatDateTick(date, isOverTwoMonths(startDate, endDate))
         }
         numTicks={getNumTicks(mediumWidth)}
       />
@@ -60,12 +71,17 @@ const SmallScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
         {...args}
         {...commonProps}
         tickFormat={(date: Date) =>
-          formatDateTick(date, isOverOneYear(startDate, endDate))
+          formatDateTick(date, isOverTwoMonths(startDate, endDate))
         }
         numTicks={getNumTicks(smallWidth)}
       />
     </svg>
   );
+};
+
+export const Units = UnitsTemplate.bind({});
+Units.args = {
+  scale: bottomUnitsScale,
 };
 
 export const WideScreenWithTwoYears = WideScreenTemplate.bind({});
