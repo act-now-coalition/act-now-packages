@@ -17,8 +17,6 @@ export const MultiProgressBar = <T,>({
   borderRadius = 4,
   title,
 }: MultiProgressBarProps<T>) => {
-  // TODO (Fai): Incorporate aria-labels and/or accessibility attributes.
-
   const theme = useTheme();
   const hatchPatternId = useId();
   const titleId = useId();
