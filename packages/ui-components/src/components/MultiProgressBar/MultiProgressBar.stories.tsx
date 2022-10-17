@@ -45,14 +45,12 @@ const Template: Story<MultiProgressBarProps<Item>> = (args) => (
 
 export const DefaultColors = Template.bind({});
 DefaultColors.args = {
-  firstItem,
-  secondItem,
+  items: [firstItem, secondItem],
 };
 
 export const CustomColors = Template.bind({});
 CustomColors.args = {
-  firstItem,
-  secondItem,
+  items: [firstItem, secondItem],
   barColor: "#ff0303",
   bgColor: "#7d13bf",
 };
