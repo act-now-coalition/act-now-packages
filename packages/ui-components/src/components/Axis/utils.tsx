@@ -1,4 +1,9 @@
-import { DateFormat, getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
+import {
+  DateFormat,
+  formatDateTime,
+  getTimeDiff,
+  TimeUnit,
+} from "@actnowcoalition/time-utils";
 
 /**
  * Number of ticks are approximate, since this is calculated by visx.
@@ -15,8 +20,16 @@ export function getNumTicks(width: number): number {
   return 10;
 }
 
-export function getDateFormat(dateDomain: Date[]): DateFormat {
-  const [minDate, maxDate] = dateDomain;
-  const dateRange = getTimeDiff(maxDate, minDate, TimeUnit.DAYS);
-  return dateRange < 365 ? DateFormat.MMM_D : DateFormat.MMM_YY;
+export function isOverOneYear(startDate: Date, endDate: Date): boolean {
+  const dateRange = getTimeDiff(endDate, startDate, TimeUnit.DAYS);
+  return dateRange > 365;
+}
+
+export function formatDateTick(date: Date, overOneYear: boolean): string {
+  if (overOneYear) {
+    // To-do (Fai): Add month and year separated by apostrophe as a date format.
+    return date.getMonth() === 0
+      ? formatDateTime(date, DateFormat.MMM_YY)
+      : formatDateTime(date, DateFormat.MMM);
+  } else return formatDateTime(date, DateFormat.MMM_D);
 }

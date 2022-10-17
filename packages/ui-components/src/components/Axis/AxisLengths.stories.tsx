@@ -1,9 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleTime } from "@visx/scale";
-import { formatDateTime } from "@actnowcoalition/time-utils";
 import { AxisBottom, AxisBottomProps } from ".";
-import { getDateFormat, getNumTicks } from "./utils";
+import { isOverOneYear, getNumTicks, formatDateTick } from "./utils";
 
 export default {
   title: "Charts/Axis Lengths",
@@ -22,13 +21,14 @@ const commonProps: Partial<AxisBottomProps> = {
 };
 
 const WideScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
+  const [startDate, endDate] = args.scale.domain();
   return (
     <svg width={wideWidth} height={height}>
       <AxisBottom
         {...args}
         {...commonProps}
         tickFormat={(date: Date) =>
-          formatDateTime(date, getDateFormat(args.scale.domain()))
+          formatDateTick(date, isOverOneYear(startDate, endDate))
         }
         numTicks={getNumTicks(wideWidth)}
       />
@@ -37,13 +37,14 @@ const WideScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
 };
 
 const MediumScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
+  const [startDate, endDate] = args.scale.domain();
   return (
     <svg width={mediumWidth} height={height}>
       <AxisBottom
         {...args}
         {...commonProps}
         tickFormat={(date: Date) =>
-          formatDateTime(date, getDateFormat(args.scale.domain()))
+          formatDateTick(date, isOverOneYear(startDate, endDate))
         }
         numTicks={getNumTicks(mediumWidth)}
       />
@@ -52,13 +53,14 @@ const MediumScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
 };
 
 const SmallScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
+  const [startDate, endDate] = args.scale.domain();
   return (
     <svg width={smallWidth} height={height}>
       <AxisBottom
         {...args}
         {...commonProps}
         tickFormat={(date: Date) =>
-          formatDateTime(date, getDateFormat(args.scale.domain()))
+          formatDateTick(date, isOverOneYear(startDate, endDate))
         }
         numTicks={getNumTicks(smallWidth)}
       />
