@@ -6,8 +6,7 @@ import { scaleLinear } from "@visx/scale";
 import { MultiProgressBarProps } from "./interfaces";
 
 export const MultiProgressBar = <T,>({
-  firstItem,
-  secondItem,
+  items,
   getItemValue,
   getItemLabel,
   maxValue,
@@ -32,7 +31,7 @@ export const MultiProgressBar = <T,>({
    * in the correct order in the progress bar.
    * */
   const [sortedFirstItem, sortedSecondItem] = sortBy(
-    [firstItem, secondItem],
+    items,
     (item) => getItemValue(item) * -1
   );
 

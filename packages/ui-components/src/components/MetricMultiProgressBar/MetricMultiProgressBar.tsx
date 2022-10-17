@@ -32,12 +32,11 @@ export const MetricMultiProgressBar = ({
     return null;
   }
 
-  const [firstMetric, secondMetric] = metrics;
+  const [firstItem, secondItem] = getProgressBarItems(data, metrics);
 
   return (
     <MultiProgressBar
-      firstItem={getItemFromMetricData(data, firstMetric)}
-      secondItem={getItemFromMetricData(data, secondMetric)}
+      items={[firstItem, secondItem]}
       getItemValue={(item) => item.currentValue}
       getItemLabel={(item) => item.label}
       {...otherProgressBarProps}
@@ -45,13 +44,14 @@ export const MetricMultiProgressBar = ({
   );
 };
 
-function getItemFromMetricData(
+function getProgressBarItems(
   data: MultiMetricDataStore,
-  metric: MetricProp
-): MetricProgressBarItem {
-  const metricData = data.metricData(metric);
-  return {
-    currentValue: metricData.currentValue as number, // improve this
-    label: metricData.formatValue(),
-  };
+  metrics: [MetricProp, MetricProp]
+): [MetricProgressBarItem, MetricProgressBarItem] {
+  const items = metrics.map((metric) => ({
+    currentValue: data.metricData(metric).currentValue as number,
+    label: data.metricData(metric).formatValue(),
+  }));
+
+  return [items[0], items[1]];
 }
