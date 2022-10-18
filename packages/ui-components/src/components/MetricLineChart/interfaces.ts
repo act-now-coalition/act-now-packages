@@ -2,7 +2,7 @@ import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
-interface BaseChartProps {
+export interface BaseChartProps {
   width: number;
   height: number;
   marginTop?: number;
