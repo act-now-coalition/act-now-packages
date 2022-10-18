@@ -1,4 +1,3 @@
-/** Helpers and React Hooks relating to share images and share links. */
 import { useEffect, useState, useCallback, useRef } from "react";
 
 /** Hook to track element resizing using the ResizeObserver API
