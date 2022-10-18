@@ -3,14 +3,11 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleTime, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisBottomProps } from ".";
 import { isOverTwoMonths, getNumTicks, formatDateTick } from "./utils";
+import { AutoWidth } from "../AutoWidth";
 
 export default {
   title: "Charts/Axis Bottom",
 } as ComponentMeta<typeof AxisBottom>;
-
-const wideWidth = 900;
-const mediumWidth = 600;
-const smallWidth = 280;
 
 const height = 400;
 const padding = 60;
@@ -20,114 +17,103 @@ const commonProps: Partial<AxisBottomProps> = {
   top: padding,
 };
 
-const bottomUnitsScale = scaleLinear({
-  domain: [10, 0],
-  range: [height - 2 * padding, 0],
-});
+const UnitsTemplate: ComponentStory<typeof AxisBottom> = (args) => {
+  const [end, start] = args.scale.domain();
+  return (
+    <svg width={args.width} height={height}>
+      <AxisBottom
+        {...args}
+        {...commonProps}
+        scale={scaleLinear({
+          domain: [start, end],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          range: [0, args.width! - 2 * padding],
+        })}
+      />
+    </svg>
+  );
+};
 
-const UnitsTemplate: ComponentStory<typeof AxisBottom> = (args) => (
-  <svg width={mediumWidth} height={height}>
-    <AxisBottom {...args} left={padding} top={padding} />
-  </svg>
+const Units = UnitsTemplate.bind({});
+export const UnitsExample = () => (
+  <AutoWidth>
+    <Units scale={scaleLinear({ domain: [10, 0] })} />
+  </AutoWidth>
 );
 
-const WideScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
+const TimeSeriesTemplate: ComponentStory<typeof AxisBottom> = (args) => {
   const [startDate, endDate] = args.scale.domain();
   return (
-    <svg width={wideWidth} height={height}>
+    <svg width={args.width} height={height}>
       <AxisBottom
         {...args}
         {...commonProps}
+        scale={scaleTime({
+          domain: [startDate, endDate],
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          range: [0, args.width! - 2 * padding],
+        })}
         tickFormat={(date: Date) =>
           formatDateTick(date, isOverTwoMonths(startDate, endDate))
         }
-        numTicks={getNumTicks(wideWidth)}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        numTicks={getNumTicks(args.width!)}
       />
     </svg>
   );
 };
 
-const MediumScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
-  const [startDate, endDate] = args.scale.domain();
-  return (
-    <svg width={mediumWidth} height={height}>
-      <AxisBottom
-        {...args}
-        {...commonProps}
-        tickFormat={(date: Date) =>
-          formatDateTick(date, isOverTwoMonths(startDate, endDate))
-        }
-        numTicks={getNumTicks(mediumWidth)}
-      />
-    </svg>
-  );
-};
+const TwoYears = TimeSeriesTemplate.bind({});
+export const TwoYearsExample = () => (
+  <AutoWidth>
+    <TwoYears
+      scale={scaleTime({
+        domain: [new Date("2021-01-01"), new Date("2022-12-31")],
+      })}
+    />
+  </AutoWidth>
+);
 
-const SmallScreenTemplate: ComponentStory<typeof AxisBottom> = (args) => {
-  const [startDate, endDate] = args.scale.domain();
-  return (
-    <svg width={smallWidth} height={height}>
-      <AxisBottom
-        {...args}
-        {...commonProps}
-        tickFormat={(date: Date) =>
-          formatDateTick(date, isOverTwoMonths(startDate, endDate))
-        }
-        numTicks={getNumTicks(smallWidth)}
-      />
-    </svg>
-  );
-};
+const OneYear = TimeSeriesTemplate.bind({});
+export const OneYearExample = () => (
+  <AutoWidth>
+    <OneYear
+      scale={scaleTime({
+        domain: [new Date("2021-01-01"), new Date("2021-12-31")],
+      })}
+    />
+  </AutoWidth>
+);
 
-export const Units = UnitsTemplate.bind({});
-Units.args = {
-  scale: bottomUnitsScale,
-};
+const SixMonths = TimeSeriesTemplate.bind({});
+export const SixMonthsExample = () => (
+  <AutoWidth>
+    <SixMonths
+      scale={scaleTime({
+        domain: [new Date("2021-01-01"), new Date("2021-06-30")],
+      })}
+    />
+  </AutoWidth>
+);
 
-export const WideScreenWithTwoYears = WideScreenTemplate.bind({});
-WideScreenWithTwoYears.args = {
-  scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2022-12-31")],
-    range: [0, wideWidth - 2 * padding],
-  }),
-};
+const OneMonth = TimeSeriesTemplate.bind({});
+export const OneMonthExample = () => (
+  <AutoWidth>
+    <OneMonth
+      scale={scaleTime({
+        domain: [new Date("2021-01-01"), new Date("2021-01-31")],
+      })}
+    />
+  </AutoWidth>
+);
 
-export const WideScreenWithOneYear = WideScreenTemplate.bind({});
-WideScreenWithOneYear.args = {
-  scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2021-12-31")],
-    range: [0, wideWidth - 2 * padding],
-  }),
-};
-
-export const MediumScreenWithSixMonths = MediumScreenTemplate.bind({});
-MediumScreenWithSixMonths.args = {
-  scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2021-06-30")],
-    range: [0, mediumWidth - 2 * padding],
-  }),
-};
-
-export const MediumScreenWithOneMonth = MediumScreenTemplate.bind({});
-MediumScreenWithOneMonth.args = {
-  scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2021-01-31")],
-    range: [0, mediumWidth - 2 * padding],
-  }),
-};
-
-export const SmallScreenWithTwoWeeks = SmallScreenTemplate.bind({});
-SmallScreenWithTwoWeeks.args = {
-  scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2021-01-15")],
-    range: [0, smallWidth - 2 * padding],
-  }),
-};
-
-export const SmallScreenWithOneWeek = SmallScreenTemplate.bind({});
-SmallScreenWithOneWeek.args = {
-  scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2021-01-08")],
-    range: [0, smallWidth - 2 * padding],
-  }),
-};
+const TenDays = TimeSeriesTemplate.bind({});
+export const TenDaysExample = () => (
+  <AutoWidth>
+    <TenDays
+      scale={scaleTime({
+        domain: [new Date("2021-01-01"), new Date("2021-01-11")],
+      })}
+    />
+  </AutoWidth>
+);
