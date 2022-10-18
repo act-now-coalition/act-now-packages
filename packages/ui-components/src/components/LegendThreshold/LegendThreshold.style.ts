@@ -38,7 +38,6 @@ export const LegendColor = styled("div", { shouldForwardProp: isValidProp })<{
   roundTop: number;
   roundBottom: number;
 }>`
-  margin-right: ${(props) => props.theme.spacing(2)};
   ${(props) => getTopRadius(props.roundTop)}
   ${(props) => getBottomRadius(props.roundBottom)}
 `;
