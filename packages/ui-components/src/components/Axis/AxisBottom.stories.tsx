@@ -111,7 +111,7 @@ export const TenDaysExample = () => (
   <AutoWidth>
     <TenDays
       scale={scaleTime({
-        domain: [new Date("2021-01-01"), new Date("2021-01-11")],
+        domain: [new Date("2021-01-01"), new Date("2021-01-10")],
       })}
     />
   </AutoWidth>
