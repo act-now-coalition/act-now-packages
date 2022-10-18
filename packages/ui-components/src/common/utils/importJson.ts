@@ -1,6 +1,6 @@
 /** Cache used by importJson(). */
 
-let cachedImports: { [cacheToken: string]: Promise<any> } = {};
+const cachedImports: { [cacheToken: string]: Promise<any> } = {};
 
 /**
  * Helper for importing JSON dynamically that handles caching the import() promise and
