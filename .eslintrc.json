@@ -4,6 +4,11 @@
     "es2021": true,
     "node": true
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
@@ -21,7 +26,6 @@
   "plugins": ["react", "@typescript-eslint", "lodash"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "prefer-const": "off",
     "lodash/import-scope": "warn"
   },
   "ignorePatterns": ["!.storybook", "**/dist", "**/lib"]
