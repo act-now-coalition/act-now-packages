@@ -18,14 +18,13 @@ const commonProps: Partial<AxisBottomProps> = {
 };
 
 const UnitsTemplate: ComponentStory<typeof AxisBottom> = (args) => {
-  const [end, start] = args.scale.domain();
   return (
     <svg width={args.width} height={height}>
       <AxisBottom
         {...args}
         {...commonProps}
         scale={scaleLinear({
-          domain: [start, end],
+          domain: args.scale.domain(),
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           range: [0, args.width! - 2 * padding],
         })}
@@ -37,7 +36,7 @@ const UnitsTemplate: ComponentStory<typeof AxisBottom> = (args) => {
 const Units = UnitsTemplate.bind({});
 export const UnitsExample = () => (
   <AutoWidth>
-    <Units scale={scaleLinear({ domain: [10, 0] })} />
+    <Units scale={scaleLinear({ domain: [0, 10] })} />
   </AutoWidth>
 );
 
