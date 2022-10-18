@@ -1,12 +1,7 @@
 import React from "react";
 import { LegendThresholdProps } from "./interfaces";
-import {
-  LegendThresholdVerticalWrapper,
-  LegendContainer,
-  LegendColor,
-  LegendLabelContainer,
-} from "./LegendThreshold.style";
-import { Typography } from "@mui/material";
+import { LegendColor } from "./LegendThreshold.style";
+import { Typography, Box, Stack } from "@mui/material";
 
 /**
  * `LegendThresholdVertical` represents a scale with thresholds that separate
@@ -27,9 +22,9 @@ export const LegendThresholdVertical = <T,>({
   // Reverse the order of the items so that the lowest levels are rendered at the bottom.
   const orderedItems = items.slice().reverse();
   return (
-    <LegendThresholdVerticalWrapper>
+    <Box width="fit-content">
       {orderedItems.map((item, itemIndex) => (
-        <LegendContainer key={itemIndex} style={{ height: legendColorHeight }}>
+        <Box key={itemIndex} height={legendColorHeight} display="flex">
           <LegendColor
             style={{
               width,
@@ -39,7 +34,7 @@ export const LegendThresholdVertical = <T,>({
             roundBottom={itemIndex === numberOfItems - 1 ? borderRadius : 0}
           />
           {showLabels && (
-            <LegendLabelContainer>
+            <Stack ml={2} spacing={0.25} justifyContent="center">
               {getItemLabel && (
                 <>
                   <Typography variant="labelSmall">
@@ -52,10 +47,10 @@ export const LegendThresholdVertical = <T,>({
                   )}
                 </>
               )}
-            </LegendLabelContainer>
+            </Stack>
           )}
-        </LegendContainer>
+        </Box>
       ))}
-    </LegendThresholdVerticalWrapper>
+    </Box>
   );
 };
