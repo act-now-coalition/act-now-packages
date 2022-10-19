@@ -8,6 +8,7 @@ import { Metric, Timeseries } from "@actnowcoalition/metrics";
 
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../Axes";
+import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -75,7 +76,7 @@ export const MetricLineThresholdChart = ({
 
   assert(
     metric.thresholds?.length && metric.levelSet?.levels,
-    `This chart can only be used for metrics with thresholds`
+    `MetricLineThresholdChart can only be used with metrics that have thresholds and levels ${metric}`
   );
 
   const intervals = calculateChartIntervals(
@@ -93,6 +94,11 @@ export const MetricLineThresholdChart = ({
           dateScale={dateScale}
           yScale={yScale}
           axisLeftProps={{ tickFormat: (value) => metric.formatValue(value) }}
+        />
+        <GridRows
+          scale={yScale}
+          width={chartWidth}
+          tickValues={metric.thresholds}
         />
         {intervals.map((interval) => {
           const yFrom = yScale(interval.lowerBound);
