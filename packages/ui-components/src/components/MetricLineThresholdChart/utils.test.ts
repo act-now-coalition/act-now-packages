@@ -9,7 +9,7 @@ describe("calculateChartIntervals", () => {
   describe("one threshold", () => {
     const levels: MetricLevel[] = [LEVEL_LOW, LEVEL_HIGH];
 
-    test("minValue < t < maxValue", () => {
+    test("minValue < T < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10], 5, 25);
       expect(intervals).toEqual([
         { lower: 5, upper: 10, level: LEVEL_LOW },
@@ -17,22 +17,20 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("minValue < maxValue < t", () => {
+    test("minValue < maxValue < T", () => {
       const intervals = calculateChartIntervals(levels, [10], 0, 5);
-
       expect(intervals).toEqual([{ lower: 0, upper: 10, level: LEVEL_LOW }]);
     });
 
-    test("t < minValue < maxValue", () => {
+    test("T < minValue < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10], 15, 25);
-
       expect(intervals).toEqual([{ lower: 10, upper: 25, level: LEVEL_HIGH }]);
     });
   });
 
   describe("multiple thresholds", () => {
     const levels = [LEVEL_LOW, LEVEL_MEDIUM, LEVEL_HIGH];
-    test("minValue < t1 < t2 < maxValue", () => {
+    test("minValue < T1 < T2 < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 5, 25);
       expect(intervals).toEqual([
         { lower: 5, upper: 10, level: LEVEL_LOW },
@@ -41,7 +39,7 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("t1 < minValue < t2 < maxValue", () => {
+    test("T1 < minValue < T2 < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 15, 25);
       expect(intervals).toEqual([
         { lower: 10, upper: 20, level: LEVEL_MEDIUM },
@@ -49,7 +47,7 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("minValue < t1 < maxValue < t2", () => {
+    test("minValue < T1 < maxValue < T2", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 5, 15);
       expect(intervals).toEqual([
         { lower: 5, upper: 10, level: LEVEL_LOW },
@@ -57,7 +55,7 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("t1 < minValue < maxValue < t2", () => {
+    test("T1 < minValue < maxValue < T2", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 14, 18);
       expect(intervals).toEqual([
         { lower: 10, upper: 20, level: LEVEL_MEDIUM },
@@ -65,9 +63,9 @@ describe("calculateChartIntervals", () => {
     });
   });
 
-  describe("multiple thresholds (reversed)", () => {
+  describe("multiple thresholds (descending)", () => {
     const levels = [LEVEL_LOW, LEVEL_MEDIUM, LEVEL_HIGH];
-    test("desc - minValue < T1 < T2 < maxValue", () => {
+    test("minValue < T1 < T2 < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 5, 25);
       expect(intervals).toEqual([
         { lower: 20, upper: 25, level: LEVEL_LOW },
@@ -76,7 +74,7 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("desc - T1 < minValue < T2 < maxValue ", () => {
+    test("T1 < minValue < T2 < maxValue ", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 15, 25);
       expect(intervals).toEqual([
         { lower: 20, upper: 25, level: LEVEL_LOW },
@@ -84,7 +82,7 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("desc - minValue < T1 < maxValue < T2 ", () => {
+    test("minValue < T1 < maxValue < T2 ", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 5, 15);
       expect(intervals).toEqual([
         { lower: 10, upper: 20, level: LEVEL_MEDIUM },
@@ -92,7 +90,7 @@ describe("calculateChartIntervals", () => {
       ]);
     });
 
-    test("desc -  T1 < minValue < maxValue < T2 ", () => {
+    test("T1 < minValue < maxValue < T2 ", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 14, 18);
       expect(intervals).toEqual([
         { lower: 10, upper: 20, level: LEVEL_MEDIUM },
