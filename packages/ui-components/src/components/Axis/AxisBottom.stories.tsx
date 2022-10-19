@@ -97,6 +97,6 @@ OneMonth.args = {
 export const TenDays = Template.bind({});
 TenDays.args = {
   scale: scaleTime({
-    domain: [new Date("2021-01-01"), new Date("2022-01-10")],
+    domain: [new Date("2021-01-01"), new Date("2021-01-10")],
   }),
 };
