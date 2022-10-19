@@ -3,7 +3,7 @@ import { Story, ComponentMeta } from "@storybook/react";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { MetricId } from "../../../stories/mockMetricCatalog";
 import { MetricUSNationalMap } from "./MetricUSNationalMap";
-import { MetricUSNationalMapProps } from "./interfaces";
+import { MetricUSNationalMapProps } from "../interfaces";
 
 export default {
   title: "Maps/US National",

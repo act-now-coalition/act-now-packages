@@ -10,7 +10,7 @@ import {
 import { MapContainer, PositionAbsolute } from "../Maps.style";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
-import { USNationalMapProps } from "./interfaces";
+import { USNationalMapProps } from "../interfaces";
 
 const USNationalMapInner: React.FC<USNationalMapProps> = ({
   width = defaultWidth,

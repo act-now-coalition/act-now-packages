@@ -15,7 +15,7 @@ import {
   HighlightableShape,
   RegionOverlay,
 } from "../Maps.style";
-import { USStateMapProps } from "./interfaces";
+import { USStateMapProps } from "../interfaces";
 
 const USStateMapInner: React.FC<USStateMapProps> = ({
   stateRegionId,

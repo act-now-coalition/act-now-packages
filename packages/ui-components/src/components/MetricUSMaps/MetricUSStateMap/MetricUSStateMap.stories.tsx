@@ -3,7 +3,7 @@ import { Story, ComponentMeta } from "@storybook/react";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { MetricId } from "../../../stories/mockMetricCatalog";
 import { MetricUSStateMap } from "./MetricUSStateMap";
-import { MetricUSStateMapProps } from "./interfaces";
+import { MetricUSStateMapProps } from "../interfaces";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
