@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
+
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import { Metric, Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { Metric, Timeseries } from "@actnowcoalition/metrics";
+
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../Axes";
-import { ChartOverlayX, ChartOverlayXProps } from "../ChartOverlayX";
+import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { BaseChartProps, CircleMarker } from "../MetricLineChart";
-import { calculateChartIntervals } from "./utils";
 import { RectClipGroup } from "../RectClipGroup";
+import { calculateChartIntervals } from "./utils";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -26,8 +28,6 @@ export interface MetricLineThresholdChartProps extends BaseChartProps {
  * For example, if we have a metric with levels two levels: High (red) and
  * Low (green) separated by a threshold at the value 10, the line will
  * be red above when above 10 and green below it.
- *
- *
  */
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
@@ -44,18 +44,9 @@ export const MetricLineThresholdChart = ({
 
   const { data } = useData(region, metric, true);
 
-  const [hoveredPoint, setHoveredPoint] =
-    useState<TimeseriesPoint<number> | null>(null);
-
-  const onMouseLeave = () => {
-    setHoveredPoint(null);
-  };
-  const onMouseMove: ChartOverlayXProps["onMouseMove"] = ({ date }) => {
-    const point = timeseries.findNearestDate(date);
-    if (point) {
-      setHoveredPoint(point);
-    }
-  };
+  const { hoveredPoint, onMouseMove, onMouseLeave } = useHoveredDate<number>(
+    data?.timeseries as Timeseries<number>
+  );
 
   if (!data) {
     return null;
@@ -87,10 +78,8 @@ export const MetricLineThresholdChart = ({
     `This chart can only be used for metrics with thresholds`
   );
 
-  const metricLevels = metric.levelSet.levels;
-
   const intervals = calculateChartIntervals(
-    metricLevels,
+    metric.levelSet.levels,
     metric.thresholds,
     0,
     maxValue

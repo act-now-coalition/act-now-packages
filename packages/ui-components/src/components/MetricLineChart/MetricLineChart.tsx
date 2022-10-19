@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
-import { TimeseriesPoint } from "@actnowcoalition/metrics";
+import { Timeseries } from "@actnowcoalition/metrics";
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../Axes";
-import { ChartOverlayX, ChartOverlayXProps } from "../ChartOverlayX";
+import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
@@ -25,18 +25,9 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   const metric = metricCatalog.getMetric(metricOrId);
   const { data } = useData(region, metric, true);
 
-  const [hoveredPoint, setHoveredPoint] =
-    useState<TimeseriesPoint<number> | null>(null);
-
-  const onMouseLeave = () => {
-    setHoveredPoint(null);
-  };
-  const onMouseMove: ChartOverlayXProps["onMouseMove"] = ({ date }) => {
-    const point = timeseries.findNearestDate(date);
-    if (point) {
-      setHoveredPoint(point);
-    }
-  };
+  const { hoveredPoint, onMouseMove, onMouseLeave } = useHoveredDate<number>(
+    data?.timeseries as Timeseries<number>
+  );
 
   if (!data) {
     return null;
