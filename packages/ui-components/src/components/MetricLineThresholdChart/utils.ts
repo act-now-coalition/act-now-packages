@@ -1,17 +1,32 @@
 import { MetricLevel } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
 
-export interface ChartInterval extends MetricLevel {
+export interface ChartInterval {
   upperBound: number;
   lowerBound: number;
+  level: MetricLevel;
 }
+
+/**
+ * Given a set of metric levels, thresholds and minValue, maxValue for a
+ * metric, calculates the numeric intervals that correspond to each
+ * level.
+ *
+ *
+ *
+ * @param metricLevels
+ * @param thresholds
+ * @param minValue
+ * @param maxValue
+ * @returns
+ */
 
 export function calculateChartIntervals(
   metricLevels: MetricLevel[],
   thresholds: number[],
   minValue: number,
   maxValue: number
-): MetricLevel[] {
+): ChartInterval[] {
   // assert:
   // - thresholds not empty
   // - thresholds and levels
@@ -38,14 +53,13 @@ export function calculateChartIntervals(
       const isLastLevel = levelIndex === metricLevels.length - 1;
 
       return {
+        level,
         lowerBound: isFirstLevel
           ? Math.min(minValue, thresholds[0])
           : thresholds[levelIndex - 1],
         upperBound: isLastLevel
           ? Math.max(maxValue, thresholds[thresholds.length - 1])
           : thresholds[levelIndex],
-        id: level.id,
-        color: level.color,
       };
     })
     .filter((interval) => interval.lowerBound < interval.upperBound);

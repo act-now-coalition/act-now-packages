@@ -31,7 +31,7 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "mock",
       startDate: "2020-01-01",
     },
-    thresholds: [10, 100],
+    thresholds: [40, 100],
     levelSetId: "cases_mock",
   },
   {

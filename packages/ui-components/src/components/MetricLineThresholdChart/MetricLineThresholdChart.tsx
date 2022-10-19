@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
-import { Metric, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
+import { Metric, Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../Axes";
 import { ChartOverlayX, ChartOverlayXProps } from "../ChartOverlayX";
@@ -10,12 +11,24 @@ import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { BaseChartProps, CircleMarker } from "../MetricLineChart";
+import { calculateChartIntervals } from "./utils";
+import { RectClipGroup } from "../RectClipGroup";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
   region: Region;
 }
 
+/**
+ * MetricLineThresholdChart renders a line chart where line segments are
+ * colored according to the metric level and threshold.
+ *
+ * For example, if we have a metric with levels two levels: High (red) and
+ * Low (green) separated by a threshold at the value 10, the line will
+ * be red above when above 10 and green below it.
+ *
+ *
+ */
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
   region,
@@ -28,6 +41,7 @@ export const MetricLineThresholdChart = ({
 }: MetricLineThresholdChartProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
+
   const { data } = useData(region, metric, true);
 
   const [hoveredPoint, setHoveredPoint] =
@@ -68,6 +82,20 @@ export const MetricLineThresholdChart = ({
     range: [chartHeight, 0],
   });
 
+  assert(
+    metric.thresholds?.length && metric.levelSet?.levels,
+    `This chart can only be used for metrics with thresholds`
+  );
+
+  const metricLevels = metric.levelSet.levels;
+
+  const intervals = calculateChartIntervals(
+    metricLevels,
+    metric.thresholds,
+    0,
+    maxValue
+  );
+
   return (
     <svg width={width} height={height}>
       <Group left={marginLeft} top={marginTop}>
@@ -77,7 +105,26 @@ export const MetricLineThresholdChart = ({
           yScale={yScale}
           axisLeftProps={{ tickFormat: (value) => metric.formatValue(value) }}
         />
-        <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />
+        {intervals.map((interval) => {
+          const yFrom = yScale(interval.lowerBound);
+          const yTo = yScale(interval.upperBound);
+          const clipHeight = Math.abs(yFrom - yTo);
+          return (
+            <RectClipGroup
+              key={`rect-clip-${interval.level.id}`}
+              y={Math.min(yFrom, yTo)}
+              width={chartWidth}
+              height={clipHeight}
+            >
+              <LineChart
+                timeseries={data.timeseries as Timeseries<number>}
+                xScale={dateScale}
+                yScale={yScale}
+                stroke={interval.level.color}
+              />
+            </RectClipGroup>
+          );
+        })}
         {hoveredPoint && (
           <MetricTooltip
             metric={metric}
@@ -91,7 +138,7 @@ export const MetricLineThresholdChart = ({
               cx={dateScale(hoveredPoint.date)}
               cy={yScale(hoveredPoint.value)}
               r={6}
-              fill="black"
+              fill={metric.getColor(hoveredPoint.value)}
             />
           </MetricTooltip>
         )}
