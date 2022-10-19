@@ -1,7 +1,7 @@
 import React from "react";
 import { TimeseriesLineChartProps } from "./interfaces";
 import { LineChart } from "../LineChart";
-import { AxesTimeseries } from "../Axes";
+import { AxesTimeseries } from "../AxesTimeseries";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
 

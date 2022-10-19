@@ -77,7 +77,7 @@ export * from "./common/hooks";
 
 /** UI Components and props */
 export * from "./components/AutoWidth";
-export * from "./components/Axes";
+export * from "./components/AxesTimeseries";
 export * from "./components/Axis";
 export * from "./components/BarChart";
 export * from "./components/ChartOverlayX";

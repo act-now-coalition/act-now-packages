@@ -3,7 +3,7 @@ import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
 import { TimeseriesPoint } from "@actnowcoalition/metrics";
 import { useData } from "../../common/hooks";
-import { AxesTimeseries } from "../Axes";
+import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, ChartOverlayXProps } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -70,7 +70,9 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
           height={chartHeight}
           dateScale={dateScale}
           yScale={yScale}
-          axisLeftProps={{ tickFormat: (value) => metric.formatValue(value) }}
+          axisLeftProps={{
+            tickFormat: (value: number) => metric.formatValue(value),
+          }}
         />
         <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />
         {hoveredPoint && (
