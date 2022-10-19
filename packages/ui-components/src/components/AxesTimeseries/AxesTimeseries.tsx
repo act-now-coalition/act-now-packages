@@ -4,7 +4,7 @@ import {
   AxisLeftProps,
   AxisBottom,
   AxisBottomProps,
-} from "../../Axis/Axis.style";
+} from "../Axis/Axis.style";
 import { ScaleTime, ScaleLinear } from "d3-scale";
 
 export interface AxesTimeseriesProps {
