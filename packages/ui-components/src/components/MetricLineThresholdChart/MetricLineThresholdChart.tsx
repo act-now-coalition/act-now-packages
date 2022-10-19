@@ -101,8 +101,8 @@ export const MetricLineThresholdChart = ({
           tickValues={metric.thresholds}
         />
         {intervals.map((interval) => {
-          const yFrom = yScale(interval.lowerBound);
-          const yTo = yScale(interval.upperBound);
+          const yFrom = yScale(interval.lower);
+          const yTo = yScale(interval.upper);
           const clipHeight = Math.abs(yFrom - yTo);
           return (
             <RectClipGroup

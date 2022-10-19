@@ -12,25 +12,21 @@ describe("calculateChartIntervals", () => {
     test("minValue < t < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10], 5, 25);
       expect(intervals).toEqual([
-        { lowerBound: 5, upperBound: 10, level: LEVEL_LOW },
-        { lowerBound: 10, upperBound: 25, level: LEVEL_HIGH },
+        { lower: 5, upper: 10, level: LEVEL_LOW },
+        { lower: 10, upper: 25, level: LEVEL_HIGH },
       ]);
     });
 
     test("minValue < maxValue < t", () => {
       const intervals = calculateChartIntervals(levels, [10], 0, 5);
 
-      expect(intervals).toEqual([
-        { lowerBound: 0, upperBound: 10, level: LEVEL_LOW },
-      ]);
+      expect(intervals).toEqual([{ lower: 0, upper: 10, level: LEVEL_LOW }]);
     });
 
     test("t < minValue < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10], 15, 25);
 
-      expect(intervals).toEqual([
-        { lowerBound: 10, upperBound: 25, level: LEVEL_HIGH },
-      ]);
+      expect(intervals).toEqual([{ lower: 10, upper: 25, level: LEVEL_HIGH }]);
     });
   });
 
@@ -39,32 +35,32 @@ describe("calculateChartIntervals", () => {
     test("minValue < t1 < t2 < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 5, 25);
       expect(intervals).toEqual([
-        { lowerBound: 5, upperBound: 10, level: LEVEL_LOW },
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
-        { lowerBound: 20, upperBound: 25, level: LEVEL_HIGH },
+        { lower: 5, upper: 10, level: LEVEL_LOW },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
+        { lower: 20, upper: 25, level: LEVEL_HIGH },
       ]);
     });
 
     test("t1 < minValue < t2 < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 15, 25);
       expect(intervals).toEqual([
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
-        { lowerBound: 20, upperBound: 25, level: LEVEL_HIGH },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
+        { lower: 20, upper: 25, level: LEVEL_HIGH },
       ]);
     });
 
     test("minValue < t1 < maxValue < t2", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 5, 15);
       expect(intervals).toEqual([
-        { lowerBound: 5, upperBound: 10, level: LEVEL_LOW },
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
+        { lower: 5, upper: 10, level: LEVEL_LOW },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
       ]);
     });
 
     test("t1 < minValue < maxValue < t2", () => {
       const intervals = calculateChartIntervals(levels, [10, 20], 14, 18);
       expect(intervals).toEqual([
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
       ]);
     });
   });
@@ -74,32 +70,32 @@ describe("calculateChartIntervals", () => {
     test("desc - minValue < T1 < T2 < maxValue", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 5, 25);
       expect(intervals).toEqual([
-        { lowerBound: 20, upperBound: 25, level: LEVEL_LOW },
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
-        { lowerBound: 5, upperBound: 10, level: LEVEL_HIGH },
+        { lower: 20, upper: 25, level: LEVEL_LOW },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
+        { lower: 5, upper: 10, level: LEVEL_HIGH },
       ]);
     });
 
     test("desc - T1 < minValue < T2 < maxValue ", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 15, 25);
       expect(intervals).toEqual([
-        { lowerBound: 20, upperBound: 25, level: LEVEL_LOW },
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
+        { lower: 20, upper: 25, level: LEVEL_LOW },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
       ]);
     });
 
     test("desc - minValue < T1 < maxValue < T2 ", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 5, 15);
       expect(intervals).toEqual([
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
-        { lowerBound: 5, upperBound: 10, level: LEVEL_HIGH },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
+        { lower: 5, upper: 10, level: LEVEL_HIGH },
       ]);
     });
 
     test("desc -  T1 < minValue < maxValue < T2 ", () => {
       const intervals = calculateChartIntervals(levels, [20, 10], 14, 18);
       expect(intervals).toEqual([
-        { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
+        { lower: 10, upper: 20, level: LEVEL_MEDIUM },
       ]);
     });
   });
