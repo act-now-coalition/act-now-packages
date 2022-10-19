@@ -24,7 +24,7 @@ const Template: ComponentStory<typeof MetricMiniMap> = (args) => (
 export const Example = Template.bind({});
 Example.args = {
   stateRegionId: "36",
-  metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL, MetricId.PI],
+  metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   regionDB,
   renderTooltip,
 };
