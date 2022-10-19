@@ -1,6 +1,6 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
-import { Metric, MetricCategory } from "@actnowcoalition/metrics";
+import { Metric, Category } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { LegendCategorical } from "../LegendCategorical";
@@ -15,8 +15,8 @@ export interface MetricLegendCategoricalProps {
   orientation?: "horizontal" | "vertical";
 }
 
-const getItemColor = (item: MetricCategory) => item.color;
-const getItemLabel = (item: MetricCategory) => item.label;
+const getItemColor = (item: Category) => item.color;
+const getItemLabel = (item: Category) => item.name ?? item.id;
 
 const MetricLegendCategorical = ({
   metric,
@@ -24,10 +24,10 @@ const MetricLegendCategorical = ({
 }: MetricLegendCategoricalProps) => {
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
-  const items = metric.categories;
+  const items = metric.categorySet?.categories;
   assert(
     items,
-    "Metric must define categories in order to use MetricLegendCategorical " +
+    "Metric must define categories in order to use MetricLegendCategorical. " +
       `No categories found for metric: ${metric}`
   );
 

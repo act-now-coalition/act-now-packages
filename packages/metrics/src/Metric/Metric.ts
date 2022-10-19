@@ -5,8 +5,7 @@ import { assert, fail } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
 
 import { MetricDataReference } from "./MetricDataReference";
-import { MetricLevel, MetricLevelSet } from "./MetricLevel";
-import { MetricCategory } from "./MetricCategory";
+import { Category, CategorySet } from "./Category";
 import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
 
@@ -33,14 +32,14 @@ export class Metric {
   readonly name: string;
   /** {@inheritDoc MetricDefinition.extendedName} */
   readonly extendedName: string;
-  /** {@inheritDoc MetricDefinition.thresholds} */
-  readonly thresholds?: number[];
-  /** @inheritDoc MetricDefinition.levelSetId */
-  readonly levelSetId: string;
+  /** @inheritDoc MetricDefinition.categorySetId */
+  readonly categorySetId?: string;
+  /** {@inheritDoc MetricDefinition.categoryThresholds} */
+  readonly categoryThresholds?: number[];
+  /** {@inheritDoc MetricDefinition.categoryValues} */
+  readonly categoryValues?: unknown[];
   /** {@inheritDoc MetricDefinition.formatOptions} */
   readonly formatOptions: Intl.NumberFormatOptions;
-  /** {@inheritDoc MetricDefinition.categories} */
-  readonly categories?: Array<MetricCategory>;
   /** {@inheritDoc MetricDefinition.extra} */
   readonly extra?: Record<string, unknown>;
   /** {@inheritDoc MetricDefinition.minValue} */
@@ -49,23 +48,25 @@ export class Metric {
   readonly maxValue?: number;
 
   /**
-   * The set of levels this metric can be graded as. Populated from { @link
-   * MetricDefinition.levelSetId }.
+   * The set of categories used to categorize metric values. Populated from { @link
+   * MetricDefinition.categorySetId }.
    */
-  readonly levelSet?: MetricLevelSet;
+  readonly categorySet?: CategorySet;
 
   /**
-   * Constructs a Metric from the given definition and optional levelSets.
+   * Constructs a Metric from the given definition and optional catalogOptions.
+   *
    * @param definition The JSON definition of the metric.
-   * @param levelSets Optional list of the available `MetricLevelSet` instances.
-   * These are typically provided to the {@link MetricCatalog} when it is
-   * constructed which passes them down to here constructing `Metric` objects.
+   * @param catalogOptions Catalog options that should be applied to all metrics
+   * in a catalog. These are typically provided to the {@link MetricCatalog}
+   * when it is constructed which passes them down to here when constructing
+   * the `Metric` objects.
    */
   constructor(
     definition: MetricDefinition,
     catalogOptions?: MetricCatalogOptions
   ) {
-    const levelSets = catalogOptions?.metricLevelSets;
+    const categorySets = catalogOptions?.categorySets ?? [];
     const metricDefaults = catalogOptions?.metricDefaults;
 
     // Apply any metric defaults from the catalog.
@@ -75,13 +76,26 @@ export class Metric {
     this.dataReference = def.dataReference;
     this.name = def.name ?? `${this.id}`;
     this.extendedName = def.extendedName ?? this.name;
-    this.thresholds = def.thresholds;
-    this.levelSetId = def.levelSetId ?? "default";
-    this.levelSet = (levelSets || []).find((ls) => ls.id === this.levelSetId);
+    this.categorySetId = def.categorySetId;
+    this.categoryThresholds =
+      (def.categoryThresholds ?? []).length > 0
+        ? def.categoryThresholds
+        : undefined;
+    this.categoryValues =
+      (def.categoryValues ?? []).length > 0 ? def.categoryValues : undefined;
     this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
-    this.categories = def.categories;
     this.minValue = def.minValue;
     this.maxValue = def.maxValue;
+
+    if (this.categorySetId) {
+      this.categorySet = categorySets.find(
+        (cs) => cs.id === this.categorySetId
+      );
+      assert(
+        this.categorySet,
+        `Metric ${this.id} specified categorySetId ${this.categorySetId} but it does not exist. You need to include an appropriate CategorySet in MetricCatalogOptions.categorySets when constructing the MetricCatalog.`
+      );
+    }
 
     if (this.minValue && this.maxValue) {
       assert(
@@ -91,101 +105,136 @@ export class Metric {
       );
     }
 
+    // Validate we don't have categoryThresholds and categoryValues.
     assert(
-      !(this.categories && this.thresholds),
-      "Categories and levels should not both be defined."
+      !(this.categoryValues && this.categoryThresholds),
+      `${this} defines both categoryValues and categoryThresholds which is invalid. Remove one or the other depending on whether this metric should be categorized via thresholds or via discrete values.`
     );
 
-    // We should either have both levels and thresholds, or both should
-    // be undefined
-    if (!!this.thresholds !== !!this.levelSet) {
-      assert(this.thresholds, `Missing thresholds for metric ${this}`);
-      assert(this.levelSet, `Missing levels for metric ${this}`);
-    }
+    // Validate categoryThresholds.
+    if (this.categoryThresholds) {
+      assert(
+        this.categorySet,
+        `${this} defines categoryThresholds but does not specify the categorySetId of the categories to use the thresholds with. Add a categorySetId to your metric definition.`
+      );
+      assert(
+        this.categoryThresholds.length ===
+          this.categorySet.categories.length - 1,
+        `${this} defines ${this.categoryThresholds.length} thresholds in categoryThresholds but the referenced ${this.categorySetId} category set has ${this.categorySet.categories.length} categories. There should be 1 fewer thresholds than there are categories. Add or remove thresholds as necessary.`
+      );
 
-    assert(
-      this.thresholds === undefined ||
-        (this.levelSet &&
-          this.thresholds &&
-          this.thresholds.length === this.levelSet.levels.length - 1),
-      "There should be 1 fewer thresholds than levels."
-    );
-
-    if (this.thresholds) {
-      const sorted = this.thresholds.slice().sort();
+      // Verify they're sorted.
+      const sorted = this.categoryThresholds.slice().sort();
       const sortedReverse = sorted.slice().reverse();
       assert(
-        isEqual(sorted, this.thresholds) ||
-          isEqual(this.thresholds, sortedReverse),
-        "Thresholds must be sorted ascending or descending."
+        isEqual(sorted, this.categoryThresholds) ||
+          isEqual(this.categoryThresholds, sortedReverse),
+        `${this} has thresholds ${this.categoryThresholds} which are not in order. Reorder the thresholds so they are strictly ascending or descending.`
+      );
+    }
+
+    // Validate categoryValues.
+    if (this.categoryValues) {
+      assert(
+        this.categorySet,
+        `${this} defines categoryValues but does not specify the categorySetId of the categories to use the values with. Add a categorySetId to your metric definition.`
+      );
+      assert(
+        this.categoryValues.length === this.categorySet.categories.length,
+        `${this} defines ${this.categoryValues.length} values in categoryValues but the referenced ${this.categorySetId} category set has ${this.categorySet.categories.length} categories. There should be the same number of categoryValues as there are categories. Add or remove values as necessary.`
       );
     }
   }
 
   /**
-   * Indicates if the thresholds used for grading this metric are descending
-   * (i.e. higher values ==> lower levels).
+   * Returns true if this metric supports categorizing values by calling {@link Metric.getCategory}.
    */
-  get areThresholdsDescending() {
+  get hasCategories(): boolean {
     return (
-      this.thresholds !== undefined &&
-      this.thresholds.length > 1 &&
-      this.thresholds[0] > this.thresholds[1]
+      this.categoryThresholds !== undefined || this.categoryValues !== undefined
     );
   }
 
   /**
-   * Uses this metric's grading logic (thresholds and levels) to grade the
-   * provided value to a `MetricLevel`.
+   * Uses this metric's categorization logic (based on {@link
+   * MetricDefinition.categoryThresholds } or {@link
+   * MetricDefinition.categoryValues}) to categorize the provided value to a
+   * `Category`.
    *
-   * @param value The value to be graded.
-   * @returns The level that the value falls into.
+   * @param value The value to be categorized.
+   * @returns The category that the value falls into.
    */
-  getLevel(value: unknown): MetricLevel {
+  getCategory(value: unknown): Category {
     assert(
-      this.levelSet !== undefined,
-      "No level set defined for this metric."
+      this.categoryThresholds || this.categoryValues,
+      `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
     );
-    if (!this.thresholds || !isFinite(value)) {
-      return this.levelSet.defaultLevel;
+    assert(
+      this.categorySet,
+      `If we have thresholds or values, we must have categories.`
+    );
+
+    if (this.categoryThresholds) {
+      assert(this.categorySet); // validated in constructor.
+      return this.getCategoryByThresholds(
+        this.categorySet,
+        this.categoryThresholds,
+        value
+      );
+    } else if (this.categoryValues) {
+      assert(this.categorySet); // validated in constructor.
+      return this.getCategoryByValues(
+        this.categorySet,
+        this.categoryValues,
+        value
+      );
+    } else {
+      fail(
+        `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
+      );
+    }
+  }
+
+  private getCategoryByThresholds(
+    categorySet: CategorySet,
+    thresholds: number[],
+    value: unknown
+  ) {
+    if (!isFinite(value)) {
+      return categorySet.defaultCategory;
     }
 
     // When grading we err on the side of a lower severity grade. So we use
     // <= for descending thresholds and >= for ascending thresholds. We may
     // need to make this configurable in the future.
-    const comparator = this.areThresholdsDescending
+    const descendingThresholds =
+      thresholds.length > 1 && thresholds[0] > thresholds[1];
+    const comparator = descendingThresholds
       ? (a: number, b: number) => a >= b
       : (a: number, b: number) => a <= b;
 
-    for (let i = 0; i < this.thresholds.length; i++) {
-      if (comparator(value, this.thresholds[i])) {
-        return this.levelSet.levels[i];
+    for (let i = 0; i < thresholds.length; i++) {
+      if (comparator(value, thresholds[i])) {
+        return categorySet.categories[i];
       }
     }
 
-    const lastLevel = last(this.levelSet.levels);
-    assert(lastLevel);
-    return lastLevel;
+    const lastCategory = last(categorySet.categories);
+    assert(lastCategory);
+    return lastCategory;
   }
 
-  /**
-   * Finds the corresponding category for a given value.
-   *
-   * Throws an error if no matching category is found.
-   *
-   * @param value Value to find category for.
-   * @returns Category the value belongs to.
-   */
-  getCategory(value: unknown): MetricCategory {
-    assert(
-      this.categories !== undefined,
-      "No categories defined for this metric."
-    );
-    const category = this.categories.find(
-      (category) => value === category.value
-    );
-    assert(category, `No matching category found for value ${value}.`);
-    return category;
+  private getCategoryByValues(
+    categorySet: CategorySet,
+    categoryValues: unknown[],
+    value: unknown
+  ) {
+    const categoryValueIndex = categoryValues.indexOf(value);
+    if (categoryValueIndex >= 0) {
+      return categorySet.categories[categoryValueIndex];
+    } else {
+      return categorySet.defaultCategory;
+    }
   }
 
   /**
@@ -196,8 +245,9 @@ export class Metric {
    * @returns The formatted value.
    */
   formatValue(value: unknown, nullValueCopy = ""): string {
-    if (this.categories) {
-      return this.getCategory(value).label;
+    if (this.categoryValues) {
+      const category = this.getCategory(value);
+      return category.name ?? category.id;
     } else if (typeof value === "string") {
       return value;
     } else if (!isFinite(value)) {
@@ -236,12 +286,12 @@ export class Metric {
    * @returns Color to use for value.
    */
   getColor(value: unknown): string {
-    if (this.categories) {
+    if (this.hasCategories) {
       return this.getCategory(value).color;
-    } else if (this.thresholds) {
-      return this.getLevel(value).color;
     } else {
-      fail("Can only color metrics with thresholds or categories.");
+      fail(
+        `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
+      );
     }
   }
 

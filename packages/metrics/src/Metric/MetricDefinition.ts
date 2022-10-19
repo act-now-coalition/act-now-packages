@@ -1,4 +1,3 @@
-import { MetricCategory } from "./MetricCategory";
 import { MetricDataReference } from "./MetricDataReference";
 
 /**
@@ -29,34 +28,46 @@ export interface MetricDefinition {
   extendedName?: string;
 
   /**
-   * Thresholds used for grading the metric. These correspond to the levels
-   * specified by {@link MetricDefinition.levelSetId } and there should be one
-   * fewer threshold than there are levels.
+   * References a set of categories that this metric should use for grading /
+   * categorizing values (e.g. "vaccine-categories"). The available {@link
+   * CategorySet} definitions are defined when constructing the {@link
+   * MetricCatalog} via {@link MetricCatalogOptions.categorySets}.
    *
-   * Example:
+   * Use with either {@link MetricDefinition.categoryThresholds} or {@link
+   * MetricDefinition.categoryValues}.
+   */
+  categorySetId?: string;
+
+  /**
+   * Thresholds used for grading the metric. These correspond to the categories
+   * specified by {@link MetricDefinition.categorySetId } and there should be one
+   * fewer threshold than there are categories.
+   *
+   * @example
    * ```
-   *   // Assuming levels are [low, medium, high]
-   *   thresholds: [10, 20]
+   *   // Assuming categories are [low, medium, high]
+   *   categoryThresholds: [10, 20]
    *   // then <=10 is low, 10.1-20 is medium, and >20 is high.
    *
    *   // Thresholds can be descending as well.
-   *   thresholds: [20, 10]
+   *   categoryThresholds: [20, 10]
    *   // then >=20 is low, 10-19.9 is medium, and <10 is high.
    * ```
    */
-  thresholds?: number[];
+  categoryThresholds?: number[];
 
   /**
-   * References a set of levels that this metric should use for grading (e.g.
-   * "default" or "vaccine-levels"). The available { @link MetricLevelSet }
-   * definitions are defined when constructing the {@link MetricCatalog}.
+   * A list of discrete metric values to be used for categorizing this metric's
+   * values (e.g. value 0 should be categorized as "fail" category, 1
+   * categorized as "pass" category).
+   *
+   * @example
+   * ```
+   *   // Assuming categories are [fail, pass]
+   *   categoryValues: [0, 1]
+   * ```
    */
-  levelSetId?: string;
-
-  /**
-   * Categories used for representing or displaying a discrete metric (e.g. "Yes", "No").
-   */
-  categories?: Array<MetricCategory>;
+  categoryValues?: Array<unknown>;
 
   /**
    * Specifies options used to format the metric value when it is displayed.

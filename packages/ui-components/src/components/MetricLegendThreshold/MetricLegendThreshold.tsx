@@ -2,13 +2,13 @@ import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { LevelItem, MetricLegendThresholdProps } from "./interfaces";
-import { getMetricLevelItems } from "./utils";
+import { CategoryItem, MetricLegendThresholdProps } from "./interfaces";
+import { getMetricCategoryItems } from "./utils";
 
-const getItemColor = (item: LevelItem) => item.color;
-const getItemLabelHorizontal = (item: LevelItem) => item.endThreshold ?? "";
-const getItemLabelVertical = (item: LevelItem) => item.name;
-const getItemSublabel = (item: LevelItem) => item.description ?? "";
+const getItemColor = (item: CategoryItem) => item.color;
+const getItemLabelHorizontal = (item: CategoryItem) => item.endThreshold ?? "";
+const getItemLabelVertical = (item: CategoryItem) => item.name;
+const getItemSublabel = (item: CategoryItem) => item.description ?? "";
 
 export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   metric,
@@ -20,7 +20,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
 
-  const items = getMetricLevelItems(metric);
+  const items = getMetricCategoryItems(metric);
 
   // Common props regardless of horizontal / vertical orientation
   const commonProps = { items, getItemColor, ...legendThresholdProps };
@@ -40,7 +40,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
         </Stack>
         <Stack direction="row" spacing={1} alignItems="center">
           {startLabel}
-          <LegendThreshold<LevelItem>
+          <LegendThreshold<CategoryItem>
             {...commonProps}
             getItemLabel={getItemLabelHorizontal}
           />
@@ -59,7 +59,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
         </Stack>
         <Stack direction="column" spacing={1}>
           {startLabel}
-          <LegendThreshold<LevelItem>
+          <LegendThreshold<CategoryItem>
             {...commonProps}
             orientation="vertical"
             getItemLabel={getItemLabelVertical}

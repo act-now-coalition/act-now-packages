@@ -1,4 +1,4 @@
-import { MetricLevel } from "@actnowcoalition/metrics";
+import { Category } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
 
 export interface ChartInterval {
@@ -6,77 +6,77 @@ export interface ChartInterval {
   upper: number;
   /** Lower bound of the interval, in data units. */
   lower: number;
-  /** Level corresponding to the interval. */
-  level: MetricLevel;
+  /** Category corresponding to the interval. */
+  category: Category;
 }
 
 /**
- * Given a set of metric levels, thresholds and a minValue, maxValue for
+ * Given a set of metric categories, thresholds and a minValue, maxValue for
  * a metric, it returns a set of closed intervals that include minValue
  * and maxValue. These intervals are used in the chart to paint different
- * line segments according to their level.
+ * line segments according to their category.
  *
  * @example
  * ```ts
  * calculateChartIntervals(
- *   [LEVEL_LOW, LEVEL_MEDIUM, LEVEL_HIGH],
+ *   [LOW, MEDIUM, HIGH],
  *   [10, 20],
  *   5,  // minValue
  *   25  // maxValue
  * );
  *
  * [
- *   { lowerBound:  5, upperBound: 10, level: LEVEL_LOW },
- *   { lowerBound: 10, upperBound: 20, level: LEVEL_MEDIUM },
- *   { lowerBound: 20, upperBound: 60, level: LEVEL_HIGH },
+ *   { lowerBound:  5, upperBound: 10, category: LOW },
+ *   { lowerBound: 10, upperBound: 20, category: MEDIUM },
+ *   { lowerBound: 20, upperBound: 60, category: HIGH },
  * ]
  * ```
  *
- * Note that levels that don't intersect with the interval [minValue, maxValue]
+ * Note that categories that don't intersect with the interval [minValue, maxValue]
  * won't be returned, since we won't need them in the chart.
  *
  * @example
  * ```ts
  * calculateChartIntervals(
- *   [LEVEL_LOW, LEVEL_MEDIUM, LEVEL_HIGH],
+ *   [LOW, MEDIUM, HIGH],
  *   [10, 20],
  *   5,  // minValue
  *   15  // maxValue
  * );
  *
- * // LEVEL_HIGH was filtered out since it's outside [minValue, maxValue]
+ * // HIGH was filtered out since it's outside [minValue, maxValue]
  * [
- *   { lowerBound:  5, upperBound: 10, level: LEVEL_LOW },
- *   { lowerBound: 10, upperBound: 15, level: LEVEL_MEDIUM },
+ *   { lowerBound:  5, upperBound: 10, category: LOW },
+ *   { lowerBound: 10, upperBound: 15, category: MEDIUM },
  * ]
  * ```
  *
- * @param metricLevels List of metric levels.
+ * @param metricCategories List of metric categories.
  * @param thresholds List of thresholds.
  * @param minValue Minimum value to show in the chart.
  * @param maxValue Maximum value to show in the chart.
  * @returns List of chart intervals.
  */
 export function calculateChartIntervals(
-  metricLevels: MetricLevel[],
+  metricCategories: Category[],
   thresholds: number[],
   minValue: number,
   maxValue: number
 ): ChartInterval[] {
   assert(thresholds.length > 0, `There should be at least one threshold`);
   assert(
-    metricLevels.length === thresholds.length + 1,
-    `There should be one fewer threshold than levels`
+    metricCategories.length === thresholds.length + 1,
+    `There should be one fewer threshold than categories`
   );
 
   const minVal = Math.min(minValue, maxValue);
   const maxVal = Math.max(minValue, maxValue);
 
-  // Reverse the metric levels and thresholds if the thresholds are descending
+  // Reverse the metric categories and thresholds if the thresholds are descending
   if (thresholds.length >= 2 && thresholds[1] < thresholds[0]) {
     return reverseList(
       calculateChartIntervals(
-        reverseList(metricLevels),
+        reverseList(metricCategories),
         reverseList(thresholds),
         minVal,
         maxVal
@@ -87,20 +87,20 @@ export function calculateChartIntervals(
   const firstThreshold = thresholds[0];
   const lastThreshold = thresholds[thresholds.length - 1];
 
-  // Build the intervals in the same order as the levels, and then
+  // Build the intervals in the same order as the categories, and then
   // filter out the intervals that are not relevant for the chart.
-  return metricLevels
-    .map((level, levelIndex) => {
-      const isFirstLevel = levelIndex === 0;
-      const isLastLevel = levelIndex === metricLevels.length - 1;
+  return metricCategories
+    .map((category, categoryIndex) => {
+      const isFirstCategory = categoryIndex === 0;
+      const isLastCategory = categoryIndex === metricCategories.length - 1;
       return {
-        level,
-        lower: isFirstLevel
+        category,
+        lower: isFirstCategory
           ? Math.min(minVal, firstThreshold)
-          : thresholds[levelIndex - 1],
-        upper: isLastLevel
+          : thresholds[categoryIndex - 1],
+        upper: isLastCategory
           ? Math.max(maxVal, lastThreshold)
-          : thresholds[levelIndex],
+          : thresholds[categoryIndex],
       };
     })
     .filter((interval) => interval.lower < interval.upper);
