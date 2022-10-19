@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 
-interface useResizeObserverResult {
-  setNodeState: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
+interface UseResizeObserverResult {
+  setObservedNode: React.Dispatch<React.SetStateAction<HTMLElement | null>>;
   observerEntry: ResizeObserverEntry | null;
 }
 
@@ -12,7 +12,7 @@ interface useResizeObserverResult {
  * @returns State action dispatch to set the element to observe and the element's
  * resize event data.
  */
-export function useResizeObserver(): useResizeObserverResult {
+export function useResizeObserver(): UseResizeObserverResult {
   const [observerEntry, setObserverEntry] =
     useState<ResizeObserverEntry | null>(null);
   const [node, setNode] = useState<HTMLElement | null>(null);
@@ -30,5 +30,5 @@ export function useResizeObserver(): useResizeObserverResult {
     return () => disconnect();
   }, [disconnect, observe]);
 
-  return { setNodeState: setNode, observerEntry: observerEntry };
+  return { setObservedNode: setNode, observerEntry: observerEntry };
 }
