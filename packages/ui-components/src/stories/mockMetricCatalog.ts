@@ -101,7 +101,7 @@ const metricLevelSets = [
   {
     id: "aapl_mock",
     levels: [
-      { id: "low", name: "low", color: theme.palette.severity[100] },
+      { id: "low", name: "Low", color: theme.palette.severity[100] },
       {
         id: "medium",
         name: "Medium",

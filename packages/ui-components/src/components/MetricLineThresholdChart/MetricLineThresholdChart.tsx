@@ -17,6 +17,7 @@ import { BaseChartProps } from "../MetricLineChart";
 import { RectClipGroup } from "../RectClipGroup";
 import { calculateChartIntervals } from "./utils";
 import { PointMarker } from "../PointMarker";
+import { BoxedAnnotation } from "./BoxedAnnotation";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -96,26 +97,39 @@ export const MetricLineThresholdChart = ({
           width={chartWidth}
           tickValues={metric.thresholds}
         />
-        {intervals.map((interval) => {
-          const yFrom = yScale(interval.lower);
-          const yTo = yScale(interval.upper);
-          const clipHeight = Math.abs(yFrom - yTo);
-          return (
-            <RectClipGroup
-              key={`rect-clip-${interval.level.id}`}
-              y={Math.min(yFrom, yTo)}
-              width={chartWidth}
-              height={clipHeight}
-            >
-              <LineChart
-                timeseries={timeseries}
-                xScale={dateScale}
-                yScale={yScale}
-                stroke={interval.level.color}
-              />
-            </RectClipGroup>
-          );
-        })}
+        <Group>
+          {intervals.map((interval) => (
+            <BoxedAnnotation
+              key={`label-${interval.level.id}`}
+              x={4}
+              y={yScale((interval.upper + interval.lower) / 2)}
+              text={`${interval.level.name}`}
+              textProps={{ fill: interval.level.color }}
+            />
+          ))}
+        </Group>
+        <Group>
+          {intervals.map((interval) => {
+            const yFrom = yScale(interval.lower);
+            const yTo = yScale(interval.upper);
+            const clipHeight = Math.abs(yFrom - yTo);
+            return (
+              <RectClipGroup
+                key={`rect-clip-${interval.level.id}`}
+                y={Math.min(yFrom, yTo)}
+                width={chartWidth}
+                height={clipHeight}
+              >
+                <LineChart
+                  timeseries={timeseries}
+                  xScale={dateScale}
+                  yScale={yScale}
+                  stroke={interval.level.color}
+                />
+              </RectClipGroup>
+            );
+          })}
+        </Group>
         {hoveredPoint && (
           <MetricTooltip
             metric={metric}
