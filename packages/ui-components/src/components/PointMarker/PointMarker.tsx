@@ -2,18 +2,18 @@ import React from "react";
 import { CircleMarker } from "./PointMarker.style";
 
 export interface PointMarkerProps {
-  /** Position in pixels */
+  /** Horizontal position, in pixels */
   x: number;
-  /** Position in pixels */
+  /** Vertical position, in pixels */
   y: number;
-  /** Radius of the dot */
+  /** Radius of the circle */
   r?: number;
-  /** Fill color for the marker */
+  /** Fill color for the circle */
   fill?: string;
 }
 
 /**
- * Circular marker to use in charts.
+ * Circular marker for points in charts.
  */
 export const PointMarker = React.forwardRef<SVGCircleElement, PointMarkerProps>(
   ({ x, y, r = 6, fill = "#000" }, ref) => (

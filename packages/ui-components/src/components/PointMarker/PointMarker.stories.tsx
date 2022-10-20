@@ -14,8 +14,4 @@ const Template: ComponentStory<typeof PointMarker> = (args) => (
 );
 
 export const Example = Template.bind({});
-Example.args = {
-  x: 50,
-  y: 50,
-  fill: "#33eb91",
-};
+Example.args = { x: 50, y: 50, fill: "#33eb91" };
