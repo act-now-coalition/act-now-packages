@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { RegionDB, Region } from "@actnowcoalition/regions";
 import { MetricUSStateMap } from "../Maps";
-import { Box, Typography, Paper, TextField, MenuItem } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Paper,
+  TextField,
+  MenuItem,
+  useTheme,
+} from "@mui/material";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Metric } from "@actnowcoalition/metrics";
 import startCase from "lodash/startCase";
-import { useTheme } from "@mui/material";
 
 export interface MetricMiniMapProps {
   stateRegionId: string;
@@ -44,9 +50,9 @@ export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
 }) => {
   const theme = useTheme();
   const metricCatalog = useMetricCatalog();
-  const [option, setOption] = useState(metrics[0]);
+  const [metric, setMetric] = useState(metrics[0]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOption(event.target.value);
+    setMetric(event.target.value);
   };
   return (
     <Paper sx={{ width: theme.spacing(39) }}>
@@ -56,7 +62,7 @@ export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
           variant="filled"
           fullWidth={true}
           label={<Typography variant="paragraphSmall">Metric</Typography>}
-          value={option}
+          value={metric}
           onChange={handleChange}
           sx={{
             margin: 0,
@@ -79,7 +85,7 @@ export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
       <MetricUSStateMap
         stateRegionId={stateRegionId}
         currentRegion={currentRegion}
-        metric={option}
+        metric={metric}
         regionDB={regionDB}
         renderTooltip={renderTooltip}
       />
@@ -88,16 +94,16 @@ export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
           orientation="horizontal"
           width={160}
           height={12}
-          metric={option}
+          metric={metric}
           showLabels={false}
           startLabel={
             <Typography variant="paragraphSmall">
-              {getStartLabel(metricCatalog.getMetric(option))}
+              {getStartLabel(metricCatalog.getMetric(metric))}
             </Typography>
           }
           endLabel={
             <Typography variant="paragraphSmall">
-              {getEndLabel(metricCatalog.getMetric(option))}
+              {getEndLabel(metricCatalog.getMetric(metric))}
             </Typography>
           }
         />
