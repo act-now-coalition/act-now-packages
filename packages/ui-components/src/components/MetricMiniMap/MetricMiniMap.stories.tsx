@@ -21,9 +21,35 @@ const Template: ComponentStory<typeof MetricMiniMap> = (args) => (
   <MetricMiniMap {...args} />
 );
 
-export const Example = Template.bind({});
-Example.args = {
+export const OneMetric = Template.bind({});
+OneMetric.args = {
   stateRegionId: "36",
+  metrics: [MetricId.MOCK_CASES],
+  regionDB,
+  renderTooltip,
+};
+
+export const OneMetricWithHighlightedCounty = Template.bind({});
+OneMetricWithHighlightedCounty.args = {
+  stateRegionId: "36",
+  currentRegion: counties.findByRegionIdStrict("36043"),
+  metrics: [MetricId.MOCK_CASES],
+  regionDB,
+  renderTooltip,
+};
+
+export const TwoMetrics = Template.bind({});
+TwoMetrics.args = {
+  stateRegionId: "36",
+  metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
+  regionDB,
+  renderTooltip,
+};
+
+export const TwoMetricsWithHighlightedCounty = Template.bind({});
+TwoMetricsWithHighlightedCounty.args = {
+  stateRegionId: "36",
+  currentRegion: counties.findByRegionIdStrict("36043"),
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   regionDB,
   renderTooltip,
