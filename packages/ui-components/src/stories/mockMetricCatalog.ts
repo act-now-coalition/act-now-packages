@@ -5,8 +5,10 @@ import {
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
 import { theme } from "../styles";
+import { MockAppleStockDataProvider } from "./MockAppleStockDataProvider";
 
 export enum MetricId {
+  MOCK_APPLE_STOCK = "apple_stock",
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
@@ -14,6 +16,16 @@ export enum MetricId {
 }
 
 const testMetricDefs: MetricDefinition[] = [
+  {
+    id: MetricId.MOCK_APPLE_STOCK,
+    name: "AAPL",
+    extendedName: "AAPL - Mock Apple Stock",
+    dataReference: {
+      providerId: "mock_apple_stock",
+    },
+    thresholds: [100, 300, 400, 500],
+    levelSetId: "aapl_mock",
+  },
   {
     id: MetricId.PI,
     name: "Pi",
@@ -63,6 +75,7 @@ const testMetricDefs: MetricDefinition[] = [
 export const dataProviders = [
   new MockDataProvider(),
   new StaticValueDataProvider(),
+  new MockAppleStockDataProvider(),
 ];
 
 const metricLevelSets = [
@@ -81,6 +94,37 @@ const metricLevelSets = [
         name: "high",
         color: theme.palette.severity[500],
         description: "indicates high case incidence.",
+      },
+    ],
+    defaultLevel: { id: "unknown", color: theme.palette.border.default },
+  },
+  {
+    id: "aapl_mock",
+    levels: [
+      { id: "low", name: "low", color: theme.palette.severity[100] },
+      {
+        id: "medium",
+        name: "Medium",
+        color: theme.palette.severity[200],
+        description: "medium",
+      },
+      {
+        id: "high",
+        name: "High",
+        color: theme.palette.severity[300],
+        description: "high",
+      },
+      {
+        id: "very_high",
+        name: "Very high",
+        color: theme.palette.severity[400],
+        description: "Very high",
+      },
+      {
+        id: "critical",
+        name: "Critical",
+        color: theme.palette.severity[500],
+        description: "Critical",
       },
     ],
     defaultLevel: { id: "unknown", color: theme.palette.border.default },
