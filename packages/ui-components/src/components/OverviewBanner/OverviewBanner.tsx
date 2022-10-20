@@ -3,8 +3,11 @@ import { Stack, Typography, Button } from "@mui/material";
 import { useTheme } from "@mui/material";
 
 interface ButtonContent {
+  /* Display text */
   label: string;
+  /* Target URL */
   url: string;
+  /* Optional onClick (for tracking, any additional onClick functionality) */
   onClick?: () => void;
 }
 

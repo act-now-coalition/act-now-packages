@@ -1,7 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { OverviewBanner } from ".";
-import { Typography } from "@mui/material";
 
 export default {
   title: "Components/OverviewBanner",
@@ -16,10 +15,14 @@ export const AllContent = Template.bind({});
 AllContent.args = {
   title: "This is a title",
   body: (
-    <Typography variant="paragraphLarge">
+    <>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet
-      imperdiet lectus.
-    </Typography>
+      imperdiet lectus.{" "}
+      <a href="www.google.com" style={{ color: "inherit" }}>
+        This is a link
+      </a>
+      . <strong>This is bold text.</strong>
+    </>
   ),
   primaryButton: {
     label: "Button 1",
