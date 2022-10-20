@@ -7,7 +7,7 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
 
 import { useData } from "../../common/hooks";
-import { AxesTimeseries } from "../Axes";
+import { AxisLeft, AxisBottom } from "../Axis";
 import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
@@ -84,12 +84,13 @@ export const MetricLineThresholdChart = ({
   return (
     <svg width={width} height={height}>
       <Group left={marginLeft} top={marginTop}>
-        <AxesTimeseries
-          height={chartHeight}
-          dateScale={dateScale}
-          yScale={yScale}
-          axisLeftProps={{ tickFormat: (value) => metric.formatValue(value) }}
+        <AxisLeft
+          scale={yScale}
+          tickValues={metric.thresholds}
+          tickFormat={(value) => metric.formatValue(value)}
+          hideAxisLine
         />
+        <AxisBottom top={chartHeight} scale={dateScale} />
         <GridRows
           scale={yScale}
           width={chartWidth}
