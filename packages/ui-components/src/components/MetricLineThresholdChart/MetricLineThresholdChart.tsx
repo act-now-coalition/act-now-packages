@@ -13,7 +13,8 @@ import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { BaseChartProps, CircleMarker } from "../MetricLineChart";
+import { BaseChartProps } from "../MetricLineChart";
+import { CircleMarker } from "../MetricLineChart/MetricLineChart.styles";
 import { RectClipGroup } from "../RectClipGroup";
 import { calculateChartIntervals } from "./utils";
 
