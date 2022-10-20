@@ -17,10 +17,10 @@ const Template: Story<MetricLineChartProps> = (args) => (
   <MetricLineChart {...args} />
 );
 
-export const NewYorkMockCases = Template.bind({});
-NewYorkMockCases.args = {
+export const AppleStock = Template.bind({});
+AppleStock.args = {
   width,
   height,
-  metric: MetricId.MOCK_CASES,
+  metric: MetricId.MOCK_APPLE_STOCK,
   region: newYork,
 };
