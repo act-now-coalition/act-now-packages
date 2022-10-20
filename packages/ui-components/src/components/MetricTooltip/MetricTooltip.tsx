@@ -17,6 +17,8 @@ export const MetricTooltip = ({
 }: MetricTooltipProps & Omit<TooltipProps, "title">) => (
   <Tooltip
     arrow
+    placement="top"
+    disableInteractive
     title={
       <MetricTooltipContent metric={metric} region={region} point={point} />
     }

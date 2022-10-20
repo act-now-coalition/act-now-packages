@@ -63,8 +63,6 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
             metric={metric}
             region={region}
             point={hoveredPoint}
-            placement="top"
-            disableInteractive
             open
           >
             <CircleMarker

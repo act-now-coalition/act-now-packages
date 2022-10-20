@@ -120,8 +120,6 @@ export const MetricLineThresholdChart = ({
             metric={metric}
             region={region}
             point={hoveredPoint}
-            placement="top"
-            disableInteractive
             open
           >
             <CircleMarker
