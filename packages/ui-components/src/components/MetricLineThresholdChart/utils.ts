@@ -73,7 +73,7 @@ export function calculateChartIntervals(
   const max = Math.max(minValue, maxValue);
 
   // Reverse the metric levels and thresholds if the thresholds are descending
-  if (thresholds.length >= 2 && thresholds[1] - thresholds[0] < 0) {
+  if (thresholds.length >= 2 && thresholds[0] < thresholds[1]) {
     return reverseList(
       calculateChartIntervals(
         reverseList(metricLevels),
