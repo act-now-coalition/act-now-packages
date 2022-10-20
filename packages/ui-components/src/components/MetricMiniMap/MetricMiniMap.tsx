@@ -30,7 +30,7 @@ export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
         select={true}
         variant="filled"
         fullWidth={true}
-        label={<Typography variant="paragraphSmall">Select</Typography>}
+        label={<Typography variant="paragraphSmall">Metric</Typography>}
         value={option}
         onChange={handleChange}
         sx={{
