@@ -1,7 +1,6 @@
 import React from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
-import { Timeseries } from "@actnowcoalition/metrics";
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../Axes";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
@@ -23,19 +22,14 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
 }) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
+
   const { data } = useData(region, metric, /*includeTimeseries=*/ true);
+  const timeseries = data && data?.timeseries.assertFiniteNumbers();
 
-  const { hoveredPoint, onMouseMove, onMouseLeave } = useHoveredDate<number>(
-    data?.timeseries as Timeseries<number> | undefined
-  );
+  const { hoveredPoint, onMouseMove, onMouseLeave } =
+    useHoveredDate(timeseries);
 
-  if (!data) {
-    return null;
-  }
-
-  const timeseries = data.timeseries.assertFiniteNumbers();
-
-  if (!timeseries.hasData()) {
+  if (!data || !timeseries?.hasData()) {
     return null;
   }
 

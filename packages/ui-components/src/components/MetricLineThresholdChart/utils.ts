@@ -69,17 +69,17 @@ export function calculateChartIntervals(
     `There should be one fewer threshold than levels`
   );
 
-  const min = Math.min(minValue, maxValue);
-  const max = Math.max(minValue, maxValue);
+  const minVal = Math.min(minValue, maxValue);
+  const maxVal = Math.max(minValue, maxValue);
 
   // Reverse the metric levels and thresholds if the thresholds are descending
-  if (thresholds.length >= 2 && thresholds[0] < thresholds[1]) {
+  if (thresholds.length >= 2 && thresholds[1] < thresholds[0]) {
     return reverseList(
       calculateChartIntervals(
         reverseList(metricLevels),
         reverseList(thresholds),
-        min,
-        max
+        minVal,
+        maxVal
       )
     );
   }
@@ -96,10 +96,10 @@ export function calculateChartIntervals(
       return {
         level,
         lower: isFirstLevel
-          ? Math.min(min, firstThreshold)
+          ? Math.min(minVal, firstThreshold)
           : thresholds[levelIndex - 1],
         upper: isLastLevel
-          ? Math.max(max, lastThreshold)
+          ? Math.max(maxVal, lastThreshold)
           : thresholds[levelIndex],
       };
     })

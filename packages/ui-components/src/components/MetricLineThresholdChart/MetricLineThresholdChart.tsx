@@ -4,7 +4,7 @@ import { Group } from "@visx/group";
 
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import { Metric, Timeseries } from "@actnowcoalition/metrics";
+import { Metric } from "@actnowcoalition/metrics";
 
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../Axes";
@@ -43,19 +43,14 @@ export const MetricLineThresholdChart = ({
 }: MetricLineThresholdChartProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
+
   const { data } = useData(region, metric, /*includeTimeseries=*/ true);
+  const timeseries = data && data?.timeseries.assertFiniteNumbers();
 
-  const { hoveredPoint, onMouseMove, onMouseLeave } = useHoveredDate<number>(
-    data?.timeseries as Timeseries<number>
-  );
+  const { hoveredPoint, onMouseMove, onMouseLeave } =
+    useHoveredDate(timeseries);
 
-  if (!data) {
-    return null;
-  }
-
-  const timeseries = data.timeseries.assertFiniteNumbers();
-
-  if (!timeseries.hasData()) {
+  if (!data || !timeseries?.hasData()) {
     return null;
   }
 
