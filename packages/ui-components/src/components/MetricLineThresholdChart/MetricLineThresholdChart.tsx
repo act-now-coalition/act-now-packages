@@ -26,9 +26,9 @@ export interface MetricLineThresholdChartProps extends BaseChartProps {
  * MetricLineThresholdChart renders a line chart where line segments are
  * colored according to the metric level and threshold.
  *
- * For example, if we have a metric with levels two levels: High (red) and
- * Low (green) separated by a threshold at the value 10, the line will
- * be red above when above 10 and green below it.
+ * For example, if we have a metric with two levels: High (red) and Low (green)
+ * separated by a threshold at the value 10, the line will be red when above
+ * 10 and green below it.
  */
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
@@ -42,8 +42,7 @@ export const MetricLineThresholdChart = ({
 }: MetricLineThresholdChartProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
-
-  const { data } = useData(region, metric, true);
+  const { data } = useData(region, metric, /*includeTimeseries=*/ true);
 
   const { hoveredPoint, onMouseMove, onMouseLeave } = useHoveredDate<number>(
     data?.timeseries as Timeseries<number>
@@ -82,7 +81,7 @@ export const MetricLineThresholdChart = ({
   const intervals = calculateChartIntervals(
     metric.levelSet.levels,
     metric.thresholds,
-    0,
+    /*minValue=*/ 0,
     maxValue
   );
 
@@ -112,7 +111,7 @@ export const MetricLineThresholdChart = ({
               height={clipHeight}
             >
               <LineChart
-                timeseries={data.timeseries as Timeseries<number>}
+                timeseries={timeseries}
                 xScale={dateScale}
                 yScale={yScale}
                 stroke={interval.level.color}

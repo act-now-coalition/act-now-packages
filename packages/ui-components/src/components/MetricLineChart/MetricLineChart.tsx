@@ -23,10 +23,10 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
 }) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
-  const { data } = useData(region, metric, true);
+  const { data } = useData(region, metric, /*includeTimeseries=*/ true);
 
   const { hoveredPoint, onMouseMove, onMouseLeave } = useHoveredDate<number>(
-    data?.timeseries as Timeseries<number>
+    data?.timeseries as Timeseries<number> | undefined
   );
 
   if (!data) {

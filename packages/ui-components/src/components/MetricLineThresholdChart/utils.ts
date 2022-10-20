@@ -37,7 +37,7 @@ export interface ChartInterval {
  *
  * @example
  * ```ts
- *  * calculateChartIntervals(
+ * calculateChartIntervals(
  *   [LEVEL_LOW, LEVEL_MEDIUM, LEVEL_HIGH],
  *   [10, 20],
  *   5,  // minValue
@@ -60,8 +60,8 @@ export interface ChartInterval {
 export function calculateChartIntervals(
   metricLevels: MetricLevel[],
   thresholds: number[],
-  startValue: number,
-  endValue: number
+  minValue: number,
+  maxValue: number
 ): ChartInterval[] {
   assert(thresholds.length > 0, `There should be at least one threshold`);
   assert(
@@ -69,8 +69,8 @@ export function calculateChartIntervals(
     `There should be one fewer threshold than levels`
   );
 
-  const minValue = Math.min(startValue, endValue);
-  const maxValue = Math.max(startValue, endValue);
+  const min = Math.min(minValue, maxValue);
+  const max = Math.max(minValue, maxValue);
 
   // Reverse the metric levels and thresholds if the thresholds are descending
   if (thresholds.length >= 2 && thresholds[1] - thresholds[0] < 0) {
@@ -78,8 +78,8 @@ export function calculateChartIntervals(
       calculateChartIntervals(
         reverseList(metricLevels),
         reverseList(thresholds),
-        minValue,
-        maxValue
+        min,
+        max
       )
     );
   }
@@ -96,10 +96,10 @@ export function calculateChartIntervals(
       return {
         level,
         lower: isFirstLevel
-          ? Math.min(minValue, firstThreshold)
+          ? Math.min(min, firstThreshold)
           : thresholds[levelIndex - 1],
         upper: isLastLevel
-          ? Math.max(maxValue, lastThreshold)
+          ? Math.max(max, lastThreshold)
           : thresholds[levelIndex],
       };
     })
