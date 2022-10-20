@@ -33,6 +33,13 @@ const components: ThemeOptions["components"] = {
       outlinedPrimary: ({ theme }) => ({
         borderColor: theme.palette.border.default,
       }),
+      text: {
+        padding: 0,
+        "&: hover": {
+          backgroundColor: "transparent",
+          textDecoration: "underline",
+        },
+      },
     },
   },
 

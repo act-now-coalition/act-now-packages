@@ -8,7 +8,7 @@ const colors = {
   },
   background: {
     light: "#FFFFFF",
-    medium: "", // TODO - Josh to translate to hex in figma
+    medium: "#F2F3F4",
     dark: "#121314",
   },
   border: {
