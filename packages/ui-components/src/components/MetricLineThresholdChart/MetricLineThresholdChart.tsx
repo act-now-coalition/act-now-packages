@@ -7,7 +7,7 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
 
 import { useData } from "../../common/hooks";
-import { AxisLeft, AxisBottom } from "../Axis";
+import { AxesTimeseries } from "../Axes";
 import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
@@ -17,7 +17,6 @@ import { BaseChartProps } from "../MetricLineChart";
 import { RectClipGroup } from "../RectClipGroup";
 import { calculateChartIntervals } from "./utils";
 import { PointMarker } from "../PointMarker";
-import { BoxedAnnotation } from "./BoxedAnnotation";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -75,9 +74,10 @@ export const MetricLineThresholdChart = ({
     `MetricLineThresholdChart can only be used with metrics that have thresholds and levels ${metric}`
   );
 
+  const { thresholds } = metric;
   const intervals = calculateChartIntervals(
     metric.levelSet.levels,
-    metric.thresholds,
+    thresholds,
     /*minValue=*/ 0,
     maxValue
   );
@@ -85,51 +85,37 @@ export const MetricLineThresholdChart = ({
   return (
     <svg width={width} height={height}>
       <Group left={marginLeft} top={marginTop}>
-        <AxisLeft
-          scale={yScale}
-          tickValues={metric.thresholds}
-          tickFormat={(value) => metric.formatValue(value)}
-          hideAxisLine
+        <AxesTimeseries
+          height={chartHeight}
+          dateScale={dateScale}
+          yScale={yScale}
+          axisLeftProps={{
+            tickFormat: (value) => metric.formatValue(value),
+            tickValues: thresholds,
+          }}
         />
-        <AxisBottom top={chartHeight} scale={dateScale} />
-        <GridRows
-          scale={yScale}
-          width={chartWidth}
-          tickValues={metric.thresholds}
-        />
-        <Group>
-          {intervals.map((interval) => (
-            <BoxedAnnotation
-              key={`label-${interval.level.id}`}
-              x={4}
-              y={yScale((interval.upper + interval.lower) / 2)}
-              text={`${interval.level.name}`}
-              textProps={{ fill: interval.level.color }}
-            />
-          ))}
-        </Group>
-        <Group>
-          {intervals.map((interval) => {
-            const yFrom = yScale(interval.lower);
-            const yTo = yScale(interval.upper);
-            const clipHeight = Math.abs(yFrom - yTo);
-            return (
-              <RectClipGroup
-                key={`rect-clip-${interval.level.id}`}
-                y={Math.min(yFrom, yTo)}
-                width={chartWidth}
-                height={clipHeight}
-              >
-                <LineChart
-                  timeseries={timeseries}
-                  xScale={dateScale}
-                  yScale={yScale}
-                  stroke={interval.level.color}
-                />
-              </RectClipGroup>
-            );
-          })}
-        </Group>
+
+        <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
+        {intervals.map((interval) => {
+          const yFrom = yScale(interval.lower);
+          const yTo = yScale(interval.upper);
+          const clipHeight = Math.abs(yFrom - yTo);
+          return (
+            <RectClipGroup
+              key={`rect-clip-${interval.level.id}`}
+              y={Math.min(yFrom, yTo)}
+              width={chartWidth}
+              height={clipHeight}
+            >
+              <LineChart
+                timeseries={timeseries}
+                xScale={dateScale}
+                yScale={yScale}
+                stroke={interval.level.color}
+              />
+            </RectClipGroup>
+          );
+        })}
         {hoveredPoint && (
           <MetricTooltip
             metric={metric}
