@@ -12,9 +12,13 @@ export interface PointMarkerProps {
   fill?: string;
 }
 
-export const PointMarker = ({
-  x,
-  y,
-  r = 6,
-  fill = "#000",
-}: PointMarkerProps) => <CircleMarker cx={x} cy={y} r={r} fill={fill} />;
+/**
+ * Circular marker to use in charts.
+ */
+export const PointMarker = React.forwardRef<SVGCircleElement, PointMarkerProps>(
+  ({ x, y, r = 6, fill = "#000" }, ref) => (
+    <CircleMarker ref={ref} cx={x} cy={y} r={r} fill={fill} />
+  )
+);
+
+PointMarker.displayName = "PointMarker";
