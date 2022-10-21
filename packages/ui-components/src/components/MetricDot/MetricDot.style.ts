@@ -8,8 +8,8 @@ export const Dot = styled("div")`
 
 /**
  * The PlaceholderDot is used to keep spacing consistent as metric data is
- * loaded, or when metrics without levels are shown alongside metrics with
- * levels.
+ * loaded, or when metrics without category colors are shown alongside metrics
+ * with category colors.
  */
 export const PlaceholderDot = styled(Dot)`
   background-color: transparent;

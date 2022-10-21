@@ -7,7 +7,7 @@ import { RectClipGroup } from "../RectClipGroup";
 
 /**
  * `LegendThresholdHorizontal` represents a scale with thresholds that separate
- * a set of levels. By default, the labels between each level are shown.
+ * a set of categories. By default, the labels between each category are shown.
  */
 
 export const LegendThresholdHorizontal = <T,>({

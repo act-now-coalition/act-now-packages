@@ -31,8 +31,8 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "mock",
       startDate: "2020-01-01",
     },
-    thresholds: [40, 100],
-    levelSetId: "cases_mock",
+    categoryThresholds: [40, 100],
+    categorySetId: "cases_mock",
   },
   {
     id: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
@@ -42,8 +42,8 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "mock",
       startDate: "2020-01-01",
     },
-    thresholds: [10, 100],
-    levelSetId: "cases_mock",
+    categoryThresholds: [10, 100],
+    categorySetId: "cases_mock",
   },
   {
     id: MetricId.PASS_FAIL,
@@ -53,10 +53,8 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "static",
       value: 0,
     },
-    categories: [
-      { color: "#d32f2f", value: 0, label: "Fail" },
-      { color: "#4caf50", value: 1, label: "Pass" },
-    ],
+    categorySetId: "pass_fail",
+    categoryValues: [0, 1],
   },
 ];
 
@@ -65,10 +63,10 @@ export const dataProviders = [
   new StaticValueDataProvider(),
 ];
 
-const metricLevelSets = [
+const metricCategorySets = [
   {
     id: "cases_mock",
-    levels: [
+    categories: [
       { id: "low", name: "low", color: theme.palette.severity[100] },
       {
         id: "medium",
@@ -83,12 +81,20 @@ const metricLevelSets = [
         description: "indicates high case incidence.",
       },
     ],
-    defaultLevel: { id: "unknown", color: theme.palette.border.default },
+    defaultCategory: { id: "unknown", color: theme.palette.border.default },
+  },
+  {
+    id: "pass_fail",
+    categories: [
+      { id: "fail", color: "#d32f2f", name: "Fail" },
+      { id: "pass", color: "#4caf50", name: "Pass" },
+    ],
+    defaultCategory: { id: "unknown", color: theme.palette.border.default },
   },
 ];
 
 export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders, {
-  metricLevelSets,
+  categorySets: metricCategorySets,
 });
 
 // Exporting a second metric catalog to confirm that the closest

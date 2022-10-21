@@ -5,7 +5,7 @@ export interface MetricLegendThresholdProps {
   orientation: "horizontal" | "vertical";
   /** Metric to display thresholds for. */
   metric: Metric | string;
-  /** Whether to show level labels. Does not affect start/endLabels */
+  /** Whether to show category labels. Does not affect start/endLabels */
   showLabels?: boolean;
   /** Optional label for the left or top side of the thermometer. */
   startLabel?: React.ReactNode;
@@ -26,13 +26,13 @@ export interface MetricLegendThresholdProps {
   >;
 }
 
-export interface LevelItem {
-  /** Level name (e.g. "High") */
+export interface CategoryItem {
+  /** Category name (e.g. "High") */
   name: string;
-  /** Level color */
+  /** Category color */
   color: string;
-  /** Description of the level */
+  /** Description of the category */
   description: string | undefined;
-  /** Formatted value of the threshold at the end of the current level */
+  /** Formatted value of the threshold at the end of the current category */
   endThreshold?: string;
 }
