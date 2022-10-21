@@ -19,10 +19,10 @@ const Template: Story<MetricLineThresholdChartProps> = (args) => (
   <MetricLineThresholdChart {...args} />
 );
 
-export const NewYorkMockCases = Template.bind({});
-NewYorkMockCases.args = {
+export const AppleStock = Template.bind({});
+AppleStock.args = {
   width,
   height,
-  metric: MetricId.MOCK_CASES,
+  metric: MetricId.APPLE_STOCK,
   region: newYork,
 };

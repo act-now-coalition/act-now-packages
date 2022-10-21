@@ -7,8 +7,8 @@ import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { CircleMarker } from "./MetricLineChart.styles";
 import { MetricLineChartProps } from "./interfaces";
+import { PointMarker } from "../PointMarker";
 
 export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   metric: metricOrId,
@@ -63,15 +63,11 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
             metric={metric}
             region={region}
             point={hoveredPoint}
-            placement="top"
-            disableInteractive
             open
           >
-            <CircleMarker
-              cx={dateScale(hoveredPoint.date)}
-              cy={yScale(hoveredPoint.value)}
-              r={6}
-              fill="black"
+            <PointMarker
+              x={dateScale(hoveredPoint.date)}
+              y={yScale(hoveredPoint.value)}
             />
           </MetricTooltip>
         )}

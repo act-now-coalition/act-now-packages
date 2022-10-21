@@ -14,9 +14,9 @@ import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { BaseChartProps } from "../MetricLineChart";
-import { CircleMarker } from "../MetricLineChart/MetricLineChart.styles";
 import { RectClipGroup } from "../RectClipGroup";
 import { calculateChartIntervals } from "./utils";
+import { PointMarker } from "../PointMarker";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -90,8 +90,12 @@ export const MetricLineThresholdChart = ({
           height={chartHeight}
           dateScale={dateScale}
           yScale={yScale}
-          axisLeftProps={{ tickFormat: (value) => metric.formatValue(value) }}
+          axisLeftProps={{
+            tickFormat: (value) => metric.formatValue(value),
+            tickValues: thresholds,
+          }}
         />
+
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
         {intervals.map((interval) => {
           const yFrom = yScale(interval.lower);
@@ -118,14 +122,11 @@ export const MetricLineThresholdChart = ({
             metric={metric}
             region={region}
             point={hoveredPoint}
-            placement="top"
-            disableInteractive
             open
           >
-            <CircleMarker
-              cx={dateScale(hoveredPoint.date)}
-              cy={yScale(hoveredPoint.value)}
-              r={6}
+            <PointMarker
+              x={dateScale(hoveredPoint.date)}
+              y={yScale(hoveredPoint.value)}
               fill={metric.getColor(hoveredPoint.value)}
             />
           </MetricTooltip>
