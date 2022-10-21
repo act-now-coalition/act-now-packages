@@ -1,5 +1,11 @@
 # @actnowcoalition/metrics
 
+## 0.3.0
+
+### Minor Changes
+
+- 048949d: Unify metric categories and levels.
+
 ## 0.2.4
 
 ### Patch Changes

@@ -15,14 +15,14 @@ const Template: ComponentStory<typeof MetricDot> = (args) => (
 
 const washingtonState = states.findByRegionIdStrict("53");
 
-export const MetricWithLevels = Template.bind({});
-MetricWithLevels.args = {
+export const MetricWithColors = Template.bind({});
+MetricWithColors.args = {
   metric: MetricId.MOCK_CASES,
   region: washingtonState,
 };
 
-export const MetricWithoutLevels = Template.bind({});
-MetricWithoutLevels.args = {
+export const MetricWithoutColors = Template.bind({});
+MetricWithoutColors.args = {
   metric: MetricId.PI,
   region: washingtonState,
 };

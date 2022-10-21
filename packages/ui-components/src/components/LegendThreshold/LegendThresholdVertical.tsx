@@ -5,7 +5,7 @@ import { Typography, Box, Stack } from "@mui/material";
 
 /**
  * `LegendThresholdVertical` represents a scale with thresholds that separate
- * a set of levels. By default, the labels between each level are shown.
+ * a set of categories. By default, the labels between each category are shown.
  */
 export const LegendThresholdVertical = <T,>({
   height = 265,
@@ -19,7 +19,7 @@ export const LegendThresholdVertical = <T,>({
 }: LegendThresholdProps<T>) => {
   const numberOfItems = items.length;
   const legendColorHeight = height / numberOfItems;
-  // Reverse the order of the items so that the lowest levels are rendered at the bottom.
+  // Reverse the order of the items so that the lowest categories are rendered at the bottom.
   const orderedItems = items.slice().reverse();
   return (
     <Box width="fit-content">

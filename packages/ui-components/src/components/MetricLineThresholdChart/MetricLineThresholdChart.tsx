@@ -25,11 +25,11 @@ export interface MetricLineThresholdChartProps extends BaseChartProps {
 
 /**
  * MetricLineThresholdChart renders a line chart where line segments are
- * colored according to the metric level and threshold.
+ * colored according to the metric categories and thresholds.
  *
- * For example, if we have a metric with two levels: High (red) and Low (green)
- * separated by a threshold at the value 10, the line will be red when above
- * 10 and green below it.
+ * For example, if we have a metric with two categories: High (red) and Low
+ * (green) separated by a threshold at the value 10, the line will be red when
+ * above 10 and green below it.
  */
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
@@ -45,12 +45,12 @@ export const MetricLineThresholdChart = ({
   const metric = metricCatalog.getMetric(metricOrId);
 
   const { data } = useData(region, metric, /*includeTimeseries=*/ true);
-  const timeseries = data && data?.timeseries.assertFiniteNumbers();
+  const timeseries = data && data.timeseries.assertFiniteNumbers();
 
   const { hoveredPoint, onMouseMove, onMouseLeave } =
     useHoveredDate(timeseries);
 
-  if (!data || !timeseries?.hasData()) {
+  if (!timeseries?.hasData?.()) {
     return null;
   }
 
@@ -69,14 +69,15 @@ export const MetricLineThresholdChart = ({
     range: [chartHeight, 0],
   });
 
+  const thresholds = metric.categoryThresholds;
+  const categories = metric.categorySet?.categories;
   assert(
-    metric.thresholds?.length && metric.levelSet?.levels,
-    `MetricLineThresholdChart can only be used with metrics that have thresholds and levels ${metric}`
+    thresholds?.length && categories,
+    `MetricLineThresholdChart can only be used with metrics that have thresholds and categories. ${metric} does not.`
   );
 
-  const { thresholds } = metric;
   const intervals = calculateChartIntervals(
-    metric.levelSet.levels,
+    categories,
     thresholds,
     /*minValue=*/ 0,
     maxValue
@@ -102,7 +103,7 @@ export const MetricLineThresholdChart = ({
           const clipHeight = Math.abs(yFrom - yTo);
           return (
             <RectClipGroup
-              key={`rect-clip-${interval.level.id}`}
+              key={`rect-clip-${interval.category.id}`}
               y={Math.min(yFrom, yTo)}
               width={chartWidth}
               height={clipHeight}
@@ -111,7 +112,7 @@ export const MetricLineThresholdChart = ({
                 timeseries={timeseries}
                 xScale={dateScale}
                 yScale={yScale}
-                stroke={interval.level.color}
+                stroke={interval.category.color}
               />
             </RectClipGroup>
           );

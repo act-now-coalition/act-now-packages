@@ -1,5 +1,5 @@
 import { SnapshotJSON } from "../data";
-import { MetricDefinition, MetricLevelSet } from "../Metric";
+import { MetricDefinition, CategorySet } from "../Metric";
 
 /**
  * Options that can be provided when creating a {@link MetricCatalog} that apply
@@ -10,9 +10,10 @@ export interface MetricCatalogOptions {
   metricDefaults?: MetricDefinition;
 
   /**
-   * Specifies sets of levels that can be used for metric grading. By default
-   * metrics will use the "default" level set, but additional sets can be provided
-   * and referenced by metrics via their {@link MetricDefinition.levelSetId} property.
+   * Specifies sets of categories that can be used for grading or categorizing
+   * metric values (e.g. into "low", "medium", and "high" categories). Sets
+   * defined here can be referenced by metrics via their {@link
+   * MetricDefinition.categorySetId} property.
    *
    * @example
    * ```
@@ -32,7 +33,7 @@ export interface MetricCatalogOptions {
    * }
    * ```
    */
-  metricLevelSets?: MetricLevelSet[];
+  categorySets?: CategorySet[];
 
   /** JSON cache file to read metrics from instead of using DataProviders. */
   snapshot?: SnapshotJSON;

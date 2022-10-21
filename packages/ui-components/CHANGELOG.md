@@ -1,5 +1,22 @@
 # @actnowcoalition/ui-components
 
+## 0.5.4
+
+### Patch Changes
+
+- 048949d: Unify metric categories and levels.
+- Updated dependencies [048949d]
+  - @actnowcoalition/metrics@0.3.0
+
+## 0.5.3
+
+### Patch Changes
+
+- b7f86d7: Cleanup for MetricScoreOverview and LegendThreshold
+- 0e493bd: Implement MetricLineThresholdChart and useHoveredData hook
+- 22430d4: Style bottom axis
+- 879b8b5: Add resize observer hook
+
 ## 0.5.2
 
 ### Patch Changes
