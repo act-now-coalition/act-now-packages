@@ -19,9 +19,9 @@ import { appleStockTimeseries } from "./mockData";
  * },
  * ```
  */
-export class MockAppleStockDataProvider extends CachingMetricDataProviderBase {
+export class AppleStockDataProvider extends CachingMetricDataProviderBase {
   constructor() {
-    super(/*providerId=*/ "mock_apple_stock");
+    super(/*providerId=*/ "apple_stock");
   }
 
   private cachedData: { [key: string]: MetricData<number> } = {};
@@ -33,22 +33,12 @@ export class MockAppleStockDataProvider extends CachingMetricDataProviderBase {
   }
 
   getDataFromCache(region: Region, metric: Metric): MetricData<unknown> {
-    const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
-    if (!this.cachedData[cacheKey]) {
-      const timeseries = appleStockTimeseries;
+    const timeseries = appleStockTimeseries;
 
-      // Use last value of timeseries as current value.
-      assert(timeseries.hasData());
-      const currentValue = timeseries.last.value;
+    // Use last value of timeseries as current value.
+    assert(timeseries.hasData());
+    const currentValue = timeseries.last.value;
 
-      this.cachedData[cacheKey] = new MetricData(
-        metric,
-        region,
-        currentValue,
-        timeseries
-      );
-    }
-
-    return this.cachedData[cacheKey];
+    return new MetricData(metric, region, currentValue, timeseries);
   }
 }

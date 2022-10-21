@@ -16,8 +16,8 @@ const Template: ComponentStory<typeof MetricSparklines> = (args) => (
 const defaultArgs = {
   region: states.findByRegionIdStrict("12"),
   // TODO: Make this a rolling avg. metric once provider is implemented.
-  metricLineChart: MetricId.MOCK_APPLE_STOCK,
-  metricBarChart: MetricId.MOCK_APPLE_STOCK,
+  metricLineChart: MetricId.APPLE_STOCK,
+  metricBarChart: MetricId.APPLE_STOCK,
   numDays: 5,
 };
 

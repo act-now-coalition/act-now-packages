@@ -21,6 +21,6 @@ export const AppleStock = Template.bind({});
 AppleStock.args = {
   width,
   height,
-  metric: MetricId.MOCK_APPLE_STOCK,
+  metric: MetricId.APPLE_STOCK,
   region: newYork,
 };

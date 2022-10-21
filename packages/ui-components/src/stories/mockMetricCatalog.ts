@@ -5,10 +5,10 @@ import {
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
 import { theme } from "../styles";
-import { MockAppleStockDataProvider } from "./MockAppleStockDataProvider";
+import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
 
 export enum MetricId {
-  MOCK_APPLE_STOCK = "apple_stock",
+  APPLE_STOCK = "apple_stock",
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
@@ -17,14 +17,14 @@ export enum MetricId {
 
 const testMetricDefs: MetricDefinition[] = [
   {
-    id: MetricId.MOCK_APPLE_STOCK,
+    id: MetricId.APPLE_STOCK,
     name: "AAPL",
-    extendedName: "AAPL - Mock Apple Stock",
+    extendedName: "Apple Stock",
     dataReference: {
-      providerId: "mock_apple_stock",
+      providerId: "apple_stock",
     },
     thresholds: [100, 300, 400, 500],
-    levelSetId: "aapl_mock",
+    levelSetId: "5_risk_categories",
   },
   {
     id: MetricId.PI,
@@ -75,7 +75,7 @@ const testMetricDefs: MetricDefinition[] = [
 export const dataProviders = [
   new MockDataProvider(),
   new StaticValueDataProvider(),
-  new MockAppleStockDataProvider(),
+  new AppleStockDataProvider(),
 ];
 
 const metricLevelSets = [
@@ -99,7 +99,7 @@ const metricLevelSets = [
     defaultLevel: { id: "unknown", color: theme.palette.border.default },
   },
   {
-    id: "aapl_mock",
+    id: "5_risk_categories",
     levels: [
       { id: "low", name: "Low", color: theme.palette.severity[100] },
       {
