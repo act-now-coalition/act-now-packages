@@ -165,15 +165,6 @@ export class Metric {
    * @returns The category that the value falls into.
    */
   getCategory(value: unknown): Category {
-    assert(
-      this.categoryThresholds || this.categoryValues,
-      `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
-    );
-    assert(
-      this.categorySet,
-      `If we have thresholds or values, we must have categories.`
-    );
-
     if (this.categoryThresholds) {
       assert(this.categorySet); // validated in constructor.
       return this.getCategoryByThresholds(
