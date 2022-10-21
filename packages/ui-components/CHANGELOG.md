@@ -1,5 +1,13 @@
 # @actnowcoalition/ui-components
 
+## 0.5.4
+
+### Patch Changes
+
+- 048949d: Unify metric categories and levels.
+- Updated dependencies [048949d]
+  - @actnowcoalition/metrics@0.3.0
+
 ## 0.5.3
 
 ### Patch Changes
