@@ -19,12 +19,18 @@ describe("calculateChartIntervals", () => {
 
     test("minValue < maxValue < T", () => {
       const intervals = calculateChartIntervals(categories, [10], 0, 5);
-      expect(intervals).toEqual([{ lower: 0, upper: 10, category: LOW }]);
+      expect(intervals).toEqual([
+        { lower: 0, upper: 10, category: LOW },
+        { lower: 10, upper: 11, category: HIGH },
+      ]);
     });
 
     test("T < minValue < maxValue", () => {
       const intervals = calculateChartIntervals(categories, [10], 15, 25);
-      expect(intervals).toEqual([{ lower: 10, upper: 25, category: HIGH }]);
+      expect(intervals).toEqual([
+        { lower: 8, upper: 10, category: LOW },
+        { lower: 10, upper: 25, category: HIGH },
+      ]);
     });
   });
 
