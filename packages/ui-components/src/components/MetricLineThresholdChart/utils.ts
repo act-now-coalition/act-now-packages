@@ -86,6 +86,7 @@ export function calculateChartIntervals(
 
   const firstThreshold = thresholds[0];
   const lastThreshold = thresholds[thresholds.length - 1];
+  const delta = 0.2 * (lastThreshold - firstThreshold);
 
   // Build the intervals in the same order as the categories, and then
   // filter out the intervals that are not relevant for the chart.
@@ -96,10 +97,10 @@ export function calculateChartIntervals(
       return {
         category,
         lower: isFirstCategory
-          ? Math.min(minVal, firstThreshold)
+          ? Math.min(minVal, firstThreshold - delta)
           : thresholds[categoryIndex - 1],
         upper: isLastCategory
-          ? Math.max(maxVal, lastThreshold)
+          ? Math.max(maxVal, lastThreshold + delta)
           : thresholds[categoryIndex],
       };
     })
