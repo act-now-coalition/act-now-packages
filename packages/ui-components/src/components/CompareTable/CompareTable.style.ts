@@ -69,7 +69,7 @@ export const TableCell = styled(MuiTableCell, {
       ...getStickyRowAndColumnProps(stickyRow, stickyColumn),
     },
     [`&.${tableCellClasses.body}`]: {
-      // backgroundColor: "inherit",
+      backgroundColor: "inherit",
       ...getStickyColumnProps(stickyColumn),
     },
   })
