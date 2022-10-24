@@ -68,10 +68,10 @@ describe("metric data hooks", () => {
     // The catalog should have performed a data fetch, but since it's anync,
     // initially the hook won't return data.
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
-    expect(result.current.data).toBe(undefined);
+    expect(result.current.data).toBeUndefined();
     // Wait for initial async fetch to finish.
     await waitFor(() => {
-      expect(result.current.data).not.toBe(undefined);
+      expect(result.current.data).toBeDefined();
     });
     expect(
       result.current.data?.metricData(testRegionCA, MetricId.PI).currentValue
@@ -89,11 +89,11 @@ describe("metric data hooks", () => {
     rerender({ regions: [testRegionWA], metrics: [MetricId.E] });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
     // Data should go back to loading state.
-    expect(result.current.data).toBe(undefined);
+    expect(result.current.data).toBeUndefined();
 
     // Wait for async fetch to return the new data.
     await waitFor(() => {
-      expect(result.current.data).not.toBe(undefined);
+      expect(result.current.data).toBeDefined();
     });
     expect(result.current.data?.hasRegionData(testRegionCA)).toBe(false);
     expect(result.current.data?.hasMetricData(testRegionWA, MetricId.PI)).toBe(
@@ -127,10 +127,10 @@ describe("metric data hooks", () => {
     // The catalog should have performed a data fetch, but since it's anync,
     // initially the hook won't return data.
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
-    expect(result.current.data).toBe(undefined);
+    expect(result.current.data).toBeUndefined();
     // Wait for initial async fetch to finish.
     await waitFor(() => {
-      expect(result.current.data).not.toBe(undefined);
+      expect(result.current.data).toBeDefined();
     });
     expect(result.current.data?.metricData(MetricId.PI).currentValue).toBe(
       Math.PI
@@ -148,11 +148,11 @@ describe("metric data hooks", () => {
     rerender({ region: testRegionCA, metrics: [MetricId.E] });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
     // Data should go back to loading state.
-    expect(result.current.data).toBe(undefined);
+    expect(result.current.data).toBeUndefined();
 
     // Wait for async fetch to return the new data.
     await waitFor(() => {
-      expect(result.current.data).not.toBe(undefined);
+      expect(result.current.data).toBeDefined();
     });
     expect(result.current.data?.hasMetricData(MetricId.PI)).toBe(false);
     expect(result.current.data?.metricData(MetricId.E).currentValue).toBe(
@@ -183,10 +183,10 @@ describe("metric data hooks", () => {
     // The catalog should have performed a data fetch, but since it's anync,
     // initially the hook won't return data.
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
-    expect(result.current.data).toBe(undefined);
+    expect(result.current.data).toBeUndefined();
     // Wait for initial async fetch to finish.
     await waitFor(() => {
-      expect(result.current.data).not.toBe(undefined);
+      expect(result.current.data).toBeDefined();
     });
     expect(result.current.data?.currentValue).toBe(Math.PI);
 
@@ -194,11 +194,11 @@ describe("metric data hooks", () => {
     rerender({ region: testRegionCA, metric: MetricId.E });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
     // Data should go back to loading state.
-    expect(result.current.data).toBe(undefined);
+    expect(result.current.data).toBeUndefined();
 
     // Wait for async fetch to return the new data.
     await waitFor(() => {
-      expect(result.current.data).not.toBe(undefined);
+      expect(result.current.data).toBeDefined();
     });
     expect(result.current.data?.currentValue).toBe(Math.E);
   });
