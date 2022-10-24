@@ -1,9 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { states } from "@actnowcoalition/regions";
+import { states, Region, RegionDB } from "@actnowcoalition/regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { TableContainer } from "../CompareTable";
 import { MetricCompareTable } from ".";
+
+const regionDB = new RegionDB(states.all, {
+  getRegionUrl: (region: Region) => `/us/${region.slug}`,
+});
 
 export default {
   title: "Metrics/MetricCompareTable",
@@ -18,6 +22,7 @@ const Template: ComponentStory<typeof MetricCompareTable> = (args) => (
 
 export const Example = Template.bind({});
 Example.args = {
-  regions: states.all,
+  regionDB,
+  regions: regionDB.all,
   metrics: [MetricId.PI, MetricId.MOCK_CASES, MetricId.PASS_FAIL],
 };

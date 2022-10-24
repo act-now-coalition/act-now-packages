@@ -11,6 +11,7 @@ import { Row, MetricCompareTableProps } from "./interfaces";
 import { createMetricColumn, createLocationColumn } from "./utils";
 
 export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
+  regionDB,
   regions,
   metrics: metricOrIds,
   ...otherCompareTableProps
@@ -45,9 +46,15 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
   }));
 
   const columns: ColumnDefinition<Row>[] = [
-    createLocationColumn(sortDirection, sortColumnId, onClickSort),
+    createLocationColumn(regionDB, sortDirection, sortColumnId, onClickSort),
     ...metrics.map((metric) =>
-      createMetricColumn(metric, sortDirection, sortColumnId, onClickSort)
+      createMetricColumn(
+        regionDB,
+        metric,
+        sortDirection,
+        sortColumnId,
+        onClickSort
+      )
     ),
   ];
 
