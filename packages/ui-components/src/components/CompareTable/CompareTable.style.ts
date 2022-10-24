@@ -10,15 +10,15 @@ import {
 import React from "react";
 import { styled } from "../../styles";
 
-export const TableContainer = styled(MuiTableContainer)``;
+export const TableContainer = MuiTableContainer;
 
 export const Table = styled(MuiTable)`
   border-collapse: separate;
 `;
 
-export const TableHead = styled(MuiTableHead)``;
+export const TableHead = MuiTableHead;
 
-export const TableBody = styled(MuiTableBody)``;
+export const TableBody = MuiTableBody;
 
 // Alternate white and light grey background for table rows
 export const TableRow = styled(MuiTableRow)(({ theme }) => ({
@@ -59,7 +59,7 @@ export const TableCell = styled(MuiTableCell, {
       ...getStickyRowAndColumnProps(stickyRow, stickyColumn),
     },
     [`&.${tableCellClasses.body}`]: {
-      backgroundColor: "inherit",
+      // backgroundColor: "inherit",
       ...getStickyColumnProps(stickyColumn),
     },
   })
