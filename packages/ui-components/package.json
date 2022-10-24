@@ -39,7 +39,7 @@
     "@storybook/manager-webpack4": "^6.5.12",
     "@storybook/react": "^6.5.12",
     "@storybook/testing-library": "^0.0.13",
-    "@testing-library/react-hooks": "^8.0.1",
+    "@testing-library/react": "^13.4.0",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@visx/mock-data": "^2.1.2",
     "babel-loader": "^8.2.5",
