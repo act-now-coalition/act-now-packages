@@ -93,6 +93,9 @@ describe("metric data hooks", () => {
     // Render the hook again with different regions / metrics.  This should perform a fetch.
     rerender({ regions: [testRegionWA], metrics: [MetricId.E] });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
+    // Data should go back to loading state.
+    expect(result.current.data).toStrictEqual(undefined);
+
     // Wait for async fetch to return the new data.
     await waitForNextUpdate();
     expect(result.current.data?.hasRegionData(testRegionCA)).toBe(false);
@@ -148,6 +151,9 @@ describe("metric data hooks", () => {
     // Render the hook again with different metrics.  This should perform a fetch.
     rerender({ region: testRegionCA, metrics: [MetricId.E] });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
+    // Data should go back to loading state.
+    expect(result.current.data).toStrictEqual(undefined);
+
     // Wait for async fetch to return the new data.
     await waitForNextUpdate();
     expect(result.current.data?.hasMetricData(MetricId.PI)).toBe(false);
@@ -190,6 +196,9 @@ describe("metric data hooks", () => {
     // Render the hook again with a different metric.  This should perform a fetch.
     rerender({ region: testRegionCA, metric: MetricId.E });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
+    // Data should go back to loading state.
+    expect(result.current.data).toStrictEqual(undefined);
+
     // Wait for async fetch to return the new data.
     await waitForNextUpdate();
     expect(result.current.data?.currentValue).toBe(Math.E);
