@@ -5,6 +5,8 @@ import {
   TableRow as MuiTableRow,
   TableCell as MuiTableCell,
   tableCellClasses,
+  typographyClasses,
+  linkClasses,
   TableContainer as MuiTableContainer,
 } from "@mui/material";
 import React from "react";
@@ -12,7 +14,10 @@ import { styled } from "../../styles";
 
 export const TableContainer = MuiTableContainer;
 
+// The table needs to have a height to allow us to set height: 100% on children
+// of TableCell.
 export const Table = styled(MuiTable)`
+  height: 100%;
   border-collapse: separate;
 `;
 
@@ -27,6 +32,11 @@ export const TableRow = styled(MuiTableRow)(({ theme }) => ({
   },
   "&:nth-of-type(even)": {
     backgroundColor: theme.palette.common.white,
+  },
+  "&:hover": {
+    [`.${linkClasses.root} .${typographyClasses.root}`]: {
+      color: theme.palette.primary.dark,
+    },
   },
 }));
 

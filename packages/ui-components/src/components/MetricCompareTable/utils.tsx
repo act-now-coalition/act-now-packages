@@ -1,19 +1,23 @@
 import React from "react";
 import isNumber from "lodash/isNumber";
+import { Stack, Typography } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
+import { RegionDB } from "@actnowcoalition/regions";
+
+import { formatPopulation } from "../../common/utils";
 import { MetricValue } from "../MetricValue";
 import {
   ColumnDefinition,
   ColumnHeader,
-  TableCell,
   SortDirection,
   getAriaSort,
 } from "../CompareTable";
+import { StyledTableCell, StyledLink } from "./MetricCompareTable.style";
 import { Row } from "./interfaces";
-import { Stack, Typography } from "@mui/material";
-import { formatPopulation } from "../../common/utils";
 
 export function createMetricColumn(
+  regionDB: RegionDB,
   metric: Metric,
   sortDirection: SortDirection,
   sortColumnId: string,
@@ -39,14 +43,19 @@ export function createMetricColumn(
       );
     },
     renderCell: ({ row }) => (
-      <TableCell>
-        <MetricValue
-          metric={metric}
-          region={row.region}
-          variant="dataTabular"
-          justifyContent="end"
-        />
-      </TableCell>
+      <StyledTableCell>
+        <StyledLink
+          href={regionDB.getRegionUrl(row.region)}
+          sx={{ justifyContent: "end" }}
+        >
+          <MetricValue
+            metric={metric}
+            region={row.region}
+            variant="dataTabular"
+            justifyContent="end"
+          />
+        </StyledLink>
+      </StyledTableCell>
     ),
     sorterAsc: (rowA, rowB) => {
       const { currentValue: valueA } =
@@ -70,6 +79,7 @@ export function createMetricColumn(
 }
 
 export function createLocationColumn(
+  regionDB: RegionDB,
   sortDirection: SortDirection,
   sortColumnId: string,
   onClickSort: (direction: SortDirection, columnId: string) => void
@@ -91,14 +101,16 @@ export function createLocationColumn(
       );
     },
     renderCell: ({ row }) => (
-      <TableCell stickyColumn>
-        <Stack spacing={0.5}>
-          <Typography variant="labelSmall">{row.region.fullName}</Typography>
-          <Typography variant="paragraphSmall">
-            {formatPopulation(row.region.population)}
-          </Typography>
-        </Stack>
-      </TableCell>
+      <StyledTableCell stickyColumn>
+        <StyledLink href={regionDB.getRegionUrl(row.region)}>
+          <Stack spacing={0.5}>
+            <Typography variant="labelSmall">{row.region.fullName}</Typography>
+            <Typography variant="paragraphSmall">
+              {formatPopulation(row.region.population)}
+            </Typography>
+          </Stack>
+        </StyledLink>
+      </StyledTableCell>
     ),
     sorterAsc: (rowA, rowB) =>
       rowA.region.fullName < rowB.region.fullName ? -1 : 1,

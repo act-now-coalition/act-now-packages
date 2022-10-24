@@ -1,4 +1,4 @@
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import { CompareTableProps } from "../CompareTable";
 
@@ -13,6 +13,8 @@ export interface Row {
 
 export interface MetricCompareTableProps
   extends Omit<CompareTableProps<Row>, "rows" | "columns"> {
+  /** Region DB instance to use  */
+  regionDB: RegionDB;
   /** List of regions (first column)  */
   regions: Region[];
   /** List of metrics or metricID - order of the columns will match */
