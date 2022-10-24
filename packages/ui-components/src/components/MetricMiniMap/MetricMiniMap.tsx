@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RegionDB, Region } from "@actnowcoalition/regions";
-import { MetricUSStateMap } from "../Maps";
+import { MetricUSStateMap } from "../MetricUSMaps";
 import {
   Box,
   Typography,
@@ -12,7 +12,7 @@ import {
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Metric } from "@actnowcoalition/metrics";
-import startCase from "lodash/startCase";
+import { getStartLabel, getEndLabel } from "./utils";
 
 export interface MetricMiniMapProps {
   stateRegionId: string;
@@ -20,25 +20,6 @@ export interface MetricMiniMapProps {
   metrics: (Metric | string)[];
   regionDB: RegionDB;
   renderTooltip: (regionId: string) => React.ReactElement | string;
-}
-
-function getStartLabel(metric: Metric): string {
-  if (metric.levelSet) {
-    const levels = metric.levelSet.levels;
-    return startCase(levels[0].id);
-  } else if (metric.categories) {
-    return startCase(metric.categories[0].label);
-  } else return "Low";
-}
-
-function getEndLabel(metric: Metric): string {
-  if (metric.levelSet) {
-    const levels = metric.levelSet.levels;
-    return startCase(levels[levels.length - 1].id);
-  } else if (metric.categories) {
-    const categories = metric.categories;
-    return startCase(categories[categories.length - 1].label);
-  } else return "High";
 }
 
 export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
