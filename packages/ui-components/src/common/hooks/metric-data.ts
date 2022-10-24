@@ -1,3 +1,4 @@
+import useSWR from "swr";
 import { Region } from "@actnowcoalition/regions";
 import {
   Metric,
@@ -6,8 +7,6 @@ import {
   MultiRegionMultiMetricDataStore,
 } from "@actnowcoalition/metrics";
 import { useMetricCatalog } from "../../components/MetricCatalogContext";
-import { useCallback, useEffect, useState } from "react";
-import { useCachedArrayIfEqual } from "./useCachedArrayIfEqual";
 
 /**
  * Used as the result of a React hook in order to represent one of three states:
@@ -32,12 +31,13 @@ export function useData(
   includeTimeseries = false
 ): DataOrError<MetricData> {
   const catalog = useMetricCatalog();
+  const args = { region, metric, includeTimeseries };
 
-  const fetchData = useCallback(() => {
+  const fetcher = ({ region, metric, includeTimeseries }: typeof args) => {
     return catalog.fetchData(region, metric, includeTimeseries);
-  }, [catalog, region, metric, includeTimeseries]);
+  };
 
-  return useFetchedData(fetchData);
+  return useSWR(args, fetcher);
 }
 
 /**
@@ -54,21 +54,13 @@ export function useDataForMetrics(
   includeTimeseries = false
 ): DataOrError<MultiMetricDataStore> {
   const catalog = useMetricCatalog();
-  let resolvedMetrics = metrics.map((m) => catalog.getMetric(m));
+  const args = { region, metrics, includeTimeseries };
 
-  // In order to allow people to pass in a new array of metrics that
-  // contain the same metrics as before without triggering additional
-  // fetches, we need this caching trick.
-  resolvedMetrics = useCachedArrayIfEqual(resolvedMetrics);
-  const fetchData = useCallback(() => {
-    return catalog.fetchDataForMetrics(
-      region,
-      resolvedMetrics,
-      includeTimeseries
-    );
-  }, [catalog, region, resolvedMetrics, includeTimeseries]);
+  const fetcher = ({ region, metrics, includeTimeseries }: typeof args) => {
+    return catalog.fetchDataForMetrics(region, metrics, includeTimeseries);
+  };
 
-  return useFetchedData(fetchData);
+  return useSWR(args, fetcher);
 }
 
 /**
@@ -85,41 +77,14 @@ export function useDataForRegionsAndMetrics(
   includeTimeseries = false
 ): DataOrError<MultiRegionMultiMetricDataStore> {
   const catalog = useMetricCatalog();
-  let resolvedMetrics = metrics.map((m) => catalog.getMetric(m));
-
-  // In order to allow people to pass in a new array of regions / metrics that
-  // contain the same regions / metrics as before without triggering additional
-  // fetches, we need this caching trick.
-  resolvedMetrics = useCachedArrayIfEqual(resolvedMetrics);
-  regions = useCachedArrayIfEqual(regions);
-  const fetchData = useCallback(() => {
+  const args = { regions, metrics, includeTimeseries };
+  const fetcher = ({ regions, metrics, includeTimeseries }: typeof args) => {
     return catalog.fetchDataForRegionsAndMetrics(
       regions,
-      resolvedMetrics,
+      metrics,
       includeTimeseries
     );
-  }, [catalog, regions, resolvedMetrics, includeTimeseries]);
+  };
 
-  return useFetchedData(fetchData);
-}
-
-/**
- * Helper to implement the useData*() hooks. It calls the provided fetchData()
- * callback that returns a Promise and uses the result of the promise to
- * populate the DataOrError result once the promise completes.
- */
-function useFetchedData<T>(fetchData: () => Promise<T>): DataOrError<T> {
-  const [data, setData] = useState<T>();
-
-  useEffect(() => {
-    fetchData()
-      .then((result) => {
-        setData(result);
-      })
-      .catch((error) => {
-        console.error(`Error fetching metric data: ${error}`);
-        return { error };
-      });
-  }, [fetchData]);
-  return { data };
+  return useSWR(args, fetcher);
 }
