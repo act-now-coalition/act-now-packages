@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { RegionDB, Region } from "@actnowcoalition/regions";
 import { MetricUSStateMap } from "../MetricUSMaps";
-import { Box, Typography, TextField, MenuItem } from "@mui/material";
+import { Typography, TextField, MenuItem } from "@mui/material";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Metric } from "@actnowcoalition/metrics";
 import { getStartLabel, getEndLabel } from "./utils";
+import {
+  BorderedContainer,
+  BorderedContainerLast,
+} from "./MetricUSMiniMap.style";
 
 export interface MetricUSMiniMapProps {
+  /** Region ID of the state being mapped */
   stateRegionId: string;
+  /** Region corresponding to the page on which the MiniMap is being rendered */
   currentRegion?: Region;
+  /** Array of metric options that can be used to color the map */
   metrics: (Metric | string)[];
+  /** All regions to include on the map */
   regionDB: RegionDB;
+  /** Function returning the contents of the map tooltip, given a hovered region */
   renderTooltip: (regionId: string) => React.ReactElement | string;
 }
 
@@ -23,12 +32,18 @@ export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
   renderTooltip,
 }) => {
   const metricCatalog = useMetricCatalog();
+
   const [metric, setMetric] = useState(metrics[0]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMetric(event.target.value);
   };
+
+  const resolvedMetrics = metrics.map((metric: Metric | string) =>
+    metricCatalog.getMetric(metric)
+  );
+
   return (
-    // <Paper sx={{ width: theme.spacing(39) }}>
     <>
       {metrics.length > 1 && (
         <TextField
@@ -41,32 +56,31 @@ export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
           sx={{
             margin: 0,
             "& .MuiFilledInput-root": {
+              borderBottom: "none",
               borderBottomLeftRadius: 0,
               borderBottomRightRadius: 0,
             },
           }}
         >
-          {metrics.map((metric) => (
-            <MenuItem
-              key={metricCatalog.getMetric(metric).id}
-              value={metricCatalog.getMetric(metric).id}
-            >
-              <Typography>{metricCatalog.getMetric(metric).name}</Typography>
+          {resolvedMetrics.map((metric: Metric) => (
+            <MenuItem key={metric.id} value={metric.id}>
+              <Typography>{metric.name}</Typography>
             </MenuItem>
           ))}
         </TextField>
       )}
-      <MetricUSStateMap
-        stateRegionId={stateRegionId}
-        currentRegion={currentRegion}
-        metric={metric}
-        regionDB={regionDB}
-        renderTooltip={renderTooltip}
-      />
-      <Box padding={3}>
+      <BorderedContainer>
+        <MetricUSStateMap
+          stateRegionId={stateRegionId}
+          currentRegion={currentRegion}
+          metric={metric}
+          regionDB={regionDB}
+          renderTooltip={renderTooltip}
+        />
+      </BorderedContainer>
+      <BorderedContainerLast>
         <MetricLegendThreshold
           orientation="horizontal"
-          width={160}
           height={12}
           metric={metric}
           showLabels={false}
@@ -81,7 +95,7 @@ export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
             </Typography>
           }
         />
-      </Box>
+      </BorderedContainerLast>
     </>
   );
 };
