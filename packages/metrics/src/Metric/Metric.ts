@@ -123,8 +123,9 @@ export class Metric {
         `${this} defines ${this.categoryThresholds.length} thresholds in categoryThresholds but the referenced ${this.categorySetId} category set has ${this.categorySet.categories.length} categories. There should be 1 fewer thresholds than there are categories. Add or remove thresholds as necessary.`
       );
 
-      // Verify they're sorted.
-      const sorted = this.categoryThresholds.slice().sort();
+      // Verify they're sorted. We need to pass a comparator function to `sort`,
+      // otherwise the values are converted to string before sorting.
+      const sorted = this.categoryThresholds.slice().sort((a, b) => a - b);
       const sortedReverse = sorted.slice().reverse();
       assert(
         isEqual(sorted, this.categoryThresholds) ||

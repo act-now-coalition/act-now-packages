@@ -24,13 +24,24 @@ const testCategorySet: CategorySet = {
   ],
 };
 
+const testCategorySet4: CategorySet = {
+  id: "low-medium-high-critical",
+  defaultCategory: { id: "unknown", color: "grey" },
+  categories: [
+    { id: "low", name: "Low", color: "green" },
+    { id: "medium", name: "Medium", color: "yellow" },
+    { id: "high", name: "High", color: "red" },
+    { id: "critical", name: "Critical", color: "maroon" },
+  ],
+};
+
 // Example of a categoryValues to be used with the low-medium-high
 // testCategorySet.
 const testCategoryValues = [0, 1, 2];
 
 // Example of typical MetricCatalogOptions, including our test category set.
 const testCatalogOptions: MetricCatalogOptions = {
-  categorySets: [testCategorySet],
+  categorySets: [testCategorySet, testCategorySet4],
 };
 
 describe("Metric", () => {
@@ -62,6 +73,46 @@ describe("Metric", () => {
       new Metric(metricDef, testCatalogOptions);
     }).toThrowError(
       "[Metric(cases): Cases per 100k] defines 1 thresholds in categoryThresholds but the referenced low-medium-high category set has 3 categories. There should be 1 fewer thresholds than there are categories. Add or remove thresholds as necessary."
+    );
+  });
+
+  test("constructor doesn't throw if thresholds are sorted", () => {
+    const categoryThresholds = [50, 100, 200];
+    const metricDef = {
+      ...testMetricDef,
+      categorySetId: "low-medium-high-critical",
+      categoryThresholds,
+    };
+
+    expect(() => new Metric(metricDef, testCatalogOptions)).not.toThrowError();
+    expect(() => {
+      new Metric(
+        { ...metricDef, categoryThresholds: [...categoryThresholds].reverse() },
+        testCatalogOptions
+      );
+    }).not.toThrowError();
+  });
+
+  test("constructor throws if thresholds are not sorted", () => {
+    const categoryThresholds = [100, 300, 200];
+    const metricDef = {
+      ...testMetricDef,
+      categorySetId: "low-medium-high-critical",
+      categoryThresholds,
+    };
+
+    expect(() => {
+      new Metric(metricDef, testCatalogOptions);
+    }).toThrowError(
+      `[Metric(cases): Cases per 100k] has thresholds 100,300,200 which are not in order. Reorder the thresholds so they are strictly ascending or descending.`
+    );
+    expect(() => {
+      new Metric(
+        { ...metricDef, categoryThresholds: [...categoryThresholds].reverse() },
+        testCatalogOptions
+      );
+    }).toThrowError(
+      `[Metric(cases): Cases per 100k] has thresholds 200,300,100 which are not in order. Reorder the thresholds so they are strictly ascending or descending.`
     );
   });
 
