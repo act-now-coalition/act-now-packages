@@ -7,24 +7,14 @@ import { MetricCatalogOptions } from "../MetricCatalog";
 const testMetricDef: MetricDefinition = {
   id: "cases",
   name: "Cases per 100k",
-  categorySetId: "low-medium-high",
+  categorySetId: "low-medium-high-critical",
 };
 
 // Thresholds consistent with the testCategorySet
-const testMetricThresholds = [10, 20];
+const testMetricThresholds = [10, 20, 30];
 
 // Example of a typical CategorySet.
 const testCategorySet: CategorySet = {
-  id: "low-medium-high",
-  defaultCategory: { id: "unknown", color: "grey" },
-  categories: [
-    { id: "low", name: "Low", color: "green" },
-    { id: "medium", name: "Medium", color: "yellow" },
-    { id: "high", name: "High", color: "red" },
-  ],
-};
-
-const testCategorySet4: CategorySet = {
   id: "low-medium-high-critical",
   defaultCategory: { id: "unknown", color: "grey" },
   categories: [
@@ -35,13 +25,13 @@ const testCategorySet4: CategorySet = {
   ],
 };
 
-// Example of a categoryValues to be used with the low-medium-high
+// Example of a categoryValues to be used with the low-medium-high-critical
 // testCategorySet.
-const testCategoryValues = [0, 1, 2];
+const testCategoryValues = [0, 1, 2, 3];
 
 // Example of typical MetricCatalogOptions, including our test category set.
 const testCatalogOptions: MetricCatalogOptions = {
-  categorySets: [testCategorySet, testCategorySet4],
+  categorySets: [testCategorySet],
 };
 
 describe("Metric", () => {
@@ -72,7 +62,7 @@ describe("Metric", () => {
       const metricDef = { ...testMetricDef, categoryThresholds: [10] };
       new Metric(metricDef, testCatalogOptions);
     }).toThrowError(
-      "[Metric(cases): Cases per 100k] defines 1 thresholds in categoryThresholds but the referenced low-medium-high category set has 3 categories. There should be 1 fewer thresholds than there are categories. Add or remove thresholds as necessary."
+      "[Metric(cases): Cases per 100k] defines 1 thresholds in categoryThresholds but the referenced low-medium-high-critical category set has 4 categories. There should be 1 fewer thresholds than there are categories. Add or remove thresholds as necessary."
     );
   });
 
@@ -95,11 +85,7 @@ describe("Metric", () => {
 
   test("constructor throws if thresholds are not sorted", () => {
     const categoryThresholds = [100, 300, 200];
-    const metricDef = {
-      ...testMetricDef,
-      categorySetId: "low-medium-high-critical",
-      categoryThresholds,
-    };
+    const metricDef = { ...testMetricDef, categoryThresholds };
 
     expect(() => {
       new Metric(metricDef, testCatalogOptions);
@@ -133,7 +119,7 @@ describe("Metric", () => {
       const metricDef = { ...testMetricDef, categoryValues: [0, 1] };
       new Metric(metricDef, testCatalogOptions);
     }).toThrowError(
-      "[Metric(cases): Cases per 100k] defines 2 values in categoryValues but the referenced low-medium-high category set has 3 categories. There should be the same number of categoryValues as there are categories. Add or remove values as necessary."
+      "[Metric(cases): Cases per 100k] defines 2 values in categoryValues but the referenced low-medium-high-critical category set has 4 categories. There should be the same number of categoryValues as there are categories. Add or remove values as necessary."
     );
   });
 
@@ -144,7 +130,7 @@ describe("Metric", () => {
     };
 
     const metric = new Metric(
-      { ...testMetricDef, categoryThresholds: [10, 20] },
+      { ...testMetricDef, categoryThresholds: [10, 20, 30] },
       catalogOptions
     );
     expect(metric.categorySet).toBe(testCategorySet);
@@ -152,7 +138,7 @@ describe("Metric", () => {
     // Test with custom categorySetId.
     const metric2Def = {
       ...testMetricDef,
-      thresholds: [10, 20],
+      thresholds: [10, 20, 30],
       categorySetId: "custom",
     };
     const metric2 = new Metric(metric2Def, catalogOptions);
@@ -163,34 +149,35 @@ describe("Metric", () => {
     const metric = new Metric(
       {
         ...testMetricDef,
-        categoryThresholds: [10, 20],
+        categoryThresholds: [10, 20, 30],
       },
       testCatalogOptions
     );
     expect(metric.getCategory(5).id).toBe("low");
     expect(metric.getCategory(15).id).toBe("medium");
     expect(metric.getCategory(25).id).toBe("high");
+    expect(metric.getCategory(35).id).toBe("critical");
 
     // threshold values should err towards the lower severity category.
     expect(metric.getCategory(10).id).toBe("low");
     expect(metric.getCategory(20).id).toBe("medium");
+    expect(metric.getCategory(30).id).toBe("high");
   });
 
   test("getCategory() categorizes values using thresholds that are descending", () => {
     const metric = new Metric(
-      {
-        ...testMetricDef,
-        categoryThresholds: [20, 10],
-      },
+      { ...testMetricDef, categoryThresholds: [30, 20, 10] },
       testCatalogOptions
     );
-    expect(metric.getCategory(5).id).toBe("high");
-    expect(metric.getCategory(15).id).toBe("medium");
-    expect(metric.getCategory(25).id).toBe("low");
+    expect(metric.getCategory(5).id).toBe("critical");
+    expect(metric.getCategory(15).id).toBe("high");
+    expect(metric.getCategory(25).id).toBe("medium");
+    expect(metric.getCategory(35).id).toBe("low");
 
     // threshold values should err towards the lower severity category.
-    expect(metric.getCategory(10).id).toBe("medium");
-    expect(metric.getCategory(20).id).toBe("low");
+    expect(metric.getCategory(10).id).toBe("high");
+    expect(metric.getCategory(20).id).toBe("medium");
+    expect(metric.getCategory(30).id).toBe("low");
   });
 
   test("formatValue() with default options", () => {
@@ -283,7 +270,7 @@ describe("Metric", () => {
     const metric = new Metric(
       {
         ...testMetricDef,
-        categoryThresholds: [10, 20],
+        categoryThresholds: [10, 20, 30],
       },
       testCatalogOptions
     );
