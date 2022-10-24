@@ -28,5 +28,5 @@
     "@typescript-eslint/no-explicit-any": "off",
     "lodash/import-scope": "warn"
   },
-  "ignorePatterns": ["!.storybook", "**/dist", "**/lib"]
+  "ignorePatterns": ["!.storybook", "**/dist", "**/lib", "public/**"]
 }

@@ -63,10 +63,9 @@ export const LineChart: React.FC<LineChartProps> = ({
   strokeLinejoin = "round",
   ...otherLineProps
 }) => {
-  const data = timeseries.removeNils();
   return (
     <LinePath
-      data={data.points}
+      data={timeseries.points}
       x={(d) => xScale(d.date)}
       y={(d) => yScale(d.value)}
       curve={curveMonotoneX}

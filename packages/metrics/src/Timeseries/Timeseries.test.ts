@@ -28,6 +28,16 @@ describe("Timeseries", () => {
     ).toThrowError("Dates in a timeseries must not have a (non-zero) time.");
   });
 
+  test("constructor requires points to not be null or undefined", () => {
+    const verifyValueThrowsError = (value: unknown) => {
+      expect(
+        () => new Timeseries([{ date: new Date("2021-02-03"), value }])
+      ).toThrowError("Timeseries may not contain null or undefined values.");
+    };
+    verifyValueThrowsError(null);
+    verifyValueThrowsError(undefined);
+  });
+
   test("constructor sorts dates", () => {
     const points = [
       {
@@ -102,24 +112,8 @@ describe("Timeseries", () => {
       ).toThrowError("Found non-numeric (or non-finite) value in timeseries");
     };
     verifyValueThrowsError("string");
-    verifyValueThrowsError(null);
-    verifyValueThrowsError(undefined);
     verifyValueThrowsError(new Date());
     verifyValueThrowsError(Number.NaN);
-  });
-
-  test("removeNulls() removes nulls and undefined", () => {
-    const date = new Date("2021-01-01");
-    const ts = new Timeseries<number | null | undefined>([
-      { date, value: 1 },
-      { date, value: null },
-      { date, value: 2 },
-      { date, value: undefined },
-      { date, value: 3 },
-    ]);
-    const tsWithoutNulls: Timeseries<number> = ts.removeNils();
-    expect(tsWithoutNulls.length).toBe(3);
-    expect(tsWithoutNulls.values).toEqual([1, 2, 3]);
   });
 
   test(`hasData() can be used as a type guard for NonEmptyTimeseries`, () => {
@@ -188,9 +182,7 @@ describe("Timeseries", () => {
     };
     verifyValueThrowsError("true");
     verifyValueThrowsError("string");
-    verifyValueThrowsError(undefined);
     verifyValueThrowsError(Number.NaN);
-    verifyValueThrowsError(null);
   });
 
   test("assertBoolean() accepts boolean values", () => {
@@ -213,7 +205,7 @@ describe("Timeseries", () => {
         ]).assertStrings()
       ).toThrowError("Found non-string value in timeseries");
     };
-    const notStrings = [100, {}, undefined, Number.NaN, true, null];
+    const notStrings = [100, {}, Number.NaN, true];
     for (const value of notStrings) {
       verifyValueThrowsError(value);
     }
