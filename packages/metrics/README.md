@@ -41,8 +41,8 @@ There are a variety of options to configure how metrics behave including grading
 {
   id: "cases-per-100k"
   name: "Cases per 100k",
-  levelSet: "cases-levels", // references a set of levels defined on the catalog.
-  thresholds: [10, 200], // thresholds for grading to specified levels.
+  categorySetId: "cases-levels", // references a set of categories defined on the catalog.
+  categoryThresholds: [10, 200], // thresholds for grading to specified categories.
   formatOptions: {
     maximumFractionDigits: 1,
   }

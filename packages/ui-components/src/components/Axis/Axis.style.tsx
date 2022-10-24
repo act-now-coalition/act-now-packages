@@ -9,6 +9,7 @@ export type AxisLeftProps = React.ComponentProps<typeof VxAxisLeft> & {
 
 export type AxisBottomProps = React.ComponentProps<typeof VxAxisBottom> & {
   className?: string;
+  width?: number;
 };
 
 const baseTickLabelProps = {

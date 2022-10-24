@@ -27,43 +27,31 @@ export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
   const metricCatalog = useMetricCatalog();
   const resolvedMetric = metricCatalog.getMetric(metric);
 
-  const metricLegendThreshold = (
-    <MetricLegendThreshold
-      orientation="vertical"
-      metric={resolvedMetric}
-      showLabels={false}
-      includeOverview={false}
-      height={72}
-      borderRadius={6}
-      width={12}
-    />
-  );
-  const metricValue = <MetricValue region={region} metric={resolvedMetric} />;
-
   return (
-    <Stack direction={"column"} spacing={2}>
-      <Stack
-        direction={"row"}
-        spacing={1}
-        alignItems={"center"}
-        {...otherStackProps}
-      >
-        {metricLegendThreshold}
-        <Stack direction={"column"} spacing={1}>
-          <Typography variant="paragraphSmall" color="secondary.light">
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <span>{resolvedMetric.name}</span>
-              {tooltipTitle && (
-                <InfoTooltip title={tooltipTitle}>
-                  <IconButton>
-                    <InfoOutlinedIcon color="inherit" fontSize="small" />
-                  </IconButton>
-                </InfoTooltip>
-              )}
-            </Stack>
+    <Stack direction="row" spacing={2} alignItems="center" {...otherStackProps}>
+      <MetricLegendThreshold
+        orientation="vertical"
+        metric={resolvedMetric}
+        showLabels={false}
+        includeOverview={false}
+        height={72}
+        borderRadius={6}
+        width={12}
+      />
+      <Stack spacing={1}>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography variant="paragraphSmall">
+            {resolvedMetric.name}
           </Typography>
-          {metricValue}
+          {tooltipTitle && (
+            <InfoTooltip title={tooltipTitle}>
+              <IconButton color="inherit" disableRipple={true} sx={{ p: 0 }}>
+                <InfoOutlinedIcon fontSize="small" />
+              </IconButton>
+            </InfoTooltip>
+          )}
         </Stack>
+        <MetricValue region={region} metric={resolvedMetric} />
       </Stack>
     </Stack>
   );

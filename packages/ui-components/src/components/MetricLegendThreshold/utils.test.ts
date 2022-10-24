@@ -1,24 +1,24 @@
-import { getMetricLevelItems } from "./utils";
+import { getMetricCategoryItems } from "./utils";
 import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
 
 describe("MetricLegendThreshold", () => {
-  describe("getMetricLevelItems", () => {
-    test("returns expected levels for metrics with thresholds", () => {
+  describe("getMetricCategoryItems", () => {
+    test("returns expected categories for metrics with category thresholds", () => {
       const metricThresholds = metricCatalog.getMetric(MetricId.MOCK_CASES);
-      const legendLevels = getMetricLevelItems(metricThresholds);
+      const legendCategories = getMetricCategoryItems(metricThresholds);
 
-      expect(legendLevels).toHaveLength(3);
-      expect(legendLevels.map((d) => d.color)).toHaveLength(3);
-      expect(legendLevels.map((d) => d.name)).toHaveLength(3);
+      expect(legendCategories).toHaveLength(3);
+      expect(legendCategories.map((d) => d.color)).toHaveLength(3);
+      expect(legendCategories.map((d) => d.name)).toHaveLength(3);
     });
 
-    test("returns expected levels for metrics with categories", () => {
+    test("returns expected categories for metrics with category values", () => {
       const metricCategories = metricCatalog.getMetric(MetricId.PASS_FAIL);
-      const legendLevels = getMetricLevelItems(metricCategories);
+      const legendCategories = getMetricCategoryItems(metricCategories);
 
-      expect(legendLevels).toHaveLength(2);
-      expect(legendLevels.map((d) => d.color)).toHaveLength(2);
-      expect(legendLevels.map((d) => d.name)).toHaveLength(2);
+      expect(legendCategories).toHaveLength(2);
+      expect(legendCategories.map((d) => d.color)).toHaveLength(2);
+      expect(legendCategories.map((d) => d.name)).toHaveLength(2);
     });
   });
 });
