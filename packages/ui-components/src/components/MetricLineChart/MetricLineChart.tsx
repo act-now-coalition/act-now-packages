@@ -3,7 +3,7 @@ import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { ChartOverlayX, ChartOverlayXProps } from "../ChartOverlayX";
+import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
