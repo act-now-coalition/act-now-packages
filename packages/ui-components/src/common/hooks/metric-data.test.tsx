@@ -1,15 +1,11 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, waitFor } from "@testing-library/react";
 
 import {
   MetricCatalog,
-  MetricData,
-  MultiMetricDataStore,
-  MultiRegionMultiMetricDataStore,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
 import { states } from "@actnowcoalition/regions";
 import {
-  DataOrError,
   useData,
   useDataForMetrics,
   useDataForRegionsAndMetrics,
@@ -53,10 +49,7 @@ describe("metric data hooks", () => {
     expect(catalog.dataFetchesCount).toBe(expectedFetches);
 
     // Render the hook initially.
-    const { result, waitForNextUpdate, rerender } = renderHook<
-      any,
-      DataOrError<MultiRegionMultiMetricDataStore>
-    >(
+    const { result, rerender } = renderHook(
       ({ regions, metrics }) =>
         useDataForRegionsAndMetrics(
           regions,
@@ -75,9 +68,11 @@ describe("metric data hooks", () => {
     // The catalog should have performed a data fetch, but since it's anync,
     // initially the hook won't return data.
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
-    expect(result.current.data).toStrictEqual(undefined);
+    expect(result.current.data).toBeUndefined();
     // Wait for initial async fetch to finish.
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.data).toBeDefined();
+    });
     expect(
       result.current.data?.metricData(testRegionCA, MetricId.PI).currentValue
     ).toBe(Math.PI);
@@ -93,8 +88,13 @@ describe("metric data hooks", () => {
     // Render the hook again with different regions / metrics.  This should perform a fetch.
     rerender({ regions: [testRegionWA], metrics: [MetricId.E] });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
+    // Data should go back to loading state.
+    expect(result.current.data).toBeUndefined();
+
     // Wait for async fetch to return the new data.
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.data).toBeDefined();
+    });
     expect(result.current.data?.hasRegionData(testRegionCA)).toBe(false);
     expect(result.current.data?.hasMetricData(testRegionWA, MetricId.PI)).toBe(
       false
@@ -112,10 +112,7 @@ describe("metric data hooks", () => {
     expect(catalog.dataFetchesCount).toBe(expectedFetches);
 
     // Render the hook initially.
-    const { result, waitForNextUpdate, rerender } = renderHook<
-      any,
-      DataOrError<MultiMetricDataStore>
-    >(
+    const { result, rerender } = renderHook(
       ({ region, metrics }) =>
         useDataForMetrics(region, metrics, /*includeTimeseries=*/ true),
       {
@@ -130,9 +127,11 @@ describe("metric data hooks", () => {
     // The catalog should have performed a data fetch, but since it's anync,
     // initially the hook won't return data.
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
-    expect(result.current.data).toStrictEqual(undefined);
+    expect(result.current.data).toBeUndefined();
     // Wait for initial async fetch to finish.
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.data).toBeDefined();
+    });
     expect(result.current.data?.metricData(MetricId.PI).currentValue).toBe(
       Math.PI
     );
@@ -148,8 +147,13 @@ describe("metric data hooks", () => {
     // Render the hook again with different metrics.  This should perform a fetch.
     rerender({ region: testRegionCA, metrics: [MetricId.E] });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
+    // Data should go back to loading state.
+    expect(result.current.data).toBeUndefined();
+
     // Wait for async fetch to return the new data.
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.data).toBeDefined();
+    });
     expect(result.current.data?.hasMetricData(MetricId.PI)).toBe(false);
     expect(result.current.data?.metricData(MetricId.E).currentValue).toBe(
       Math.E
@@ -164,10 +168,7 @@ describe("metric data hooks", () => {
     expect(catalog.dataFetchesCount).toBe(expectedFetches);
 
     // Render the hook initially.
-    const { result, waitForNextUpdate, rerender } = renderHook<
-      any,
-      DataOrError<MetricData>
-    >(
+    const { result, rerender } = renderHook(
       ({ region, metric }) =>
         useData(region, metric, /*includeTimeseries=*/ true),
       {
@@ -182,16 +183,23 @@ describe("metric data hooks", () => {
     // The catalog should have performed a data fetch, but since it's anync,
     // initially the hook won't return data.
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
-    expect(result.current.data).toStrictEqual(undefined);
+    expect(result.current.data).toBeUndefined();
     // Wait for initial async fetch to finish.
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.data).toBeDefined();
+    });
     expect(result.current.data?.currentValue).toBe(Math.PI);
 
     // Render the hook again with a different metric.  This should perform a fetch.
     rerender({ region: testRegionCA, metric: MetricId.E });
     expect(catalog.dataFetchesCount).toBe(++expectedFetches);
+    // Data should go back to loading state.
+    expect(result.current.data).toBeUndefined();
+
     // Wait for async fetch to return the new data.
-    await waitForNextUpdate();
+    await waitFor(() => {
+      expect(result.current.data).toBeDefined();
+    });
     expect(result.current.data?.currentValue).toBe(Math.E);
   });
 });
