@@ -7,7 +7,7 @@ import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
 
 import { useData } from "../../common/hooks";
-import { AxesTimeseries } from "../Axes";
+import { AxesTimeseries } from "../AxesTimeseries";
 import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
