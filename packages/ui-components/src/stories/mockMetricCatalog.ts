@@ -23,7 +23,7 @@ const testMetricDefs: MetricDefinition[] = [
     dataReference: {
       providerId: "apple_stock",
     },
-    categoryThresholds: [100, 300, 400, 500],
+    categoryThresholds: [100, 200, 400, 800],
     categorySetId: "5_risk_categories",
   },
   {
