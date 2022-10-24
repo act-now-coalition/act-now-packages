@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { RegionDB, Region } from "@actnowcoalition/regions";
 import { MetricUSStateMap } from "../MetricUSMaps";
-import {
-  Box,
-  Typography,
-  Paper,
-  TextField,
-  MenuItem,
-  useTheme,
-} from "@mui/material";
+import { Box, Typography, TextField, MenuItem } from "@mui/material";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Metric } from "@actnowcoalition/metrics";
 import { getStartLabel, getEndLabel } from "./utils";
 
-export interface MetricMiniMapProps {
+export interface MetricUSMiniMapProps {
   stateRegionId: string;
   currentRegion?: Region;
   metrics: (Metric | string)[];
@@ -22,21 +15,21 @@ export interface MetricMiniMapProps {
   renderTooltip: (regionId: string) => React.ReactElement | string;
 }
 
-export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
+export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
   stateRegionId,
   currentRegion,
   metrics,
   regionDB,
   renderTooltip,
 }) => {
-  const theme = useTheme();
   const metricCatalog = useMetricCatalog();
   const [metric, setMetric] = useState(metrics[0]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMetric(event.target.value);
   };
   return (
-    <Paper sx={{ width: theme.spacing(39) }}>
+    // <Paper sx={{ width: theme.spacing(39) }}>
+    <>
       {metrics.length > 1 && (
         <TextField
           select={true}
@@ -89,6 +82,6 @@ export const MetricMiniMap: React.FC<MetricMiniMapProps> = ({
           }
         />
       </Box>
-    </Paper>
+    </>
   );
 };

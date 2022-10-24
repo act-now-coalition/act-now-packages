@@ -103,6 +103,7 @@ export * from "./components/MetricOverview";
 export * from "./components/MetricScoreOverview";
 export * from "./components/MetricSparklines";
 export * from "./components/MetricTooltip";
+export * from "./components/MetricUSMiniMap";
 export * from "./components/MetricValue";
 export * from "./components/MultiProgressBar";
 export * from "./components/PointMarker";
@@ -111,5 +112,3 @@ export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";
-
-export * from "./components/MetricMiniMap";

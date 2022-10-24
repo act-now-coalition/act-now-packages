@@ -9,7 +9,7 @@ export function getStartLabel(metric: Metric): string {
     return categories[0].name ? startCase(categories[0].name) : "";
   }
   fail(
-    `Metric must have categories to be used with MetricMiniMap. ${metric} does not.`
+    `Metric must have categories to be used with metric-aware legends. ${metric} does not.`
   );
 }
 
@@ -20,6 +20,6 @@ export function getEndLabel(metric: Metric): string {
     return lastCategory.name ? startCase(lastCategory.name) : "";
   }
   fail(
-    `Metric must have categories to be used with MetricMiniMap. ${metric} does not.`
+    `Metric must have categories to be used with metric-aware legends. ${metric} does not.`
   );
 }

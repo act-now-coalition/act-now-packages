@@ -1,13 +1,13 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricMiniMap } from ".";
+import { MetricUSMiniMap } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 
 export default {
-  title: "Maps/MetricMiniMap",
-  component: MetricMiniMap,
-} as ComponentMeta<typeof MetricMiniMap>;
+  title: "Maps/MetricUSMiniMap",
+  component: MetricUSMiniMap,
+} as ComponentMeta<typeof MetricUSMiniMap>;
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
@@ -17,8 +17,8 @@ const renderTooltip = (regionId: string) => {
   return regionDB.findByRegionIdStrict(regionId).fullName;
 };
 
-const Template: ComponentStory<typeof MetricMiniMap> = (args) => (
-  <MetricMiniMap {...args} />
+const Template: ComponentStory<typeof MetricUSMiniMap> = (args) => (
+  <MetricUSMiniMap {...args} />
 );
 
 export const OneMetric = Template.bind({});
