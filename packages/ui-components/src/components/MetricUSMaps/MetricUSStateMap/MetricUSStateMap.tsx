@@ -1,6 +1,6 @@
 import React from "react";
-import { USStateMap } from "./USStateMap";
-import { MetricUSStateMapProps } from "./interfaces";
+import { USStateMap } from "../../USMaps";
+import { MetricUSStateMapProps } from "../interfaces";
 import { useDataForRegionsAndMetrics } from "../../../common/hooks";
 import { getCountiesOfState } from "../../../common/utils/maps";
 

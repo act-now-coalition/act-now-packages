@@ -77,7 +77,7 @@ export * from "./common/hooks";
 
 /** UI Components and props */
 export * from "./components/AutoWidth";
-export * from "./components/Axes";
+export * from "./components/AxesTimeseries";
 export * from "./components/Axis";
 export * from "./components/BarChart";
 export * from "./components/ChartOverlayX";
@@ -89,7 +89,7 @@ export * from "./components/LabelIcon";
 export * from "./components/LegendCategorical";
 export * from "./components/LegendThreshold";
 export * from "./components/LineChart";
-export * from "./components/Maps";
+export * from "./components/USMaps";
 export * from "./components/Markdown";
 export * from "./components/MetricCatalogContext";
 export * from "./components/MetricCompareTable";

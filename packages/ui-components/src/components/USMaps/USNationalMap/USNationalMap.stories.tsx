@@ -5,7 +5,7 @@ import { interpolatePiYG } from "d3-scale-chromatic";
 import { assert } from "@actnowcoalition/assert";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { USNationalMap } from "./USNationalMap";
-import { USNationalMapProps } from "./interfaces";
+import { USNationalMapProps } from "../interfaces";
 
 export default {
   title: "Maps/US National",

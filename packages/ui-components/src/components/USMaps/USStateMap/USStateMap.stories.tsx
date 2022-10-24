@@ -3,7 +3,7 @@ import { Story, ComponentMeta } from "@storybook/react";
 import { assert } from "@actnowcoalition/assert";
 import { USStateMap } from "./USStateMap";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
-import { USStateMapProps } from "./interfaces";
+import { USStateMapProps } from "../interfaces";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,

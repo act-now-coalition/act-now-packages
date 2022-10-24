@@ -1,7 +1,7 @@
 import React from "react";
 import { useDataForRegionsAndMetrics } from "../../../common/hooks";
-import { USNationalMap } from "./USNationalMap";
-import { MetricUSNationalMapProps } from "./interfaces";
+import { USNationalMap } from "../../USMaps";
+import { MetricUSNationalMapProps } from "../interfaces";
 
 export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
   metric,
