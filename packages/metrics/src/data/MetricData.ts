@@ -1,7 +1,7 @@
 import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 
-import { Metric, MetricLevel } from "../Metric";
+import { Metric, Category } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { parseBoolean } from "./data_utils";
 
@@ -162,13 +162,15 @@ export class MetricData<T = unknown> {
   }
 
   /**
-   * Uses this metric's grading logic (thresholds and levels) to grade the
-   * `currentValue` to a `MetricLevel`.
+   * Uses this metric's categorization logic (based on {@link
+   * MetricDefinition.categoryThresholds } or {@link
+   * MetricDefinition.categoryValues}) to categorize the current value to a
+   * `Category`.
    *
-   * @returns The level that the value falls into.
+   * @returns The category that the value falls into.
    */
-  getLevel(): MetricLevel {
-    return this.metric.getLevel(this.currentValue);
+  getCategory(): Category {
+    return this.metric.getCategory(this.currentValue);
   }
 
   /**

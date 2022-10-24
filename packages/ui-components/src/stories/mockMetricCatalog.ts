@@ -5,8 +5,10 @@ import {
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
 import { theme } from "../styles";
+import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
 
 export enum MetricId {
+  APPLE_STOCK = "apple_stock",
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
@@ -14,6 +16,16 @@ export enum MetricId {
 }
 
 const testMetricDefs: MetricDefinition[] = [
+  {
+    id: MetricId.APPLE_STOCK,
+    name: "AAPL",
+    extendedName: "Apple Stock",
+    dataReference: {
+      providerId: "apple_stock",
+    },
+    categoryThresholds: [100, 300, 400, 500],
+    categorySetId: "5_risk_categories",
+  },
   {
     id: MetricId.PI,
     name: "Pi",
@@ -31,8 +43,8 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "mock",
       startDate: "2020-01-01",
     },
-    thresholds: [10, 100],
-    levelSetId: "cases_mock",
+    categoryThresholds: [40, 100],
+    categorySetId: "cases_mock",
   },
   {
     id: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
@@ -42,8 +54,8 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "mock",
       startDate: "2020-01-01",
     },
-    thresholds: [10, 100],
-    levelSetId: "cases_mock",
+    categoryThresholds: [10, 100],
+    categorySetId: "cases_mock",
   },
   {
     id: MetricId.PASS_FAIL,
@@ -53,22 +65,21 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: "static",
       value: 0,
     },
-    categories: [
-      { color: "#d32f2f", value: 0, label: "Fail" },
-      { color: "#4caf50", value: 1, label: "Pass" },
-    ],
+    categorySetId: "pass_fail",
+    categoryValues: [0, 1],
   },
 ];
 
 export const dataProviders = [
   new MockDataProvider(),
   new StaticValueDataProvider(),
+  new AppleStockDataProvider(),
 ];
 
-const metricLevelSets = [
+const metricCategorySets = [
   {
     id: "cases_mock",
-    levels: [
+    categories: [
       { id: "low", name: "low", color: theme.palette.severity[100] },
       {
         id: "medium",
@@ -83,12 +94,51 @@ const metricLevelSets = [
         description: "indicates high case incidence.",
       },
     ],
-    defaultLevel: { id: "unknown", color: theme.palette.border.default },
+    defaultCategory: { id: "unknown", color: theme.palette.border.default },
+  },
+  {
+    id: "pass_fail",
+    categories: [
+      { id: "fail", color: "#d32f2f", name: "Fail" },
+      { id: "pass", color: "#4caf50", name: "Pass" },
+    ],
+    defaultCategory: { id: "unknown", color: theme.palette.border.default },
+  },
+  {
+    id: "5_risk_categories",
+    categories: [
+      { id: "low", name: "Low", color: theme.palette.severity[100] },
+      {
+        id: "medium",
+        name: "Medium",
+        color: theme.palette.severity[200],
+        description: "medium",
+      },
+      {
+        id: "high",
+        name: "High",
+        color: theme.palette.severity[300],
+        description: "high",
+      },
+      {
+        id: "very_high",
+        name: "Very high",
+        color: theme.palette.severity[400],
+        description: "Very high",
+      },
+      {
+        id: "critical",
+        name: "Critical",
+        color: theme.palette.severity[500],
+        description: "Critical",
+      },
+    ],
+    defaultCategory: { id: "unknown", color: theme.palette.border.default },
   },
 ];
 
 export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders, {
-  metricLevelSets,
+  categorySets: metricCategorySets,
 });
 
 // Exporting a second metric catalog to confirm that the closest

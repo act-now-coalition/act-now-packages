@@ -6,17 +6,17 @@ import { Dot, PlaceholderDot } from "./MetricDot.style";
 import { useData } from "../../common/hooks";
 
 export interface MetricDotProps {
-  /** Region for which we want to represent the current level */
+  /** Region for which we want to represent the current category */
   region: Region;
-  /** Metric for which we want to represent the current level */
+  /** Metric for which we want to represent the current category */
   metric: Metric | string;
 }
 
 /**
- * The MetricDot component shows a colored dot that represents the current level
- * or category for a given metric and region. The component is still rendered
- * for metrics that don't have levels or categories to keep spacing and
- * alignment consistent across metrics.
+ * The MetricDot component shows a colored dot that represents the current
+ * category for a given metric and region. The component is still rendered for
+ * metrics that don't have categories to keep spacing and alignment consistent
+ * across metrics.
  */
 export const MetricDot: React.FC<MetricDotProps> = ({
   region,
@@ -26,7 +26,7 @@ export const MetricDot: React.FC<MetricDotProps> = ({
   const metric = metricCatalog.getMetric(metricOrId);
   const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);
 
-  if (!(metric.levelSet || metric.categories) || error || !data) {
+  if (!metric.hasCategories || error || !data) {
     return <PlaceholderDot />;
   }
 

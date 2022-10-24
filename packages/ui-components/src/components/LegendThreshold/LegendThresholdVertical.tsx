@@ -1,16 +1,11 @@
 import React from "react";
 import { LegendThresholdProps } from "./interfaces";
-import {
-  LegendThresholdVerticalWrapper,
-  LegendContainer,
-  LegendColor,
-  LegendLabelContainer,
-} from "./LegendThreshold.style";
-import { Typography } from "@mui/material";
+import { LegendColor } from "./LegendThreshold.style";
+import { Typography, Box, Stack } from "@mui/material";
 
 /**
  * `LegendThresholdVertical` represents a scale with thresholds that separate
- * a set of levels. By default, the labels between each level are shown.
+ * a set of categories. By default, the labels between each category are shown.
  */
 export const LegendThresholdVertical = <T,>({
   height = 265,
@@ -24,12 +19,12 @@ export const LegendThresholdVertical = <T,>({
 }: LegendThresholdProps<T>) => {
   const numberOfItems = items.length;
   const legendColorHeight = height / numberOfItems;
-  // Reverse the order of the items so that the lowest levels are rendered at the bottom.
+  // Reverse the order of the items so that the lowest categories are rendered at the bottom.
   const orderedItems = items.slice().reverse();
   return (
-    <LegendThresholdVerticalWrapper>
+    <Box width="fit-content">
       {orderedItems.map((item, itemIndex) => (
-        <LegendContainer key={itemIndex} style={{ height: legendColorHeight }}>
+        <Box key={itemIndex} height={legendColorHeight} display="flex">
           <LegendColor
             style={{
               width,
@@ -39,7 +34,7 @@ export const LegendThresholdVertical = <T,>({
             roundBottom={itemIndex === numberOfItems - 1 ? borderRadius : 0}
           />
           {showLabels && (
-            <LegendLabelContainer>
+            <Stack ml={2} spacing={0.25} justifyContent="center">
               {getItemLabel && (
                 <>
                   <Typography variant="labelSmall">
@@ -52,10 +47,10 @@ export const LegendThresholdVertical = <T,>({
                   )}
                 </>
               )}
-            </LegendLabelContainer>
+            </Stack>
           )}
-        </LegendContainer>
+        </Box>
       ))}
-    </LegendThresholdVerticalWrapper>
+    </Box>
   );
 };

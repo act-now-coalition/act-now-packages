@@ -1,15 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
-import { TimeseriesPoint } from "@actnowcoalition/metrics";
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, ChartOverlayXProps } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { CircleMarker } from "./MetricLineChart.styles";
 import { MetricLineChartProps } from "./interfaces";
+import { PointMarker } from "../PointMarker";
 
 export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   metric: metricOrId,
@@ -23,28 +22,14 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
 }) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
-  const { data } = useData(region, metric, true);
 
-  const [hoveredPoint, setHoveredPoint] =
-    useState<TimeseriesPoint<number> | null>(null);
+  const { data } = useData(region, metric, /*includeTimeseries=*/ true);
+  const timeseries = data && data?.timeseries.assertFiniteNumbers();
 
-  const onMouseLeave = () => {
-    setHoveredPoint(null);
-  };
-  const onMouseMove: ChartOverlayXProps["onMouseMove"] = ({ date }) => {
-    const point = timeseries.findNearestDate(date);
-    if (point) {
-      setHoveredPoint(point);
-    }
-  };
+  const { hoveredPoint, onMouseMove, onMouseLeave } =
+    useHoveredDate(timeseries);
 
-  if (!data) {
-    return null;
-  }
-
-  const timeseries = data.timeseries.assertFiniteNumbers();
-
-  if (!timeseries.hasData()) {
+  if (!data || !timeseries?.hasData()) {
     return null;
   }
 
@@ -80,15 +65,11 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
             metric={metric}
             region={region}
             point={hoveredPoint}
-            placement="top"
-            disableInteractive
             open
           >
-            <CircleMarker
-              cx={dateScale(hoveredPoint.date)}
-              cy={yScale(hoveredPoint.value)}
-              r={6}
-              fill="black"
+            <PointMarker
+              x={dateScale(hoveredPoint.date)}
+              y={yScale(hoveredPoint.value)}
             />
           </MetricTooltip>
         )}
