@@ -81,11 +81,10 @@ export function calculateChartIntervals(
   const firstThreshold = thresholds[0];
   const lastThreshold = thresholds[thresholds.length - 1];
 
-  // If `minValue` or `maxValue` are inside the thresholds, we calculate
-  // a padding to make sure that all the categories are visible in the
-  // chart. Here, we use 20% of the distance between the first and last
-  // threshold, or if we have only one threshold, we use 20% of the
-  // distance between `minValue` and `maxValue`.
+  // Calculate a padding to make sure that each category has room for a label
+  // to be rendered inside the category. Here, we use 20% of the distance
+  // between the first and last threshold, or if we have only one threshold,
+  // we use 20% of the distance between `minValue` and `maxValue`.
   const padding =
     thresholds.length > 1
       ? 0.2 * (lastThreshold - firstThreshold)
