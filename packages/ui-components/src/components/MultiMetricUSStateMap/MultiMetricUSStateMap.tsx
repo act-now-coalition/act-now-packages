@@ -14,7 +14,7 @@ import {
 export interface MultiMetricUSStateMapProps {
   /** Region ID of the state being mapped */
   stateRegionId: string;
-  /** Region corresponding to the page on which the MiniMap is being rendered */
+  /** Region corresponding to the page on which the component is being rendered */
   currentRegion?: Region;
   /** Array of metric options that can be used to color the map */
   metrics: (Metric | string)[];
