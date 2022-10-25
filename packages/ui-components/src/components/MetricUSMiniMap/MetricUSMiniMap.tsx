@@ -43,6 +43,10 @@ export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
     metricCatalog.getMetric(metric)
   );
 
+  const defaultRenderTooltip = (regionId: string) => {
+    return regionDB.findByRegionIdStrict(regionId).fullName;
+  };
+
   return (
     <>
       {metrics.length > 1 && (
@@ -56,9 +60,10 @@ export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
           sx={{
             margin: 0,
             "& .MuiFilledInput-root": {
-              borderBottom: "none",
-              borderBottomLeftRadius: 0,
+              /** transparent bottom border so the map doesn't shift by 1px when the hover border appears */
+              borderBottom: "1px solid transparent",
               borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 0,
             },
           }}
         >
@@ -75,7 +80,7 @@ export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
           currentRegion={currentRegion}
           metric={metric}
           regionDB={regionDB}
-          renderTooltip={renderTooltip}
+          renderTooltip={renderTooltip ?? defaultRenderTooltip}
         />
       </BorderedContainer>
       <BorderedContainerLast>

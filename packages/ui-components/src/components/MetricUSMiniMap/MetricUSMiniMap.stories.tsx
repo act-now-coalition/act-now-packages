@@ -13,10 +13,6 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
 });
 
-const renderTooltip = (regionId: string) => {
-  return regionDB.findByRegionIdStrict(regionId).fullName;
-};
-
 const Template: ComponentStory<typeof MetricUSMiniMap> = (args) => (
   <MetricUSMiniMap {...args} />
 );
@@ -26,7 +22,6 @@ OneMetric.args = {
   stateRegionId: "36",
   metrics: [MetricId.MOCK_CASES],
   regionDB,
-  renderTooltip,
 };
 
 export const OneMetricWithHighlightedCounty = Template.bind({});
@@ -35,7 +30,6 @@ OneMetricWithHighlightedCounty.args = {
   currentRegion: counties.findByRegionIdStrict("36043"),
   metrics: [MetricId.MOCK_CASES],
   regionDB,
-  renderTooltip,
 };
 
 export const TwoMetrics = Template.bind({});
@@ -43,7 +37,6 @@ TwoMetrics.args = {
   stateRegionId: "36",
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   regionDB,
-  renderTooltip,
 };
 
 export const TwoMetricsWithHighlightedCounty = Template.bind({});
@@ -52,5 +45,4 @@ TwoMetricsWithHighlightedCounty.args = {
   currentRegion: counties.findByRegionIdStrict("36043"),
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   regionDB,
-  renderTooltip,
 };
