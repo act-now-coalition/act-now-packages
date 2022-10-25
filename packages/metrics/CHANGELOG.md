@@ -1,5 +1,13 @@
 # @actnowcoalition/metrics
 
+## 0.3.1
+
+### Patch Changes
+
+- 7be2ca4: Fix #322: Require passing provider ids to all metric data providers.
+- bde5c85: Fix #316: Disallow null and undefined in timeseries.
+- ece28df: Fix a bug that caused correctly sorted thresholds to be incorrectly detected as unsorted
+
 ## 0.3.0
 
 ### Minor Changes
