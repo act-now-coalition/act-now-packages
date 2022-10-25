@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.6.1
+
+### Patch Changes
+
+- 4240202: Add back metric-aware maps to the ui-components index
+
 ## 0.6.0
 
 ### Minor Changes
