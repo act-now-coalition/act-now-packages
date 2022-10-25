@@ -62,31 +62,26 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
   );
 
   return (
-    <div>
-      <Autocomplete
-        options={options}
-        onChange={(e, item: Region | null) => onChange(item)}
-        clearIcon={<></>}
-        renderInput={customRenderInput ?? defaultRenderInput}
-        renderOption={(
-          props: HTMLAttributes<HTMLLIElement>,
-          option: Region
-        ) => (
-          <StyledLink href={regionDB.getRegionUrl(option)}>
-            <SearchItem
-              itemLabel={option.shortName}
-              itemSublabel={`${formatPopulation(option.population)} population`}
-              {...props}
-            />
-          </StyledLink>
-        )}
-        getOptionLabel={stringifyOption}
-        filterOptions={createFilterOptions({
-          limit: 30,
-          stringify: stringifyOption,
-        })}
-        {...otherAutocompleteProps}
-      />
-    </div>
+    <Autocomplete
+      options={options}
+      onChange={(e, item: Region | null) => onChange(item)}
+      clearIcon={<></>}
+      renderInput={customRenderInput ?? defaultRenderInput}
+      renderOption={(props: HTMLAttributes<HTMLLIElement>, option: Region) => (
+        <StyledLink href={regionDB.getRegionUrl(option)}>
+          <SearchItem
+            itemLabel={option.shortName}
+            itemSublabel={`${formatPopulation(option.population)} population`}
+            {...props}
+          />
+        </StyledLink>
+      )}
+      getOptionLabel={stringifyOption}
+      filterOptions={createFilterOptions({
+        limit: 30,
+        stringify: stringifyOption,
+      })}
+      {...otherAutocompleteProps}
+    />
   );
 };

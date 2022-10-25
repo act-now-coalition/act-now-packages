@@ -1,6 +1,6 @@
 /** MUI theme components */
 import React from "react";
-import { ThemeOptions, createTheme } from "@mui/material";
+import { ThemeOptions, createTheme, textFieldClasses } from "@mui/material";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const referenceTheme = createTheme();
@@ -11,6 +11,13 @@ const components: ThemeOptions["components"] = {
       filterSelectedOptions: true,
       disableClearable: true,
       popupIcon: <KeyboardArrowDownIcon />,
+    },
+    styleOverrides: {
+      root: {
+        [`& .${textFieldClasses.root}`]: {
+          margin: 0,
+        },
+      },
     },
   },
 
