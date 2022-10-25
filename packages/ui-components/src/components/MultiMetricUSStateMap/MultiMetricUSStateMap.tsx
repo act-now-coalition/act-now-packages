@@ -9,9 +9,9 @@ import { getStartLabel, getEndLabel } from "./utils";
 import {
   BorderedContainer,
   BorderedContainerLast,
-} from "./MetricUSMiniMap.style";
+} from "./MultiMetricUSStateMap.style";
 
-export interface MetricUSMiniMapProps {
+export interface MultiMetricUSStateMapProps {
   /** Region ID of the state being mapped */
   stateRegionId: string;
   /** Region corresponding to the page on which the MiniMap is being rendered */
@@ -24,7 +24,7 @@ export interface MetricUSMiniMapProps {
   renderTooltip: (regionId: string) => React.ReactElement | string;
 }
 
-export const MetricUSMiniMap: React.FC<MetricUSMiniMapProps> = ({
+export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
   stateRegionId,
   currentRegion,
   metrics,

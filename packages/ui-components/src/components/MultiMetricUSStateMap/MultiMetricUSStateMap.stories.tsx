@@ -1,20 +1,20 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricUSMiniMap } from ".";
+import { MultiMetricUSStateMap } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 
 export default {
-  title: "Maps/MetricUSMiniMap",
-  component: MetricUSMiniMap,
-} as ComponentMeta<typeof MetricUSMiniMap>;
+  title: "Maps/MultiMetricUSStateMap",
+  component: MultiMetricUSStateMap,
+} as ComponentMeta<typeof MultiMetricUSStateMap>;
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
 });
 
-const Template: ComponentStory<typeof MetricUSMiniMap> = (args) => (
-  <MetricUSMiniMap {...args} />
+const Template: ComponentStory<typeof MultiMetricUSStateMap> = (args) => (
+  <MultiMetricUSStateMap {...args} />
 );
 
 export const OneMetric = Template.bind({});
