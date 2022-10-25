@@ -28,11 +28,19 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
 
   /**
    * Constructs a new CovidActNowDataProvider instance.
+   *
+   * @param providerId A unique provider id to associate with the provider (e.g.
+   * "can-api"). This ID can be used from a {@link MetricDataReference} in a
+   * metric to reference the data from this provider.
    * @param apiKey Valid Covid Act Now API key to use in API calls.
    * @param data JSON data to put directly into the cache. Used primarily for testing.
    */
-  constructor(apiKey: string, data?: { [regionId: string]: DataRow }) {
-    super("covid-act-now-api");
+  constructor(
+    providerId: string,
+    apiKey: string,
+    data?: { [regionId: string]: DataRow }
+  ) {
+    super(providerId);
     this.apiKey = apiKey;
     this.apiJson = data ?? {};
   }

@@ -10,16 +10,20 @@ import { Metric } from "../Metric";
 import { StaticValueDataProvider } from "../data_providers";
 import { isoDateOnlyString } from "@actnowcoalition/time-utils";
 
+enum ProviderId {
+  STATIC = "static",
+}
+
 const testRegion = states.findByRegionIdStrict("12");
 const testMetric = new Metric({
   id: "cases_per_100k",
   dataReference: {
-    providerId: "static",
+    providerId: ProviderId.STATIC,
     value: 42,
   },
 });
 
-const testProvider = new StaticValueDataProvider();
+const testProvider = new StaticValueDataProvider(ProviderId.STATIC);
 
 // The snapshot JSON that corresponds to the data for `testRegion` and `testMetric`.
 const testSnapshot: SnapshotJSON = {

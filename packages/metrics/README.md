@@ -72,7 +72,7 @@ More on data providers below.
 It consists of metric definitions and the data providers to fetch data for the metrics.
 
 ```
-const dataProviders = [new StaticValueDataProvider()];
+const dataProviders = [new StaticValueDataProvider("static")];
 const metrics = [
   {
     id: "the_answer",

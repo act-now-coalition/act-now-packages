@@ -3,7 +3,11 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { states } from "@actnowcoalition/regions";
 import { MetricCatalog, MetricDefinition } from "@actnowcoalition/metrics";
 import { MetricCatalogProvider } from "./MetricCatalogContext";
-import { MetricId, dataProviders } from "../../stories/mockMetricCatalog";
+import {
+  MetricId,
+  dataProviders,
+  ProviderId,
+} from "../../stories/mockMetricCatalog";
 import MetricAwareDemo from "./MetricAwareDemo";
 
 export default {
@@ -20,7 +24,7 @@ const metricDefs: MetricDefinition[] = [
     extendedName:
       "Pi - The ratio of a circle's circumference to its diameter (should be formatted as 3.1)",
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: Math.PI,
     },
     formatOptions: { maximumSignificantDigits: 2 },
@@ -30,7 +34,7 @@ const metricDefs: MetricDefinition[] = [
     name: "Cases Per 100k (mock)",
     extendedName: "Cases per 100k population (using mock data)",
     dataReference: {
-      providerId: "mock",
+      providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
   },
