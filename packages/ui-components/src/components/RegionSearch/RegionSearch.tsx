@@ -4,7 +4,6 @@ import {
   AutocompleteProps,
   TextField,
   createFilterOptions,
-  Link,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -12,6 +11,7 @@ import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { formatPopulation } from "../../common/utils";
 import { SearchItem } from "./SearchItem/SearchItem";
+import { StyledLink } from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
   return region.fullName;
@@ -33,6 +33,7 @@ export type CustomAutocompleteProps = AutocompleteProps<
 
 export interface RegionSearchProps
   extends Omit<CustomAutocompleteProps, "renderInput"> {
+  /** RegionDB instance for the application */
   regionDB: RegionDB;
   /** Placeholder text to show in the inner text field  */
   inputLabel?: string;
@@ -71,13 +72,13 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
           props: HTMLAttributes<HTMLLIElement>,
           option: Region
         ) => (
-          <Link href={regionDB.getRegionUrl(option)}>
+          <StyledLink href={regionDB.getRegionUrl(option)}>
             <SearchItem
               itemLabel={option.shortName}
               itemSublabel={`${formatPopulation(option.population)} population`}
               {...props}
             />
-          </Link>
+          </StyledLink>
         )}
         getOptionLabel={stringifyOption}
         filterOptions={createFilterOptions({
