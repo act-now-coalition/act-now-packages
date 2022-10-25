@@ -19,23 +19,25 @@ enum MetricId {
   E = "e",
 }
 
+const STATIC_PROVIDER_ID = "static";
 const testMetricDefs = [
   {
     id: MetricId.PI,
     dataReference: {
-      providerId: "static",
+      providerId: STATIC_PROVIDER_ID,
       value: Math.PI,
     },
   },
   {
     id: MetricId.E,
     dataReference: {
-      providerId: "static",
+      providerId: STATIC_PROVIDER_ID,
       value: Math.E,
     },
   },
 ];
-const dataProviders = [new StaticValueDataProvider()];
+
+const dataProviders = [new StaticValueDataProvider(STATIC_PROVIDER_ID)];
 
 const testRegionWA = states.findByRegionIdStrict("53"); // Washington.
 const testRegionCA = states.findByRegionIdStrict("06"); // California

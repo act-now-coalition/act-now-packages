@@ -8,10 +8,17 @@ import { StaticValueDataProvider } from "./StaticValueDataProvider";
 
 const testRegion = states.findByRegionIdStrict("53"); // Washington.
 
+enum ProviderId {
+  STATIC = "static",
+  INVERT_DATA = "invert-data",
+}
+
 // An implementation of TransformedMetricDataProvider that transforms numbers
 // into their additive inverses (e.g. 5 => -5).
 class InvertDataProvider extends TransformedMetricDataProvider {
-  id = "invert-data";
+  constructor(readonly id: string) {
+    super();
+  }
 
   transformData(
     sourceData: MetricData,
@@ -41,28 +48,28 @@ const testMetrics = [
   {
     id: MetricId.PI,
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: Math.PI,
     },
   },
   {
     id: MetricId.ANSWER,
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: 42,
     },
   },
   {
     id: MetricId.INVERTED_PI,
     dataReference: {
-      providerId: "invert-data",
+      providerId: ProviderId.INVERT_DATA,
       sourceMetric: MetricId.PI,
     },
   },
   {
     id: MetricId.INVERTED_ANSWER,
     dataReference: {
-      providerId: "invert-data",
+      providerId: ProviderId.INVERT_DATA,
       sourceMetric: MetricId.ANSWER,
     },
   },
@@ -71,8 +78,8 @@ const testMetrics = [
 describe("TransformedMetricDataProvider", () => {
   test("fetches and transforms data", async () => {
     const dataProviders = [
-      new StaticValueDataProvider(),
-      new InvertDataProvider(),
+      new StaticValueDataProvider(ProviderId.STATIC),
+      new InvertDataProvider(ProviderId.INVERT_DATA),
     ];
     const catalog = new MetricCatalog(testMetrics, dataProviders);
 

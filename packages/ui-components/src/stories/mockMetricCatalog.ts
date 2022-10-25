@@ -15,13 +15,19 @@ export enum MetricId {
   PASS_FAIL = "pass_fail",
 }
 
+export enum ProviderId {
+  MOCK = "mock",
+  STATIC = "static",
+  APPLE_STOCK = "apple_stock",
+}
+
 const testMetricDefs: MetricDefinition[] = [
   {
     id: MetricId.APPLE_STOCK,
     name: "AAPL",
     extendedName: "Apple Stock",
     dataReference: {
-      providerId: "apple_stock",
+      providerId: ProviderId.APPLE_STOCK,
     },
     categoryThresholds: [100, 200, 400, 800],
     categorySetId: "5_risk_categories",
@@ -31,7 +37,7 @@ const testMetricDefs: MetricDefinition[] = [
     name: "Pi",
     extendedName: "Pi - The ratio of a circle's circumference to its diameter",
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: 3.141592653589793,
     },
   },
@@ -40,7 +46,7 @@ const testMetricDefs: MetricDefinition[] = [
     name: "Cases (mock)",
     extendedName: "Cases per 100k population (using mock data)",
     dataReference: {
-      providerId: "mock",
+      providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
     categoryThresholds: [40, 100],
@@ -51,7 +57,7 @@ const testMetricDefs: MetricDefinition[] = [
     name: "Cases (mock)",
     extendedName: "",
     dataReference: {
-      providerId: "mock",
+      providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
     categoryThresholds: [10, 100],
@@ -62,7 +68,7 @@ const testMetricDefs: MetricDefinition[] = [
     name: "Pass or Fail",
     extendedName: "Passing or Failing grade on an arbitrary test",
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: 0,
     },
     categorySetId: "pass_fail",
@@ -71,9 +77,9 @@ const testMetricDefs: MetricDefinition[] = [
 ];
 
 export const dataProviders = [
-  new MockDataProvider(),
-  new StaticValueDataProvider(),
-  new AppleStockDataProvider(),
+  new MockDataProvider(ProviderId.MOCK),
+  new StaticValueDataProvider(ProviderId.STATIC),
+  new AppleStockDataProvider(ProviderId.APPLE_STOCK),
 ];
 
 const metricCategorySets = [
@@ -149,7 +155,7 @@ const metricDefsB: MetricDefinition[] = [
     name: "Pi",
     extendedName: "Pi - The ratio of a circle's circumference to its diameter",
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: Math.PI,
     },
     formatOptions: { minimumFractionDigits: 2 },
@@ -159,7 +165,7 @@ const metricDefsB: MetricDefinition[] = [
     name: "Cases Per 100k (mock)",
     extendedName: "Cases per 100k population (using mock data)",
     dataReference: {
-      providerId: "mock",
+      providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
   },

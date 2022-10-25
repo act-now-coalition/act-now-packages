@@ -20,8 +20,8 @@ import { appleStockTimeseries } from "./mockData";
  * ```
  */
 export class AppleStockDataProvider extends CachingMetricDataProviderBase {
-  constructor() {
-    super(/*providerId=*/ "apple_stock");
+  constructor(providerId: string) {
+    super(providerId);
   }
 
   private cachedData: { [key: string]: MetricData<number> } = {};

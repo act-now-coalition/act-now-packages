@@ -6,13 +6,15 @@ import { Metric } from "../Metric";
 
 const testRegion = states.findByRegionIdStrict("53"); // Washington.
 
+const PROVIDER_ID = "mock";
+
 describe("MockDataProvider", () => {
   test("generates data", () => {
-    const dataProvider = new MockDataProvider();
+    const dataProvider = new MockDataProvider(PROVIDER_ID);
     const metric = new Metric({
       id: "test",
       dataReference: {
-        providerId: "mock",
+        providerId: PROVIDER_ID,
         startDate: "2022-01-01",
         endDate: "2022-01-05",
       },
@@ -31,11 +33,11 @@ describe("MockDataProvider", () => {
   });
 
   test("uses default dates if omitted", () => {
-    const dataProvider = new MockDataProvider();
+    const dataProvider = new MockDataProvider(PROVIDER_ID);
     const metric = new Metric({
-      id: "test",
+      id: PROVIDER_ID,
       dataReference: {
-        providerId: "mock",
+        providerId: PROVIDER_ID,
       },
     });
     const data = dataProvider.getDataFromCache(testRegion, metric);

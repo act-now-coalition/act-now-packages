@@ -34,8 +34,15 @@ export interface MockDataReferenceFields {
  * ```
  */
 export class MockDataProvider extends CachingMetricDataProviderBase {
-  constructor() {
-    super(/*providerId=*/ "mock");
+  /**
+   * Constructs a new MockDataProvider instance.
+   *
+   * @param providerId A unique provider id to associate with the provider (e.g.
+   * "mock"). This ID can be used from a {@link MetricDataReference} in a
+   * metric to reference the data from this provider.
+   */
+  constructor(providerId: string) {
+    super(providerId);
   }
 
   private cachedData: { [key: string]: MetricData<number> } = {};

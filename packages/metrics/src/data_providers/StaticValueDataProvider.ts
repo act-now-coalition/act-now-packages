@@ -19,8 +19,15 @@ import { MetricData } from "../data";
  * ```
  */
 export class StaticValueDataProvider extends CachingMetricDataProviderBase {
-  constructor() {
-    super(/*providerId=*/ "static");
+  /**
+   * Constructs a new MockDataProvider instance.
+   *
+   * @param providerId A unique provider id to associate with the provider (e.g.
+   * "static"). This ID can be used from a {@link MetricDataReference} in a
+   * metric to reference the data from this provider.
+   */
+  constructor(providerId: string) {
+    super(providerId);
   }
 
   async populateCache(): Promise<void> {

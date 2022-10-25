@@ -1,6 +1,5 @@
 import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
-import uniq from "lodash/uniq";
 
 import { Region } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
@@ -57,18 +56,15 @@ export class MetricCatalog {
     this.metricsById = keyBy(this.metrics, "id");
     this.dataProvidersById = keyBy(dataProviders, (p) => p.id);
 
-    const referencedDataProviderIds = metrics.map(
-      (m) => m.dataReference?.providerId
-    );
-    const missingDataProviderIds = referencedDataProviderIds.filter(
-      (id) => id && !this.dataProvidersById[id]
-    );
-    assert(
-      missingDataProviderIds.length === 0,
-      `Some metrics referenced data providers that do not exist: ${uniq(
-        missingDataProviderIds
-      ).join(", ")}`
-    );
+    for (const metric of this.metrics) {
+      const providerId = metric.dataReference?.providerId;
+      assert(
+        !providerId || this.dataProvidersById[providerId],
+        `${metric} has a dataReference.providerId of "${providerId}" which was not included in the provided dataProviders list: ${dataProviders.map(
+          (p) => p.id
+        )}.`
+      );
+    }
     this.options = options;
   }
 
