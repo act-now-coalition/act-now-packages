@@ -1,5 +1,6 @@
 export * from "./state-shapes";
 export * from "./county-shapes";
+export * from "./nation-shapes";
 
 /** Default map projections */
 export const defaultScale = 1070;

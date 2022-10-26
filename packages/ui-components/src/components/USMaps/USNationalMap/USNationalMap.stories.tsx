@@ -8,7 +8,7 @@ import { USNationalMap } from "./USNationalMap";
 import { USNationalMapProps } from "../interfaces";
 
 export default {
-  title: "Maps/US National",
+  title: "Maps/US National Map",
   component: USNationalMap,
 } as ComponentMeta<typeof USNationalMap>;
 

@@ -6,7 +6,7 @@ import { MetricUSNationalMap } from "./MetricUSNationalMap";
 import { MetricUSNationalMapProps } from "../interfaces";
 
 export default {
-  title: "Maps/US National",
+  title: "Maps/US National Map",
   component: MetricUSNationalMap,
 } as ComponentMeta<typeof MetricUSNationalMap>;
 
