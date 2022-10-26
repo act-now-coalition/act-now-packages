@@ -21,7 +21,7 @@ export interface MultiMetricUSStateMapProps {
   /** Region DB instance (used for generating region links, coloring the map, etc.) */
   regionDB: RegionDB;
   /** Function returning the contents of the map tooltip, given a hovered region */
-  renderTooltip?: (regionId: string) => React.ReactNode;
+  renderTooltip?: (regionId: string) => string | React.ReactElement;
 }
 
 export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
