@@ -89,7 +89,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
           otherStates.map((geo) => {
             const stateFips = `${geo.id}`;
             return (
-              <Tooltip title={renderTooltip(stateFips)} key={stateFips}>
+              <Tooltip title={renderTooltip(stateFips) ?? ""} key={stateFips}>
                 <a href={getRegionUrl(stateFips)}>
                   <g>
                     <BorderingRegion d={geoPath(geo) ?? ""} />
@@ -103,7 +103,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
         {regionGeoToShow.map((geo) => {
           const geoId = `${geo.id}`;
           return (
-            <Tooltip title={renderTooltip(geoId)} key={geoId}>
+            <Tooltip title={renderTooltip(geoId) ?? ""} key={geoId}>
               <a href={getRegionUrl(geoId)}>
                 <g>
                   <RegionOverlay d={geoPath(geo) ?? ""} />
