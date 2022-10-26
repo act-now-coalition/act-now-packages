@@ -4,6 +4,7 @@ import { Metric } from "../Metric";
 import { MetricData } from "../data";
 import { Timeseries } from "../Timeseries";
 import get from "lodash/get";
+import isNil from "lodash/isNil";
 
 export type DataRow = { [key: string]: unknown };
 
@@ -61,21 +62,23 @@ export function dataRowsToMetricData(
 ) {
   const rows = dataRowsByRegionId[region.regionId] ?? [];
   const timeseries = new Timeseries(
-    rows.map((row) => {
-      const value = get(row, metricKey);
-      if (strict) {
-        assert(value !== undefined, `Metric key ${metricKey} missing.`);
-      }
-      assert(
-        typeof row[dateKey] === "string",
-        `Date column must be a string. ${typeof row[dateKey]} found.`
-      );
-      return {
-        date: new Date(row[dateKey] as string),
-        value: value as unknown,
-      };
-    })
-  ).removeNils();
+    rows
+      .map((row) => {
+        const value = get(row, metricKey);
+        if (strict) {
+          assert(value !== undefined, `Metric key ${metricKey} missing.`);
+        }
+        assert(
+          typeof row[dateKey] === "string",
+          `Date column must be a string. ${typeof row[dateKey]} found.`
+        );
+        return {
+          date: new Date(row[dateKey] as string),
+          value: value as unknown,
+        };
+      })
+      .filter((row) => !isNil(row.value))
+  );
   return new MetricData(
     metric,
     region,

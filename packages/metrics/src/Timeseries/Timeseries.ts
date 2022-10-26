@@ -61,11 +61,13 @@ export type DateRange = {
  * An immutable series of dates and values, representing a value that changes
  * over time.
  */
-export class Timeseries<T = unknown> {
+export class Timeseries<T = NonNullable<unknown>> {
   readonly points: Array<TimeseriesPoint<T>>;
 
   constructor(points: Array<TimeseriesPoint<T>>) {
     Timeseries.assertDatesHaveNoTimeComponent(points);
+    Timeseries.assertPointsHaveNoNils(points);
+
     // Sort the points by date.
     this.points = points
       .slice()
@@ -227,18 +229,6 @@ export class Timeseries<T = unknown> {
    */
   slice(start: number, end?: number): Timeseries<T> {
     return new Timeseries(this.points.slice(start, end));
-  }
-
-  /**
-   * Returns a new timeseries with all nulls and undefined values removed.
-   *
-   * The returned timeseries will have values of type `NonNullable<T>` and
-   * therefore any subsequent code can rely on the values not being null.
-   */
-  removeNils(): Timeseries<NonNullable<T>> {
-    return new Timeseries(this.points.filter((p) => !isNil(p.value))).cast<
-      NonNullable<T>
-    >();
   }
 
   /**
@@ -432,18 +422,16 @@ export class Timeseries<T = unknown> {
     const minDeltaToKeep = opts?.minDeltaToKeep ?? Number.NEGATIVE_INFINITY;
 
     let lastValue: number | undefined = keepInitialValue ? 0 : undefined;
-    return this.removeNils()
-      .assertFiniteNumbers()
-      .map((point) => {
-        const _lastValue = lastValue;
-        lastValue = point.value;
-        if (
-          _lastValue !== undefined &&
-          point.value - _lastValue >= minDeltaToKeep
-        ) {
-          return { date: point.date, value: point.value - _lastValue };
-        }
-      });
+    return this.assertFiniteNumbers().map((point) => {
+      const _lastValue = lastValue;
+      lastValue = point.value;
+      if (
+        _lastValue !== undefined &&
+        point.value - _lastValue >= minDeltaToKeep
+      ) {
+        return { date: point.date, value: point.value - _lastValue };
+      }
+    });
   }
 
   /**
@@ -510,8 +498,7 @@ export class Timeseries<T = unknown> {
     treatMissingDatesAsZero?: boolean;
   }): Timeseries<number> {
     const treatMissingDatesAsZero = opts.treatMissingDatesAsZero ?? false;
-    return this.removeNils()
-      .assertFiniteNumbers()
+    return this.assertFiniteNumbers()
       .windowed({ days: opts.days })
       .map((point) => {
         const date = point.date;
@@ -532,6 +519,20 @@ export class Timeseries<T = unknown> {
       assert(
         p.date.toISOString().endsWith("T00:00:00.000Z"),
         `Dates in a timeseries must not have a (non-zero) time. Bad date at index ${i}: ${p.date.toISOString()} (value=${
+          p.value
+        })`
+      );
+    });
+  }
+
+  /**
+   * Internal helper to verify there are no nil points in the timeseries.
+   */
+  private static assertPointsHaveNoNils(points: TimeseriesPoint[]) {
+    points.forEach((p, i) => {
+      assert(
+        !isNil(p.value),
+        `Timeseries may not contain null or undefined values. Found at index ${i}: ${p.date.toISOString()} (value=${
           p.value
         })`
       );

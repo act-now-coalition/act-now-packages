@@ -1,5 +1,31 @@
 # @actnowcoalition/ui-components
 
+## 0.6.1
+
+### Patch Changes
+
+- 4240202: Add back metric-aware maps to the ui-components index
+
+## 0.6.0
+
+### Minor Changes
+
+- d48cf77: Add links to region pages on `MetricCompareTable`
+
+### Patch Changes
+
+- 7be2ca4: Fix #322: Require passing provider ids to all metric data providers.
+- 00a645b: The `MetricLineThresholdChart` now shows all the levels
+- bde5c85: Fix #316: Disallow null and undefined in timeseries.
+- ffe37ea: Rework metric data fetching hooks using SWR. Fixes #315.
+- d067060: Reorganize and rename misc files
+- b6b3c07: - Add `PointMarker` component and better defaults for `MetricTooltip`
+  - Copy `useSvgBBox` hook from CAN
+- Updated dependencies [7be2ca4]
+- Updated dependencies [bde5c85]
+- Updated dependencies [ece28df]
+  - @actnowcoalition/metrics@0.3.1
+
 ## 0.5.4
 
 ### Patch Changes

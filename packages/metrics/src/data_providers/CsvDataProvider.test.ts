@@ -2,6 +2,8 @@ import { CsvDataProvider } from "./CsvDataProvider";
 import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
 
+const PROVIDER_ID = "csv-provider";
+
 const mockCsv = `region,cool_metric
 36,150
 12,`;
@@ -13,7 +15,7 @@ const csvTimeseries = `region,date,cool_metric
 const newYork = states.findByRegionIdStrict("36");
 const testMetric = new Metric({
   id: "metric",
-  dataReference: { providerId: "csv-provider", column: "cool_metric" },
+  dataReference: { providerId: PROVIDER_ID, column: "cool_metric" },
 });
 
 /**
@@ -29,7 +31,7 @@ const testFetchingCsvData = async (
   includeTimeseries: boolean,
   dateCol?: string
 ) => {
-  const provider = new CsvDataProvider("csv-provider", {
+  const provider = new CsvDataProvider(PROVIDER_ID, {
     regionColumn: "region",
     dateColumn: dateCol,
     csvText: data,
@@ -66,7 +68,7 @@ describe("CsvDataProvider", () => {
   });
 
   test("populateCache() fails if csv does not have at least one row.", async () => {
-    const provider = new CsvDataProvider("csv-provider", {
+    const provider = new CsvDataProvider("PROVIDER_ID", {
       regionColumn: "region",
       csvText: `region,cool_metric`,
     });
@@ -77,7 +79,7 @@ describe("CsvDataProvider", () => {
 
   test("Constructor fails if neither url or csv data is provided.", () => {
     expect(() => {
-      new CsvDataProvider("csv-provider", {
+      new CsvDataProvider("PROVIDER_ID", {
         regionColumn: "region",
       });
     }).toThrow("URL or CSV data must be provided");

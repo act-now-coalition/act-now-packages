@@ -1,6 +1,7 @@
 import React from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
+import max from "lodash/max";
 
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
@@ -59,16 +60,6 @@ export const MetricLineThresholdChart = ({
 
   const { minDate, maxDate, maxValue } = timeseries;
 
-  const dateScale = scaleTime({
-    domain: [minDate, maxDate],
-    range: [0, chartWidth],
-  });
-
-  const yScale = scaleLinear({
-    domain: [0, maxValue],
-    range: [chartHeight, 0],
-  });
-
   const thresholds = metric.categoryThresholds;
   const categories = metric.categorySet?.categories;
   assert(
@@ -82,6 +73,18 @@ export const MetricLineThresholdChart = ({
     /*minValue=*/ 0,
     maxValue
   );
+
+  const dateScale = scaleTime({
+    domain: [minDate, maxDate],
+    range: [0, chartWidth],
+  });
+
+  const maxChartValue = max(intervals.map(({ upper }) => upper)) ?? maxValue;
+
+  const yScale = scaleLinear({
+    domain: [0, maxChartValue],
+    range: [chartHeight, 0],
+  });
 
   return (
     <svg width={width} height={height}>

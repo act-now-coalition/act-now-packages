@@ -7,6 +7,8 @@ const testNation = nations.findByRegionIdStrict("USA"); // USA.
 const testState = states.findByRegionIdStrict("25"); // Massachusetts.
 const testMetro = metros.findByRegionIdStrict("10420"); // Akron, OH.
 
+const PROVIDER_ID = "covid-act-now-api";
+
 enum MetricId {
   HOSPITAL_BEDS = "Current Hospital Bed Capacity",
   POPULATION = "Population",
@@ -17,21 +19,21 @@ const testMetrics = [
   {
     id: MetricId.HOSPITAL_BEDS,
     dataReference: {
-      providerId: "covid-act-now-api",
+      providerId: PROVIDER_ID,
       column: "actuals.hospitalBeds.capacity",
     },
   },
   {
     id: MetricId.POPULATION,
     dataReference: {
-      providerId: "covid-act-now-api",
+      providerId: PROVIDER_ID,
       column: "population",
     },
   },
   {
     id: MetricId.WEEKLY_ADMISSIONS,
     dataReference: {
-      providerId: "covid-act-now-api",
+      providerId: PROVIDER_ID,
       column: "metrics.weeklyCovidAdmissionsPer100k",
     },
   },
@@ -58,6 +60,7 @@ const testCacheData = {
 
 const dataProviders = [
   new CovidActNowDataProvider(
+    PROVIDER_ID,
     /*apiKey=*/ "placeholder", // These tests won't need to make any actual network calls.
     testCacheData
   ),

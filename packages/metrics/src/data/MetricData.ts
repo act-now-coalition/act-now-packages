@@ -71,7 +71,7 @@ export class MetricData<T = unknown> {
    * @returns The timeseries cast to `Timeseries<number>`.
    */
   numericTimeseries(): Timeseries<number> {
-    return this.timeseries.removeNils().assertFiniteNumbers();
+    return this.timeseries.assertFiniteNumbers();
   }
 
   /**

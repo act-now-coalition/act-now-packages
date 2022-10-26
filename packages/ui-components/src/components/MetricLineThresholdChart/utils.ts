@@ -12,44 +12,38 @@ export interface ChartInterval {
 
 /**
  * Given a set of metric categories, thresholds and a minValue, maxValue for
- * a metric, it returns a set of closed intervals that include minValue
- * and maxValue. These intervals are used in the chart to paint different
- * line segments according to their category.
+ * a metric, it returns a list of intervals that contain the thresholds and
+ * both minValue and maxValue. Examples:
  *
- * @example
- * ```ts
- * calculateChartIntervals(
- *   [LOW, MEDIUM, HIGH],
- *   [10, 20],
- *   5,  // minValue
- *   25  // maxValue
- * );
  *
- * [
- *   { lowerBound:  5, upperBound: 10, category: LOW },
- *   { lowerBound: 10, upperBound: 20, category: MEDIUM },
- *   { lowerBound: 20, upperBound: 60, category: HIGH },
- * ]
- * ```
+ *         minValue      T1                      T2        maxValue
+ *    --------|---------|-----------------------|------------|--------
  *
- * Note that categories that don't intersect with the interval [minValue, maxValue]
- * won't be returned, since we won't need them in the chart.
+ * In this case, we will have the following intervals:
  *
- * @example
- * ```ts
- * calculateChartIntervals(
- *   [LOW, MEDIUM, HIGH],
- *   [10, 20],
- *   5,  // minValue
- *   15  // maxValue
- * );
+ *   [
+ *     { lower: minValue, upper: T1, level: LOW},
+ *     { lower: T1, upper: T2, level: MEDIUM},
+ *     { lower: T2, upper: maxValue, level: HIGH},
+ *   ]
  *
- * // HIGH was filtered out since it's outside [minValue, maxValue]
- * [
- *   { lowerBound:  5, upperBound: 10, category: LOW },
- *   { lowerBound: 10, upperBound: 15, category: MEDIUM },
- * ]
- * ```
+ * In this situation, the first interval should be (-Infinity, T1], which
+ * we can't really use for the chart, so we calculate a padding amount
+ * and use that as the lower bound for the first interval
+ *
+ *                       T1      minValue        T2        maxValue
+ *    ----------*-------|-----------|-----------|------------|--------
+ *           T1 - padding
+ *
+ * In this case, the intervals will be
+ *
+ *   [
+ *     { lower: T1 - padding, upper: T1, level: LOW},
+ *     { lower: T1, upper: T2, level: MEDIUM},
+ *     { lower: T2, upper: maxValue, level: HIGH},
+ *   ]
+ *
+ * We adjust the upper bound of the last interval in the same way if necessary.
  *
  * @param metricCategories List of metric categories.
  * @param thresholds List of thresholds.
@@ -87,23 +81,29 @@ export function calculateChartIntervals(
   const firstThreshold = thresholds[0];
   const lastThreshold = thresholds[thresholds.length - 1];
 
-  // Build the intervals in the same order as the categories, and then
-  // filter out the intervals that are not relevant for the chart.
-  return metricCategories
-    .map((category, categoryIndex) => {
-      const isFirstCategory = categoryIndex === 0;
-      const isLastCategory = categoryIndex === metricCategories.length - 1;
-      return {
-        category,
-        lower: isFirstCategory
-          ? Math.min(minVal, firstThreshold)
-          : thresholds[categoryIndex - 1],
-        upper: isLastCategory
-          ? Math.max(maxVal, lastThreshold)
-          : thresholds[categoryIndex],
-      };
-    })
-    .filter((interval) => interval.lower < interval.upper);
+  // Calculate a padding to make sure that each category has room for a label
+  // to be rendered inside the category. Here, we use 20% of the distance
+  // between the first and last threshold, or if we have only one threshold,
+  // we use 20% of the distance between `minValue` and `maxValue`.
+  const padding =
+    thresholds.length > 1
+      ? 0.2 * (lastThreshold - firstThreshold)
+      : 0.2 * (maxVal - minVal);
+
+  // Build the intervals in the same order as the categories.
+  return metricCategories.map((category, categoryIndex) => {
+    const isFirstCategory = categoryIndex === 0;
+    const isLastCategory = categoryIndex === metricCategories.length - 1;
+    return {
+      category,
+      lower: isFirstCategory
+        ? Math.min(minVal, firstThreshold - padding)
+        : thresholds[categoryIndex - 1],
+      upper: isLastCategory
+        ? Math.max(maxVal, lastThreshold + padding)
+        : thresholds[categoryIndex],
+    };
+  });
 }
 
 // Creates a copy of the input list and reverses its elements

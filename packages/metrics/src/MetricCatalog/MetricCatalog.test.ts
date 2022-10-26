@@ -9,13 +9,28 @@ enum MetricId {
   MOCK_CASES = "mock_cases",
 }
 
+enum ProviderId {
+  STATIC = "static",
+  MOCK = "mock",
+}
+
+// Note that data providers are stateful (they cache data, etc.) so we don't
+// want to reuse them across tests. Hence this is a function that creates new
+// ones each time.
+function testDataProviders() {
+  return [
+    new StaticValueDataProvider(ProviderId.STATIC),
+    new MockDataProvider(ProviderId.MOCK),
+  ];
+}
+
 const testMetricDefs = [
   {
     id: MetricId.PI,
     name: "Pi",
     extendedName: "Pi - The ratio of a circle's circumference to its diameter",
     dataReference: {
-      providerId: "static",
+      providerId: ProviderId.STATIC,
       value: 3.141592653589793,
     },
   },
@@ -24,7 +39,7 @@ const testMetricDefs = [
     name: "Cases Per 100k (mock)",
     extendedName: "Cases per 100k population (using mock data)",
     dataReference: {
-      providerId: "mock",
+      providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
   },
@@ -52,11 +67,10 @@ const testSnapshot: SnapshotJSON = {
 
 describe("MetricCatalog", () => {
   test("getMetric()", () => {
-    const dataProviders = [
-      new StaticValueDataProvider(),
-      new MockDataProvider(),
-    ];
-    const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders);
+    const metricCatalog = new MetricCatalog(
+      testMetricDefs,
+      testDataProviders()
+    );
     const piMetric = metricCatalog.getMetric(MetricId.PI);
     expect(piMetric.name).toStrictEqual("Pi");
     expect(() => {
@@ -66,11 +80,7 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchData()", async () => {
-    const dataProviders = [
-      new StaticValueDataProvider(),
-      new MockDataProvider(),
-    ];
-    const catalog = new MetricCatalog(testMetricDefs, dataProviders);
+    const catalog = new MetricCatalog(testMetricDefs, testDataProviders());
 
     const data = await catalog.fetchData(testRegionWA, MetricId.PI);
     expect(data.currentValue).toBe(Math.PI);
@@ -81,11 +91,7 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchDataForMetricsAndRegions()", async () => {
-    const dataProviders = [
-      new StaticValueDataProvider(),
-      new MockDataProvider(),
-    ];
-    const catalog = new MetricCatalog(testMetricDefs, dataProviders);
+    const catalog = new MetricCatalog(testMetricDefs, testDataProviders());
 
     // Fetch data for two metrics that come from different data providers.
     const dataStore = await catalog.fetchDataForRegionsAndMetrics(
@@ -114,11 +120,7 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchData() correctly reads from a snapshot.", async () => {
-    const dataProviders = [
-      new StaticValueDataProvider(),
-      new MockDataProvider(),
-    ];
-    const catalog = new MetricCatalog(testMetricDefs, dataProviders, {
+    const catalog = new MetricCatalog(testMetricDefs, testDataProviders(), {
       snapshot: testSnapshot,
     });
 
@@ -133,11 +135,7 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchData() falls back to data providers if snapshot doesn't have data", async () => {
-    const dataProviders = [
-      new StaticValueDataProvider(),
-      new MockDataProvider(),
-    ];
-    const catalog = new MetricCatalog(testMetricDefs, dataProviders, {
+    const catalog = new MetricCatalog(testMetricDefs, testDataProviders(), {
       snapshot: testSnapshot,
     });
 
