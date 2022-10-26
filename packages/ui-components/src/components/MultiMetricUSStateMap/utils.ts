@@ -1,7 +1,7 @@
 import { Metric } from "@actnowcoalition/metrics";
 import startCase from "lodash/startCase";
 
-// TODO (Chelsi) - move these to MetricLegendThreshold (or somewhere more central than here)
+// TODO(#325) - move these to MetricLegendThreshold (or somewhere more central than here)
 
 export function getStartLabel(metric: Metric): string {
   if (metric.categorySet) {
