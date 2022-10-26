@@ -104,6 +104,7 @@ export * from "./components/MetricSparklines";
 export * from "./components/MetricTooltip";
 export * from "./components/MetricUSMaps";
 export * from "./components/MetricValue";
+export * from "./components/MultiMetricUSStateMap";
 export * from "./components/MultiProgressBar";
 export * from "./components/PointMarker";
 export * from "./components/ProgressBar";
