@@ -24,9 +24,7 @@ export const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
     <USStateMap
       getFillColor={(regionId: string) => {
         const region = regionDB.findByRegionId(regionId);
-        return region && data.hasMetricData(region, metric)
-          ? data.metricData(region, metric).getColor()
-          : "#eee";
+        return region ? data.metricData(region, metric).getColor() : "#eee";
       }}
       getRegionUrl={(regionId: string) => {
         const region = regionDB.findByRegionId(regionId);
