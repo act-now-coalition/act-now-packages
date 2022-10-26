@@ -64,7 +64,7 @@ NewYorkCountiesWithBorderingStates.args = {
 export const NewYorkCountiesWithHighlightedCounty = Template.bind({});
 NewYorkCountiesWithHighlightedCounty.args = {
   stateRegionId: "36",
-  currentRegion: herkimerCountyNewYorkRegion,
+  highlightedRegion: herkimerCountyNewYorkRegion,
   renderTooltip,
   getRegionUrl,
 };

@@ -22,7 +22,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
   renderTooltip,
   getFillColor = () => "lightGray",
   width = defaultWidth,
-  currentRegion,
+  highlightedRegion,
   showCounties = true,
   showBorderingStates = true,
   getRegionUrl = () => undefined,
@@ -73,7 +73,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
         {/* Style-able region shapes (ie. colorable by metric) */}
         {regionGeoToShow.map((geo) => {
           const geoId = `${geo.id}`;
-          const highlightShape = currentRegion?.regionId === geoId;
+          const highlightShape = highlightedRegion?.regionId === geoId;
           return (
             <HighlightableShape
               key={geoId}

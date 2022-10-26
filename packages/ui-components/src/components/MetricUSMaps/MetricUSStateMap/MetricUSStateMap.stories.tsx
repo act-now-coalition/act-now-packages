@@ -35,7 +35,7 @@ MetricAwareNewYork.args = {
 export const MetricAwareNewYorkWithHighlightedCounty = Template.bind({});
 MetricAwareNewYorkWithHighlightedCounty.args = {
   stateRegionId: "36",
-  currentRegion: herkimerCountyNewYorkRegion,
+  highlightedRegion: herkimerCountyNewYorkRegion,
   renderTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,

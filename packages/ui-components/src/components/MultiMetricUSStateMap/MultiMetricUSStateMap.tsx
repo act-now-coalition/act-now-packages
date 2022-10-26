@@ -14,8 +14,8 @@ import {
 export interface MultiMetricUSStateMapProps {
   /** Region ID of the state being mapped */
   stateRegionId: string;
-  /** An optional region to highlight on the map */
-  currentRegion?: Region;
+  /** Optional region to highlight on the map */
+  highlightedRegion?: Region;
   /** Array of metric options that can be used to color the map */
   metrics: (Metric | string)[];
   /** Region DB instance (used for generating region links, coloring the map, etc.) */
@@ -26,7 +26,7 @@ export interface MultiMetricUSStateMapProps {
 
 export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
   stateRegionId,
-  currentRegion,
+  highlightedRegion,
   metrics,
   regionDB,
   renderTooltip,
@@ -77,7 +77,7 @@ export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
       <BorderedContainer>
         <MetricUSStateMap
           stateRegionId={stateRegionId}
-          currentRegion={currentRegion}
+          highlightedRegion={highlightedRegion}
           metric={metric}
           regionDB={regionDB}
           renderTooltip={renderTooltip ?? defaultRenderTooltip}

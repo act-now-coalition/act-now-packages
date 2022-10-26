@@ -27,7 +27,7 @@ OneMetric.args = {
 export const OneMetricWithHighlightedCounty = Template.bind({});
 OneMetricWithHighlightedCounty.args = {
   stateRegionId: "36",
-  currentRegion: counties.findByRegionIdStrict("36043"),
+  highlightedRegion: counties.findByRegionIdStrict("36043"),
   metrics: [MetricId.MOCK_CASES],
   regionDB,
 };
@@ -42,7 +42,7 @@ TwoMetrics.args = {
 export const TwoMetricsWithHighlightedCounty = Template.bind({});
 TwoMetricsWithHighlightedCounty.args = {
   stateRegionId: "36",
-  currentRegion: counties.findByRegionIdStrict("36043"),
+  highlightedRegion: counties.findByRegionIdStrict("36043"),
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   regionDB,
 };
