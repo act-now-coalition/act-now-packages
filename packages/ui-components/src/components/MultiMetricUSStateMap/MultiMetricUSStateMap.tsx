@@ -14,14 +14,14 @@ import {
 export interface MultiMetricUSStateMapProps {
   /** Region ID of the state being mapped */
   stateRegionId: string;
-  /** Region corresponding to the page on which the component is being rendered */
+  /** An optional region to highlight on the map */
   currentRegion?: Region;
   /** Array of metric options that can be used to color the map */
   metrics: (Metric | string)[];
-  /** All regions to include on the map */
+  /** Region DB instance (used for generating region links, coloring the map, etc.) */
   regionDB: RegionDB;
   /** Function returning the contents of the map tooltip, given a hovered region */
-  renderTooltip: (regionId: string) => React.ReactElement | string;
+  renderTooltip?: (regionId: string) => React.ReactNode;
 }
 
 export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
