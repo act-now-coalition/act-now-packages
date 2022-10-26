@@ -14,6 +14,9 @@ const components: ThemeOptions["components"] = {
     },
     styleOverrides: {
       root: {
+        // TODO (Pablo): The MuiTextField component has margins set globally -
+        // we should only add the margins in context where that's needed
+        // Select
         [`& .${textFieldClasses.root}`]: {
           margin: 0,
         },
@@ -105,6 +108,8 @@ const components: ThemeOptions["components"] = {
     styleOverrides: {
       root: ({ theme }) => ({
         backgroundColor: theme.palette.common.white,
+        // TODO (Pablo): We should remove the margin on this component and add
+        // it only in the context that needs it (select)
         margin: theme.spacing(1, 2),
         "& .MuiFilledInput-root": {
           backgroundColor: theme.palette.common.white,
