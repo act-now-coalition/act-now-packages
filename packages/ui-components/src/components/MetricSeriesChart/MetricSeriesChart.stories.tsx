@@ -37,8 +37,22 @@ const series: Series[] = [
     type: SeriesType.LINE,
     lineProps: {
       stroke: schemeCategory10[2],
-      strokeDasharray: "4 2 1",
     },
+  },
+  {
+    region: states.findByRegionIdStrict("32"),
+    metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+    type: SeriesType.LINE,
+    lineProps: {
+      stroke: schemeCategory10[3],
+      strokeDasharray: "4 8",
+      strokeWidth: 4,
+    },
+  },
+  {
+    region: states.findByRegionIdStrict("18"),
+    metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+    type: SeriesType.LINE_THRESHOLDS,
   },
 ];
 

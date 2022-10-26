@@ -15,6 +15,7 @@ import { BaseChartProps } from "../MetricLineChart/interfaces";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { assert } from "@actnowcoalition/assert";
 import { LineChart } from "../LineChart";
+import { LineThresholdChart } from "../MetricLineThresholdChart/LineThresholdChart";
 import { RectClipGroup } from "../RectClipGroup";
 
 export enum SeriesType {
@@ -52,8 +53,6 @@ export const MetricSeriesChart = ({
   marginRight = 20,
   series,
 }: MetricSeriesChartProps) => {
-  // Fetch data
-
   const regions = uniq(series.map((s) => s.region));
   const metrics = uniq(series.map((s) => s.metric));
 
@@ -68,13 +67,11 @@ export const MetricSeriesChart = ({
   }
 
   const chartItemList = series
-    .filter((s) => data.hasMetricData(s.region, s.metric))
-    .map((s) => ({
-      series: s,
-      region: s.region,
-      metric: s.metric,
+    .filter((series) => data.hasMetricData(series.region, series.metric))
+    .map((series) => ({
+      series,
       timeseries: data
-        .metricData(s.region, s.metric)
+        .metricData(series.region, series.metric)
         .timeseries.assertFiniteNumbers(),
     }))
     .filter((item) => item.timeseries.hasData());
@@ -111,14 +108,15 @@ export const MetricSeriesChart = ({
           height={chartHeight}
         />
         <RectClipGroup width={chartWidth} height={chartHeight}>
-          {chartItemList.map((item) => {
+          {chartItemList.map((item, itemIndex) => {
             return (
               <SeriesChart
                 series={item.series}
-                key={`item-${item.region.regionId}-${item.metric.id}`}
+                key={`item-${itemIndex}`}
                 timeseries={item.timeseries}
                 dateScale={dateScale}
                 yScale={yScale}
+                width={chartWidth}
               />
             );
           })}
@@ -133,6 +131,7 @@ export interface SeriesChartProps {
   timeseries: Timeseries<number>;
   dateScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
+  width: number;
 }
 
 const SeriesChart = ({
@@ -140,6 +139,7 @@ const SeriesChart = ({
   timeseries,
   dateScale,
   yScale,
+  width,
 }: SeriesChartProps) => {
   switch (series.type) {
     case SeriesType.LINE:
@@ -149,6 +149,16 @@ const SeriesChart = ({
           xScale={dateScale}
           yScale={yScale}
           {...(series.lineProps ?? {})}
+        />
+      );
+    case SeriesType.LINE_THRESHOLDS:
+      return (
+        <LineThresholdChart
+          metric={series.metric}
+          timeseries={timeseries}
+          dateScale={dateScale}
+          yScale={yScale}
+          width={width}
         />
       );
     default:

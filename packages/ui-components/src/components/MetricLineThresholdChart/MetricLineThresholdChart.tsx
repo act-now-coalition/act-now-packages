@@ -11,13 +11,12 @@ import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
-import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { BaseChartProps } from "../MetricLineChart";
-import { RectClipGroup } from "../RectClipGroup";
 import { calculateChartIntervals } from "./utils";
 import { PointMarker } from "../PointMarker";
+import { LineThresholdChart } from "./LineThresholdChart";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -100,26 +99,13 @@ export const MetricLineThresholdChart = ({
         />
 
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
-        {intervals.map((interval) => {
-          const yFrom = yScale(interval.lower);
-          const yTo = yScale(interval.upper);
-          const clipHeight = Math.abs(yFrom - yTo);
-          return (
-            <RectClipGroup
-              key={`rect-clip-${interval.category.id}`}
-              y={Math.min(yFrom, yTo)}
-              width={chartWidth}
-              height={clipHeight}
-            >
-              <LineChart
-                timeseries={timeseries}
-                xScale={dateScale}
-                yScale={yScale}
-                stroke={interval.category.color}
-              />
-            </RectClipGroup>
-          );
-        })}
+        <LineThresholdChart
+          metric={metric}
+          timeseries={timeseries}
+          dateScale={dateScale}
+          yScale={yScale}
+          width={chartWidth}
+        />
         {hoveredPoint && (
           <MetricTooltip
             metric={metric}
