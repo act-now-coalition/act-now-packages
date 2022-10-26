@@ -15,12 +15,14 @@ import { BaseChartProps } from "../MetricLineChart/interfaces";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { assert } from "@actnowcoalition/assert";
 import { LineChart } from "../LineChart";
+import { BarChart } from "../BarChart";
 import { LineThresholdChart } from "../MetricLineThresholdChart/LineThresholdChart";
 import { RectClipGroup } from "../RectClipGroup";
 
 export enum SeriesType {
-  LINE = "line",
-  LINE_THRESHOLDS = "line_thresholds",
+  LINE = "LINE",
+  LINE_THRESHOLDS = "LINE_THRESHOLDS",
+  BAR = "BAR",
 }
 
 export interface SeriesBase {
@@ -38,7 +40,11 @@ export interface SeriesLineThresholds extends SeriesBase {
   type: SeriesType.LINE_THRESHOLDS;
 }
 
-export type Series = SeriesLine | SeriesLineThresholds;
+export interface SeriesBar extends SeriesBase {
+  type: SeriesType.BAR;
+}
+
+export type Series = SeriesLine | SeriesLineThresholds | SeriesBar;
 
 export interface MetricSeriesChartProps extends BaseChartProps {
   series: Series[];
@@ -107,19 +113,17 @@ export const MetricSeriesChart = ({
           yScale={yScale}
           height={chartHeight}
         />
-        <RectClipGroup width={chartWidth} height={chartHeight}>
-          {chartItemList.map((item, itemIndex) => {
-            return (
-              <SeriesChart
-                series={item.series}
-                key={`item-${itemIndex}`}
-                timeseries={item.timeseries}
-                dateScale={dateScale}
-                yScale={yScale}
-                width={chartWidth}
-              />
-            );
-          })}
+        <RectClipGroup y={-10} width={chartWidth} height={chartHeight + 10}>
+          {chartItemList.map((item, itemIndex) => (
+            <SeriesChart
+              series={item.series}
+              key={`item-${itemIndex}`}
+              timeseries={item.timeseries}
+              dateScale={dateScale}
+              yScale={yScale}
+              width={chartWidth}
+            />
+          ))}
         </RectClipGroup>
       </Group>
     </svg>
@@ -159,6 +163,16 @@ const SeriesChart = ({
           dateScale={dateScale}
           yScale={yScale}
           width={width}
+        />
+      );
+    case SeriesType.BAR:
+      return (
+        <BarChart
+          timeseries={timeseries}
+          xScale={dateScale}
+          yScale={yScale}
+          barWidth={0.5}
+          fill="#ddd"
         />
       );
     default:
