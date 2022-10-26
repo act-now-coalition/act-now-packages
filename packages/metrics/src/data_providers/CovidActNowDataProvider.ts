@@ -7,9 +7,9 @@ import {
   dataRowToMetricData,
 } from "./data_provider_utils";
 import { DataRow } from "./data_provider_utils";
-import fetch from "node-fetch";
 import chunk from "lodash/chunk";
 import { MetricData } from "../data/MetricData";
+import { fetchJson } from "./utils";
 
 /**
  * Data provider to ingest data from the Covid Act Now API.
@@ -50,7 +50,7 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
     metrics: Metric[],
     includeTimeseries: boolean
   ) {
-    // TODO(#240): This parallelization and retry logic is very crude and should be
+    // TODO(#249): This parallelization and retry logic is very crude and should be
     // cleaned up and generalized, or better yet replaced with some sort of
     // networking library that handles it for us.
     const chunks = chunk(regions, 50);
@@ -63,24 +63,10 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
           // and we will use this data if necessary via the getCachedData method.
           if (!this.getCachedData(region, includeTimeseries)) {
             const url = this.buildFetchUrl(region, includeTimeseries);
-            for (let attempt = 0; attempt < 3; attempt++) {
-              try {
-                console.log("Fetching", url);
-                const response = await fetch(url);
-                if (response.status !== 200) {
-                  throw new Error(
-                    `Error fetching data from ${url}: ${response.status}`
-                  );
-                }
-                const json = await response.json();
-                this.apiJson[cacheKey] = json;
-                break;
-              } catch (e) {
-                console.error(e);
-                if (attempt < 2) {
-                  console.log(`Attempt ${attempt} failed. Retrying...`);
-                }
-              }
+            try {
+              this.apiJson[cacheKey] = await fetchJson(url);
+            } catch (e) {
+              console.error(`Failed to fetch data for ${region}: ${e}`);
             }
           }
         })
