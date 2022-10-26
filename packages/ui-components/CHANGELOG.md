@@ -1,5 +1,17 @@
 # @actnowcoalition/ui-components
 
+## 0.7.0
+
+### Minor Changes
+
+- 95cc470: Update RegionSearch to use MuiLink and regionDB
+
+### Patch Changes
+
+- f18427d: Minor improvements to props
+- 8d55d2f: Fix US maps to handle when metric data is not available yet.
+- 8d55d2f: Create mini map container
+
 ## 0.6.1
 
 ### Patch Changes
