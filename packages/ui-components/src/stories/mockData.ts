@@ -17,7 +17,7 @@ export const appleStockTimeseries = new Timeseries(appleStockPoints);
 /**
  * Creates d3 scales that cover the date and value ranges of the
  * given timeseries. This function is intended to be used in stories
- * to make the setup more easy.
+ * to simplify their setup.
  */
 export function createTimeseriesScales(
   timeseries: Timeseries<number>,
