@@ -37,6 +37,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
     return null;
   }
 
+  const mapSize: [number, number] = [width, height];
   // The geoAlbersUsa projection is designed to show the entire US in a
   // rectangular area with aspect ratio 960x500. With this projection,
   // some states appear "rotated", so we use the Mercator projection to
@@ -46,14 +47,16 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
   // beyond the west edge of the projection, so the math to calculate the
   // parameters to make it fit won't work. We fall back to geoAlbersUsa
   // in this case.
-  const geoProjection = stateGeo.id === "02" ? geoAlbersUsa : geoMercator;
+  //
+  // Note: The geoAlbersUsa projection doesn't define `clipExtent`, so we
+  // can't use it for Alaska.
+  const projection =
+    stateGeo.id === "02"
+      ? geoAlbersUsa().fitSize(mapSize, stateGeo)
+      : geoMercator()
+          .fitSize(mapSize, stateGeo)
+          .clipExtent([[0, 0], mapSize]);
 
-  const projection = geoProjection()
-    .fitSize([width, height], stateGeo)
-    .clipExtent([
-      [0, 0],
-      [width, height],
-    ]);
   const geoPath = d3GeoPath().projection(projection);
 
   const regionsOfState = countiesGeographies.features.filter((geo) =>
