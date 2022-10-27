@@ -81,15 +81,3 @@ export const LegendThresholdHorizontal = <T,>({
     </AutoWidth>
   );
 };
-
-// export const LegendThresholdHorizontal = <T,>({
-//   height = 20,
-//   ...otherSvgProps
-// }: LegendThresholdProps<T> &
-//   Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
-//   return (
-//     <AutoWidth>
-//       <LegendThresholdHorizontalInner height={height} {...otherSvgProps} />
-//     </AutoWidth>
-//   );
-// };

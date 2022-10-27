@@ -19,12 +19,10 @@ const Template: Story<MetricLegendThresholdProps> = (args) => (
 
 // Horizontal legend threshold props
 const horizontalBarHeight = 20;
-// const horizontalWidth = 300;
 
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  // width: horizontalWidth,
   height: horizontalBarHeight,
   metric: MetricId.MOCK_CASES,
 };
@@ -47,7 +45,6 @@ HorizontalOnlySideLabels.args = {
 export const HorizontalCategories = Template.bind({});
 HorizontalCategories.args = {
   orientation: "horizontal",
-  // width: horizontalWidth,
   height: horizontalBarHeight,
   metric: MetricId.PASS_FAIL,
 };
