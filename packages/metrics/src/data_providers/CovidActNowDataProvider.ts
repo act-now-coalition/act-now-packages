@@ -1,3 +1,4 @@
+import pLimit from "p-limit";
 import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
@@ -7,9 +8,11 @@ import {
   dataRowToMetricData,
 } from "./data_provider_utils";
 import { DataRow } from "./data_provider_utils";
-import chunk from "lodash/chunk";
 import { MetricData } from "../data/MetricData";
 import { fetchJson } from "./utils";
+
+// Limit having too many outstanding requests at once, to avoid timeouts, etc.
+const MAX_CONCURRENT_REQUESTS = 50;
 
 /**
  * Data provider to ingest data from the Covid Act Now API.
@@ -50,28 +53,25 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
     metrics: Metric[],
     includeTimeseries: boolean
   ) {
-    // TODO(#249): This parallelization and retry logic is very crude and should be
-    // cleaned up and generalized, or better yet replaced with some sort of
-    // networking library that handles it for us.
-    const chunks = chunk(regions, 50);
-    for (const chunk of chunks) {
-      await Promise.all(
-        chunk.map(async (region) => {
-          const cacheKey = `${region.regionId}-${includeTimeseries}`;
-          // If timeseries data exists in the cache, skip the fetch no matter what,
-          // as the timeseries endpoints also contain all of the non-timeseries data,
-          // and we will use this data if necessary via the getCachedData method.
-          if (!this.getCachedData(region, includeTimeseries)) {
-            const url = this.buildFetchUrl(region, includeTimeseries);
-            try {
-              this.apiJson[cacheKey] = await fetchJson(url);
-            } catch (e) {
-              console.error(`Failed to fetch data for ${region}: ${e}`);
-            }
-          }
-        })
-      );
-    }
+    const fetchAndCacheRegion = async (region: Region) => {
+      const cacheKey = `${region.regionId}-${includeTimeseries}`;
+      // If timeseries data exists in the cache, skip the fetch no matter what,
+      // as the timeseries endpoints also contain all of the non-timeseries data,
+      // and we will use this data if necessary via the getCachedData method.
+      if (!this.getCachedData(region, includeTimeseries)) {
+        const url = this.buildFetchUrl(region, includeTimeseries);
+        try {
+          this.apiJson[cacheKey] = await fetchJson(url);
+        } catch (e) {
+          console.error(`Failed to fetch data for ${region}: ${e}`);
+        }
+      }
+    };
+
+    const limiter = pLimit(MAX_CONCURRENT_REQUESTS);
+    await Promise.all(
+      regions.map((region) => limiter(() => fetchAndCacheRegion(region)))
+    );
   }
 
   getDataFromCache(region: Region, metric: Metric, includeTimeseries: boolean) {
