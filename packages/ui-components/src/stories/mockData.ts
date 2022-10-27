@@ -14,12 +14,17 @@ const appleStockPoints = appleStock.map(
 
 export const appleStockTimeseries = new Timeseries(appleStockPoints);
 
+/**
+ * Creates d3 scales that cover the date and value ranges of the
+ * given timeseries. This function is intended to be used in stories
+ * to make the setup more easy.
+ */
 export function createTimeseriesScales(
   timeseries: Timeseries<number>,
   width: number,
   height: number
 ) {
-  assert(timeseries.hasData(), `Timeseries cannot be empty`);
+  assert(timeseries.hasData(), "Timeseries cannot be empty");
   const { minDate, maxDate, minValue, maxValue } = timeseries;
 
   const xScale = scaleTime({
