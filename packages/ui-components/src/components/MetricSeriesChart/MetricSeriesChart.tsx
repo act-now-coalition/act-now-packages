@@ -1,50 +1,17 @@
 import React from "react";
 import { Group } from "@visx/group";
-import { ScaleTime, ScaleLinear } from "d3-scale";
 import uniq from "lodash/uniq";
 import min from "lodash/min";
 import max from "lodash/max";
 import { scaleLinear, scaleTime } from "@visx/scale";
-import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
-
-import { Metric, Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
 
 import { AxesTimeseries } from "../AxesTimeseries";
-import { BaseChartProps } from "../MetricLineChart/interfaces";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
-import { assert } from "@actnowcoalition/assert";
-import { LineChart } from "../LineChart";
-import { BarChart } from "../BarChart";
-import { MetricLineThreshold } from "../MetricLineThresholdChart/MetricLineThreshold";
 import { RectClipGroup } from "../RectClipGroup";
-
-export enum SeriesType {
-  LINE = "LINE",
-  LINE_THRESHOLDS = "LINE_THRESHOLDS",
-  BAR = "BAR",
-}
-
-export interface SeriesBase {
-  metric: Metric;
-  region: Region;
-}
-
-export interface SeriesLine extends SeriesBase {
-  type: SeriesType.LINE;
-  lineProps?: React.SVGProps<SVGPathElement> &
-    LinePathProps<TimeseriesPoint<number>>;
-}
-
-export interface SeriesLineThresholds extends SeriesBase {
-  type: SeriesType.LINE_THRESHOLDS;
-}
-
-export interface SeriesBar extends SeriesBase {
-  type: SeriesType.BAR;
-}
-
-export type Series = SeriesLine | SeriesLineThresholds | SeriesBar;
+import { BaseChartProps } from "../MetricLineChart/interfaces";
+import { Series } from "./interfaces";
+import { SeriesChart } from "./SeriesChart";
 
 export interface MetricSeriesChartProps extends BaseChartProps {
   series: Series[];
@@ -127,51 +94,4 @@ export const MetricSeriesChart = ({
       </Group>
     </svg>
   );
-};
-
-export interface SeriesChartProps {
-  series: Series;
-  timeseries: Timeseries<number>;
-  dateScale: ScaleTime<number, number>;
-  yScale: ScaleLinear<number, number>;
-}
-
-const SeriesChart = ({
-  series,
-  timeseries,
-  dateScale,
-  yScale,
-}: SeriesChartProps) => {
-  switch (series.type) {
-    case SeriesType.LINE:
-      return (
-        <LineChart
-          timeseries={timeseries}
-          xScale={dateScale}
-          yScale={yScale}
-          {...(series.lineProps ?? {})}
-        />
-      );
-    case SeriesType.LINE_THRESHOLDS:
-      return (
-        <MetricLineThreshold
-          metric={series.metric}
-          timeseries={timeseries}
-          dateScale={dateScale}
-          yScale={yScale}
-        />
-      );
-    case SeriesType.BAR:
-      return (
-        <BarChart
-          timeseries={timeseries}
-          xScale={dateScale}
-          yScale={yScale}
-          barWidth={0.5}
-          fill="#ddd"
-        />
-      );
-    default:
-      return <></>;
-  }
 };
