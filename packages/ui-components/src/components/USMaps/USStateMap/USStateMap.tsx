@@ -1,6 +1,5 @@
 import React from "react";
 import { Tooltip } from "@mui/material";
-import { ParentSize } from "@visx/responsive";
 import { geoPath as d3GeoPath, geoAlbersUsa, geoMercator } from "d3-geo";
 import {
   statesGeographies,
@@ -16,6 +15,7 @@ import {
   RegionOverlay,
 } from "../Maps.style";
 import { USStateMapProps } from "../interfaces";
+import { AutoWidth } from "../../AutoWidth";
 
 const USStateMapInner: React.FC<USStateMapProps> = ({
   stateRegionId,
@@ -121,7 +121,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
 };
 
 export const USStateMap: React.FC<USStateMapProps> = (props) => (
-  <ParentSize>
-    {({ width }) => <USStateMapInner width={width} {...props} />}
-  </ParentSize>
+  <AutoWidth>
+    <USStateMapInner {...props} />
+  </AutoWidth>
 );
