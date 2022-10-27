@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Create mini map container
+Fix the state map for Alaska

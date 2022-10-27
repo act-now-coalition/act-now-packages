@@ -98,7 +98,6 @@ const components: ThemeOptions["components"] = {
     styleOverrides: {
       root: ({ theme }) => ({
         backgroundColor: theme.palette.common.white,
-        margin: theme.spacing(1, 2),
         "& .MuiFilledInput-root": {
           backgroundColor: theme.palette.common.white,
           border: `1px solid ${theme.palette.border.default}`,

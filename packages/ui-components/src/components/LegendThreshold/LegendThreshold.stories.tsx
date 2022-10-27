@@ -20,7 +20,6 @@ const Template: Story<LegendThresholdProps<Item>> = (args) => (
 
 // Horizontal legend threshold props
 const horizontalHeight = 20;
-const horizontalWidth = 300;
 
 const items: Item[] = [
   { label: "10", sublabel: "Sublabel 1", color: "#90BE6D" },
@@ -40,7 +39,6 @@ const getItemSublabel = (item: Item, itemIndex: number) => item.sublabel;
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  width: horizontalWidth,
   height: horizontalHeight,
   items,
   getItemColor,

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import isNumber from "lodash/isNumber";
+import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleUtc, scaleLinear } from "@visx/scale";
 import { Timeseries } from "@actnowcoalition/metrics";
 import { AxisBottom, AxisLeft } from "../Axis";
 import { LineChart } from "../LineChart";
-import { ChartOverlayXY, PointInfo } from ".";
+import { ChartOverlayXY, useHoveredPoint } from ".";
 
 export default {
   title: "Charts/ChartOverlayXY",
@@ -64,37 +63,24 @@ const seriesList = [
  * the index of the series. We use that information to make the line thicker.
  */
 export const ExampleTrendsChart = () => {
-  const [pointIndex, setPointIndex] = useState<number | null>(null);
-  const [timeseriesIndex, setTimeseriesIndex] = useState<number | null>(null);
-
-  const isHoveringPoint = isNumber(pointIndex) && isNumber(timeseriesIndex);
-
-  const onMouseMove = ({ pointIndex, timeseriesIndex }: PointInfo) => {
-    if (isNumber(pointIndex) && isNumber(timeseriesIndex)) {
-      setPointIndex(pointIndex);
-      setTimeseriesIndex(timeseriesIndex);
-    }
-  };
-
-  const onMouseOut = () => {
-    setPointIndex(null);
-    setTimeseriesIndex(null);
-  };
+  const timeseriesList = seriesList.map((s) => s.timeseries);
+  const { pointInfo, onMouseMove, onMouseLeave } =
+    useHoveredPoint<number>(timeseriesList);
 
   return (
     <svg width={width} height={height} style={{ border: "solid 1px #ddd" }}>
       <Group left={padding} top={padding}>
         <AxisBottom top={innerHeight} scale={xScale} />
         <AxisLeft scale={yScale} />
-        {seriesList.map(({ timeseries, color }, tIndex) => (
-          <Group key={`group-${tIndex}`}>
+        {seriesList.map(({ timeseries, color }, index) => (
+          <Group key={`group-${index}`}>
             <LineChart
               timeseries={timeseries}
               xScale={xScale}
               yScale={yScale}
               stroke={color}
               strokeWidth={
-                isHoveringPoint && tIndex === timeseriesIndex ? 3 : 1
+                pointInfo && index === pointInfo.timeseriesIndex ? 3 : 1
               }
             />
             <Group>
@@ -117,7 +103,7 @@ export const ExampleTrendsChart = () => {
           width={innerWidth}
           height={innerHeight}
           onMouseMove={onMouseMove}
-          onMouseOut={onMouseOut}
+          onMouseOut={onMouseLeave}
         />
       </Group>
     </svg>

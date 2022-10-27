@@ -1,10 +1,17 @@
 import React, { HTMLAttributes } from "react";
-import { Region } from "@actnowcoalition/regions";
-import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  AutocompleteProps,
+  TextField,
+  createFilterOptions,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { createFilterOptions } from "@mui/material/useAutocomplete";
-import { SearchItem } from "./SearchItem/SearchItem";
+
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
 import { formatPopulation } from "../../common/utils";
+import { SearchItem } from "./SearchItem/SearchItem";
+import { StyledLink } from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
   return region.fullName;
@@ -26,12 +33,8 @@ export type CustomAutocompleteProps = AutocompleteProps<
 
 export interface RegionSearchProps
   extends Omit<CustomAutocompleteProps, "renderInput"> {
-  /** Link component in which to wrap the search item. */
-  LinkComponent: React.FC<{
-    children: React.ReactElement;
-    targetUrl: string;
-  }>;
-  getRegionUrl: (regionId: string) => string;
+  /** RegionDB instance for the application */
+  regionDB: RegionDB;
   /** Placeholder text to show in the inner text field  */
   inputLabel?: string;
   /** Optional renderInput function. See https://mui.com/material-ui/api/autocomplete/ */
@@ -39,11 +42,10 @@ export interface RegionSearchProps
 }
 
 export const RegionSearch: React.FC<RegionSearchProps> = ({
+  regionDB,
   options,
   inputLabel = "City, county, state, or district",
   renderInput: customRenderInput,
-  LinkComponent,
-  getRegionUrl,
   ...otherAutocompleteProps
 }) => {
   const defaultRenderInput: CustomAutocompleteProps["renderInput"] = (
@@ -60,35 +62,26 @@ export const RegionSearch: React.FC<RegionSearchProps> = ({
   );
 
   return (
-    <div>
-      <Autocomplete
-        options={options}
-        onChange={(e, item: Region | null) => onChange(item)}
-        clearIcon={<></>}
-        renderInput={customRenderInput ?? defaultRenderInput}
-        renderOption={(
-          props: HTMLAttributes<HTMLLIElement>,
-          option: Region
-        ) => {
-          return (
-            <LinkComponent targetUrl={getRegionUrl(option.regionId)}>
-              <SearchItem
-                itemLabel={option.shortName}
-                itemSublabel={`${formatPopulation(
-                  option.population
-                )} population`}
-                {...props}
-              />
-            </LinkComponent>
-          );
-        }}
-        getOptionLabel={stringifyOption}
-        filterOptions={createFilterOptions({
-          limit: 30,
-          stringify: stringifyOption,
-        })}
-        {...otherAutocompleteProps}
-      />
-    </div>
+    <Autocomplete
+      options={options}
+      onChange={(e, item: Region | null) => onChange(item)}
+      clearIcon={<></>}
+      renderInput={customRenderInput ?? defaultRenderInput}
+      renderOption={(props: HTMLAttributes<HTMLLIElement>, option: Region) => (
+        <StyledLink href={regionDB.getRegionUrl(option)}>
+          <SearchItem
+            itemLabel={option.shortName}
+            itemSublabel={`${formatPopulation(option.population)} population`}
+            {...props}
+          />
+        </StyledLink>
+      )}
+      getOptionLabel={stringifyOption}
+      filterOptions={createFilterOptions({
+        limit: 30,
+        stringify: stringifyOption,
+      })}
+      {...otherAutocompleteProps}
+    />
   );
 };

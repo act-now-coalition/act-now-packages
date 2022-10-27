@@ -24,16 +24,16 @@ export interface ChartOverlayXYProps {
    * Handler to call when a user hovers near a point. The point, timeseriesIndex
    * and pointIndex are passed to the handler.
    **/
-  onMouseMove?: (pointInfo: PointInfo) => void;
+  onMouseMove?: (pointInfo: HoveredPointInfo) => void;
   /** Handler to call when the user moves out of the hoverable area. */
   onMouseOut?: () => void;
 }
 
 /**
- * The PointInfo contains information about the point being hovered.
+ * Information about the point being hovered.
  */
-export interface PointInfo {
-  /** Hovered point */
+export interface HoveredPointInfo {
+  /**  */
   point: TimeseriesPoint<number>;
   /** Index of the hovered timeseries */
   timeseriesIndex: number;
@@ -66,7 +66,7 @@ export const ChartOverlayXY = ({
   // Put all the points together in one array. Each pointInfo includes
   // the index of the timeseries it belongs to, and its own index
   // on the corresponding timeseries
-  const points: PointInfo[] = getTimeseriesPoints(timeseriesList);
+  const points: HoveredPointInfo[] = getTimeseriesPoints(timeseriesList);
 
   // The Voronoi polygons are generated from a set of points and a width
   // and height. Each point has a corresponding polygon such that all the
@@ -75,9 +75,9 @@ export const ChartOverlayXY = ({
   // Each polygon has the pointInfo attached to it, so we can pass it to the
   // handler when the user hovers it.
   const voronoiPolygons = useMemo(() => {
-    const voroniLayout = voronoi<PointInfo>({
-      x: ({ point }: PointInfo) => xScale(point.date),
-      y: ({ point }: PointInfo) => yScale(point.value),
+    const voroniLayout = voronoi<HoveredPointInfo>({
+      x: ({ point }: HoveredPointInfo) => xScale(point.date),
+      y: ({ point }: HoveredPointInfo) => yScale(point.value),
       width,
       height,
     });
@@ -105,10 +105,10 @@ export const ChartOverlayXY = ({
  */
 function getTimeseriesPoints(
   timeseriesList: Timeseries<number>[]
-): PointInfo[] {
-  return timeseriesList.reduce<PointInfo[]>(
+): HoveredPointInfo[] {
+  return timeseriesList.reduce<HoveredPointInfo[]>(
     (acc, timeseries, timeseriesIndex) => {
-      const pointInfoList: PointInfo[] = timeseries.points.map(
+      const pointInfoList: HoveredPointInfo[] = timeseries.points.map(
         (point, pointIndex) => ({ point, timeseriesIndex, pointIndex })
       );
       return concat(acc, pointInfoList);
