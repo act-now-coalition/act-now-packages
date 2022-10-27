@@ -1,15 +1,12 @@
 import { useState } from "react";
 import isNumber from "lodash/isNumber";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import { ChartOverlayXYProps, PointInfo } from "./ChartOverlayXY";
+import { ChartOverlayXYProps, HoveredPointInfo } from "./ChartOverlayXY";
 
 /**
  * React hook that keeps track of the point being hovered in a chart. This hook
  * is normally used with ChartOverlayXY. Given a list of timeseries, it returns
- * the handlers onMouseMove, onMouseLeave and `pointInfo`, an object containing
- * `timeseriesIndex`, `pointIndex` and `point`, which represent the index of
- * the timeseries being hovered, the index in the timeseries of the point being
- * hovered, and the point being hovered itself.
+ * the handlers onMouseMove, onMouseLeave and `pointInfo`.
  *
  * @example
  * ```tsx
@@ -41,7 +38,7 @@ import { ChartOverlayXYProps, PointInfo } from "./ChartOverlayXY";
  * ```
  *
  * @param timeseriesList
- * @returns the hovered point information and the onMouseMove and onMouseLeave handlers.
+ * @returns The hovered point information and the onMouseMove and onMouseLeave handlers.
  */
 export function useHoveredPoint<T>(
   timeseriesList: Timeseries<T>[] | undefined
@@ -59,7 +56,7 @@ export function useHoveredPoint<T>(
   const onMouseMove: ChartOverlayXYProps["onMouseMove"] = ({
     pointIndex,
     timeseriesIndex,
-  }: PointInfo) => {
+  }: HoveredPointInfo) => {
     if (timeseriesList && isNumber(pointIndex) && isNumber(timeseriesIndex)) {
       setPointIndex(pointIndex);
       setTimeseriesIndex(timeseriesIndex);
