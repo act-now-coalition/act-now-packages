@@ -1,11 +1,8 @@
 import { Category } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
+import { LineThresholdInterval } from "../LineThresholdChart";
 
-export interface ChartInterval {
-  /** Upper bound of the interval, in data units. */
-  upper: number;
-  /** Lower bound of the interval, in data units. */
-  lower: number;
+export interface ChartInterval extends LineThresholdInterval {
   /** Category corresponding to the interval. */
   category: Category;
 }
@@ -102,6 +99,7 @@ export function calculateChartIntervals(
       upper: isLastCategory
         ? Math.max(maxVal, lastThreshold + padding)
         : thresholds[categoryIndex],
+      color: category.color,
     };
   });
 }
