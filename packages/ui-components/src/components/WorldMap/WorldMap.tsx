@@ -9,6 +9,7 @@ import {
 import DiagonalHatchPattern from "./DiagonalHatchPattern";
 import { AutoWidth } from "../AutoWidth";
 import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
+import { MapContainer } from "../USMaps/Maps.style";
 
 export interface WorldMapProps {
   renderTooltip: (regionId: string) => React.ReactNode;
@@ -45,55 +46,57 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
   const path = geoPath(projection);
 
   return (
-    <svg width={width} height={height}>
-      <defs>
-        <DiagonalHatchPattern lineColor={colorDisputedAreas} />
-      </defs>
+    <MapContainer>
+      <svg width={width} height={height}>
+        <defs>
+          <DiagonalHatchPattern lineColor={colorDisputedAreas} />
+        </defs>
 
-      {/* Country Shapes */}
-      {countries.features.map((geo) => (
-        <>
-          <Tooltip title={renderTooltip(`${geo.id}`) ?? ""}>
-            <path
-              d={path(geo) || ""}
-              fill={getFillColor(`${geo.id}`)}
-              fillOpacity={getFillOpacity(`${geo.id}`)}
-            />
-          </Tooltip>
-        </>
-      ))}
+        {/* Country Shapes */}
+        {countries.features.map((geo) => (
+          <>
+            <Tooltip title={renderTooltip(`${geo.id}`) ?? ""}>
+              <path
+                d={path(geo) || ""}
+                fill={getFillColor(`${geo.id}`)}
+                fillOpacity={getFillOpacity(`${geo.id}`)}
+              />
+            </Tooltip>
+          </>
+        ))}
 
-      {/* Country Borders */}
-      <path
-        d={path(borders) || ""}
-        fill="none"
-        stroke="white"
-        strokeWidth={0.5}
-      />
-
-      {/* Disputed Areas */}
-      {disputedAreas.features.map((geo, geoIndex) => (
-        <DisputedAreaPath
-          key={`disputed-area-${geoIndex}`}
-          d={path(geo) || ""}
-          className={nameToClassName(geo.properties.name)}
+        {/* Country Borders */}
+        <path
+          d={path(borders) || ""}
+          fill="none"
+          stroke="white"
+          strokeWidth={0.5}
         />
-      ))}
 
-      {/* Disputed Borders */}
-      {disputedBorders.features.map((geo, geoIndex) => (
-        <g key={`disputed-border-${geoIndex}`}>
-          <DisputedBorderPath
-            className="Background_Border"
+        {/* Disputed Areas */}
+        {disputedAreas.features.map((geo, geoIndex) => (
+          <DisputedAreaPath
+            key={`disputed-area-${geoIndex}`}
             d={path(geo) || ""}
-          />
-          <DisputedBorderPath
             className={nameToClassName(geo.properties.name)}
-            d={path(geo) || ""}
           />
-        </g>
-      ))}
-    </svg>
+        ))}
+
+        {/* Disputed Borders */}
+        {disputedBorders.features.map((geo, geoIndex) => (
+          <g key={`disputed-border-${geoIndex}`}>
+            <DisputedBorderPath
+              className="Background_Border"
+              d={path(geo) || ""}
+            />
+            <DisputedBorderPath
+              className={nameToClassName(geo.properties.name)}
+              d={path(geo) || ""}
+            />
+          </g>
+        ))}
+      </svg>
+    </MapContainer>
   );
 };
 
