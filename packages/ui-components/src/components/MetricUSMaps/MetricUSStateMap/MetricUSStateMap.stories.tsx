@@ -32,6 +32,14 @@ MetricAwareNewYork.args = {
   regionDB,
 };
 
+export const MetricAwareAlaska = Template.bind({});
+MetricAwareAlaska.args = {
+  stateRegionId: "02",
+  renderTooltip,
+  metric: MetricId.MOCK_CASES,
+  regionDB,
+};
+
 export const MetricAwareNewYorkWithHighlightedCounty = Template.bind({});
 MetricAwareNewYorkWithHighlightedCounty.args = {
   stateRegionId: "36",
