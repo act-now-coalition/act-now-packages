@@ -1,5 +1,5 @@
 import React from "react";
-import { Stack, Typography } from "@mui/material";
+import { Stack, Typography, Box } from "@mui/material";
 import { LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { CategoryItem, MetricLegendThresholdProps } from "./interfaces";
@@ -31,20 +31,22 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
 
   if (legendThresholdProps.orientation === "horizontal") {
     return (
-      <Stack spacing={2} alignItems="center">
+      <Stack spacing={2}>
         <Stack spacing={0.5} alignItems="center">
           <Typography variant="labelLarge">{metric.name}</Typography>
           <Typography variant="paragraphSmall">
             {metric.extendedName}
           </Typography>
         </Stack>
-        <Stack direction="row" spacing={1} alignItems="center">
-          {startLabel}
-          <LegendThreshold<CategoryItem>
-            {...commonProps}
-            getItemLabel={getItemLabelHorizontal}
-          />
-          {endLabel}
+        <Stack direction="row" spacing={1}>
+          <Box>{startLabel}</Box>
+          <Box flex={1}>
+            <LegendThreshold<CategoryItem>
+              {...commonProps}
+              getItemLabel={getItemLabelHorizontal}
+            />
+          </Box>
+          <Box>{endLabel}</Box>
         </Stack>
       </Stack>
     );

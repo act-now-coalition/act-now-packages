@@ -12,19 +12,19 @@ export default {
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
 const Template: Story<MetricLegendThresholdProps> = (args) => (
-  <Paper sx={{ width: 500, padding: 2 }}>
+  <Paper sx={{ p: 2 }}>
     <MetricLegendThreshold {...args} />
   </Paper>
 );
 
 // Horizontal legend threshold props
 const horizontalBarHeight = 20;
-const horizontalWidth = 300;
+// const horizontalWidth = 300;
 
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  width: horizontalWidth,
+  // width: horizontalWidth,
   height: horizontalBarHeight,
   metric: MetricId.MOCK_CASES,
 };
@@ -47,7 +47,7 @@ HorizontalOnlySideLabels.args = {
 export const HorizontalCategories = Template.bind({});
 HorizontalCategories.args = {
   orientation: "horizontal",
-  width: horizontalWidth,
+  // width: horizontalWidth,
   height: horizontalBarHeight,
   metric: MetricId.PASS_FAIL,
 };

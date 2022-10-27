@@ -2,6 +2,7 @@ import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
 import { LegendThreshold } from ".";
 import { LegendThresholdProps } from "./interfaces";
+import { Box } from "@mui/material";
 
 export default {
   title: "Components/LegendThreshold",
@@ -15,12 +16,14 @@ interface Item {
 }
 
 const Template: Story<LegendThresholdProps<Item>> = (args) => (
-  <LegendThreshold {...args} />
+  <Box border="1px solid red">
+    <LegendThreshold {...args} />
+  </Box>
 );
 
 // Horizontal legend threshold props
 const horizontalHeight = 20;
-const horizontalWidth = 300;
+// const horizontalWidth = 300;
 
 const items: Item[] = [
   { label: "10", sublabel: "Sublabel 1", color: "#90BE6D" },
@@ -40,7 +43,7 @@ const getItemSublabel = (item: Item, itemIndex: number) => item.sublabel;
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
-  width: horizontalWidth,
+  // width: horizontalWidth,
   height: horizontalHeight,
   items,
   getItemColor,

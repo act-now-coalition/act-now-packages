@@ -4,13 +4,14 @@ import { scaleBand } from "@visx/scale";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
 import { LegendThresholdProps } from "./interfaces";
 import { RectClipGroup } from "../RectClipGroup";
+import { AutoWidth } from "../AutoWidth";
 
 /**
  * `LegendThresholdHorizontal` represents a scale with thresholds that separate
  * a set of categories. By default, the labels between each category are shown.
  */
 
-export const LegendThresholdHorizontal = <T,>({
+export const LegendThresholdHorizontalInner = <T,>({
   height = 20,
   width = 300,
   borderRadius = 10,
@@ -69,3 +70,26 @@ export const LegendThresholdHorizontal = <T,>({
     </svg>
   );
 };
+
+export const LegendThresholdHorizontal = <T,>({
+  ...props
+}: LegendThresholdProps<T> &
+  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
+  return (
+    <AutoWidth>
+      <LegendThresholdHorizontalInner {...props} />
+    </AutoWidth>
+  );
+};
+
+// export const LegendThresholdHorizontal = <T,>({
+//   height = 20,
+//   ...otherSvgProps
+// }: LegendThresholdProps<T> &
+//   Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>) => {
+//   return (
+//     <AutoWidth>
+//       <LegendThresholdHorizontalInner height={height} {...otherSvgProps} />
+//     </AutoWidth>
+//   );
+// };
