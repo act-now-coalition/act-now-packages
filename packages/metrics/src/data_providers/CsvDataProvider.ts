@@ -10,7 +10,7 @@ import {
 } from "./data_provider_utils";
 import groupBy from "lodash/groupBy";
 import Papa from "papaparse";
-import fetch from "node-fetch";
+import { fetchText } from "./utils";
 
 export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
@@ -129,14 +129,7 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
    */
   private async fetchCsvText(): Promise<string> {
     assert(this.url, "URL must be specified in order to use fetchCsvText()");
-    console.log("Fetching", this.url);
-    const response = await fetch(this.url);
-    if (response.status !== 200) {
-      throw new Error(
-        `Failed to fetch CSV data from ${this.url}: ${response.statusText}`
-      );
-    }
-    return await response.text();
+    return fetchText(this.url);
   }
 }
 

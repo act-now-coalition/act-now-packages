@@ -1,12 +1,47 @@
 import { useState } from "react";
 import isNumber from "lodash/isNumber";
-
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { ChartOverlayXYProps, HoveredPointInfo } from "./ChartOverlayXY";
 
-import { ChartOverlayXYProps, PointInfo } from "./ChartOverlayXY";
-
+/**
+ * React hook that keeps track of the point being hovered in a chart. This hook
+ * is normally used with ChartOverlayXY. Given a list of timeseries, it returns
+ * the handlers onMouseMove, onMouseLeave and `pointInfo`.
+ *
+ * @example
+ * ```tsx
+ * const { pointInfo, onMouseMove, onMouseLeave } = useHoveredPoint(timeseriesList);
+ *
+ * return (
+ *   <svg width={width} height={height}>
+ *     {timeseriesList.map(timeseries => (
+ *       <LineChart timeseries={timeseries} {...} />
+ *     ))}
+ *     {pointInfo?.point && (
+ *       <Tooltip point={pointInfo?.point}>
+ *         <CircleMarker />
+ *       </Tooltip>
+ *     )}
+ *     {pointInfo && (
+ *       <LineChart
+ *         timeseries={timeseriesList[timeseriesIndex]}
+ *         strokeWidth={4}
+ *       />
+ *     )}
+ *     <ChartOverlayX
+ *       onMouseMove={onMouseMove}
+ *       onMouseLeave={onMouseLeave}
+ *       {...otherProps}
+ *     />
+ *   </svg>
+ * );
+ * ```
+ *
+ * @param timeseriesList
+ * @returns The hovered point information and the onMouseMove and onMouseLeave handlers.
+ */
 export function useHoveredPoint<T>(
-  timeseriesList: Array<Timeseries<T>> | undefined
+  timeseriesList: Timeseries<T>[] | undefined
 ) {
   const [pointIndex, setPointIndex] = useState<number | null>(null);
   const [timeseriesIndex, setTimeseriesIndex] = useState<number | null>(null);
@@ -21,7 +56,7 @@ export function useHoveredPoint<T>(
   const onMouseMove: ChartOverlayXYProps["onMouseMove"] = ({
     pointIndex,
     timeseriesIndex,
-  }: PointInfo) => {
+  }: HoveredPointInfo) => {
     if (timeseriesList && isNumber(pointIndex) && isNumber(timeseriesIndex)) {
       setPointIndex(pointIndex);
       setTimeseriesIndex(timeseriesIndex);

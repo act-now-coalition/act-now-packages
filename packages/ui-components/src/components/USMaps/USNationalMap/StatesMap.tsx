@@ -8,7 +8,7 @@ const StatesMap: React.FC<{
   width: number;
   height: number;
   geoPath: GeoPath;
-  renderTooltip: (regionId: string) => React.ReactElement | string;
+  renderTooltip: (regionId: string) => React.ReactNode;
   showCounties: boolean;
   getFillColor: (regionId: string) => string;
   getRegionUrl?: (regionId: string) => string | undefined;
@@ -26,7 +26,7 @@ const StatesMap: React.FC<{
       {statesGeographies.features.map((geo) => {
         const stateFips = `${geo.id}`;
         return (
-          <Tooltip key={stateFips} title={renderTooltip(stateFips)}>
+          <Tooltip key={stateFips} title={renderTooltip(stateFips) ?? ""}>
             <Link href={getRegionUrl(stateFips)}>
               <g>
                 {!showCounties && (
