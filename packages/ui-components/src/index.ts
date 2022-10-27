@@ -100,6 +100,7 @@ export * from "./components/MetricLineThresholdChart";
 export * from "./components/MetricMultiProgressBar";
 export * from "./components/MetricOverview";
 export * from "./components/MetricScoreOverview";
+export * from "./components/MetricSeriesChart";
 export * from "./components/MetricSparklines";
 export * from "./components/MetricTooltip";
 export * from "./components/MetricUSMaps";
@@ -113,5 +114,3 @@ export * from "./components/RegionSearch";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";
 export * from "./components/USMaps";
-
-export * from "./components/MetricSeriesChart";
