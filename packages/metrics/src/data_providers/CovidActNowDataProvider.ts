@@ -53,7 +53,7 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
     metrics: Metric[],
     includeTimeseries: boolean
   ) {
-    const fetchRegion = async (region: Region) => {
+    const fetchAndCacheRegion = async (region: Region) => {
       const cacheKey = `${region.regionId}-${includeTimeseries}`;
       // If timeseries data exists in the cache, skip the fetch no matter what,
       // as the timeseries endpoints also contain all of the non-timeseries data,
@@ -70,7 +70,7 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
 
     const limiter = pLimit(MAX_CONCURRENT_REQUESTS);
     await Promise.all(
-      regions.map((region) => limiter(() => fetchRegion(region)))
+      regions.map((region) => limiter(() => fetchAndCacheRegion(region)))
     );
   }
 
