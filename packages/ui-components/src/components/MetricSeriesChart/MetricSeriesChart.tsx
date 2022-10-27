@@ -16,7 +16,7 @@ import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { assert } from "@actnowcoalition/assert";
 import { LineChart } from "../LineChart";
 import { BarChart } from "../BarChart";
-import { LineThresholdChart } from "../MetricLineThresholdChart/LineThresholdChart";
+import { MetricLineThreshold } from "../MetricLineThresholdChart/MetricLineThreshold";
 import { RectClipGroup } from "../RectClipGroup";
 
 export enum SeriesType {
@@ -121,7 +121,6 @@ export const MetricSeriesChart = ({
               timeseries={item.timeseries}
               dateScale={dateScale}
               yScale={yScale}
-              width={chartWidth}
             />
           ))}
         </RectClipGroup>
@@ -135,7 +134,6 @@ export interface SeriesChartProps {
   timeseries: Timeseries<number>;
   dateScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
-  width: number;
 }
 
 const SeriesChart = ({
@@ -143,7 +141,6 @@ const SeriesChart = ({
   timeseries,
   dateScale,
   yScale,
-  width,
 }: SeriesChartProps) => {
   switch (series.type) {
     case SeriesType.LINE:
@@ -157,12 +154,11 @@ const SeriesChart = ({
       );
     case SeriesType.LINE_THRESHOLDS:
       return (
-        <LineThresholdChart
+        <MetricLineThreshold
           metric={series.metric}
           timeseries={timeseries}
           dateScale={dateScale}
           yScale={yScale}
-          width={width}
         />
       );
     case SeriesType.BAR:
