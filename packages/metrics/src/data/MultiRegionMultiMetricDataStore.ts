@@ -77,6 +77,35 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     return new MultiRegionMultiMetricDataStore(data);
   }
 
+  /**
+   * Static async constructor to create a MultiRegionMultiMetricDataStore from a list
+   * of regions, a list of metrics, and a dataFetcher callback that returns
+   * Promise<MetricData> for each region and metric combination.
+   *
+   * @param regions Regions to create data for.
+   * @param metrics Metrics to create data for.
+   * @param dataFetcher Callback that returns `Promise<MetricData>` for each
+   * region and metric combination. Once the returned promises resolve, they
+   * will be assembled into a `MultiRegionMultiMetricDataStore`.
+   * @returns Created `MultiRegionMultiMetricDataStore` instance.
+   */
+  static async fromRegionsAndMetricsAsync<T = unknown>(
+    regions: Region[],
+    metrics: Metric[],
+    dataFetcher: (region: Region, metric: Metric) => Promise<MetricData<T>>
+  ): Promise<MultiRegionMultiMetricDataStore<T>> {
+    const data: { [regionId: string]: MultiMetricDataStore<T> } = {};
+    for (const region of regions) {
+      const regionData: { [metricId: string]: MetricData<T> } = {};
+      for (const metric of metrics) {
+        regionData[metric.id] = await dataFetcher(region, metric);
+      }
+      data[region.regionId] = new MultiMetricDataStore<T>(region, regionData);
+    }
+
+    return new MultiRegionMultiMetricDataStore(data);
+  }
+
   /** Whether this data store is empty. */
   get isEmpty(): boolean {
     return Object.keys(this.data).length === 0;

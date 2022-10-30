@@ -67,14 +67,10 @@ describe("CsvDataProvider", () => {
     expect(metricData.hasTimeseries()).toBe(false);
   });
 
-  test("populateCache() fails if csv does not have at least one row.", async () => {
-    const provider = new CsvDataProvider("PROVIDER_ID", {
-      regionColumn: "region",
-      csvText: `region,cool_metric`,
-    });
-    expect(async () => {
-      await provider.populateCache();
-    }).rejects.toThrow("CSV must not be empty.");
+  test("fetchData() fails if csv does not have at least one row.", async () => {
+    expect(async () =>
+      testFetchingCsvData(`region,cool_metric`, /*includeTimeseries=*/ true)
+    ).rejects.toThrow("CSV must not be empty.");
   });
 
   test("Constructor fails if neither url or csv data is provided.", () => {

@@ -9,7 +9,7 @@ const testRegion = states.findByRegionIdStrict("53"); // Washington.
 const PROVIDER_ID = "mock";
 
 describe("MockDataProvider", () => {
-  test("generates data", () => {
+  test("generates data", async () => {
     const dataProvider = new MockDataProvider(PROVIDER_ID);
     const metric = new Metric({
       id: "test",
@@ -19,7 +19,10 @@ describe("MockDataProvider", () => {
         endDate: "2022-01-05",
       },
     });
-    const data = dataProvider.getDataFromCache(testRegion, metric);
+    const data = await dataProvider.fetchDataForRegionAndMetric(
+      testRegion,
+      metric
+    );
     expect(typeof data.currentValue).toBe("number");
     expect(data.currentValue).toBeGreaterThanOrEqual(0);
     expect(data.currentValue).toBeLessThanOrEqual(100);
@@ -28,11 +31,14 @@ describe("MockDataProvider", () => {
     expect(data.timeseries.dates[4]).toEqual(new Date("2022-01-05"));
 
     // Ensure we get back the same data if we ask again.
-    const data2 = dataProvider.getDataFromCache(testRegion, metric);
+    const data2 = await dataProvider.fetchDataForRegionAndMetric(
+      testRegion,
+      metric
+    );
     expect(data2).toBe(data);
   });
 
-  test("uses default dates if omitted", () => {
+  test("uses default dates if omitted", async () => {
     const dataProvider = new MockDataProvider(PROVIDER_ID);
     const metric = new Metric({
       id: PROVIDER_ID,
@@ -40,7 +46,10 @@ describe("MockDataProvider", () => {
         providerId: PROVIDER_ID,
       },
     });
-    const data = dataProvider.getDataFromCache(testRegion, metric);
+    const data = await dataProvider.fetchDataForRegionAndMetric(
+      testRegion,
+      metric
+    );
     assert(data.hasTimeseries);
     const dates = data.timeseries.dates;
     expect(dates[0]).toEqual(new Date("2022-01-01"));
