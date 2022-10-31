@@ -5,25 +5,25 @@ import {
   createTimeseriesScales,
 } from "../../stories/mockData";
 import { theme } from "../../styles";
-import { LineThresholdChart, LineThresholdInterval } from ".";
+import { LineIntervalChart, LineInterval } from ".";
 
 export default {
-  title: "Charts/LineThresholdChart",
-  component: LineThresholdChart,
-} as ComponentMeta<typeof LineThresholdChart>;
+  title: "Charts/LineIntervalChart",
+  component: LineIntervalChart,
+} as ComponentMeta<typeof LineIntervalChart>;
 
 const width = 600;
 const height = 400;
 
-const Template: ComponentStory<typeof LineThresholdChart> = (args) => (
+const Template: ComponentStory<typeof LineIntervalChart> = (args) => (
   <svg width={width} height={height} style={{ border: "solid 1px #eee" }}>
-    <LineThresholdChart {...args} />
+    <LineIntervalChart {...args} />
   </svg>
 );
 
 const { xScale, yScale } = createTimeseriesScales(timeseries, width, height);
 
-const intervals: LineThresholdInterval[] = [
+const intervals: LineInterval[] = [
   { lower: 0, upper: 100, color: theme.palette.severity[100] },
   { lower: 100, upper: 400, color: theme.palette.severity[200] },
   { lower: 400, upper: 600, color: theme.palette.severity[300] },

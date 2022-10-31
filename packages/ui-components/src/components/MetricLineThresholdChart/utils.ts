@@ -1,8 +1,8 @@
 import { Category } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
-import { LineThresholdInterval } from "../LineThresholdChart";
+import { LineInterval } from "../LineIntervalChart";
 
-export interface ChartInterval extends LineThresholdInterval {
+export interface ChartInterval extends LineInterval {
   /** Category corresponding to the interval. */
   category: Category;
 }

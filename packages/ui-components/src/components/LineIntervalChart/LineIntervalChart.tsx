@@ -6,7 +6,7 @@ import { Timeseries } from "@actnowcoalition/metrics";
 import { LineChart } from "../LineChart";
 import { RectClipGroup } from "../RectClipGroup";
 
-export interface LineThresholdInterval {
+export interface LineInterval {
   /** Upper bound of the interval, in data units. */
   upper: number;
   /** Lower bound of the interval, in data units. */
@@ -15,22 +15,22 @@ export interface LineThresholdInterval {
   color: string;
 }
 
-export interface LineThresholdChartProps {
+export interface LineIntervalChartProps {
   /**
    * Array defining the intervals on the y-axis on which the line will
    * be rendered with the color specified in the interval.
    */
-  intervals: LineThresholdInterval[];
+  intervals: LineInterval[];
   /** Timeseries to render as a line */
   timeseries: Timeseries<number>;
-  /** d3-scale to transform point dates to pixel positions on the x-axis */
-  yScale: ScaleLinear<number, number>;
-  /** d3-scale to transform point values to pixel positions on the y-axis */
+  /** d3-scale to transform point values to pixel positions on the x-axis */
   xScale: ScaleTime<number, number>;
+  /** d3-scale to transform point dates to pixel positions on the y-axis */
+  yScale: ScaleLinear<number, number>;
 }
 
 /**
- * The `LineThresholdChart` component is a chart building block that renders
+ * The `LineIntervalChart` component is a chart building block that renders
  * a timeseries as a line colored according to the value of the y-coordinate
  * of each point in the line, as defined in the `intervals`.
  *
@@ -65,12 +65,12 @@ export interface LineThresholdChartProps {
  *
  * @returns An SVG group containing the line.
  */
-export const LineThresholdChart = ({
+export const LineIntervalChart = ({
   timeseries,
   xScale,
   yScale,
   intervals,
-}: LineThresholdChartProps) => {
+}: LineIntervalChartProps) => {
   const [xMin, xMax] = xScale.range();
   const width = Math.abs(xMax - xMin);
 

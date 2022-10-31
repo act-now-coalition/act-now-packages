@@ -14,7 +14,7 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { BaseChartProps } from "../MetricLineChart";
 import { PointMarker } from "../PointMarker";
-import { LineThresholdChart } from "../LineThresholdChart";
+import { LineIntervalChart } from "../LineIntervalChart";
 import { calculateChartIntervals } from "./utils";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
@@ -97,7 +97,7 @@ export const MetricLineThresholdChart = ({
           }}
         />
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
-        <LineThresholdChart
+        <LineIntervalChart
           timeseries={timeseries}
           xScale={dateScale}
           yScale={yScale}
