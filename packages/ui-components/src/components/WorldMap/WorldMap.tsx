@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Link } from "@mui/material";
 import { geoMercator, geoPath as d3GeoPath } from "d3-geo";
 import {
   DisputedAreaPath,
@@ -62,9 +62,9 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
         {countries.features.map((geo) => (
           <>
             <Tooltip title={renderTooltip(`${geo.id}`) ?? ""}>
-              <a href={getRegionUrl(`${geo.id}`)}>
+              <Link href={getRegionUrl(`${geo.id}`)}>
                 <RegionOverlay d={geoPath(geo) ?? ""} />
-              </a>
+              </Link>
             </Tooltip>
           </>
         ))}
