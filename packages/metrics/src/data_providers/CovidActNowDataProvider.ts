@@ -1,5 +1,4 @@
 import pLimit from "p-limit";
-import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
 import { Region } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
 import { assert } from "@actnowcoalition/assert";
@@ -10,6 +9,9 @@ import {
 import { DataRow } from "./data_provider_utils";
 import { MetricData } from "../data/MetricData";
 import { fetchJson } from "./utils";
+import { MetricDataProvider } from "./MetricDataProvider";
+import { MultiRegionMultiMetricDataStore } from "../data";
+import mapValues from "lodash/mapValues";
 
 // Limit having too many outstanding requests at once, to avoid timeouts, etc.
 const MAX_CONCURRENT_REQUESTS = 50;
@@ -22,38 +24,53 @@ const MAX_CONCURRENT_REQUESTS = 50;
  * - For hospital bed capacity, set metric.dataReference.column to `actuals.hospitalBeds.capacity`.
  * - For the CAN Community Level, set metric.dataReference.column to `communityLevels.canCommunityLevel`.
  */
-export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
+export class CovidActNowDataProvider implements MetricDataProvider {
   /** Valid Covid Act Now API key to use in API calls. */
   private readonly apiKey: string;
 
   /** Cached CAN API responses indexed by the FIPS codes of the regions fetched. */
-  private apiJson: { [regionId: string]: DataRow };
+  private apiJson: { [regionId: string]: Promise<DataRow> };
 
   /**
    * Constructs a new CovidActNowDataProvider instance.
    *
-   * @param providerId A unique provider id to associate with the provider (e.g.
+   * @param id A unique provider id to associate with the provider (e.g.
    * "can-api"). This ID can be used from a {@link MetricDataReference} in a
    * metric to reference the data from this provider.
    * @param apiKey Valid Covid Act Now API key to use in API calls.
    * @param data JSON data to put directly into the cache. Used primarily for testing.
    */
   constructor(
-    providerId: string,
+    readonly id: string,
     apiKey: string,
     data?: { [regionId: string]: DataRow }
   ) {
-    super(providerId);
     this.apiKey = apiKey;
-    this.apiJson = data ?? {};
+    this.apiJson = mapValues(data ?? {}, (row) => Promise.resolve(row));
   }
 
-  async populateCache(
+  async fetchData(
     regions: Region[],
     metrics: Metric[],
     includeTimeseries: boolean
-  ) {
-    const fetchAndCacheRegion = async (region: Region) => {
+  ): Promise<MultiRegionMultiMetricDataStore<unknown>> {
+    await this.populateCache(regions, includeTimeseries);
+    return await MultiRegionMultiMetricDataStore.fromRegionsAndMetricsAsync(
+      regions,
+      metrics,
+      (region: Region, metric: Metric) =>
+        this.getDataFromCache(region, metric, includeTimeseries)
+    );
+  }
+
+  /**
+   * Checks if we have cached data for the specified regions already, else initiates requests to fetch them.
+   * Note that we do not wait on them to finish. We just asynchronously start the requests and cache the promises.
+   * @param regions Regions to ensure are cached.
+   * @param includeTimeseries Whether timeseries data is required.
+   */
+  private populateCache(regions: Region[], includeTimeseries: boolean) {
+    const fetchRegionIntoCache = (region: Region) => {
       const cacheKey = `${region.regionId}-${includeTimeseries}`;
       // If timeseries data exists in the cache, skip the fetch no matter what,
       // as the timeseries endpoints also contain all of the non-timeseries data,
@@ -61,27 +78,32 @@ export class CovidActNowDataProvider extends CachingMetricDataProviderBase {
       if (!this.getCachedData(region, includeTimeseries)) {
         const url = this.buildFetchUrl(region, includeTimeseries);
         try {
-          this.apiJson[cacheKey] = await fetchJson(url);
+          this.apiJson[cacheKey] = fetchJson(url);
         } catch (e) {
+          // TODO(michael): This should perhaps be fatal, but right now we have
+          // a few US regions that don't have corresponding API data, so we
+          // treat it as non-fatal.
           console.error(`Failed to fetch data for ${region}: ${e}`);
         }
       }
     };
 
     const limiter = pLimit(MAX_CONCURRENT_REQUESTS);
-    await Promise.all(
-      regions.map((region) => limiter(() => fetchAndCacheRegion(region)))
-    );
+    regions.forEach((region) => limiter(() => fetchRegionIntoCache(region)));
   }
 
-  getDataFromCache(region: Region, metric: Metric, includeTimeseries: boolean) {
+  private async getDataFromCache(
+    region: Region,
+    metric: Metric,
+    includeTimeseries: boolean
+  ): Promise<MetricData> {
     const metricKey = metric.dataReference?.column;
     assert(
       typeof metricKey === "string",
       `Metrics using ${this.id} data provider must specify the` +
         `CAN API field to access via the dataReference.column property.`
     );
-    const cachedData = this.getCachedData(region, includeTimeseries);
+    const cachedData = await this.getCachedData(region, includeTimeseries);
     if (!cachedData) {
       console.warn(
         `No data found in cache for ${region.regionId} with includeTimeseries=${includeTimeseries}. Perhaps the fetch failed?`

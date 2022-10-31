@@ -2,7 +2,7 @@ import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
 
-import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import { MetricData } from "../data";
 import { Metric } from "../Metric";
 import { mockTimeseries } from "../Timeseries";
@@ -33,7 +33,7 @@ export interface MockDataReferenceFields {
  * },
  * ```
  */
-export class MockDataProvider extends CachingMetricDataProviderBase {
+export class MockDataProvider extends SimpleMetricDataProviderBase {
   /**
    * Constructs a new MockDataProvider instance.
    *
@@ -47,13 +47,10 @@ export class MockDataProvider extends CachingMetricDataProviderBase {
 
   private cachedData: { [key: string]: MetricData<number> } = {};
 
-  async populateCache(): Promise<void> {
-    // We generate data on demand and then cache it (so that we return
-    // consistent data if we're asked for it again), so we don't need to
-    // populate any cache up front.
-  }
-
-  getDataFromCache(region: Region, metric: Metric): MetricData<unknown> {
+  async fetchDataForRegionAndMetric(
+    region: Region,
+    metric: Metric
+  ): Promise<MetricData<unknown>> {
     const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
     if (!this.cachedData[cacheKey]) {
       const fields = metric.dataReference as MockDataReferenceFields;

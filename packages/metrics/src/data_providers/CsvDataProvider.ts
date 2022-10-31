@@ -1,6 +1,6 @@
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
 import {
@@ -9,6 +9,7 @@ import {
   dataRowsToMetricData,
 } from "./data_provider_utils";
 import groupBy from "lodash/groupBy";
+import isEmpty from "lodash/isEmpty";
 import Papa from "papaparse";
 import { fetchText } from "./utils";
 
@@ -37,12 +38,11 @@ export interface CsvDataProviderOptions {
  * |CA     |2022-02-01 |31   |66   |
  * ```
  */
-export class CsvDataProvider extends CachingMetricDataProviderBase {
+export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionColumn: string;
   private readonly dateColumn?: string;
   private readonly url?: string;
-  private readonly csvText?: string;
-  private fetchedTextPromise: Promise<string> | undefined;
+  private fetchedText: Promise<string> | undefined;
 
   private dataRowsByRegionId: { [regionId: string]: DataRow[] } = {};
 
@@ -63,20 +63,22 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
     this.url = options.url;
-    this.csvText = options.csvText;
+    this.fetchedText = options.csvText
+      ? Promise.resolve(options.csvText)
+      : undefined;
   }
 
-  async populateCache(): Promise<void> {
-    let csvText;
+  private async populateCache(): Promise<void> {
     if (this.url) {
       // We might already be fetching the CSV, in which case we can just wait on
       // the existing promise.
-      this.fetchedTextPromise = this.fetchedTextPromise ?? this.fetchCsvText();
-      csvText = await this.fetchedTextPromise;
-    } else {
-      assert(this.csvText, "Either url or csvData must be provided.");
-      csvText = this.csvText;
+      this.fetchedText = this.fetchedText ?? this.fetchCsvText();
     }
+    assert(
+      this.fetchedText,
+      "We should have initialized fetchedText directly above or in the constructor"
+    );
+    const csvText = await this.fetchedText;
     const csv = parseCsv(csvText, this.regionColumn);
     assert(csv.length > 0, "CSV must not be empty.");
     const dataRowsByRegionId = groupBy(csv, (row) => row[this.regionColumn]);
@@ -87,11 +89,15 @@ export class CsvDataProvider extends CachingMetricDataProviderBase {
     this.dataRowsByRegionId = dataRowsByRegionId;
   }
 
-  getDataFromCache(
+  async fetchDataForRegionAndMetric(
     region: Region,
     metric: Metric,
     includeTimeseries: boolean
-  ): MetricData<unknown> {
+  ): Promise<MetricData<unknown>> {
+    if (isEmpty(this.dataRowsByRegionId)) {
+      await this.populateCache();
+    }
+
     const metricKey = metric.dataReference?.column;
     assert(
       typeof metricKey === "string",

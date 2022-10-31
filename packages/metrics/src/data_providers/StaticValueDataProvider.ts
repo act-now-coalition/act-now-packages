@@ -1,7 +1,7 @@
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 
-import { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "../data";
@@ -18,7 +18,7 @@ import { MetricData } from "../data";
  * },
  * ```
  */
-export class StaticValueDataProvider extends CachingMetricDataProviderBase {
+export class StaticValueDataProvider extends SimpleMetricDataProviderBase {
   /**
    * Constructs a new MockDataProvider instance.
    *
@@ -30,15 +30,11 @@ export class StaticValueDataProvider extends CachingMetricDataProviderBase {
     super(providerId);
   }
 
-  async populateCache(): Promise<void> {
-    // No data necessary to cache.
-  }
-
-  getDataFromCache(
+  async fetchDataForRegionAndMetric(
     region: Region,
     metric: Metric,
     includeTimeseries: boolean
-  ): MetricData<unknown> {
+  ): Promise<MetricData<unknown>> {
     const value = metric.dataReference?.value;
     assert(
       value !== undefined,

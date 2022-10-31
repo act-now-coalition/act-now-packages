@@ -1,4 +1,4 @@
-export { CachingMetricDataProviderBase } from "./CachingMetricDataProviderBase";
+export { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 
 export type { MetricDataProvider } from "./MetricDataProvider";
 
