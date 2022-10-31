@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Tooltip } from "@mui/material";
-import { geoMercator, geoPath } from "d3-geo";
+import { geoMercator, geoPath as d3GeoPath } from "d3-geo";
 import {
   DisputedAreaPath,
   DisputedBorderPath,
@@ -38,7 +38,7 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
     .fitWidth(width, countries)
     .center(projectionCenter);
 
-  const path = geoPath(projection);
+  const geoPath = d3GeoPath(projection);
 
   return (
     <MapContainer>
@@ -47,11 +47,11 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
           <DiagonalHatchPattern lineColor={colorDisputedAreas} />
         </defs>
 
-        {/* Style-able country shapes (ie. colorable by metric) */}
+        {/* Style-able nation shapes (ie. colorable by metric) */}
         {countries.features.map((geo) => (
           <>
             <path
-              d={path(geo) || ""}
+              d={geoPath(geo) || ""}
               fill={getFillColor(`${geo.id}`)}
               fillOpacity={getFillOpacity(`${geo.id}`)}
             />
@@ -63,15 +63,15 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
           <>
             <Tooltip title={renderTooltip(`${geo.id}`) ?? ""}>
               <a href={getRegionUrl(`${geo.id}`)}>
-                <RegionOverlay d={path(geo) ?? ""} />
+                <RegionOverlay d={geoPath(geo) ?? ""} />
               </a>
             </Tooltip>
           </>
         ))}
 
-        {/* Country Borders */}
+        {/* Nation Borders */}
         <path
-          d={path(borders) || ""}
+          d={geoPath(borders) || ""}
           fill="none"
           stroke="white"
           strokeWidth={0.5}
@@ -81,7 +81,7 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
         {disputedAreas.features.map((geo, geoIndex) => (
           <DisputedAreaPath
             key={`disputed-area-${geoIndex}`}
-            d={path(geo) || ""}
+            d={geoPath(geo) || ""}
             className={nameToClassName(geo.properties.name)}
           />
         ))}
@@ -91,11 +91,11 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
           <g key={`disputed-border-${geoIndex}`}>
             <DisputedBorderPath
               className="Background_Border"
-              d={path(geo) || ""}
+              d={geoPath(geo) || ""}
             />
             <DisputedBorderPath
               className={nameToClassName(geo.properties.name)}
-              d={path(geo) || ""}
+              d={geoPath(geo) || ""}
             />
           </g>
         ))}
