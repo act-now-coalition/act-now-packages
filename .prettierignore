@@ -1,2 +1,5 @@
 # Ignore artifacts:
 lib
+
+# TopoJSON files shouldn't be prettyfied
+packages/ui-components/src/common/geo-shapes/*.json
