@@ -26,7 +26,7 @@
     "release": "yarn build:all && yarn changeset publish",
     "create-package": "yarn plop package",
     "create-component": "yarn plop component",
-    "generate-docs": "yarn typedoc --excludeExternals --out public/docs --entryPointStrategy packages --name 'Act Now Packages' .",
+    "generate-docs": "yarn typedoc --exclude \"**/*.json\" --out public/docs --entryPointStrategy packages --name 'Act Now Packages' .",
     "generate-storybook": "yarn build-storybook -c packages/ui-components/.storybook/ -o public/storybook",
     "build-public": "yarn build:all && yarn generate-docs && yarn generate-storybook"
   },
