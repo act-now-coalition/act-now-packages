@@ -10,14 +10,8 @@ import DiagonalHatchPattern from "./DiagonalHatchPattern";
 import { AutoWidth } from "../AutoWidth";
 import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
 import { MapContainer } from "../USMaps/Maps.style";
-
-export interface WorldMapProps {
-  renderTooltip: (regionId: string) => React.ReactNode;
-  width: number;
-  getFillColor?: (regionId: string) => string;
-  getFillOpacity?: (geoId: string) => number;
-  getRegionUrl?: (regionId: string) => string | undefined;
-}
+import { WorldMapProps } from "./interfaces";
+import { RegionOverlay } from "../USMaps/Maps.style";
 
 // This aspect ratio and re-centering the projection maximize the land area
 // shown in the map, leaving out the Arctic and Antarctica, but keeping most
@@ -33,6 +27,7 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
   renderTooltip,
   getFillColor = () => `#ddd`,
   getFillOpacity = () => 1,
+  getRegionUrl = () => undefined,
 }) => {
   const data = nationsGeographies;
   const height = mapAspectRatio * width;
@@ -52,15 +47,24 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
           <DiagonalHatchPattern lineColor={colorDisputedAreas} />
         </defs>
 
-        {/* Country Shapes */}
+        {/* Style-able country shapes (ie. colorable by metric) */}
+        {countries.features.map((geo) => (
+          <>
+            <path
+              d={path(geo) || ""}
+              fill={getFillColor(`${geo.id}`)}
+              fillOpacity={getFillOpacity(`${geo.id}`)}
+            />
+          </>
+        ))}
+
+        {/* Clickable region overlay */}
         {countries.features.map((geo) => (
           <>
             <Tooltip title={renderTooltip(`${geo.id}`) ?? ""}>
-              <path
-                d={path(geo) || ""}
-                fill={getFillColor(`${geo.id}`)}
-                fillOpacity={getFillOpacity(`${geo.id}`)}
-              />
+              <a href={getRegionUrl(`${geo.id}`)}>
+                <RegionOverlay d={path(geo) ?? ""} />
+              </a>
             </Tooltip>
           </>
         ))}
