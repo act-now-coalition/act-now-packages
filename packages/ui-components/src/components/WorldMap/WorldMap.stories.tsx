@@ -20,5 +20,4 @@ export const Example = Template.bind({});
 Example.args = {
   getFillColor,
   renderTooltip,
-  width: 800,
 };
