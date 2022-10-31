@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Implement LineThresholdChart component
+Implement `LineIntervalChart` component
