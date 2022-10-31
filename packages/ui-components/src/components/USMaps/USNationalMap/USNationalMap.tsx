@@ -1,5 +1,4 @@
 import React from "react";
-import { ParentSize } from "@visx/responsive";
 import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import {
   defaultHeight,
@@ -11,6 +10,7 @@ import { MapContainer, PositionAbsolute } from "../Maps.style";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
 import { USNationalMapProps } from "../interfaces";
+import { AutoWidth } from "../../AutoWidth";
 
 const USNationalMapInner: React.FC<USNationalMapProps> = ({
   width = defaultWidth,
@@ -63,7 +63,7 @@ const USNationalMapInner: React.FC<USNationalMapProps> = ({
 };
 
 export const USNationalMap: React.FC<USNationalMapProps> = (props) => (
-  <ParentSize>
-    {({ width }) => <USNationalMapInner width={width} {...props} />}
-  </ParentSize>
+  <AutoWidth>
+    <USNationalMapInner {...props} />
+  </AutoWidth>
 );

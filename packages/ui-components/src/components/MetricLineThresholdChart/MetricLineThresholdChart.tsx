@@ -2,7 +2,6 @@ import React from "react";
 import { scaleLinear, scaleTime } from "@visx/scale";
 import { Group } from "@visx/group";
 import max from "lodash/max";
-
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
@@ -14,9 +13,9 @@ import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { BaseChartProps } from "../MetricLineChart";
-import { calculateChartIntervals } from "./utils";
 import { PointMarker } from "../PointMarker";
-import { MetricLineThreshold } from "./MetricLineThreshold";
+import { LineIntervalChart } from "../LineIntervalChart";
+import { calculateChartIntervals } from "./utils";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -97,13 +96,12 @@ export const MetricLineThresholdChart = ({
             tickValues: thresholds,
           }}
         />
-
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
-        <MetricLineThreshold
-          metric={metric}
+        <LineIntervalChart
           timeseries={timeseries}
-          dateScale={dateScale}
+          xScale={dateScale}
           yScale={yScale}
+          intervals={intervals}
         />
         {hoveredPoint && (
           <MetricTooltip
