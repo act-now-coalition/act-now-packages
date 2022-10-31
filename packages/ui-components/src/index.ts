@@ -101,6 +101,7 @@ export * from "./components/MetricLineThresholdChart";
 export * from "./components/MetricMultiProgressBar";
 export * from "./components/MetricOverview";
 export * from "./components/MetricScoreOverview";
+export * from "./components/MetricSeriesChart";
 export * from "./components/MetricSparklines";
 export * from "./components/MetricTooltip";
 export * from "./components/MetricUSMaps";
