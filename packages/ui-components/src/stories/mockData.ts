@@ -1,4 +1,6 @@
 import { appleStock } from "@visx/mock-data";
+import { scaleLinear, scaleTime } from "@visx/scale";
+import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
 // We format the points from appleStock to match TimeseriesPoint<number>
@@ -11,3 +13,29 @@ const appleStockPoints = appleStock.map(
 );
 
 export const appleStockTimeseries = new Timeseries(appleStockPoints);
+
+/**
+ * Creates d3 scales that cover the date and value ranges of the
+ * given timeseries. This function is intended to be used in stories
+ * to simplify their setup.
+ */
+export function createTimeseriesScales(
+  timeseries: Timeseries<number>,
+  width: number,
+  height: number
+) {
+  assert(timeseries.hasData(), "Timeseries cannot be empty");
+  const { minDate, maxDate, minValue, maxValue } = timeseries;
+
+  const xScale = scaleTime({
+    domain: [minDate, maxDate],
+    range: [0, width],
+  });
+
+  const yScale = scaleLinear({
+    domain: [minValue, maxValue],
+    range: [height, 0],
+  });
+
+  return { xScale, yScale };
+}
