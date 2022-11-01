@@ -1,13 +1,12 @@
+import React from "react";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import React from "react";
 
 /**
- *
+ * Enum with the types of Series
  */
 export enum SeriesType {
   LINE = "LINE",
-  THRESHOLDS = "THRESHOLDS",
   BAR = "BAR",
 }
 
@@ -17,7 +16,8 @@ interface SeriesBase {
 }
 
 /**
- *
+ * The SeriesLine object will be represented as a line chart. It allows
+ * to customize the line by passing the `lineProps` object.
  */
 export interface SeriesLine extends SeriesBase {
   type: SeriesType.LINE;
@@ -28,20 +28,13 @@ export interface SeriesLine extends SeriesBase {
 }
 
 /**
- *
- */
-export interface SeriesThresholds extends SeriesBase {
-  type: SeriesType.THRESHOLDS;
-}
-
-/**
- *
+ * The SeriesBar object will be represented as a BarChart.
  */
 export interface SeriesBar extends SeriesBase {
   type: SeriesType.BAR;
 }
 
 /**
- *
+ * Series to visually represent timeseries.
  */
-export type Series = SeriesLine | SeriesThresholds | SeriesBar;
+export type Series = SeriesLine | SeriesBar;

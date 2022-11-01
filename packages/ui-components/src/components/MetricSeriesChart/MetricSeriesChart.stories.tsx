@@ -5,7 +5,7 @@ import { states } from "@actnowcoalition/regions";
 
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 import { theme } from "../../styles";
-import { MetricSeriesChart, Series, SeriesType } from ".";
+import { MetricSeriesChart, SeriesType } from ".";
 
 export default {
   title: "Charts/MetricSeriesChart",
@@ -64,46 +64,31 @@ TrendsSingleLocation.args = {
   ],
 };
 
-const seriesTrendsMultipleLocations: Series[] = [
-  {
-    region: states.findByRegionIdStrict("36"),
-    metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
-    type: SeriesType.LINE,
-    lineProps: {
-      stroke: schemeCategory10[0],
-    },
-  },
-  {
-    region: states.findByRegionIdStrict("56"),
-    metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
-    type: SeriesType.LINE,
-    lineProps: {
-      stroke: schemeCategory10[1],
-    },
-  },
-  {
-    region: states.findByRegionIdStrict("18"),
-    metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
-    type: SeriesType.LINE,
-    lineProps: {
-      stroke: schemeCategory10[2],
-    },
-  },
-  {
-    region: states.findByRegionIdStrict("32"),
-    metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
-    type: SeriesType.LINE,
-    lineProps: {
-      stroke: schemeCategory10[3],
-      strokeDasharray: "4 8",
-      strokeWidth: 4,
-    },
-  },
-];
-
 export const TrendsMultipleLocations = Template.bind({});
 TrendsMultipleLocations.args = {
   width,
   height,
-  series: seriesTrendsMultipleLocations,
+  series: [
+    {
+      region: states.findByRegionIdStrict("36"),
+      metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+      type: SeriesType.LINE,
+      lineProps: { stroke: schemeCategory10[0] },
+    },
+    {
+      region: states.findByRegionIdStrict("56"),
+      metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+      type: SeriesType.LINE,
+      lineProps: { stroke: schemeCategory10[1] },
+    },
+    {
+      region: states.findByRegionIdStrict("18"),
+      metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+      type: SeriesType.LINE,
+      lineProps: {
+        stroke: schemeCategory10[2],
+        strokeDasharray: "4 4",
+      },
+    },
+  ],
 };

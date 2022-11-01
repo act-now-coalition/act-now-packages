@@ -16,11 +16,8 @@ import { BaseChartProps } from "../MetricLineChart";
 import { Series } from "./interfaces";
 import { SeriesChart } from "./SeriesChart";
 
-/**
- *
- */
 export interface MetricSeriesChartProps extends BaseChartProps {
-  /** */
+  /** List of series to be rendered */
   series: Series[];
   /** Minimum value for the y-axis. It defaults to 0. */
   minValue?: number;
@@ -75,7 +72,9 @@ export const MetricSeriesChart = ({
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxValue] = getValueRange(timeseriesList);
 
-  // Note
+  // Note: We use minValue if provided. If not, we default to start from zero,
+  // which is best in most cases, unless minDataValue is negative, in which
+  // case we use that value instead.
   const minYValue = isNumber(minValue) ? minValue : Math.min(0, minDataValue);
 
   const chartWidth = width - marginLeft - marginRight;
@@ -113,17 +112,30 @@ export const MetricSeriesChart = ({
   );
 };
 
+/**
+ * Returns the date range that covers the provided timeseries.
+ *
+ * @param timeseriesList List of timeseries.
+ * @returns [minDate, maxDate]
+ */
 function getDateRange(timeseriesList: Timeseries<unknown>[]): [Date, Date] {
   const minDate = min(timeseriesList.map(({ minDate }) => minDate));
   const maxDate = max(timeseriesList.map(({ maxDate }) => maxDate));
 
   assert(
     minDate instanceof Date && maxDate instanceof Date,
-    "minDate and maxDate should be date"
+    "At least one of the provided timeseries shouldn't be empty"
   );
 
   return [minDate, maxDate];
 }
+
+/**
+ * Returns the range of values that covers the provided timeseries.
+ *
+ * @param timeseriesList List of timeseries.
+ * @returns [minValue, maxValue]
+ */
 function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
   const minValue = min(timeseriesList.map(({ minValue }) => minValue));
   const maxValue = max(timeseriesList.map(({ maxValue }) => maxValue));
