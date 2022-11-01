@@ -5,6 +5,7 @@ import { scaleLinear, scaleTime } from "@visx/scale";
 import uniq from "lodash/uniq";
 import min from "lodash/min";
 import max from "lodash/max";
+import isNumber from "lodash/isNumber";
 
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries } from "@actnowcoalition/metrics";
@@ -21,6 +22,8 @@ import { SeriesChart } from "./SeriesChart";
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** */
   series: Series[];
+  /** Minimum value for the y-axis. It defaults to 0. */
+  minValue?: number;
 }
 
 /**
@@ -41,6 +44,7 @@ export const MetricSeriesChart = ({
   marginBottom = 40,
   marginLeft = 70,
   marginRight = 20,
+  minValue = 0,
 }: MetricSeriesChartProps) => {
   // Deduplicate the regions and metrics if necessary
   const regions = uniq(series.map(({ region }) => region));
@@ -69,7 +73,10 @@ export const MetricSeriesChart = ({
   const timeseriesList = seriesList.map(({ timeseries }) => timeseries);
 
   const [minDate, maxDate] = getDateRange(timeseriesList);
-  const [minValue, maxValue] = getValueRange(timeseriesList);
+  const [minDataValue, maxValue] = getValueRange(timeseriesList);
+
+  // Note
+  const minYValue = isNumber(minValue) ? minValue : Math.min(0, minDataValue);
 
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
@@ -80,7 +87,7 @@ export const MetricSeriesChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [minValue, maxValue],
+    domain: [minYValue, maxValue],
     range: [chartHeight, 0],
   });
 
