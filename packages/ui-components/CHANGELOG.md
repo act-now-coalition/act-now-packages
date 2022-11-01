@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.7.2
+
+### Patch Changes
+
+- 133e34b: Implement WorldMap components
+
 ## 0.7.1
 
 ### Patch Changes
