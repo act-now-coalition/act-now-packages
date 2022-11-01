@@ -172,7 +172,7 @@ function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
 
   assert(
     typeof minValue === "number" && typeof maxValue === "number",
-    "min and max value"
+    "At least one of the provided timeseries shouldn't be empty"
   );
 
   return [minValue, maxValue];

@@ -43,6 +43,21 @@ Vaccination.args = {
   ],
 };
 
+export const NegativeMinValue = Template.bind({});
+NegativeMinValue.args = {
+  width,
+  height,
+  minValue: -10,
+  series: [
+    {
+      region: states.findByRegionIdStrict("56"),
+      metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+      type: SeriesType.LINE,
+      lineProps: { stroke: "#000" },
+    },
+  ],
+};
+
 export const TrendsSingleLocation = Template.bind({});
 TrendsSingleLocation.args = {
   width,
