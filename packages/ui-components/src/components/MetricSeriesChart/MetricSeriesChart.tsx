@@ -13,9 +13,11 @@ import { Timeseries } from "@actnowcoalition/metrics";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { BaseChartProps } from "../MetricLineChart";
-import { Series } from "./interfaces";
+import { Series, SeriesType } from "./interfaces";
 import { SeriesChart } from "./SeriesChart";
-
+import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
+import { PointMarker } from "../PointMarker";
+import { MetricTooltip } from "../MetricTooltip";
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** List of series to be rendered */
   series: Series[];
@@ -53,21 +55,26 @@ export const MetricSeriesChart = ({
     /*includeTimeseries=*/ true
   );
 
-  if (!data) {
+  const timeseriesList =
+    data &&
+    series.map(({ region, metric }) =>
+      data.metricData(region, metric).timeseries.assertFiniteNumbers()
+    );
+
+  const { pointInfo, onMouseMove, onMouseLeave } =
+    useHoveredPoint(timeseriesList);
+
+  if (!data || !timeseriesList) {
     return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const seriesList = series
     .filter(({ metric, region }) => data.hasMetricData(region, metric))
-    .map((seriesItem) => ({
+    .map((seriesItem, seriesIndex) => ({
       series: seriesItem,
-      timeseries: data
-        .metricData(seriesItem.region, seriesItem.metric)
-        .timeseries.assertFiniteNumbers(),
+      timeseries: timeseriesList[seriesIndex],
     }))
     .filter(({ timeseries }) => timeseries.hasData());
-
-  const timeseriesList = seriesList.map(({ timeseries }) => timeseries);
 
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxValue] = getValueRange(timeseriesList);
@@ -107,6 +114,29 @@ export const MetricSeriesChart = ({
             yScale={yScale}
           />
         ))}
+        {pointInfo?.point && isNumber(pointInfo?.timeseriesIndex) && (
+          <MetricTooltip
+            metric={series[pointInfo.timeseriesIndex].metric}
+            region={series[pointInfo.timeseriesIndex].region}
+            point={pointInfo.point}
+            open
+          >
+            <PointMarker
+              x={dateScale(pointInfo.point.date)}
+              y={yScale(pointInfo.point.value)}
+              fill={getSeriesColor(series[pointInfo.timeseriesIndex])}
+            />
+          </MetricTooltip>
+        )}
+        <ChartOverlayXY
+          timeseriesList={timeseriesList}
+          width={chartWidth}
+          height={chartHeight}
+          xScale={dateScale}
+          yScale={yScale}
+          onMouseMove={onMouseMove}
+          onMouseOut={onMouseLeave}
+        />
       </Group>
     </svg>
   );
@@ -146,4 +176,12 @@ function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
   );
 
   return [minValue, maxValue];
+}
+
+function getSeriesColor(series: Series): string {
+  if (series.type === SeriesType.LINE) {
+    return series?.lineProps?.stroke ?? "#000";
+  } else {
+    return "#000";
+  }
 }
