@@ -147,4 +147,41 @@ describe("MetricCatalog", () => {
     expect(typeof data.currentValue).toEqual("number");
     expect(data.timeseries.hasData()).toEqual(true);
   });
+
+  // See https://github.com/covid-projections/act-now-packages/issues/242 for context.
+  test("fetchData() drops timeseries if it's not asked for.", async () => {
+    // This test sets up a catalog with a MockDataProvider manually so that we
+    // can directly call the MockDataProvider and ensure it always includes
+    // timeseries data.
+    const provider = new MockDataProvider(ProviderId.MOCK);
+    const catalog = new MetricCatalog(
+      [
+        {
+          id: MetricId.MOCK_CASES,
+          dataReference: {
+            providerId: ProviderId.MOCK,
+          },
+        },
+      ],
+      [provider]
+    );
+    const metric = catalog.getMetric(MetricId.MOCK_CASES);
+
+    const providerData = await (
+      await provider.fetchData(
+        [testRegionCA],
+        [metric],
+        /*includeTimeseries=*/ false
+      )
+    ).metricData(testRegionCA, metric);
+    const catalogData = await catalog.fetchData(
+      testRegionCA,
+      metric,
+      /*includeTimeseries=*/ false
+    );
+
+    // The MockDataProvider always returns timeseries data, but the catalog should remove it.
+    expect(providerData.hasTimeseries()).toBe(true);
+    expect(catalogData.hasTimeseries()).toBe(false);
+  });
 });
