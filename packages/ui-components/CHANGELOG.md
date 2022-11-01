@@ -1,5 +1,20 @@
 # @actnowcoalition/ui-components
 
+## 0.7.1
+
+### Patch Changes
+
+- 5c59c11: Improve responsiveness of maps and legend threshold
+- 49ad7c8: Fix #241 (CAN data provider caching) and rework CachingMetricDataProviderBase.
+- 6e42bf1: Implement `LineIntervalChart` component
+- 344ea7a: Fix the state map for Alaska
+- f42cce3: Implement useHoveredPoint hook to use on multi-timeseries charts
+- Updated dependencies [efda932]
+- Updated dependencies [c3f6117]
+- Updated dependencies [49ad7c8]
+- Updated dependencies [ba11492]
+  - @actnowcoalition/metrics@0.3.2
+
 ## 0.7.0
 
 ### Minor Changes
