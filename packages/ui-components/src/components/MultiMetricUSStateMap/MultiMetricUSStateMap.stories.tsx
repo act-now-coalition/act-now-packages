@@ -5,7 +5,7 @@ import { MetricId } from "../../stories/mockMetricCatalog";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 
 export default {
-  title: "Maps/MultiMetricUSStateMap",
+  title: "Maps/MultiMetric US State Map",
   component: MultiMetricUSStateMap,
 } as ComponentMeta<typeof MultiMetricUSStateMap>;
 

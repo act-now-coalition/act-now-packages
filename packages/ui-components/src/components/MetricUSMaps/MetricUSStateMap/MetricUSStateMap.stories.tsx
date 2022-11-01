@@ -11,7 +11,7 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
 const herkimerCountyNewYorkRegion = counties.findByRegionIdStrict("36043");
 
 export default {
-  title: "Maps/US State",
+  title: "Maps/US State Map",
   component: MetricUSStateMap,
 } as ComponentMeta<typeof MetricUSStateMap>;
 

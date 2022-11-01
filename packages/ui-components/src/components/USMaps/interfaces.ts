@@ -18,5 +18,4 @@ export interface USStateMapProps extends BaseUSMapProps {
   highlightedRegion?: Region;
   showCounties?: boolean;
   showBorderingStates?: boolean;
-  getRegionUrl?: (regionId: string) => string | undefined;
 }

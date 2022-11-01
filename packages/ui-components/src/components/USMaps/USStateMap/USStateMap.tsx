@@ -1,5 +1,5 @@
 import React from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Link } from "@mui/material";
 import { geoPath as d3GeoPath, geoAlbersUsa, geoMercator } from "d3-geo";
 import {
   statesGeographies,
@@ -93,11 +93,11 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
             const stateFips = `${geo.id}`;
             return (
               <Tooltip title={renderTooltip(stateFips) ?? ""} key={stateFips}>
-                <a href={getRegionUrl(stateFips)}>
+                <Link href={getRegionUrl(stateFips)}>
                   <g>
                     <BorderingRegion d={geoPath(geo) ?? ""} />
                   </g>
-                </a>
+                </Link>
               </Tooltip>
             );
           })}
@@ -107,11 +107,11 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
           const geoId = `${geo.id}`;
           return (
             <Tooltip title={renderTooltip(geoId) ?? ""} key={geoId}>
-              <a href={getRegionUrl(geoId)}>
+              <Link href={getRegionUrl(geoId)}>
                 <g>
                   <RegionOverlay d={geoPath(geo) ?? ""} />
                 </g>
-              </a>
+              </Link>
             </Tooltip>
           );
         })}
