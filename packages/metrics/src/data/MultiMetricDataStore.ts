@@ -86,4 +86,16 @@ export class MultiMetricDataStore<T = unknown> {
     const data: MetricToDataMap<T> = { ...this.data, ...other.data };
     return new MultiMetricDataStore(this.region, data);
   }
+
+  /**
+   * Removes timeseries data for all metrics.
+   *
+   * @returns new MultiMetricDataStore object without timeseries data.
+   */
+  dropTimeseries(): MultiMetricDataStore<T> {
+    return new MultiMetricDataStore(
+      this.region,
+      mapValues(this.data, (metricData) => metricData.dropTimeseries())
+    );
+  }
 }

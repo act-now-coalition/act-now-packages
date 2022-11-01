@@ -208,6 +208,19 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
   }
 
   /**
+   * Removes timeseries data for all regions and metrics.
+   *
+   * @returns new MultiRegionMultiMetricDataStore object without timeseries data.
+   */
+  dropTimeseries(): MultiRegionMultiMetricDataStore<T> {
+    return new MultiRegionMultiMetricDataStore(
+      mapValues(this.data, (multiMetricDataStore) =>
+        multiMetricDataStore.dropTimeseries()
+      )
+    );
+  }
+
+  /**
    * Persists all data into a JSON-compatible snapshot object.
    */
   toSnapshot(): SnapshotJSON {

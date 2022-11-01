@@ -194,6 +194,15 @@ export class MetricCatalog {
       );
       result = result.merge(fetchedData);
     }
+
+    // Sometimes providers include timeseries data even though it wasn't
+    // requested. While this isn't super harmful it can be confusing or cause
+    // inconsistent / unexpected behavior, so we drop it before returning it to
+    // the user. See https://github.com/covid-projections/act-now-packages/issues/242
+    if (!includeTimeseries) {
+      result = result.dropTimeseries();
+    }
+
     return result;
   }
 }
