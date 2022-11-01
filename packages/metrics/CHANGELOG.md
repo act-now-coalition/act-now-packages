@@ -1,5 +1,14 @@
 # @actnowcoalition/metrics
 
+## 0.3.2
+
+### Patch Changes
+
+- efda932: Fix #242: Drop timeseries data if it wasn't asked for.
+- c3f6117: Use p-limit for throttling CAN API requests more elegantly.
+- 49ad7c8: Fix #241 (CAN data provider caching) and rework CachingMetricDataProviderBase.
+- ba11492: Clean up fetch logic and use p-retry for retries.
+
 ## 0.3.1
 
 ### Patch Changes
