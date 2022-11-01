@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.7.3
+
+### Patch Changes
+
+- 7fb511c: Implement MetricSeriesChart component
+
 ## 0.7.2
 
 ### Patch Changes
