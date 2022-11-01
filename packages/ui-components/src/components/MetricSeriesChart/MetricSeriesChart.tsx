@@ -92,7 +92,7 @@ export const MetricSeriesChart = ({
   });
 
   return (
-    <svg width={width} height={height} style={{ border: "solid 1px #ddd" }}>
+    <svg width={width} height={height}>
       <Group top={marginTop} left={marginLeft}>
         <AxesTimeseries
           yScale={yScale}
