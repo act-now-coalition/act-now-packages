@@ -53,7 +53,6 @@ NegativeMinValue.args = {
       region: states.findByRegionIdStrict("56"),
       metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
       type: SeriesType.LINE,
-      lineProps: { stroke: "#000" },
     },
   ],
 };

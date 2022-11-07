@@ -21,7 +21,7 @@ interface SeriesBase {
  */
 export interface SeriesLine extends SeriesBase {
   type: SeriesType.LINE;
-  lineProps: Pick<
+  lineProps?: Pick<
     React.SVGProps<SVGPathElement>,
     "stroke" | "strokeDasharray" | "strokeWidth"
   >;
