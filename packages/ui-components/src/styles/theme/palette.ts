@@ -56,7 +56,7 @@ const palette = {
     main: colors.severity[100],
   },
   text: {
-    primary: colors.text.default,
+    primary: colors.text.emphasized,
     secondary: colors.text.deemphasized,
   },
   severity: {
