@@ -3,6 +3,7 @@ import { Stack, Typography, Tooltip, TooltipProps } from "@mui/material";
 import { Metric, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { formatDateTime, DateFormat } from "@actnowcoalition/time-utils";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricTooltipProps extends MetricTooltipContentProps {
   /** Children is the component that, when hovered, should open the tooltip */
@@ -14,21 +15,23 @@ export const MetricTooltip = ({
   region,
   point,
   ...tooltipProps
-}: MetricTooltipProps & Omit<TooltipProps, "title">) => (
-  <Tooltip
-    arrow
-    placement="top"
-    disableInteractive
-    title={
-      <MetricTooltipContent metric={metric} region={region} point={point} />
-    }
-    {...tooltipProps}
-  />
-);
+}: MetricTooltipProps & Omit<TooltipProps, "title">) => {
+  return (
+    <Tooltip
+      arrow
+      placement="top"
+      disableInteractive
+      title={
+        <MetricTooltipContent metric={metric} region={region} point={point} />
+      }
+      {...tooltipProps}
+    />
+  );
+};
 
 export interface MetricTooltipContentProps {
-  /** Metric to use to render the tooltip */
-  metric: Metric;
+  /** Metric or MetricId to use to render the tooltip */
+  metric: Metric | string;
   /** Region to use to render the tooltip */
   region: Region;
   /**
@@ -40,10 +43,12 @@ export interface MetricTooltipContentProps {
 }
 
 export const MetricTooltipContent = ({
-  metric,
+  metric: metricOrId,
   region,
   point,
 }: MetricTooltipContentProps) => {
+  const metricCatalog = useMetricCatalog();
+  const metric = metricCatalog.getMetric(metricOrId);
   return (
     <Stack spacing={0.5}>
       <Typography variant="overline" color="inherit">

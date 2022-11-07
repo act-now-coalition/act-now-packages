@@ -11,7 +11,7 @@ export enum SeriesType {
 }
 
 interface SeriesBase {
-  metric: Metric;
+  metric: Metric | string;
   region: Region;
 }
 
