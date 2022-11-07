@@ -69,6 +69,10 @@ declare module "@mui/material/styles" {
       400: string;
       500: string;
     };
+    chart: {
+      main: string;
+      axis: string;
+    };
   }
 }
 
