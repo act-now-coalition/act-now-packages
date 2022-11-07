@@ -11,7 +11,7 @@ export enum SeriesType {
 }
 
 interface SeriesBase {
-  metric: Metric;
+  metric: Metric | string;
   region: Region;
 }
 
@@ -21,7 +21,7 @@ interface SeriesBase {
  */
 export interface SeriesLine extends SeriesBase {
   type: SeriesType.LINE;
-  lineProps: Pick<
+  lineProps?: Pick<
     React.SVGProps<SVGPathElement>,
     "stroke" | "strokeDasharray" | "strokeWidth"
   >;
