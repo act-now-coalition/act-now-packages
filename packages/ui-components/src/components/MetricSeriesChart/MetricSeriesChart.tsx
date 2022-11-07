@@ -50,8 +50,8 @@ export const MetricSeriesChart = ({
 
   // Deduplicate the regions and metrics if necessary
   const regions = uniq(series.map(({ region }) => region));
-  const metrics = uniq(series.map(({ metric }) => metric)).map((metric) =>
-    metricCatalog.getMetric(metric)
+  const metrics = uniq(
+    series.map(({ metric }) => metricCatalog.getMetric(metric))
   );
 
   assert(
