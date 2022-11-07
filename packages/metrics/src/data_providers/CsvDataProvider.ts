@@ -53,6 +53,9 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
    * "my-datasource-csv"). This ID can be used from a {@link MetricDataReference} in a
    * metric to reference the data from this provider.
    * @param options Options to configure the provider.
+   * The regionColumn must match the region identifier in Act Now Coalition's regions package.
+   * (e.g. a nation's identifier in the regions package is the ISO 3 code.
+   * So data for a nation must have ISO 3 code as its identifier.)
    */
   constructor(providerId: string, options: CsvDataProviderOptions) {
     assert(

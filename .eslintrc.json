@@ -26,7 +26,8 @@
   "plugins": ["react", "@typescript-eslint", "lodash"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
-    "lodash/import-scope": "warn"
+    "lodash/import-scope": "warn",
+    "react/jsx-key": "error"
   },
   "ignorePatterns": ["!.storybook", "**/dist", "**/lib", "public/**"]
 }
