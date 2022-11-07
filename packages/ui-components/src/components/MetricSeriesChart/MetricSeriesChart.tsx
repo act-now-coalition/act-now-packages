@@ -18,6 +18,7 @@ import { SeriesChart } from "./SeriesChart";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
 import { PointMarker } from "../PointMarker";
 import { MetricTooltip } from "../MetricTooltip";
+import { useMetricCatalog } from "../MetricCatalogContext";
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** List of series to be rendered */
   series: Series[];
@@ -45,9 +46,18 @@ export const MetricSeriesChart = ({
   marginRight = 20,
   minValue = 0,
 }: MetricSeriesChartProps) => {
+  const metricCatalog = useMetricCatalog();
+
   // Deduplicate the regions and metrics if necessary
   const regions = uniq(series.map(({ region }) => region));
-  const metrics = uniq(series.map(({ metric }) => metric));
+  const metrics = uniq(series.map(({ metric }) => metric)).map((metric) =>
+    metricCatalog.getMetric(metric)
+  );
+
+  assert(
+    metrics.length > 0,
+    `The series should have at least one valid metric`
+  );
 
   const { data } = useDataForRegionsAndMetrics(
     regions,
@@ -97,6 +107,10 @@ export const MetricSeriesChart = ({
     range: [chartHeight, 0],
   });
 
+  // All the series in the chart should have compatible units, so it makes
+  // sense to use any of them to format the values on the y-axis.
+  const yAxisFormat = (value: number) => metrics[0].formatValue(value, "---");
+
   return (
     <svg width={width} height={height}>
       <Group top={marginTop} left={marginLeft}>
@@ -104,6 +118,7 @@ export const MetricSeriesChart = ({
           yScale={yScale}
           dateScale={dateScale}
           height={chartHeight}
+          axisLeftProps={{ tickFormat: yAxisFormat }}
         />
         {seriesList.map((item, itemIndex) => (
           <SeriesChart
