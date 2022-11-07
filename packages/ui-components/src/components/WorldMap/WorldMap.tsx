@@ -49,24 +49,21 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
 
         {/* Style-able nation shapes (ie. colorable by metric) */}
         {countries.features.map((geo) => (
-          <>
-            <path
-              d={geoPath(geo) || ""}
-              fill={getFillColor(`${geo.id}`)}
-              fillOpacity={getFillOpacity(`${geo.id}`)}
-            />
-          </>
+          <path
+            key={geo.id}
+            d={geoPath(geo) || ""}
+            fill={getFillColor(`${geo.id}`)}
+            fillOpacity={getFillOpacity(`${geo.id}`)}
+          />
         ))}
 
         {/* Clickable region overlay */}
         {countries.features.map((geo) => (
-          <>
-            <Tooltip title={renderTooltip(`${geo.id}`) ?? ""}>
-              <Link href={getRegionUrl(`${geo.id}`)}>
-                <RegionOverlay d={geoPath(geo) ?? ""} />
-              </Link>
-            </Tooltip>
-          </>
+          <Tooltip key={geo.id} title={renderTooltip(`${geo.id}`) ?? ""}>
+            <Link href={getRegionUrl(`${geo.id}`)}>
+              <RegionOverlay d={geoPath(geo) ?? ""} />
+            </Link>
+          </Tooltip>
         ))}
 
         {/* Nation Borders */}
