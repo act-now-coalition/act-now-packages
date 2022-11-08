@@ -8,7 +8,7 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 const appleStockPoints = appleStock.map(
   (p: { date: string; close: number }): TimeseriesPoint<number> => ({
     date: new Date(p.date.substring(0, 10)),
-    value: p.close,
+    value: p.close > 150 ? p.close : p.close * -0.25,
   })
 );
 
