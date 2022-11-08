@@ -2,7 +2,7 @@ import React from "react";
 import { Stack, Typography, Tooltip, TooltipProps } from "@mui/material";
 import { Metric, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import { formatDateTime, DateFormat } from "@actnowcoalition/time-utils";
+import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricTooltipProps extends MetricTooltipContentProps {
@@ -52,7 +52,7 @@ export const MetricTooltipContent = ({
   return (
     <Stack spacing={0.5}>
       <Typography variant="overline" color="inherit">
-        {formatDateTime(point.date, DateFormat.MMMM_D_YYYY)}
+        {formatUTCDateTime(point.date, DateFormat.MMMM_D_YYYY)}
       </Typography>
       <Typography variant="overline" color="inherit">
         {metric.name}

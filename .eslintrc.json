@@ -36,6 +36,11 @@
             "name": "@visx/scale",
             "importNames": ["scaleTime"],
             "message": "Using 'scaleTime' can cause off-by-one errors when rendering tooltips and axes. Use 'scaleUtc' instead."
+          },
+          {
+            "name": "@actnowcoalition/time-utils",
+            "importNames": ["formatDateTime"],
+            "message": "Using 'formatDateTime' can cause off-by-one errors when rendering tooltips and axes. Use 'formatUTCDateTime' instead."
           }
         ]
       }
