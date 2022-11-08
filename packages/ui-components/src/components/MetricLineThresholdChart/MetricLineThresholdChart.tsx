@@ -1,5 +1,5 @@
 import React from "react";
-import { scaleLinear, scaleTime } from "@visx/scale";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
 import max from "lodash/max";
 import { assert } from "@actnowcoalition/assert";
@@ -72,7 +72,7 @@ export const MetricLineThresholdChart = ({
     maxValue
   );
 
-  const dateScale = scaleTime({
+  const dateScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });

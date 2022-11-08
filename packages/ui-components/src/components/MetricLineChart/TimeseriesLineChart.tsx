@@ -1,9 +1,9 @@
 import React from "react";
-import { TimeseriesLineChartProps } from "./interfaces";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+import { Group } from "@visx/group";
 import { LineChart } from "../LineChart";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { scaleLinear, scaleTime } from "@visx/scale";
-import { Group } from "@visx/group";
+import { TimeseriesLineChartProps } from "./interfaces";
 
 export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
   width,
@@ -19,7 +19,7 @@ export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
 
   const { minDate, maxDate, maxValue } = timeseries;
 
-  const dateScale = scaleTime({
+  const dateScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });

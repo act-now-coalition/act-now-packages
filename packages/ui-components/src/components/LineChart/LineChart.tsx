@@ -30,7 +30,7 @@ export type LineChartProps = LineChartOwnProps &
  *
  * @example
  * ```tsx
- * const xScale = scaleTime({ domain: [minDate, maxDate], range: [0, 200] });
+ * const xScale = scaleUtc({ domain: [minDate, maxDate], range: [0, 200] });
  * const yScale = scaleLinear({ domain: [minVal, maxVal], range: [100, 0] });
  *
  * return (

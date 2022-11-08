@@ -1,5 +1,5 @@
 import React from "react";
-import { scaleLinear, scaleTime } from "@visx/scale";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
@@ -38,7 +38,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
 
   const { minDate, maxDate, maxValue } = timeseries;
 
-  const dateScale = scaleTime({
+  const dateScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });

@@ -1,6 +1,6 @@
 import {
   DateFormat,
-  formatDateTime,
+  formatUTCDateTime,
   getTimeDiff,
   TimeUnit,
 } from "@actnowcoalition/time-utils";
@@ -29,7 +29,7 @@ export function formatDateTick(date: Date, isOverTwoMonths: boolean): string {
   if (isOverTwoMonths) {
     // To-do (Fai): Add month and year separated by apostrophe as a date format.
     return date.getMonth() === 0
-      ? formatDateTime(date, DateFormat.MMM_YY)
-      : formatDateTime(date, DateFormat.MMM);
-  } else return formatDateTime(date, DateFormat.MMM_D);
+      ? formatUTCDateTime(date, DateFormat.MMM_YY)
+      : formatUTCDateTime(date, DateFormat.MMM);
+  } else return formatUTCDateTime(date, DateFormat.MMM_D);
 }
