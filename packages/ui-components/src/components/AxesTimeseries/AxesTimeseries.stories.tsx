@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, ComponentMeta } from "@storybook/react";
-import { scaleLinear, scaleTime } from "@visx/scale";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import { AxesTimeseries, AxesTimeseriesProps } from "./AxesTimeseries";
 import { Group } from "@visx/group";
 import { formatPercent } from "@actnowcoalition/number-format";
@@ -15,8 +15,8 @@ const margin = 50;
 const chartWidth = width - 2 * margin;
 const chartHeight = height - 2 * margin;
 
-const dateScale = scaleTime({
-  domain: [new Date("2022-01-01"), new Date()],
+const dateScale = scaleUtc({
+  domain: [new Date("2022-01-01"), new Date("2022-10-31")],
   range: [0, chartWidth],
 });
 

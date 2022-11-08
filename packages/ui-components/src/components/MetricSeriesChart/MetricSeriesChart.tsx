@@ -1,7 +1,7 @@
 import React from "react";
 import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
-import { scaleLinear, scaleTime } from "@visx/scale";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import uniq from "lodash/uniq";
 import min from "lodash/min";
 import max from "lodash/max";
@@ -97,7 +97,7 @@ export const MetricSeriesChart = ({
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
 
-  const dateScale = scaleTime({
+  const dateScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });

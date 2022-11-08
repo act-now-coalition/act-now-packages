@@ -1,6 +1,6 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleTime, scaleLinear } from "@visx/scale";
+import { scaleUtc, scaleLinear } from "@visx/scale";
 import { AxisBottom, AxisBottomProps } from ".";
 import { isOverTwoMonths, getNumTicks, formatDateTick } from "./utils";
 import { AutoWidth } from "../AutoWidth";
@@ -30,7 +30,7 @@ const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
             {...commonProps}
             scale={
               isTimeSeries
-                ? scaleTime({
+                ? scaleUtc({
                     domain: [start, end],
                     range: [0, args.width - 2 * padding],
                   })
@@ -68,35 +68,35 @@ Units.args = {
 
 export const TwoYears = Template.bind({});
 TwoYears.args = {
-  scale: scaleTime({
+  scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2022-12-31")],
   }),
 };
 
 export const OneYear = Template.bind({});
 OneYear.args = {
-  scale: scaleTime({
+  scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-12-31")],
   }),
 };
 
 export const SixMonths = Template.bind({});
 SixMonths.args = {
-  scale: scaleTime({
+  scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-06-30")],
   }),
 };
 
 export const OneMonth = Template.bind({});
 OneMonth.args = {
-  scale: scaleTime({
+  scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-01-31")],
   }),
 };
 
 export const TenDays = Template.bind({});
 TenDays.args = {
-  scale: scaleTime({
+  scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-01-10")],
   }),
 };

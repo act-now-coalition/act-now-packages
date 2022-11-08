@@ -1,5 +1,5 @@
 import { appleStock } from "@visx/mock-data";
-import { scaleLinear, scaleTime } from "@visx/scale";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
@@ -27,7 +27,7 @@ export function createTimeseriesScales(
   assert(timeseries.hasData(), "Timeseries cannot be empty");
   const { minDate, maxDate, minValue, maxValue } = timeseries;
 
-  const xScale = scaleTime({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, width],
   });
