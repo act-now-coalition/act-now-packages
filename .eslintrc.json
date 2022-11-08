@@ -27,7 +27,19 @@
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "lodash/import-scope": "warn",
-    "react/jsx-key": "error"
+    "react/jsx-key": "error",
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "@visx/scale",
+            "importNames": ["scaleTime"],
+            "message": "Using 'scaleTime' can cause off-by-one errors when rendering tooltips and axes. Use 'scaleUtc' instead."
+          }
+        ]
+      }
+    ]
   },
   "ignorePatterns": ["!.storybook", "**/dist", "**/lib", "public/**"]
 }
