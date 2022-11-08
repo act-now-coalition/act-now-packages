@@ -30,12 +30,17 @@ const MetricLegendCategorical = ({
     "Metric must define categories in order to use MetricLegendCategorical. " +
       `No categories found for metric: ${metric}`
   );
-
+  const metricHasUniqueExtendedName =
+    metric.name !== metric.extendedName || metric.extendedName.length === 0;
   return (
     <Stack spacing={2}>
       <Stack spacing={0.5}>
         <Typography variant="labelLarge">{metric.name}</Typography>
-        <Typography variant="paragraphSmall">{metric.extendedName}</Typography>
+        {metricHasUniqueExtendedName && (
+          <Typography variant="paragraphSmall">
+            {metric.extendedName}
+          </Typography>
+        )}
       </Stack>
       <LegendCategorical
         items={items}
