@@ -72,6 +72,7 @@ declare module "@mui/material/styles" {
     chart: {
       main: string;
       axis: string;
+      axisLabel: string;
     };
   }
 }

@@ -4,7 +4,6 @@ import { Timeseries } from "@actnowcoalition/metrics";
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 import { scaleUtc, scaleLinear } from "@visx/scale";
-import { useTheme } from "@mui/material";
 
 export interface SparkLineProps {
   /** Timeseries used to draw the bar chart */
@@ -30,7 +29,6 @@ export const SparkLine: React.FC<SparkLineProps> = ({
   height = 50,
   barWidth = 2,
 }) => {
-  const theme = useTheme();
   const padding = 2;
 
   if (!timeseriesBarChart.hasData() || !timeseriesLineChart.hasData()) {
@@ -65,7 +63,7 @@ export const SparkLine: React.FC<SparkLineProps> = ({
             timeseries={timeseriesBarChart}
             xScale={xScaleBar}
             yScale={yScaleBar}
-            fill={theme.palette.border.default}
+            fillOpacity={0.3}
           />
         </Group>
         <LineChart
