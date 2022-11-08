@@ -41,21 +41,21 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizeH1,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   h2: {
     fontSize: typographyConstants.fontSizeH2,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   h3: {
     fontSize: typographyConstants.fontSizeH3,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   /**
@@ -66,21 +66,21 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizeBase,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   h5: {
     fontSize: typographyConstants.fontSizeBase,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   h6: {
     fontSize: typographyConstants.fontSizeBase,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   labelSmall: {
@@ -88,7 +88,7 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizePSmall,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightBase,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   labelLarge: {
@@ -96,20 +96,21 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizeBase,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightBase,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   paragraphSmall: {
     fontFamily: typographyConstants.fontFamily,
     fontSize: typographyConstants.fontSizePSmall,
     lineHeight: typographyConstants.lineHeightSmall,
-    color: palette.secondary.light,
+    color: palette.text.secondary,
   },
 
   paragraphLarge: {
     fontFamily: typographyConstants.fontFamily,
     fontSize: typographyConstants.fontSizeBase,
     lineHeight: typographyConstants.lineHeightBase,
+    color: palette.text.primary,
   },
 
   dataEmphasizedSmall: {
@@ -117,7 +118,7 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizeDSmall,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   dataEmphasizedLarge: {
@@ -125,7 +126,7 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizeDLarge,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
   },
 
   dataTabular: {
@@ -133,7 +134,7 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizePSmall,
     fontWeight: typographyConstants.fontWeightRegular,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.main,
+    color: palette.text.primary,
   },
 
   overline: {
@@ -141,7 +142,7 @@ const typography: ExtendedTypographyOptions = {
     fontSize: typographyConstants.fontSizeOSmall,
     fontWeight: typographyConstants.fontWeightBold,
     lineHeight: typographyConstants.lineHeightMedium,
-    color: palette.secondary.dark,
+    color: palette.text.primary,
     textTransform: "uppercase",
   },
 };

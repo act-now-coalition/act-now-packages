@@ -4,6 +4,7 @@ import { curveMonotoneX } from "@visx/curve";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
+import { useTheme } from "@mui/material";
 
 export interface LineChartOwnProps {
   /** Timeseries used to draw the line chart */
@@ -57,12 +58,13 @@ export const LineChart: React.FC<LineChartProps> = ({
   timeseries,
   xScale,
   yScale,
-  stroke = "#000",
+  stroke,
   strokeWidth = 2,
   shapeRendering = "geometricPrecision",
   strokeLinejoin = "round",
   ...otherLineProps
 }) => {
+  const theme = useTheme();
   return (
     <LinePath
       data={timeseries.points}
@@ -71,7 +73,7 @@ export const LineChart: React.FC<LineChartProps> = ({
       curve={curveMonotoneX}
       shapeRendering={shapeRendering}
       strokeLinejoin={strokeLinejoin}
-      stroke={stroke}
+      stroke={stroke ?? theme.palette.chart.main}
       strokeWidth={strokeWidth}
       {...otherLineProps}
     />

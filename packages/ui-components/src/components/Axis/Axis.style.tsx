@@ -31,7 +31,7 @@ export const AxisLeft = styled((props: AxisLeftProps) => (
       dx: "-.25em",
       ...baseTickLabelProps,
     })}
-    stroke={theme.palette.border.default}
+    stroke={theme.palette.chart.axis}
     {...props}
   />
 ))``;
@@ -46,7 +46,7 @@ export const AxisBottom = styled((props: AxisBottomProps) => (
       verticalAnchor: "start",
       ...baseTickLabelProps,
     })}
-    stroke={theme.palette.border.default}
+    stroke={theme.palette.chart.axis}
     {...props}
   />
 ))``;

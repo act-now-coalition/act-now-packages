@@ -2,6 +2,7 @@ import React from "react";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
+import { useTheme } from "@mui/material";
 
 export interface BarChartOwnProps {
   /** Timeseries used to draw the bar chart */
@@ -56,6 +57,7 @@ export const BarChart: React.FC<BarChartProps> = ({
   barWidth = 2,
   ...rectProps
 }) => {
+  const theme = useTheme();
   const [yStart] = yScale.range();
   return (
     <Group>
@@ -68,7 +70,7 @@ export const BarChart: React.FC<BarChartProps> = ({
             y={Math.min(rectY, yStart)}
             width={barWidth}
             height={Math.abs(rectY - yStart)}
-            fill="#000"
+            fill={theme.palette.chart.main}
             {...rectProps}
           />
         );

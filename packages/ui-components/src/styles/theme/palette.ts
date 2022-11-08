@@ -32,6 +32,10 @@ const colors = {
     400: "#794DF3",
     500: "#5936B6",
   },
+  common: {
+    black: "black",
+    white: "white",
+  },
 };
 
 const palette = {
@@ -46,8 +50,8 @@ const palette = {
     contrastText: colors.text.light,
   },
   common: {
-    black: "black",
-    white: "white",
+    black: colors.common.black,
+    white: colors.common.white,
   },
   border: {
     default: colors.border.default,
@@ -56,7 +60,7 @@ const palette = {
     main: colors.severity[100],
   },
   text: {
-    primary: colors.text.default,
+    primary: colors.text.emphasized,
     secondary: colors.text.deemphasized,
   },
   severity: {
@@ -72,6 +76,10 @@ const palette = {
     300: colors.gradient[300],
     400: colors.gradient[400],
     500: colors.gradient[500],
+  },
+  chart: {
+    main: colors.common.black,
+    axis: colors.border.default,
   },
 };
 
