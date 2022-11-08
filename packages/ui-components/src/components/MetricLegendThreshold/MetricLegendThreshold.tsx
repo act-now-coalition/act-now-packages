@@ -25,9 +25,6 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
   // Common props regardless of horizontal / vertical orientation
   const commonProps = { items, getItemColor, ...legendThresholdProps };
 
-  const metricHasUniqueExtendedName =
-    metric.name !== metric.extendedName || metric.extendedName.length === 0;
-
   if (!includeOverview) {
     return <LegendThreshold {...commonProps} />;
   }
@@ -37,7 +34,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
       <Stack spacing={2}>
         <Stack spacing={0.5} alignItems="center">
           <Typography variant="labelLarge">{metric.name}</Typography>
-          {metricHasUniqueExtendedName && (
+          {metric.extendedName && (
             <Typography variant="paragraphSmall">
               {metric.extendedName}
             </Typography>
@@ -60,7 +57,7 @@ export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
       <Stack spacing={3}>
         <Stack spacing={0.5}>
           <Typography variant="labelLarge">{metric.name}</Typography>
-          {metricHasUniqueExtendedName && (
+          {metric.extendedName && (
             <Typography variant="paragraphSmall">
               {metric.extendedName}
             </Typography>
