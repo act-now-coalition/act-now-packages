@@ -26,3 +26,11 @@ AppleStock.args = {
   metric: MetricId.APPLE_STOCK,
   region: newYork,
 };
+
+export const RandomPoints = Template.bind({});
+RandomPoints.args = {
+  width,
+  height,
+  metric: MetricId.RANDOM_POINTS,
+  region: newYork,
+};

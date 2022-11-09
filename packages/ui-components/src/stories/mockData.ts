@@ -1,4 +1,4 @@
-import { appleStock } from "@visx/mock-data";
+import Mock, { appleStock } from "@visx/mock-data";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
@@ -8,11 +8,22 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 const appleStockPoints = appleStock.map(
   (p: { date: string; close: number }): TimeseriesPoint<number> => ({
     date: new Date(p.date.substring(0, 10)),
-    value: p.close > 150 ? p.close : p.close * -0.25,
+    value: p.close,
   })
 );
 
 export const appleStockTimeseries = new Timeseries(appleStockPoints);
+
+// We format the points from appleStock to match TimeseriesPoint<number>
+// so we can use them to initialize Timeseries.
+const randomPoints = Mock.genDateValue(100).map(
+  (p: { date: Date; value: number }): TimeseriesPoint<number> => ({
+    date: p.date,
+    value: p.value,
+  })
+);
+
+export const randomPointsTimeseries = new Timeseries(randomPoints);
 
 /**
  * Creates d3 scales that cover the date and value ranges of the

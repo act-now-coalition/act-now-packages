@@ -1,11 +1,11 @@
 import React from "react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
+import min from "lodash/min";
 import max from "lodash/max";
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
-
 import { useData } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { GridRows } from "../Grid";
@@ -56,7 +56,7 @@ export const MetricLineThresholdChart = ({
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxDate, maxValue } = timeseries;
+  const { minDate, maxDate, minValue, maxValue } = timeseries;
 
   const thresholds = metric.categoryThresholds;
   const categories = metric.categorySet?.categories;
@@ -68,7 +68,7 @@ export const MetricLineThresholdChart = ({
   const intervals = calculateChartIntervals(
     categories,
     thresholds,
-    /*minValue=*/ 0,
+    minValue,
     maxValue
   );
 
@@ -77,10 +77,11 @@ export const MetricLineThresholdChart = ({
     range: [0, chartWidth],
   });
 
+  const minChartValue = min(intervals.map(({ lower }) => lower)) ?? minValue;
   const maxChartValue = max(intervals.map(({ upper }) => upper)) ?? maxValue;
 
   const yScale = scaleLinear({
-    domain: [0, maxChartValue],
+    domain: [minChartValue, maxChartValue],
     range: [chartHeight, 0],
   });
 
