@@ -1,5 +1,20 @@
 # @actnowcoalition/ui-components
 
+## 0.8.0
+
+### Minor Changes
+
+- 8456ad7: - `MetricSeriesChart` takes `Metric` or `MetricId`
+  - The y-axis on `MetricSeriesChart` takes the format of the metrics in the series list
+  - The `SeriesLine.lineProps` attribute is now optional
+
+### Patch Changes
+
+- 1ab0527: Resolve unique key warning in World Map component
+- be296ed: Fix a timezone issue in charts with a time-based axis'
+- 9c50781: Improve implementations of theme colors
+- 9aab4e6: Default metric's extended name to empty string
+
 ## 0.7.3
 
 ### Patch Changes
