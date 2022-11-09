@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import useSWR, { Fetcher, Key, SWRResponse } from "swr";
 import { Region } from "@actnowcoalition/regions";
 import {
   Metric,
@@ -37,7 +37,11 @@ export function useData(
     return catalog.fetchData(region, metric, includeTimeseries);
   };
 
-  return useSWR(args, fetcher);
+  return useSWRWrapper(
+    args,
+    fetcher,
+    `useData(region=${region}, metric=${metric}) failed: `
+  );
 }
 
 /**
@@ -60,7 +64,11 @@ export function useDataForMetrics(
     return catalog.fetchDataForMetrics(region, metrics, includeTimeseries);
   };
 
-  return useSWR(args, fetcher);
+  return useSWRWrapper(
+    args,
+    fetcher,
+    `useDataForMetrics(region=${region}, metrics=${metrics}) failed:`
+  );
 }
 
 /**
@@ -86,5 +94,32 @@ export function useDataForRegionsAndMetrics(
     );
   };
 
-  return useSWR(args, fetcher);
+  return useSWRWrapper(
+    args,
+    fetcher,
+    `useDataForRegionsAndMetrics(regions=${regions}, metrics=${metrics}) failed:`
+  );
+}
+
+/** Wrapper that logs errors and disables caching. */
+function useSWRWrapper<Data = any, Error = any, SWRKey extends Key = null>(
+  key: SWRKey,
+  fetcher: Fetcher<Data, SWRKey> | null,
+  errorContextString: string
+): SWRResponse<Data, Error> {
+  const result = useSWR(key, fetcher);
+  // We do metric data caching internally in the metric data providers, so we
+  // don't need SWR's caching. We bypass it here (by not returning the data
+  // until it's been validated) so that e.g. we can use the `delayMs` feature of
+  // the MockMetricDataProvider and actually see a visible effect (by default
+  // SWR would just show the cached contents while the delay is in effect).
+  if (result.isValidating) {
+    return { ...result, data: undefined };
+  }
+
+  // Log any errors so they don't accidentally get ignored by the developer.
+  if (result.error) {
+    console.error(`${errorContextString} failed: ${result.error}`);
+  }
+  return result;
 }

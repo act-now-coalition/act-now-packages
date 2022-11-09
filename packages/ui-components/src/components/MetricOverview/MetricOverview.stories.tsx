@@ -50,6 +50,18 @@ NoExtendedName.args = {
   metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
 };
 
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  region: newYorkState,
+  metric: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  region: newYorkState,
+  metric: MetricId.MOCK_CASES_ERROR,
+};
+
 export const VerticalWithChart = Template.bind({});
 VerticalWithChart.args = {
   region: newYorkState,
