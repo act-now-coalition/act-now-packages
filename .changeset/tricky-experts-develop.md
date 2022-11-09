@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Remove redundant extended name from metric legend
+Default metric's extended name to empty string
