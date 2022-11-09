@@ -1,4 +1,4 @@
-import Mock, { appleStock } from "@visx/mock-data";
+import { appleStock, cityTemperature } from "@visx/mock-data";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
@@ -16,10 +16,10 @@ export const appleStockTimeseries = new Timeseries(appleStockPoints);
 
 // We format the points from appleStock to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.
-const randomPoints = Mock.genDateValue(100).map(
-  (p: { date: Date; value: number }): TimeseriesPoint<number> => ({
-    date: p.date,
-    value: p.value,
+const randomPoints = cityTemperature.map(
+  (p: { date: string; Austin: string }): TimeseriesPoint<number> => ({
+    date: new Date(p.date),
+    value: parseFloat(p.Austin),
   })
 );
 
