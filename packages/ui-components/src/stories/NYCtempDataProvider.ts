@@ -5,7 +5,7 @@ import {
   MetricData,
   Metric,
 } from "@actnowcoalition/metrics";
-import { randomPointsTimeseries } from "./mockData";
+import { NYCtempTimeseries } from "./mockData";
 
 /**
  * Mock data provider with constant timeseries data for all regions. Useful
@@ -15,11 +15,11 @@ import { randomPointsTimeseries } from "./mockData";
  * @example
  * ```
  * dataReference: {
- *   providerId: "random_points"
+ *   providerId: "nyc_temperature"
  * },
  * ```
  */
-export class RandomPointsDataProvider extends SimpleMetricDataProviderBase {
+export class NYCtempDataProvider extends SimpleMetricDataProviderBase {
   constructor(providerId: string) {
     super(providerId);
   }
@@ -28,7 +28,7 @@ export class RandomPointsDataProvider extends SimpleMetricDataProviderBase {
     region: Region,
     metric: Metric
   ): Promise<MetricData<unknown>> {
-    const timeseries = randomPointsTimeseries;
+    const timeseries = NYCtempTimeseries;
 
     // Use last value of timeseries as current value.
     assert(timeseries.hasData());

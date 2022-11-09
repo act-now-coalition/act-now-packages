@@ -14,16 +14,16 @@ const appleStockPoints = appleStock.map(
 
 export const appleStockTimeseries = new Timeseries(appleStockPoints);
 
-// We format the points from appleStock to match TimeseriesPoint<number>
+// We format the points from cityTemperature to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.
-const randomPoints = cityTemperature.map(
-  (p: { date: string; Austin: string }): TimeseriesPoint<number> => ({
+const NYCtemp = cityTemperature.map(
+  (p: { date: string; "New York": string }): TimeseriesPoint<number> => ({
     date: new Date(p.date),
-    value: parseFloat(p.Austin),
+    value: (parseFloat(p["New York"]) - 32) * (5 / 9),
   })
 );
 
-export const randomPointsTimeseries = new Timeseries(randomPoints);
+export const NYCtempTimeseries = new Timeseries(NYCtemp);
 
 /**
  * Creates d3 scales that cover the date and value ranges of the

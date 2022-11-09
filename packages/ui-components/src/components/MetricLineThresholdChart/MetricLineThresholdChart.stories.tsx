@@ -27,10 +27,10 @@ AppleStock.args = {
   region: newYork,
 };
 
-export const RandomPoints = Template.bind({});
-RandomPoints.args = {
+export const NewYorkCityTemperature = Template.bind({});
+NewYorkCityTemperature.args = {
   width,
   height,
-  metric: MetricId.RANDOM_POINTS,
+  metric: MetricId.NYC_TEMP,
   region: newYork,
 };

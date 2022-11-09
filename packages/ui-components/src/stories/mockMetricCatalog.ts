@@ -6,11 +6,11 @@ import {
 } from "@actnowcoalition/metrics";
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
-import { RandomPointsDataProvider } from "./RandomPointsDataProvider";
+import { NYCtempDataProvider } from "./NYCtempDataProvider";
 
 export enum MetricId {
   APPLE_STOCK = "apple_stock",
-  RANDOM_POINTS = "random_points",
+  NYC_TEMP = "nyc_temperature",
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
@@ -21,7 +21,7 @@ export enum ProviderId {
   MOCK = "mock",
   STATIC = "static",
   APPLE_STOCK = "apple_stock",
-  RANDOM_POINTS = "random_points",
+  NYC_TEMP = "nyc_temperature",
 }
 
 const testMetricDefs: MetricDefinition[] = [
@@ -36,13 +36,13 @@ const testMetricDefs: MetricDefinition[] = [
     categorySetId: "5_risk_categories",
   },
   {
-    id: MetricId.RANDOM_POINTS,
-    name: "Ramdom Points",
-    extendedName: "A series of random x and y points",
+    id: MetricId.NYC_TEMP,
+    name: "NYC Temperature",
+    extendedName: "Temperature of New York City",
     dataReference: {
-      providerId: ProviderId.RANDOM_POINTS,
+      providerId: ProviderId.NYC_TEMP,
     },
-    categoryThresholds: [-500, -250, 0, 250],
+    categoryThresholds: [-20, 0, 20, 40],
     categorySetId: "5_risk_categories",
   },
   {
@@ -93,7 +93,7 @@ export const dataProviders = [
   new MockDataProvider(ProviderId.MOCK),
   new StaticValueDataProvider(ProviderId.STATIC),
   new AppleStockDataProvider(ProviderId.APPLE_STOCK),
-  new RandomPointsDataProvider(ProviderId.RANDOM_POINTS),
+  new NYCtempDataProvider(ProviderId.NYC_TEMP),
 ];
 
 const metricCategorySets = [
