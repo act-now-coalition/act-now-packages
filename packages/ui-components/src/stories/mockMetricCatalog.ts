@@ -13,6 +13,7 @@ export enum MetricId {
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
   PASS_FAIL = "pass_fail",
+  PASS_FAIL_NO_EXTENDED_NAME = "pass_fail_no_extended_name",
 }
 
 export enum ProviderId {
@@ -55,7 +56,6 @@ const testMetricDefs: MetricDefinition[] = [
   {
     id: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
     name: "Cases (mock)",
-    extendedName: "",
     dataReference: {
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
@@ -67,6 +67,16 @@ const testMetricDefs: MetricDefinition[] = [
     id: MetricId.PASS_FAIL,
     name: "Pass or Fail",
     extendedName: "Passing or Failing grade on an arbitrary test",
+    dataReference: {
+      providerId: ProviderId.STATIC,
+      value: 0,
+    },
+    categorySetId: "pass_fail",
+    categoryValues: [0, 1],
+  },
+  {
+    id: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
+    name: "Pass or Fail",
     dataReference: {
       providerId: ProviderId.STATIC,
       value: 0,

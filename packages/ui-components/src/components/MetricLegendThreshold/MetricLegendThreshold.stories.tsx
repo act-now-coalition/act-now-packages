@@ -27,6 +27,13 @@ HorizontalDefault.args = {
   metric: MetricId.MOCK_CASES,
 };
 
+export const HorizontalNoExtendedName = Template.bind({});
+HorizontalNoExtendedName.args = {
+  orientation: "horizontal",
+  height: horizontalBarHeight,
+  metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
+};
+
 export const HorizontalNoLabels = Template.bind({});
 HorizontalNoLabels.args = {
   ...HorizontalDefault.args,
@@ -53,6 +60,12 @@ export const VerticalDefault = Template.bind({});
 VerticalDefault.args = {
   orientation: "vertical",
   metric: MetricId.MOCK_CASES,
+};
+
+export const VerticalNoExtendedName = Template.bind({});
+VerticalNoExtendedName.args = {
+  orientation: "vertical",
+  metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
 };
 
 export const VerticalCategories = Template.bind({});
