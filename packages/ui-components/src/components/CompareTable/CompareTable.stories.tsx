@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { ComponentMeta } from "@storybook/react";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { formatInteger } from "@actnowcoalition/number-format";
 import { states, Region } from "@actnowcoalition/regions";
 import {
@@ -12,6 +12,7 @@ import {
   compare,
   TableContainer,
 } from ".";
+import { Action, ActionType, SortState, useSortableTable } from "./utils";
 
 export default {
   title: "Table/CompareTable",
@@ -29,7 +30,9 @@ const rows: RowItem[] = states.all
 
 const StatefulCompareTable: React.FC<{
   rows: RowItem[];
-}> = () => {
+  dispatch: React.Dispatch<Action>;
+  state: SortState;
+}> = ({ dispatch, state }) => {
   const columns: ColumnDefinition<RowItem>[] = [
     {
       columnId: "name",
@@ -135,28 +138,50 @@ const StatefulCompareTable: React.FC<{
     },
   ];
 
-  const [sortColumnId, setSortColumnId] = useState(columns[0].columnId);
-  const [sortDirection, setSortDirection] = useState(SortDirection.ASC);
+  const sortColumnId = state.columnId;
+  const sortDirection = state.sortDirection;
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
-    setSortColumnId(columnId);
-    setSortDirection(direction);
+    dispatch({ type: ActionType.SET_SORTING_COLUMN, columnId });
+    dispatch({ type: ActionType.SET_SORT_DIRECTION, sortDirection: direction });
   };
 
   return (
-    <CompareTable
-      rows={rows}
-      columns={columns}
-      sortColumnId={sortColumnId}
-      sortDirection={sortDirection}
-    />
+    <>
+      <CompareTable
+        rows={rows}
+        columns={columns}
+        sortColumnId={sortColumnId}
+        sortDirection={sortDirection}
+      />
+    </>
   );
 };
 
 export const Example = () => {
+  const initialState = {
+    columnId: "name",
+    sortDirection: SortDirection.ASC,
+  };
+
+  const [state, dispatch] = useSortableTable(initialState);
+
   return (
-    <TableContainer sx={{ maxWidth: 400, height: 600 }}>
-      <StatefulCompareTable rows={rows} />
-    </TableContainer>
+    <>
+      <Button
+        onClick={() =>
+          dispatch({
+            type: ActionType.SET_SORTING_COLUMN,
+            columnId: "population",
+          })
+        }
+      >
+        Sort By Population
+      </Button>
+
+      <TableContainer sx={{ maxWidth: 400, height: 600 }}>
+        <StatefulCompareTable rows={rows} dispatch={dispatch} state={state} />
+      </TableContainer>
+    </>
   );
 };
