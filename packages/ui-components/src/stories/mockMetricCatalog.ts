@@ -42,7 +42,7 @@ const testMetricDefs: MetricDefinition[] = [
     dataReference: {
       providerId: ProviderId.NYC_TEMP,
     },
-    categoryThresholds: [-20, 0, 20, 40],
+    categoryThresholds: [-20, 0, 10, 15],
     categorySetId: "5_risk_categories",
   },
   {
