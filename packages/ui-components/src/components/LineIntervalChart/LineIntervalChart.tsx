@@ -83,9 +83,17 @@ export const LineIntervalChart = ({
         return (
           <RectClipGroup
             key={`rect-clip-${intervalIndex}`}
-            y={Math.min(yFrom, yTo)}
+            y={
+              intervalIndex === intervals.length - 1
+                ? Math.min(yFrom, yTo) - 5
+                : Math.min(yFrom, yTo)
+            }
             width={width}
-            height={clipHeight}
+            height={
+              intervalIndex === intervals.length - 1
+                ? clipHeight + 5
+                : clipHeight
+            }
           >
             <LineChart
               timeseries={timeseries}

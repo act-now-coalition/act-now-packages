@@ -81,7 +81,7 @@ export const MetricLineThresholdChart = ({
   const maxChartValue = max(intervals.map(({ upper }) => upper)) ?? maxValue;
 
   const yScale = scaleLinear({
-    domain: [minChartValue, maxChartValue + 5],
+    domain: [minChartValue, maxChartValue + maxChartValue * 0.1],
     range: [chartHeight, 0],
   });
 
