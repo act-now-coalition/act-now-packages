@@ -31,6 +31,6 @@ export const NewYorkCityTemperature = Template.bind({});
 NewYorkCityTemperature.args = {
   width,
   height,
-  metric: MetricId.NYC_TEMP,
+  metric: MetricId.NYC_TEMPERATURE,
   region: newYork,
 };

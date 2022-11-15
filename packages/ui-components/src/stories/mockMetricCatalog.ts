@@ -10,7 +10,7 @@ import { NYCtempDataProvider } from "./NYCtempDataProvider";
 
 export enum MetricId {
   APPLE_STOCK = "apple_stock",
-  NYC_TEMP = "nyc_temperature",
+  NYC_TEMPERATURE = "nyc_temperature",
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
@@ -21,7 +21,7 @@ export enum ProviderId {
   MOCK = "mock",
   STATIC = "static",
   APPLE_STOCK = "apple_stock",
-  NYC_TEMP = "nyc_temperature",
+  NYC_TEMPERATURE = "nyc_temperature",
 }
 
 const testMetricDefs: MetricDefinition[] = [
@@ -36,11 +36,11 @@ const testMetricDefs: MetricDefinition[] = [
     categorySetId: "5_risk_categories",
   },
   {
-    id: MetricId.NYC_TEMP,
+    id: MetricId.NYC_TEMPERATURE,
     name: "NYC Temperature",
     extendedName: "Temperature of New York City",
     dataReference: {
-      providerId: ProviderId.NYC_TEMP,
+      providerId: ProviderId.NYC_TEMPERATURE,
     },
     categoryThresholds: [-20, 0, 10, 30],
     categorySetId: "5_risk_categories",
@@ -93,7 +93,7 @@ export const dataProviders = [
   new MockDataProvider(ProviderId.MOCK),
   new StaticValueDataProvider(ProviderId.STATIC),
   new AppleStockDataProvider(ProviderId.APPLE_STOCK),
-  new NYCtempDataProvider(ProviderId.NYC_TEMP),
+  new NYCtempDataProvider(ProviderId.NYC_TEMPERATURE),
 ];
 
 const metricCategorySets = [

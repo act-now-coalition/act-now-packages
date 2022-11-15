@@ -27,6 +27,8 @@ export interface LineIntervalChartProps {
   xScale: ScaleTime<number, number>;
   /** d3-scale to transform point dates to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
+  /** Optional offset on the y-axis to pad the highest and lowest point on the chart */
+  topIntervalOffset?: number;
 }
 
 /**
@@ -48,6 +50,7 @@ export interface LineIntervalChartProps {
  *       xScale={xScale}
  *       yScale={yScale}
  *       intervals={intervals}
+ *       topIntervalOffset={5}
  *     />
  *   </svg>
  * )
@@ -56,12 +59,13 @@ export interface LineIntervalChartProps {
  * In this case, the line will be rendered in green where its y-coordinates are
  * between 10 and 20, and in red where its y-coordinates are between 20 and 40.
  * If the timeseries has values outside these intervals, those line segments
- * won't be rendered.
+ * won't be rendered. The chart will also have a padding of 5 at the top.
  *
  * @param timeseries Timeseries to represent as a line.
  * @param xScale d3-scale to transform point dates to pixel positions on the x-axis.
  * @param yScale d3-scale to transform point values to pixel positions on the y-axis.
  * @param intervals intervals that define the color of the line for different segments.
+ * @param topIntervalOffset Optional offset on the y-axis to pad the highest point on the chart.
  *
  * @returns An SVG group containing the line.
  */
@@ -70,13 +74,17 @@ export const LineIntervalChart = ({
   xScale,
   yScale,
   intervals,
+  topIntervalOffset,
 }: LineIntervalChartProps) => {
   const [xMin, xMax] = xScale.range();
   const width = Math.abs(xMax - xMin);
+  // Since this is a SVG, the highest point on the chart has the lowest y-coordinate.
+  const topPoint = Math.min(...intervals.map((interval) => interval.lower));
 
   return (
     <Group>
       {intervals.map((interval, intervalIndex) => {
+        console.log(interval);
         const yFrom = yScale(interval.lower);
         const yTo = yScale(interval.upper);
         const clipHeight = Math.abs(yFrom - yTo);
@@ -84,14 +92,14 @@ export const LineIntervalChart = ({
           <RectClipGroup
             key={`rect-clip-${intervalIndex}`}
             y={
-              intervalIndex === intervals.length - 1
-                ? Math.min(yFrom, yTo) - 5
+              interval.lower === topPoint
+                ? Math.min(yFrom, yTo) - (topIntervalOffset ?? 0)
                 : Math.min(yFrom, yTo)
             }
             width={width}
             height={
-              intervalIndex === intervals.length - 1
-                ? clipHeight + 5
+              interval.lower === topPoint
+                ? clipHeight + (topIntervalOffset ?? 0)
                 : clipHeight
             }
           >

@@ -14,16 +14,20 @@ const appleStockPoints = appleStock.map(
 
 export const appleStockTimeseries = new Timeseries(appleStockPoints);
 
+function toCelsius(fahrenheit: number): number {
+  return (fahrenheit - 32) * (5 / 9);
+}
+
 // We format the points from cityTemperature to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.
-const NYCtemp = cityTemperature.map(
+const NYCtemperature = cityTemperature.map(
   (p: { date: string; "New York": string }): TimeseriesPoint<number> => ({
     date: new Date(p.date),
-    value: (parseFloat(p["New York"]) - 32) * (5 / 9),
+    value: toCelsius(parseFloat(p["New York"])),
   })
 );
 
-export const NYCtempTimeseries = new Timeseries(NYCtemp);
+export const NYCtemperatureTimeseries = new Timeseries(NYCtemperature);
 
 /**
  * Creates d3 scales that cover the date and value ranges of the
