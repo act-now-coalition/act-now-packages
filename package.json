@@ -26,9 +26,10 @@
     "release": "yarn build:all && yarn changeset publish",
     "create-package": "yarn plop package",
     "create-component": "yarn plop component",
-    "generate-docs": "yarn typedoc --out public/docs --entryPointStrategy packages --name 'Act Now Packages' .",
+    "generate-module-docs": "yarn typedoc --out public/docs --entryPointStrategy packages --name 'Act Now Packages' . # See #356",
+    "generate-src-docs": "yarn typedoc --out public/docs packages/*/src/index.ts --name 'Act Now Packages' # See #356",
     "generate-storybook": "yarn build-storybook -c packages/ui-components/.storybook/ -o public/storybook",
-    "build-public": "yarn build:all && yarn generate-storybook"
+    "build-public": "yarn build:all && yarn generate-storybook && yarn generate-src-docs"
   },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --max-warnings=0",
@@ -54,7 +55,7 @@
     "ts-jest": "^28.0.2",
     "ts-node": "^10.7.0",
     "tsconfig-paths": "^4.0.0",
-    "typedoc": "^0.23.10",
+    "typedoc": "^0.23.21",
     "typescript": "^4.6.4"
   },
   "dependencies": {}

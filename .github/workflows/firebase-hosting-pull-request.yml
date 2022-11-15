@@ -16,7 +16,8 @@ jobs:
       - run: yarn install
       - run: yarn build-public
         env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
+          # Set max_old_space_size to 8192 to work around typedoc memory issues. See #356
+          NODE_OPTIONS: "--max_old_space_size=8192"
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
