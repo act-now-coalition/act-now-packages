@@ -14,12 +14,7 @@ export enum ActionType {
 
 export type Action =
   | { type: ActionType.SET_SORTING_COLUMN; columnId: string }
-  | { type: ActionType.SET_SORT_DIRECTION; sortDirection: SortDirection }
-  | {
-      type: ActionType.SET_SORTING;
-      columnId: string;
-      sortDirection: SortDirection;
-    };
+  | { type: ActionType.SET_SORT_DIRECTION; sortDirection: SortDirection };
 
 const sortableTableReducer: Reducer<SortState, Action> = (
   prevState,
@@ -30,12 +25,6 @@ const sortableTableReducer: Reducer<SortState, Action> = (
       return { ...prevState, columnId: action.columnId };
     case ActionType.SET_SORT_DIRECTION:
       return { ...prevState, sortDirection: action.sortDirection };
-    case ActionType.SET_SORTING:
-      return {
-        ...prevState,
-        columnId: action.columnId,
-        sortDirection: action.sortDirection,
-      };
     default:
       return prevState;
   }
