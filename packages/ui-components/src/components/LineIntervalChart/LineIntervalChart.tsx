@@ -78,13 +78,10 @@ export const LineIntervalChart = ({
 }: LineIntervalChartProps) => {
   const [xMin, xMax] = xScale.range();
   const width = Math.abs(xMax - xMin);
-  // Since this is a SVG, the highest point on the chart has the lowest y-coordinate.
-  const topPoint = Math.min(...intervals.map((interval) => interval.lower));
-
+  const topPoint = Math.max(...intervals.map((interval) => interval.upper));
   return (
     <Group>
       {intervals.map((interval, intervalIndex) => {
-        console.log(interval);
         const yFrom = yScale(interval.lower);
         const yTo = yScale(interval.upper);
         const clipHeight = Math.abs(yFrom - yTo);
@@ -92,13 +89,13 @@ export const LineIntervalChart = ({
           <RectClipGroup
             key={`rect-clip-${intervalIndex}`}
             y={
-              interval.lower === topPoint
+              interval.upper === topPoint
                 ? Math.min(yFrom, yTo) - (topIntervalOffset ?? 0)
                 : Math.min(yFrom, yTo)
             }
             width={width}
             height={
-              interval.lower === topPoint
+              interval.upper === topPoint
                 ? clipHeight + (topIntervalOffset ?? 0)
                 : clipHeight
             }
