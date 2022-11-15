@@ -27,7 +27,7 @@ export interface LineIntervalChartProps {
   xScale: ScaleTime<number, number>;
   /** d3-scale to transform point dates to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
-  /** Optional offset on the y-axis to pad the highest and lowest point on the chart */
+  /** Optional offset on the y-axis to pad the highest point on the chart */
   topIntervalOffset?: number;
 }
 
