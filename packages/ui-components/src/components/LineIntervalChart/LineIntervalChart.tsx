@@ -78,7 +78,12 @@ export const LineIntervalChart = ({
 }: LineIntervalChartProps) => {
   const [xMin, xMax] = xScale.range();
   const width = Math.abs(xMax - xMin);
-  const topPoint = Math.max(...intervals.map((interval) => interval.upper));
+  // Find the lowest y-coordinate, regardless of how the intervals are ordered.
+  const topPoint = Math.min(
+    ...intervals.map((interval) =>
+      Math.min(yScale(interval.lower), yScale(interval.upper))
+    )
+  );
   return (
     <Group>
       {intervals.map((interval, intervalIndex) => {
@@ -89,13 +94,13 @@ export const LineIntervalChart = ({
           <RectClipGroup
             key={`rect-clip-${intervalIndex}`}
             y={
-              interval.upper === topPoint
+              Math.min(yFrom, yTo) === topPoint
                 ? Math.min(yFrom, yTo) - (topIntervalOffset ?? 0)
                 : Math.min(yFrom, yTo)
             }
             width={width}
             height={
-              interval.upper === topPoint
+              Math.min(yFrom, yTo) === topPoint
                 ? clipHeight + (topIntervalOffset ?? 0)
                 : clipHeight
             }
