@@ -67,8 +67,8 @@ const testMetricDefs: MetricDefinition[] = [
   },
   {
     id: MetricId.MOCK_CASES_DELAY_1S,
-    name: "Cases (mock)",
-    extendedName: "Cases per 100k population (using mock data)",
+    name: "Cases (mock - delay 1s)",
+    extendedName: "Cases per 100k population (using mock data w/ delay)",
     dataReference: {
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
@@ -79,8 +79,8 @@ const testMetricDefs: MetricDefinition[] = [
   },
   {
     id: MetricId.MOCK_CASES_ERROR,
-    name: "Cases (mock)",
-    extendedName: "Cases per 100k population (using mock data)",
+    name: "Cases (error)",
+    extendedName: "Cases per 100k population (error)",
     dataReference: {
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",

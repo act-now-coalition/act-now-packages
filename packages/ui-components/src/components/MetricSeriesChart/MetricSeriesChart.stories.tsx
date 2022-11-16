@@ -106,3 +106,43 @@ TrendsMultipleLocations.args = {
     },
   ],
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  width,
+  height,
+  series: [
+    {
+      region: states.findByRegionIdStrict("36"),
+      metric: MetricId.MOCK_CASES_DELAY_1S,
+      type: SeriesType.LINE,
+      lineProps: { stroke: schemeCategory10[0] },
+    },
+    {
+      region: states.findByRegionIdStrict("56"),
+      metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+      type: SeriesType.LINE,
+      lineProps: { stroke: schemeCategory10[1] },
+    },
+  ],
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  width,
+  height,
+  series: [
+    {
+      region: states.findByRegionIdStrict("36"),
+      metric: MetricId.MOCK_CASES_ERROR,
+      type: SeriesType.LINE,
+      lineProps: { stroke: schemeCategory10[0] },
+    },
+    {
+      region: states.findByRegionIdStrict("56"),
+      metric: metricCatalog.getMetric(MetricId.MOCK_CASES),
+      type: SeriesType.LINE,
+      lineProps: { stroke: schemeCategory10[1] },
+    },
+  ],
+};

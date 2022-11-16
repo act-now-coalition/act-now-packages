@@ -49,3 +49,15 @@ export const SpaceBetween = () => (
     style={{ width: 300, border: "dashed 1px #eee" }}
   />
 );
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...DefaultVariant.args,
+  metric: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...DefaultVariant.args,
+  metric: MetricId.MOCK_CASES_ERROR,
+};

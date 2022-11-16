@@ -26,3 +26,15 @@ Example.args = {
   regions: regionDB.all,
   metrics: [MetricId.PI, MetricId.MOCK_CASES, MetricId.PASS_FAIL],
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...Example.args,
+  metrics: [MetricId.PI, MetricId.MOCK_CASES_DELAY_1S, MetricId.PASS_FAIL],
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...Example.args,
+  metrics: [MetricId.PI, MetricId.MOCK_CASES_ERROR, MetricId.PASS_FAIL],
+};

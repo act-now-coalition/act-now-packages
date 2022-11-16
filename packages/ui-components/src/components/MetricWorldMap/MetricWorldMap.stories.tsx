@@ -29,3 +29,15 @@ MetricAwareWorld.args = {
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...MetricAwareWorld.args,
+  metric: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...MetricAwareWorld.args,
+  metric: MetricId.MOCK_CASES_ERROR,
+};
