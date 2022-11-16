@@ -10,6 +10,7 @@ const mockCsv = `region,cool_metric
 
 const csvTimeseries = `region,date,cool_metric
 36,2022-08-02,150
+36,2022-08-03,
 12,2022-08-02,`;
 
 const newYork = states.findByRegionIdStrict("36");
@@ -29,14 +30,16 @@ const testMetric = new Metric({
 const testFetchingCsvData = async (
   data: string,
   includeTimeseries: boolean,
-  dateCol?: string
+  dateCol?: string,
+  metric?: Metric
 ) => {
+  metric = metric ?? testMetric;
   const provider = new CsvDataProvider(PROVIDER_ID, {
     regionColumn: "region",
     dateColumn: dateCol,
     csvText: data,
   });
-  return (await provider.fetchData([newYork], [testMetric], includeTimeseries))
+  return (await provider.fetchData([newYork], [metric], includeTimeseries))
     .regionData(newYork)
     .metricData(testMetric);
 };
@@ -54,8 +57,11 @@ describe("CsvDataProvider", () => {
     );
     expect(metricDataNoTs.currentValue).toBe(150);
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
-    expect(metricDataTs.currentValue).toBe(150);
+
+    expect(metricDataTs.hasTimeseries()).toBe(true);
+    expect(metricDataTs.timeseries.length).toBe(1);
     expect(metricDataTs.timeseries.lastValue).toBe(150);
+    expect(metricDataTs.currentValue).toBe(150);
   });
 
   test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
@@ -71,6 +77,24 @@ describe("CsvDataProvider", () => {
     expect(async () =>
       testFetchingCsvData(`region,cool_metric`, /*includeTimeseries=*/ true)
     ).rejects.toThrow("CSV must not be empty.");
+  });
+
+  test("fetchData() fails if metric is missing a 'column' property.", async () => {
+    const badMetric = new Metric({
+      id: "metric",
+      dataReference: {
+        providerId: PROVIDER_ID,
+        /* missing column specifier. */
+      },
+    });
+    expect(async () =>
+      testFetchingCsvData(
+        mockCsv,
+        /*includeTimeseries=*/ true,
+        /*datColumn=*/ "date",
+        badMetric
+      )
+    ).rejects.toThrow("Missing or invalid metric column name.");
   });
 
   test("Constructor fails if neither url or csv data is provided.", () => {
