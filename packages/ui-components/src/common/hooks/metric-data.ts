@@ -1,3 +1,4 @@
+import truncate from "lodash/truncate";
 import useSWR, { Fetcher, Key, SWRResponse } from "swr";
 import { Region } from "@actnowcoalition/regions";
 import {
@@ -97,7 +98,9 @@ export function useDataForRegionsAndMetrics(
   return useSWRWrapper(
     args,
     fetcher,
-    `useDataForRegionsAndMetrics(regions=${regions}, metrics=${metrics}) failed:`
+    `useDataForRegionsAndMetrics(regions=${truncate(regions.toString(), {
+      length: 100,
+    })}, metrics=${metrics}) failed:`
   );
 }
 
