@@ -34,3 +34,15 @@ NewYorkCityTemperature.args = {
   metric: MetricId.NYC_TEMPERATURE,
   region: newYork,
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...AppleStock.args,
+  metric: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...AppleStock.args,
+  metric: MetricId.MOCK_CASES_ERROR,
+};

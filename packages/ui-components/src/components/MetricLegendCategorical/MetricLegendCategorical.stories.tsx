@@ -28,3 +28,15 @@ Vertical.args = {
   metric: MetricId.PASS_FAIL,
   orientation: "vertical",
 };
+
+export const HorizontalNoExtendedName = Template.bind({});
+HorizontalNoExtendedName.args = {
+  metric: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
+  orientation: "horizontal",
+};
+
+export const VerticalNoExtendedName = Template.bind({});
+VerticalNoExtendedName.args = {
+  metric: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
+  orientation: "vertical",
+};

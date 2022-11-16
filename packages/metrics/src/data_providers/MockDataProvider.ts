@@ -1,3 +1,4 @@
+import delay from "delay";
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
@@ -9,13 +10,27 @@ import { mockTimeseries } from "../Timeseries";
 
 /**
  * Fields allowed in the { @link MetricDefinition.dataReference } of metrics using the
- * "mock" data provider.
+ * MockDataProvider.
  */
 export interface MockDataReferenceFields {
+  /** A minimum value for the generated mock data. */
   minValue?: number;
+  /** A maximum value for the generated mock data. */
   maxValue?: number;
+  /** Start date for generated timeseries data. */
   startDate?: string;
+  /** End date for generated timeseries data. */
   endDate?: string;
+  /**
+   * A delay (in milliseconds) to pause before returning data. Used to simulate
+   * a network delay.
+   */
+  delayMs?: number;
+  /**
+   * An error message to return instead of fetching / returning any data. Used
+   * to test component error handling.
+   */
+  error?: string;
 }
 
 /**
@@ -52,8 +67,8 @@ export class MockDataProvider extends SimpleMetricDataProviderBase {
     metric: Metric
   ): Promise<MetricData<unknown>> {
     const cacheKey = `region:${region.regionId}_metric:${metric.id}`;
+    const fields = metric.dataReference as MockDataReferenceFields;
     if (!this.cachedData[cacheKey]) {
-      const fields = metric.dataReference as MockDataReferenceFields;
       const minValue = fields.minValue ?? 0;
       const maxValue = fields.maxValue ?? 100;
       const startDate = new Date(fields.startDate ?? "2022-01-01");
@@ -83,6 +98,14 @@ export class MockDataProvider extends SimpleMetricDataProviderBase {
         currentValue,
         timeseries
       );
+    }
+
+    if (fields.delayMs) {
+      await delay(fields.delayMs);
+    }
+
+    if (fields.error) {
+      throw new Error(fields.error);
     }
 
     return this.cachedData[cacheKey];

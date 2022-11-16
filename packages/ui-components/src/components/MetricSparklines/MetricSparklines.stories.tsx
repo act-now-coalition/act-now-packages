@@ -31,3 +31,17 @@ ExampleSixtyDays.args = {
   ...defaultArgs,
   numDays: 60,
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...defaultArgs,
+  metricLineChart: MetricId.MOCK_CASES_DELAY_1S,
+  metricBarChart: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...defaultArgs,
+  metricLineChart: MetricId.MOCK_CASES_ERROR,
+  metricBarChart: MetricId.MOCK_CASES_ERROR,
+};
