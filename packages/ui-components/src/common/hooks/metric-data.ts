@@ -41,7 +41,7 @@ export function useData(
   return useSWRWrapper(
     args,
     fetcher,
-    `useData(region=${region}, metric=${metric}) failed: `
+    `useData(region=${region}, metric=${metric})`
   );
 }
 
@@ -68,7 +68,7 @@ export function useDataForMetrics(
   return useSWRWrapper(
     args,
     fetcher,
-    `useDataForMetrics(region=${region}, metrics=${metrics}) failed:`
+    `useDataForMetrics(region=${region}, metrics=${metrics})`
   );
 }
 
@@ -100,7 +100,7 @@ export function useDataForRegionsAndMetrics(
     fetcher,
     `useDataForRegionsAndMetrics(regions=${truncate(regions.toString(), {
       length: 100,
-    })}, metrics=${metrics}) failed:`
+    })}, metrics=${metrics})`
   );
 }
 
