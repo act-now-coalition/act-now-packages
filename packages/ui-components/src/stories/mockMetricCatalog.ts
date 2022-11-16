@@ -12,6 +12,8 @@ export enum MetricId {
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
+  MOCK_CASES_DELAY_1S = "mock_cases_delay_1s",
+  MOCK_CASES_ERROR = "mock_cases_error",
   PASS_FAIL = "pass_fail",
   PASS_FAIL_NO_EXTENDED_NAME = "pass_fail_no_extended_name",
 }
@@ -59,6 +61,30 @@ const testMetricDefs: MetricDefinition[] = [
     dataReference: {
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
+    },
+    categoryThresholds: [10, 100],
+    categorySetId: "cases_mock",
+  },
+  {
+    id: MetricId.MOCK_CASES_DELAY_1S,
+    name: "Cases (mock - delay 1s)",
+    extendedName: "Cases per 100k population (using mock data w/ delay)",
+    dataReference: {
+      providerId: ProviderId.MOCK,
+      startDate: "2020-01-01",
+      delayMs: 1000,
+    },
+    categoryThresholds: [10, 100],
+    categorySetId: "cases_mock",
+  },
+  {
+    id: MetricId.MOCK_CASES_ERROR,
+    name: "Cases (error)",
+    extendedName: "Cases per 100k population (error)",
+    dataReference: {
+      providerId: ProviderId.MOCK,
+      startDate: "2020-01-01",
+      error: "Simulated error fetching data",
     },
     categoryThresholds: [10, 100],
     categorySetId: "cases_mock",

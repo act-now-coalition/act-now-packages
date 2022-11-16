@@ -21,3 +21,15 @@ Example.args = {
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   maxValue: 500,
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...Example.args,
+  metrics: [MetricId.MOCK_CASES_DELAY_1S, MetricId.PASS_FAIL],
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...Example.args,
+  metrics: [MetricId.MOCK_CASES_ERROR, MetricId.PASS_FAIL],
+};

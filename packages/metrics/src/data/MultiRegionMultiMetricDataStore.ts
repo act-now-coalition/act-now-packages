@@ -95,13 +95,20 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     dataFetcher: (region: Region, metric: Metric) => Promise<MetricData<T>>
   ): Promise<MultiRegionMultiMetricDataStore<T>> {
     const data: { [regionId: string]: MultiMetricDataStore<T> } = {};
-    for (const region of regions) {
-      const regionData: { [metricId: string]: MetricData<T> } = {};
-      for (const metric of metrics) {
-        regionData[metric.id] = await dataFetcher(region, metric);
-      }
-      data[region.regionId] = new MultiMetricDataStore<T>(region, regionData);
-    }
+    await Promise.all(
+      regions.map(async (region) => {
+        const regionData: { [metricId: string]: MetricData<T> } = {};
+        await Promise.all(
+          metrics.map(async (metric) => {
+            regionData[metric.id] = await dataFetcher(region, metric);
+          })
+        ),
+          (data[region.regionId] = new MultiMetricDataStore<T>(
+            region,
+            regionData
+          ));
+      })
+    );
 
     return new MultiRegionMultiMetricDataStore(data);
   }

@@ -26,3 +26,15 @@ MetricWithoutColors.args = {
   metric: MetricId.PI,
   region: washingtonState,
 };
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...MetricWithColors.args,
+  metric: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...MetricWithColors.args,
+  metric: MetricId.MOCK_CASES_ERROR,
+};
