@@ -34,7 +34,7 @@ export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={dateScale}
           yScale={yScale}
         />
         <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />

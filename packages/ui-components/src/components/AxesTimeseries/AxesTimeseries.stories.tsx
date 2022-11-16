@@ -41,14 +41,14 @@ const Template: Story<AxesTimeseriesProps> = (args) => (
 export const DefaultSettings = Template.bind({});
 DefaultSettings.args = {
   height: chartHeight,
-  dateScale,
+  xScale: dateScale,
   yScale,
 };
 
 export const CustomNumYTicks = Template.bind({});
 CustomNumYTicks.args = {
   height: chartHeight,
-  dateScale,
+  xScale: dateScale,
   yScale,
   axisLeftProps: {
     numTicks: 10,
@@ -58,7 +58,7 @@ CustomNumYTicks.args = {
 export const CustomTickFormat = Template.bind({});
 CustomTickFormat.args = {
   height: chartHeight,
-  dateScale,
+  xScale: dateScale,
   yScale: yScalePercent,
   axisLeftProps: {
     tickFormat: (value: number) => formatPercent(value),

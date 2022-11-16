@@ -53,7 +53,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={dateScale}
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value: number) => metric.formatValue(value),

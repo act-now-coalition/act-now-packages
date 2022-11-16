@@ -12,7 +12,7 @@ import { Timeseries } from "@actnowcoalition/metrics";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { BaseChartProps } from "../MetricLineChart";
+import { BaseChartProps } from "../TimeseriesLineChart";
 import { Series, SeriesType } from "./interfaces";
 import { SeriesChart } from "./SeriesChart";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
@@ -116,7 +116,7 @@ export const MetricSeriesChart = ({
       <Group top={marginTop} left={marginLeft}>
         <AxesTimeseries
           yScale={yScale}
-          dateScale={dateScale}
+          xScale={dateScale}
           height={chartHeight}
           axisLeftProps={{ tickFormat: yAxisFormat }}
         />
@@ -125,7 +125,7 @@ export const MetricSeriesChart = ({
             key={`series-${itemIndex}`}
             series={item.series}
             timeseries={item.timeseries}
-            dateScale={dateScale}
+            xScale={dateScale}
             yScale={yScale}
           />
         ))}

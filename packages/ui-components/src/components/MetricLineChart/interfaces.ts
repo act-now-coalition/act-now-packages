@@ -1,19 +1,6 @@
-import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-
-export interface BaseChartProps {
-  width: number;
-  height: number;
-  marginTop?: number;
-  marginBottom?: number;
-  marginLeft?: number;
-  marginRight?: number;
-}
-
-export interface TimeseriesLineChartProps extends BaseChartProps {
-  timeseries: NonEmptyTimeseries<number>;
-}
+import { BaseChartProps } from "../TimeseriesLineChart";
 
 export interface MetricLineChartProps extends BaseChartProps {
   metric: Metric | string;

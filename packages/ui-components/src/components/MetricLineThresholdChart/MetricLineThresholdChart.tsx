@@ -12,7 +12,7 @@ import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { BaseChartProps } from "../MetricLineChart";
+import { BaseChartProps } from "../TimeseriesLineChart";
 import { PointMarker } from "../PointMarker";
 import { LineIntervalChart } from "../LineIntervalChart";
 import { calculateChartIntervals } from "./utils";
@@ -89,7 +89,7 @@ export const MetricLineThresholdChart = ({
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={dateScale}
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value) => metric.formatValue(value),
