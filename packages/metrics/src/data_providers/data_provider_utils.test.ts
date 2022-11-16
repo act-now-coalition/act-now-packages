@@ -34,6 +34,7 @@ describe("dataRowsToMetricData()", () => {
       "date"
     );
     expect(data.currentValue).toBe(100);
+    expect(data.timeseries.length).toBe(2);
     expect(data.timeseries.lastValue).toBe(100);
     expect(data.timeseries.maxDate).toStrictEqual(new Date("2022-08-01"));
     expect(data.timeseries.firstValue).toBe(90);

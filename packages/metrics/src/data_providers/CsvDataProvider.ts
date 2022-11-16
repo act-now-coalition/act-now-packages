@@ -175,7 +175,9 @@ function sanitizeRows(rows: DataRow[], excludeColumns: string[]): void {
         continue;
       }
       const v = row[c] as string;
-      if (/^-?[\d.eE]+$/.test(v)) {
+      if (v.length === 0) {
+        row[c] = null;
+      } else if (/^-?[\d.eE]+$/.test(v)) {
         const num = Number.parseFloat(v.replace(/,/g, ""));
         if (!Number.isNaN(num)) {
           row[c] = num;
