@@ -38,7 +38,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
 
   const { minDate, maxDate, maxValue } = timeseries;
 
-  const dateScale = scaleUtc({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
@@ -53,13 +53,13 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value: number) => metric.formatValue(value),
           }}
         />
-        <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />
+        <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
         {hoveredPoint && (
           <MetricTooltip
             metric={metric}
@@ -68,7 +68,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
             open
           >
             <PointMarker
-              x={dateScale(hoveredPoint.date)}
+              x={xScale(hoveredPoint.date)}
               y={yScale(hoveredPoint.value)}
             />
           </MetricTooltip>
@@ -76,7 +76,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
         <ChartOverlayX
           width={chartWidth}
           height={chartHeight}
-          xScale={dateScale}
+          xScale={xScale}
           offset={marginLeft}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}

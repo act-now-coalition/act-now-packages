@@ -12,7 +12,7 @@ import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { BaseChartProps } from "../MetricLineChart";
+import { BaseChartProps } from "../TimeseriesLineChart";
 import { PointMarker } from "../PointMarker";
 import { LineIntervalChart } from "../LineIntervalChart";
 import { calculateChartIntervals } from "./utils";
@@ -72,7 +72,7 @@ export const MetricLineThresholdChart = ({
     maxValue
   );
 
-  const dateScale = scaleUtc({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
@@ -90,7 +90,7 @@ export const MetricLineThresholdChart = ({
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value) => metric.formatValue(value),
@@ -100,7 +100,7 @@ export const MetricLineThresholdChart = ({
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
         <LineIntervalChart
           timeseries={timeseries}
-          xScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           intervals={intervals}
           topIntervalOffset={5}
@@ -113,7 +113,7 @@ export const MetricLineThresholdChart = ({
             open
           >
             <PointMarker
-              x={dateScale(hoveredPoint.date)}
+              x={xScale(hoveredPoint.date)}
               y={yScale(hoveredPoint.value)}
               fill={metric.getColor(hoveredPoint.value)}
             />
@@ -122,7 +122,7 @@ export const MetricLineThresholdChart = ({
         <ChartOverlayX
           width={chartWidth}
           height={chartHeight}
-          xScale={dateScale}
+          xScale={xScale}
           offset={marginLeft}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}

@@ -11,7 +11,7 @@ export interface SeriesChartProps {
   /** Timeseries corresponding to the series */
   timeseries: Timeseries<number>;
   /** d3-scale to transform point dates to pixel positions on the x-axis */
-  dateScale: ScaleTime<number, number>;
+  xScale: ScaleTime<number, number>;
   /** d3-scale to transform point values to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
 }
@@ -19,7 +19,7 @@ export interface SeriesChartProps {
 export const SeriesChart = ({
   series,
   timeseries,
-  dateScale,
+  xScale,
   yScale,
 }: SeriesChartProps) => {
   switch (series.type) {
@@ -27,7 +27,7 @@ export const SeriesChart = ({
       return (
         <LineChart
           timeseries={timeseries}
-          xScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           {...series.lineProps}
         />
@@ -37,7 +37,7 @@ export const SeriesChart = ({
       return (
         <BarChart
           timeseries={timeseries}
-          xScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           barWidth={0.5}
           fill="#ddd"

@@ -12,7 +12,7 @@ import { Timeseries } from "@actnowcoalition/metrics";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { BaseChartProps } from "../MetricLineChart";
+import { BaseChartProps } from "../TimeseriesLineChart";
 import { Series, SeriesType } from "./interfaces";
 import { SeriesChart } from "./SeriesChart";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
@@ -97,7 +97,7 @@ export const MetricSeriesChart = ({
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
 
-  const dateScale = scaleUtc({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
@@ -116,7 +116,7 @@ export const MetricSeriesChart = ({
       <Group top={marginTop} left={marginLeft}>
         <AxesTimeseries
           yScale={yScale}
-          dateScale={dateScale}
+          xScale={xScale}
           height={chartHeight}
           axisLeftProps={{ tickFormat: yAxisFormat }}
         />
@@ -125,7 +125,7 @@ export const MetricSeriesChart = ({
             key={`series-${itemIndex}`}
             series={item.series}
             timeseries={item.timeseries}
-            dateScale={dateScale}
+            xScale={xScale}
             yScale={yScale}
           />
         ))}
@@ -137,7 +137,7 @@ export const MetricSeriesChart = ({
             open
           >
             <PointMarker
-              x={dateScale(pointInfo.point.date)}
+              x={xScale(pointInfo.point.date)}
               y={yScale(pointInfo.point.value)}
               fill={getSeriesColor(series[pointInfo.timeseriesIndex])}
             />
@@ -147,7 +147,7 @@ export const MetricSeriesChart = ({
           timeseriesList={timeseriesList}
           width={chartWidth}
           height={chartHeight}
-          xScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           onMouseMove={onMouseMove}
           onMouseOut={onMouseLeave}

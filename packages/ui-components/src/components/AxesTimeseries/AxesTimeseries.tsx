@@ -9,7 +9,7 @@ import { ScaleTime, ScaleLinear } from "d3-scale";
 
 export interface AxesTimeseriesProps {
   height: number;
-  dateScale: ScaleTime<number, number>;
+  xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
   axisLeftProps?: Omit<AxisLeftProps, "scale">;
   axisBottomProps?: Omit<AxisBottomProps, "scale">;
@@ -17,7 +17,7 @@ export interface AxesTimeseriesProps {
 
 export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
   height,
-  dateScale,
+  xScale,
   yScale,
   axisLeftProps,
   axisBottomProps,
@@ -25,7 +25,7 @@ export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
   return (
     <>
       <AxisLeft scale={yScale} {...axisLeftProps} />
-      <AxisBottom top={height} scale={dateScale} {...axisBottomProps} />
+      <AxisBottom top={height} scale={xScale} {...axisBottomProps} />
     </>
   );
 };

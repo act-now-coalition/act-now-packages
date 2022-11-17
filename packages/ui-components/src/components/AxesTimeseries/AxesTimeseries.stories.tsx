@@ -15,7 +15,7 @@ const margin = 50;
 const chartWidth = width - 2 * margin;
 const chartHeight = height - 2 * margin;
 
-const dateScale = scaleUtc({
+const xScale = scaleUtc({
   domain: [new Date("2022-01-01"), new Date("2022-10-31")],
   range: [0, chartWidth],
 });
@@ -41,14 +41,14 @@ const Template: Story<AxesTimeseriesProps> = (args) => (
 export const DefaultSettings = Template.bind({});
 DefaultSettings.args = {
   height: chartHeight,
-  dateScale,
+  xScale,
   yScale,
 };
 
 export const CustomNumYTicks = Template.bind({});
 CustomNumYTicks.args = {
   height: chartHeight,
-  dateScale,
+  xScale,
   yScale,
   axisLeftProps: {
     numTicks: 10,
@@ -58,7 +58,7 @@ CustomNumYTicks.args = {
 export const CustomTickFormat = Template.bind({});
 CustomTickFormat.args = {
   height: chartHeight,
-  dateScale,
+  xScale,
   yScale: yScalePercent,
   axisLeftProps: {
     tickFormat: (value: number) => formatPercent(value),
