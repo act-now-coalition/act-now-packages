@@ -27,7 +27,7 @@ export function isOverTwoMonths(startDate: Date, endDate: Date): boolean {
 
 export function formatDateTick(date: Date, isOverTwoMonths: boolean): string {
   if (isOverTwoMonths) {
-    // To-do (Fai): Add month and year separated by apostrophe as a date format.
+    // TODO (#414) : Add month and year separated by apostrophe as a date format
     return date.getMonth() === 0
       ? formatUTCDateTime(date, DateFormat.MMM_YY)
       : formatUTCDateTime(date, DateFormat.MMM);

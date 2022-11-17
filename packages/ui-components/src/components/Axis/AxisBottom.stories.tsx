@@ -13,30 +13,26 @@ export default {
 const height = 400;
 const padding = 60;
 
-const commonProps: Partial<AxisBottomProps> = {
-  left: padding,
-  top: padding,
-};
-
-const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
-  const [start, end] = args.scale.domain();
+const ChartBottomAxis = ({ ...props }: AxisBottomProps) => {
+  const [start, end] = props.scale.domain();
   const isTimeSeries = start instanceof Date;
   return (
     <>
-      {args.width && (
-        <svg width={args.width} height={height}>
+      {props.width && (
+        <svg width={props.width} height={height}>
           <AxisBottom
-            {...args}
-            {...commonProps}
+            {...props}
+            left={padding}
+            top={padding}
             scale={
               isTimeSeries
                 ? scaleUtc({
                     domain: [start, end],
-                    range: [0, args.width - 2 * padding],
+                    range: [0, props.width - 2 * padding],
                   })
                 : scaleLinear({
                     domain: [start, end],
-                    range: [0, args.width - 2 * padding],
+                    range: [0, props.width - 2 * padding],
                   })
             }
             tickFormat={
@@ -45,7 +41,7 @@ const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
                     formatDateTick(date, isOverTwoMonths(start, end))
                 : undefined
             }
-            numTicks={getNumTicks(args.width)}
+            numTicks={getNumTicks(props.width)}
           />
         </svg>
       )}
@@ -53,6 +49,7 @@ const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
   );
 };
 
+/* A responsive template, in order to test responsiveness of numTicks and tickFormat */
 const Template: ComponentStory<typeof AxisBottom> = (args) => (
   <Box>
     <AutoWidth>

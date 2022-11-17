@@ -8,7 +8,7 @@ import {
   CompareTableProps,
 } from ".";
 
-export interface CompareTableRowBase {
+interface CompareTableRowBase {
   /** A unique ID that identifies this row. */
   rowId: string;
 }

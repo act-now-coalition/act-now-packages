@@ -5,7 +5,7 @@ import { ParentSize } from "@visx/responsive";
 // TODO (Pablo): The intent here is to ensure that the children elements
 // have an optional, numeric `width` prop, but the validation doesn't
 // seem to be working.
-export interface AutoWidthProps {
+interface AutoWidthProps {
   /** A single child element that receives an optional `width` prop. */
   children: React.ReactElement<{ width?: number }>;
 }
