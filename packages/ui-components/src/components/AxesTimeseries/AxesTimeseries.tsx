@@ -7,7 +7,7 @@ import {
 } from "../Axis/Axis.style";
 import { ScaleTime, ScaleLinear } from "d3-scale";
 
-interface AxesTimeseriesProps {
+export interface AxesTimeseriesProps {
   height: number;
   xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;

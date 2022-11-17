@@ -4,7 +4,7 @@ import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
 import { useTheme } from "@mui/material";
 
-interface BarChartOwnProps {
+export interface BarChartOwnProps {
   /** Timeseries used to draw the bar chart */
   timeseries: Timeseries<number>;
 
@@ -18,7 +18,7 @@ interface BarChartOwnProps {
   barWidth?: number;
 }
 
-type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
+export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
 
 /**
  * BarChart is a chart to represent a Timeseries as a series of bars, one bar

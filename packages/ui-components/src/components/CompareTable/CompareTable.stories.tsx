@@ -18,7 +18,7 @@ export default {
   component: CompareTable,
 } as ComponentMeta<typeof CompareTable>;
 
-interface RowItem {
+export interface RowItem {
   rowId: string;
   region: Region;
 }
