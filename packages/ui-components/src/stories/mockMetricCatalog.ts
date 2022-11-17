@@ -6,7 +6,7 @@ import {
 } from "@actnowcoalition/metrics";
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
-import { NYCtempDataProvider } from "./NYCtempDataProvider";
+import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";
 
 export enum MetricId {
   APPLE_STOCK = "apple_stock",
@@ -129,7 +129,7 @@ export const dataProviders = [
   new MockDataProvider(ProviderId.MOCK),
   new StaticValueDataProvider(ProviderId.STATIC),
   new AppleStockDataProvider(ProviderId.APPLE_STOCK),
-  new NYCtempDataProvider(ProviderId.NYC_TEMPERATURE),
+  new NycTemperatureDataProvider(ProviderId.NYC_TEMPERATURE),
 ];
 
 const metricCategorySets = [

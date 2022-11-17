@@ -8,9 +8,7 @@ import {
 import { NYCtemperatureTimeseries } from "./mockData";
 
 /**
- * Mock data provider with constant timeseries data for all regions. Useful
- * for charts and other components when we would like stable dates and
- * ranges of values.
+ * Data provider that provides NYC temperature data for all regions.
  *
  * @example
  * ```
@@ -19,7 +17,7 @@ import { NYCtemperatureTimeseries } from "./mockData";
  * },
  * ```
  */
-export class NYCtempDataProvider extends SimpleMetricDataProviderBase {
+export class NycTemperatureDataProvider extends SimpleMetricDataProviderBase {
   constructor(providerId: string) {
     super(providerId);
   }
