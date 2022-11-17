@@ -1,10 +1,8 @@
 import React from "react";
 import isNumber from "lodash/isNumber";
 import { Stack, Typography } from "@mui/material";
-
 import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
-
 import { formatPopulation } from "../../common/utils";
 import { MetricValue } from "../MetricValue";
 import {
@@ -14,7 +12,7 @@ import {
   getAriaSort,
 } from "../CompareTable";
 import { StyledTableCell, StyledLink } from "./MetricCompareTable.style";
-import { Row } from "./interfaces";
+import { Row } from "./MetricCompareTable";
 
 export function createMetricColumn(
   regionDB: RegionDB,
