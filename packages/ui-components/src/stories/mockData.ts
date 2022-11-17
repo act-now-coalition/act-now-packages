@@ -20,14 +20,14 @@ function toCelsius(fahrenheit: number): number {
 
 // We format the points from cityTemperature to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.
-const NYCtemperature = cityTemperature.map(
+const nycTemperature = cityTemperature.map(
   (p: { date: string; "New York": string }): TimeseriesPoint<number> => ({
     date: new Date(p.date),
     value: toCelsius(parseFloat(p["New York"])),
   })
 );
 
-export const NYCtemperatureTimeseries = new Timeseries(NYCtemperature);
+export const nycTemperatureTimeseries = new Timeseries(nycTemperature);
 
 /**
  * Creates d3 scales that cover the date and value ranges of the

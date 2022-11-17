@@ -5,7 +5,7 @@ import {
   MetricData,
   Metric,
 } from "@actnowcoalition/metrics";
-import { NYCtemperatureTimeseries } from "./mockData";
+import { nycTemperatureTimeseries } from "./mockData";
 
 /**
  * Data provider that provides NYC temperature data for all regions.
@@ -26,7 +26,7 @@ export class NycTemperatureDataProvider extends SimpleMetricDataProviderBase {
     region: Region,
     metric: Metric
   ): Promise<MetricData<unknown>> {
-    const timeseries = NYCtemperatureTimeseries;
+    const timeseries = nycTemperatureTimeseries;
 
     // Use last value of timeseries as current value.
     assert(timeseries.hasData());
