@@ -97,7 +97,7 @@ export const MetricSeriesChart = ({
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
 
-  const dateScale = scaleUtc({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
@@ -116,7 +116,7 @@ export const MetricSeriesChart = ({
       <Group top={marginTop} left={marginLeft}>
         <AxesTimeseries
           yScale={yScale}
-          xScale={dateScale}
+          xScale={xScale}
           height={chartHeight}
           axisLeftProps={{ tickFormat: yAxisFormat }}
         />
@@ -125,7 +125,7 @@ export const MetricSeriesChart = ({
             key={`series-${itemIndex}`}
             series={item.series}
             timeseries={item.timeseries}
-            xScale={dateScale}
+            xScale={xScale}
             yScale={yScale}
           />
         ))}
@@ -137,7 +137,7 @@ export const MetricSeriesChart = ({
             open
           >
             <PointMarker
-              x={dateScale(pointInfo.point.date)}
+              x={xScale(pointInfo.point.date)}
               y={yScale(pointInfo.point.value)}
               fill={getSeriesColor(series[pointInfo.timeseriesIndex])}
             />
@@ -147,7 +147,7 @@ export const MetricSeriesChart = ({
           timeseriesList={timeseriesList}
           width={chartWidth}
           height={chartHeight}
-          xScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           onMouseMove={onMouseMove}
           onMouseOut={onMouseLeave}

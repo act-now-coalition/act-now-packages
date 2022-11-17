@@ -19,7 +19,7 @@ export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
 
   const { minDate, maxDate, maxValue } = timeseries;
 
-  const dateScale = scaleUtc({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
@@ -32,12 +32,8 @@ export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
   return (
     <svg width={width} height={height}>
       <Group left={marginLeft} top={marginTop}>
-        <AxesTimeseries
-          height={chartHeight}
-          xScale={dateScale}
-          yScale={yScale}
-        />
-        <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />
+        <AxesTimeseries height={chartHeight} xScale={xScale} yScale={yScale} />
+        <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
       </Group>
     </svg>
   );
