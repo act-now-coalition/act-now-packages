@@ -1,5 +1,5 @@
 import React from "react";
-import { LegendThresholdProps } from "./interfaces";
+import { LegendThresholdProps } from "./LegendThreshold";
 import { LegendColor } from "./LegendThreshold.style";
 import { Typography, Box, Stack } from "@mui/material";
 
