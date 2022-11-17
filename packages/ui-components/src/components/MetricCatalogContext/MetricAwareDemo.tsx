@@ -5,10 +5,13 @@ import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "./MetricCatalogContext";
 import { useData } from "../../common/hooks";
 
-const MetricAwareDemo: React.FC<{
+const MetricAwareDemo = ({
+  metric: metricOrId,
+  region,
+}: {
   metric: Metric | string;
   region: Region;
-}> = ({ metric: metricOrId, region }) => {
+}) => {
   // Access the metric catalog from the context
   const metricCatalog = useMetricCatalog();
 

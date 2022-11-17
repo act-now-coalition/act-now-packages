@@ -18,10 +18,7 @@ export interface MetricDotProps {
  * metrics that don't have categories to keep spacing and alignment consistent
  * across metrics.
  */
-export const MetricDot: React.FC<MetricDotProps> = ({
-  region,
-  metric: metricOrId,
-}) => {
+export const MetricDot = ({ region, metric: metricOrId }: MetricDotProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
   const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);

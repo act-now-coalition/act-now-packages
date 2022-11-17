@@ -1,17 +1,14 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import MetricLegendCategorical, {
-  MetricLegendCategoricalProps,
-} from "./MetricLegendCategorical";
-import { Story } from "@storybook/react";
+import { MetricLegendCategorical } from "./MetricLegendCategorical";
 
 export default {
   title: "Metrics/MetricLegendCategorical",
   component: MetricLegendCategorical,
 } as ComponentMeta<typeof MetricLegendCategorical>;
 
-const Template: Story<MetricLegendCategoricalProps> = (args) => (
+const Template: ComponentStory<typeof MetricLegendCategorical> = (args) => (
   <div style={{ width: 200, border: "1px solid #ddd" }}>
     <MetricLegendCategorical {...args} />
   </div>
