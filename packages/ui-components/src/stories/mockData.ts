@@ -1,4 +1,4 @@
-import { appleStock } from "@visx/mock-data";
+import { appleStock, cityTemperature } from "@visx/mock-data";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
@@ -13,6 +13,21 @@ const appleStockPoints = appleStock.map(
 );
 
 export const appleStockTimeseries = new Timeseries(appleStockPoints);
+
+function toCelsius(fahrenheit: number): number {
+  return (fahrenheit - 32) * (5 / 9);
+}
+
+// We format the points from cityTemperature to match TimeseriesPoint<number>
+// so we can use them to initialize Timeseries.
+const nycTemperature = cityTemperature.map(
+  (p: { date: string; "New York": string }): TimeseriesPoint<number> => ({
+    date: new Date(p.date),
+    value: toCelsius(parseFloat(p["New York"])),
+  })
+);
+
+export const nycTemperatureTimeseries = new Timeseries(nycTemperature);
 
 /**
  * Creates d3 scales that cover the date and value ranges of the
