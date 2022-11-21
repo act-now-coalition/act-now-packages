@@ -94,7 +94,7 @@ export const MetricLineThresholdChart = ({
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value) => metric.formatValue(value),
-            tickValues: [0].concat(thresholds),
+            tickValues: thresholds,
           }}
         />
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
