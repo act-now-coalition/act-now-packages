@@ -1,14 +1,16 @@
 import React from "react";
-import { ComponentMeta, Story } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { states, counties } from "@actnowcoalition/regions";
-import { SearchItem, SearchItemProps } from "./SearchItem";
+import { RegionSearchItem } from "./RegionSearch";
 
 export default {
-  title: "Components/SearchItem",
-  component: SearchItem,
-} as ComponentMeta<typeof SearchItem>;
+  title: "Components/RegionSearchItem",
+  component: RegionSearchItem,
+} as ComponentMeta<typeof RegionSearchItem>;
 
-const Template: Story<SearchItemProps> = (args) => <SearchItem {...args} />;
+const Template: ComponentStory<typeof RegionSearchItem> = (args) => (
+  <RegionSearchItem {...args} />
+);
 
 const newYork = states.findByRegionIdStrict("36");
 const maricopaCounty = counties.findByRegionIdStrict("04013");
