@@ -98,7 +98,7 @@ export interface {{pascalCase name}}Props {
 
 }
 
-export const {{pascalCase name}}: React.FC<{{pascalCase name}}Props> = () => {
+export const {{pascalCase name}} = (props: {{pascalCase name}}Props) => {
   return <Container>{{pascalCase name}}</Container>;
 };
 `);
