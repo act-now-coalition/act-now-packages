@@ -93,11 +93,10 @@ export function calculateChartIntervals(
   return metricCategories.map((category, categoryIndex) => {
     const isFirstCategory = categoryIndex === 0;
     const isLastCategory = categoryIndex === metricCategories.length - 1;
+    const lowestBound = Math.min(minVal, firstThreshold - padding);
     // If minValue is higher than 0, don't pad below 0 on the y-axis.
     const firstCategoryLowerThreshold =
-      isFirstCategory && minValue > 0
-        ? Math.max(0, firstThreshold - padding)
-        : Math.min(minVal, firstThreshold - padding);
+      isFirstCategory && minValue > 0 ? Math.max(0, lowestBound) : lowestBound;
     const lastCategoryUpperThreshold = Math.max(
       maxVal,
       lastThreshold + padding
