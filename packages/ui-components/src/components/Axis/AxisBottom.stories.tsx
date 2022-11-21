@@ -13,26 +13,26 @@ export default {
 const height = 400;
 const padding = 60;
 
-const ChartBottomAxis = ({ ...props }: AxisBottomProps) => {
-  const [start, end] = props.scale.domain();
+const ChartBottomAxis = ({ ...args }: AxisBottomProps) => {
+  const [start, end] = args.scale.domain();
   const isTimeSeries = start instanceof Date;
   return (
     <>
-      {props.width && (
-        <svg width={props.width} height={height}>
+      {args.width && (
+        <svg width={args.width} height={height}>
           <AxisBottom
-            {...props}
+            {...args}
             left={padding}
             top={padding}
             scale={
               isTimeSeries
                 ? scaleUtc({
                     domain: [start, end],
-                    range: [0, props.width - 2 * padding],
+                    range: [0, args.width - 2 * padding],
                   })
                 : scaleLinear({
                     domain: [start, end],
-                    range: [0, props.width - 2 * padding],
+                    range: [0, args.width - 2 * padding],
                   })
             }
             tickFormat={
@@ -41,7 +41,7 @@ const ChartBottomAxis = ({ ...props }: AxisBottomProps) => {
                     formatDateTick(date, isOverTwoMonths(start, end))
                 : undefined
             }
-            numTicks={getNumTicks(props.width)}
+            numTicks={getNumTicks(args.width)}
           />
         </svg>
       )}
