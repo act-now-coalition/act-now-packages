@@ -1,10 +1,9 @@
 import React from "react";
-import { USStateMap } from "../USMaps";
+import { USStateMap, USStateMapProps } from "../USStateMap";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { getCountiesOfState } from "../../common/utils/maps";
 import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
-import { USStateMapProps } from "../USMaps";
 
 export interface MetricUSStateMapProps extends USStateMapProps {
   metric: Metric | string;
