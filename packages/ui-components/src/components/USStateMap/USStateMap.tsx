@@ -6,18 +6,27 @@ import {
   countiesGeographies,
   defaultHeight,
   defaultWidth,
-} from "../../../common/geo-shapes";
-import { belongsToState } from "../../../common/utils/maps";
+} from "../../common/geo-shapes";
+import { belongsToState, BaseUSMapProps } from "../../common/utils/maps";
 import {
   MapContainer,
   BorderingRegion,
   HighlightableShape,
   RegionOverlay,
-} from "../Maps.style";
-import { USStateMapProps } from "../interfaces";
-import { AutoWidth } from "../../AutoWidth";
+} from "../../styles/common/Maps.style";
+import { AutoWidth } from "../AutoWidth";
+import { Region } from "@actnowcoalition/regions";
 
-const USStateMapInner: React.FC<USStateMapProps> = ({
+export interface USStateMapProps extends BaseUSMapProps {
+  /** Region ID of the state being mapped */
+  stateRegionId: string;
+  /** Optional region to highlight on the map */
+  highlightedRegion?: Region;
+  showCounties?: boolean;
+  showBorderingStates?: boolean;
+}
+
+const USStateMapInner = ({
   stateRegionId,
   renderTooltip,
   getFillColor = () => "lightGray",
@@ -26,7 +35,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
   showCounties = true,
   showBorderingStates = true,
   getRegionUrl = () => undefined,
-}) => {
+}: USStateMapProps) => {
   const height = defaultHeight * (width / defaultWidth);
 
   const stateGeo = statesGeographies.features.find(
@@ -120,7 +129,7 @@ const USStateMapInner: React.FC<USStateMapProps> = ({
   );
 };
 
-export const USStateMap: React.FC<USStateMapProps> = (props) => (
+export const USStateMap = (props: USStateMapProps) => (
   <AutoWidth>
     <USStateMapInner {...props} />
   </AutoWidth>

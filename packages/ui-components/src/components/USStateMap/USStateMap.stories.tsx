@@ -1,9 +1,8 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { assert } from "@actnowcoalition/assert";
 import { USStateMap } from "./USStateMap";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
-import { USStateMapProps } from "../interfaces";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
@@ -16,7 +15,9 @@ export default {
   component: USStateMap,
 } as ComponentMeta<typeof USStateMap>;
 
-const Template: Story<USStateMapProps> = (args) => <USStateMap {...args} />;
+const Template: ComponentStory<typeof USStateMap> = (args) => (
+  <USStateMap {...args} />
+);
 
 const renderTooltip = (regionId: string) => {
   return regionDB.findByRegionIdStrict(regionId).fullName;

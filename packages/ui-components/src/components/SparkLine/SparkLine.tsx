@@ -23,13 +23,13 @@ export interface SparkLineProps {
   barWidth?: number;
 }
 
-export const SparkLine: React.FC<SparkLineProps> = ({
+export const SparkLine = ({
   timeseriesBarChart,
   timeseriesLineChart,
   width = 150,
   height = 50,
   barWidth = 2,
-}) => {
+}: SparkLineProps) => {
   const theme = useTheme();
   const padding = 2;
 

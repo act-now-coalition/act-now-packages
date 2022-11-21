@@ -120,5 +120,6 @@ export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";
-export * from "./components/USMaps";
+export * from "./components/USNationalMap";
+export * from "./components/USStateMap";
 export * from "./components/WorldMap";

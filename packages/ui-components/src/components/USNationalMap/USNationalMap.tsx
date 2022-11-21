@@ -5,20 +5,24 @@ import {
   defaultScale,
   defaultWidth,
   getCountyGeoId,
-} from "../../../common/geo-shapes";
-import { MapContainer, PositionAbsolute } from "../Maps.style";
+} from "../../common/geo-shapes";
+import { MapContainer, PositionAbsolute } from "../../styles/common/Maps.style";
 import StatesMap from "./StatesMap";
 import CountiesMap from "./CountiesMap";
-import { USNationalMapProps } from "../interfaces";
-import { AutoWidth } from "../../AutoWidth";
+import { AutoWidth } from "../AutoWidth";
+import { BaseUSMapProps } from "../../common/utils/maps";
 
-const USNationalMapInner: React.FC<USNationalMapProps> = ({
+export interface USNationalMapProps extends BaseUSMapProps {
+  showCounties?: boolean;
+}
+
+const USNationalMapInner = ({
   width = defaultWidth,
   renderTooltip,
   getFillColor = () => "lightGray",
   showCounties = false,
   getRegionUrl,
-}) => {
+}: USNationalMapProps) => {
   const height = defaultHeight * (width / defaultWidth);
   const scale = (defaultScale * width) / defaultWidth;
 
@@ -62,7 +66,7 @@ const USNationalMapInner: React.FC<USNationalMapProps> = ({
   );
 };
 
-export const USNationalMap: React.FC<USNationalMapProps> = (props) => (
+export const USNationalMap = (props: USNationalMapProps) => (
   <AutoWidth>
     <USNationalMapInner {...props} />
   </AutoWidth>

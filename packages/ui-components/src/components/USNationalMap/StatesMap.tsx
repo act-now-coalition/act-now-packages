@@ -1,10 +1,11 @@
 import React from "react";
 import { GeoPath } from "d3-geo";
 import { Tooltip, Link } from "@mui/material";
-import { statesGeographies } from "../../../common/geo-shapes";
-import { RegionOverlay, RegionShapeBase } from "../Maps.style";
+import { statesGeographies } from "../../common/geo-shapes";
+import { RegionOverlay, RegionShapeBase } from "../../styles/common/Maps.style";
 
-const StatesMap: React.FC<{
+// TODO (#427) - improve upon this props interface
+export interface StatesMapProps {
   width: number;
   height: number;
   geoPath: GeoPath;
@@ -12,7 +13,9 @@ const StatesMap: React.FC<{
   showCounties: boolean;
   getFillColor: (regionId: string) => string;
   getRegionUrl?: (regionId: string) => string | undefined;
-}> = ({
+}
+
+const StatesMap = ({
   width,
   height,
   geoPath,
@@ -20,7 +23,7 @@ const StatesMap: React.FC<{
   showCounties,
   getFillColor,
   getRegionUrl = () => undefined,
-}) => {
+}: StatesMapProps) => {
   return (
     <svg width={width} height={height}>
       {statesGeographies.features.map((geo) => {

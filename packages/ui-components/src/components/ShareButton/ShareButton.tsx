@@ -11,7 +11,7 @@ const noop = () => {
   return;
 };
 
-interface ShareButtonOwnProps {
+export interface BaseShareButtonProps {
   url: string;
   quote: string;
   hashtags?: string[];
@@ -21,9 +21,9 @@ interface ShareButtonOwnProps {
   menuOrigin?: "left" | "center" | "right";
 }
 
-export type ShareButtonProps = ButtonProps & ShareButtonOwnProps;
+export type ShareButtonProps = ButtonProps & BaseShareButtonProps;
 
-export const ShareButton: React.FC<ShareButtonProps> = ({
+export const ShareButton = ({
   url,
   quote,
   hashtags = [],
@@ -32,7 +32,7 @@ export const ShareButton: React.FC<ShareButtonProps> = ({
   onShareFacebook = noop,
   menuOrigin = "left",
   ...muiButtonProps
-}) => {
+}: ShareButtonProps) => {
   const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorButton(event.currentTarget);

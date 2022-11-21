@@ -1,18 +1,27 @@
 import React, { useEffect, useRef } from "react";
 import { ExtendedFeature, GeoProjection, geoPath as d3GeoPath } from "d3-geo";
-import { stateBorders } from "../../../common/geo-shapes";
-import { StyledCanvas } from "../Maps.style";
+import { stateBorders } from "../../common/geo-shapes";
+import { StyledCanvas } from "../../styles/common/Maps.style";
 
 const borderColor = "white";
 
-const CanvasMap: React.FC<{
+export interface CanvasMapProps {
   width: number;
   height: number;
   getFillColor: (regionId: string) => string;
   geoProjection: GeoProjection;
   features: ExtendedFeature[];
   getGeoId: (geo: ExtendedFeature) => string;
-}> = ({ width, height, getFillColor, geoProjection, features, getGeoId }) => {
+}
+
+export const CanvasMap = ({
+  width,
+  height,
+  getFillColor,
+  geoProjection,
+  features,
+  getGeoId,
+}: CanvasMapProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -51,5 +60,3 @@ const CanvasMap: React.FC<{
     />
   );
 };
-
-export default CanvasMap;
