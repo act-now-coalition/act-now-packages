@@ -3,9 +3,14 @@ import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
 import { LineChart } from "../LineChart";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { TimeseriesLineChartProps } from "./interfaces";
+import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
+import { BaseChartProps } from "../../common/utils/charts";
 
-export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
+export interface TimeseriesLineChartProps extends BaseChartProps {
+  timeseries: NonEmptyTimeseries<number>;
+}
+
+export const TimeseriesLineChart = ({
   width,
   height,
   timeseries,
@@ -13,7 +18,7 @@ export const TimeseriesLineChart: React.FC<TimeseriesLineChartProps> = ({
   marginBottom = 30,
   marginLeft = 70,
   marginRight = 20,
-}) => {
+}: TimeseriesLineChartProps) => {
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 

@@ -12,7 +12,7 @@ import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { BaseChartProps } from "../TimeseriesLineChart";
+import { BaseChartProps } from "../../common/utils/charts";
 import { PointMarker } from "../PointMarker";
 import { LineIntervalChart } from "../LineIntervalChart";
 import { calculateChartIntervals } from "./utils";

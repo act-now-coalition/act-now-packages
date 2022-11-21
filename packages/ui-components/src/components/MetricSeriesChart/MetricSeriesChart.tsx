@@ -12,13 +12,14 @@ import { Timeseries } from "@actnowcoalition/metrics";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { BaseChartProps } from "../TimeseriesLineChart";
-import { Series, SeriesType } from "./interfaces";
-import { SeriesChart } from "./SeriesChart";
+import { BaseChartProps } from "../../common/utils/charts";
+import { Series, SeriesType } from "../SeriesChart";
+import { SeriesChart } from "../SeriesChart";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
 import { PointMarker } from "../PointMarker";
 import { MetricTooltip } from "../MetricTooltip";
 import { useMetricCatalog } from "../MetricCatalogContext";
+
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** List of series to be rendered */
   series: Series[];

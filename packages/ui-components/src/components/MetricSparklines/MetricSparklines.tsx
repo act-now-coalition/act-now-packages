@@ -1,10 +1,9 @@
-import { Region } from "@actnowcoalition/regions";
 import React from "react";
+import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
-import { SparkLine } from "../SparkLine";
+import { SparkLine, SparkLineProps } from "../SparkLine";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Skeleton } from "@mui/material";
-import { SparkLineProps } from "../SparkLine";
 import { useDataForMetrics } from "../../common/hooks";
 
 export interface MetricSparklinesProps
@@ -19,21 +18,23 @@ export interface MetricSparklinesProps
   numDays: number;
 }
 
-export const MetricSparklines: React.FC<MetricSparklinesProps> = ({
+export const MetricSparklines = ({
   region,
   metricLineChart,
   metricBarChart,
   numDays = 30,
   ...optionalProps
-}) => {
+}: MetricSparklinesProps) => {
   const metricCatalog = useMetricCatalog();
   metricLineChart = metricCatalog.getMetric(metricLineChart);
   metricBarChart = metricCatalog.getMetric(metricBarChart);
+
   const { data, error } = useDataForMetrics(
     region,
     [metricLineChart, metricBarChart],
     /*includeTimeseries=*/ true
   );
+
   if (error) {
     throw error;
   } else if (!data) {

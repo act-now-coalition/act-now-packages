@@ -20,12 +20,12 @@ export interface MetricOverviewProps {
   orientation?: "horizontal" | "vertical";
 }
 
-export const MetricOverview: React.FC<MetricOverviewProps> = ({
+export const MetricOverview = ({
   region,
   metric: metricOrId,
   metricChart,
   orientation = "vertical",
-}) => {
+}: MetricOverviewProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 

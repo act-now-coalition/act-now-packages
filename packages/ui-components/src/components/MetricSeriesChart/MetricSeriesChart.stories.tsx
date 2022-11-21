@@ -5,7 +5,8 @@ import { states } from "@actnowcoalition/regions";
 
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 import { theme } from "../../styles";
-import { MetricSeriesChart, SeriesType } from ".";
+import { MetricSeriesChart } from ".";
+import { SeriesType } from "../SeriesChart";
 
 export default {
   title: "Charts/MetricSeriesChart",

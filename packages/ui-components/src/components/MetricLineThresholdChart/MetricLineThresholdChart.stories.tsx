@@ -1,11 +1,8 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { states } from "@actnowcoalition/regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import {
-  MetricLineThresholdChart,
-  MetricLineThresholdChartProps,
-} from "./MetricLineThresholdChart";
+import { MetricLineThresholdChart } from "./MetricLineThresholdChart";
 
 const [width, height] = [600, 400];
 const newYork = states.findByRegionIdStrict("36");
@@ -15,7 +12,7 @@ export default {
   component: MetricLineThresholdChart,
 } as ComponentMeta<typeof MetricLineThresholdChart>;
 
-const Template: Story<MetricLineThresholdChartProps> = (args) => (
+const Template: ComponentStory<typeof MetricLineThresholdChart> = (args) => (
   <MetricLineThresholdChart {...args} />
 );
 
