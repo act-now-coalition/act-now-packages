@@ -99,11 +99,11 @@ export interface RegionSearchItemProps {
   iconColor?: string;
 }
 
-export const RegionSearchItem: React.FC<RegionSearchItemProps> = ({
+export const RegionSearchItem = ({
   itemLabel,
   itemSublabel,
   iconColor,
-}) => {
+}: RegionSearchItemProps) => {
   return (
     <Container>
       <Stack direction="row">

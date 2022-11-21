@@ -17,10 +17,7 @@ export interface SortControlsProps {
   onClick: (direction: SortDirection) => void;
 }
 
-export const SortControls: React.FC<SortControlsProps> = ({
-  sortDirection,
-  onClick,
-}) => {
+export const SortControls = ({ sortDirection, onClick }: SortControlsProps) => {
   const isSortActive = !isNil(sortDirection);
   return (
     <Stack direction="row" spacing={0}>

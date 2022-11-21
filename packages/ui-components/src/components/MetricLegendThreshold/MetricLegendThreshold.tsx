@@ -47,13 +47,13 @@ const getItemLabelHorizontal = (item: CategoryItem) => item.endThreshold ?? "";
 const getItemLabelVertical = (item: CategoryItem) => item.name;
 const getItemSublabel = (item: CategoryItem) => item.description ?? "";
 
-export const MetricLegendThreshold: React.FC<MetricLegendThresholdProps> = ({
+export const MetricLegendThreshold = ({
   metric,
   startLabel,
   endLabel,
   includeOverview = true,
   ...legendThresholdProps
-}) => {
+}: MetricLegendThresholdProps) => {
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
 

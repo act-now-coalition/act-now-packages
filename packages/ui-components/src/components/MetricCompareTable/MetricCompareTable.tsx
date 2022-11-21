@@ -31,12 +31,12 @@ export interface MetricCompareTableProps
   metrics: (Metric | string)[];
 }
 
-export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
+export const MetricCompareTable = ({
   regionDB,
   regions,
   metrics: metricOrIds,
   ...otherCompareTableProps
-}) => {
+}: MetricCompareTableProps) => {
   // TODO(Pablo): It might be better to define and set a context to control the
   // state of the table if we need to control it from a parent component.
   const [sortDirection, setSortDirection] = useState(SortDirection.DESC);
