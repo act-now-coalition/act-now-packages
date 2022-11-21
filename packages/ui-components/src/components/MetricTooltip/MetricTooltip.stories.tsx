@@ -4,7 +4,7 @@ import { TimeseriesPoint } from "@actnowcoalition/metrics";
 import { states } from "@actnowcoalition/regions";
 import { colors } from "@mui/material";
 import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
-import { MetricTooltip, MetricTooltipContent } from ".";
+import { MetricTooltip } from ".";
 
 export default {
   title: "Charts/MetricTooltip",
@@ -44,7 +44,3 @@ TooltipExample.args = {
   point,
   placement: "top",
 };
-
-export const ContentExample = () => (
-  <MetricTooltipContent region={region} metric={metric} point={point} />
-);
