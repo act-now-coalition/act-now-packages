@@ -18,12 +18,12 @@ export interface MetricValueProps extends StackProps {
   variant?: TypographyProps["variant"];
 }
 
-export const MetricValue: React.FC<MetricValueProps> = ({
+export const MetricValue = ({
   region,
   metric: metricOrId,
   variant = "dataEmphasizedLarge",
   ...stackProps
-}) => {
+}: MetricValueProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 

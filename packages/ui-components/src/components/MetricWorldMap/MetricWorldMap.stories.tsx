@@ -1,9 +1,8 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { nations, Region, RegionDB } from "@actnowcoalition/regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricWorldMap } from "./MetricWorldMap";
-import { MetricWorldMapProps } from "./interfaces";
 
 export default {
   title: "Maps/World Map",
@@ -14,7 +13,7 @@ const regionDB = new RegionDB([...nations.all], {
   getRegionUrl: (region: Region) => `/${region.slug}`,
 });
 
-const Template: Story<MetricWorldMapProps> = (args) => (
+const Template: ComponentStory<typeof MetricWorldMap> = (args) => (
   <MetricWorldMap {...args} />
 );
 

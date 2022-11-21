@@ -1,14 +1,21 @@
 import React from "react";
-import { useDataForRegionsAndMetrics } from "../../../common/hooks";
-import { USNationalMap } from "../../USMaps";
-import { MetricUSNationalMapProps } from "../interfaces";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { USNationalMap } from "../USMaps";
+import { Metric } from "@actnowcoalition/metrics";
+import { RegionDB } from "@actnowcoalition/regions";
+import { USNationalMapProps } from "../USMaps";
 
-export const MetricUSNationalMap: React.FC<MetricUSNationalMapProps> = ({
+export interface MetricUSNationalMapProps extends USNationalMapProps {
+  metric: Metric | string;
+  regionDB: RegionDB;
+}
+
+export const MetricUSNationalMap = ({
   metric,
   regionDB,
   showCounties,
   ...otherProps
-}) => {
+}: MetricUSNationalMapProps) => {
   const { data } = useDataForRegionsAndMetrics(regionDB.all, [metric], false);
 
   if (!data) {

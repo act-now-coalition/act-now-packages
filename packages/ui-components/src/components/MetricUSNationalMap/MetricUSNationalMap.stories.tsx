@@ -1,9 +1,8 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
-import { MetricId } from "../../../stories/mockMetricCatalog";
+import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricUSNationalMap } from "./MetricUSNationalMap";
-import { MetricUSNationalMapProps } from "../interfaces";
 
 export default {
   title: "Maps/US National Map",
@@ -14,7 +13,7 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
 });
 
-const Template: Story<MetricUSNationalMapProps> = (args) => (
+const Template: ComponentStory<typeof MetricUSNationalMap> = (args) => (
   <MetricUSNationalMap {...args} />
 );
 

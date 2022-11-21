@@ -5,17 +5,20 @@ import { Region } from "@actnowcoalition/regions";
 import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
-export interface MetricTooltipProps extends MetricTooltipContentProps {
+export interface MetricTooltipWithChildren extends MetricTooltipContentProps {
   /** Children is the component that, when hovered, should open the tooltip */
   children: React.ReactNode;
 }
+
+export type MetricTooltipProps = MetricTooltipWithChildren &
+  Omit<TooltipProps, "title">;
 
 export const MetricTooltip = ({
   metric,
   region,
   point,
   ...tooltipProps
-}: MetricTooltipProps & Omit<TooltipProps, "title">) => {
+}: MetricTooltipProps) => {
   return (
     <Tooltip
       arrow
