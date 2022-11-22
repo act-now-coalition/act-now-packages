@@ -12,3 +12,5 @@ export { CovidActNowDataProvider } from "./CovidActNowDataProvider";
 export type { CsvDataProviderOptions } from "./CsvDataProvider";
 
 export { TransformedMetricDataProvider } from "./TransformedMetricDataProvider";
+
+export { parseCsv, generateCsv } from "./data_provider_utils";

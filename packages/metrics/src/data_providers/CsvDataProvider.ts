@@ -7,10 +7,10 @@ import {
   DataRow,
   dataRowToMetricData,
   dataRowsToMetricData,
+  parseCsv,
 } from "./data_provider_utils";
 import groupBy from "lodash/groupBy";
 import isEmpty from "lodash/isEmpty";
-import Papa from "papaparse";
 import { fetchText } from "./utils";
 
 export interface CsvDataProviderOptions {
@@ -82,7 +82,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       "We should have initialized fetchedText directly above or in the constructor"
     );
     const csvText = await this.fetchedText;
-    const csv = parseCsv(csvText, this.regionColumn);
+    const csv = parseCsv(csvText, [this.regionColumn]);
     assert(csv.length > 0, "CSV must not be empty.");
     const dataRowsByRegionId = groupBy(csv, (row) => row[this.regionColumn]);
     assert(
@@ -139,50 +139,5 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private async fetchCsvText(): Promise<string> {
     assert(this.url, "URL must be specified in order to use fetchCsvText()");
     return fetchText(this.url);
-  }
-}
-
-/**
- * Transforms CSV text from string to JSON.
- *
- * @param csvText CSV text to parse.
- * @param regionColumn Name of column containing region IDs. It will be
- * preserved as a string, even if it has numeric values, to preserve FIPS codes
- * as strings.
- * @returns parsed CSV rows.
- */
-function parseCsv(csvText: string, regionColumn: string): DataRow[] {
-  const csv = Papa.parse(csvText, {
-    header: true,
-    skipEmptyLines: true,
-  });
-
-  const data = csv.data as DataRow[];
-  sanitizeRows(data, [regionColumn]);
-  return data;
-}
-
-/**
- * Sanitize CSV rows, turning numeric strings into numbers.
- *
- * @param rows Raw CSV rows.
- * @returns Sanitized CSV rows.
- */
-function sanitizeRows(rows: DataRow[], excludeColumns: string[]): void {
-  for (const row of rows) {
-    for (const c in row) {
-      if (excludeColumns.includes(c)) {
-        continue;
-      }
-      const v = row[c] as string;
-      if (v.length === 0) {
-        row[c] = null;
-      } else if (/^-?[\d.eE]+$/.test(v)) {
-        const num = Number.parseFloat(v.replace(/,/g, ""));
-        if (!Number.isNaN(num)) {
-          row[c] = num;
-        }
-      }
-    }
   }
 }
