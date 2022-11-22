@@ -40,7 +40,7 @@ const testFetchingCsvData = async (
     dateColumn: dateCol,
     csvText: data,
   });
-  const catalog = new MetricCatalog([metric], [provider]);
+  const catalog = new MetricCatalog([metric], [provider], states);
   return (
     await provider.fetchData([newYork], [metric], includeTimeseries, catalog)
   )
@@ -81,6 +81,15 @@ describe("CsvDataProvider", () => {
     expect(async () =>
       testFetchingCsvData(`region,cool_metric`, /*includeTimeseries=*/ true)
     ).rejects.toThrow("CSV must not be empty.");
+  });
+
+  test("fetchData() fails if csv does not have at least one valid region ID.", async () => {
+    expect(async () =>
+      testFetchingCsvData(
+        `region,cool_metric\nNew York,1`,
+        /*includeTimeseries=*/ true
+      )
+    ).rejects.toThrow("Failed to parse CSV data: All region IDs were invalid.");
   });
 
   test("fetchData() fails if metric is missing a 'column' property.", async () => {

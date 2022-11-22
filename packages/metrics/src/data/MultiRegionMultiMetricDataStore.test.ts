@@ -26,7 +26,11 @@ const testMetric = new Metric({
 
 const testProvider = new StaticValueDataProvider(ProviderId.STATIC);
 
-const testMetricCatalog = new MetricCatalog([testMetric], [testProvider]);
+const testMetricCatalog = new MetricCatalog(
+  [testMetric],
+  [testProvider],
+  states
+);
 
 // The snapshot JSON that corresponds to the data for `testRegion` and `testMetric`.
 const testSnapshot: SnapshotJSON = {

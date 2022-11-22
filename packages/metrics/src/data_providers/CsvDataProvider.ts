@@ -1,5 +1,5 @@
 import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
@@ -10,8 +10,10 @@ import {
 } from "./data_provider_utils";
 import groupBy from "lodash/groupBy";
 import isEmpty from "lodash/isEmpty";
+import truncate from "lodash/truncate";
 import Papa from "papaparse";
 import { fetchText } from "./utils";
+import { MetricCatalog } from "../MetricCatalog";
 
 export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
@@ -71,7 +73,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       : undefined;
   }
 
-  private async populateCache(): Promise<void> {
+  private async populateCache(regionDb: RegionDB): Promise<void> {
     if (this.url) {
       // We might already be fetching the CSV, in which case we can just wait on
       // the existing promise.
@@ -89,16 +91,37 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       !dataRowsByRegionId["undefined"],
       `One or more CSV rows were missing a region id value in column ${this.regionColumn}`
     );
+
+    const regionIds = Object.keys(dataRowsByRegionId);
+    const unknownRegionIds = regionIds.filter(
+      (regionId) => !regionDb.findByRegionId(regionId)
+    );
+    if (unknownRegionIds.length > 0) {
+      const url = this.url ?? "data";
+      console.warn(
+        `Unrecognized region IDs encountered while parsing CSV ${url}: ${truncate(
+          unknownRegionIds.join(", "),
+          { length: 200 }
+        )}`
+      );
+      if (unknownRegionIds.length === regionIds.length) {
+        throw new Error(
+          `Failed to parse CSV ${url}: All region IDs were invalid.`
+        );
+      }
+    }
+
     this.dataRowsByRegionId = dataRowsByRegionId;
   }
 
   async fetchDataForRegionAndMetric(
     region: Region,
     metric: Metric,
-    includeTimeseries: boolean
+    includeTimeseries: boolean,
+    metricCatalog: MetricCatalog
   ): Promise<MetricData<unknown>> {
     if (isEmpty(this.dataRowsByRegionId)) {
-      await this.populateCache();
+      await this.populateCache(metricCatalog.regionDb);
     }
 
     const metricKey = metric.dataReference?.column;

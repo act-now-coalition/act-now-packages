@@ -40,7 +40,7 @@ const metricDefs: MetricDefinition[] = [
   },
 ];
 
-const metricCatalog = new MetricCatalog(metricDefs, dataProviders);
+const metricCatalog = new MetricCatalog(metricDefs, dataProviders, states);
 
 const Template: ComponentStory<typeof MetricCatalogProvider> = (args) => (
   <MetricCatalogProvider metricCatalog={metricCatalog}>

@@ -81,7 +81,7 @@ describe("TransformedMetricDataProvider", () => {
       new StaticValueDataProvider(ProviderId.STATIC),
       new InvertDataProvider(ProviderId.INVERT_DATA),
     ];
-    const catalog = new MetricCatalog(testMetrics, dataProviders);
+    const catalog = new MetricCatalog(testMetrics, dataProviders, states);
 
     const data = await catalog.fetchDataForMetrics(
       testRegion,

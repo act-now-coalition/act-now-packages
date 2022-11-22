@@ -69,7 +69,8 @@ describe("MetricCatalog", () => {
   test("getMetric()", () => {
     const metricCatalog = new MetricCatalog(
       testMetricDefs,
-      testDataProviders()
+      testDataProviders(),
+      states
     );
     const piMetric = metricCatalog.getMetric(MetricId.PI);
     expect(piMetric.name).toStrictEqual("Pi");
@@ -80,7 +81,11 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchData()", async () => {
-    const catalog = new MetricCatalog(testMetricDefs, testDataProviders());
+    const catalog = new MetricCatalog(
+      testMetricDefs,
+      testDataProviders(),
+      states
+    );
 
     const data = await catalog.fetchData(testRegionWA, MetricId.PI);
     expect(data.currentValue).toBe(Math.PI);
@@ -91,7 +96,11 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchDataForMetricsAndRegions()", async () => {
-    const catalog = new MetricCatalog(testMetricDefs, testDataProviders());
+    const catalog = new MetricCatalog(
+      testMetricDefs,
+      testDataProviders(),
+      states
+    );
 
     // Fetch data for two metrics that come from different data providers.
     const dataStore = await catalog.fetchDataForRegionsAndMetrics(
@@ -120,9 +129,14 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchData() correctly reads from a snapshot.", async () => {
-    const catalog = new MetricCatalog(testMetricDefs, testDataProviders(), {
-      snapshot: testSnapshot,
-    });
+    const catalog = new MetricCatalog(
+      testMetricDefs,
+      testDataProviders(),
+      states,
+      {
+        snapshot: testSnapshot,
+      }
+    );
 
     const data = await catalog.fetchData(
       testRegionCA,
@@ -135,9 +149,14 @@ describe("MetricCatalog", () => {
   });
 
   test("fetchData() falls back to data providers if snapshot doesn't have data", async () => {
-    const catalog = new MetricCatalog(testMetricDefs, testDataProviders(), {
-      snapshot: testSnapshot,
-    });
+    const catalog = new MetricCatalog(
+      testMetricDefs,
+      testDataProviders(),
+      states,
+      {
+        snapshot: testSnapshot,
+      }
+    );
 
     const data = await catalog.fetchData(
       testRegionCA,
@@ -163,7 +182,8 @@ describe("MetricCatalog", () => {
           },
         },
       ],
-      [provider]
+      [provider],
+      states
     );
     const metric = catalog.getMetric(MetricId.MOCK_CASES);
 

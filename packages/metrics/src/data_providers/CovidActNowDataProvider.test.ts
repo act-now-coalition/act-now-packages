@@ -65,7 +65,7 @@ const dataProviders = [
     testCacheData
   ),
 ];
-const catalog = new MetricCatalog(testMetrics, dataProviders);
+const catalog = new MetricCatalog(testMetrics, dataProviders, states);
 
 describe("CovidActNowDataProvider", () => {
   test("fetches data without timeseries", async () => {

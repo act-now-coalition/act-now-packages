@@ -207,7 +207,7 @@ describe("metric data hooks", () => {
 });
 
 function createCatalogAndWrapper() {
-  const catalog = new MetricCatalog(testMetricDefs, dataProviders);
+  const catalog = new MetricCatalog(testMetricDefs, dataProviders, states);
   const wrapper = ({ children }: { children: ReactNode }) => (
     <MetricCatalogProvider metricCatalog={catalog}>
       {children}

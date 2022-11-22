@@ -1,7 +1,8 @@
 import { MetricCatalog } from "@actnowcoalition/metrics";
+import { RegionDB } from "@actnowcoalition/regions";
 import React, { createContext, useContext } from "react";
 
-const defaultMetricCatalog = new MetricCatalog([], []);
+const defaultMetricCatalog = new MetricCatalog([], [], new RegionDB([]));
 
 const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
 

@@ -1,7 +1,7 @@
 import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
 
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 import { assert } from "@actnowcoalition/assert";
 
 import { MetricCatalogOptions } from "./MetricCatalogOptions";
@@ -50,6 +50,7 @@ export class MetricCatalog {
   constructor(
     metrics: MetricDefinition[],
     dataProviders: MetricDataProvider[],
+    readonly regionDb: RegionDB,
     options: MetricCatalogOptions = {}
   ) {
     this.metrics = metrics.map((metric) => new Metric(metric, options));

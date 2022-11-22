@@ -4,6 +4,7 @@ import {
   MockDataProvider,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
+import { states } from "@actnowcoalition/regions";
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
 import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";
@@ -193,9 +194,14 @@ const metricCategorySets = [
   },
 ];
 
-export const metricCatalog = new MetricCatalog(testMetricDefs, dataProviders, {
-  categorySets: metricCategorySets,
-});
+export const metricCatalog = new MetricCatalog(
+  testMetricDefs,
+  dataProviders,
+  states,
+  {
+    categorySets: metricCategorySets,
+  }
+);
 
 // Exporting a second metric catalog to confirm that the closest
 // MetricCatalogProvider instance is used
@@ -221,4 +227,8 @@ const metricDefsB: MetricDefinition[] = [
   },
 ];
 
-export const metricCatalogB = new MetricCatalog(metricDefsB, dataProviders);
+export const metricCatalogB = new MetricCatalog(
+  metricDefsB,
+  dataProviders,
+  states
+);
