@@ -4,18 +4,12 @@ import {
   AutocompleteProps,
   TextField,
   createFilterOptions,
-  Stack,
-  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Region, RegionDB } from "@actnowcoalition/regions";
 import { formatPopulation } from "../../common/utils";
-import {
-  StyledLink,
-  CircleIcon,
-  ArrowIcon,
-  Container,
-} from "./RegionSearch.style";
+import { StyledLink } from "./RegionSearch.style";
+import { SearchItem } from "../SearchItem";
 
 function stringifyOption(region: Region) {
   return region.fullName;
@@ -73,7 +67,7 @@ export const RegionSearch = ({
       renderInput={customRenderInput ?? defaultRenderInput}
       renderOption={(props: HTMLAttributes<HTMLLIElement>, option: Region) => (
         <StyledLink href={regionDB.getRegionUrl(option)}>
-          <RegionSearchItem
+          <SearchItem
             itemLabel={option.shortName}
             itemSublabel={`${formatPopulation(option.population)} population`}
             {...props}
@@ -87,33 +81,5 @@ export const RegionSearch = ({
       })}
       {...otherAutocompleteProps}
     />
-  );
-};
-
-export interface RegionSearchItemProps {
-  /** Top label of the search item, in bold text. */
-  itemLabel: string;
-  /** Secondary label of the search item, in grey deemphasized text. */
-  itemSublabel: string;
-  /** Circle icon color. If omitted, no circle icon will render. */
-  iconColor?: string;
-}
-
-export const RegionSearchItem = ({
-  itemLabel,
-  itemSublabel,
-  iconColor,
-}: RegionSearchItemProps) => {
-  return (
-    <Container>
-      <Stack direction="row">
-        {iconColor && <CircleIcon iconColor={iconColor} />}
-        <Stack spacing={0.5}>
-          <Typography variant="labelLarge">{itemLabel}</Typography>
-          <Typography variant="paragraphSmall">{itemSublabel}</Typography>
-        </Stack>
-      </Stack>
-      <ArrowIcon />
-    </Container>
   );
 };
