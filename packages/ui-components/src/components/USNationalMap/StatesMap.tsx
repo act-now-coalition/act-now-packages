@@ -4,7 +4,7 @@ import { Tooltip, Link } from "@mui/material";
 import { statesGeographies } from "../../common/geo-shapes";
 import { RegionOverlay, RegionShapeBase } from "../../styles/common/Maps.style";
 
-// TODO (#427) - improve upon this props interface
+// TODO: improve upon this interface/make less redundant with other map prop interfaces
 export interface StatesMapProps {
   width: number;
   height: number;
