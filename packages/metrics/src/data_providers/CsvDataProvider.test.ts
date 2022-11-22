@@ -35,6 +35,7 @@ const testFetchingCsvData = async (
 ) => {
   metric = metric ?? testMetric;
   const provider = new CsvDataProvider(PROVIDER_ID, {
+    regionDb: states,
     regionColumn: "region",
     dateColumn: dateCol,
     csvText: data,
@@ -79,6 +80,15 @@ describe("CsvDataProvider", () => {
     ).rejects.toThrow("CSV must not be empty.");
   });
 
+  test("fetchData() fails if csv does not have at least one valid region ID.", async () => {
+    expect(async () =>
+      testFetchingCsvData(
+        `region,cool_metric\nNew York,1`,
+        /*includeTimeseries=*/ true
+      )
+    ).rejects.toThrow("Failed to parse CSV data: All region IDs were invalid.");
+  });
+
   test("fetchData() fails if metric is missing a 'column' property.", async () => {
     const badMetric = new Metric({
       id: "metric",
@@ -100,6 +110,7 @@ describe("CsvDataProvider", () => {
   test("Constructor fails if neither url or csv data is provided.", () => {
     expect(() => {
       new CsvDataProvider("PROVIDER_ID", {
+        regionDb: states,
         regionColumn: "region",
       });
     }).toThrow("URL or CSV data must be provided");
