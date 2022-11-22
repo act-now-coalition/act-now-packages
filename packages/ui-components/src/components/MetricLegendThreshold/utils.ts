@@ -1,6 +1,16 @@
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
-import { CategoryItem } from "./MetricLegendThreshold";
+
+export interface CategoryItem {
+  /** Category name (e.g. "High") */
+  name: string;
+  /** Category color */
+  color: string;
+  /** Description of the category */
+  description: string | undefined;
+  /** Formatted value of the threshold at the end of the current category */
+  endThreshold?: string;
+}
 
 export function getMetricCategoryItems(metric: Metric): CategoryItem[] {
   const metricCategories = metric.categorySet?.categories;

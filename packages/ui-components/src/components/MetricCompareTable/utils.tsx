@@ -1,7 +1,7 @@
 import React from "react";
 import isNumber from "lodash/isNumber";
 import { Stack, Typography } from "@mui/material";
-import { Metric } from "@actnowcoalition/metrics";
+import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
 import { formatPopulation } from "../../common/utils";
 import { MetricValue } from "../MetricValue";
@@ -12,7 +12,16 @@ import {
   getAriaSort,
 } from "../CompareTable";
 import { StyledTableCell, StyledLink } from "./MetricCompareTable.style";
-import { Row } from "./MetricCompareTable";
+import { Region } from "@actnowcoalition/regions";
+
+export interface Row {
+  /** Unique ID for the row. */
+  rowId: string;
+  /** Region corresponding to this row. */
+  region: Region;
+  /** multiMetricDataStore instance to make metric data accessible to every cell */
+  multiMetricDataStore: MultiMetricDataStore;
+}
 
 export function createMetricColumn(
   regionDB: RegionDB,

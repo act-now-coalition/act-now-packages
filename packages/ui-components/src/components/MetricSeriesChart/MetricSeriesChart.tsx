@@ -6,16 +6,17 @@ import uniq from "lodash/uniq";
 import min from "lodash/min";
 import max from "lodash/max";
 import isNumber from "lodash/isNumber";
-
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries } from "@actnowcoalition/metrics";
-
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import {
+  useDataForRegionsAndMetrics,
+  useHoveredPoint,
+} from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { BaseChartProps } from "../../common/utils/charts";
 import { Series, SeriesType } from "../SeriesChart";
 import { SeriesChart } from "../SeriesChart";
-import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
+import { ChartOverlayXY } from "../ChartOverlayXY";
 import { PointMarker } from "../PointMarker";
 import { MetricTooltip } from "../MetricTooltip";
 import { useMetricCatalog } from "../MetricCatalogContext";

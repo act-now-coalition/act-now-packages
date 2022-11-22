@@ -1,9 +1,9 @@
 import React from "react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import { Group } from "@visx/group";
-import { useData } from "../../common/hooks";
+import { useData, useHoveredDate } from "../../common/hooks";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { ChartOverlayX } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";

@@ -5,7 +5,8 @@ import { scaleUtc, scaleLinear } from "@visx/scale";
 import { Timeseries } from "@actnowcoalition/metrics";
 import { AxisBottom, AxisLeft } from "../Axis";
 import { LineChart } from "../LineChart";
-import { ChartOverlayXY, useHoveredPoint } from ".";
+import { useHoveredPoint } from "../../common/hooks";
+import { ChartOverlayXY } from ".";
 
 export default {
   title: "Charts/ChartOverlayXY",

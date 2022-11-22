@@ -4,6 +4,7 @@ import { LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { getMetricCategoryItems } from "./utils";
 import { Metric } from "@actnowcoalition/metrics";
+import { CategoryItem } from "./utils";
 
 export interface MetricLegendThresholdProps {
   /** Orientation of the bars. */
@@ -29,17 +30,6 @@ export interface MetricLegendThresholdProps {
     React.SVGProps<SVGSVGElement>,
     keyof MetricLegendThresholdProps
   >;
-}
-
-export interface CategoryItem {
-  /** Category name (e.g. "High") */
-  name: string;
-  /** Category color */
-  color: string;
-  /** Description of the category */
-  description: string | undefined;
-  /** Formatted value of the threshold at the end of the current category */
-  endThreshold?: string;
 }
 
 const getItemColor = (item: CategoryItem) => item.color;
