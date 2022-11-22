@@ -187,7 +187,8 @@ function generateCsvValue(value: unknown): string {
     typeof value === "string" &&
     (value.includes(",") || value.includes('"'))
   ) {
-    // Escape " with "" in strings.
+    // In CSV files to include a " char in a string, you have to escape it as "" and
+    // then wrap the entire string in " chars.
     return `"${value.replace(/"/g, '""')}"`;
   } else {
     assert(
