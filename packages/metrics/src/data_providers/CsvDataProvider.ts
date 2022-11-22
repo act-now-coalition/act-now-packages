@@ -1,5 +1,5 @@
 import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
@@ -11,11 +11,17 @@ import {
 } from "./data_provider_utils";
 import groupBy from "lodash/groupBy";
 import isEmpty from "lodash/isEmpty";
+import truncate from "lodash/truncate";
 import { fetchText } from "./utils";
 
 export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
   url?: string;
+  /**
+   * The regions that this CSV file contains data for. Used for validating the
+   * incoming data.
+   */
+  regionDb: RegionDB;
   /** Name of column containing valid Region IDs. */
   regionColumn: string;
   /**
@@ -39,6 +45,7 @@ export interface CsvDataProviderOptions {
  * ```
  */
 export class CsvDataProvider extends SimpleMetricDataProviderBase {
+  private readonly regionDb: RegionDB;
   private readonly regionColumn: string;
   private readonly dateColumn?: string;
   private readonly url?: string;
@@ -63,6 +70,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       "Either a URL or CSV data must be provided to create an instance of CsvDataProvider."
     );
     super(providerId);
+    this.regionDb = options.regionDb;
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
     this.url = options.url;
@@ -89,6 +97,26 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       !dataRowsByRegionId["undefined"],
       `One or more CSV rows were missing a region id value in column ${this.regionColumn}`
     );
+
+    const regionIds = Object.keys(dataRowsByRegionId);
+    const unknownRegionIds = regionIds.filter(
+      (regionId) => !this.regionDb.findByRegionId(regionId)
+    );
+    if (unknownRegionIds.length > 0) {
+      const url = this.url ?? "data";
+      console.warn(
+        `Unrecognized region IDs encountered while parsing CSV ${url}: ${truncate(
+          unknownRegionIds.join(", "),
+          { length: 200 }
+        )}`
+      );
+      if (unknownRegionIds.length === regionIds.length) {
+        throw new Error(
+          `Failed to parse CSV ${url}: All region IDs were invalid.`
+        );
+      }
+    }
+
     this.dataRowsByRegionId = dataRowsByRegionId;
   }
 
