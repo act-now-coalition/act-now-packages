@@ -143,7 +143,9 @@ describe("dataRowToMetricData()", () => {
 describe("parseCsv() and generateCsv()", () => {
   const testCsv = `col1,col2,"col""with""quotes"
 text,"text,with,comma","text""with""quotes"
-0,2,-2
+2,-2,"text
+with
+newlines"
 true,false,`;
 
   const parsedCsv = [
@@ -153,9 +155,9 @@ true,false,`;
       'col"with"quotes': 'text"with"quotes',
     },
     {
-      col1: 0,
-      col2: 2,
-      'col"with"quotes': -2,
+      col1: 2,
+      col2: -2,
+      'col"with"quotes': "text\nwith\nnewlines",
     },
     {
       col1: "true",
@@ -174,7 +176,7 @@ true,false,`;
       parsedCsv[0],
       // "2" won't be parsed as a number because we're specifying for it to be
       // kept as a raw string.
-      { ...parsedCsv[1], col2: "2" },
+      { ...parsedCsv[1], col2: "-2" },
       parsedCsv[2],
     ];
     expect(parseCsv(testCsv, colsToKeepRaw)).toStrictEqual(expected);

@@ -183,12 +183,9 @@ function generateCsvRow(values: unknown[]): string {
 function generateCsvValue(value: unknown): string {
   if (value === null || value === undefined) {
     return "";
-  } else if (
-    typeof value === "string" &&
-    (value.includes(",") || value.includes('"'))
-  ) {
+  } else if (typeof value === "string" && /[,"\n\r]/.test(value)) {
     // In CSV files to include a " char in a string, you have to escape it as "" and
-    // then wrap the entire string in " chars.
+    // then wrap the entire string in " chars. https://stackoverflow.com/a/769820
     return `"${value.replace(/"/g, '""')}"`;
   } else {
     assert(
