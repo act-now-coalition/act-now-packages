@@ -91,7 +91,7 @@ export function calculateChartIntervals(
 
   // If minValue is higher than 0, don't pad below 0 on the y-axis.
   const lowestBound = Math.min(minVal, firstThreshold - padding);
-  const chartMin = lowestBound >= 0 ? Math.max(0, lowestBound) : lowestBound;
+  const chartMin = minVal >= 0 ? Math.max(0, lowestBound) : lowestBound;
   const chartMax = Math.max(maxVal, lastThreshold + padding);
 
   // Build the intervals in the same order as the categories.
