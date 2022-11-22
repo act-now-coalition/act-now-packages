@@ -8,11 +8,11 @@ const customComponents = {
   p: (props: React.PropsWithChildren<unknown>) => <>{props.children}</>,
 };
 
-export const InlineMarkdown: React.FC<ReactMarkdownOptions> = ({
+export const InlineMarkdown = ({
   children,
   className,
   ...otherProps
-}) => (
+}: ReactMarkdownOptions) => (
   // If we pass `className` directly to `ReactMarkdown` it'll wrap the rendered
   // markdown in a div which we don't want, so we create our own wrapper span
   // instead.

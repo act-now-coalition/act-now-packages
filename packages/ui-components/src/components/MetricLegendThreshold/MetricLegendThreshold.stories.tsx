@@ -1,17 +1,15 @@
 import React from "react";
 import { Typography, Paper } from "@mui/material";
-import { ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendThreshold } from "./MetricLegendThreshold";
-import { MetricLegendThresholdProps } from "./interfaces";
-import { Story } from "@storybook/react";
 
 export default {
   title: "Metrics/MetricLegendThreshold",
   component: MetricLegendThreshold,
 } as ComponentMeta<typeof MetricLegendThreshold>;
 
-const Template: Story<MetricLegendThresholdProps> = (args) => (
+const Template: ComponentStory<typeof MetricLegendThreshold> = (args) => (
   <Paper sx={{ p: 2 }}>
     <MetricLegendThreshold {...args} />
   </Paper>

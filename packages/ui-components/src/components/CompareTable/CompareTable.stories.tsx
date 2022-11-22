@@ -18,7 +18,7 @@ export default {
   component: CompareTable,
 } as ComponentMeta<typeof CompareTable>;
 
-interface RowItem {
+export interface RowItem {
   rowId: string;
   region: Region;
 }
@@ -27,9 +27,7 @@ const rows: RowItem[] = states.all
   .sort((a, b) => compare(a.population, b.population))
   .map((region) => ({ region, rowId: region.regionId }));
 
-const StatefulCompareTable: React.FC<{
-  rows: RowItem[];
-}> = () => {
+const StatefulCompareTable = ({ rows }: { rows: RowItem[] }) => {
   const columns: ColumnDefinition<RowItem>[] = [
     {
       columnId: "name",

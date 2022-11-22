@@ -1,13 +1,19 @@
 import React from "react";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
-import WorldMap from "../WorldMap";
-import { MetricWorldMapProps } from "./interfaces";
+import WorldMap, { WorldMapProps } from "../WorldMap";
+import { Metric } from "@actnowcoalition/metrics";
+import { RegionDB } from "@actnowcoalition/regions";
 
-export const MetricWorldMap: React.FC<MetricWorldMapProps> = ({
+export interface MetricWorldMapProps extends WorldMapProps {
+  metric: Metric | string;
+  regionDB: RegionDB;
+}
+
+export const MetricWorldMap = ({
   metric,
   regionDB,
   ...otherProps
-}) => {
+}: MetricWorldMapProps) => {
   const { data } = useDataForRegionsAndMetrics(regionDB.all, [metric], false);
 
   if (!data) {

@@ -3,7 +3,35 @@ import { ScaleTime, ScaleLinear } from "d3-scale";
 import { Timeseries } from "@actnowcoalition/metrics";
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
-import { Series, SeriesType } from "./interfaces";
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
+export enum SeriesType {
+  LINE = "LINE",
+  BAR = "BAR",
+}
+
+export interface SeriesBase {
+  metric: Metric | string;
+  region: Region;
+}
+
+export interface SeriesLine extends SeriesBase {
+  /* The SeriesLine object is represented as a line chart */
+  type: SeriesType.LINE;
+  /* Adds ability to customize the line */
+  lineProps?: Pick<
+    React.SVGProps<SVGPathElement>,
+    "stroke" | "strokeDasharray" | "strokeWidth"
+  >;
+}
+
+export interface SeriesBar extends SeriesBase {
+  /* The SeriesBar object is represented as a bar chart */
+  type: SeriesType.BAR;
+}
+
+export type Series = SeriesLine | SeriesBar;
 
 export interface SeriesChartProps {
   /** Series to render */

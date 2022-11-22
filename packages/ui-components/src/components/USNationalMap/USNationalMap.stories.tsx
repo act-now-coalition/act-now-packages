@@ -1,11 +1,10 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleOrdinal, scaleLinear } from "@visx/scale";
 import { interpolatePiYG } from "d3-scale-chromatic";
 import { assert } from "@actnowcoalition/assert";
 import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 import { USNationalMap } from "./USNationalMap";
-import { USNationalMapProps } from "../interfaces";
 
 export default {
   title: "Maps/US National Map",
@@ -16,7 +15,7 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region): string => `/us/${region.slug}`,
 });
 
-const Template: Story<USNationalMapProps> = (args) => (
+const Template: ComponentStory<typeof USNationalMap> = (args) => (
   <USNationalMap {...args} />
 );
 

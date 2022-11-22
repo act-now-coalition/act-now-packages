@@ -43,10 +43,13 @@ export const All = () => (
   </>
 );
 
-const ColorGroup: React.FC<{
+const ColorGroup = ({
+  colorGroupName,
+  colorInfoList,
+}: {
   colorGroupName: string;
   colorInfoList: ColorInfo[];
-}> = ({ colorGroupName, colorInfoList }) => (
+}) => (
   <Box key={colorGroupName} mt={4} mb={2}>
     <Typography variant="overline">{colorGroupName}</Typography>
     {colorInfoList.map((item) => (
@@ -65,7 +68,7 @@ const ColorGroup: React.FC<{
   </Box>
 );
 
-const ColorBox: React.FC<{ color: string }> = ({ color }) => (
+const ColorBox = ({ color }: { color: string }) => (
   <div
     style={{
       width: 48,

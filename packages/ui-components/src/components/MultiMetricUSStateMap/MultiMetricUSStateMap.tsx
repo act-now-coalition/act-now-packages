@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RegionDB, Region } from "@actnowcoalition/regions";
-import { MetricUSStateMap } from "../MetricUSMaps";
+import { MetricUSStateMap } from "../MetricUSStateMap";
 import { Typography, TextField, MenuItem } from "@mui/material";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -24,13 +24,13 @@ export interface MultiMetricUSStateMapProps {
   renderTooltip?: (regionId: string) => React.ReactNode;
 }
 
-export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
+export const MultiMetricUSStateMap = ({
   stateRegionId,
   highlightedRegion,
   metrics,
   regionDB,
   renderTooltip,
-}) => {
+}: MultiMetricUSStateMapProps) => {
   const metricCatalog = useMetricCatalog();
 
   const [metric, setMetric] = useState(metrics[0]);

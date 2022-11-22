@@ -38,7 +38,7 @@ const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
  *   metrics: Metric[];
  * };
  *
- * const MetricAware: React.FC<MetricAwareProps> = ({ region, metrics }) => {
+ * const MetricAware = ({ region, metrics }: MetricAwareProps) => {
  *    const metricCatalog = useMetricCatalog();
  *    const { data, error } = useDataForMetrics(region, metrics);
  *   // ...render component
@@ -48,10 +48,16 @@ const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
  * @param children The component tree that we want to have access to the metric catalog.
  * @returns React.ContextProvider with the given metricCatalog
  */
-export const MetricCatalogProvider: React.FC<{
+
+export interface MetricCatalogProviderProps {
   metricCatalog: MetricCatalog;
   children: React.ReactNode;
-}> = ({ metricCatalog, children }) => (
+}
+
+export const MetricCatalogProvider = ({
+  metricCatalog,
+  children,
+}: MetricCatalogProviderProps) => (
   <MetricCatalogContext.Provider value={metricCatalog}>
     {children}
   </MetricCatalogContext.Provider>

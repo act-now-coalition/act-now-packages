@@ -1,2 +1,2 @@
 export { default } from "./WorldMap";
-export * from "./interfaces";
+export * from "./WorldMap";

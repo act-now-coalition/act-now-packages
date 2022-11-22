@@ -1,7 +1,6 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { TimeseriesLineChart } from "./TimeseriesLineChart";
-import { TimeseriesLineChartProps } from "./interfaces";
 import { assert } from "@actnowcoalition/assert";
 import { appleStockTimeseries } from "../../stories/mockData";
 
@@ -14,7 +13,7 @@ export default {
   component: TimeseriesLineChart,
 } as ComponentMeta<typeof TimeseriesLineChart>;
 
-const Template: Story<TimeseriesLineChartProps> = (args) => (
+const Template: ComponentStory<typeof TimeseriesLineChart> = (args) => (
   <TimeseriesLineChart {...args} />
 );
 

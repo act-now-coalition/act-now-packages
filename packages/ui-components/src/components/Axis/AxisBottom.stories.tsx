@@ -13,12 +13,7 @@ export default {
 const height = 400;
 const padding = 60;
 
-const commonProps: Partial<AxisBottomProps> = {
-  left: padding,
-  top: padding,
-};
-
-const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
+const ChartBottomAxis = ({ ...args }: AxisBottomProps) => {
   const [start, end] = args.scale.domain();
   const isTimeSeries = start instanceof Date;
   return (
@@ -27,7 +22,8 @@ const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
         <svg width={args.width} height={height}>
           <AxisBottom
             {...args}
-            {...commonProps}
+            left={padding}
+            top={padding}
             scale={
               isTimeSeries
                 ? scaleUtc({
@@ -53,6 +49,7 @@ const ChartBottomAxis: React.FC<AxisBottomProps> = (args) => {
   );
 };
 
+/* A responsive template, in order to test responsiveness of numTicks and tickFormat */
 const Template: ComponentStory<typeof AxisBottom> = (args) => (
   <Box>
     <AutoWidth>

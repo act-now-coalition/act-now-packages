@@ -6,12 +6,18 @@ import {
   DisputedBorderPath,
   colorDisputedAreas,
 } from "./WorldMap.style";
-import DiagonalHatchPattern from "./DiagonalHatchPattern";
+import { DiagonalHatchPattern } from "./DiagonalHatchPattern";
 import { AutoWidth } from "../AutoWidth";
 import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
-import { MapContainer } from "../USMaps/Maps.style";
-import { WorldMapProps } from "./interfaces";
-import { RegionOverlay } from "../USMaps/Maps.style";
+import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";
+
+export interface WorldMapProps {
+  renderTooltip: (regionId: string) => React.ReactNode;
+  getFillColor?: (regionId: string) => string;
+  getFillOpacity?: (geoId: string) => number;
+  width?: number;
+  getRegionUrl?: (regionId: string) => string | undefined;
+}
 
 // This aspect ratio and re-centering the projection maximize the land area
 // shown in the map, leaving out the Arctic and Antarctica, but keeping most
@@ -22,13 +28,13 @@ const mapAspectRatio = 380 / 800;
 // areas close to the Arctic
 const projectionCenter: [number, number] = [0, -55]; // [longitude, latitude]
 
-const WorldMapInner: React.FC<WorldMapProps> = ({
+const WorldMapInner = ({
   width = defaultWidth,
   renderTooltip,
   getFillColor = () => `#ddd`,
   getFillOpacity = () => 1,
   getRegionUrl = () => undefined,
-}) => {
+}: WorldMapProps) => {
   const data = nationsGeographies;
   const height = mapAspectRatio * width;
 
@@ -108,7 +114,7 @@ const nameToClassName = (name: string) =>
     .replaceAll("(", "")
     .replaceAll(")", "");
 
-const WorldMap: React.FC<WorldMapProps> = (props) => (
+const WorldMap = (props: WorldMapProps) => (
   <AutoWidth>
     <WorldMapInner {...props} />
   </AutoWidth>

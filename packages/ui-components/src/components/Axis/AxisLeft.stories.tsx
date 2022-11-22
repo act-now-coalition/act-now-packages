@@ -11,7 +11,7 @@ const width = 600;
 const height = 400;
 const padding = 60;
 
-const leftScale = scaleLinear({
+const scale = scaleLinear({
   domain: [0, 500],
   range: [height - 2 * padding, 0],
 });
@@ -24,7 +24,7 @@ const DefaultTemplateLeftAxis: ComponentStory<typeof AxisLeft> = (args) => (
 
 export const DefaultLeftAxis = DefaultTemplateLeftAxis.bind({});
 DefaultLeftAxis.args = {
-  scale: leftScale,
+  scale,
 };
 
 const TemplateLeftAxis: ComponentStory<typeof AxisLeft> = (args) => (
@@ -41,5 +41,5 @@ const TemplateLeftAxis: ComponentStory<typeof AxisLeft> = (args) => (
 
 export const LeftAxis = TemplateLeftAxis.bind({});
 LeftAxis.args = {
-  scale: leftScale,
+  scale,
 };

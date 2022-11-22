@@ -4,7 +4,7 @@ import { TimeseriesPoint } from "@actnowcoalition/metrics";
 import { states } from "@actnowcoalition/regions";
 import { colors } from "@mui/material";
 import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
-import { MetricTooltip, MetricTooltipContent } from ".";
+import { MetricTooltip } from ".";
 
 export default {
   title: "Charts/MetricTooltip",
@@ -37,14 +37,10 @@ const Template: ComponentStory<typeof MetricTooltip> = (args) => (
   </svg>
 );
 
-export const Example = Template.bind({});
-Example.args = {
+export const TooltipExample = Template.bind({});
+TooltipExample.args = {
   region,
   metric,
   point,
   placement: "top",
 };
-
-export const Content = () => (
-  <MetricTooltipContent region={region} metric={metric} point={point} />
-);

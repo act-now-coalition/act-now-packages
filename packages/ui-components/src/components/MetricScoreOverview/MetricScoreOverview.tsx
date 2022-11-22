@@ -18,12 +18,12 @@ export interface MetricScoreOverviewProps extends StackProps {
   tooltipTitle?: React.ReactNode;
 }
 
-export const MetricScoreOverview: React.FC<MetricScoreOverviewProps> = ({
+export const MetricScoreOverview = ({
   region,
   metric,
   tooltipTitle,
   ...otherStackProps
-}) => {
+}: MetricScoreOverviewProps) => {
   const metricCatalog = useMetricCatalog();
   const resolvedMetric = metricCatalog.getMetric(metric);
 

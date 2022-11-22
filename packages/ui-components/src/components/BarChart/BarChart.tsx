@@ -50,13 +50,13 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  *
  * @returns An SVG Group element
  */
-export const BarChart: React.FC<BarChartProps> = ({
+export const BarChart = ({
   timeseries,
   xScale,
   yScale,
   barWidth = 2,
   ...rectProps
-}) => {
+}: BarChartProps) => {
   const theme = useTheme();
   const [yStart] = yScale.range();
   return (

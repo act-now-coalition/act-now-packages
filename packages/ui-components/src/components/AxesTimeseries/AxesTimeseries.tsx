@@ -15,13 +15,13 @@ export interface AxesTimeseriesProps {
   axisBottomProps?: Omit<AxisBottomProps, "scale">;
 }
 
-export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
+export const AxesTimeseries = ({
   height,
   xScale,
   yScale,
   axisLeftProps,
   axisBottomProps,
-}) => {
+}: AxesTimeseriesProps) => {
   return (
     <>
       <AxisLeft scale={yScale} {...axisLeftProps} />

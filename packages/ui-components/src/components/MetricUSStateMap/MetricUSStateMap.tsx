@@ -1,15 +1,21 @@
 import React from "react";
-import { USStateMap } from "../../USMaps";
-import { MetricUSStateMapProps } from "../interfaces";
-import { useDataForRegionsAndMetrics } from "../../../common/hooks";
-import { getCountiesOfState } from "../../../common/utils/maps";
+import { USStateMap, USStateMapProps } from "../USStateMap";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { getCountiesOfState } from "../../common/utils/maps";
+import { Metric } from "@actnowcoalition/metrics";
+import { RegionDB } from "@actnowcoalition/regions";
 
-export const MetricUSStateMap: React.FC<MetricUSStateMapProps> = ({
+export interface MetricUSStateMapProps extends USStateMapProps {
+  metric: Metric | string;
+  regionDB: RegionDB;
+}
+
+export const MetricUSStateMap = ({
   metric,
   stateRegionId,
   regionDB,
   ...otherProps
-}) => {
+}: MetricUSStateMapProps) => {
   const state = regionDB.findByRegionIdStrict(stateRegionId);
   const countiesOfState = getCountiesOfState(regionDB, stateRegionId);
   const mapRegions = [...countiesOfState, state];

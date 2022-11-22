@@ -1,7 +1,7 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { AxesTimeseries, AxesTimeseriesProps } from "./AxesTimeseries";
+import { AxesTimeseries } from "./AxesTimeseries";
 import { Group } from "@visx/group";
 import { formatPercent } from "@actnowcoalition/number-format";
 
@@ -30,7 +30,7 @@ const yScalePercent = scaleLinear({
   range: [chartHeight, 0],
 });
 
-const Template: Story<AxesTimeseriesProps> = (args) => (
+const Template: ComponentStory<typeof AxesTimeseries> = (args) => (
   <svg width={width} height={height} style={{ border: "1px solid red" }}>
     <Group top={margin} left={margin}>
       <AxesTimeseries {...args} />

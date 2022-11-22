@@ -18,7 +18,7 @@ export interface MetricLegendCategoricalProps {
 const getItemColor = (item: Category) => item.color;
 const getItemLabel = (item: Category) => item.name ?? item.id;
 
-const MetricLegendCategorical = ({
+export const MetricLegendCategorical = ({
   metric,
   orientation,
 }: MetricLegendCategoricalProps) => {
@@ -49,5 +49,3 @@ const MetricLegendCategorical = ({
     </Stack>
   );
 };
-
-export default MetricLegendCategorical;

@@ -20,12 +20,12 @@ export interface ColumnHeaderProps extends TableCellProps {
   onClickSort?: (sortDirection: SortDirection) => void;
 }
 
-export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
+export const ColumnHeader = ({
   label,
   sortDirection,
   onClickSort,
   ...tableCellProps
-}) => {
+}: ColumnHeaderProps) => {
   const isSortable = !isNil(onClickSort);
   const isSortActive = !isNil(sortDirection);
   return (

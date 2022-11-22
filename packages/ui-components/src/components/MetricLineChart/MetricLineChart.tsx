@@ -7,10 +7,17 @@ import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { MetricLineChartProps } from "./interfaces";
 import { PointMarker } from "../PointMarker";
+import { BaseChartProps } from "../../common/utils/charts";
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
-export const MetricLineChart: React.FC<MetricLineChartProps> = ({
+export interface MetricLineChartProps extends BaseChartProps {
+  metric: Metric | string;
+  region: Region;
+}
+
+export const MetricLineChart = ({
   metric: metricOrId,
   region,
   width,
@@ -19,7 +26,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   marginBottom = 30,
   marginLeft = 70,
   marginRight = 20,
-}) => {
+}: MetricLineChartProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 

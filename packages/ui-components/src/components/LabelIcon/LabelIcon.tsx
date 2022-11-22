@@ -7,12 +7,12 @@ export interface LabelIconProps extends TypographyProps {
   endIcon?: React.ReactNode;
 }
 
-export const LabelIcon: React.FC<LabelIconProps> = ({
+export const LabelIcon = ({
   endIcon = <ArrowForwardIcon fontSize="small" color="inherit" />,
   children,
   variant = "labelLarge",
   ...otherTypographyProps
-}) => {
+}: LabelIconProps) => {
   return (
     <Typography variant={variant} {...otherTypographyProps}>
       <Stack direction="row" spacing={1} alignItems="center">

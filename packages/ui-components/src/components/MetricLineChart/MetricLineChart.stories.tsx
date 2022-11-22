@@ -1,7 +1,6 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { MetricLineChart } from "./MetricLineChart";
-import { MetricLineChartProps } from "./interfaces";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { states } from "@actnowcoalition/regions";
 
@@ -13,7 +12,7 @@ export default {
   component: MetricLineChart,
 } as ComponentMeta<typeof MetricLineChart>;
 
-const Template: Story<MetricLineChartProps> = (args) => (
+const Template: ComponentStory<typeof MetricLineChart> = (args) => (
   <MetricLineChart {...args} />
 );
 

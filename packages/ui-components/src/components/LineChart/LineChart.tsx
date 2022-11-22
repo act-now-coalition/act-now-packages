@@ -54,7 +54,7 @@ export type LineChartProps = LineChartOwnProps &
  *
  * @returns SVG Path element
  */
-export const LineChart: React.FC<LineChartProps> = ({
+export const LineChart = ({
   timeseries,
   xScale,
   yScale,
@@ -63,7 +63,7 @@ export const LineChart: React.FC<LineChartProps> = ({
   shapeRendering = "geometricPrecision",
   strokeLinejoin = "round",
   ...otherLineProps
-}) => {
+}: LineChartProps) => {
   const theme = useTheme();
   return (
     <LinePath
