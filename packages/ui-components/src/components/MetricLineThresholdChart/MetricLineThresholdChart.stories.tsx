@@ -29,10 +29,14 @@ AppleStock.args = {
 
 export const NewYorkCityTemperature = Template.bind({});
 NewYorkCityTemperature.args = {
-  width,
-  height,
+  ...AppleStock.args,
   metric: MetricId.NYC_TEMPERATURE,
-  region: newYork,
+};
+
+export const YAxisStartsAtZero = Template.bind({});
+YAxisStartsAtZero.args = {
+  ...AppleStock.args,
+  metric: MetricId.APPLE_STOCK_LOW_THRESHOLDS,
 };
 
 export const LoadingDelay = Template.bind({});

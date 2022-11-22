@@ -10,6 +10,7 @@ import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";
 
 export enum MetricId {
   APPLE_STOCK = "apple_stock",
+  APPLE_STOCK_LOW_THRESHOLDS = "apple_stock_low_thresholds",
   NYC_TEMPERATURE = "nyc_temperature",
   PI = "pi",
   MOCK_CASES = "mock_cases",
@@ -36,6 +37,16 @@ const testMetricDefs: MetricDefinition[] = [
       providerId: ProviderId.APPLE_STOCK,
     },
     categoryThresholds: [100, 200, 400, 800],
+    categorySetId: "5_risk_categories",
+  },
+  {
+    id: MetricId.APPLE_STOCK_LOW_THRESHOLDS,
+    name: "AAPL (low thresholds)",
+    extendedName: "Apple Stock w/ low thresholds",
+    dataReference: {
+      providerId: ProviderId.APPLE_STOCK,
+    },
+    categoryThresholds: [0, 100, 200, 400],
     categorySetId: "5_risk_categories",
   },
   {

@@ -89,26 +89,19 @@ export function calculateChartIntervals(
       ? 0.2 * (lastThreshold - firstThreshold)
       : 0.2 * (maxVal - minVal);
 
+  // If minValue is higher than 0, don't pad below 0 on the y-axis.
+  const lowestBound = Math.min(minVal, firstThreshold);
+  const chartMin = lowestBound >= 0 ? 0 : lowestBound - padding;
+  const chartMax = Math.max(maxVal, lastThreshold + padding);
+
   // Build the intervals in the same order as the categories.
   return metricCategories.map((category, categoryIndex) => {
     const isFirstCategory = categoryIndex === 0;
     const isLastCategory = categoryIndex === metricCategories.length - 1;
-    const lowestBound = Math.min(minVal, firstThreshold - padding);
-    // If minValue is higher than 0, don't pad below 0 on the y-axis.
-    const firstCategoryLowerThreshold =
-      isFirstCategory && minValue > 0 ? Math.max(0, lowestBound) : lowestBound;
-    const lastCategoryUpperThreshold = Math.max(
-      maxVal,
-      lastThreshold + padding
-    );
     return {
       category,
-      lower: isFirstCategory
-        ? firstCategoryLowerThreshold
-        : thresholds[categoryIndex - 1],
-      upper: isLastCategory
-        ? lastCategoryUpperThreshold
-        : thresholds[categoryIndex],
+      lower: isFirstCategory ? chartMin : thresholds[categoryIndex - 1],
+      upper: isLastCategory ? chartMax : thresholds[categoryIndex],
       color: category.color,
     };
   });
