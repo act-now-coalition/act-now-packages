@@ -99,7 +99,6 @@ export const Sparklines = () => (
             region={region}
             metricBarChart={MetricId.MOCK_CASES}
             metricLineChart={MetricId.MOCK_CASES}
-            numDays={30}
           />
         </AutoWidth>
       </StyledGridItem>

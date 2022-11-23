@@ -18,18 +18,20 @@ const defaultArgs = {
   // TODO: Make this a rolling avg. metric once provider is implemented.
   metricLineChart: MetricId.APPLE_STOCK,
   metricBarChart: MetricId.APPLE_STOCK,
-  numDays: 5,
 };
 
 export const ExampleFiveDays = Template.bind({});
 ExampleFiveDays.args = {
   ...defaultArgs,
+  dateFrom: new Date("2012-01-01"),
+  dateTo: new Date("2012-01-05"),
 };
 
 export const ExampleSixtyDays = Template.bind({});
 ExampleSixtyDays.args = {
   ...defaultArgs,
-  numDays: 60,
+  dateFrom: new Date("2012-01-01"),
+  dateTo: new Date("2012-03-02"),
 };
 
 export const LoadingDelay = Template.bind({});

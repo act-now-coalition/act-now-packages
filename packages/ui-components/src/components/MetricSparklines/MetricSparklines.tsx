@@ -14,15 +14,18 @@ export interface MetricSparklinesProps
   metricLineChart: Metric | string;
   /** Metric to use for bar elements of sparkline. */
   metricBarChart: Metric | string;
-  /** Number of days to show in sparkline, starting from the most recent date looking backwards. */
-  numDays: number;
+  /** Earliest date to be displayed. If not specified, earliest data point will be displayed. */
+  dateFrom?: Date;
+  /** Latest date to be displayed. If not specified, latest data point will be displayed.  */
+  dateTo?: Date;
 }
 
 export const MetricSparklines = ({
   region,
   metricLineChart,
   metricBarChart,
-  numDays = 30,
+  dateFrom,
+  dateTo,
   ...optionalProps
 }: MetricSparklinesProps) => {
   const metricCatalog = useMetricCatalog();
@@ -51,11 +54,11 @@ export const MetricSparklines = ({
     const timeseriesLineChart = data
       .metricData(metricLineChart)
       ?.timeseries.assertFiniteNumbers()
-      .slice(-numDays);
+      .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
     const timeseriesBarChart = data
       .metricData(metricBarChart)
       ?.timeseries.assertFiniteNumbers()
-      .slice(-numDays);
+      .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
     return (
       <SparkLine

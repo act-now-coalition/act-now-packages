@@ -43,7 +43,7 @@ export const SparkLine = ({
   });
 
   const yScaleBar = scaleLinear({
-    domain: [timeseriesBarChart.minValue, timeseriesBarChart.maxValue],
+    domain: [0, timeseriesBarChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
@@ -53,7 +53,7 @@ export const SparkLine = ({
   });
 
   const yScaleLine = scaleLinear({
-    domain: [timeseriesLineChart.minValue, timeseriesLineChart.maxValue],
+    domain: [0, timeseriesLineChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
