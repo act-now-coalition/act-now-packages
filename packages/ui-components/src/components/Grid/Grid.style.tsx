@@ -1,8 +1,9 @@
-import { styled } from "../../styles";
 import {
-  GridRows as VxGridRows,
   GridColumns as VxGridColumns,
+  GridRows as VxGridRows,
 } from "@visx/grid";
+
+import { styled } from "../../styles";
 
 export const GridRows = styled(VxGridRows)`
   .visx-line {

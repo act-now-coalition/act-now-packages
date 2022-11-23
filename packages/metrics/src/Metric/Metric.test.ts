@@ -1,7 +1,7 @@
-import { Metric } from "./Metric";
 import { CategorySet } from "./Category";
-import { MetricDefinition } from "./MetricDefinition";
+import { Metric } from "./Metric";
 import { MetricCatalogOptions } from "../MetricCatalog";
+import { MetricDefinition } from "./MetricDefinition";
 
 // Example of a typical metric with mostly default options.
 const testMetricDef: MetricDefinition = {

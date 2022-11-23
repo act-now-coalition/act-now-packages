@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Autocomplete,
   Box,
@@ -7,6 +6,8 @@ import {
   TextFieldProps,
   Typography,
 } from "@mui/material";
+
+import React from "react";
 
 export default {
   title: "Design System/SelectMultiple",

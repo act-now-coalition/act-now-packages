@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { ToggleButtonGroup, ToggleButton } from "@mui/material";
 import {
-  FormatAlignLeft,
-  FormatAlignRight,
   FormatAlignCenter,
   FormatAlignJustify,
+  FormatAlignLeft,
+  FormatAlignRight,
 } from "@mui/icons-material";
+import React, { useState } from "react";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 export default {
   title: "Design System/ToggleButtons",

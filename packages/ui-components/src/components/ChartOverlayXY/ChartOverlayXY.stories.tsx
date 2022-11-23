@@ -1,11 +1,12 @@
-import React from "react";
+import { AxisBottom, AxisLeft } from "../Axis";
+import { ChartOverlayXY, useHoveredPoint } from ".";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
-import { scaleUtc, scaleLinear } from "@visx/scale";
-import { Timeseries } from "@actnowcoalition/metrics";
-import { AxisBottom, AxisLeft } from "../Axis";
 import { LineChart } from "../LineChart";
-import { ChartOverlayXY, useHoveredPoint } from ".";
+import React from "react";
+import { Timeseries } from "@actnowcoalition/metrics";
 
 export default {
   title: "Charts/ChartOverlayXY",

@@ -1,10 +1,11 @@
-import React from "react";
-import { Group } from "@visx/group";
-import { scaleBand } from "@visx/scale";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
-import { LegendThresholdProps } from "./LegendThreshold";
-import { RectClipGroup } from "../RectClipGroup";
+
 import { AutoWidth } from "../AutoWidth";
+import { Group } from "@visx/group";
+import { LegendThresholdProps } from "./LegendThreshold";
+import React from "react";
+import { RectClipGroup } from "../RectClipGroup";
+import { scaleBand } from "@visx/scale";
 
 export type LegendThresholdHorizontalProps<T> = LegendThresholdProps<T> &
   Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>;

@@ -1,7 +1,8 @@
-import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendCategorical } from "./MetricLegendCategorical";
+import React from "react";
 
 export default {
   title: "Metrics/MetricLegendCategorical",

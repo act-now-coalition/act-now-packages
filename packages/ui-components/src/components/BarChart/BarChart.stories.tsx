@@ -1,11 +1,12 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { Group } from "@visx/group";
-import { assert } from "@actnowcoalition/assert";
-import { appleStockTimeseries } from "../../stories/mockData";
-import { LineChart } from "../LineChart";
+
 import { BarChart } from ".";
+import { Group } from "@visx/group";
+import { LineChart } from "../LineChart";
+import React from "react";
+import { appleStockTimeseries } from "../../stories/mockData";
+import { assert } from "@actnowcoalition/assert";
 
 export default {
   title: "Charts/BarChart",

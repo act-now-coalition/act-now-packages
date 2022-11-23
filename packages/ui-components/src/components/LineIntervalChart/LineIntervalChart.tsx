@@ -1,9 +1,10 @@
-import React from "react";
 import { ScaleLinear, ScaleTime } from "d3-scale";
+
 import { Group } from "@visx/group";
-import { Timeseries } from "@actnowcoalition/metrics";
 import { LineChart } from "../LineChart";
+import React from "react";
 import { RectClipGroup } from "../RectClipGroup";
+import { Timeseries } from "@actnowcoalition/metrics";
 
 export interface LineInterval {
   /** Upper bound of the interval, in data units. */

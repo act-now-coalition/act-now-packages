@@ -1,5 +1,6 @@
+import { CategorySet, MetricDefinition } from "../Metric";
+
 import { SnapshotJSON } from "../data";
-import { MetricDefinition, CategorySet } from "../Metric";
 
 /**
  * Options that can be provided when creating a {@link MetricCatalog} that apply

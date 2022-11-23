@@ -1,8 +1,9 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricUSStateMap } from "./MetricUSStateMap";
+import React from "react";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,

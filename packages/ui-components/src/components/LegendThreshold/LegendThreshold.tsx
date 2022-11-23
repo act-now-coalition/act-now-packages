@@ -1,6 +1,6 @@
-import React from "react";
 import { LegendThresholdHorizontal } from "./LegendThresholdHorizontal";
 import { LegendThresholdVertical } from "./LegendThresholdVertical";
+import React from "react";
 
 export interface LegendThresholdProps<T> {
   /** Orientation of the bars */

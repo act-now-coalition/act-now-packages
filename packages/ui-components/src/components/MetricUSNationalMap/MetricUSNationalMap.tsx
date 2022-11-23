@@ -1,8 +1,9 @@
-import React from "react";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { USNationalMap, USNationalMapProps } from "../USNationalMap";
+
 import { Metric } from "@actnowcoalition/metrics";
+import React from "react";
 import { RegionDB } from "@actnowcoalition/regions";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
 
 export interface MetricUSNationalMapProps extends USNationalMapProps {
   metric: Metric | string;

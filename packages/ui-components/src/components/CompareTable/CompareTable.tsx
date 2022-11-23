@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
 import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  SortDirection,
   CompareTableProps,
+  SortDirection,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
 } from ".";
+import React, { Fragment } from "react";
 
 export interface CompareTableRowBase {
   /** A unique ID that identifies this row. */

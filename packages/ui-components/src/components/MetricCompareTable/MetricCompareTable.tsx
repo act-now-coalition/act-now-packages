@@ -1,16 +1,17 @@
-import React, { useState } from "react";
 import {
   ColumnDefinition,
   CompareTable,
+  CompareTableProps,
   SortDirection,
   sortRows,
-  CompareTableProps,
 } from "../CompareTable";
-import { useMetricCatalog } from "../MetricCatalogContext";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
-import { createMetricColumn, createLocationColumn, Row } from "./utils";
+import React, { useState } from "react";
 import { Region, RegionDB } from "@actnowcoalition/regions";
+import { Row, createLocationColumn, createMetricColumn } from "./utils";
+
 import { Metric } from "@actnowcoalition/metrics";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricCompareTableProps
   extends Omit<CompareTableProps<Row>, "rows" | "columns"> {

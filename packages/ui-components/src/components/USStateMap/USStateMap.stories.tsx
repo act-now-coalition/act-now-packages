@@ -1,8 +1,9 @@
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
+
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { assert } from "@actnowcoalition/assert";
 import { USStateMap } from "./USStateMap";
-import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,

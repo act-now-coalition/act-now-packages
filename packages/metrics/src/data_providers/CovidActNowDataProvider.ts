@@ -1,17 +1,18 @@
-import pLimit from "p-limit";
-import { Region } from "@actnowcoalition/regions";
-import { Metric } from "../Metric";
-import { assert } from "@actnowcoalition/assert";
 import {
-  dataRowsToMetricData,
   dataRowToMetricData,
+  dataRowsToMetricData,
 } from "./data_provider_utils";
+
 import { DataRow } from "./data_provider_utils";
+import { Metric } from "../Metric";
 import { MetricData } from "../data/MetricData";
-import { fetchJson } from "./utils";
 import { MetricDataProvider } from "./MetricDataProvider";
 import { MultiRegionMultiMetricDataStore } from "../data";
+import { Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
+import { fetchJson } from "./utils";
 import mapValues from "lodash/mapValues";
+import pLimit from "p-limit";
 
 // Limit having too many outstanding requests at once, to avoid timeouts, etc.
 const MAX_CONCURRENT_REQUESTS = 50;

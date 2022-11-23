@@ -1,6 +1,7 @@
-import { counties, nations, metros, states } from "@actnowcoalition/regions";
-import { MetricCatalog } from "../MetricCatalog";
+import { counties, metros, nations, states } from "@actnowcoalition/regions";
+
 import { CovidActNowDataProvider } from "./CovidActNowDataProvider";
+import { MetricCatalog } from "../MetricCatalog";
 
 const testCounty = counties.findByRegionIdStrict("25017"); // Middlesex County, MA.
 const testNation = nations.findByRegionIdStrict("USA"); // USA.

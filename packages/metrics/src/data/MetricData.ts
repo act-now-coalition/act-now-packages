@@ -1,8 +1,8 @@
-import { Region } from "@actnowcoalition/regions";
-import { assert } from "@actnowcoalition/assert";
+import { Category, Metric } from "../Metric";
 
-import { Metric, Category } from "../Metric";
+import { Region } from "@actnowcoalition/regions";
 import { Timeseries } from "../Timeseries";
+import { assert } from "@actnowcoalition/assert";
 import { parseBoolean } from "./data_utils";
 
 /**

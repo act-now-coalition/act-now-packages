@@ -1,21 +1,22 @@
-import React from "react";
-import { Skeleton } from "@mui/material";
-import { Group } from "@visx/group";
+import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
+import { Series, SeriesType } from "../SeriesChart";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import uniq from "lodash/uniq";
-import min from "lodash/min";
-import max from "lodash/max";
-import isNumber from "lodash/isNumber";
-import { assert } from "@actnowcoalition/assert";
-import { Timeseries } from "@actnowcoalition/metrics";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
+
 import { AxesTimeseries } from "../AxesTimeseries";
 import { BaseChartProps } from "../../common/utils/charts";
-import { Series, SeriesType } from "../SeriesChart";
-import { SeriesChart } from "../SeriesChart";
-import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
-import { PointMarker } from "../PointMarker";
+import { Group } from "@visx/group";
 import { MetricTooltip } from "../MetricTooltip";
+import { PointMarker } from "../PointMarker";
+import React from "react";
+import { SeriesChart } from "../SeriesChart";
+import { Skeleton } from "@mui/material";
+import { Timeseries } from "@actnowcoalition/metrics";
+import { assert } from "@actnowcoalition/assert";
+import isNumber from "lodash/isNumber";
+import max from "lodash/max";
+import min from "lodash/min";
+import uniq from "lodash/uniq";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricSeriesChartProps extends BaseChartProps {

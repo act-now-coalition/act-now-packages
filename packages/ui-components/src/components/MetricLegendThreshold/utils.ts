@@ -1,5 +1,5 @@
-import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
+import { assert } from "@actnowcoalition/assert";
 
 export interface CategoryItem {
   /** Category name (e.g. "High") */

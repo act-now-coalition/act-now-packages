@@ -1,8 +1,8 @@
 import {
   DateFormat,
+  TimeUnit,
   formatUTCDateTime,
   getTimeDiff,
-  TimeUnit,
 } from "@actnowcoalition/time-utils";
 
 /**

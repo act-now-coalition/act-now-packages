@@ -1,6 +1,7 @@
-import React from "react";
 import { Stack, Typography, TypographyProps } from "@mui/material";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import React from "react";
 
 export interface LabelIconProps extends TypographyProps {
   /** Icon to show at the end of the label (ArrowForward by default) */

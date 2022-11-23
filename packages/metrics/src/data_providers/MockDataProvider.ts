@@ -1,11 +1,11 @@
-import delay from "delay";
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
-import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
+import { TimeUnit, getTimeDiff } from "@actnowcoalition/time-utils";
 
-import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
-import { MetricData } from "../data";
 import { Metric } from "../Metric";
+import { MetricData } from "../data";
+import { Region } from "@actnowcoalition/regions";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
+import { assert } from "@actnowcoalition/assert";
+import delay from "delay";
 import { mockTimeseries } from "../Timeseries";
 
 /**

@@ -1,6 +1,7 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { PointMarker } from ".";
+import React from "react";
 
 export default {
   title: "Charts/PointMarker",

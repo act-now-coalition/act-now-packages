@@ -1,7 +1,7 @@
 import { CsvDataProvider } from "./CsvDataProvider";
 import { Metric } from "../Metric";
-import { states } from "@actnowcoalition/regions";
 import { MetricCatalog } from "../MetricCatalog";
+import { states } from "@actnowcoalition/regions";
 
 const PROVIDER_ID = "csv-provider";
 

@@ -1,7 +1,7 @@
 import React from "react";
+import { Square } from "./LegendCategorical.style";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import { Square } from "./LegendCategorical.style";
 
 export interface LegendCategoricalProps<T> {
   /** Array of items representing legend items */

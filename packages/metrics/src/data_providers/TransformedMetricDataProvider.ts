@@ -1,12 +1,11 @@
-import fromPairs from "lodash/fromPairs";
-
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
-
-import { MetricDataProvider } from "./MetricDataProvider";
 import { MetricData, MultiRegionMultiMetricDataStore } from "../data";
+
 import { Metric } from "../Metric";
 import type { MetricCatalog } from "../MetricCatalog";
+import { MetricDataProvider } from "./MetricDataProvider";
+import { Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
+import fromPairs from "lodash/fromPairs";
 
 /**
  * Base class to help implement a MetricDataProvider that provides data by

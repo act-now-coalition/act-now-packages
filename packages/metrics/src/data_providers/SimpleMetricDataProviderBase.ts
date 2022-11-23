@@ -1,9 +1,9 @@
-import { Region } from "@actnowcoalition/regions";
-
-import { MetricDataProvider } from "./MetricDataProvider";
-import { Metric } from "../Metric";
 import { MetricData, MultiRegionMultiMetricDataStore } from "../data";
+
+import { Metric } from "../Metric";
 import { MetricCatalog } from "../MetricCatalog";
+import { MetricDataProvider } from "./MetricDataProvider";
+import { Region } from "@actnowcoalition/regions";
 
 /**
  * Base class to help implement a MetricDataProvider that fetches one

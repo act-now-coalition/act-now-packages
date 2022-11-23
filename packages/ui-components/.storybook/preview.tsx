@@ -1,7 +1,7 @@
-import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
 import { MetricCatalogProvider } from "../src/components/MetricCatalogContext";
+import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
 import { metricCatalog } from "../src/stories/mockMetricCatalog";
 import { theme } from "../src/styles";
 

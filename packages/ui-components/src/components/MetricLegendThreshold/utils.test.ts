@@ -1,5 +1,6 @@
+import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
+
 import { getMetricCategoryItems } from "./utils";
-import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
 
 describe("MetricLegendThreshold", () => {
   describe("getMetricCategoryItems", () => {

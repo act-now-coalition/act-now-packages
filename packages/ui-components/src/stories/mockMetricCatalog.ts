@@ -1,12 +1,13 @@
 import {
-  MetricDefinition,
   MetricCatalog,
+  MetricDefinition,
   MockDataProvider,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
-import { theme } from "../styles";
+
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
 import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";
+import { theme } from "../styles";
 
 export enum MetricId {
   APPLE_STOCK = "apple_stock",

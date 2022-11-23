@@ -1,6 +1,6 @@
 import React from "react";
-import { scaleLinear } from "@visx/scale";
 import { RectClipGroup } from "../RectClipGroup";
+import { scaleLinear } from "@visx/scale";
 
 export interface BaseProgressBarProps {
   /** Border radius of the progress bar */

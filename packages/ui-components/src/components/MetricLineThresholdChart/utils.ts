@@ -1,6 +1,6 @@
 import { Category } from "@actnowcoalition/metrics";
-import { assert } from "@actnowcoalition/assert";
 import { LineInterval } from "../LineIntervalChart";
+import { assert } from "@actnowcoalition/assert";
 
 export interface ChartInterval extends LineInterval {
   /** Category corresponding to the interval. */

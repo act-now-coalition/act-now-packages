@@ -1,17 +1,16 @@
-import groupBy from "lodash/groupBy";
-import keyBy from "lodash/keyBy";
-
-import { Region } from "@actnowcoalition/regions";
-import { assert } from "@actnowcoalition/assert";
-
-import { MetricCatalogOptions } from "./MetricCatalogOptions";
+import { Metric, MetricDefinition } from "../Metric";
 import {
   MetricData,
   MultiMetricDataStore,
   MultiRegionMultiMetricDataStore,
 } from "../data";
+
+import { MetricCatalogOptions } from "./MetricCatalogOptions";
 import { MetricDataProvider } from "../data_providers";
-import { Metric, MetricDefinition } from "../Metric";
+import { Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
+import groupBy from "lodash/groupBy";
+import keyBy from "lodash/keyBy";
 
 /**
  * Catalog of metrics and the accompanying data providers to fetch data for them.

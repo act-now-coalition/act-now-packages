@@ -1,7 +1,7 @@
-import { states } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
-import { Timeseries } from "../Timeseries";
 import { MetricData } from "./MetricData";
+import { Timeseries } from "../Timeseries";
+import { states } from "@actnowcoalition/regions";
 
 const testRegion = states.findByRegionIdStrict("36");
 const testMetric = new Metric({ id: "boolean_metric" });

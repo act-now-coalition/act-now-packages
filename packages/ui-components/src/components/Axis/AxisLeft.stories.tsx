@@ -1,7 +1,8 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleLinear } from "@visx/scale";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { AxisLeft } from ".";
+import React from "react";
+import { scaleLinear } from "@visx/scale";
 
 export default {
   title: "Charts/Axis Left",

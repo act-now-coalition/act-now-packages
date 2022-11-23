@@ -1,17 +1,18 @@
+import {
+  ColumnDefinition,
+  ColumnHeader,
+  CompareTable,
+  SortDirection,
+  TableCell,
+  TableContainer,
+  compare,
+} from ".";
 import React, { useState } from "react";
+import { Region, states } from "@actnowcoalition/regions";
+
 import { ComponentMeta } from "@storybook/react";
 import { Typography } from "@mui/material";
 import { formatInteger } from "@actnowcoalition/number-format";
-import { states, Region } from "@actnowcoalition/regions";
-import {
-  SortDirection,
-  TableCell,
-  CompareTable,
-  ColumnDefinition,
-  ColumnHeader,
-  compare,
-  TableContainer,
-} from ".";
 
 export default {
   title: "Table/CompareTable",

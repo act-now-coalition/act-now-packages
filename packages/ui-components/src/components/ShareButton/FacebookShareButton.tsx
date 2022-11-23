@@ -1,7 +1,7 @@
+import { Button } from "@mui/material";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import React from "react";
 import { FacebookShareButton as ReactShareFacebookShareButton } from "react-share";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import { Button } from "@mui/material";
 
 export type FacebookShareButtonProps = React.ComponentProps<
   typeof ReactShareFacebookShareButton

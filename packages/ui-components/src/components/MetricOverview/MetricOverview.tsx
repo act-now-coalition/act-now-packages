@@ -1,10 +1,11 @@
-import React from "react";
 import { Stack, Typography } from "@mui/material";
-import { Region } from "@actnowcoalition/regions";
-import { Metric } from "@actnowcoalition/metrics";
-import { useMetricCatalog } from "../MetricCatalogContext";
+
 import { LabelIcon } from "../LabelIcon";
+import { Metric } from "@actnowcoalition/metrics";
 import { MetricValue } from "../MetricValue";
+import React from "react";
+import { Region } from "@actnowcoalition/regions";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricOverviewProps {
   /** Region for which we want to show the metric overview */

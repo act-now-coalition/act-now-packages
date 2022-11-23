@@ -1,5 +1,6 @@
-import { createStyled } from "@mui/system";
 import theme, { themeConfig } from "./theme";
+
+import { createStyled } from "@mui/system";
 
 const styled = createStyled({ defaultTheme: theme });
 

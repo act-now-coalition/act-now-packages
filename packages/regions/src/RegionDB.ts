@@ -1,6 +1,6 @@
-import keyBy from "lodash/keyBy";
-import { assert } from "@actnowcoalition/assert";
 import { Region } from "./Region";
+import { assert } from "@actnowcoalition/assert";
+import keyBy from "lodash/keyBy";
 
 export interface RegionDBOptions {
   /** Function to return the URL associated with the given region */

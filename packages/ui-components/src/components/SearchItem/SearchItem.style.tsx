@@ -1,8 +1,8 @@
-import { styled } from "../../styles";
-import isValidProp from "@emotion/is-prop-valid";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Box from "@mui/material/Box";
 import { Dot } from "../MetricDot/MetricDot.style";
+import isValidProp from "@emotion/is-prop-valid";
+import { styled } from "../../styles";
 
 export const CircleIcon = styled(Dot, {
   shouldForwardProp: isValidProp,

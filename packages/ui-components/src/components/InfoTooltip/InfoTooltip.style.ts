@@ -1,5 +1,5 @@
-import { styled } from "../../styles";
 import { Close as MuiCloseIcon } from "@mui/icons-material";
+import { styled } from "../../styles";
 
 export const CloseIcon = styled(MuiCloseIcon)`
   cursor: pointer;

@@ -1,5 +1,5 @@
-import lowerCase from "lodash/lowerCase";
 import deburr from "lodash/deburr";
+import lowerCase from "lodash/lowerCase";
 import { urlJoin } from "./utils";
 
 export interface RegionJSON {

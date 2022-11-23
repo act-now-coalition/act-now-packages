@@ -1,6 +1,6 @@
-import { styled } from "../../styles";
-import isValidProp from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
+import isValidProp from "@emotion/is-prop-valid";
+import { styled } from "../../styles";
 
 export const TickLabel = styled("text")`
   text-anchor: middle;
