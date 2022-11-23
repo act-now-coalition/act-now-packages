@@ -14,3 +14,4 @@ export type { CsvDataProviderOptions } from "./CsvDataProvider";
 export { TransformedMetricDataProvider } from "./TransformedMetricDataProvider";
 
 export { parseCsv, generateCsv } from "./data_provider_utils";
+export type { DataRow } from "./data_provider_utils";
