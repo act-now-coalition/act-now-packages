@@ -6,7 +6,7 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 import { useTheme } from "@mui/material";
 
-export interface LineChartOwnProps {
+export interface BaseLineChartProps {
   /** Timeseries used to draw the line chart */
   timeseries: Timeseries<number>;
 
@@ -17,7 +17,7 @@ export interface LineChartOwnProps {
   yScale: ScaleLinear<number, number>;
 }
 
-export type LineChartProps = LineChartOwnProps &
+export type LineChartProps = BaseLineChartProps &
   React.SVGProps<SVGPathElement> &
   LinePathProps<TimeseriesPoint<number>>;
 

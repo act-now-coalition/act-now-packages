@@ -16,11 +16,6 @@ export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
   metrics: [MetricProp, MetricProp];
 }
 
-interface MetricProgressBarItem {
-  currentValue: number;
-  label: string;
-}
-
 export const MetricMultiProgressBar = ({
   region,
   metrics,
@@ -43,6 +38,11 @@ export const MetricMultiProgressBar = ({
     />
   );
 };
+
+export interface MetricProgressBarItem {
+  currentValue: number;
+  label: string;
+}
 
 function getProgressBarItems(
   data: MultiMetricDataStore,

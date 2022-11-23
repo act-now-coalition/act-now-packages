@@ -8,18 +8,9 @@ import {
 } from "../CompareTable";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
-import { createMetricColumn, createLocationColumn } from "./utils";
+import { createMetricColumn, createLocationColumn, Row } from "./utils";
 import { Region, RegionDB } from "@actnowcoalition/regions";
-import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-
-export interface Row {
-  /** Unique ID for the row. */
-  rowId: string;
-  /** Region corresponding to this row. */
-  region: Region;
-  /** multiMetricDataStore instance to make metric data accessible to every cell */
-  multiMetricDataStore: MultiMetricDataStore;
-}
+import { Metric } from "@actnowcoalition/metrics";
 
 export interface MetricCompareTableProps
   extends Omit<CompareTableProps<Row>, "rows" | "columns"> {
