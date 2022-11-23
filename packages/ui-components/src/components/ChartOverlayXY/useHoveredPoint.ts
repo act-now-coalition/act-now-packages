@@ -1,10 +1,7 @@
 import { useState } from "react";
 import isNumber from "lodash/isNumber";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import {
-  ChartOverlayXYProps,
-  HoveredPointInfo,
-} from "../../components/ChartOverlayXY";
+import { ChartOverlayXYProps, HoveredPointInfo } from "./ChartOverlayXY";
 
 /**
  * React hook that keeps track of the point being hovered in a chart. This hook

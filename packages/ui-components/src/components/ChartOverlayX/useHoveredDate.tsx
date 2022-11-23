@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import { ChartOverlayXProps } from "../../components/ChartOverlayX";
+import { ChartOverlayXProps } from "./ChartOverlayX";
 
 /**
  * React hook that keeps track of the point being hovered in a chart. This
@@ -32,7 +32,6 @@ import { ChartOverlayXProps } from "../../components/ChartOverlayX";
  * @param timeseries The timeseries with the points being hovered.
  * @returns The hovered point and the onMouseMove and onMouseLeave handlers.
  */
-
 export function useHoveredDate<T>(timeseries: Timeseries<T> | undefined) {
   const [hoveredPoint, setHoveredPoint] = useState<TimeseriesPoint<T> | null>(
     null
