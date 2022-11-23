@@ -1,10 +1,11 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import {
-  appleStockTimeseries as timeseries,
   createTimeseriesScales,
+  appleStockTimeseries as timeseries,
 } from "../../stories/mockData";
-import { LineChart } from ".";
+
+import { LineChart } from "./";
+import React from "react";
 
 export default {
   title: "Charts/LineChart",

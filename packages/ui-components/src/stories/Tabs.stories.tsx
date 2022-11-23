@@ -1,8 +1,9 @@
+import { MetricId, metricCatalog } from "./mockMetricCatalog";
 import React, { useState } from "react";
-import { Stack, Tab, Typography, Tabs } from "@mui/material";
-import { metricCatalog, MetricId } from "./mockMetricCatalog";
-import { states } from "@actnowcoalition/regions";
+import { Stack, Tab, Tabs, Typography } from "@mui/material";
+
 import { MetricValue } from "../components/MetricValue";
+import { states } from "@actnowcoalition/regions";
 
 export default {
   title: "Design System/Tabs",

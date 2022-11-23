@@ -1,21 +1,22 @@
-import React from "react";
-import { scaleLinear, scaleUtc } from "@visx/scale";
-import { Group } from "@visx/group";
-import min from "lodash/min";
-import max from "lodash/max";
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
-import { Metric } from "@actnowcoalition/metrics";
-import { useData } from "../../common/hooks";
-import { AxesTimeseries } from "../AxesTimeseries";
-import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
-import { useMetricCatalog } from "../MetricCatalogContext";
-import { MetricTooltip } from "../MetricTooltip";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
+import { AxesTimeseries } from "../AxesTimeseries";
 import { BaseChartProps } from "../../common/utils/charts";
-import { PointMarker } from "../PointMarker";
+import { GridRows } from "../Grid";
+import { Group } from "@visx/group";
 import { LineIntervalChart } from "../LineIntervalChart";
+import { Metric } from "@actnowcoalition/metrics";
+import { MetricTooltip } from "../MetricTooltip";
+import { PointMarker } from "../PointMarker";
+import React from "react";
+import { Region } from "@actnowcoalition/regions";
+import { assert } from "@actnowcoalition/assert";
 import { calculateChartIntervals } from "./utils";
+import max from "lodash/max";
+import min from "lodash/min";
+import { useData } from "../../common/hooks";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;

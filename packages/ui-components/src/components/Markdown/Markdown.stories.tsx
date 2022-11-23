@@ -1,6 +1,7 @@
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { InlineMarkdown, Markdown } from "./";
+
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { InlineMarkdown, Markdown } from ".";
 import { styled } from "../../styles";
 
 export default {
@@ -22,7 +23,7 @@ const StyledTemplate: ComponentStory<typeof StyledMarkdown> = (args) => (
 );
 
 export const StyledExample = StyledTemplate.bind({});
-StyledExample.args = { children: "Styled markdown example!" };
+StyledExample.args = { children: "Styled markdown example!!" };
 
 // Headings example
 const headings = `

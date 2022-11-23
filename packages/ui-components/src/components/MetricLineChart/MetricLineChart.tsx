@@ -1,16 +1,17 @@
-import React from "react";
-import { scaleLinear, scaleUtc } from "@visx/scale";
-import { Group } from "@visx/group";
-import { useData } from "../../common/hooks";
-import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
+import { AxesTimeseries } from "../AxesTimeseries";
+import { BaseChartProps } from "../../common/utils/charts";
+import { Group } from "@visx/group";
 import { LineChart } from "../LineChart";
-import { useMetricCatalog } from "../MetricCatalogContext";
+import { Metric } from "@actnowcoalition/metrics";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
-import { BaseChartProps } from "../../common/utils/charts";
-import { Metric } from "@actnowcoalition/metrics";
+import React from "react";
 import { Region } from "@actnowcoalition/regions";
+import { useData } from "../../common/hooks";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricLineChartProps extends BaseChartProps {
   metric: Metric | string;

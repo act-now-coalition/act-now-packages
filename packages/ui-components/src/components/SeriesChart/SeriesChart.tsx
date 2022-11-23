@@ -1,9 +1,9 @@
-import React from "react";
-import { ScaleTime, ScaleLinear } from "d3-scale";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { Metric, Timeseries } from "@actnowcoalition/metrics";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
-import { Metric } from "@actnowcoalition/metrics";
+import React from "react";
 import { Region } from "@actnowcoalition/regions";
 
 export enum SeriesType {

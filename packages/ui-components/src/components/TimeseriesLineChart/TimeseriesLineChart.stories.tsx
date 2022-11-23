@@ -1,8 +1,9 @@
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { TimeseriesLineChart } from "./TimeseriesLineChart";
-import { assert } from "@actnowcoalition/assert";
 import { appleStockTimeseries } from "../../stories/mockData";
+import { assert } from "@actnowcoalition/assert";
 
 const [width, height] = [600, 400];
 

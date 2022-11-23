@@ -1,8 +1,9 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricSparklines } from ".";
-import { states } from "@actnowcoalition/regions";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
+import { MetricSparklines } from "./";
+import React from "react";
+import { states } from "@actnowcoalition/regions";
 
 export default {
   title: "Metrics/MetricSparklines",

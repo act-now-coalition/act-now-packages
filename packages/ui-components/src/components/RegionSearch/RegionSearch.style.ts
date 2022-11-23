@@ -1,9 +1,9 @@
-import { Link } from "@mui/material";
-import { styled } from "../../styles";
-import isValidProp from "@emotion/is-prop-valid";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Box from "@mui/material/Box";
 import { Dot } from "../MetricDot/MetricDot.style";
+import { Link } from "@mui/material";
+import isValidProp from "@emotion/is-prop-valid";
+import { styled } from "../../styles";
 
 export const StyledLink = styled(Link)`
   text-decoration: none;

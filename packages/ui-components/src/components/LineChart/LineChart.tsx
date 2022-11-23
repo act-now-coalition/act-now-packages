@@ -1,9 +1,10 @@
-import React from "react";
-import { LinePath } from "@visx/shape";
-import { curveMonotoneX } from "@visx/curve";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+
+import { LinePath } from "@visx/shape";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
+import React from "react";
+import { curveMonotoneX } from "@visx/curve";
 import { useTheme } from "@mui/material";
 
 export interface LineChartOwnProps {

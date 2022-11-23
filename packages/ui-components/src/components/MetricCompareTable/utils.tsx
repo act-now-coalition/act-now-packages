@@ -1,18 +1,19 @@
-import React from "react";
-import isNumber from "lodash/isNumber";
-import { Stack, Typography } from "@mui/material";
-import { Metric } from "@actnowcoalition/metrics";
-import { RegionDB } from "@actnowcoalition/regions";
-import { formatPopulation } from "../../common/utils";
-import { MetricValue } from "../MetricValue";
 import {
   ColumnDefinition,
   ColumnHeader,
   SortDirection,
   getAriaSort,
 } from "../CompareTable";
-import { StyledTableCell, StyledLink } from "./MetricCompareTable.style";
+import { Stack, Typography } from "@mui/material";
+import { StyledLink, StyledTableCell } from "./MetricCompareTable.style";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { MetricValue } from "../MetricValue";
+import React from "react";
+import { RegionDB } from "@actnowcoalition/regions";
 import { Row } from "./MetricCompareTable";
+import { formatPopulation } from "../../common/utils";
+import isNumber from "lodash/isNumber";
 
 export function createMetricColumn(
   regionDB: RegionDB,

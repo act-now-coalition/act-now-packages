@@ -1,5 +1,5 @@
-import React from "react";
 import { CircleMarker } from "./PointMarker.style";
+import React from "react";
 
 export interface PointMarkerProps {
   /** Horizontal position, in pixels */

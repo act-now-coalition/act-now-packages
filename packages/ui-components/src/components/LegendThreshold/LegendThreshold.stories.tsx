@@ -1,6 +1,7 @@
-import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, Story } from "@storybook/react";
 import { LegendThreshold, LegendThresholdProps } from "./LegendThreshold";
+
+import React from "react";
 
 export default {
   title: "Components/LegendThreshold",

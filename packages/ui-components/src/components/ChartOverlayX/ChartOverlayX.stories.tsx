@@ -1,10 +1,11 @@
+import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 import React, { useState } from "react";
-import { scaleUtc } from "@visx/scale";
-import { Group } from "@visx/group";
+
 import { AxisBottom } from "../Axis";
-import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
+import { ChartOverlayX } from "./";
 import { ComponentMeta } from "@storybook/react";
-import { ChartOverlayX } from ".";
+import { Group } from "@visx/group";
+import { scaleUtc } from "@visx/scale";
 
 export default {
   title: "Charts/ChartOverlayX",

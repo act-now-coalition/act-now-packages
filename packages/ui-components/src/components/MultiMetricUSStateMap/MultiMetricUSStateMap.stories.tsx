@@ -1,8 +1,9 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MultiMetricUSStateMap } from ".";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
-import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
+import { MultiMetricUSStateMap } from "./";
+import React from "react";
 
 export default {
   title: "Maps/MultiMetric US State Map",

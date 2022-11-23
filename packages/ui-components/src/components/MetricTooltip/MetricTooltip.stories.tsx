@@ -1,10 +1,11 @@
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
+
+import { MetricTooltip } from "./";
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { TimeseriesPoint } from "@actnowcoalition/metrics";
-import { states } from "@actnowcoalition/regions";
 import { colors } from "@mui/material";
-import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
-import { MetricTooltip } from ".";
+import { states } from "@actnowcoalition/regions";
 
 export default {
   title: "Charts/MetricTooltip",

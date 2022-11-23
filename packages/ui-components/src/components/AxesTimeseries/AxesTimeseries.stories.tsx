@@ -1,8 +1,9 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { AxesTimeseries } from "./AxesTimeseries";
 import { Group } from "@visx/group";
+import React from "react";
 import { formatPercent } from "@actnowcoalition/number-format";
 
 export default {

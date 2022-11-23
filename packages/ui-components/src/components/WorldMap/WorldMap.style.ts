@@ -1,5 +1,5 @@
-import { styled } from "../../styles";
 import { Box } from "@mui/material";
+import { styled } from "../../styles";
 
 export const colorDisputedAreas = "#aaa";
 export const colorWaterBodies = "rgb(248,248,248)";

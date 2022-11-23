@@ -1,6 +1,7 @@
-import React from "react";
+import { AxisBottom as VxAxisBottom, AxisLeft as VxAxisLeft } from "@visx/axis";
 import { styled, theme } from "../../styles";
-import { AxisLeft as VxAxisLeft, AxisBottom as VxAxisBottom } from "@visx/axis";
+
+import React from "react";
 import typography from "../../styles/theme/typography";
 
 export type AxisLeftProps = React.ComponentProps<typeof VxAxisLeft> & {

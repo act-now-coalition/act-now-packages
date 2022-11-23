@@ -1,8 +1,9 @@
+import { SortControls, SortDirection, TableCellProps } from "../";
+import { Stack, Typography } from "@mui/material";
+
 import React from "react";
-import isNil from "lodash/isNil";
-import { Typography, Stack } from "@mui/material";
-import { TableCellProps, SortDirection, SortControls } from "..";
 import { StyledTableCell } from "./ColumnHeader.style";
+import isNil from "lodash/isNil";
 
 export interface ColumnHeaderProps extends TableCellProps {
   /** Element to render as column header */

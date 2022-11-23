@@ -1,9 +1,10 @@
+import { Dot, PlaceholderDot } from "./MetricDot.style";
+
+import { Metric } from "@actnowcoalition/metrics";
 import React from "react";
 import { Region } from "@actnowcoalition/regions";
-import { Metric } from "@actnowcoalition/metrics";
-import { useMetricCatalog } from "../MetricCatalogContext";
-import { Dot, PlaceholderDot } from "./MetricDot.style";
 import { useData } from "../../common/hooks";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricDotProps {
   /** Region for which we want to represent the current category */

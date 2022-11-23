@@ -1,6 +1,7 @@
+import { CanvasMap, CanvasMapProps } from "./CanvasMap";
+
 import React from "react";
 import { countiesGeographies } from "../../common/geo-shapes";
-import { CanvasMap, CanvasMapProps } from "./CanvasMap";
 
 export type CountiesMapProps = Omit<CanvasMapProps, "features">;
 

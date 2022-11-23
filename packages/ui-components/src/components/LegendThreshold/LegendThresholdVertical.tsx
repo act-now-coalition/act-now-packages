@@ -1,7 +1,8 @@
-import React from "react";
-import { LegendThresholdProps } from "./LegendThreshold";
+import { Box, Stack, Typography } from "@mui/material";
+
 import { LegendColor } from "./LegendThreshold.style";
-import { Typography, Box, Stack } from "@mui/material";
+import { LegendThresholdProps } from "./LegendThreshold";
+import React from "react";
 
 /**
  * `LegendThresholdVertical` represents a scale with thresholds that separate

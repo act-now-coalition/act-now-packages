@@ -1,8 +1,9 @@
-import React from "react";
-import { GeoPath } from "d3-geo";
-import { Tooltip, Link } from "@mui/material";
-import { statesGeographies } from "../../common/geo-shapes";
+import { Link, Tooltip } from "@mui/material";
 import { RegionOverlay, RegionShapeBase } from "../../styles/common/Maps.style";
+
+import { GeoPath } from "d3-geo";
+import React from "react";
+import { statesGeographies } from "../../common/geo-shapes";
 
 // TODO: improve upon this interface/make less redundant with other map prop interfaces
 export interface StatesMapProps {

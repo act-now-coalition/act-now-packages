@@ -1,18 +1,17 @@
-import { renderHook, waitFor } from "@testing-library/react";
-
 import {
   MetricCatalog,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
-import { states } from "@actnowcoalition/regions";
+import React, { ReactNode } from "react";
+import { renderHook, waitFor } from "@testing-library/react";
 import {
   useData,
   useDataForMetrics,
   useDataForRegionsAndMetrics,
 } from "./metric-data";
+
 import { MetricCatalogProvider } from "../../components/MetricCatalogContext";
-import { ReactNode } from "react";
-import React from "react";
+import { states } from "@actnowcoalition/regions";
 
 enum MetricId {
   PI = "pi",

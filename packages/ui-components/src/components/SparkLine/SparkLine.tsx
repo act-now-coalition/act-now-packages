@@ -1,9 +1,10 @@
-import React from "react";
-import { Group } from "@visx/group";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { BarChart } from "../BarChart";
+import { Group } from "@visx/group";
 import { LineChart } from "../LineChart";
-import { scaleUtc, scaleLinear } from "@visx/scale";
+import React from "react";
+import { Timeseries } from "@actnowcoalition/metrics";
 import { useTheme } from "@mui/material";
 
 export interface SparkLineProps {

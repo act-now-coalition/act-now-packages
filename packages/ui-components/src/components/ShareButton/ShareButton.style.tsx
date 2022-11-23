@@ -1,5 +1,6 @@
-import { styled } from "../../styles";
 import { Menu as MuiMenu, MenuItem as MuiMenuItem } from "@mui/material";
+
+import { styled } from "../../styles";
 
 export const Menu = styled(MuiMenu)`
   .MuiMenu-paper {

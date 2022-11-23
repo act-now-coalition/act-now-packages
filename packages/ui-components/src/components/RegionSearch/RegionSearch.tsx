@@ -1,21 +1,22 @@
-import React, { HTMLAttributes } from "react";
+import {
+  ArrowIcon,
+  CircleIcon,
+  Container,
+  StyledLink,
+} from "./RegionSearch.style";
 import {
   Autocomplete,
   AutocompleteProps,
-  TextField,
-  createFilterOptions,
   Stack,
+  TextField,
   Typography,
+  createFilterOptions,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import React, { HTMLAttributes } from "react";
 import { Region, RegionDB } from "@actnowcoalition/regions";
+
+import SearchIcon from "@mui/icons-material/Search";
 import { formatPopulation } from "../../common/utils";
-import {
-  StyledLink,
-  CircleIcon,
-  ArrowIcon,
-  Container,
-} from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
   return region.fullName;

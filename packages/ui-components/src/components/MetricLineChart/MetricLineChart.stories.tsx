@@ -1,7 +1,8 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricLineChart } from "./MetricLineChart";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
+import { MetricLineChart } from "./MetricLineChart";
+import React from "react";
 import { states } from "@actnowcoalition/regions";
 
 const [width, height] = [600, 400];

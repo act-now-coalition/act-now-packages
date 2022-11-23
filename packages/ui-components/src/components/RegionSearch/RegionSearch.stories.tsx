@@ -1,16 +1,17 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { TextField, InputAdornment } from "@mui/material";
-import MapIcon from "@mui/icons-material/Map";
-import sortBy from "lodash/sortBy";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { InputAdornment, TextField } from "@mui/material";
 import {
-  states,
+  Region,
+  RegionDB,
   counties,
   metros,
-  RegionDB,
-  Region,
+  states,
 } from "@actnowcoalition/regions";
-import { RegionSearch } from ".";
+
+import MapIcon from "@mui/icons-material/Map";
+import React from "react";
+import { RegionSearch } from "./";
+import sortBy from "lodash/sortBy";
 
 export default {
   title: "Components/RegionSearch",

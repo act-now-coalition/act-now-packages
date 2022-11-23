@@ -1,6 +1,6 @@
-import { assert } from "@actnowcoalition/assert";
-import { Metric } from "@actnowcoalition/metrics";
 import { CategoryItem } from "./MetricLegendThreshold";
+import { Metric } from "@actnowcoalition/metrics";
+import { assert } from "@actnowcoalition/assert";
 
 export function getMetricCategoryItems(metric: Metric): CategoryItem[] {
   const metricCategories = metric.categorySet?.categories;

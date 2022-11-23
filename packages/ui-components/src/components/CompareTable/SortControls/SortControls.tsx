@@ -1,8 +1,9 @@
-import React from "react";
-import isNil from "lodash/isNil";
-import { ArrowUpIcon, ArrowDownIcon } from "./SortControls.style";
+import { ArrowDownIcon, ArrowUpIcon } from "./SortControls.style";
 import { IconButton, Stack } from "@mui/material";
-import { SortDirection } from "..";
+
+import React from "react";
+import { SortDirection } from "../";
+import isNil from "lodash/isNil";
 
 export interface SortControlsProps {
   /**

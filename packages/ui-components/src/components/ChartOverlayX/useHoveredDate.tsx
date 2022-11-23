@@ -1,6 +1,7 @@
-import { useState } from "react";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+
 import { ChartOverlayXProps } from "./ChartOverlayX";
+import { useState } from "react";
 
 /**
  * React hook that keeps track of the point being hovered in a chart. This
