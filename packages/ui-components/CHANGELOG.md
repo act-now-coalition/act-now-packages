@@ -1,5 +1,21 @@
 # @actnowcoalition/ui-components
 
+## 0.8.1
+
+### Patch Changes
+
+- 55a51fb: Fix floating zero on y-axis
+- 638b514: Cleanup to syntax and some light file rearranging
+- 79ce3cb: Add ability to simulate data fetching errors and delays.
+- f48b6f8: CSVMetricDataProvider: Log warning if there are any unknown region IDs. Throw error if they're all unknown.
+- 69981bf: Enable chart to accommodate negative values
+- Updated dependencies [6b1f290]
+- Updated dependencies [2b7fbe9]
+- Updated dependencies [79ce3cb]
+- Updated dependencies [317d58e]
+- Updated dependencies [f48b6f8]
+  - @actnowcoalition/metrics@0.3.3
+
 ## 0.8.0
 
 ### Minor Changes
