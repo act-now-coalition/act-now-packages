@@ -31,6 +31,11 @@
     "generate-storybook": "yarn build-storybook -c packages/ui-components/.storybook/ -o public/storybook",
     "build-public": "yarn build:all && yarn generate-storybook && yarn generate-src-docs"
   },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "eslint"
+    }
+  },
   "lint-staged": {
     "*.{ts,tsx}": "eslint --max-warnings=0",
     "*": "prettier --write --ignore-unknown"
@@ -58,5 +63,8 @@
     "typedoc": "^0.23.21",
     "typescript": "^4.6.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "import-sort-style-eslint": "^6.0.0",
+    "prettier-plugin-import-sort": "^0.0.7"
+  }
 }
