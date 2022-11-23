@@ -1,13 +1,14 @@
-import React from "react";
-import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Stack, StackProps, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
+import React from "react";
+
+import { InfoTooltip } from "../InfoTooltip";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { MetricValue } from "../MetricValue";
-import { Stack, StackProps, Typography } from "@mui/material";
-import { InfoTooltip } from "../InfoTooltip";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { IconButton } from "@mui/material";
 
 export interface MetricScoreOverviewProps extends StackProps {
   /** Region for which we want to show the metric overview */

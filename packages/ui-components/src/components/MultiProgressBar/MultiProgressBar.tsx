@@ -1,8 +1,9 @@
-import React, { useId } from "react";
-import sortBy from "lodash/sortBy";
 import { useTheme } from "@mui/material";
-import { RectClipGroup } from "../RectClipGroup";
 import { scaleLinear } from "@visx/scale";
+import sortBy from "lodash/sortBy";
+import React, { useId } from "react";
+
+import { RectClipGroup } from "../RectClipGroup";
 
 export interface BaseMultiProgressBarProps {
   maxValue: number;

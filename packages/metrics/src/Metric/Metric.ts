@@ -1,13 +1,12 @@
-import last from "lodash/last";
-import isEqual from "lodash/isEqual";
-
 import { assert, fail } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
+import isEqual from "lodash/isEqual";
+import last from "lodash/last";
 
-import { MetricDataReference } from "./MetricDataReference";
-import { Category, CategorySet } from "./Category";
-import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
+import { Category, CategorySet } from "./Category";
+import { MetricDataReference } from "./MetricDataReference";
+import { MetricDefinition } from "./MetricDefinition";
 
 /** Default format options used for metrics that don't specify any. */
 const DEFAULT_FORMAT_OPTIONS: Intl.NumberFormatOptions = {

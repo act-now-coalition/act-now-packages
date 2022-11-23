@@ -1,15 +1,16 @@
-import React, { HTMLAttributes } from "react";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Autocomplete,
   AutocompleteProps,
   TextField,
   createFilterOptions,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import { Region, RegionDB } from "@actnowcoalition/regions";
+import React, { HTMLAttributes } from "react";
+
 import { formatPopulation } from "../../common/utils";
-import { StyledLink } from "./RegionSearch.style";
 import { SearchItem } from "../SearchItem";
+import { StyledLink } from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
   return region.fullName;

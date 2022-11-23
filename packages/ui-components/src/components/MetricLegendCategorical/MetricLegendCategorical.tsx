@@ -1,9 +1,10 @@
-import React from "react";
-import { Stack, Typography } from "@mui/material";
-import { Metric, Category } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
-import { useMetricCatalog } from "../MetricCatalogContext";
+import { Category, Metric } from "@actnowcoalition/metrics";
+import { Stack, Typography } from "@mui/material";
+import React from "react";
+
 import { LegendCategorical } from "../LegendCategorical";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricLegendCategoricalProps {
   /** Metric which we want to display categories for. */

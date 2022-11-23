@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {
   Box,
   MenuItem,
@@ -6,7 +6,7 @@ import {
   TextFieldProps,
   Typography,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import React, { useState } from "react";
 
 export default {
   title: "Design System/Select",

@@ -1,8 +1,8 @@
-import { GeometryObject, Topology } from "topojson-specification";
-import { feature, mesh } from "topojson-client";
+import { RegionDB, counties, metros, states } from "@actnowcoalition/regions";
 import { ExtendedFeature } from "d3-geo";
-import { RegionDB, counties, states, metros } from "@actnowcoalition/regions";
 import isNull from "lodash/isNull";
+import { feature, mesh } from "topojson-client";
+import { GeometryObject, Topology } from "topojson-specification";
 
 type FeatureCollection = GeoJSON.FeatureCollection<
   GeoJSON.Geometry,

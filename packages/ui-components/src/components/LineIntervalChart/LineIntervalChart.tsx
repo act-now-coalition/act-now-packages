@@ -1,7 +1,8 @@
-import React from "react";
-import { ScaleLinear, ScaleTime } from "d3-scale";
-import { Group } from "@visx/group";
 import { Timeseries } from "@actnowcoalition/metrics";
+import { Group } from "@visx/group";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+import React from "react";
+
 import { LineChart } from "../LineChart";
 import { RectClipGroup } from "../RectClipGroup";
 

@@ -1,5 +1,5 @@
-import { DateTime, Duration } from "luxon";
 import { assert } from "@actnowcoalition/assert";
+import { DateTime, Duration } from "luxon";
 
 export * from "./PureDate";
 

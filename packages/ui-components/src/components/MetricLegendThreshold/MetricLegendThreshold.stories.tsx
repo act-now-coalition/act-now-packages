@@ -1,6 +1,7 @@
-import React from "react";
-import { Typography, Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import React from "react";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendThreshold } from "./MetricLegendThreshold";
 

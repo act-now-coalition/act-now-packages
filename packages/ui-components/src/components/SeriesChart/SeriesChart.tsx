@@ -1,10 +1,11 @@
-import React from "react";
-import { ScaleTime, ScaleLinear } from "d3-scale";
 import { Timeseries } from "@actnowcoalition/metrics";
-import { BarChart } from "../BarChart";
-import { LineChart } from "../LineChart";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+import React from "react";
+
+import { BarChart } from "../BarChart";
+import { LineChart } from "../LineChart";
 
 export enum SeriesType {
   LINE = "LINE",

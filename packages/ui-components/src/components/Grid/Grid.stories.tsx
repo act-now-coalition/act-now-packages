@@ -1,8 +1,9 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear } from "@visx/scale";
+import React from "react";
+
+import { GridColumns, GridRows } from ".";
 import { AxisBottom, AxisLeft } from "../Axis";
-import { GridRows, GridColumns } from ".";
 
 export default {
   title: "Charts/Grid",

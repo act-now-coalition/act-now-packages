@@ -1,5 +1,6 @@
-import { styled } from "../../styles";
 import isValidProp from "@emotion/is-prop-valid";
+
+import { styled } from "../../styles";
 
 export const StyledCanvas = styled("canvas")`
   pointer-events: none;

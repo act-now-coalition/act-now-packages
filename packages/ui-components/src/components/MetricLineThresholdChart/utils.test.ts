@@ -1,4 +1,5 @@
 import { Category } from "@actnowcoalition/metrics";
+
 import { calculateChartIntervals } from "./utils";
 
 const LOW = { id: "low", color: "green" };

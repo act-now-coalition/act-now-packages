@@ -1,7 +1,7 @@
-import { appleStock, cityTemperature } from "@visx/mock-data";
-import { scaleLinear, scaleUtc } from "@visx/scale";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { appleStock, cityTemperature } from "@visx/mock-data";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 
 // We format the points from appleStock to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.

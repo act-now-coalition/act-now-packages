@@ -1,11 +1,12 @@
+import { ScaleLinear, ScaleTime } from "d3-scale";
 import React from "react";
+
 import {
-  AxisLeft,
-  AxisLeftProps,
   AxisBottom,
   AxisBottomProps,
+  AxisLeft,
+  AxisLeftProps,
 } from "../Axis/Axis.style";
-import { ScaleTime, ScaleLinear } from "d3-scale";
 
 export interface AxesTimeseriesProps {
   height: number;

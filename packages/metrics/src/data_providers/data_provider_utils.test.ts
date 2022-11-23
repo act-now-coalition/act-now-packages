@@ -1,15 +1,16 @@
-import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
+// eslint-disable-next-line lodash/import-scope
+import { Dictionary } from "lodash";
+import groupBy from "lodash/groupBy";
+
+import { Metric } from "../Metric";
 import {
   DataRow,
-  dataRowsToMetricData,
   dataRowToMetricData,
+  dataRowsToMetricData,
   generateCsv,
   parseCsv,
 } from "./data_provider_utils";
-import groupBy from "lodash/groupBy";
-// eslint-disable-next-line lodash/import-scope
-import { Dictionary } from "lodash";
 
 const newYork = states.findByRegionIdStrict("36");
 const testMetric = new Metric({

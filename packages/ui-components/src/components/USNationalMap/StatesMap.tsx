@@ -1,6 +1,7 @@
-import React from "react";
+import { Link, Tooltip } from "@mui/material";
 import { GeoPath } from "d3-geo";
-import { Tooltip, Link } from "@mui/material";
+import React from "react";
+
 import { statesGeographies } from "../../common/geo-shapes";
 import { RegionOverlay, RegionShapeBase } from "../../styles/common/Maps.style";
 

@@ -1,11 +1,12 @@
-import React from "react";
-import { Region } from "@actnowcoalition/regions";
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-import {
-  MultiProgressBar,
-  BaseMultiProgressBarProps,
-} from "../MultiProgressBar";
+import { Region } from "@actnowcoalition/regions";
+import React from "react";
+
 import { useDataForMetrics } from "../../common/hooks";
+import {
+  BaseMultiProgressBarProps,
+  MultiProgressBar,
+} from "../MultiProgressBar";
 
 type MetricProp = Metric | string;
 

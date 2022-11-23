@@ -1,5 +1,6 @@
-import { useState } from "react";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { useState } from "react";
+
 import { ChartOverlayXProps } from "./ChartOverlayX";
 
 /**

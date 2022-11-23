@@ -1,10 +1,11 @@
-import React from "react";
-import { scaleLinear, scaleUtc } from "@visx/scale";
-import { Group } from "@visx/group";
-import { LineChart } from "../LineChart";
-import { AxesTimeseries } from "../AxesTimeseries";
 import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
+import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+import React from "react";
+
 import { BaseChartProps } from "../../common/utils/charts";
+import { AxesTimeseries } from "../AxesTimeseries";
+import { LineChart } from "../LineChart";
 
 export interface TimeseriesLineChartProps extends BaseChartProps {
   timeseries: NonEmptyTimeseries<number>;
