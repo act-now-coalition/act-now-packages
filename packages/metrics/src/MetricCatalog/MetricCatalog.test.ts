@@ -171,7 +171,8 @@ describe("MetricCatalog", () => {
       await provider.fetchData(
         [testRegionCA],
         [metric],
-        /*includeTimeseries=*/ false
+        /*includeTimeseries=*/ false,
+        catalog
       )
     ).metricData(testRegionCA, metric);
     const catalogData = await catalog.fetchData(

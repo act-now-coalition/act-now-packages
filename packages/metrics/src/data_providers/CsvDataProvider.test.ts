@@ -1,6 +1,7 @@
 import { CsvDataProvider } from "./CsvDataProvider";
 import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
+import { MetricCatalog } from "../MetricCatalog";
 
 const PROVIDER_ID = "csv-provider";
 
@@ -40,7 +41,10 @@ const testFetchingCsvData = async (
     dateColumn: dateCol,
     csvText: data,
   });
-  return (await provider.fetchData([newYork], [metric], includeTimeseries))
+  const catalog = new MetricCatalog([metric], [provider]);
+  return (
+    await provider.fetchData([newYork], [metric], includeTimeseries, catalog)
+  )
     .regionData(newYork)
     .metricData(testMetric);
 };

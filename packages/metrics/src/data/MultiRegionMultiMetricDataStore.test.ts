@@ -9,6 +9,7 @@ import { MetricData } from "./MetricData";
 import { Metric } from "../Metric";
 import { StaticValueDataProvider } from "../data_providers";
 import { isoDateOnlyString } from "@actnowcoalition/time-utils";
+import { MetricCatalog } from "../MetricCatalog";
 
 enum ProviderId {
   STATIC = "static",
@@ -24,6 +25,8 @@ const testMetric = new Metric({
 });
 
 const testProvider = new StaticValueDataProvider(ProviderId.STATIC);
+
+const testMetricCatalog = new MetricCatalog([testMetric], [testProvider]);
 
 // The snapshot JSON that corresponds to the data for `testRegion` and `testMetric`.
 const testSnapshot: SnapshotJSON = {
@@ -51,7 +54,8 @@ describe("MultiRegionMultiMetricDataStore", () => {
     const dataStore = await testProvider.fetchData(
       [testRegion],
       [testMetric],
-      /*includeTimeseries=*/ true
+      /*includeTimeseries=*/ true,
+      testMetricCatalog
     );
     expect(dataStore.toSnapshot()).toEqual(testSnapshot);
   });
@@ -60,7 +64,8 @@ describe("MultiRegionMultiMetricDataStore", () => {
     const dataStore = await testProvider.fetchData(
       [testRegion],
       [testMetric],
-      /*includeTimeseries=*/ true
+      /*includeTimeseries=*/ true,
+      testMetricCatalog
     );
     expect(
       MultiRegionMultiMetricDataStore.fromSnapshot(
@@ -74,7 +79,8 @@ describe("MultiRegionMultiMetricDataStore", () => {
     const dataStoreNoTs = await testProvider.fetchData(
       [testRegion],
       [testMetric],
-      /*includeTimeseries=*/ false
+      /*includeTimeseries=*/ false,
+      testMetricCatalog
     );
     expect(
       MultiRegionMultiMetricDataStore.fromSnapshot(
