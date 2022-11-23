@@ -24,7 +24,7 @@ export const ExampleFiveDays = Template.bind({});
 ExampleFiveDays.args = {
   ...defaultArgs,
   dateFrom: new Date("2012-01-01"),
-  dateTo: new Date("2012-01-06"),
+  dateTo: new Date("2012-01-05"),
 };
 
 export const ExampleSixtyDays = Template.bind({});
