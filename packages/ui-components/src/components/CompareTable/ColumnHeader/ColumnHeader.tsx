@@ -1,7 +1,8 @@
 import React from "react";
 import isNil from "lodash/isNil";
 import { Typography, Stack } from "@mui/material";
-import { TableCellProps, SortDirection, SortControls } from "..";
+import { SortDirection } from "../../../common/utils/compare";
+import { TableCellProps, SortControls } from "..";
 import { StyledTableCell } from "./ColumnHeader.style";
 
 export interface ColumnHeaderProps extends TableCellProps {

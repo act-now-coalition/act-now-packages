@@ -1,12 +1,40 @@
 import React, { Fragment } from "react";
-import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  SortDirection,
-  CompareTableProps,
-} from ".";
+import { TableProps as MuiTableProps } from "@mui/material";
+import { SortDirection } from "../../common/utils/compare";
+import { Table, TableHead, TableBody, TableRow } from "./CompareTable.style";
+import { sortRows } from "./utils";
+
+export interface ColumnDefinition<R> {
+  /** A unique ID that identifies this column. */
+  columnId: string;
+  /**
+   * The name of the column. It can be used to render the header
+   * or to add accessibility labels if the column header doesn't
+   * have visible names.
+   */
+  name: string;
+  /** Render the column header. */
+  renderHeader: React.FC<{ column: ColumnDefinition<R>; columnIndex: number }>;
+  /** Render the table cell. */
+  renderCell: React.FC<{ row: R; rowIndex: number; columnIndex: number }>;
+  /**
+   * Comparator function to use when sorting the table by this
+   * column in ascending order. Calling `rows.sort(column.sorterAsc)`
+   * should return the rows sorted by column, in ascending order.
+   **/
+  sorterAsc?: (a: R, b: R) => number;
+}
+
+export interface CompareTableProps<R> extends MuiTableProps {
+  /** Table rows. */
+  rows: R[];
+  /** List of column definitions. */
+  columns: ColumnDefinition<R>[];
+  /** ID of the column to sort by. */
+  sortColumnId?: string;
+  /** Sort direction. */
+  sortDirection?: SortDirection;
+}
 
 export interface CompareTableRowBase {
   /** A unique ID that identifies this row. */
@@ -48,40 +76,3 @@ export const CompareTable = <R extends CompareTableRowBase>({
     </Table>
   );
 };
-
-/**
- * Sort the rows using the given sorter function and direction
- */
-export function sortRows<R>(
-  rows: R[],
-  sortDirection: SortDirection,
-  sorterAsc?: (a: R, b: R) => number
-): R[] {
-  if (!sorterAsc) {
-    return rows;
-  }
-
-  const sortedAsc = [...rows].sort(sorterAsc);
-  return sortDirection === SortDirection.ASC ? sortedAsc : sortedAsc.reverse();
-}
-
-/**
- * Function that compares two items for sorting (ascending).
- *
- * @example
- * ```tsx
- * compare("a", "b") // -1
- * compare("a", "a") // 0
- * compare(1, 2) // -1
- * [3, 2, 4, 1].sort(compare) // [1, 2, 3, 4]
- * ```
- */
-export function compare<T>(a: T, b: T): number {
-  if (a < b) {
-    return -1;
-  } else if (a > b) {
-    return 1;
-  } else {
-    return 0;
-  }
-}

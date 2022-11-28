@@ -1,7 +1,8 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Paper, Stack, Typography } from "@mui/material";
-import { SortDirection, Table, TableHead, TableRow } from "..";
+import { SortDirection } from "../../../common/utils/compare";
+import { Table, TableHead, TableRow } from "..";
 import { ColumnHeader } from ".";
 
 export default {

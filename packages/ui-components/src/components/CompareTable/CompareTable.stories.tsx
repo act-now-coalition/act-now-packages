@@ -3,15 +3,15 @@ import { ComponentMeta } from "@storybook/react";
 import { Typography } from "@mui/material";
 import { formatInteger } from "@actnowcoalition/number-format";
 import { states, Region } from "@actnowcoalition/regions";
+import { SortDirection } from "../../common/utils/compare";
 import {
-  SortDirection,
   TableCell,
   CompareTable,
   ColumnDefinition,
   ColumnHeader,
-  compare,
   TableContainer,
 } from ".";
+import { compare } from "./utils";
 
 export default {
   title: "Table/CompareTable",

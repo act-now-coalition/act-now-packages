@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import {
   ColumnDefinition,
   CompareTable,
-  SortDirection,
   sortRows,
   CompareTableProps,
 } from "../CompareTable";
+import { SortDirection } from "../../common/utils/compare";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { createMetricColumn, createLocationColumn, Row } from "./utils";
