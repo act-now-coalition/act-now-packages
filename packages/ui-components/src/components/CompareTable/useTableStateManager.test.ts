@@ -29,4 +29,11 @@ describe("useTableStateManager", () => {
     expect(result.current.sortColumnId).toBe(initialState.sortColumnId);
     expect(result.current.sortDirection).toBe(SortDirection.DESC);
   });
+
+  test("update sorting column and direction", () => {
+    const { result } = renderHook(() => useTableStateManager(initialState));
+    act(() => result.current.setSorting(SortDirection.DESC, "name"));
+    expect(result.current.sortColumnId).toBe("name");
+    expect(result.current.sortDirection).toBe(SortDirection.DESC);
+  });
 });

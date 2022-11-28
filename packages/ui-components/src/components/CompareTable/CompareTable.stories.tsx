@@ -29,12 +29,10 @@ const rows: RowItem[] = states.all
   .map((region) => ({ region, rowId: region.regionId }));
 
 const StatefulCompareTable = ({ rows }: { rows: RowItem[] }) => {
-  const stateManager = useTableStateManager({
+  const { sortColumnId, sortDirection, setSorting } = useTableStateManager({
     sortColumnId: "name",
     sortDirection: SortDirection.ASC,
   });
-
-  const { sortColumnId, sortDirection } = stateManager;
 
   const columns: ColumnDefinition<RowItem>[] = [
     {
@@ -142,8 +140,7 @@ const StatefulCompareTable = ({ rows }: { rows: RowItem[] }) => {
   ];
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
-    stateManager.setSortDirection(direction);
-    stateManager.setSortingColumn(columnId);
+    setSorting(direction, columnId);
   };
 
   return (

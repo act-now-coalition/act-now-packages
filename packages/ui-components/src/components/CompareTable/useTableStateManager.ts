@@ -9,6 +9,7 @@ export interface TableState {
 export interface TableStateManager extends TableState {
   setSortDirection: (sortDirection: SortDirection) => void;
   setSortingColumn: (sortColumnId: string) => void;
+  setSorting: (sortDirection: SortDirection, sortColumnId: string) => void;
 }
 
 /**
@@ -51,12 +52,16 @@ export function useTableStateManager(
     setSortingColumn(sortColumnId: string) {
       dispatch({ type: ActionType.SET_SORTING_COLUMN, sortColumnId });
     },
+    setSorting(sortDirection: SortDirection, sortColumnId: string) {
+      dispatch({ type: ActionType.SET_SORTING, sortDirection, sortColumnId });
+    },
   };
 }
 
 enum ActionType {
   SET_SORT_DIRECTION = "SET_SORT_DIRECTION",
   SET_SORTING_COLUMN = "SET_SORTING_COLUMN",
+  SET_SORTING = "SET_SORTING",
 }
 
 type TableAction =
@@ -67,6 +72,11 @@ type TableAction =
   | {
       type: ActionType.SET_SORT_DIRECTION;
       sortDirection: SortDirection;
+    }
+  | {
+      type: ActionType.SET_SORTING;
+      sortDirection: SortDirection;
+      sortColumnId: string;
     };
 
 function tableStateReducer(
@@ -78,6 +88,12 @@ function tableStateReducer(
       return { ...prevState, sortColumnId: action.sortColumnId };
     case ActionType.SET_SORT_DIRECTION:
       return { ...prevState, sortDirection: action.sortDirection };
+    case ActionType.SET_SORTING:
+      return {
+        ...prevState,
+        sortDirection: action.sortDirection,
+        sortColumnId: action.sortColumnId,
+      };
     default:
       return prevState;
   }
