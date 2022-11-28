@@ -1,13 +1,13 @@
-import React from "react";
-import { Group } from "@visx/group";
-import { scaleBand } from "@visx/scale";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
-import { LegendThresholdProps } from "./LegendThreshold";
-import { RectClipGroup } from "../RectClipGroup";
-import { AutoWidth } from "../AutoWidth";
 
-export type LegendThresholdHorizontalProps<T> = LegendThresholdProps<T> &
-  Omit<React.SVGProps<SVGSVGElement>, keyof LegendThresholdProps<T>>;
+import { AutoWidth } from "../AutoWidth";
+import { Group } from "@visx/group";
+import { LegendThresholdProps } from "./LegendThreshold";
+import React from "react";
+import { RectClipGroup } from "../RectClipGroup";
+import { scaleBand } from "@visx/scale";
+
+export type LegendThresholdHorizontalProps<T> = LegendThresholdProps<T>;
 
 /**
  * `LegendThresholdHorizontal` represents a scale with thresholds that separate
@@ -22,8 +22,7 @@ export const LegendThresholdHorizontalInner = <T,>({
   getItemColor,
   getItemLabel,
   showLabels = true,
-  ...otherSvgProps
-}: LegendThresholdHorizontalProps<T>) => {
+}: LegendThresholdProps<T>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
@@ -36,7 +35,7 @@ export const LegendThresholdHorizontalInner = <T,>({
   const totalHeight = showLabels ? heightWithLabels : height;
 
   return (
-    <svg width={width} height={totalHeight} {...otherSvgProps}>
+    <svg width={width} height={totalHeight}>
       <RectClipGroup
         width={width}
         height={height}
