@@ -54,12 +54,12 @@ export function useTableStateManager(
   };
 }
 
-export enum ActionType {
+enum ActionType {
   SET_SORT_DIRECTION = "SET_SORT_DIRECTION",
   SET_SORTING_COLUMN = "SET_SORTING_COLUMN",
 }
 
-export type TableAction =
+type TableAction =
   | {
       type: ActionType.SET_SORTING_COLUMN;
       sortColumnId: string;
@@ -69,7 +69,7 @@ export type TableAction =
       sortDirection: SortDirection;
     };
 
-export function tableStateReducer(
+function tableStateReducer(
   prevState: TableState,
   action: TableAction
 ): TableState {
