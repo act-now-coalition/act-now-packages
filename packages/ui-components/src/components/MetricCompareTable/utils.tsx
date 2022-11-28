@@ -1,18 +1,19 @@
-import React from "react";
-import isNumber from "lodash/isNumber";
-import { Stack, Typography } from "@mui/material";
-import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-import { RegionDB } from "@actnowcoalition/regions";
-import { formatPopulation } from "../../common/utils";
-import { MetricValue } from "../MetricValue";
 import {
   ColumnDefinition,
   ColumnHeader,
   SortDirection,
   getAriaSort,
 } from "../CompareTable";
-import { StyledTableCell, StyledLink } from "./MetricCompareTable.style";
+import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
+import { Stack, Typography } from "@mui/material";
+import { StyledLink, StyledTableCell } from "./MetricCompareTable.style";
+
+import { MetricValue } from "../MetricValue";
+import React from "react";
 import { Region } from "@actnowcoalition/regions";
+import { RegionDB } from "@actnowcoalition/regions";
+import { formatPopulation } from "../../common/utils";
+import isNumber from "lodash/isNumber";
 
 export interface Row {
   /** Unique ID for the row. */
@@ -59,7 +60,6 @@ export function createMetricColumn(
             metric={metric}
             region={row.region}
             variant="dataTabular"
-            justifyContent="end"
           />
         </StyledLink>
       </StyledTableCell>
