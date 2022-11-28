@@ -1,13 +1,13 @@
+import { BaseSparkLineProps, SparkLine } from "../SparkLine";
+
+import { Metric } from "@actnowcoalition/metrics";
 import React from "react";
 import { Region } from "@actnowcoalition/regions";
-import { Metric } from "@actnowcoalition/metrics";
-import { SparkLine, SparkLineProps } from "../SparkLine";
-import { useMetricCatalog } from "../MetricCatalogContext";
 import { Skeleton } from "@mui/material";
 import { useDataForMetrics } from "../../common/hooks";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
-export interface MetricSparklinesProps
-  extends Omit<SparkLineProps, "timeseriesBarChart" | "timeseriesLineChart"> {
+export interface MetricSparklinesProps extends BaseSparkLineProps {
   /** Region to generate sparkline for. */
   region: Region;
   /** Metric to use for line element of sparkline. */

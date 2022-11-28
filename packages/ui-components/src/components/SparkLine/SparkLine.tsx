@@ -1,18 +1,13 @@
-import React from "react";
-import { Group } from "@visx/group";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { BarChart } from "../BarChart";
+import { Group } from "@visx/group";
 import { LineChart } from "../LineChart";
-import { scaleUtc, scaleLinear } from "@visx/scale";
+import React from "react";
+import { Timeseries } from "@actnowcoalition/metrics";
 import { useTheme } from "@mui/material";
 
-export interface SparkLineProps {
-  /** Timeseries used to draw the bar chart */
-  timeseriesBarChart: Timeseries<number>;
-
-  /** Timeseries used to draw the line chart */
-  timeseriesLineChart: Timeseries<number>;
-
+export interface BaseSparkLineProps {
   /** Width of the whole spark line component */
   width?: number;
 
@@ -21,6 +16,14 @@ export interface SparkLineProps {
 
   /** Width of each bar, in pixels (2px by default) */
   barWidth?: number;
+}
+
+export interface SparkLineProps extends BaseSparkLineProps {
+  /** Timeseries used to draw the bar chart */
+  timeseriesBarChart: Timeseries<number>;
+
+  /** Timeseries used to draw the line chart */
+  timeseriesLineChart: Timeseries<number>;
 }
 
 export const SparkLine = ({
