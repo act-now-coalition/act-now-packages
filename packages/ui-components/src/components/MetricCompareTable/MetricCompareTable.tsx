@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+import { Metric } from "@actnowcoalition/metrics";
+import { SortDirection } from "../../common/utils/compare";
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import {
   ColumnDefinition,
   CompareTable,
   sortRows,
   CompareTableProps,
+  useTableStateManager,
 } from "../CompareTable";
-import { SortDirection } from "../../common/utils/compare";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { createMetricColumn, createLocationColumn, Row } from "./utils";
-import { Region, RegionDB } from "@actnowcoalition/regions";
-import { Metric } from "@actnowcoalition/metrics";
 
 export interface MetricCompareTableProps
   extends Omit<CompareTableProps<Row>, "rows" | "columns"> {
@@ -28,14 +29,13 @@ export const MetricCompareTable = ({
   metrics: metricOrIds,
   ...otherCompareTableProps
 }: MetricCompareTableProps) => {
-  // TODO(Pablo): It might be better to define and set a context to control the
-  // state of the table if we need to control it from a parent component.
-  const [sortDirection, setSortDirection] = useState(SortDirection.DESC);
-  const [sortColumnId, setSortColumnId] = useState("location");
+  const { sortDirection, sortColumnId, setSorting } = useTableStateManager({
+    sortDirection: SortDirection.DESC,
+    sortColumnId: "location",
+  });
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
-    setSortDirection(direction);
-    setSortColumnId(columnId);
+    setSorting(direction, columnId);
   };
 
   const metricCatalog = useMetricCatalog();
