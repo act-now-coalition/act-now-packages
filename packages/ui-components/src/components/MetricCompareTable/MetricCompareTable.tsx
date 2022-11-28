@@ -70,6 +70,8 @@ export const MetricCompareTable = ({
     ),
   ];
 
+  // TODO (Pablo): Maybe we could add methods to TableStateManager to perform
+  // these operations as well
   const sortColumn = columns.find((col) => col.columnId === sortColumnId);
   const sortedRows = sortRows<Row>(rows, sortDirection, sortColumn?.sorterAsc);
 
