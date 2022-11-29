@@ -1,5 +1,11 @@
 # @actnowcoalition/metrics
 
+## 0.3.4
+
+### Patch Changes
+
+- 65b7b91: Export DataRow type for use with parseCsv() and generateCsv().
+
 ## 0.3.3
 
 ### Patch Changes
