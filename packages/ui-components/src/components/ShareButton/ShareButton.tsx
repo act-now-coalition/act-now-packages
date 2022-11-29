@@ -1,27 +1,27 @@
-import React, { useState } from "react";
-import { Button, ButtonProps } from "@mui/material";
-import ShareIcon from "@mui/icons-material/Share";
 import { CopyLinkButton } from "./CopyLinkButton";
-import { TwitterShareButton } from "./TwitterShareButton";
 import { FacebookShareButton } from "./FacebookShareButton";
 import { Menu, MenuItem } from "./ShareButton.style";
+import { TwitterShareButton } from "./TwitterShareButton";
+import ShareIcon from "@mui/icons-material/Share";
+import { Button, ButtonProps, PopoverOrigin } from "@mui/material";
 import isNull from "lodash/isNull";
+import React, { useState } from "react";
 
 const noop = () => {
   return;
 };
 
-export interface BaseShareButtonProps {
+export interface ShareButtonProps {
   url: string;
   quote: string;
   hashtags?: string[];
   onCopyLink?: () => void;
   onShareTwitter?: () => void;
   onShareFacebook?: () => void;
-  menuOrigin?: "left" | "center" | "right";
+  menuOrigin?: PopoverOrigin["horizontal"];
+  variant?: ButtonProps["variant"];
+  size?: ButtonProps["size"];
 }
-
-export type ShareButtonProps = ButtonProps & BaseShareButtonProps;
 
 export const ShareButton = ({
   url,
@@ -31,7 +31,8 @@ export const ShareButton = ({
   onShareTwitter = noop,
   onShareFacebook = noop,
   menuOrigin = "left",
-  ...muiButtonProps
+  variant = "outlined",
+  size = "large",
 }: ShareButtonProps) => {
   const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,10 +45,10 @@ export const ShareButton = ({
   return (
     <>
       <Button
-        variant="outlined"
+        variant={variant}
+        size={size}
         endIcon={<ShareIcon />}
         onClick={handleClick}
-        {...muiButtonProps}
       >
         Share
       </Button>
