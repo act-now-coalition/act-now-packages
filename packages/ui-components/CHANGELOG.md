@@ -1,5 +1,14 @@
 # @actnowcoalition/ui-components
 
+## 0.8.2
+
+### Patch Changes
+
+- c771c22: Make sparkline y-axis start from 0 and use dateFrom and dateTo
+- 4591d4b: Export SeriesChart types again (got accidentally removed during recent refactoring).
+- Updated dependencies [65b7b91]
+  - @actnowcoalition/metrics@0.3.4
+
 ## 0.8.1
 
 ### Patch Changes
