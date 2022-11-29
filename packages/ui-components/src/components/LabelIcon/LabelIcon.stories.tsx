@@ -1,7 +1,7 @@
-import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { LabelIcon } from ".";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import React from "react";
 
 export default {
   title: "Components/LabelIcon",
@@ -9,9 +9,7 @@ export default {
 } as ComponentMeta<typeof LabelIcon>;
 
 const Template: ComponentStory<typeof LabelIcon> = (args) => (
-  <div style={{ width: 300 }}>
-    <LabelIcon {...args} />
-  </div>
+  <LabelIcon {...args} />
 );
 
 export const Example = Template.bind({});
@@ -25,5 +23,5 @@ Custom.args = {
   children: "Learn more",
   color: "primary",
   variant: "labelSmall",
-  endIcon: <LibraryBooksIcon fontSize="small" color="inherit" />,
+  endIcon: <LibraryBooksIcon fontSize="small" color="primary" />,
 };
