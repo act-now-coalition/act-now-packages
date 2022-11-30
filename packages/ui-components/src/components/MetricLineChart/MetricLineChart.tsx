@@ -11,6 +11,7 @@ import { PointMarker } from "../PointMarker";
 import { BaseChartProps } from "../../common/utils/charts";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
+import { Skeleton } from "@mui/material";
 
 export interface MetricLineChartProps extends BaseChartProps {
   metric: Metric | string;
@@ -37,7 +38,7 @@ export const MetricLineChart = ({
     useHoveredDate(timeseries);
 
   if (!data || !timeseries?.hasData()) {
-    return null;
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const chartHeight = height - marginTop - marginBottom;
@@ -56,7 +57,7 @@ export const MetricLineChart = ({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}

@@ -58,7 +58,7 @@ export const SparkLine = ({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={padding} top={padding}>
         <Group left={-0.5 * barWidth}>
           <BarChart

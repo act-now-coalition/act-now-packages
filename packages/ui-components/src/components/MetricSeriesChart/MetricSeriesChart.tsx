@@ -111,7 +111,7 @@ export const MetricSeriesChart = ({
   const yAxisFormat = (value: number) => metrics[0].formatValue(value, "---");
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group top={marginTop} left={marginLeft}>
         <AxesTimeseries
           yScale={yScale}
