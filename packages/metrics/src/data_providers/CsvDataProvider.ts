@@ -1,6 +1,6 @@
 import { assert } from "@actnowcoalition/assert";
 import { RegionDB } from "@actnowcoalition/regions";
-import { parseCsv } from "./data_provider_utils";
+import { groupAndValidateRegionIds, parseCsv } from "./data_provider_utils";
 import { fetchText } from "./utils";
 import {
   DataRowMetricProviderBase,
