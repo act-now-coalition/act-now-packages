@@ -6,6 +6,7 @@ import {
   BaseMultiProgressBarProps,
 } from "../MultiProgressBar";
 import { useDataForMetrics } from "../../common/hooks";
+import { Skeleton } from "@mui/material";
 
 type MetricProp = Metric | string;
 
@@ -19,12 +20,14 @@ export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
 export const MetricMultiProgressBar = ({
   region,
   metrics,
+  width = 100,
+  height = 16,
   ...otherProgressBarProps
 }: MetricMultiProgressBarProps) => {
   const { data } = useDataForMetrics(region, metrics, false);
 
   if (!data) {
-    return null;
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const [firstItem, secondItem] = getProgressBarItems(data, metrics);
@@ -34,6 +37,8 @@ export const MetricMultiProgressBar = ({
       items={[firstItem, secondItem]}
       getItemValue={(item) => item.currentValue}
       getItemLabel={(item) => item.label}
+      width={width}
+      height={height}
       {...otherProgressBarProps}
     />
   );

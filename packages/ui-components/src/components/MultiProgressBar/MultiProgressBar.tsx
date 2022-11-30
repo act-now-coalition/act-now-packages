@@ -54,7 +54,13 @@ export const MultiProgressBar = <T,>({
   );
 
   return (
-    <svg width={width} height={height} aria-labelledby={titleId} role="meter">
+    <svg
+      width={width}
+      height={height}
+      aria-labelledby={titleId}
+      role="meter"
+      style={{ display: "block" }}
+    >
       <title id={titleId}>
         {title
           ? title
