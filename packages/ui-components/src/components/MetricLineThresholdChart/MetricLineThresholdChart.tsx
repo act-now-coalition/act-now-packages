@@ -1,11 +1,12 @@
-import { assert } from "@actnowcoalition/assert";
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import max from "lodash/max";
 import min from "lodash/min";
 import React from "react";
+
+import { assert } from "@actnowcoalition/assert";
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";

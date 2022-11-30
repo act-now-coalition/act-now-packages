@@ -1,8 +1,9 @@
-import { Timeseries } from "@actnowcoalition/metrics";
 import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import React from "react";
+
+import { Timeseries } from "@actnowcoalition/metrics";
 
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";

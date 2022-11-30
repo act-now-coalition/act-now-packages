@@ -1,8 +1,9 @@
-import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleUtc } from "@visx/scale";
 import React, { useState } from "react";
+
+import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 
 import { ChartOverlayX } from ".";
 import { AxisBottom } from "../Axis";

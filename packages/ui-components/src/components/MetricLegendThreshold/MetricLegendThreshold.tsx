@@ -1,6 +1,7 @@
-import { Metric } from "@actnowcoalition/metrics";
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
+
+import { Metric } from "@actnowcoalition/metrics";
 
 import { LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";

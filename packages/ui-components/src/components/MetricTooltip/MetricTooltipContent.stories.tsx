@@ -1,7 +1,8 @@
-import { TimeseriesPoint } from "@actnowcoalition/metrics";
-import { states } from "@actnowcoalition/regions";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { TimeseriesPoint } from "@actnowcoalition/metrics";
+import { states } from "@actnowcoalition/regions";
 
 import { MetricTooltipContent } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";

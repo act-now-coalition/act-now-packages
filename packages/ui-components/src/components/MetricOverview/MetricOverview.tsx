@@ -1,7 +1,8 @@
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
 import { Stack, Typography } from "@mui/material";
 import React from "react";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
 import { LabelIcon } from "../LabelIcon";
 import { useMetricCatalog } from "../MetricCatalogContext";

@@ -1,8 +1,9 @@
-import { formatPercent } from "@actnowcoalition/number-format";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import React from "react";
+
+import { formatPercent } from "@actnowcoalition/number-format";
 
 import { AxesTimeseries } from "./AxesTimeseries";
 

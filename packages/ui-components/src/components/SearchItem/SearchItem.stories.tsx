@@ -1,6 +1,7 @@
-import { counties, states } from "@actnowcoalition/regions";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { counties, states } from "@actnowcoalition/regions";
 
 import { SearchItem } from "./SearchItem";
 

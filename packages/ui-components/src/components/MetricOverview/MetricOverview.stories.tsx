@@ -1,7 +1,8 @@
-import { states } from "@actnowcoalition/regions";
 import { Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { states } from "@actnowcoalition/regions";
 
 import { MetricOverview } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";

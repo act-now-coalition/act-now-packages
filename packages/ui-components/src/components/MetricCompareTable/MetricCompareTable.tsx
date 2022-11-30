@@ -1,6 +1,7 @@
+import React, { useState } from "react";
+
 import { Metric } from "@actnowcoalition/metrics";
 import { Region, RegionDB } from "@actnowcoalition/regions";
-import React, { useState } from "react";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import {

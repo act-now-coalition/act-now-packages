@@ -1,8 +1,9 @@
-import { Timeseries } from "@actnowcoalition/metrics";
 import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import React from "react";
+
+import { Timeseries } from "@actnowcoalition/metrics";
 
 export interface BaseBarChartProps {
   /** Timeseries used to draw the bar chart */

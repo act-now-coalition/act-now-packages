@@ -1,7 +1,8 @@
-import { states } from "@actnowcoalition/regions";
 import { Box, Grid, colors } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
 import React from "react";
+
+import { states } from "@actnowcoalition/regions";
 
 import { AutoWidth } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";

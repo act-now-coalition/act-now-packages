@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import React from "react";
 
 import { useDataForMetrics } from "../../common/hooks";
 import {

@@ -1,4 +1,3 @@
-import { Region, RegionDB } from "@actnowcoalition/regions";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Autocomplete,
@@ -7,6 +6,8 @@ import {
   createFilterOptions,
 } from "@mui/material";
 import React, { HTMLAttributes } from "react";
+
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { formatPopulation } from "../../common/utils";
 import { SearchItem } from "../SearchItem";

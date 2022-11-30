@@ -1,7 +1,8 @@
-import { Metric } from "@actnowcoalition/metrics";
-import { Region, RegionDB } from "@actnowcoalition/regions";
 import { MenuItem, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";

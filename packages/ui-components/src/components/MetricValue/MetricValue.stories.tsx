@@ -1,6 +1,7 @@
-import { states } from "@actnowcoalition/regions";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { states } from "@actnowcoalition/regions";
 
 import { MetricValue } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";

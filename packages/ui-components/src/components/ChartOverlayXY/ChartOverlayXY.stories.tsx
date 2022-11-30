@@ -1,8 +1,9 @@
-import { Timeseries } from "@actnowcoalition/metrics";
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import React from "react";
+
+import { Timeseries } from "@actnowcoalition/metrics";
 
 import { ChartOverlayXY, useHoveredPoint } from ".";
 import { AxisBottom, AxisLeft } from "../Axis";

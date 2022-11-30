@@ -1,8 +1,9 @@
-import { assert } from "@actnowcoalition/assert";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import React from "react";
+
+import { assert } from "@actnowcoalition/assert";
 
 import { BarChart } from ".";
 import { appleStockTimeseries } from "../../stories/mockData";

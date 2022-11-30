@@ -1,5 +1,6 @@
-import { assert } from "@actnowcoalition/assert";
 import keyBy from "lodash/keyBy";
+
+import { assert } from "@actnowcoalition/assert";
 
 import { Region } from "./Region";
 

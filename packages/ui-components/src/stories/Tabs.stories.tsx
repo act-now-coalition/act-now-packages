@@ -1,6 +1,7 @@
-import { states } from "@actnowcoalition/regions";
 import { Stack, Tab, Tabs, Typography } from "@mui/material";
 import React, { useState } from "react";
+
+import { states } from "@actnowcoalition/regions";
 
 import { MetricValue } from "../components/MetricValue";
 import { MetricId, metricCatalog } from "./mockMetricCatalog";

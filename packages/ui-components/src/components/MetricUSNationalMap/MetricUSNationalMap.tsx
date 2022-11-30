@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
-import React from "react";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { USNationalMap, USNationalMapProps } from "../USNationalMap";

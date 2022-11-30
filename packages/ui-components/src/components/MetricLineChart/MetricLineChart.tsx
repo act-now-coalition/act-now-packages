@@ -1,8 +1,9 @@
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import React from "react";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";

@@ -1,6 +1,7 @@
-import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
 
 import { MultiMetricUSStateMap } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";

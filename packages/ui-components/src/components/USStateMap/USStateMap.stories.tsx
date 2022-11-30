@@ -1,7 +1,8 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { assert } from "@actnowcoalition/assert";
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
 
 import { USStateMap } from "./USStateMap";
 

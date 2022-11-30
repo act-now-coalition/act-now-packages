@@ -1,5 +1,5 @@
 {
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"]
+  "importOrder": ["<THIRD_PARTY_MODULES>", "^@actnowcoalition/", "^[./]"]
 }

@@ -1,8 +1,9 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
 import get from "lodash/get";
 import isNil from "lodash/isNil";
 import Papa from "papaparse";
+
+import { assert } from "@actnowcoalition/assert";
+import { Region } from "@actnowcoalition/regions";
 
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";

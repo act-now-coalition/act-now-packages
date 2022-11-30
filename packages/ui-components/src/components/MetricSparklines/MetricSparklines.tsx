@@ -1,7 +1,8 @@
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
 import { Skeleton } from "@mui/material";
 import React from "react";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";

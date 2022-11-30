@@ -1,7 +1,8 @@
-import { MetricCatalog, MetricDefinition } from "@actnowcoalition/metrics";
-import { states } from "@actnowcoalition/regions";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import React from "react";
+
+import { MetricCatalog, MetricDefinition } from "@actnowcoalition/metrics";
+import { states } from "@actnowcoalition/regions";
 
 import {
   MetricId,

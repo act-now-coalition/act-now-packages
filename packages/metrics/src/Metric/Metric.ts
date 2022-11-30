@@ -1,7 +1,8 @@
-import { assert, fail } from "@actnowcoalition/assert";
-import { isFinite } from "@actnowcoalition/number-format";
 import isEqual from "lodash/isEqual";
 import last from "lodash/last";
+
+import { assert, fail } from "@actnowcoalition/assert";
+import { isFinite } from "@actnowcoalition/number-format";
 
 import { MetricCatalogOptions } from "../MetricCatalog";
 import { Category, CategorySet } from "./Category";

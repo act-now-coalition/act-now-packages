@@ -1,8 +1,9 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region, RegionDB } from "@actnowcoalition/regions";
 import groupBy from "lodash/groupBy";
 import isEmpty from "lodash/isEmpty";
 import truncate from "lodash/truncate";
+
+import { assert } from "@actnowcoalition/assert";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
