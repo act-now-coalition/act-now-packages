@@ -1,11 +1,13 @@
+import React from "react";
+
 import { Stack, Typography, TypographyProps } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
-import { MetricDot } from "../MetricDot";
-import React from "react";
 import { Region } from "@actnowcoalition/regions";
+
 import { useData } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
+import { MetricDot } from "../MetricDot";
 
 export interface MetricValueProps {
   /** Region for which we want to show the metric value */

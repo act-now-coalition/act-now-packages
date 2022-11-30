@@ -1,5 +1,6 @@
 import { appleStock, cityTemperature } from "@visx/mock-data";
 import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 

@@ -1,6 +1,8 @@
 import React from "react";
-import { RectClipGroup } from "../RectClipGroup";
+
 import { scaleLinear } from "@visx/scale";
+
+import { RectClipGroup } from "../RectClipGroup";
 
 export interface ProgressBarProps {
   /** Width of the progress bar */

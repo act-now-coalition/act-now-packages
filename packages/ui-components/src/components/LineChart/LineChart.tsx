@@ -1,10 +1,12 @@
 import React from "react";
-import { LinePath } from "@visx/shape";
-import { curveMonotoneX } from "@visx/curve";
-import { ScaleLinear, ScaleTime } from "d3-scale";
-import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
+
 import { useTheme } from "@mui/material";
+import { curveMonotoneX } from "@visx/curve";
+import { LinePath } from "@visx/shape";
+import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+
+import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
 export interface BaseLineChartProps {
   /** Timeseries used to draw the line chart */

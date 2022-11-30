@@ -1,19 +1,21 @@
+import React from "react";
+
+import { Stack, Typography } from "@mui/material";
+import isNumber from "lodash/isNumber";
+
+import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
+import { RegionDB } from "@actnowcoalition/regions";
+import { Region } from "@actnowcoalition/regions";
+
+import { formatPopulation } from "../../common/utils";
 import {
   ColumnDefinition,
   ColumnHeader,
   SortDirection,
   getAriaSort,
 } from "../CompareTable";
-import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-import { Stack, Typography } from "@mui/material";
-import { StyledLink, StyledTableCell } from "./MetricCompareTable.style";
-
 import { MetricValue } from "../MetricValue";
-import React from "react";
-import { Region } from "@actnowcoalition/regions";
-import { RegionDB } from "@actnowcoalition/regions";
-import { formatPopulation } from "../../common/utils";
-import isNumber from "lodash/isNumber";
+import { StyledLink, StyledTableCell } from "./MetricCompareTable.style";
 
 export interface Row {
   /** Unique ID for the row. */

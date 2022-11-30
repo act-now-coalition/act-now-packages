@@ -1,11 +1,13 @@
+import React from "react";
+
+import { useTheme } from "@mui/material";
+import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
-import { BarChart } from "../BarChart";
-import { Group } from "@visx/group";
-import { LineChart } from "../LineChart";
-import React from "react";
 import { Timeseries } from "@actnowcoalition/metrics";
-import { useTheme } from "@mui/material";
+
+import { BarChart } from "../BarChart";
+import { LineChart } from "../LineChart";
 
 export interface BaseSparkLineProps {
   /** Width of the whole spark line component */

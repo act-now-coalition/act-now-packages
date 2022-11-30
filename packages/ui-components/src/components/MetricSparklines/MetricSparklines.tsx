@@ -1,11 +1,13 @@
-import { BaseSparkLineProps, SparkLine } from "../SparkLine";
+import React from "react";
+
+import { Skeleton } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
-import React from "react";
 import { Region } from "@actnowcoalition/regions";
-import { Skeleton } from "@mui/material";
+
 import { useDataForMetrics } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
+import { BaseSparkLineProps, SparkLine } from "../SparkLine";
 
 export interface MetricSparklinesProps extends BaseSparkLineProps {
   /** Region to generate sparkline for. */

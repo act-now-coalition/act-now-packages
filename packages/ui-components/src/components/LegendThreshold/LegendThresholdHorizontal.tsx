@@ -1,10 +1,12 @@
+import React from "react";
+
+import { Group } from "@visx/group";
+import { scaleBand } from "@visx/scale";
+
 import { AutoWidth } from "../AutoWidth";
 import { RectClipGroup } from "../RectClipGroup";
 import { LegendThresholdProps } from "./LegendThreshold";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
-import { Group } from "@visx/group";
-import { scaleBand } from "@visx/scale";
-import React from "react";
 
 /**
  * `LegendThresholdHorizontal` represents a scale with thresholds that separate

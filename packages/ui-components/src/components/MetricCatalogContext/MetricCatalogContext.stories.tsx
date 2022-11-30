@@ -1,14 +1,17 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { states } from "@actnowcoalition/regions";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { MetricCatalog, MetricDefinition } from "@actnowcoalition/metrics";
-import { MetricCatalogProvider } from "./MetricCatalogContext";
+import { states } from "@actnowcoalition/regions";
+
 import {
   MetricId,
-  dataProviders,
   ProviderId,
+  dataProviders,
 } from "../../stories/mockMetricCatalog";
 import MetricAwareDemo from "./MetricAwareDemo";
+import { MetricCatalogProvider } from "./MetricCatalogContext";
 
 export default {
   title: "Metrics/MetricCatalogContext",

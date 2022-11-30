@@ -1,8 +1,10 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
 import { Paper, Stack, Typography } from "@mui/material";
-import { SortDirection, Table, TableHead, TableRow } from "..";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { ColumnHeader } from ".";
+import { SortDirection, Table, TableHead, TableRow } from "..";
 
 export default {
   title: "Table/ColumnHeader",

@@ -1,14 +1,16 @@
-import { Stack, Typography } from "@mui/material";
+import React from "react";
 
-import { IconButton } from "@mui/material";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { InfoTooltip } from "../InfoTooltip";
+import { Stack, Typography } from "@mui/material";
+import { IconButton } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
+import { InfoTooltip } from "../InfoTooltip";
+import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { MetricValue } from "../MetricValue";
-import React from "react";
-import { Region } from "@actnowcoalition/regions";
-import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricScoreOverviewProps {
   /** Region for which we want to show the metric overview */

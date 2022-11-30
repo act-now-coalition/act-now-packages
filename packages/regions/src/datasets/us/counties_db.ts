@@ -1,5 +1,5 @@
-import RegionDB from "../../RegionDB";
 import { Region } from "../../Region";
+import RegionDB from "../../RegionDB";
 import countiesJSON from "./counties.json";
 import statesDB from "./states_db";
 

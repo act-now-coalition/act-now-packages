@@ -1,6 +1,7 @@
+import React from "react";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Stack, Typography, TypographyProps } from "@mui/material";
-import React from "react";
 
 export type LabelIconProps = Pick<
   TypographyProps,

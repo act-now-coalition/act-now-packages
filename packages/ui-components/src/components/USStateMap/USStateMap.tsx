@@ -1,21 +1,24 @@
 import React from "react";
-import { Tooltip, Link } from "@mui/material";
+
+import { Link, Tooltip } from "@mui/material";
 import { geoPath as d3GeoPath, geoAlbersUsa, geoMercator } from "d3-geo";
+
+import { Region } from "@actnowcoalition/regions";
+
 import {
-  statesGeographies,
   countiesGeographies,
   defaultHeight,
   defaultWidth,
+  statesGeographies,
 } from "../../common/geo-shapes";
-import { belongsToState, BaseUSMapProps } from "../../common/utils/maps";
+import { BaseUSMapProps, belongsToState } from "../../common/utils/maps";
 import {
-  MapContainer,
   BorderingRegion,
   HighlightableShape,
+  MapContainer,
   RegionOverlay,
 } from "../../styles/common/Maps.style";
 import { AutoWidth } from "../AutoWidth";
-import { Region } from "@actnowcoalition/regions";
 
 export interface USStateMapProps extends BaseUSMapProps {
   /** Region ID of the state being mapped */

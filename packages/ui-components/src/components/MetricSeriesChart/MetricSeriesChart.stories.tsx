@@ -1,11 +1,13 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { schemeCategory10 } from "d3-scale-chromatic";
+
 import { states } from "@actnowcoalition/regions";
 
+import { MetricSeriesChart } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 import { theme } from "../../styles";
-import { MetricSeriesChart } from ".";
 import { SeriesType } from "../SeriesChart";
 
 export default {

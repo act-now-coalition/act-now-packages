@@ -1,11 +1,13 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
-import { Metric } from "../Metric";
-import { MetricData } from "../data";
-import { Timeseries } from "../Timeseries";
 import get from "lodash/get";
 import isNil from "lodash/isNil";
 import Papa from "papaparse";
+
+import { assert } from "@actnowcoalition/assert";
+import { Region } from "@actnowcoalition/regions";
+
+import { Metric } from "../Metric";
+import { Timeseries } from "../Timeseries";
+import { MetricData } from "../data";
 
 /**
  * Represents a "row" of data (e.g. as read from a CSV), with key-value pairs

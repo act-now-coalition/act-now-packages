@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface UseResizeObserverResult {
   setObservedNode: React.Dispatch<React.SetStateAction<HTMLElement | null>>;

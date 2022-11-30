@@ -2,12 +2,12 @@ import mapValues from "lodash/mapValues";
 
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
+import { isoDateOnlyString } from "@actnowcoalition/time-utils";
 
-import { MetricData } from "./MetricData";
-import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
 import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
-import { isoDateOnlyString } from "@actnowcoalition/time-utils";
+import { MetricData } from "./MetricData";
+import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
 
 /**
  * JSON format of a data snapshot representing the contents of a

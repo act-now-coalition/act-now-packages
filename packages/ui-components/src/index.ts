@@ -118,6 +118,7 @@ export * from "./components/PointMarker";
 export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
+export * from "./components/SeriesChart";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";
 export * from "./components/USNationalMap";

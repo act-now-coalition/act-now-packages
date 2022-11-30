@@ -1,7 +1,8 @@
 /** MUI theme components */
 import React from "react";
-import { ThemeOptions, createTheme } from "@mui/material";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { ThemeOptions, createTheme } from "@mui/material";
 
 const referenceTheme = createTheme();
 

@@ -1,7 +1,8 @@
-import { Topology } from "topojson-specification";
-import { excludeTerritories, getGeoBorders, getGeoShapes } from "./utils";
 import { ExtendedFeature } from "d3-geo";
+import { Topology } from "topojson-specification";
+
 import countiesJSON from "./counties-10m.json";
+import { excludeTerritories, getGeoBorders, getGeoShapes } from "./utils";
 
 const countiesTopology = countiesJSON as unknown as Topology;
 
