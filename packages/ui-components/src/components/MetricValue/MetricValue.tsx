@@ -29,6 +29,10 @@ export const MetricValue = ({
 
   const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);
 
+  // If there's an error we render "---" to match when there's no data.
+  // While we are waiting for data to load we render "\u00A0" (a non-breaking
+  // space) just so the height renders correctly and we don't get a layout shift
+  // when the data is available.
   const formattedValue = error
     ? "---"
     : !data
