@@ -1,4 +1,5 @@
 import React from "react";
+
 import { countiesGeographies } from "../../common/geo-shapes";
 import { CanvasMap, CanvasMapProps } from "./CanvasMap";
 

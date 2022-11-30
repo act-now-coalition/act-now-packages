@@ -1,11 +1,14 @@
 import React from "react";
+
+import { Box, Grid, colors } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
-import { Grid, Box, colors } from "@mui/material";
+
 import { states } from "@actnowcoalition/regions";
-import { MetricId } from "../../stories/mockMetricCatalog";
-import { MetricSparklines } from "../MetricSparklines";
-import { styled } from "../../styles";
+
 import { AutoWidth } from ".";
+import { MetricId } from "../../stories/mockMetricCatalog";
+import { styled } from "../../styles";
+import { MetricSparklines } from "../MetricSparklines";
 
 export default {
   title: "Components/AutoWidth",

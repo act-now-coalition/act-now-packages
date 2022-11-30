@@ -48,7 +48,7 @@ See [`src/datasets/us/states.json`](src/datasets/us/states.json), [`src/datasets
 ##### Using states, counties, and metropolitan areas
 
 ```tsx
-import { states, counties, metros } from "@actnowcoalition/regions";
+import { counties, metros, states } from "@actnowcoalition/regions";
 
 const ny = states.findByRegionId("36");
 console.log(ny.fullName); // New York

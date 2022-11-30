@@ -1,9 +1,10 @@
 import {
-  MetricDefinition,
   MetricCatalog,
+  MetricDefinition,
   MockDataProvider,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
+
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
 import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";

@@ -1,15 +1,17 @@
 import * as React from "react";
-import { Tooltip, Link } from "@mui/material";
-import { geoMercator, geoPath as d3GeoPath } from "d3-geo";
+
+import { Link, Tooltip } from "@mui/material";
+import { geoPath as d3GeoPath, geoMercator } from "d3-geo";
+
+import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
+import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";
+import { AutoWidth } from "../AutoWidth";
+import { DiagonalHatchPattern } from "./DiagonalHatchPattern";
 import {
   DisputedAreaPath,
   DisputedBorderPath,
   colorDisputedAreas,
 } from "./WorldMap.style";
-import { DiagonalHatchPattern } from "./DiagonalHatchPattern";
-import { AutoWidth } from "../AutoWidth";
-import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
-import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";
 
 export interface WorldMapProps {
   renderTooltip: (regionId: string) => React.ReactNode;

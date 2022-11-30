@@ -1,9 +1,12 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleLinear, scaleUtc } from "@visx/scale";
-import { AxesTimeseries } from "./AxesTimeseries";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { formatPercent } from "@actnowcoalition/number-format";
+
+import { AxesTimeseries } from "./AxesTimeseries";
 
 export default {
   title: "Charts/AxesTimeseries",

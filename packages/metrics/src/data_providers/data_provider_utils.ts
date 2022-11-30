@@ -1,13 +1,15 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region, RegionDB } from "@actnowcoalition/regions";
-import { Metric } from "../Metric";
-import { MetricData } from "../data";
-import { Timeseries } from "../Timeseries";
 import get from "lodash/get";
 import isNil from "lodash/isNil";
 import Papa from "papaparse";
-import truncate from "lodash/truncate";
+
+import { assert } from "@actnowcoalition/assert";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
+import { Metric } from "../Metric";
+import { Timeseries } from "../Timeseries";
+import { MetricData } from "../data";
 import groupBy from "lodash/groupBy";
+import truncate from "lodash/truncate";
 
 /**
  * Represents a "row" of data (e.g. as read from a CSV), with key-value pairs

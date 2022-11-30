@@ -1,6 +1,8 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear } from "@visx/scale";
+
 import { AxisLeft } from ".";
 
 export default {

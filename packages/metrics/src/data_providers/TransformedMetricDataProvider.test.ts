@@ -1,10 +1,10 @@
 import { Region, states } from "@actnowcoalition/regions";
 
-import { TransformedMetricDataProvider } from "./TransformedMetricDataProvider";
 import { Metric } from "../Metric";
-import { MetricData } from "../data";
 import { MetricCatalog } from "../MetricCatalog";
+import { MetricData } from "../data";
 import { StaticValueDataProvider } from "./StaticValueDataProvider";
+import { TransformedMetricDataProvider } from "./TransformedMetricDataProvider";
 
 const testRegion = states.findByRegionIdStrict("53"); // Washington.
 

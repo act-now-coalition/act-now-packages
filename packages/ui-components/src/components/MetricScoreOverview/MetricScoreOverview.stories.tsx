@@ -1,7 +1,10 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricScoreOverview } from ".";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
+
+import { MetricScoreOverview } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
@@ -25,15 +28,8 @@ Default.args = {
   ...defaultArgs,
 };
 
-export const ExtraStackProps = Template.bind({});
-ExtraStackProps.args = {
-  ...defaultArgs,
-  direction: "row-reverse",
-  sx: { maxWidth: 150 },
-};
-
-export const NoToolTip = Template.bind({});
-NoToolTip.args = {
+export const NoTooltip = Template.bind({});
+NoTooltip.args = {
   ...defaultArgs,
   tooltipTitle: undefined,
 };

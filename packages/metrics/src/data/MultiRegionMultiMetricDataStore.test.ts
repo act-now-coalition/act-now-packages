@@ -1,15 +1,15 @@
 import { states } from "@actnowcoalition/regions";
+import { isoDateOnlyString } from "@actnowcoalition/time-utils";
 
+import { Metric } from "../Metric";
+import { MetricCatalog } from "../MetricCatalog";
+import { StaticValueDataProvider } from "../data_providers";
+import { MetricData } from "./MetricData";
+import { MultiMetricDataStore } from "./MultiMetricDataStore";
 import {
   MultiRegionMultiMetricDataStore,
   SnapshotJSON,
 } from "./MultiRegionMultiMetricDataStore";
-import { MultiMetricDataStore } from "./MultiMetricDataStore";
-import { MetricData } from "./MetricData";
-import { Metric } from "../Metric";
-import { StaticValueDataProvider } from "../data_providers";
-import { isoDateOnlyString } from "@actnowcoalition/time-utils";
-import { MetricCatalog } from "../MetricCatalog";
 
 enum ProviderId {
   STATIC = "static",

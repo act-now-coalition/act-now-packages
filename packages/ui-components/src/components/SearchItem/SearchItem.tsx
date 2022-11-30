@@ -1,6 +1,8 @@
 import React from "react";
+
 import { Stack, Typography } from "@mui/material";
-import { CircleIcon, ArrowIcon, Container } from "./SearchItem.style";
+
+import { ArrowIcon, CircleIcon, Container } from "./SearchItem.style";
 
 export interface SearchItemProps {
   /** Top label of the search item, in bold text. */

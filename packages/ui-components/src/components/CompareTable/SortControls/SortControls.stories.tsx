@@ -1,6 +1,8 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { SortDirection, SortControls } from "..";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { SortControls, SortDirection } from "..";
 
 export default {
   title: "Table/SortControls",
