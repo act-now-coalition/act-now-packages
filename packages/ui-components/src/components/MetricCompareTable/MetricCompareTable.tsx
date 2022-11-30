@@ -23,9 +23,9 @@ export interface MetricCompareTableProps
   regions: Region[];
   /** List of metrics or metricID - order of the columns will match */
   metrics: (Metric | string)[];
-
-  /** Id  */
+  /** Initial sorting column. By default, it will use the location column. */
   sortColumnId?: string;
+  /** Initial sort direction. Ascending by default. */
   sortDirection?: SortDirection;
 }
 
@@ -39,7 +39,7 @@ export const MetricCompareTable = ({
 }: MetricCompareTableProps) => {
   const initialState = {
     sortColumnId: initialSortColumnId ?? "location",
-    sortDirection: initialSortDirection ?? SortDirection.DESC,
+    sortDirection: initialSortDirection ?? SortDirection.ASC,
   };
 
   const [sortState, setSortState] = useState<TableSortState>(initialState);

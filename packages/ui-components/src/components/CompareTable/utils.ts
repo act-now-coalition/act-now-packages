@@ -58,12 +58,13 @@ export function compare<T>(a: T, b: T): number {
 }
 
 /**
- * Sort the rows using the sorting column and
+ * Sort the rows using the sorting column and direction provided in the
+ * sortState parameter.
  *
  * @param rows
  * @param columns
  * @param sortState
- * @returns
+ * @returns A sorted copy of the rows.
  */
 export function sortTableRows<R>(
   rows: R[],
