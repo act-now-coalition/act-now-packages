@@ -1,18 +1,39 @@
-import { CsvDataProvider } from "./CsvDataProvider";
+import { JsonDataProvider } from "./JsonDataProvider";
 import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
 import { MetricCatalog } from "../MetricCatalog";
+import { DataRow } from "./data_provider_utils";
 
-const PROVIDER_ID = "csv-provider";
+const PROVIDER_ID = "test-json-provider";
 
-const mockCsv = `region,cool_metric
-36,150
-12,`;
+const mockJson = [
+  {
+    region: "36",
+    cool_metric: 150,
+  },
+  {
+    region: "12",
+    cool_metric: null,
+  },
+];
 
-const csvTimeseries = `region,date,cool_metric
-36,2022-08-02,150
-36,2022-08-03,
-12,2022-08-02,`;
+const jsonTimeseries = [
+  {
+    region: "36",
+    date: "2022-08-02",
+    cool_metric: 150,
+  },
+  {
+    region: "36",
+    date: "2022-08-03",
+    cool_metric: null,
+  },
+  {
+    region: "12",
+    date: "2022-08-02",
+    cool_metric: null,
+  },
+];
 
 const newYork = states.findByRegionIdStrict("36");
 const testMetric = new Metric({
@@ -21,25 +42,25 @@ const testMetric = new Metric({
 });
 
 /**
- * Create a CsvDataProvider from passed arguments and fetch data for test region and metric.
+ * Create a JsonDataProvider from passed arguments and fetch data for test region and metric.
  *
- * @param data CSV data to be imported.
+ * @param data JSON data to be imported.
  * @param includeTimeseries Whether to include timeseries.
  * @param dateCol Name of date column.
  * @returns MetricData for test region and metric.
  */
-const testFetchingCsvData = async (
-  data: string,
+const testFetchingJsonData = async (
+  data: DataRow[],
   includeTimeseries: boolean,
   dateCol?: string,
   metric?: Metric
 ) => {
   metric = metric ?? testMetric;
-  const provider = new CsvDataProvider(PROVIDER_ID, {
+  const provider = new JsonDataProvider(PROVIDER_ID, {
     regionDb: states,
     regionColumn: "region",
     dateColumn: dateCol,
-    csvText: data,
+    jsonData: data,
   });
   const catalog = new MetricCatalog([metric], [provider]);
   return (
@@ -49,14 +70,14 @@ const testFetchingCsvData = async (
     .metricData(testMetric);
 };
 
-describe("CsvDataProvider", () => {
+describe.only("JsonDataProvider", () => {
   test("fetchData() yields expected data", async () => {
-    const metricDataNoTs = await testFetchingCsvData(
-      mockCsv,
+    const metricDataNoTs = await testFetchingJsonData(
+      mockJson,
       /*includeTimeseries=*/ false
     );
-    const metricDataTs = await testFetchingCsvData(
-      csvTimeseries,
+    const metricDataTs = await testFetchingJsonData(
+      jsonTimeseries,
       /*includeTimeseries=*/ true,
       /*dateColumn=*/ "date"
     );
@@ -70,24 +91,24 @@ describe("CsvDataProvider", () => {
   });
 
   test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
-    const metricData = await testFetchingCsvData(
-      mockCsv,
+    const metricData = await testFetchingJsonData(
+      mockJson,
       /*includeTimeseries=*/ true
     );
     expect(metricData.currentValue).toBe(150);
     expect(metricData.hasTimeseries()).toBe(false);
   });
 
-  test("fetchData() fails if csv does not have at least one row.", async () => {
+  test("fetchData() fails if JSON does not have at least one row.", async () => {
     expect(async () =>
-      testFetchingCsvData(`region,cool_metric`, /*includeTimeseries=*/ true)
-    ).rejects.toThrow("CSV must not be empty.");
+      testFetchingJsonData([], /*includeTimeseries=*/ true)
+    ).rejects.toThrow("JSON array must not be empty.");
   });
 
-  test("fetchData() fails if csv does not have at least one valid region ID.", async () => {
+  test("fetchData() fails if JSON does not have at least one valid region ID.", async () => {
     expect(async () =>
-      testFetchingCsvData(
-        `region,cool_metric\nNew York,1`,
+      testFetchingJsonData(
+        [{ region: "New York", cool_metric: 150 }],
         /*includeTimeseries=*/ true
       )
     ).rejects.toThrow("Failed to parse data: All region IDs were invalid.");
@@ -102,8 +123,8 @@ describe("CsvDataProvider", () => {
       },
     });
     expect(async () =>
-      testFetchingCsvData(
-        mockCsv,
+      testFetchingJsonData(
+        mockJson,
         /*includeTimeseries=*/ true,
         /*datColumn=*/ "date",
         badMetric
@@ -111,12 +132,12 @@ describe("CsvDataProvider", () => {
     ).rejects.toThrow("Missing or invalid metric column name.");
   });
 
-  test("Constructor fails if neither url or csv data is provided.", () => {
+  test("Constructor fails if neither url or JSON data is provided.", () => {
     expect(() => {
-      new CsvDataProvider("PROVIDER_ID", {
+      new JsonDataProvider("PROVIDER_ID", {
         regionDb: states,
         regionColumn: "region",
       });
-    }).toThrow("URL or CSV data must be provided");
+    }).toThrow("URL or JSON data must be provided");
   });
 });
