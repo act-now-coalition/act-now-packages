@@ -185,6 +185,28 @@ describe("Metric", () => {
     expect(metric.formatValue(123.123)).toBe("123.1");
   });
 
+  test("formatValue() as integer", () => {
+    const metric = new Metric(
+      {
+        ...testMetricDef,
+        formatOptions: { maximumFractionDigits: 0 },
+      },
+      testCatalogOptions
+    );
+    expect(metric.formatValue(123.123)).toBe("123");
+  });
+
+  test("formatValue() with one decimal point", () => {
+    const metric = new Metric(
+      {
+        ...testMetricDef,
+        formatOptions: { minimumFractionDigits: 1, maximumFractionDigits: 1 },
+      },
+      testCatalogOptions
+    );
+    expect(metric.formatValue(0.1234)).toBe("0.1");
+  });
+
   test("formatValue() with custom options", () => {
     const metric = new Metric(
       {

@@ -37,6 +37,7 @@ const defaultIntegerFormat: Intl.NumberFormatOptions = {
 
 const defaultDecimalFormat: Intl.NumberFormatOptions = {
   minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
 };
 
 const testMetricDefs: MetricDefinition[] = [
