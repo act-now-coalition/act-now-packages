@@ -1,5 +1,6 @@
-import isNumber from "lodash/isNumber";
 import { useState } from "react";
+
+import isNumber from "lodash/isNumber";
 
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 

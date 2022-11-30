@@ -1,3 +1,5 @@
+import React from "react";
+
 import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
@@ -5,7 +7,6 @@ import isNumber from "lodash/isNumber";
 import max from "lodash/max";
 import min from "lodash/min";
 import uniq from "lodash/uniq";
-import React from "react";
 
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries } from "@actnowcoalition/metrics";

@@ -1,6 +1,7 @@
+import React from "react";
+
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Button } from "@mui/material";
-import React from "react";
 import { TwitterShareButton as ReactShareTwitterShareButton } from "react-share";
 
 export type TwitterShareButtonProps = React.ComponentProps<

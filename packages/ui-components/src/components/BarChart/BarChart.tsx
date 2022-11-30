@@ -1,7 +1,8 @@
+import React from "react";
+
 import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { ScaleLinear, ScaleTime } from "d3-scale";
-import React from "react";
 
 import { Timeseries } from "@actnowcoalition/metrics";
 

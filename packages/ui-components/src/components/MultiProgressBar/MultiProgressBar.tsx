@@ -1,7 +1,8 @@
+import React, { useId } from "react";
+
 import { useTheme } from "@mui/material";
 import { scaleLinear } from "@visx/scale";
 import sortBy from "lodash/sortBy";
-import React, { useId } from "react";
 
 import { RectClipGroup } from "../RectClipGroup";
 

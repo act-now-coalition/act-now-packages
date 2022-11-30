@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Stack, Typography } from "@mui/material";
 import isNumber from "lodash/isNumber";
-import React from "react";
 
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";

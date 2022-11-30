@@ -1,6 +1,7 @@
+import React from "react";
+
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear } from "@visx/scale";
-import React from "react";
 
 import { GridColumns, GridRows } from ".";
 import { AxisBottom, AxisLeft } from "../Axis";

@@ -1,3 +1,5 @@
+import React, { HTMLAttributes } from "react";
+
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Autocomplete,
@@ -5,7 +7,6 @@ import {
   TextField,
   createFilterOptions,
 } from "@mui/material";
-import React, { HTMLAttributes } from "react";
 
 import { Region, RegionDB } from "@actnowcoalition/regions";
 

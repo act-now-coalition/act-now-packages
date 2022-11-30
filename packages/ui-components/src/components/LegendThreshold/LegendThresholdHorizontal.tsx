@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
-import React from "react";
 
 import { AutoWidth } from "../AutoWidth";
 import { RectClipGroup } from "../RectClipGroup";

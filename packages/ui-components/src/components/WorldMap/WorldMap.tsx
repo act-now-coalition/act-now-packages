@@ -1,6 +1,7 @@
+import * as React from "react";
+
 import { Link, Tooltip } from "@mui/material";
 import { geoPath as d3GeoPath, geoMercator } from "d3-geo";
-import * as React from "react";
 
 import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
 import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";

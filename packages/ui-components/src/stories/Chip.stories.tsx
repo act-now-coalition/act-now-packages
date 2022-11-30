@@ -1,5 +1,6 @@
-import { Chip } from "@mui/material";
 import React from "react";
+
+import { Chip } from "@mui/material";
 
 export default {
   title: "Design System/Chip",

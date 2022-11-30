@@ -1,5 +1,6 @@
-import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
+
+import { Box, Stack, Typography } from "@mui/material";
 
 import { LegendThresholdProps } from "./LegendThreshold";
 import { LegendColor } from "./LegendThreshold.style";

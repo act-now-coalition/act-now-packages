@@ -1,6 +1,7 @@
+import React from "react";
+
 import { IconButton, Stack } from "@mui/material";
 import isNil from "lodash/isNil";
-import React from "react";
 
 import { SortDirection } from "..";
 import { ArrowDownIcon, ArrowUpIcon } from "./SortControls.style";

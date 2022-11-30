@@ -1,5 +1,6 @@
-import { scaleLinear } from "@visx/scale";
 import React from "react";
+
+import { scaleLinear } from "@visx/scale";
 
 import { RectClipGroup } from "../RectClipGroup";
 

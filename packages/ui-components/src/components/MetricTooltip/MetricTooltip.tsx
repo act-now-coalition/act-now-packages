@@ -1,5 +1,6 @@
-import { Stack, Tooltip, TooltipProps, Typography } from "@mui/material";
 import React from "react";
+
+import { Stack, Tooltip, TooltipProps, Typography } from "@mui/material";
 
 import { Metric, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";

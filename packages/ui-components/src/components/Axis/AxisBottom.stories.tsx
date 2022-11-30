@@ -1,7 +1,8 @@
+import React from "react";
+
 import { Box } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import React from "react";
 
 import { AxisBottom, AxisBottomProps } from ".";
 import { AutoWidth } from "../AutoWidth";

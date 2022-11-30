@@ -1,6 +1,7 @@
+import React, { useState } from "react";
+
 import LinkIcon from "@mui/icons-material/Link";
 import Button from "@mui/material/Button";
-import React, { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 interface CopyLinkButtonProps {

@@ -1,5 +1,6 @@
-import { MenuItem, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+
+import { MenuItem, TextField, Typography } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
 import { Region, RegionDB } from "@actnowcoalition/regions";

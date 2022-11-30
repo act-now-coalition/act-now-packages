@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Paper, Stack, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
 
 import { ColumnHeader } from ".";
 import { SortDirection, Table, TableHead, TableRow } from "..";

@@ -1,8 +1,9 @@
+import React from "react";
+
 import MapIcon from "@mui/icons-material/Map";
 import { InputAdornment, TextField } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import sortBy from "lodash/sortBy";
-import React from "react";
 
 import {
   Region,

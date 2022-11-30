@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import React from "react";
 
 import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
 

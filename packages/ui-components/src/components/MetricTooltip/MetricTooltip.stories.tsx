@@ -1,6 +1,7 @@
+import React from "react";
+
 import { colors } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
 
 import { TimeseriesPoint } from "@actnowcoalition/metrics";
 import { states } from "@actnowcoalition/regions";

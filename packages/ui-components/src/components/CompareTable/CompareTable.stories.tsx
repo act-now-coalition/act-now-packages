@@ -1,6 +1,7 @@
+import React, { useState } from "react";
+
 import { Typography } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
-import React, { useState } from "react";
 
 import { formatInteger } from "@actnowcoalition/number-format";
 import { Region, states } from "@actnowcoalition/regions";

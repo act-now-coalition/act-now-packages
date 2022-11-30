@@ -1,3 +1,5 @@
+import React from "react";
+
 import {
   Table as MuiTable,
   TableBody as MuiTableBody,
@@ -9,7 +11,6 @@ import {
   tableCellClasses,
   typographyClasses,
 } from "@mui/material";
-import React from "react";
 
 import { styled } from "../../styles";
 

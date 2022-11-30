@@ -1,5 +1,6 @@
-import { ScaleLinear, ScaleTime } from "d3-scale";
 import React from "react";
+
+import { ScaleLinear, ScaleTime } from "d3-scale";
 
 import { Timeseries } from "@actnowcoalition/metrics";
 import { Metric } from "@actnowcoalition/metrics";

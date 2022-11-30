@@ -1,8 +1,9 @@
+import React, { useMemo } from "react";
+
 import { Group } from "@visx/group";
 import { VoronoiPolygon, voronoi } from "@visx/voronoi";
 import { ScaleLinear, ScaleTime } from "d3-scale";
 import concat from "lodash/concat";
-import React, { useMemo } from "react";
 
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 

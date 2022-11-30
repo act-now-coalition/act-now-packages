@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
 import React from "react";
+
+import { Stack, Typography } from "@mui/material";
 
 import { assert } from "@actnowcoalition/assert";
 import { Category, Metric } from "@actnowcoalition/metrics";

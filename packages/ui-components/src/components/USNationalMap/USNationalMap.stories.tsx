@@ -1,7 +1,8 @@
+import React from "react";
+
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear, scaleOrdinal } from "@visx/scale";
 import { interpolatePiYG } from "d3-scale-chromatic";
-import React from "react";
 
 import { assert } from "@actnowcoalition/assert";
 import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";

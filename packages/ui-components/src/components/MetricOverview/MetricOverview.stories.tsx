@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
 
 import { states } from "@actnowcoalition/regions";
 

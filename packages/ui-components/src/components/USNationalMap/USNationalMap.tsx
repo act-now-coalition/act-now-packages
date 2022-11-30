@@ -1,5 +1,6 @@
-import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 import React from "react";
+
+import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
 
 import {
   defaultHeight,

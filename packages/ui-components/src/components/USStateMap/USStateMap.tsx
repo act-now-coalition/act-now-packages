@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Link, Tooltip } from "@mui/material";
 import { geoPath as d3GeoPath, geoAlbersUsa, geoMercator } from "d3-geo";
-import React from "react";
 
 import { Region } from "@actnowcoalition/regions";
 

@@ -1,5 +1,6 @@
-import { Stack, Typography } from "@mui/material";
 import React from "react";
+
+import { Stack, Typography } from "@mui/material";
 
 import { ArrowIcon, CircleIcon, Container } from "./SearchItem.style";
 

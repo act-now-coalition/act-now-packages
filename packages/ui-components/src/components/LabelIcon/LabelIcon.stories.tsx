@@ -1,6 +1,7 @@
+import React from "react";
+
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import React from "react";
 
 import { LabelIcon } from ".";
 

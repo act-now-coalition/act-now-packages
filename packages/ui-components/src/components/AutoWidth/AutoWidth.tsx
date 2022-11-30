@@ -1,6 +1,7 @@
+import React from "react";
+
 import { ParentSize } from "@visx/responsive";
 import isNumber from "lodash/isNumber";
-import React from "react";
 
 // TODO (Pablo): The intent here is to ensure that the children elements
 // have an optional, numeric `width` prop, but the validation doesn't

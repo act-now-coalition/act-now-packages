@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Box, Grid, Typography } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
-import React from "react";
 
 export default {
   title: "Design System/Typography",
