@@ -194,6 +194,7 @@ describe("Metric", () => {
       testCatalogOptions
     );
     expect(metric.formatValue(123.123)).toBe("123");
+    expect(metric.formatValue(0.123)).toBe("0");
   });
 
   test("formatValue() with one decimal point", () => {
@@ -204,7 +205,8 @@ describe("Metric", () => {
       },
       testCatalogOptions
     );
-    expect(metric.formatValue(0.1234)).toBe("0.1");
+    expect(metric.formatValue(123.123)).toBe("123.1");
+    expect(metric.formatValue(0.123)).toBe("0.1");
   });
 
   test("formatValue() with custom options", () => {
