@@ -1,10 +1,10 @@
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
 
-import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "../data";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 
 /**
  * Simple data provider that provides a static value for all regions. Mostly

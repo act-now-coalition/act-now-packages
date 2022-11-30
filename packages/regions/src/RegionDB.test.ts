@@ -1,4 +1,4 @@
-import { states, Region, RegionDB } from ".";
+import { Region, RegionDB, states } from ".";
 
 describe("RegionDB", () => {
   test("getRegionUrl returns the corresponding URL for the region", () => {

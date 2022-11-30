@@ -1,4 +1,5 @@
 import React from "react";
+
 import { CircleMarker } from "./PointMarker.style";
 
 export interface PointMarkerProps {

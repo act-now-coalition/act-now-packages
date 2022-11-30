@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { RegionDB, Region } from "@actnowcoalition/regions";
-import { MetricUSStateMap } from "../MetricUSStateMap";
-import { Typography, TextField, MenuItem } from "@mui/material";
-import { MetricLegendThreshold } from "../MetricLegendThreshold";
-import { useMetricCatalog } from "../MetricCatalogContext";
+
+import { MenuItem, TextField, Typography } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
-import { getStartLabel, getEndLabel } from "./utils";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
+import { useMetricCatalog } from "../MetricCatalogContext";
+import { MetricLegendThreshold } from "../MetricLegendThreshold";
+import { MetricUSStateMap } from "../MetricUSStateMap";
 import {
   BorderedContainer,
   BorderedContainerLast,
 } from "./MultiMetricUSStateMap.style";
+import { getEndLabel, getStartLabel } from "./utils";
 
 export interface MultiMetricUSStateMapProps {
   /** Region ID of the state being mapped */

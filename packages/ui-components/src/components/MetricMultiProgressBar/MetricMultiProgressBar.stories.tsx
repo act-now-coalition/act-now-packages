@@ -1,7 +1,10 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricMultiProgressBar } from ".";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
+
+import { MetricMultiProgressBar } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {

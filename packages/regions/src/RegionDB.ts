@@ -1,5 +1,7 @@
 import keyBy from "lodash/keyBy";
+
 import { assert } from "@actnowcoalition/assert";
+
 import { Region } from "./Region";
 
 export interface RegionDBOptions {

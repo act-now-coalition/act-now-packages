@@ -1,8 +1,11 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
-import { MetricId } from "../../stories/mockMetricCatalog";
+
 import { MetricValue } from ".";
+import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
   title: "Metrics/MetricValue",

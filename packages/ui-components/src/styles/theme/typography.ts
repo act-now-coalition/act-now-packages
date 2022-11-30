@@ -1,5 +1,5 @@
-import palette from "./palette";
 import { ExtendedTypographyOptions } from "./interfaces";
+import palette from "./palette";
 
 /**
  * Note: The default theme includes some fonts that need to be included at the

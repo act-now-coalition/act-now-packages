@@ -1,6 +1,8 @@
 import React from "react";
+
+import { Box, Grid, Palette, Stack, Typography } from "@mui/material";
 import isObject from "lodash/isObject";
-import { Typography, Palette, Grid, Box, Stack } from "@mui/material";
+
 import theme from "../styles/theme";
 
 export default {

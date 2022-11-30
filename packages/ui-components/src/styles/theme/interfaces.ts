@@ -1,6 +1,7 @@
 /** Theme interfaces */
-import { TypographyOptions } from "@mui/material/styles/createTypography";
 import React from "react";
+
+import { TypographyOptions } from "@mui/material/styles/createTypography";
 
 /** Typography */
 export interface ExtendedTypographyOptions extends TypographyOptions {

@@ -1,5 +1,6 @@
-import { styled } from "../../styles";
 import isValidProp from "@emotion/is-prop-valid";
+
+import { styled } from "../../styles";
 
 export const Square = styled("div", { shouldForwardProp: isValidProp })<{
   color: string;

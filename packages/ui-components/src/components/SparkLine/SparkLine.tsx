@@ -1,10 +1,13 @@
 import React from "react";
+
+import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { Timeseries } from "@actnowcoalition/metrics";
+
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
-import { scaleUtc, scaleLinear } from "@visx/scale";
-import { useTheme } from "@mui/material";
 
 export interface SparkLineProps {
   /** Timeseries used to draw the bar chart */

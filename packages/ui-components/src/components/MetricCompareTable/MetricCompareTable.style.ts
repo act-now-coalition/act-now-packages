@@ -1,5 +1,6 @@
-import { styled } from "../../styles";
 import { Link as MuiLink } from "@mui/material";
+
+import { styled } from "../../styles";
 import { TableCell } from "../CompareTable";
 
 // We remove the padding on the table cells to ensure that the link they

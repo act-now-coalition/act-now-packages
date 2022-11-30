@@ -1,9 +1,12 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { states, Region, RegionDB } from "@actnowcoalition/regions";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { Region, RegionDB, states } from "@actnowcoalition/regions";
+
+import { MetricCompareTable } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { TableContainer } from "../CompareTable";
-import { MetricCompareTable } from ".";
 
 const regionDB = new RegionDB(states.all, {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,

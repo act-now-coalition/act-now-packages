@@ -1,11 +1,12 @@
 import React, { Fragment } from "react";
+
 import {
-  Table,
-  TableHead,
-  TableBody,
-  TableRow,
-  SortDirection,
   CompareTableProps,
+  SortDirection,
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
 } from ".";
 
 export interface CompareTableRowBase {
