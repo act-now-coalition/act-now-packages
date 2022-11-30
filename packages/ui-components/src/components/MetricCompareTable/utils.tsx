@@ -62,7 +62,6 @@ export function createMetricColumn(
             metric={metric}
             region={row.region}
             variant="dataTabular"
-            justifyContent="end"
           />
         </StyledLink>
       </StyledTableCell>

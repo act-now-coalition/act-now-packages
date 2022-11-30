@@ -21,14 +21,4 @@ DefaultProps.args = {
   maxValue: 100,
   value: 39,
   color: "#5936B6",
-  "aria-label": "Vaccination",
-};
-
-export const ARIALabelledBy = Template.bind({});
-ARIALabelledBy.args = {
-  "aria-labelledby": "meter-label",
-  minValue: 0,
-  maxValue: 100,
-  value: 75,
-  color: "#5936B6",
 };

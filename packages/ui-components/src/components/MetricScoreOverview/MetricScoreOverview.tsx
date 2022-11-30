@@ -1,7 +1,7 @@
 import React from "react";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Stack, StackProps, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { IconButton } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
@@ -12,7 +12,7 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { MetricValue } from "../MetricValue";
 
-export interface MetricScoreOverviewProps extends StackProps {
+export interface MetricScoreOverviewProps {
   /** Region for which we want to show the metric overview */
   region: Region;
   /** Metric for which we want to show the metric overview */
@@ -25,13 +25,12 @@ export const MetricScoreOverview = ({
   region,
   metric,
   tooltipTitle,
-  ...otherStackProps
 }: MetricScoreOverviewProps) => {
   const metricCatalog = useMetricCatalog();
   const resolvedMetric = metricCatalog.getMetric(metric);
 
   return (
-    <Stack direction="row" spacing={2} alignItems="center" {...otherStackProps}>
+    <Stack direction="row" spacing={2} alignItems="center" width="fit-content">
       <MetricLegendThreshold
         orientation="vertical"
         metric={resolvedMetric}

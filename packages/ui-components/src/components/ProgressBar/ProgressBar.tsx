@@ -4,7 +4,11 @@ import { scaleLinear } from "@visx/scale";
 
 import { RectClipGroup } from "../RectClipGroup";
 
-export interface BaseProgressBarProps {
+export interface ProgressBarProps {
+  /** Width of the progress bar */
+  width?: number;
+  /** Height of the progress bar */
+  height?: number;
   /** Border radius of the progress bar */
   borderRadius?: number;
   /** Minimum value in the range */
@@ -19,12 +23,6 @@ export interface BaseProgressBarProps {
   backgroundColor?: string;
 }
 
-export type ProgressBarProps = BaseProgressBarProps &
-  Omit<
-    React.SVGProps<SVGSVGElement>,
-    "aria-valuemin" | "aria-valuemax" | "aria-valuenow"
-  >;
-
 /**
  * Chart that shows a numeric value that varies within a defined range.
  *
@@ -32,12 +30,6 @@ export type ProgressBarProps = BaseProgressBarProps &
  * order for assistive technologies to describe the values correctly. For
  * example, to represent 35%, we should set minValue=0, maxValue=100, and
  * currentValue=35.
- *
- * By default, the role of the component is 'meter', since the role
- * 'progressbar' is appropriate to show progress of tasks.
- *
- * https://www.w3.org/WAI/ARIA/apg/patterns/meter/
- * https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/meter_role
  */
 export const ProgressBar = ({
   width = 300,
@@ -48,7 +40,6 @@ export const ProgressBar = ({
   backgroundColor = "rgba(95, 108, 114, 0.2)",
   value,
   color,
-  role = "meter",
   ...otherSvgProps
 }: ProgressBarProps) => {
   const xScale = scaleLinear({
@@ -60,7 +51,6 @@ export const ProgressBar = ({
     <svg
       width={width}
       height={height}
-      role={role}
       aria-valuemin={minValue}
       aria-valuemax={maxValue}
       aria-valuenow={value}
