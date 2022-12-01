@@ -1,11 +1,15 @@
 import React from "react";
 
+import { Skeleton } from "@mui/material";
+
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
 import {
   BaseMultiProgressBarProps,
+  DEFAULT_HEIGHT,
+  DEFAULT_WIDTH,
   MultiProgressBar,
 } from "../MultiProgressBar";
 
@@ -21,12 +25,14 @@ export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
 export const MetricMultiProgressBar = ({
   region,
   metrics,
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT,
   ...otherProgressBarProps
 }: MetricMultiProgressBarProps) => {
   const { data } = useDataForMetrics(region, metrics, false);
 
   if (!data) {
-    return null;
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const [firstItem, secondItem] = getProgressBarItems(data, metrics);
@@ -36,6 +42,8 @@ export const MetricMultiProgressBar = ({
       items={[firstItem, secondItem]}
       getItemValue={(item) => item.currentValue}
       getItemLabel={(item) => item.label}
+      width={width}
+      height={height}
       {...otherProgressBarProps}
     />
   );

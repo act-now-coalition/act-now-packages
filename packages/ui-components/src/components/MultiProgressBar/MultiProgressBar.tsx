@@ -25,13 +25,16 @@ export interface MultiProgressBarProps<T> extends BaseMultiProgressBarProps {
   getItemValue: (item: T) => number;
 }
 
+export const DEFAULT_WIDTH = 100;
+export const DEFAULT_HEIGHT = 16;
+
 export const MultiProgressBar = <T,>({
   items,
   getItemValue,
   getItemLabel,
   maxValue,
-  width = 100,
-  height = 16,
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT,
   barColor = "#000000",
   bgColor,
   borderRadius = 4,
@@ -56,7 +59,13 @@ export const MultiProgressBar = <T,>({
   );
 
   return (
-    <svg width={width} height={height} aria-labelledby={titleId} role="meter">
+    <svg
+      width={width}
+      height={height}
+      aria-labelledby={titleId}
+      role="meter"
+      style={{ display: "block" }}
+    >
       <title id={titleId}>
         {title
           ? title
