@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useTheme } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
 
@@ -17,6 +19,7 @@ export const MetricUSNationalMap = ({
   showCounties,
   ...otherProps
 }: MetricUSNationalMapProps) => {
+  const theme = useTheme();
   const { data } = useDataForRegionsAndMetrics(regionDB.all, [metric], false);
 
   return (
@@ -25,7 +28,7 @@ export const MetricUSNationalMap = ({
         const region = regionDB.findByRegionId(regionId);
         return region && data
           ? data.metricData(region, metric).getColor()
-          : "#eee";
+          : theme.palette.action.disabledBackground;
       }}
       getRegionUrl={(regionId: string) => {
         const region = regionDB.findByRegionId(regionId);

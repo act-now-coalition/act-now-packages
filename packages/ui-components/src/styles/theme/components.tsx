@@ -185,6 +185,13 @@ const components: ThemeOptions["components"] = {
       },
     },
   },
+  MuiSkeleton: {
+    styleOverrides: {
+      root: ({ theme }) => ({
+        backgroundColor: theme.palette.action.disabledBackground,
+      }),
+    },
+  },
 };
 
 export default components;
