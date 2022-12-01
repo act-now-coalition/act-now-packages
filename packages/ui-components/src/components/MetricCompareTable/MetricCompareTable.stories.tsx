@@ -6,7 +6,7 @@ import { Region, RegionDB, states } from "@actnowcoalition/regions";
 
 import { MetricCompareTable } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import { TableContainer } from "../CompareTable";
+import { SortDirection, TableContainer } from "../CompareTable";
 
 const regionDB = new RegionDB(states.all, {
   getRegionUrl: (region: Region) => `/us/${region.slug}`,
@@ -23,21 +23,30 @@ const Template: ComponentStory<typeof MetricCompareTable> = (args) => (
   </TableContainer>
 );
 
-export const Example = Template.bind({});
-Example.args = {
+export const DefaultSortOrder = Template.bind({});
+DefaultSortOrder.args = {
   regionDB,
   regions: regionDB.all,
   metrics: [MetricId.PI, MetricId.MOCK_CASES, MetricId.PASS_FAIL],
 };
 
+export const InitialSortOrder = Template.bind({});
+InitialSortOrder.args = {
+  regionDB,
+  regions: regionDB.all,
+  metrics: [MetricId.PI, MetricId.MOCK_CASES, MetricId.PASS_FAIL],
+  sortColumnId: MetricId.MOCK_CASES,
+  sortDirection: SortDirection.ASC,
+};
+
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
-  ...Example.args,
+  ...DefaultSortOrder.args,
   metrics: [MetricId.PI, MetricId.MOCK_CASES_DELAY_1S, MetricId.PASS_FAIL],
 };
 
 export const LoadingError = Template.bind({});
 LoadingError.args = {
-  ...Example.args,
+  ...DefaultSortOrder.args,
   metrics: [MetricId.PI, MetricId.MOCK_CASES_ERROR, MetricId.PASS_FAIL],
 };

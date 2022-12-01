@@ -9,7 +9,8 @@ import {
   CompareTable,
   CompareTableProps,
   SortDirection,
-  sortRows,
+  TableSortState,
+  sortTableRows,
 } from "../CompareTable";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Row, createLocationColumn, createMetricColumn } from "./utils";
@@ -22,22 +23,30 @@ export interface MetricCompareTableProps
   regions: Region[];
   /** List of metrics or metricID - order of the columns will match */
   metrics: (Metric | string)[];
+  /** Initial sorting column. By default, it will use the location column. */
+  sortColumnId?: string;
+  /** Initial sort direction. Ascending by default. */
+  sortDirection?: SortDirection;
 }
 
 export const MetricCompareTable = ({
   regionDB,
   regions,
   metrics: metricOrIds,
+  sortColumnId: initialSortColumnId,
+  sortDirection: initialSortDirection,
   ...otherCompareTableProps
 }: MetricCompareTableProps) => {
-  // TODO(Pablo): It might be better to define and set a context to control the
-  // state of the table if we need to control it from a parent component.
-  const [sortDirection, setSortDirection] = useState(SortDirection.DESC);
-  const [sortColumnId, setSortColumnId] = useState("location");
+  const initialState = {
+    sortColumnId: initialSortColumnId ?? "location",
+    sortDirection: initialSortDirection ?? SortDirection.ASC,
+  };
+
+  const [sortState, setSortState] = useState<TableSortState>(initialState);
+  const { sortColumnId, sortDirection } = sortState;
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
-    setSortDirection(direction);
-    setSortColumnId(columnId);
+    setSortState({ sortDirection: direction, sortColumnId: columnId });
   };
 
   const metricCatalog = useMetricCatalog();
@@ -72,8 +81,7 @@ export const MetricCompareTable = ({
     ),
   ];
 
-  const sortColumn = columns.find((col) => col.columnId === sortColumnId);
-  const sortedRows = sortRows<Row>(rows, sortDirection, sortColumn?.sorterAsc);
+  const sortedRows = sortTableRows<Row>(rows, columns, sortState);
 
   return (
     <CompareTable
