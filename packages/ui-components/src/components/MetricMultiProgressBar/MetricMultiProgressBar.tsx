@@ -4,6 +4,8 @@ import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
 import {
   MultiProgressBar,
   BaseMultiProgressBarProps,
+  DEFAULT_WIDTH,
+  DEFAULT_HEIGHT,
 } from "../MultiProgressBar";
 import { useDataForMetrics } from "../../common/hooks";
 import { Skeleton } from "@mui/material";
@@ -20,8 +22,8 @@ export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
 export const MetricMultiProgressBar = ({
   region,
   metrics,
-  width = 100,
-  height = 16,
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT,
   ...otherProgressBarProps
 }: MetricMultiProgressBarProps) => {
   const { data } = useDataForMetrics(region, metrics, false);
