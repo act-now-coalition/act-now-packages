@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
@@ -40,7 +41,7 @@ export const MetricLineChart = ({
     useHoveredDate(timeseries);
 
   if (!data || !timeseries?.hasData()) {
-    return null;
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const chartHeight = height - marginTop - marginBottom;
@@ -59,7 +60,7 @@ export const MetricLineChart = ({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}

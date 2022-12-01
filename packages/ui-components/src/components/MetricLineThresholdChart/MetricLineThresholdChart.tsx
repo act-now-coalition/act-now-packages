@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import max from "lodash/max";
@@ -53,7 +54,7 @@ export const MetricLineThresholdChart = ({
     useHoveredDate(timeseries);
 
   if (!timeseries?.hasData?.()) {
-    return null;
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const chartHeight = height - marginTop - marginBottom;
@@ -89,7 +90,7 @@ export const MetricLineThresholdChart = ({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
