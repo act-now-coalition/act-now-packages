@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof USNationalMap> = (args) => (
   <USNationalMap {...args} />
 );
 
-const renderTooltip = (regionId: string) => {
+const getTooltip = (regionId: string) => {
   return regionDB.findByRegionIdStrict(regionId).fullName;
 };
 
@@ -35,11 +35,11 @@ const getRegionUrl = (regionId: string): string => {
 
 /** States with no fill color */
 export const States = Template.bind({});
-States.args = { renderTooltip, getRegionUrl };
+States.args = { getTooltip, getRegionUrl };
 
 /** Counties with no fill color */
 export const StatesWithCounties = Template.bind({});
-StatesWithCounties.args = { showCounties: true, renderTooltip, getRegionUrl };
+StatesWithCounties.args = { showCounties: true, getTooltip, getRegionUrl };
 
 const alphabetArr = "abcdefghijklmnopqrstuvwxyz".split("");
 
@@ -78,7 +78,7 @@ const getFillColor = (regionId: string) => {
 /** States colored by first letter of fullName */
 export const StatesColoredByFirstLetter = Template.bind({});
 StatesColoredByFirstLetter.args = {
-  renderTooltip,
+  getTooltip,
   getFillColor,
   getRegionUrl,
 };
@@ -87,7 +87,7 @@ StatesColoredByFirstLetter.args = {
 export const CountiesColoredByFirstLetter = Template.bind({});
 CountiesColoredByFirstLetter.args = {
   showCounties: true,
-  renderTooltip,
+  getTooltip,
   getFillColor,
   getRegionUrl,
 };

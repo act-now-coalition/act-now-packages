@@ -14,7 +14,7 @@ import {
 } from "./WorldMap.style";
 
 export interface WorldMapProps {
-  renderTooltip: (regionId: string) => React.ReactNode;
+  getTooltip: (regionId: string) => React.ReactNode;
   getFillColor?: (regionId: string) => string;
   getFillOpacity?: (geoId: string) => number;
   width?: number;
@@ -32,7 +32,7 @@ const projectionCenter: [number, number] = [0, -55]; // [longitude, latitude]
 
 const WorldMapInner = ({
   width = defaultWidth,
-  renderTooltip,
+  getTooltip,
   getFillColor = () => `#ddd`,
   getFillOpacity = () => 1,
   getRegionUrl = () => undefined,
@@ -67,7 +67,7 @@ const WorldMapInner = ({
 
         {/* Clickable region overlay */}
         {countries.features.map((geo) => (
-          <Tooltip key={geo.id} title={renderTooltip(`${geo.id}`) ?? ""}>
+          <Tooltip key={geo.id} title={getTooltip(`${geo.id}`) ?? ""}>
             <Link href={getRegionUrl(`${geo.id}`)}>
               <RegionOverlay d={geoPath(geo) ?? ""} />
             </Link>
@@ -124,7 +124,7 @@ const WorldMap = (props: WorldMapProps) => (
 
 /**
  * We memoize the component to prevent it from rendering multiple times
- * with the same props. Note that `renderTooltip` and `getFillColor` need to
+ * with the same props. Note that `getTooltip` and `getFillColor` need to
  * be memoized in the parent component for `React.memo` to work.
  *
  * https://reactjs.org/docs/hooks-reference.html#usecallback

@@ -16,10 +16,10 @@ const Template: ComponentStory<typeof WorldMap> = (args) => (
 const getFillColor = (geoId: string) =>
   geoId.startsWith("A") ? "#014f86" : "#a9d6e5";
 
-const renderTooltip = (geoId: string) => geoId;
+const getTooltip = (geoId: string) => geoId;
 
 export const World = Template.bind({});
 World.args = {
   getFillColor,
-  renderTooltip,
+  getTooltip,
 };
