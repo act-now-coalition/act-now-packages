@@ -41,14 +41,14 @@ const ChartPlaceholder = () => (
 
 const newYorkState = states.findByRegionIdStrict("36");
 
-export const DefaultProps = Template.bind({});
-DefaultProps.args = {
+export const Vertical = Template.bind({});
+Vertical.args = {
   region: newYorkState,
   metric: MetricId.MOCK_CASES,
 };
 
-export const NoExtendedName = Template.bind({});
-NoExtendedName.args = {
+export const VerticalWithoutExtendedName = Template.bind({});
+VerticalWithoutExtendedName.args = {
   region: newYorkState,
   metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
 };
@@ -60,15 +60,15 @@ VerticalWithChart.args = {
   metricChart: <ChartPlaceholder />,
 };
 
-export const DefaultHorizontal = Template.bind({});
-DefaultHorizontal.args = {
+export const Horizontal = Template.bind({});
+Horizontal.args = {
   region: newYorkState,
   metric: MetricId.MOCK_CASES,
   orientation: "horizontal",
 };
 
-export const HorizontalNoExtendedName = Template.bind({});
-HorizontalNoExtendedName.args = {
+export const HorizontalWithoutExtendedName = Template.bind({});
+HorizontalWithoutExtendedName.args = {
   region: newYorkState,
   metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
   orientation: "horizontal",

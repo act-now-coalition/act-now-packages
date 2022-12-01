@@ -92,7 +92,7 @@ const region = states.findByRegionIdStrict("12");
 /**
  * Using a real chart this time, we create a Grid with 4 columns.
  */
-export const Sparklines = () => (
+export const WithSparklines = () => (
   <Grid container spacing={2}>
     {[1, 2, 3, 4].map((n) => (
       <StyledGridItem item xs={3} key={`grid-item-${n}`}>

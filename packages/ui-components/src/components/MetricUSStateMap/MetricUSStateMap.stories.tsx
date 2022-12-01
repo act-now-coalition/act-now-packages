@@ -13,7 +13,7 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
 const herkimerCountyNewYorkRegion = counties.findByRegionIdStrict("36043");
 
 export default {
-  title: "Components/US State Map",
+  title: "Components/MetricUSStateMap",
   component: MetricUSStateMap,
 } as ComponentMeta<typeof MetricUSStateMap>;
 
@@ -25,25 +25,24 @@ const renderTooltip = (regionId: string) => {
   return regionDB.findByRegionIdStrict(regionId).fullName;
 };
 
-/** New York colored by mock metric data */
-export const MetricAwareNewYork = Template.bind({});
-MetricAwareNewYork.args = {
+export const NewYork = Template.bind({});
+NewYork.args = {
   stateRegionId: "36",
   renderTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
 
-export const MetricAwareAlaska = Template.bind({});
-MetricAwareAlaska.args = {
+export const Alaska = Template.bind({});
+Alaska.args = {
   stateRegionId: "02",
   renderTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
 
-export const MetricAwareNewYorkWithHighlightedCounty = Template.bind({});
-MetricAwareNewYorkWithHighlightedCounty.args = {
+export const NewYorkWithHighlightedCounty = Template.bind({});
+NewYorkWithHighlightedCounty.args = {
   stateRegionId: "36",
   highlightedRegion: herkimerCountyNewYorkRegion,
   renderTooltip,
@@ -53,12 +52,12 @@ MetricAwareNewYorkWithHighlightedCounty.args = {
 
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
-  ...MetricAwareNewYork.args,
+  ...NewYork.args,
   metric: MetricId.MOCK_CASES_DELAY_1S,
 };
 
 export const LoadingError = Template.bind({});
 LoadingError.args = {
-  ...MetricAwareNewYork.args,
+  ...NewYork.args,
   metric: MetricId.MOCK_CASES_ERROR,
 };

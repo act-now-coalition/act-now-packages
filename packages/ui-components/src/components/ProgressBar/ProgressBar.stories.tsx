@@ -16,8 +16,8 @@ const Template: ComponentStory<typeof ProgressBar> = (args) => (
   </>
 );
 
-export const DefaultProps = Template.bind({});
-DefaultProps.args = {
+export const Example = Template.bind({});
+Example.args = {
   maxValue: 100,
   value: 39,
   color: "#5936B6",

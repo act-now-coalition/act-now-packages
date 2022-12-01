@@ -46,8 +46,8 @@ Vaccination.args = {
   ],
 };
 
-export const NegativeMinValue = Template.bind({});
-NegativeMinValue.args = {
+export const WithNegativeYValues = Template.bind({});
+WithNegativeYValues.args = {
   width,
   height,
   minValue: -10,

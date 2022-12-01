@@ -23,8 +23,8 @@ const StyledTemplate: ComponentStory<typeof StyledMarkdown> = (args) => (
   <StyledMarkdown {...args} />
 );
 
-export const StyledExample = StyledTemplate.bind({});
-StyledExample.args = { children: "Styled markdown example!" };
+export const WithColoredText = StyledTemplate.bind({});
+WithColoredText.args = { children: "Styled markdown example with green text!" };
 
 // Headings example
 const headings = `
@@ -39,8 +39,8 @@ I am **bold!**
 I am *italicized!*  
 `;
 
-export const HeadingExample = Template.bind({});
-HeadingExample.args = { children: headings };
+export const WithHeadings = Template.bind({});
+WithHeadings.args = { children: headings };
 
 // Quote example
 const quote = `
@@ -56,8 +56,8 @@ const quote = `
 
 >> ![Cat](https://pbs.twimg.com/profile_images/664169149002874880/z1fmxo00_400x400.jpg)`;
 
-export const QuoteExample = Template.bind({});
-QuoteExample.args = { children: quote };
+export const WithQuoteAndImage = Template.bind({});
+WithQuoteAndImage.args = { children: quote };
 
 // Table example
 const tableContent = `
@@ -67,13 +67,13 @@ const tableContent = `
 | Content 4 | Content 5 | Content 6 |
 `;
 
-export const TableExample = Template.bind({});
-TableExample.args = { children: tableContent };
+export const WithTable = Template.bind({});
+WithTable.args = { children: tableContent };
 
 // Inline markdown example
 const InlineTemplate: ComponentStory<typeof InlineMarkdown> = (args) => (
   <InlineMarkdown {...args} />
 );
 
-export const InlineExample = InlineTemplate.bind({});
-InlineExample.args = { children: "Inline **markdown** example!" };
+export const Inline = InlineTemplate.bind({});
+Inline.args = { children: "Inline **markdown** example!" };

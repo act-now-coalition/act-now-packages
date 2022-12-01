@@ -16,26 +16,26 @@ const Template: ComponentStory<typeof MetricLegendCategorical> = (args) => (
   </div>
 );
 
-export const Horizontal = Template.bind({});
-Horizontal.args = {
+export const HorizontalWithExtendedName = Template.bind({});
+HorizontalWithExtendedName.args = {
   metric: MetricId.PASS_FAIL,
   orientation: "horizontal",
 };
 
-export const Vertical = Template.bind({});
-Vertical.args = {
+export const VerticalWithExtendedName = Template.bind({});
+VerticalWithExtendedName.args = {
   metric: MetricId.PASS_FAIL,
   orientation: "vertical",
 };
 
-export const HorizontalNoExtendedName = Template.bind({});
-HorizontalNoExtendedName.args = {
+export const HorizontalWithoutExtendedName = Template.bind({});
+HorizontalWithoutExtendedName.args = {
   metric: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
   orientation: "horizontal",
 };
 
-export const VerticalNoExtendedName = Template.bind({});
-VerticalNoExtendedName.args = {
+export const VerticalWithoutExtendedName = Template.bind({});
+VerticalWithoutExtendedName.args = {
   metric: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
   orientation: "vertical",
 };

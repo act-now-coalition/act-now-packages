@@ -40,8 +40,8 @@ const Template: ComponentStory<typeof MetricTooltip> = (args) => (
   </svg>
 );
 
-export const TooltipExample = Template.bind({});
-TooltipExample.args = {
+export const Example = Template.bind({});
+Example.args = {
   region,
   metric,
   point,

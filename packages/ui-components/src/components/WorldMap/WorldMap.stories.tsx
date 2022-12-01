@@ -18,8 +18,8 @@ const getFillColor = (geoId: string) =>
 
 const renderTooltip = (geoId: string) => geoId;
 
-export const Example = Template.bind({});
-Example.args = {
+export const World = Template.bind({});
+World.args = {
   getFillColor,
   renderTooltip,
 };

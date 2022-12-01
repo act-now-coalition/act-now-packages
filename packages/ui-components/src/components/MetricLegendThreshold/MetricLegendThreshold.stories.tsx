@@ -27,15 +27,15 @@ HorizontalDefault.args = {
   metric: MetricId.MOCK_CASES,
 };
 
-export const HorizontalNoExtendedName = Template.bind({});
-HorizontalNoExtendedName.args = {
+export const HorizontalWithoutExtendedName = Template.bind({});
+HorizontalWithoutExtendedName.args = {
   orientation: "horizontal",
   height: horizontalBarHeight,
   metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
 };
 
-export const HorizontalNoLabels = Template.bind({});
-HorizontalNoLabels.args = {
+export const HorizontalWithoutLabels = Template.bind({});
+HorizontalWithoutLabels.args = {
   ...HorizontalDefault.args,
   showLabels: false,
 };
@@ -62,20 +62,14 @@ VerticalDefault.args = {
   metric: MetricId.MOCK_CASES,
 };
 
-export const VerticalNoExtendedName = Template.bind({});
-VerticalNoExtendedName.args = {
+export const VerticalWithoutExtendedName = Template.bind({});
+VerticalWithoutExtendedName.args = {
   orientation: "vertical",
   metric: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
 };
 
-export const VerticalCategories = Template.bind({});
-VerticalCategories.args = {
-  orientation: "vertical",
-  metric: MetricId.PASS_FAIL,
-};
-
-export const VerticalNoLabel = Template.bind({});
-VerticalNoLabel.args = {
+export const VerticalWithoutLabels = Template.bind({});
+VerticalWithoutLabels.args = {
   showLabels: false,
   ...VerticalDefault.args,
 };
@@ -86,6 +80,12 @@ VerticalOnlySideLabels.args = {
   showLabels: false,
   startLabel: <Typography>lower</Typography>,
   endLabel: <Typography>higher</Typography>,
+};
+
+export const VerticalCategories = Template.bind({});
+VerticalCategories.args = {
+  orientation: "vertical",
+  metric: MetricId.PASS_FAIL,
 };
 
 export const VerticalSmall = Template.bind({});

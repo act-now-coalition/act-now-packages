@@ -8,7 +8,7 @@ import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricWorldMap } from "./MetricWorldMap";
 
 export default {
-  title: "Components/World Map",
+  title: "Components/MetricWorldMap",
   component: MetricWorldMap,
 } as ComponentMeta<typeof MetricWorldMap>;
 
@@ -25,8 +25,8 @@ const renderTooltip = (regionId: string) => {
 };
 
 /** Nations colored by mock metric data */
-export const MetricAwareWorld = Template.bind({});
-MetricAwareWorld.args = {
+export const World = Template.bind({});
+World.args = {
   renderTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
@@ -34,12 +34,12 @@ MetricAwareWorld.args = {
 
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
-  ...MetricAwareWorld.args,
+  ...World.args,
   metric: MetricId.MOCK_CASES_DELAY_1S,
 };
 
 export const LoadingError = Template.bind({});
 LoadingError.args = {
-  ...MetricAwareWorld.args,
+  ...World.args,
   metric: MetricId.MOCK_CASES_ERROR,
 };

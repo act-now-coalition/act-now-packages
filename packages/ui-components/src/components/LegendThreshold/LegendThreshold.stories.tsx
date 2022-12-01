@@ -53,14 +53,6 @@ HorizontalWithoutLabels.args = {
   showLabels: false,
 };
 
-export const HorizontalRounded = Template.bind({});
-HorizontalRounded.args = {
-  ...HorizontalDefault.args,
-  height: horizontalHeight,
-  borderRadius: horizontalHeight / 2,
-  showLabels: false,
-};
-
 export const HorizontalSquared = Template.bind({});
 HorizontalSquared.args = {
   ...HorizontalDefault.args,
@@ -76,22 +68,16 @@ VerticalDefault.args = {
   getItemSublabel,
 };
 
-export const VerticalRounded = Template.bind({});
-VerticalRounded.args = {
-  borderRadius: 8,
+export const VerticalWithoutLabels = Template.bind({});
+VerticalWithoutLabels.args = {
   ...VerticalDefault.args,
-};
-
-export const VerticalNoLabel = Template.bind({});
-VerticalNoLabel.args = {
   showLabels: false,
-  ...VerticalDefault.args,
 };
 
 export const VerticalSmall = Template.bind({});
 VerticalSmall.args = {
+  ...VerticalDefault.args,
   height: 72,
   borderRadius: 8,
   showLabels: false,
-  ...VerticalDefault.args,
 };

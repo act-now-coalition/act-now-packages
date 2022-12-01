@@ -17,11 +17,13 @@ const Template: ComponentStory<typeof LabelIcon> = (args) => (
 export const Example = Template.bind({});
 Example.args = { children: "Weekly new cases" };
 
-export const LongName = Template.bind({});
-LongName.args = { children: "Super long metric name to test text wrapping" };
+export const WithLongText = Template.bind({});
+WithLongText.args = {
+  children: "Super long metric name to test text wrapping",
+};
 
-export const Custom = Template.bind({});
-Custom.args = {
+export const WithCustomIcon = Template.bind({});
+WithCustomIcon.args = {
   children: "Learn more",
   color: "primary",
   variant: "labelSmall",

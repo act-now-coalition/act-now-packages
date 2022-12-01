@@ -68,6 +68,6 @@ Static.args = {
 // This story is not directly wrapped on MetricCatalogProvider, so is
 // using the MetricCatalogProvider setup as a decorator in
 // .storybook/preview.tsx
-export const UsingDecorator = () => (
+export const WithDecorator = () => (
   <MetricAwareDemo metric={MetricId.PI} region={washingtonState} />
 );

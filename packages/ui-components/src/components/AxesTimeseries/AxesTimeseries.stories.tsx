@@ -41,8 +41,8 @@ const Template: ComponentStory<typeof AxesTimeseries> = (args) => (
   </svg>
 );
 
-export const DefaultSettings = Template.bind({});
-DefaultSettings.args = {
+export const Default = Template.bind({});
+Default.args = {
   height: chartHeight,
   xScale,
   yScale,
@@ -58,8 +58,8 @@ CustomNumYTicks.args = {
   },
 };
 
-export const CustomTickFormat = Template.bind({});
-CustomTickFormat.args = {
+export const CustomYTickFormat = Template.bind({});
+CustomYTickFormat.args = {
   height: chartHeight,
   xScale,
   yScale: yScalePercent,
