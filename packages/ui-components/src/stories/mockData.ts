@@ -4,6 +4,22 @@ import { scaleLinear, scaleUtc } from "@visx/scale";
 import { assert } from "@actnowcoalition/assert";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
+// We generate random decimal points in TimeseriesPoint<number>
+// format so we can use them to initialize Timeseries.
+const randomPointsBetweenZeroAndOne = appleStock.map(
+  (p: { date: string; close: number }): TimeseriesPoint<number> => ({
+    date: new Date(p.date.substring(0, 10)),
+    value: Math.random(),
+  })
+);
+
+export const randomPointsBetweenZeroAndOneTimeseries = new Timeseries(
+  randomPointsBetweenZeroAndOne
+).filterToDateRange({
+  startAt: new Date("2012-01-01"),
+  endAt: new Date("2012-01-31"),
+});
+
 // We format the points from appleStock to match TimeseriesPoint<number>
 // so we can use them to initialize Timeseries.
 const appleStockPoints = appleStock.map(
