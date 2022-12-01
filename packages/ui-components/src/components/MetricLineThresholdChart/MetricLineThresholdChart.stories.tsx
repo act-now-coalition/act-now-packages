@@ -1,6 +1,9 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLineThresholdChart } from "./MetricLineThresholdChart";
 

@@ -1,6 +1,8 @@
 import React from "react";
+
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+
 import { Square } from "./LegendCategorical.style";
 
 export interface LegendCategoricalProps<T> {

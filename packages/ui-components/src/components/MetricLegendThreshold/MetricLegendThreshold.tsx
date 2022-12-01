@@ -1,9 +1,12 @@
 import React from "react";
-import { Stack, Typography, Box } from "@mui/material";
+
+import { Box, Stack, Typography } from "@mui/material";
+
+import { Metric } from "@actnowcoalition/metrics";
+
 import { LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { getMetricCategoryItems } from "./utils";
-import { Metric } from "@actnowcoalition/metrics";
 import { CategoryItem } from "./utils";
 
 export interface MetricLegendThresholdProps {
@@ -25,11 +28,6 @@ export interface MetricLegendThresholdProps {
   width?: number;
   /** Height of the bars */
   height?: number;
-  /** Optional other props. */
-  otherSvgProps?: Omit<
-    React.SVGProps<SVGSVGElement>,
-    keyof MetricLegendThresholdProps
-  >;
 }
 
 const getItemColor = (item: CategoryItem) => item.color;

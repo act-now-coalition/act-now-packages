@@ -1,9 +1,11 @@
 import React from "react";
-import { USStateMap, USStateMapProps } from "../USStateMap";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
-import { getCountiesOfState } from "../../common/utils/maps";
+
 import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
+
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { getCountiesOfState } from "../../common/utils/maps";
+import { USStateMap, USStateMapProps } from "../USStateMap";
 
 export interface MetricUSStateMapProps extends USStateMapProps {
   metric: Metric | string;
@@ -22,15 +24,13 @@ export const MetricUSStateMap = ({
 
   const { data } = useDataForRegionsAndMetrics(mapRegions, [metric], false);
 
-  if (!data) {
-    return null;
-  }
-
   return (
     <USStateMap
       getFillColor={(regionId: string) => {
         const region = regionDB.findByRegionId(regionId);
-        return region ? data.metricData(region, metric).getColor() : "#eee";
+        return region && data
+          ? data.metricData(region, metric).getColor()
+          : "#eee";
       }}
       getRegionUrl={(regionId: string) => {
         const region = regionDB.findByRegionId(regionId);

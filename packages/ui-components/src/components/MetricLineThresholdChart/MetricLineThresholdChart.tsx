@@ -1,22 +1,25 @@
 import React from "react";
-import { scaleLinear, scaleUtc } from "@visx/scale";
+
+import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
-import min from "lodash/min";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import max from "lodash/max";
+import min from "lodash/min";
+
 import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
 import { useData } from "../../common/hooks";
+import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { GridRows } from "../Grid";
+import { LineIntervalChart } from "../LineIntervalChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { BaseChartProps } from "../../common/utils/charts";
 import { PointMarker } from "../PointMarker";
-import { LineIntervalChart } from "../LineIntervalChart";
 import { calculateChartIntervals } from "./utils";
-import { Skeleton } from "@mui/material";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
   metric: Metric | string;

@@ -1,6 +1,7 @@
 import React from "react";
-import { ScaleTime } from "d3-scale";
+
 import { localPoint } from "@visx/event";
+import { ScaleTime } from "d3-scale";
 
 export interface ChartOverlayXProps {
   /** Width of the overlay area */

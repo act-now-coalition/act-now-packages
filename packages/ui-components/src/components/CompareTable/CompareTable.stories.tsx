@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { ComponentMeta } from "@storybook/react";
+
 import { Typography } from "@mui/material";
+import { ComponentMeta } from "@storybook/react";
+
 import { formatInteger } from "@actnowcoalition/number-format";
-import { states, Region } from "@actnowcoalition/regions";
+import { Region, states } from "@actnowcoalition/regions";
+
 import {
-  SortDirection,
-  TableCell,
-  CompareTable,
   ColumnDefinition,
   ColumnHeader,
-  compare,
+  CompareTable,
+  SortDirection,
+  TableCell,
   TableContainer,
+  compare,
 } from ".";
 
 export default {

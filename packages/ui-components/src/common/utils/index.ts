@@ -1,5 +1,6 @@
-export { default as importJson } from "./importJson";
 import { formatInteger } from "@actnowcoalition/number-format";
+
+export { default as importJson } from "./importJson";
 
 /**
  * Format the population with thousands separator and keeping 3 significant

@@ -1,5 +1,6 @@
-import { Metric } from "@actnowcoalition/metrics";
 import startCase from "lodash/startCase";
+
+import { Metric } from "@actnowcoalition/metrics";
 
 // TODO(#325) - move these to MetricLegendThreshold (or somewhere more central than here)
 

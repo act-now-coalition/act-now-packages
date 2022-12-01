@@ -1,17 +1,19 @@
+import groupBy from "lodash/groupBy";
+import isEmpty from "lodash/isEmpty";
+import truncate from "lodash/truncate";
+
 import { assert } from "@actnowcoalition/assert";
 import { Region, RegionDB } from "@actnowcoalition/regions";
-import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
+
 import { Metric } from "../Metric";
 import { MetricData } from "../data";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import {
   DataRow,
   dataRowToMetricData,
   dataRowsToMetricData,
   parseCsv,
 } from "./data_provider_utils";
-import groupBy from "lodash/groupBy";
-import isEmpty from "lodash/isEmpty";
-import truncate from "lodash/truncate";
 import { fetchText } from "./utils";
 
 export interface CsvDataProviderOptions {

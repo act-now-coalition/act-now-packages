@@ -1,8 +1,11 @@
 import React from "react";
-import { Stack, Typography, Tooltip, TooltipProps } from "@mui/material";
+
+import { Stack, Tooltip, TooltipProps, Typography } from "@mui/material";
+
 import { Metric, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import { formatUTCDateTime, DateFormat } from "@actnowcoalition/time-utils";
+import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
+
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricTooltipWithChildren extends MetricTooltipContentProps {

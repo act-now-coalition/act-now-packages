@@ -1,9 +1,12 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleOrdinal, scaleLinear } from "@visx/scale";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { scaleLinear, scaleOrdinal } from "@visx/scale";
 import { interpolatePiYG } from "d3-scale-chromatic";
+
 import { assert } from "@actnowcoalition/assert";
-import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
+
 import { USNationalMap } from "./USNationalMap";
 
 export default {

@@ -1,11 +1,13 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { LineInterval, LineIntervalChart } from ".";
 import {
-  appleStockTimeseries as timeseries,
   createTimeseriesScales,
+  appleStockTimeseries as timeseries,
 } from "../../stories/mockData";
 import { theme } from "../../styles";
-import { LineIntervalChart, LineInterval } from ".";
 
 export default {
   title: "Charts/LineIntervalChart",

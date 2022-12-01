@@ -1,4 +1,5 @@
 import React from "react";
+
 import { LegendThresholdHorizontal } from "./LegendThresholdHorizontal";
 import { LegendThresholdVertical } from "./LegendThresholdVertical";
 

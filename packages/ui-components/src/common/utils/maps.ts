@@ -1,4 +1,4 @@
-import { RegionDB, Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 export interface BaseUSMapProps {
   renderTooltip: (regionId: string) => React.ReactNode;

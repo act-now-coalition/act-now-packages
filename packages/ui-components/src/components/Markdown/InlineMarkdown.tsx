@@ -1,5 +1,7 @@
 import * as React from "react";
+
 import { ReactMarkdownOptions } from "react-markdown/lib/react-markdown";
+
 import { MarkdownBody } from "./Markdown.style";
 
 /** Override 'div' and 'p' components so they just render as fragments. */

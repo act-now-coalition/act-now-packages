@@ -1,10 +1,12 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { scaleUtc, scaleLinear } from "@visx/scale";
-import { AxisBottom, AxisBottomProps } from ".";
-import { isOverTwoMonths, getNumTicks, formatDateTick } from "./utils";
-import { AutoWidth } from "../AutoWidth";
+
 import { Box } from "@mui/material";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
+import { AxisBottom, AxisBottomProps } from ".";
+import { AutoWidth } from "../AutoWidth";
+import { formatDateTick, getNumTicks, isOverTwoMonths } from "./utils";
 
 export default {
   title: "Charts/Axis Bottom",
