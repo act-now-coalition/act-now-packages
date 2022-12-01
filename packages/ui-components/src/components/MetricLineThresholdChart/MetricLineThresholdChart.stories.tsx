@@ -39,6 +39,12 @@ YAxisStartsAtZero.args = {
   metric: MetricId.APPLE_STOCK_LOW_THRESHOLDS,
 };
 
+export const PointsBetweenZeroAndOne = Template.bind({});
+PointsBetweenZeroAndOne.args = {
+  ...AppleStock.args,
+  metric: MetricId.RANDOM_POINTS_BETWEEN_ZERO_AND_ONE,
+};
+
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
   ...AppleStock.args,
