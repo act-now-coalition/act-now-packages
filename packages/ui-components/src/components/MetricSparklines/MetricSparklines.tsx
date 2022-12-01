@@ -7,10 +7,9 @@ import { Region } from "@actnowcoalition/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { SparkLine, SparkLineProps } from "../SparkLine";
+import { BaseSparkLineProps, SparkLine } from "../SparkLine";
 
-export interface MetricSparklinesProps
-  extends Omit<SparkLineProps, "timeseriesBarChart" | "timeseriesLineChart"> {
+export interface MetricSparklinesProps extends BaseSparkLineProps {
   /** Region to generate sparkline for. */
   region: Region;
   /** Metric to use for line element of sparkline. */

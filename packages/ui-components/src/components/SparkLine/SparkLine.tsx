@@ -9,13 +9,7 @@ import { Timeseries } from "@actnowcoalition/metrics";
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 
-export interface SparkLineProps {
-  /** Timeseries used to draw the bar chart */
-  timeseriesBarChart: Timeseries<number>;
-
-  /** Timeseries used to draw the line chart */
-  timeseriesLineChart: Timeseries<number>;
-
+export interface BaseSparkLineProps {
   /** Width of the whole spark line component */
   width?: number;
 
@@ -24,6 +18,14 @@ export interface SparkLineProps {
 
   /** Width of each bar, in pixels (2px by default) */
   barWidth?: number;
+}
+
+export interface SparkLineProps extends BaseSparkLineProps {
+  /** Timeseries used to draw the bar chart */
+  timeseriesBarChart: Timeseries<number>;
+
+  /** Timeseries used to draw the line chart */
+  timeseriesLineChart: Timeseries<number>;
 }
 
 export const SparkLine = ({
@@ -61,7 +63,7 @@ export const SparkLine = ({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={padding} top={padding}>
         <Group left={-0.5 * barWidth}>
           <BarChart

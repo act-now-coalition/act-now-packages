@@ -11,9 +11,7 @@ export default {
 } as ComponentMeta<typeof LabelIcon>;
 
 const Template: ComponentStory<typeof LabelIcon> = (args) => (
-  <div style={{ width: 300 }}>
-    <LabelIcon {...args} />
-  </div>
+  <LabelIcon {...args} />
 );
 
 export const Example = Template.bind({});
@@ -27,5 +25,5 @@ Custom.args = {
   children: "Learn more",
   color: "primary",
   variant: "labelSmall",
-  endIcon: <LibraryBooksIcon fontSize="small" color="inherit" />,
+  endIcon: <LibraryBooksIcon fontSize="small" color="primary" />,
 };

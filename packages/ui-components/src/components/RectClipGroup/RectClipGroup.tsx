@@ -14,10 +14,12 @@ import React, { SVGProps, useId } from "react";
  * ```
  */
 
+export type RectClipGroupProps = SVGProps<SVGRectElement>;
+
 export const RectClipGroup = ({
   children,
   ...rectProps
-}: SVGProps<SVGRectElement>) => {
+}: RectClipGroupProps) => {
   const clipPathId = useId();
   return (
     <>

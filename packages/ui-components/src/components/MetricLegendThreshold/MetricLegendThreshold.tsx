@@ -28,11 +28,6 @@ export interface MetricLegendThresholdProps {
   width?: number;
   /** Height of the bars */
   height?: number;
-  /** Optional other props. */
-  otherSvgProps?: Omit<
-    React.SVGProps<SVGSVGElement>,
-    keyof MetricLegendThresholdProps
-  >;
 }
 
 const getItemColor = (item: CategoryItem) => item.color;

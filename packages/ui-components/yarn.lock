@@ -7,16 +7,17 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-0.1.0.tgz#fa83caa21c419f20d7be7c10dafd70986613e6a0"
   integrity sha512-8dBa6CHFDuY/jAVtazVCDSl9796gaOLmsdMFX+uGBwQruEWpCq2jOkf/wvLypt9eoE+Dzi63Q5zbOIVXmlQRtQ==
 
-"@actnowcoalition/metrics@^0.3.2":
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.3.2.tgz#d09c668cc24202051231b0495cead23f2f5b6566"
-  integrity sha512-ShigCR7/UL/YDKoEwANGVark/tAqeIqSaR0bSg1hUCIW6sE5/SBAo/azcd+e51fGR6W9/MML2eTDDGaMZnTVTg==
+"@actnowcoalition/metrics@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.3.3.tgz#8194523d8e0506e43d1384615831740b7178c8cb"
+  integrity sha512-Qla8WNQ1ipQDA1D48dZ41GDuT5vBNi8k4aVGYv401+yr1dBX5ojG2DC14imLB80ga8Kfh3SLcMpHpmDYNKve+g==
   dependencies:
     "@actnowcoalition/assert" "^0.1.0"
     "@actnowcoalition/number-format" "^0.1.1"
     "@actnowcoalition/regions" "^0.1.1"
     "@actnowcoalition/time-utils" "^0.1.0"
     "@types/papaparse" "^5.3.3"
+    delay "^5.0.0"
     lodash "^4.17.21"
     node-fetch "^2.6.7"
     p-limit "^3.1.0"
@@ -5173,6 +5174,11 @@ define-property@^2.0.2:
   dependencies:
     is-descriptor "^1.0.2"
     isobject "^3.0.1"
+
+delay@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/delay/-/delay-5.0.0.tgz#137045ef1b96e5071060dd5be60bf9334436bd1d"
+  integrity sha512-ReEBKkIfe4ya47wlPYf/gu5ib6yUG0/Aez0JQZQz94kiWtRQvZIQbTiehsnwHvLSWJnQdhVeqYue7Id1dKr0qw==
 
 delayed-stream@~1.0.0:
   version "1.0.0"
