@@ -8,7 +8,7 @@ import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricUSNationalMap } from "./MetricUSNationalMap";
 
 export default {
-  title: "Maps/US National Map",
+  title: "Components/MetricUSNationalMap",
   component: MetricUSNationalMap,
 } as ComponentMeta<typeof MetricUSNationalMap>;
 
@@ -24,17 +24,15 @@ const renderTooltip = (regionId: string) => {
   return regionDB.findByRegionIdStrict(regionId).fullName;
 };
 
-/** States colored by mock metric data */
-export const MetricAwareStates = Template.bind({});
-MetricAwareStates.args = {
+export const States = Template.bind({});
+States.args = {
   renderTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
 
-/** Counties colored by mock metric data */
-export const MetricAwareCounties = Template.bind({});
-MetricAwareCounties.args = {
+export const Counties = Template.bind({});
+Counties.args = {
   renderTooltip,
   metric: MetricId.MOCK_CASES,
   showCounties: true,
@@ -43,12 +41,12 @@ MetricAwareCounties.args = {
 
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
-  ...MetricAwareStates.args,
+  ...States.args,
   metric: MetricId.MOCK_CASES_DELAY_1S,
 };
 
 export const LoadingError = Template.bind({});
 LoadingError.args = {
-  ...MetricAwareStates.args,
+  ...States.args,
   metric: MetricId.MOCK_CASES_ERROR,
 };

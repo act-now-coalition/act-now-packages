@@ -8,7 +8,7 @@ import { MultiMetricUSStateMap } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Maps/MultiMetric US State Map",
+  title: "Components/MultiMetricUSStateMap",
   component: MultiMetricUSStateMap,
 } as ComponentMeta<typeof MultiMetricUSStateMap>;
 

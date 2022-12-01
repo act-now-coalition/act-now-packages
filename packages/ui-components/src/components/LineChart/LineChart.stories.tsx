@@ -9,7 +9,7 @@ import {
 } from "../../stories/mockData";
 
 export default {
-  title: "Charts/LineChart",
+  title: "Components/LineChart",
   component: LineChart,
 } as ComponentMeta<typeof LineChart>;
 
@@ -23,8 +23,8 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
 
 const { xScale, yScale } = createTimeseriesScales(timeseries, width, height);
 
-export const SolidLine = Template.bind({});
-SolidLine.args = {
+export const DefaultSolidLine = Template.bind({});
+DefaultSolidLine.args = {
   timeseries,
   xScale,
   yScale,

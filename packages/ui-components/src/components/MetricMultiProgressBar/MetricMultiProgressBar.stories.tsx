@@ -8,7 +8,7 @@ import { MetricMultiProgressBar } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricMultiProgressBar",
+  title: "Components/MetricMultiProgressBar",
   component: MetricMultiProgressBar,
 } as ComponentMeta<typeof MetricMultiProgressBar>;
 
@@ -21,8 +21,8 @@ const newYorkRegion = states.findByRegionIdStrict("36");
 export const Example = Template.bind({});
 Example.args = {
   region: newYorkRegion,
-  metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
-  maxValue: 500,
+  metrics: [MetricId.MOCK_CASES, MetricId.APPLE_STOCK_LOW_THRESHOLDS],
+  maxValue: 900,
 };
 
 export const LoadingDelay = Template.bind({});

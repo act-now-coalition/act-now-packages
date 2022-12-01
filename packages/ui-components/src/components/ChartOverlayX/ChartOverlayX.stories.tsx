@@ -10,7 +10,7 @@ import { ChartOverlayX } from ".";
 import { AxisBottom } from "../Axis";
 
 export default {
-  title: "Charts/ChartOverlayX",
+  title: "Components/ChartOverlayX",
   component: ChartOverlayX,
 } as ComponentMeta<typeof ChartOverlayX>;
 

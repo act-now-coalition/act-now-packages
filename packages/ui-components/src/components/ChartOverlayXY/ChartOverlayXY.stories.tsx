@@ -11,7 +11,7 @@ import { AxisBottom, AxisLeft } from "../Axis";
 import { LineChart } from "../LineChart";
 
 export default {
-  title: "Charts/ChartOverlayXY",
+  title: "Components/ChartOverlayXY",
   component: ChartOverlayXY,
 } as ComponentMeta<typeof ChartOverlayXY>;
 

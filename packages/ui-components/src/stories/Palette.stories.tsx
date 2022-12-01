@@ -6,7 +6,7 @@ import isObject from "lodash/isObject";
 import theme from "../styles/theme";
 
 export default {
-  title: "Design System/Colors",
+  title: "Design System/Palette",
 };
 
 // Filter out the palette attributes that don't correspond to colors,

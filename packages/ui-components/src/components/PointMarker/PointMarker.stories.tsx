@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { PointMarker } from ".";
 
 export default {
-  title: "Charts/PointMarker",
+  title: "Components/PointMarker",
   component: PointMarker,
 } as ComponentMeta<typeof PointMarker>;
 

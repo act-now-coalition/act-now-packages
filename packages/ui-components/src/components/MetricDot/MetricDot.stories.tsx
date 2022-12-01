@@ -8,7 +8,7 @@ import { MetricDot } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricDot",
+  title: "Components/MetricDot",
   component: MetricDot,
 } as ComponentMeta<typeof MetricDot>;
 

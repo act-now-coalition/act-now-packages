@@ -10,7 +10,7 @@ import { MetricTooltip } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Charts/MetricTooltip",
+  title: "Components/MetricTooltip",
   component: MetricTooltip,
 } as ComponentMeta<typeof MetricTooltip>;
 
@@ -40,8 +40,8 @@ const Template: ComponentStory<typeof MetricTooltip> = (args) => (
   </svg>
 );
 
-export const TooltipExample = Template.bind({});
-TooltipExample.args = {
+export const Example = Template.bind({});
+Example.args = {
   region,
   metric,
   point,

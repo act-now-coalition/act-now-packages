@@ -13,7 +13,7 @@ const regionDB = new RegionDB(states.all, {
 });
 
 export default {
-  title: "Metrics/MetricCompareTable",
+  title: "Components/MetricCompareTable",
   component: MetricCompareTable,
 } as ComponentMeta<typeof MetricCompareTable>;
 

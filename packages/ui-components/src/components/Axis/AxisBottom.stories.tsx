@@ -9,7 +9,7 @@ import { AutoWidth } from "../AutoWidth";
 import { formatDateTick, getNumTicks, isOverTwoMonths } from "./utils";
 
 export default {
-  title: "Charts/Axis Bottom",
+  title: "Components/AxisBottom",
 } as ComponentMeta<typeof AxisBottom>;
 
 const height = 400;
@@ -60,41 +60,41 @@ const Template: ComponentStory<typeof AxisBottom> = (args) => (
   </Box>
 );
 
-export const Units = Template.bind({});
-Units.args = {
+export const Numbers = Template.bind({});
+Numbers.args = {
   scale: scaleLinear({ domain: [0, 10] }),
 };
 
-export const TwoYears = Template.bind({});
-TwoYears.args = {
+export const Time2Years = Template.bind({});
+Time2Years.args = {
   scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2022-12-31")],
   }),
 };
 
-export const OneYear = Template.bind({});
-OneYear.args = {
+export const Time1Year = Template.bind({});
+Time1Year.args = {
   scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-12-31")],
   }),
 };
 
-export const SixMonths = Template.bind({});
-SixMonths.args = {
+export const Time6Months = Template.bind({});
+Time6Months.args = {
   scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-06-30")],
   }),
 };
 
-export const OneMonth = Template.bind({});
-OneMonth.args = {
+export const Time1Month = Template.bind({});
+Time1Month.args = {
   scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-01-31")],
   }),
 };
 
-export const TenDays = Template.bind({});
-TenDays.args = {
+export const Time10Days = Template.bind({});
+Time10Days.args = {
   scale: scaleUtc({
     domain: [new Date("2021-01-01"), new Date("2021-01-10")],
   }),

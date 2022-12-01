@@ -14,7 +14,7 @@ const regionDB = new RegionDB([...states.all, ...counties.all], {
 const herkimerCountyNewYorkRegion = counties.findByRegionIdStrict("36043");
 
 export default {
-  title: "Maps/US State Map",
+  title: "Components/USStateMap",
   component: USStateMap,
 } as ComponentMeta<typeof USStateMap>;
 
@@ -33,20 +33,27 @@ const getRegionUrl = (regionId: string): string => {
   return url;
 };
 
-export const NewYorkWithoutBorderingStates = Template.bind({});
-NewYorkWithoutBorderingStates.args = {
+export const NewYork = Template.bind({});
+NewYork.args = {
+  stateRegionId: "36",
+  renderTooltip,
+  getRegionUrl,
+};
+
+export const NewYorkWithoutCounties = Template.bind({});
+NewYorkWithoutCounties.args = {
+  stateRegionId: "36",
+  renderTooltip,
+  getRegionUrl,
+  showCounties: false,
+};
+
+export const NewYorkWithoutBorderingStatesAndCounties = Template.bind({});
+NewYorkWithoutBorderingStatesAndCounties.args = {
   stateRegionId: "36",
   renderTooltip,
   getRegionUrl,
   showBorderingStates: false,
-  showCounties: false,
-};
-
-export const NewYorkWithBorderingStates = Template.bind({});
-NewYorkWithBorderingStates.args = {
-  stateRegionId: "36",
-  renderTooltip,
-  getRegionUrl,
   showCounties: false,
 };
 
@@ -58,15 +65,8 @@ NewYorkCountiesWithoutBorderingStates.args = {
   showBorderingStates: false,
 };
 
-export const NewYorkCountiesWithBorderingStates = Template.bind({});
-NewYorkCountiesWithBorderingStates.args = {
-  stateRegionId: "36",
-  renderTooltip,
-  getRegionUrl,
-};
-
-export const NewYorkCountiesWithHighlightedCounty = Template.bind({});
-NewYorkCountiesWithHighlightedCounty.args = {
+export const NewYorkWithHighlightedCounty = Template.bind({});
+NewYorkWithHighlightedCounty.args = {
   stateRegionId: "36",
   highlightedRegion: herkimerCountyNewYorkRegion,
   renderTooltip,

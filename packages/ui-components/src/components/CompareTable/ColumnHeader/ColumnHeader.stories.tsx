@@ -7,7 +7,7 @@ import { ColumnHeader } from ".";
 import { SortDirection, Table, TableHead, TableRow } from "..";
 
 export default {
-  title: "Table/ColumnHeader",
+  title: "Components/ColumnHeader",
   component: ColumnHeader,
 } as ComponentMeta<typeof ColumnHeader>;
 
@@ -26,8 +26,8 @@ const Template: ComponentStory<typeof ColumnHeader> = (args) => (
 const onClickSort = (direction: SortDirection) =>
   console.log(`Sort direction: ${direction}`);
 
-export const NotSortable = Template.bind({});
-NotSortable.args = {
+export const DefaultNotSortable = Template.bind({});
+DefaultNotSortable.args = {
   label: "Location",
 };
 

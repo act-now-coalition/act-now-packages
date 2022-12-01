@@ -8,7 +8,7 @@ import { MetricScoreOverview } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricScoreOverview",
+  title: "Components/MetricScoreOverview",
   component: MetricScoreOverview,
 } as ComponentMeta<typeof MetricScoreOverview>;
 
@@ -23,13 +23,13 @@ const defaultArgs = {
     "This is a tooltip. It is very useful. It is very helpful. It is very informative.",
 };
 
-export const Default = Template.bind({});
-Default.args = {
+export const Example = Template.bind({});
+Example.args = {
   ...defaultArgs,
 };
 
-export const NoTooltip = Template.bind({});
-NoTooltip.args = {
+export const WithoutTooltip = Template.bind({});
+WithoutTooltip.args = {
   ...defaultArgs,
   tooltipTitle: undefined,
 };

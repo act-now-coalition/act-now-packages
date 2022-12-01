@@ -28,15 +28,29 @@ const Template: ComponentStory<typeof RegionSearch> = (args) => (
   <RegionSearch {...args} />
 );
 
-export const StatesOnly = Template.bind({});
-StatesOnly.args = {
+export const States = Template.bind({});
+States.args = {
   regionDB,
   options: states.all,
   inputLabel: "States",
 };
 
-export const CustomRenderInput = Template.bind({});
-CustomRenderInput.args = {
+export const Counties = Template.bind({});
+Counties.args = {
+  regionDB,
+  options: sortBy(counties.all, (county) => county.population * -1),
+  inputLabel: "Counties",
+};
+
+const allUSRegions = [...states.all, ...counties.all, ...metros.all];
+export const AllUSRegions = Template.bind({});
+AllUSRegions.args = {
+  regionDB,
+  options: allUSRegions,
+};
+
+export const WithCustomRenderInput = Template.bind({});
+WithCustomRenderInput.args = {
   regionDB,
   options: states.all,
   inputLabel: "States",
@@ -55,18 +69,4 @@ CustomRenderInput.args = {
       }}
     />
   ),
-};
-
-export const CountiesOnly = Template.bind({});
-CountiesOnly.args = {
-  regionDB,
-  options: sortBy(counties.all, (county) => county.population * -1),
-  inputLabel: "Counties",
-};
-
-const allRegions = [...states.all, ...counties.all, ...metros.all];
-export const AllRegions = Template.bind({});
-AllRegions.args = {
-  regionDB,
-  options: allRegions,
 };

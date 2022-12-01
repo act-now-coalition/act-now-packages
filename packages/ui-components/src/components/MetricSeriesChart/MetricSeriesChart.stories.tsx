@@ -11,7 +11,7 @@ import { theme } from "../../styles";
 import { SeriesType } from "../SeriesChart";
 
 export default {
-  title: "Charts/MetricSeriesChart",
+  title: "Components/MetricSeriesChart",
   component: MetricSeriesChart,
 } as ComponentMeta<typeof MetricSeriesChart>;
 
@@ -46,8 +46,8 @@ Vaccination.args = {
   ],
 };
 
-export const NegativeMinValue = Template.bind({});
-NegativeMinValue.args = {
+export const WithNegativeYValues = Template.bind({});
+WithNegativeYValues.args = {
   width,
   height,
   minValue: -10,

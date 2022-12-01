@@ -8,7 +8,7 @@ import { MetricValue } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricValue",
+  title: "Components/MetricValue",
   component: MetricValue,
 } as ComponentMeta<typeof MetricValue>;
 
@@ -18,23 +18,23 @@ const Template: ComponentStory<typeof MetricValue> = (args) => (
 
 const washingtonState = states.findByRegionIdStrict("53");
 
-export const Default = Template.bind({});
-Default.args = {
+export const Example = Template.bind({});
+Example.args = {
   region: washingtonState,
   metric: MetricId.MOCK_CASES,
 };
 
 export const DataTabularVariant = Template.bind({});
-DataTabularVariant.args = { ...Default.args, variant: "dataTabular" };
+DataTabularVariant.args = { ...Example.args, variant: "dataTabular" };
 
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
-  ...Default.args,
+  ...Example.args,
   metric: MetricId.MOCK_CASES_DELAY_1S,
 };
 
 export const LoadingError = Template.bind({});
 LoadingError.args = {
-  ...Default.args,
+  ...Example.args,
   metric: MetricId.MOCK_CASES_ERROR,
 };

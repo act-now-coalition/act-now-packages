@@ -11,7 +11,7 @@ const [width, height] = [600, 400];
 const newYork = states.findByRegionIdStrict("36");
 
 export default {
-  title: "Charts/MetricLineThresholdChart",
+  title: "Components/MetricLineThresholdChart",
   component: MetricLineThresholdChart,
 } as ComponentMeta<typeof MetricLineThresholdChart>;
 
@@ -19,40 +19,28 @@ const Template: ComponentStory<typeof MetricLineThresholdChart> = (args) => (
   <MetricLineThresholdChart {...args} />
 );
 
-export const AppleStock = Template.bind({});
-AppleStock.args = {
+export const WithMinYZero = Template.bind({});
+WithMinYZero.args = {
   width,
   height,
   metric: MetricId.APPLE_STOCK,
   region: newYork,
 };
 
-export const NewYorkCityTemperature = Template.bind({});
-NewYorkCityTemperature.args = {
-  ...AppleStock.args,
+export const WithNegativeYValues = Template.bind({});
+WithNegativeYValues.args = {
+  ...WithMinYZero.args,
   metric: MetricId.NYC_TEMPERATURE,
-};
-
-export const YAxisStartsAtZero = Template.bind({});
-YAxisStartsAtZero.args = {
-  ...AppleStock.args,
-  metric: MetricId.APPLE_STOCK_LOW_THRESHOLDS,
-};
-
-export const PointsBetweenZeroAndOne = Template.bind({});
-PointsBetweenZeroAndOne.args = {
-  ...AppleStock.args,
-  metric: MetricId.RANDOM_POINTS_BETWEEN_ZERO_AND_ONE,
 };
 
 export const LoadingDelay = Template.bind({});
 LoadingDelay.args = {
-  ...AppleStock.args,
+  ...WithMinYZero.args,
   metric: MetricId.MOCK_CASES_DELAY_1S,
 };
 
 export const LoadingError = Template.bind({});
 LoadingError.args = {
-  ...AppleStock.args,
+  ...WithMinYZero.args,
   metric: MetricId.MOCK_CASES_ERROR,
 };
