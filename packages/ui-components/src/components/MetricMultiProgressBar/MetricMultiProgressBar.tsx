@@ -1,14 +1,17 @@
 import React from "react";
-import { Region } from "@actnowcoalition/regions";
-import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-import {
-  MultiProgressBar,
-  BaseMultiProgressBarProps,
-  DEFAULT_WIDTH,
-  DEFAULT_HEIGHT,
-} from "../MultiProgressBar";
-import { useDataForMetrics } from "../../common/hooks";
+
 import { Skeleton } from "@mui/material";
+
+import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
+import { useDataForMetrics } from "../../common/hooks";
+import {
+  BaseMultiProgressBarProps,
+  DEFAULT_HEIGHT,
+  DEFAULT_WIDTH,
+  MultiProgressBar,
+} from "../MultiProgressBar";
 
 type MetricProp = Metric | string;
 

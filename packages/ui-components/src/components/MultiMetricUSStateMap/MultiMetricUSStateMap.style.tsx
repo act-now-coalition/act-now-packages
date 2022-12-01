@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+
 import { styled } from "../../styles";
 
 export const BorderedContainer = styled(Box)`

@@ -1,7 +1,9 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { ShareButton, ShareButtonProps } from ".";
+
 import { Box } from "@mui/material";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { ShareButton, ShareButtonProps } from ".";
 
 export default {
   title: "Components/ShareButton",

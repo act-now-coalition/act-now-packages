@@ -1,5 +1,6 @@
-import { MetricCatalog } from "@actnowcoalition/metrics";
 import React, { createContext, useContext } from "react";
+
+import { MetricCatalog } from "@actnowcoalition/metrics";
 
 const defaultMetricCatalog = new MetricCatalog([], []);
 

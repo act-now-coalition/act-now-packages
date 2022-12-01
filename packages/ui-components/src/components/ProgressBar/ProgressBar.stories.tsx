@@ -1,5 +1,7 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { ProgressBar } from ".";
 
 export default {
@@ -18,15 +20,5 @@ export const DefaultProps = Template.bind({});
 DefaultProps.args = {
   maxValue: 100,
   value: 39,
-  color: "#5936B6",
-  "aria-label": "Vaccination",
-};
-
-export const ARIALabelledBy = Template.bind({});
-ARIALabelledBy.args = {
-  "aria-labelledby": "meter-label",
-  minValue: 0,
-  maxValue: 100,
-  value: 75,
   color: "#5936B6",
 };

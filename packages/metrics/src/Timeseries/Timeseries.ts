@@ -1,5 +1,5 @@
-import isNil from "lodash/isNil";
 import first from "lodash/first";
+import isNil from "lodash/isNil";
 import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
@@ -7,7 +7,7 @@ import sumBy from "lodash/sumBy";
 
 import { assert } from "@actnowcoalition/assert";
 import { isFinite } from "@actnowcoalition/number-format";
-import { isoDateOnlyString, PureDate } from "@actnowcoalition/time-utils";
+import { PureDate, isoDateOnlyString } from "@actnowcoalition/time-utils";
 
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {

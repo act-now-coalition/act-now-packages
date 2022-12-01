@@ -1,7 +1,8 @@
-import { styled } from "../../styles";
 import isValidProp from "@emotion/is-prop-valid";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Box from "@mui/material/Box";
+
+import { styled } from "../../styles";
 import { Dot } from "../MetricDot/MetricDot.style";
 
 export const CircleIcon = styled(Dot, {

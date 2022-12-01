@@ -1,6 +1,6 @@
-import statesJSON from "./states.json";
 import { Region } from "../../Region";
 import RegionDB from "../../RegionDB";
+import statesJSON from "./states.json";
 
 const states = statesJSON
   .map((state) => {

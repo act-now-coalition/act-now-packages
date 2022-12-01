@@ -1,15 +1,17 @@
+import React from "react";
+
 import {
   Table as MuiTable,
-  TableHead as MuiTableHead,
   TableBody as MuiTableBody,
-  TableRow as MuiTableRow,
   TableCell as MuiTableCell,
+  TableContainer as MuiTableContainer,
+  TableHead as MuiTableHead,
+  TableRow as MuiTableRow,
+  linkClasses,
   tableCellClasses,
   typographyClasses,
-  linkClasses,
-  TableContainer as MuiTableContainer,
 } from "@mui/material";
-import React from "react";
+
 import { styled } from "../../styles";
 
 export const TableContainer = MuiTableContainer;

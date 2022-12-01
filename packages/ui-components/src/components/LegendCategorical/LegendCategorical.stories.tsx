@@ -1,5 +1,7 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, Story } from "@storybook/react";
+
 import { LegendCategorical, LegendCategoricalProps } from ".";
 
 export default {

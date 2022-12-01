@@ -1,16 +1,18 @@
 import React from "react";
+
 import { geoPath as d3GeoPath, geoAlbersUsa } from "d3-geo";
+
 import {
   defaultHeight,
   defaultScale,
   defaultWidth,
   getCountyGeoId,
 } from "../../common/geo-shapes";
-import { MapContainer, PositionAbsolute } from "../../styles/common/Maps.style";
-import StatesMap from "./StatesMap";
-import CountiesMap from "./CountiesMap";
-import { AutoWidth } from "../AutoWidth";
 import { BaseUSMapProps } from "../../common/utils/maps";
+import { MapContainer, PositionAbsolute } from "../../styles/common/Maps.style";
+import { AutoWidth } from "../AutoWidth";
+import CountiesMap from "./CountiesMap";
+import StatesMap from "./StatesMap";
 
 export interface USNationalMapProps extends BaseUSMapProps {
   showCounties?: boolean;

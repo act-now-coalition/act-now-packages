@@ -1,9 +1,9 @@
 import {
-  formatInteger,
-  formatDecimal,
-  formatPercent,
-  formatMillions,
   formatBillions,
+  formatDecimal,
+  formatInteger,
+  formatMillions,
+  formatPercent,
 } from "./index";
 
 describe("numberFormatUtils", () => {

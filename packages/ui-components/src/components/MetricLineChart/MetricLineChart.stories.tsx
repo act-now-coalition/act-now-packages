@@ -1,8 +1,11 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricLineChart } from "./MetricLineChart";
-import { MetricId } from "../../stories/mockMetricCatalog";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
+
+import { MetricId } from "../../stories/mockMetricCatalog";
+import { MetricLineChart } from "./MetricLineChart";
 
 const [width, height] = [600, 400];
 const newYork = states.findByRegionIdStrict("36");

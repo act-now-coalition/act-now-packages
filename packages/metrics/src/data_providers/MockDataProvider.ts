@@ -1,12 +1,13 @@
 import delay from "delay";
+
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
-import { getTimeDiff, TimeUnit } from "@actnowcoalition/time-utils";
+import { TimeUnit, getTimeDiff } from "@actnowcoalition/time-utils";
 
-import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
-import { MetricData } from "../data";
 import { Metric } from "../Metric";
 import { mockTimeseries } from "../Timeseries";
+import { MetricData } from "../data";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 
 /**
  * Fields allowed in the { @link MetricDefinition.dataReference } of metrics using the
