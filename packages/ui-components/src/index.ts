@@ -1,7 +1,7 @@
 import { Theme } from "@mui/material/styles";
 
 /** Theme variables */
-export { themeConfig } from "./styles";
+export { themeConfig, darkThemeConfig } from "./styles";
 
 /**
  * Material UI Theme extensions
