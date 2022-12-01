@@ -6,7 +6,7 @@ import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendCategorical } from "./MetricLegendCategorical";
 
 export default {
-  title: "Metrics/MetricLegendCategorical",
+  title: "Components/MetricLegendCategorical",
   component: MetricLegendCategorical,
 } as ComponentMeta<typeof MetricLegendCategorical>;
 

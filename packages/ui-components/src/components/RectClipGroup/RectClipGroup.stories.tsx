@@ -5,7 +5,7 @@ import { ComponentMeta } from "@storybook/react";
 import { RectClipGroup } from ".";
 
 export default {
-  title: "Charts/RectClipGroup",
+  title: "Components/RectClipGroup",
   component: RectClipGroup,
 } as ComponentMeta<typeof RectClipGroup>;
 

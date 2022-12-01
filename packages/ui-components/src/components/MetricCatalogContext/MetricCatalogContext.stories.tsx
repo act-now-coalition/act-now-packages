@@ -14,7 +14,7 @@ import MetricAwareDemo from "./MetricAwareDemo";
 import { MetricCatalogProvider } from "./MetricCatalogContext";
 
 export default {
-  title: "Metrics/MetricCatalogContext",
+  title: "Components/MetricCatalogContext",
   component: MetricCatalogProvider,
 } as ComponentMeta<typeof MetricCatalogProvider>;
 

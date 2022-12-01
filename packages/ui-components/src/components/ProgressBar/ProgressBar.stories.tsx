@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { ProgressBar } from ".";
 
 export default {
-  title: "Charts/ProgressBar",
+  title: "Components/ProgressBar",
   component: ProgressBar,
 } as ComponentMeta<typeof ProgressBar>;
 

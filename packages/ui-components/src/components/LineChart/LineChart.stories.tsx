@@ -9,7 +9,7 @@ import {
 } from "../../stories/mockData";
 
 export default {
-  title: "Charts/LineChart",
+  title: "Components/LineChart",
   component: LineChart,
 } as ComponentMeta<typeof LineChart>;
 

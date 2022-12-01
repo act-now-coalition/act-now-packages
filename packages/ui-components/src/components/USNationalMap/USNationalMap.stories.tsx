@@ -10,7 +10,7 @@ import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
 import { USNationalMap } from "./USNationalMap";
 
 export default {
-  title: "Maps/US National Map",
+  title: "Components/USNationalMap",
   component: USNationalMap,
 } as ComponentMeta<typeof USNationalMap>;
 

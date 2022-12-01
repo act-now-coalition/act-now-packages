@@ -8,7 +8,7 @@ import { MetricSparklines } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricSparklines",
+  title: "Components/MetricSparklines",
   component: MetricSparklines,
 } as ComponentMeta<typeof MetricSparklines>;
 

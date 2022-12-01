@@ -7,7 +7,7 @@ import { ColumnHeader } from ".";
 import { SortDirection, Table, TableHead, TableRow } from "..";
 
 export default {
-  title: "Table/ColumnHeader",
+  title: "Components/ColumnHeader",
   component: ColumnHeader,
 } as ComponentMeta<typeof ColumnHeader>;
 

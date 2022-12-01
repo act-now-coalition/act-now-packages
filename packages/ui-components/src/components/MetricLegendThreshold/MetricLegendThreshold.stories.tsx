@@ -7,7 +7,7 @@ import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendThreshold } from "./MetricLegendThreshold";
 
 export default {
-  title: "Metrics/MetricLegendThreshold",
+  title: "Components/MetricLegendThreshold",
   component: MetricLegendThreshold,
 } as ComponentMeta<typeof MetricLegendThreshold>;
 

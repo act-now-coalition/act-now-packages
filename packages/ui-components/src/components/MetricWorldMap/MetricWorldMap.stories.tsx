@@ -8,7 +8,7 @@ import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricWorldMap } from "./MetricWorldMap";
 
 export default {
-  title: "Maps/World Map",
+  title: "Components/World Map",
   component: MetricWorldMap,
 } as ComponentMeta<typeof MetricWorldMap>;
 

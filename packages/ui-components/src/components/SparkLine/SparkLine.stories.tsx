@@ -8,7 +8,7 @@ import { SparkLine } from ".";
 import { appleStockTimeseries } from "../../stories/mockData";
 
 export default {
-  title: "Charts/SparkLine",
+  title: "Components/SparkLine",
   component: SparkLine,
 } as ComponentMeta<typeof SparkLine>;
 

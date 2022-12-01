@@ -11,7 +11,7 @@ import { theme } from "../../styles";
 import { SeriesType } from "../SeriesChart";
 
 export default {
-  title: "Charts/MetricSeriesChart",
+  title: "Components/MetricSeriesChart",
   component: MetricSeriesChart,
 } as ComponentMeta<typeof MetricSeriesChart>;
 

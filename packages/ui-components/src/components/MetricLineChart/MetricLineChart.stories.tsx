@@ -11,7 +11,7 @@ const [width, height] = [600, 400];
 const newYork = states.findByRegionIdStrict("36");
 
 export default {
-  title: "Charts/MetricLineChart",
+  title: "Components/MetricLineChart",
   component: MetricLineChart,
 } as ComponentMeta<typeof MetricLineChart>;
 

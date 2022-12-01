@@ -9,7 +9,7 @@ import { formatPercent } from "@actnowcoalition/number-format";
 import { AxesTimeseries } from "./AxesTimeseries";
 
 export default {
-  title: "Charts/AxesTimeseries",
+  title: "Components/AxesTimeseries",
 } as ComponentMeta<typeof AxesTimeseries>;
 
 const width = 600;

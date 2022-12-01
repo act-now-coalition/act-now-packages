@@ -10,7 +10,7 @@ import {
 import { theme } from "../../styles";
 
 export default {
-  title: "Charts/LineIntervalChart",
+  title: "Components/LineIntervalChart",
   component: LineIntervalChart,
 } as ComponentMeta<typeof LineIntervalChart>;
 

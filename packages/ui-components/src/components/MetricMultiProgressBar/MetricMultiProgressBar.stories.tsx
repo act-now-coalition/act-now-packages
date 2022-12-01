@@ -8,7 +8,7 @@ import { MetricMultiProgressBar } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricMultiProgressBar",
+  title: "Components/MetricMultiProgressBar",
   component: MetricMultiProgressBar,
 } as ComponentMeta<typeof MetricMultiProgressBar>;
 

@@ -7,7 +7,7 @@ import { GridColumns, GridRows } from ".";
 import { AxisBottom, AxisLeft } from "../Axis";
 
 export default {
-  title: "Charts/Grid",
+  title: "Components/Grid",
 } as ComponentMeta<typeof GridRows>;
 
 const width = 600;

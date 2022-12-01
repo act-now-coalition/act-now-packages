@@ -11,7 +11,7 @@ import { appleStockTimeseries } from "../../stories/mockData";
 import { LineChart } from "../LineChart";
 
 export default {
-  title: "Charts/BarChart",
+  title: "Components/BarChart",
   component: BarChart,
 } as ComponentMeta<typeof BarChart>;
 

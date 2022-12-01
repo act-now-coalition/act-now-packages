@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { SortControls, SortDirection } from "..";
 
 export default {
-  title: "Table/SortControls",
+  title: "Components/SortControls",
   component: SortControls,
 } as ComponentMeta<typeof SortControls>;
 

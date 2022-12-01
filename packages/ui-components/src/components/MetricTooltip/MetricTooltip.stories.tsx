@@ -10,7 +10,7 @@ import { MetricTooltip } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Charts/MetricTooltip",
+  title: "Components/MetricTooltip",
   component: MetricTooltip,
 } as ComponentMeta<typeof MetricTooltip>;
 

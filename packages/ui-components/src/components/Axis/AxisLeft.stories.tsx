@@ -6,7 +6,7 @@ import { scaleLinear } from "@visx/scale";
 import { AxisLeft } from ".";
 
 export default {
-  title: "Charts/Axis Left",
+  title: "Components/AxisLeft",
 } as ComponentMeta<typeof AxisLeft>;
 
 const width = 600;

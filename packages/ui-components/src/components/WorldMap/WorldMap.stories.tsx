@@ -5,7 +5,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import WorldMap from "./WorldMap";
 
 export default {
-  title: "Maps/World Map",
+  title: "Components/WorldMap",
   component: WorldMap,
 } as ComponentMeta<typeof WorldMap>;
 

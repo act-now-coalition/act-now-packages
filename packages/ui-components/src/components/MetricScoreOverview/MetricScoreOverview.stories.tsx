@@ -8,7 +8,7 @@ import { MetricScoreOverview } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricScoreOverview",
+  title: "Components/MetricScoreOverview",
   component: MetricScoreOverview,
 } as ComponentMeta<typeof MetricScoreOverview>;
 

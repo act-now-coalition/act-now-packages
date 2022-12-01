@@ -17,7 +17,7 @@ import {
 } from ".";
 
 export default {
-  title: "Table/CompareTable",
+  title: "Components/CompareTable",
   component: CompareTable,
 } as ComponentMeta<typeof CompareTable>;
 

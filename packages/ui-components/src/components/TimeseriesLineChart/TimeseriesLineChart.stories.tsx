@@ -12,7 +12,7 @@ const [width, height] = [600, 400];
 assert(appleStockTimeseries.hasData(), `Timeseries cannot be empty`);
 
 export default {
-  title: "Charts/TimeseriesLineChart",
+  title: "Components/TimeseriesLineChart",
   component: TimeseriesLineChart,
 } as ComponentMeta<typeof TimeseriesLineChart>;
 

@@ -9,7 +9,7 @@ import { AutoWidth } from "../AutoWidth";
 import { formatDateTick, getNumTicks, isOverTwoMonths } from "./utils";
 
 export default {
-  title: "Charts/Axis Bottom",
+  title: "Components/AxisBottom",
 } as ComponentMeta<typeof AxisBottom>;
 
 const height = 400;
