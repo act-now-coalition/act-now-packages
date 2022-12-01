@@ -15,6 +15,7 @@ const colors = {
     default: "#5f6c7233", // TODO - Josh to translate to hex in figma
   },
   action: {
+    disabledBackground: "#F8F8F8",
     primary: "#464FC7",
     primaryHover: "#1D27B1",
   },
@@ -80,6 +81,9 @@ const palette = {
   chart: {
     main: colors.common.black,
     axis: colors.border.default,
+  },
+  action: {
+    disabledBackground: colors.action.disabledBackground,
   },
 };
 

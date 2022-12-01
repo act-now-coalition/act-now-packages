@@ -1,5 +1,3 @@
-import { Box } from "@mui/material";
-
 import { styled } from "../../styles";
 
 export const colorDisputedAreas = "#aaa";
@@ -166,10 +164,4 @@ export const DisputedBorderPath = styled("path")`
   &.Western_Sahara {
     ${styleSolid};
   }
-`;
-
-export const ErrorMessage = styled(Box)`
-  display: grid;
-  place-items: center;
-  background-color: #eee;
 `;
