@@ -31,16 +31,20 @@ export const MetricValue = ({
 
   const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);
 
-  if (!data || error) {
-    return <Typography variant={variant} />;
-  }
+  // If there's an error we render "---" to match when there's no data.
+  // While we are waiting for data to load we render "\u00A0" (a non-breaking
+  // space) just so the height renders correctly and we don't get a layout shift
+  // when the data is available.
+  const formattedValue = error
+    ? "---"
+    : !data
+    ? "\u00A0"
+    : metric.formatValue(data.currentValue, "---");
 
   return (
     <Stack direction="row" spacing={1} alignItems="center" width="fit-content">
       <MetricDot region={region} metric={metric} />
-      <Typography variant={variant}>
-        {metric.formatValue(data.currentValue, "---")}
-      </Typography>
+      <Typography variant={variant}>{formattedValue}</Typography>
     </Stack>
   );
 };
