@@ -1,4 +1,6 @@
 export { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
+export { DataRowMetricProviderBase } from "./DataRowMetricProviderBase";
+export type { DataRowMetricProviderBaseOptions } from "./DataRowMetricProviderBase";
 
 export type { MetricDataProvider } from "./MetricDataProvider";
 
@@ -10,6 +12,8 @@ export { StaticValueDataProvider } from "./StaticValueDataProvider";
 export { CsvDataProvider } from "./CsvDataProvider";
 export { CovidActNowDataProvider } from "./CovidActNowDataProvider";
 export type { CsvDataProviderOptions } from "./CsvDataProvider";
+export { JsonDataProvider } from "./JsonDataProvider";
+export type { JsonDataProviderOptions } from "./JsonDataProvider";
 
 export { TransformedMetricDataProvider } from "./TransformedMetricDataProvider";
 
