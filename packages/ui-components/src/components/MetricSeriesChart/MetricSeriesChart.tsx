@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Skeleton } from "@mui/material";
+import { Skeleton, useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import isNumber from "lodash/isNumber";
@@ -56,6 +56,8 @@ export const MetricSeriesChart = ({
   showLabels = true,
 }: MetricSeriesChartProps) => {
   const metricCatalog = useMetricCatalog();
+  const theme = useTheme();
+  const defaultTextColor = theme.palette.text.primary;
 
   // Deduplicate the regions and metrics if necessary
   const regions = uniq(series.map(({ region }) => region));
@@ -127,7 +129,7 @@ export const MetricSeriesChart = ({
       return {
         y: yScale(timeseries.lastValue),
         label: series.label,
-        fill: getLabelColor(series),
+        fill: getSeriesColor(series, defaultTextColor),
       };
     });
 
@@ -180,7 +182,10 @@ export const MetricSeriesChart = ({
             <PointMarker
               x={xScale(pointInfo.point.date)}
               y={yScale(pointInfo.point.value)}
-              fill={getSeriesColor(series[pointInfo.timeseriesIndex])}
+              fill={getSeriesColor(
+                series[pointInfo.timeseriesIndex],
+                defaultTextColor
+              )}
             />
           </MetricTooltip>
         )}
@@ -234,11 +239,11 @@ function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
   return [minValue, maxValue];
 }
 
-function getSeriesColor(series: Series): string {
+function getSeriesColor(series: Series, defaultColor: string): string {
   if (series.type === SeriesType.LINE) {
-    return series?.lineProps?.stroke ?? "#000";
+    return series?.lineProps?.stroke ?? defaultColor;
   } else {
-    return "#000";
+    return defaultColor;
   }
 }
 
@@ -248,6 +253,9 @@ interface LabelPositionInfo {
   fill: string;
 }
 
+/**
+ * Adjust the y coordinate of the labels to prevent them from overlapping.
+ */
 function calculateLabelPositions(
   items: LabelPositionInfo[],
   labelHeight: number
@@ -271,10 +279,4 @@ function calculateLabelPositions(
     },
     []
   );
-}
-
-function getLabelColor(series: Series): string {
-  return series.type === SeriesType.LINE
-    ? series.lineProps?.stroke ?? "black"
-    : "black";
 }
