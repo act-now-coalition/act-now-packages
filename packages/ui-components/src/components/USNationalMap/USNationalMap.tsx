@@ -20,7 +20,7 @@ export interface USNationalMapProps extends BaseUSMapProps {
 
 const USNationalMapInner = ({
   width = defaultWidth,
-  renderTooltip,
+  getTooltip,
   getFillColor = () => "lightGray",
   showCounties = false,
   getRegionUrl,
@@ -58,7 +58,7 @@ const USNationalMapInner = ({
           width={width}
           height={height}
           geoPath={geoPath}
-          renderTooltip={renderTooltip}
+          getTooltip={getTooltip}
           showCounties={showCounties}
           getFillColor={getFillColor}
           getRegionUrl={getRegionUrl}

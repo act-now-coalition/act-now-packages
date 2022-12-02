@@ -1,7 +1,7 @@
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
 export interface BaseUSMapProps {
-  renderTooltip: (regionId: string) => React.ReactNode;
+  getTooltip: (regionId: string) => React.ReactNode;
   getFillColor?: (regionId: string) => string;
   getRegionUrl?: (regionId: string) => string | undefined;
   width?: number;

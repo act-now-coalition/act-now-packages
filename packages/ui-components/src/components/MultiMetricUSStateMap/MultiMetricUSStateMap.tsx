@@ -24,7 +24,7 @@ export interface MultiMetricUSStateMapProps {
   /** Region DB instance (used for generating region links, coloring the map, etc.) */
   regionDB: RegionDB;
   /** Function returning the contents of the map tooltip, given a hovered region */
-  renderTooltip?: (regionId: string) => React.ReactNode;
+  getTooltip?: (regionId: string) => React.ReactNode;
 }
 
 export const MultiMetricUSStateMap = ({
@@ -32,7 +32,7 @@ export const MultiMetricUSStateMap = ({
   highlightedRegion,
   metrics,
   regionDB,
-  renderTooltip,
+  getTooltip,
 }: MultiMetricUSStateMapProps) => {
   const metricCatalog = useMetricCatalog();
 
@@ -46,7 +46,7 @@ export const MultiMetricUSStateMap = ({
     metricCatalog.getMetric(metric)
   );
 
-  const defaultRenderTooltip = (regionId: string) => {
+  const defaultGetTooltip = (regionId: string) => {
     return regionDB.findByRegionIdStrict(regionId).fullName;
   };
 
@@ -83,7 +83,7 @@ export const MultiMetricUSStateMap = ({
           highlightedRegion={highlightedRegion}
           metric={metric}
           regionDB={regionDB}
-          renderTooltip={renderTooltip ?? defaultRenderTooltip}
+          getTooltip={getTooltip ?? defaultGetTooltip}
         />
       </BorderedContainer>
       <BorderedContainerLast>
