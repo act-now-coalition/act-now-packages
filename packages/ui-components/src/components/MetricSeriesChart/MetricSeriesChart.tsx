@@ -120,7 +120,7 @@ export const MetricSeriesChart = ({
 
   const initialLabelPositions = seriesList
     .filter((item) => item.series.label)
-    .map(({ series, timeseries }): LabelPositionInfo => {
+    .map(({ series, timeseries }): LabelInfo => {
       // NOTE: We already filtered out timeseries without data and items
       // without labels, this is for the benefit of TS.
       assert(series.label, `The series should have a label`);
@@ -247,7 +247,7 @@ function getSeriesColor(series: Series, defaultColor: string): string {
   }
 }
 
-interface LabelPositionInfo {
+interface LabelInfo {
   y: number;
   label: string;
   fill: string;
@@ -257,14 +257,14 @@ interface LabelPositionInfo {
  * Adjust the y coordinate of the labels to prevent them from overlapping.
  */
 function calculateLabelPositions(
-  items: LabelPositionInfo[],
+  items: LabelInfo[],
   labelHeight: number
-): LabelPositionInfo[] {
+): LabelInfo[] {
   // Sort the items by SVG y-coordinate, in ascending order.
   const sortedItems = sortBy(items, (item) => item.y);
 
   return sortedItems.reduce(
-    (adjusted: LabelPositionInfo[], item: LabelPositionInfo, index: number) => {
+    (adjusted: LabelInfo[], item: LabelInfo, index: number) => {
       const dy = labelHeight / 2;
 
       // Take the maximum y-coordinate from the items that are already
