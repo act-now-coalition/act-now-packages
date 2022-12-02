@@ -93,7 +93,7 @@ export const MetricSeriesChart = ({
       series: seriesItem,
       timeseries: timeseriesList[seriesIndex],
     }))
-    .filter((item) => item.timeseries.hasData());
+    .filter(({ timeseries }) => timeseries.hasData());
 
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxValue] = getValueRange(timeseriesList);
@@ -120,7 +120,7 @@ export const MetricSeriesChart = ({
     .filter((item) => item.series.label)
     .map(({ series, timeseries }): LabelPositionInfo => {
       // NOTE: We already filtered out timeseries without data and items
-      // without labels.
+      // without labels, this is for the benefit of TS.
       assert(series.label, `The series should have a label`);
       assert(timeseries.hasData(), `The timeseries should have data`);
 
