@@ -260,19 +260,17 @@ function calculateLabelPositions(
   items: LabelPositionInfo[],
   labelHeight: number
 ): LabelPositionInfo[] {
-  // Sort the items by SVG y-coordinate, ascending
+  // Sort the items by SVG y-coordinate, in ascending order.
   const sortedItems = sortBy(items, (item) => item.y);
 
-  // Iterate through the items in the array, adjusting the y-coordinate if
-  // the current label would overlap with the previous label.
   return sortedItems.reduce(
     (adjusted: LabelPositionInfo[], item: LabelPositionInfo, index: number) => {
       const dy = labelHeight / 2;
 
-      // Take the maximum y-coordinate from the items that are already adjusted,
-      // and compare it with the y-coordinate of the current item. If the items
-      // will overlap, we adjust the position of the current item. If the
-      // current item will overlap with it, we adjust the position.
+      // Take the maximum y-coordinate from the items that are already
+      // adjusted, and compare it with the y-coordinate of the current
+      // item. If the items will overlap, we adjust the position of the
+      // current item.
       const maxY = max(adjusted.map((p) => p.y)) ?? item.y;
       const adjustedY = index > 0 && maxY + dy > item.y ? maxY + dy : item.y;
       return [...adjusted, { ...item, y: adjustedY }];
