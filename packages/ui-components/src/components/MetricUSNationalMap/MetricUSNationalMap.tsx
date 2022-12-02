@@ -6,6 +6,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { ErrorBox } from "../ErrorBox";
 import { USNationalMap, USNationalMapProps } from "../USNationalMap";
 
 export interface MetricUSNationalMapProps extends USNationalMapProps {
@@ -17,10 +18,22 @@ export const MetricUSNationalMap = ({
   metric,
   regionDB,
   showCounties,
+  width,
   ...otherProps
 }: MetricUSNationalMapProps) => {
   const theme = useTheme();
-  const { data } = useDataForRegionsAndMetrics(regionDB.all, [metric], false);
+  const { data, error } = useDataForRegionsAndMetrics(
+    regionDB.all,
+    [metric],
+    false
+  );
+  if (error) {
+    return (
+      <ErrorBox width={width} height={width && width / 2}>
+        Map could not be loaded.
+      </ErrorBox>
+    );
+  }
 
   return (
     <USNationalMap

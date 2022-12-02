@@ -15,6 +15,7 @@ import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
+import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
@@ -61,7 +62,7 @@ export const MetricSeriesChart = ({
     `The series should have at least one valid metric`
   );
 
-  const { data } = useDataForRegionsAndMetrics(
+  const { data, error } = useDataForRegionsAndMetrics(
     regions,
     metrics,
     /*includeTimeseries=*/ true
@@ -76,7 +77,13 @@ export const MetricSeriesChart = ({
   const { pointInfo, onMouseMove, onMouseLeave } =
     useHoveredPoint(timeseriesList);
 
-  if (!data || !timeseriesList) {
+  if (error) {
+    return (
+      <ErrorBox width={width} height={height}>
+        Chart could not be loaded.
+      </ErrorBox>
+    );
+  } else if (!data || !timeseriesList) {
     return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 

@@ -6,6 +6,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
+import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
 
@@ -39,18 +40,19 @@ export const MetricSparklines = ({
     [metricLineChart, metricBarChart],
     /*includeTimeseries=*/ true
   );
+  const width = optionalProps.width ?? 150;
+  const height = optionalProps.height ?? 50;
 
   if (error) {
-    throw error;
+    return (
+      // Because the sparklines are too small for much text, we will just render a blank box.
+      <ErrorBox width={width} height={height}>
+        {""}
+      </ErrorBox>
+    );
   } else if (!data) {
     // Render loading placeholder.
-    return (
-      <Skeleton
-        variant="rectangular"
-        width={optionalProps.width ?? 150}
-        height={optionalProps.height ?? 50}
-      />
-    );
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   } else {
     // Render Sparkline.
     const timeseriesLineChart = data
