@@ -29,7 +29,7 @@ export interface MetricSeriesChartProps extends BaseChartProps {
   minValue?: number;
   /**
    * Show labels for each series. The labels will be shown on the right side
-   * of the chart, closer to the last value of each series.
+   * of the chart, close to the last value of each series.
    */
   showLabels?: boolean;
 }
@@ -133,7 +133,12 @@ export const MetricSeriesChart = ({
       };
     });
 
-  const labelPositions = calculateLabelPositions(initialLabelPositions, 24);
+  // TODO (Pablo): Is there a way to calculate the 24 using the typography
+  // settings? We could also measure the rendered labels using getBBox.
+  const labelPositions = calculateLabelPositions(
+    initialLabelPositions,
+    /*labelHeight=*/ 24
+  );
 
   // All the series in the chart should have compatible units, so it makes
   // sense to use any of them to format the values on the y-axis.
@@ -162,9 +167,8 @@ export const MetricSeriesChart = ({
             {labelPositions.map((item, itemIndex) => (
               <SeriesLabel
                 key={`label-${item.label}-${itemIndex}`}
-                x={chartWidth}
+                x={chartWidth + 5}
                 y={item.y}
-                dx={5}
                 fill={item.fill}
               >
                 {item.label}
@@ -263,18 +267,15 @@ function calculateLabelPositions(
   // Sort the items by SVG y-coordinate, in ascending order.
   const sortedItems = sortBy(items, (item) => item.y);
 
-  return sortedItems.reduce(
-    (adjusted: LabelInfo[], item: LabelInfo, index: number) => {
-      const dy = labelHeight / 2;
+  return sortedItems.reduce((adjusted: LabelInfo[], item: LabelInfo) => {
+    const dy = labelHeight / 2;
 
-      // Take the maximum y-coordinate from the items that are already
-      // adjusted, and compare it with the y-coordinate of the current
-      // item. If the items will overlap, we adjust the position of the
-      // current item.
-      const maxY = max(adjusted.map((p) => p.y)) ?? item.y;
-      const adjustedY = index > 0 && maxY + dy > item.y ? maxY + dy : item.y;
-      return [...adjusted, { ...item, y: adjustedY }];
-    },
-    []
-  );
+    // Take the maximum y-coordinate from the items that are already
+    // adjusted, and compare it with the y-coordinate of the current
+    // item. If the items will overlap, we adjust the position of the
+    // current item.
+    const maxY = max(adjusted.map((p) => p.y)) ?? Number.NEGATIVE_INFINITY;
+    const adjustedY = maxY + dy > item.y ? maxY + dy : item.y;
+    return [...adjusted, { ...item, y: adjustedY }];
+  }, []);
 }

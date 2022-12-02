@@ -6,7 +6,7 @@ import { schemeCategory10 } from "d3-scale-chromatic";
 import { states } from "@actnowcoalition/regions";
 
 import { MetricSeriesChart } from ".";
-import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
+import { MetricId } from "../../stories/mockMetricCatalog";
 import { theme } from "../../styles";
 import { SeriesType } from "../SeriesChart";
 
@@ -23,8 +23,6 @@ const WA = states.findByRegionIdStrict("56");
 const NY = states.findByRegionIdStrict("36");
 const IN = states.findByRegionIdStrict("18");
 
-const metricMockCases = metricCatalog.getMetric(MetricId.MOCK_CASES);
-
 const Template: ComponentStory<typeof MetricSeriesChart> = (args) => (
   <MetricSeriesChart {...args} />
 );
@@ -36,13 +34,13 @@ Vaccination.args = {
   series: [
     {
       region: WY,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: theme.palette.gradient[100] },
     },
     {
       region: WA,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: theme.palette.gradient[300] },
     },
@@ -57,7 +55,7 @@ NegativeMinValue.args = {
   series: [
     {
       region: WY,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
     },
   ],
@@ -70,12 +68,12 @@ TrendsSingleLocation.args = {
   series: [
     {
       region: WA,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.BAR,
     },
     {
       region: WA,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: "black" },
     },
@@ -89,19 +87,19 @@ TrendsMultipleLocations.args = {
   series: [
     {
       region: NY,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[0] },
     },
     {
       region: WY,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[1] },
     },
     {
       region: IN,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[2], strokeDasharray: "4 4" },
     },
@@ -117,21 +115,21 @@ MultipleLocationsWithLabels.args = {
     {
       region: NY,
       label: NY.shortName,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[0] },
     },
     {
       region: WY,
       label: WY.shortName,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[1] },
     },
     {
       region: IN,
       label: IN.shortName,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[2], strokeDasharray: "4 4" },
     },
@@ -151,7 +149,7 @@ LoadingDelay.args = {
     },
     {
       region: WY,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[1] },
     },
@@ -171,7 +169,7 @@ LoadingError.args = {
     },
     {
       region: WY,
-      metric: metricMockCases,
+      metric: MetricId.MOCK_CASES,
       type: SeriesType.LINE,
       lineProps: { stroke: schemeCategory10[1] },
     },
