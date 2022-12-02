@@ -6,6 +6,7 @@ import { scaleLinear, scaleUtc } from "@visx/scale";
 import isNumber from "lodash/isNumber";
 import max from "lodash/max";
 import min from "lodash/min";
+import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
 
 import { assert } from "@actnowcoalition/assert";
@@ -18,14 +19,19 @@ import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
-import { Series, SeriesType } from "../SeriesChart";
-import { SeriesChart } from "../SeriesChart";
+import { Series, SeriesChart, SeriesType } from "../SeriesChart";
+import { SeriesLabel } from "./MetrisSeriesChart.style";
 
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** List of series to be rendered */
   series: Series[];
   /** Minimum value for the y-axis. It defaults to 0. */
   minValue?: number;
+  /**
+   * Show labels for each series. The labels will be shown on the right side
+   * of the chart, closer to the last value of each series.
+   */
+  showLabels?: boolean;
 }
 
 /**
@@ -47,6 +53,7 @@ export const MetricSeriesChart = ({
   marginLeft = 70,
   marginRight = 20,
   minValue = 0,
+  showLabels = true,
 }: MetricSeriesChartProps) => {
   const metricCatalog = useMetricCatalog();
 
@@ -86,7 +93,7 @@ export const MetricSeriesChart = ({
       series: seriesItem,
       timeseries: timeseriesList[seriesIndex],
     }))
-    .filter(({ timeseries }) => timeseries.hasData());
+    .filter((item) => item.timeseries.hasData());
 
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxValue] = getValueRange(timeseriesList);
@@ -108,6 +115,23 @@ export const MetricSeriesChart = ({
     domain: [minYValue, maxValue],
     range: [chartHeight, 0],
   });
+
+  const initialLabelPositions = seriesList
+    .filter((item) => item.series.label)
+    .map(({ series, timeseries }): LabelPositionInfo => {
+      // NOTE: We already filtered out timeseries without data and items
+      // without labels.
+      assert(series.label, `The series should have a label`);
+      assert(timeseries.hasData(), `The timeseries should have data`);
+
+      return {
+        y: yScale(timeseries.lastValue),
+        label: series.label,
+        fill: getLabelColor(series),
+      };
+    });
+
+  const labelPositions = calculateLabelPositions(initialLabelPositions, 24);
 
   // All the series in the chart should have compatible units, so it makes
   // sense to use any of them to format the values on the y-axis.
@@ -131,6 +155,21 @@ export const MetricSeriesChart = ({
             yScale={yScale}
           />
         ))}
+        {showLabels && (
+          <Group>
+            {labelPositions.map((item, itemIndex) => (
+              <SeriesLabel
+                key={`label-${item.label}-${itemIndex}`}
+                x={chartWidth}
+                y={item.y}
+                dx={5}
+                fill={item.fill}
+              >
+                {item.label}
+              </SeriesLabel>
+            ))}
+          </Group>
+        )}
         {pointInfo?.point && isNumber(pointInfo?.timeseriesIndex) && (
           <MetricTooltip
             metric={series[pointInfo.timeseriesIndex].metric}
@@ -201,4 +240,41 @@ function getSeriesColor(series: Series): string {
   } else {
     return "#000";
   }
+}
+
+interface LabelPositionInfo {
+  y: number;
+  label: string;
+  fill: string;
+}
+
+function calculateLabelPositions(
+  items: LabelPositionInfo[],
+  labelHeight: number
+): LabelPositionInfo[] {
+  // Sort the items by SVG y-coordinate, ascending
+  const sortedItems = sortBy(items, (item) => item.y);
+
+  // Iterate through the items in the array, adjusting the y-coordinate if
+  // the current label would overlap with the previous label.
+  return sortedItems.reduce(
+    (adjusted: LabelPositionInfo[], item: LabelPositionInfo, index: number) => {
+      const dy = labelHeight / 2;
+
+      // Take the maximum y-coordinate from the items that are already adjusted,
+      // and compare it with the y-coordinate of the current item. If the items
+      // will overlap, we adjust the position of the current item. If the
+      // current item will overlap with it, we adjust the position.
+      const maxY = max(adjusted.map((p) => p.y)) ?? item.y;
+      const adjustedY = index > 0 && maxY + dy > item.y ? maxY + dy : item.y;
+      return [...adjusted, { ...item, y: adjustedY }];
+    },
+    []
+  );
+}
+
+function getLabelColor(series: Series): string {
+  return series.type === SeriesType.LINE
+    ? series.lineProps?.stroke ?? "black"
+    : "black";
 }
