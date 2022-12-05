@@ -17,6 +17,8 @@ export enum SeriesType {
 export interface SeriesBase {
   metric: Metric | string;
   region: Region;
+  /** Optional series label */
+  label?: string;
 }
 
 export interface SeriesLine extends SeriesBase {
