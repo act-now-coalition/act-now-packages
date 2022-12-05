@@ -7,7 +7,7 @@ import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import {
   DataRow,
   getMetricDataFromDataRows,
-  groupAndValidateRegionIds,
+  groupAndValidateRowsByRegionId,
   parseCsv,
 } from "./data_provider_utils";
 import { fetchText } from "./utils";
@@ -88,13 +88,9 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       assert(this.url, "URL or csvText must be provided to populate cache.");
       csvText = await this.fetchCsvText();
     }
-    assert(
-      csvText,
-      "We should have initialized fetchedText directly above or in the constructor"
-    );
     const csv = parseCsv(csvText, [this.regionColumn]);
     assert(csv.length > 0, "CSV must not be empty.");
-    const dataRowsByRegionId = groupAndValidateRegionIds(
+    const dataRowsByRegionId = groupAndValidateRowsByRegionId(
       csv,
       this.regionDb,
       this.regionColumn,
@@ -111,10 +107,16 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     this.dataRowsByRegionId = this.dataRowsByRegionId ?? this.getDataForCache();
     const dataRowsByRegionId = await this.dataRowsByRegionId;
 
+    const metricColumn = metric.dataReference?.column;
+    assert(
+      typeof metricColumn === "string",
+      "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
+    );
     return getMetricDataFromDataRows(
       dataRowsByRegionId,
       region,
       metric,
+      metricColumn,
       this.dateColumn
     );
   }

@@ -1,12 +1,13 @@
-import { JsonDataProvider } from "./JsonDataProvider";
-import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
+
+import { Metric } from "../Metric";
 import { MetricCatalog } from "../MetricCatalog";
+import { JsonDataProvider } from "./JsonDataProvider";
 import { DataRow } from "./data_provider_utils";
 
 const PROVIDER_ID = "test-json-provider";
 
-const mockJson = [
+const testJson = [
   {
     region: "36",
     cool_metric: 150,
@@ -17,7 +18,7 @@ const mockJson = [
   },
 ];
 
-const jsonTimeseries = [
+const testJsonTimeseries = [
   {
     region: "36",
     date: "2022-08-02",
@@ -46,20 +47,21 @@ const testMetric = new Metric({
  *
  * @param data JSON data to be imported.
  * @param includeTimeseries Whether to include timeseries.
- * @param dateCol Name of date column.
+ * @param dateField Name of date column.
+ * @param metric Metric to fetch data for.
  * @returns MetricData for test region and metric.
  */
 const testFetchingJsonData = async (
   data: DataRow[],
   includeTimeseries: boolean,
-  dateCol?: string,
+  dateField?: string,
   metric?: Metric
 ) => {
   metric = metric ?? testMetric;
   const provider = new JsonDataProvider(PROVIDER_ID, {
     regionDb: states,
     regionColumn: "region",
-    dateColumn: dateCol,
+    dateField: dateField,
     jsonData: data,
   });
   const catalog = new MetricCatalog([metric], [provider]);
@@ -73,11 +75,11 @@ const testFetchingJsonData = async (
 describe.only("JsonDataProvider", () => {
   test("fetchData() yields expected data", async () => {
     const metricDataNoTs = await testFetchingJsonData(
-      mockJson,
+      testJson,
       /*includeTimeseries=*/ false
     );
     const metricDataTs = await testFetchingJsonData(
-      jsonTimeseries,
+      testJsonTimeseries,
       /*includeTimeseries=*/ true,
       /*dateColumn=*/ "date"
     );
@@ -92,7 +94,7 @@ describe.only("JsonDataProvider", () => {
 
   test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
     const metricData = await testFetchingJsonData(
-      mockJson,
+      testJson,
       /*includeTimeseries=*/ true
     );
     expect(metricData.currentValue).toBe(150);
@@ -124,9 +126,9 @@ describe.only("JsonDataProvider", () => {
     });
     expect(async () =>
       testFetchingJsonData(
-        mockJson,
+        testJson,
         /*includeTimeseries=*/ true,
-        /*datColumn=*/ "date",
+        /*dateColumn=*/ "date",
         badMetric
       )
     ).rejects.toThrow("Missing or invalid metric column name.");

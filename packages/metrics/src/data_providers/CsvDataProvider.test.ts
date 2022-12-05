@@ -106,7 +106,7 @@ describe("CsvDataProvider", () => {
       testFetchingCsvData(
         mockCsv,
         /*includeTimeseries=*/ true,
-        /*datColumn=*/ "date",
+        /*dateColumn=*/ "date",
         badMetric
       )
     ).rejects.toThrow("Missing or invalid metric column name.");

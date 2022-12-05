@@ -222,12 +222,12 @@ function getAllColumnsFromRows(rows: DataRow[]): string[] {
  * @param url URL to use for error messages.
  * @returns
  */
-export function groupAndValidateRegionIds(
+export function groupAndValidateRowsByRegionId(
   dataRows: DataRow[],
   regionDb: RegionDB,
   regionKey: string,
   url?: string
-) {
+): { [regionId: string]: DataRow[] } {
   const dataRowsByRegionId = groupBy(dataRows, (row) => row[regionKey]);
   assert(
     !dataRowsByRegionId["undefined"],
@@ -261,28 +261,24 @@ export function groupAndValidateRegionIds(
  * @param dataRowsByRegionId Data to transform into MetricData.
  * @param region Region to get MetricData for.
  * @param metric Metric to get MetricData for.
- * @param dateKey Name of key containing date values.
+ * @param dateField Name of field containing date values.
  * @returns MetricData for the provided region and metric.
  */
 export async function getMetricDataFromDataRows(
   dataRowsByRegionId: { [regionId: string]: DataRow[] },
   region: Region,
   metric: Metric,
-  dateKey?: string
+  metricField: string,
+  dateField?: string
 ): Promise<MetricData<unknown>> {
-  const metricKey = metric.dataReference?.column;
-  assert(
-    typeof metricKey === "string",
-    "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
-  );
   let metricData: MetricData;
-  if (dateKey) {
+  if (dateField) {
     metricData = dataRowsToMetricData(
       dataRowsByRegionId,
       region,
       metric,
-      metricKey,
-      dateKey,
+      metricField,
+      dateField,
       /* strict= */ true
     );
   } else {
@@ -290,7 +286,7 @@ export async function getMetricDataFromDataRows(
       dataRowsByRegionId,
       region,
       metric,
-      metricKey
+      metricField
     );
   }
   return metricData;

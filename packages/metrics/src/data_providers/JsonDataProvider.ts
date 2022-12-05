@@ -7,7 +7,7 @@ import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import {
   DataRow,
   getMetricDataFromDataRows,
-  groupAndValidateRegionIds,
+  groupAndValidateRowsByRegionId,
 } from "./data_provider_utils";
 import { fetchJson } from "./utils";
 
@@ -22,10 +22,10 @@ export interface JsonDataProviderOptions {
   /** Name of column containing valid Region IDs. */
   regionColumn: string;
   /**
-   * Name of column containing valid ISO 8601 date-time values.
-   * Required if the CSV contains timeseries data, else it should not be specified.
+   * Name of the field containing valid ISO 8601 date-time values.
+   * Required if the JSON file contains timeseries data, else it should not be specified.
    */
-  dateColumn?: string;
+  dateField?: string;
   /**
    * JSON data to import in place of URL fetch, typically used for testing.
    * If this is provided, the URL will be ignored.
@@ -55,7 +55,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionDb: RegionDB;
   private readonly regionColumn: string;
   private readonly url?: string;
-  private readonly dateColumn?: string;
+  private readonly dateField?: string;
   private dataRowsByRegionId:
     | Promise<{ [regionId: string]: DataRow[] }>
     | undefined;
@@ -69,7 +69,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     this.regionDb = options.regionDb;
     this.regionColumn = options.regionColumn;
     this.url = options.url;
-    this.dateColumn = options.dateColumn;
+    this.dateField = options.dateField;
     if (options.jsonData) {
       this.dataRowsByRegionId = this.getDataForCache(options.jsonData);
     }
@@ -84,7 +84,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     }
 
     assert(jsonData && jsonData.length > 0, "JSON array must not be empty.");
-    const dataRowsByRegionId = groupAndValidateRegionIds(
+    const dataRowsByRegionId = groupAndValidateRowsByRegionId(
       jsonData,
       this.regionDb,
       this.regionColumn,
@@ -101,12 +101,17 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     // Populate the cache if it hasn't been populated or isn't being populated yet.
     this.dataRowsByRegionId = this.dataRowsByRegionId ?? this.getDataForCache();
     const dataRowsByRegionId = await this.dataRowsByRegionId;
-
+    const metricField = metric.dataReference?.field;
+    assert(
+      typeof metricField === "string",
+      "Missing or invalid metric field name. Ensure 'field' is included in metric's MetricDataReference"
+    );
     return getMetricDataFromDataRows(
       dataRowsByRegionId,
       region,
       metric,
-      this.dateColumn
+      metricField,
+      this.dateField
     );
   }
 }
