@@ -45,8 +45,8 @@ export interface CsvDataProviderOptions {
 export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionDb: RegionDB;
   private readonly regionColumn: string;
-  private readonly url?: string;
   private readonly dateColumn?: string;
+  private readonly url?: string;
   private fetchedText: Promise<string> | undefined;
   private dataRowsByRegionId:
     | Promise<{ [regionId: string]: DataRow[] }>
@@ -71,8 +71,8 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     super(providerId);
     this.regionDb = options.regionDb;
     this.regionColumn = options.regionColumn;
-    this.url = options.url;
     this.dateColumn = options.dateColumn;
+    this.url = options.url;
     this.fetchedText = options.csvText
       ? Promise.resolve(options.csvText)
       : undefined;

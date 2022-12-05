@@ -217,7 +217,7 @@ function getAllColumnsFromRows(rows: DataRow[]): string[] {
  * Helper to group DataRows by region ID key and validate the region IDs against a regionDb.
  *
  * @param dataRows Data rows to group and validate regions for.
- * @param regionDb RegionDB to validate against
+ * @param regionDb RegionDB to validate against.
  * @param regionKey Region column name to use for grouping and validation.
  * @param url URL to use for error messages.
  * @returns
@@ -255,11 +255,20 @@ export function groupAndValidateRegionIds(
   return dataRowsByRegionId;
 }
 
+/**
+ * Creates a MetricData object from a set of data rows grouped by region ID.
+ *
+ * @param dataRowsByRegionId Data to transform into MetricData.
+ * @param region Region to get MetricData for.
+ * @param metric Metric to get MetricData for.
+ * @param dateKey Name of key containing date values.
+ * @returns MetricData for the provided region and metric.
+ */
 export async function getMetricDataFromDataRows(
   dataRowsByRegionId: { [regionId: string]: DataRow[] },
   region: Region,
   metric: Metric,
-  dateColumn?: string
+  dateKey?: string
 ): Promise<MetricData<unknown>> {
   const metricKey = metric.dataReference?.column;
   assert(
@@ -267,13 +276,13 @@ export async function getMetricDataFromDataRows(
     "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
   );
   let metricData: MetricData;
-  if (dateColumn) {
+  if (dateKey) {
     metricData = dataRowsToMetricData(
       dataRowsByRegionId,
       region,
       metric,
       metricKey,
-      dateColumn,
+      dateKey,
       /* strict= */ true
     );
   } else {
