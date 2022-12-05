@@ -20,7 +20,7 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
 import { Series, SeriesChart, SeriesType } from "../SeriesChart";
-import { SeriesLabel } from "./MetrisSeriesChart.style";
+import { SeriesLabel } from "./MetricSeriesChart.style";
 
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** List of series to be rendered */
