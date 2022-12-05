@@ -1,5 +1,3 @@
-import isEmpty from "lodash/isEmpty";
-
 import { assert } from "@actnowcoalition/assert";
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
@@ -56,7 +54,9 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
   private readonly url?: string;
   private readonly dateColumn?: string;
   private fetchedData: Promise<DataRow[]> | undefined;
-  private dataRowsByRegionId: { [regionId: string]: DataRow[] } = {};
+  private dataRowsByRegionId:
+    | Promise<{ [regionId: string]: DataRow[] }>
+    | undefined;
 
   constructor(providerId: string, options: JsonDataProviderOptions) {
     assert(
@@ -73,7 +73,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
       : undefined;
   }
 
-  async populateCache(): Promise<void> {
+  private async getDataForCache(): Promise<{ [regionId: string]: DataRow[] }> {
     if (this.url) {
       // We might already be fetching the JSON, in which case we can just wait on
       // the existing promise.
@@ -92,23 +92,21 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
       this.url
     );
 
-    this.dataRowsByRegionId = dataRowsByRegionId;
+    return dataRowsByRegionId;
   }
 
   async fetchDataForRegionAndMetric(
     region: Region,
-    metric: Metric,
-    includeTimeseries: boolean
+    metric: Metric
   ): Promise<MetricData<unknown>> {
-    if (isEmpty(this.dataRowsByRegionId)) {
-      await this.populateCache();
-    }
+    // Populate the cache if it hasn't been populated or isn't being populated yet.
+    this.dataRowsByRegionId = this.dataRowsByRegionId ?? this.getDataForCache();
+    const dataRowsByRegionId = await this.dataRowsByRegionId;
 
     return getMetricDataFromDataRows(
-      this.dataRowsByRegionId,
+      dataRowsByRegionId,
       region,
       metric,
-      includeTimeseries,
       this.dateColumn
     );
   }

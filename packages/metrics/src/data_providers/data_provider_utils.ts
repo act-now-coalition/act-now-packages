@@ -259,7 +259,6 @@ export async function getMetricDataFromDataRows(
   dataRowsByRegionId: { [regionId: string]: DataRow[] },
   region: Region,
   metric: Metric,
-  includeTimeseries: boolean,
   dateColumn?: string
 ): Promise<MetricData<unknown>> {
   const metricKey = metric.dataReference?.column;
@@ -285,9 +284,5 @@ export async function getMetricDataFromDataRows(
       metricKey
     );
   }
-  if (includeTimeseries) {
-    return metricData;
-  } else {
-    return metricData.dropTimeseries();
-  }
+  return metricData;
 }
