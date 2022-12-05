@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-0.1.0.tgz#fa83caa21c419f20d7be7c10dafd70986613e6a0"
   integrity sha512-8dBa6CHFDuY/jAVtazVCDSl9796gaOLmsdMFX+uGBwQruEWpCq2jOkf/wvLypt9eoE+Dzi63Q5zbOIVXmlQRtQ==
 
-"@actnowcoalition/metrics@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.3.3.tgz#8194523d8e0506e43d1384615831740b7178c8cb"
-  integrity sha512-Qla8WNQ1ipQDA1D48dZ41GDuT5vBNi8k4aVGYv401+yr1dBX5ojG2DC14imLB80ga8Kfh3SLcMpHpmDYNKve+g==
+"@actnowcoalition/metrics@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.3.4.tgz#792c1b0548b9fae7eab1fb2491638504c887af4f"
+  integrity sha512-5oqF5aJbYv/5e4USy5VMG7gCY8ogr7yFirLzXCzuvmV3kjlEDHp3v3olYD7y9F9IEB2gvnufrO9VQ2zdxGpfng==
   dependencies:
     "@actnowcoalition/assert" "^0.1.0"
     "@actnowcoalition/number-format" "^0.1.1"
@@ -5112,9 +5112,9 @@ decode-named-character-reference@^1.0.0:
     character-entities "^2.0.0"
 
 decode-uri-component@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.0.tgz#eb3913333458775cb84cd1a1fae062106bb87545"
-  integrity sha512-hjf+xovcEn31w/EUYdTXQh/8smFL/dzYjohQGEIgjyNavaJfBY2p5F527Bo1VPATxv0VYTUC2bOcXvqFwk78Og==
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/decode-uri-component/-/decode-uri-component-0.2.2.tgz#e69dbe25d37941171dd540e024c444cd5188e1e9"
+  integrity sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==
 
 dedent@^0.7.0:
   version "0.7.0"
