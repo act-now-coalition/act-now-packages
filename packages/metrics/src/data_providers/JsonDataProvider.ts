@@ -26,7 +26,10 @@ export interface JsonDataProviderOptions {
    * Required if the CSV contains timeseries data, else it should not be specified.
    */
   dateColumn?: string;
-  /** JSON data to import in place of URL fetch, typically used for testing. */
+  /**
+   * JSON data to import in place of URL fetch, typically used for testing.
+   * If this is provided, the URL will be ignored.
+   * */
   jsonData?: DataRow[];
 }
 
@@ -53,7 +56,6 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionColumn: string;
   private readonly url?: string;
   private readonly dateColumn?: string;
-  private fetchedData: Promise<DataRow[]> | undefined;
   private dataRowsByRegionId:
     | Promise<{ [regionId: string]: DataRow[] }>
     | undefined;
@@ -68,23 +70,20 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     this.regionColumn = options.regionColumn;
     this.url = options.url;
     this.dateColumn = options.dateColumn;
-    this.fetchedData = options.jsonData
-      ? Promise.resolve(options.jsonData)
-      : undefined;
+    if (options.jsonData) {
+      this.dataRowsByRegionId = this.getDataForCache(options.jsonData);
+    }
   }
 
-  private async getDataForCache(): Promise<{ [regionId: string]: DataRow[] }> {
-    if (this.url) {
-      // We might already be fetching the JSON, in which case we can just wait on
-      // the existing promise.
-      this.fetchedData = this.fetchedData ?? fetchJson(this.url);
+  private async getDataForCache(
+    jsonData?: DataRow[]
+  ): Promise<{ [regionId: string]: DataRow[] }> {
+    if (!jsonData) {
+      assert(this.url, "URL or jsonData must be provided to populate cache.");
+      jsonData = await fetchJson(this.url);
     }
-    assert(
-      this.fetchedData,
-      "We should have initialized fetchedData directly above or in the constructor"
-    );
-    const jsonData = await this.fetchedData;
-    assert(jsonData.length > 0, "JSON array must not be empty.");
+
+    assert(jsonData && jsonData.length > 0, "JSON array must not be empty.");
     const dataRowsByRegionId = groupAndValidateRegionIds(
       jsonData,
       this.regionDb,

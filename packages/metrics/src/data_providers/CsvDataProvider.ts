@@ -27,7 +27,10 @@ export interface CsvDataProviderOptions {
    * Required if the CSV contains timeseries data, else it should not be specified.
    */
   dateColumn?: string;
-  /** CSV data to import in place of URL fetch, typically used for testing. */
+  /**
+   * CSV data to import in place of URL fetch, typically used for testing.
+   * If this is provided, the URL will be ignored.
+   * */
   csvText?: string;
 }
 
@@ -73,22 +76,22 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
     this.url = options.url;
-    this.fetchedText = options.csvText
-      ? Promise.resolve(options.csvText)
-      : undefined;
+    if (options.csvText) {
+      this.dataRowsByRegionId = this.getDataForCache(options.csvText);
+    }
   }
 
-  private async getDataForCache(): Promise<{ [regionId: string]: DataRow[] }> {
-    if (this.url) {
-      // We might already be fetching the CSV, in which case we can just wait on
-      // the existing promise.
-      this.fetchedText = this.fetchedText ?? this.fetchCsvText();
+  private async getDataForCache(
+    csvText?: string
+  ): Promise<{ [regionId: string]: DataRow[] }> {
+    if (!csvText) {
+      assert(this.url, "URL or csvText must be provided to populate cache.");
+      csvText = await this.fetchCsvText();
     }
     assert(
-      this.fetchedText,
+      csvText,
       "We should have initialized fetchedText directly above or in the constructor"
     );
-    const csvText = await this.fetchedText;
     const csv = parseCsv(csvText, [this.regionColumn]);
     assert(csv.length > 0, "CSV must not be empty.");
     const dataRowsByRegionId = groupAndValidateRegionIds(
