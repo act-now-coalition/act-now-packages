@@ -20,14 +20,14 @@ const Template: ComponentStory<typeof MetricWorldMap> = (args) => (
   <MetricWorldMap {...args} />
 );
 
-const renderTooltip = (regionId: string) => {
+const getTooltip = (regionId: string) => {
   return regionDB.findByRegionId(regionId)?.fullName || "n/a";
 };
 
 /** Nations colored by mock metric data */
 export const World = Template.bind({});
 World.args = {
-  renderTooltip,
+  getTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };

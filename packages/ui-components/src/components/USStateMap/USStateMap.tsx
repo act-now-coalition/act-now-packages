@@ -31,7 +31,7 @@ export interface USStateMapProps extends BaseUSMapProps {
 
 const USStateMapInner = ({
   stateRegionId,
-  renderTooltip,
+  getTooltip,
   getFillColor = () => "lightGray",
   width = defaultWidth,
   highlightedRegion,
@@ -104,7 +104,7 @@ const USStateMapInner = ({
           otherStates.map((geo) => {
             const stateFips = `${geo.id}`;
             return (
-              <Tooltip title={renderTooltip(stateFips) ?? ""} key={stateFips}>
+              <Tooltip title={getTooltip(stateFips) ?? ""} key={stateFips}>
                 <Link href={getRegionUrl(stateFips)}>
                   <g>
                     <BorderingRegion d={geoPath(geo) ?? ""} />
@@ -118,7 +118,7 @@ const USStateMapInner = ({
         {regionGeoToShow.map((geo) => {
           const geoId = `${geo.id}`;
           return (
-            <Tooltip title={renderTooltip(geoId) ?? ""} key={geoId}>
+            <Tooltip title={getTooltip(geoId) ?? ""} key={geoId}>
               <Link href={getRegionUrl(geoId)}>
                 <g>
                   <RegionOverlay d={geoPath(geo) ?? ""} />
