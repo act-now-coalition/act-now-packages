@@ -87,6 +87,7 @@ export * from "./components/BarChart";
 export * from "./components/ChartOverlayX";
 export * from "./components/ChartOverlayXY";
 export * from "./components/CompareTable";
+export * from "./components/ErrorBox";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
 export * from "./components/LabelIcon";
