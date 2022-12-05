@@ -1,14 +1,20 @@
-import { assert } from "@actnowcoalition/assert";
-import { RegionDB } from "@actnowcoalition/regions";
-import { groupAndValidateRegionIds, parseCsv } from "./data_provider_utils";
-import { fetchText } from "./utils";
-import {
-  DataRowMetricProviderBase,
-  DataRowMetricProviderBaseOptions,
-} from "./DataRowMetricProviderBase";
+import isEmpty from "lodash/isEmpty";
 
-export interface CsvDataProviderOptions
-  extends DataRowMetricProviderBaseOptions {
+import { assert } from "@actnowcoalition/assert";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
+import { Metric } from "../Metric";
+import { MetricData } from "../data/MetricData";
+import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
+import {
+  DataRow,
+  getMetricDataFromDataRows,
+  groupAndValidateRegionIds,
+  parseCsv,
+} from "./data_provider_utils";
+import { fetchText } from "./utils";
+
+export interface CsvDataProviderOptions {
   /** URL of a CSV file to import from. */
   url?: string;
   /**
@@ -38,11 +44,14 @@ export interface CsvDataProviderOptions
  * |CA     |2022-02-01 |31   |66   |
  * ```
  */
-export class CsvDataProvider extends DataRowMetricProviderBase {
+export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionDb: RegionDB;
   private readonly regionColumn: string;
   private readonly url?: string;
+  private readonly dateColumn?: string;
   private fetchedText: Promise<string> | undefined;
+
+  private dataRowsByRegionId: { [regionId: string]: DataRow[] } = {};
 
   /**
    * Constructs a new CsvDataProvider instance.
@@ -60,10 +69,11 @@ export class CsvDataProvider extends DataRowMetricProviderBase {
       options.url || options.csvText,
       "Either a URL or CSV data must be provided to create an instance of CsvDataProvider."
     );
-    super(providerId, options);
+    super(providerId);
     this.regionDb = options.regionDb;
     this.regionColumn = options.regionColumn;
     this.url = options.url;
+    this.dateColumn = options.dateColumn;
     this.fetchedText = options.csvText
       ? Promise.resolve(options.csvText)
       : undefined;
@@ -89,6 +99,24 @@ export class CsvDataProvider extends DataRowMetricProviderBase {
       this.url
     );
     this.dataRowsByRegionId = dataRowsByRegionId;
+  }
+
+  async fetchDataForRegionAndMetric(
+    region: Region,
+    metric: Metric,
+    includeTimeseries: boolean
+  ): Promise<MetricData<unknown>> {
+    if (isEmpty(this.dataRowsByRegionId)) {
+      await this.populateCache();
+    }
+
+    return getMetricDataFromDataRows(
+      this.dataRowsByRegionId,
+      region,
+      metric,
+      includeTimeseries,
+      this.dateColumn
+    );
   }
 
   /**

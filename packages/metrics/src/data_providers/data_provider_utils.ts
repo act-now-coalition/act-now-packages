@@ -1,5 +1,7 @@
 import get from "lodash/get";
+import groupBy from "lodash/groupBy";
 import isNil from "lodash/isNil";
+import truncate from "lodash/truncate";
 import Papa from "papaparse";
 
 import { assert } from "@actnowcoalition/assert";
@@ -8,8 +10,6 @@ import { Region, RegionDB } from "@actnowcoalition/regions";
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "../data";
-import groupBy from "lodash/groupBy";
-import truncate from "lodash/truncate";
 
 /**
  * Represents a "row" of data (e.g. as read from a CSV), with key-value pairs
@@ -253,4 +253,41 @@ export function groupAndValidateRegionIds(
     }
   }
   return dataRowsByRegionId;
+}
+
+export async function getMetricDataFromDataRows(
+  dataRowsByRegionId: { [regionId: string]: DataRow[] },
+  region: Region,
+  metric: Metric,
+  includeTimeseries: boolean,
+  dateColumn?: string
+): Promise<MetricData<unknown>> {
+  const metricKey = metric.dataReference?.column;
+  assert(
+    typeof metricKey === "string",
+    "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
+  );
+  let metricData: MetricData;
+  if (dateColumn) {
+    metricData = dataRowsToMetricData(
+      dataRowsByRegionId,
+      region,
+      metric,
+      metricKey,
+      dateColumn,
+      /* strict= */ true
+    );
+  } else {
+    metricData = dataRowToMetricData(
+      dataRowsByRegionId,
+      region,
+      metric,
+      metricKey
+    );
+  }
+  if (includeTimeseries) {
+    return metricData;
+  } else {
+    return metricData.dropTimeseries();
+  }
 }

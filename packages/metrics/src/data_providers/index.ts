@@ -1,6 +1,4 @@
 export { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
-export { DataRowMetricProviderBase } from "./DataRowMetricProviderBase";
-export type { DataRowMetricProviderBaseOptions } from "./DataRowMetricProviderBase";
 
 export type { MetricDataProvider } from "./MetricDataProvider";
 
