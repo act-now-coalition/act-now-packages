@@ -133,11 +133,10 @@ export const MetricSeriesChart = ({
       };
     });
 
-  // TODO (Pablo): Is there a way to calculate the 24 using the typography
-  // settings? We could also measure the rendered labels using getBBox.
+  // TODO (Pablo): Can we obtain the line height in pixels from the theme?
   const labelPositions = calculateLabelPositions(
     initialLabelPositions,
-    /*labelHeight=*/ 24
+    /*labelLineHeight=*/ 14
   );
 
   // All the series in the chart should have compatible units, so it makes
@@ -262,13 +261,13 @@ interface LabelInfo {
  */
 function calculateLabelPositions(
   items: LabelInfo[],
-  labelHeight: number
+  labelLineHeight: number
 ): LabelInfo[] {
   // Sort the items by SVG y-coordinate, in ascending order.
   const sortedItems = sortBy(items, (item) => item.y);
 
   return sortedItems.reduce((adjusted: LabelInfo[], item: LabelInfo) => {
-    const dy = labelHeight / 2;
+    const dy = labelLineHeight;
 
     // Take the maximum y-coordinate from the items that are already
     // adjusted, and compare it with the y-coordinate of the current
