@@ -80,6 +80,7 @@ declare module "@mui/material/styles" {
 export * from "./common/hooks";
 
 /** UI Components and props */
+
 export * from "./components/AutoWidth";
 export * from "./components/AxesTimeseries";
 export * from "./components/Axis";
@@ -120,6 +121,7 @@ export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/SeriesChart";
 export * from "./components/ShareButton";
+export * from "./components/SingleSelectDropdown";
 export * from "./components/SparkLine";
 export * from "./components/USNationalMap";
 export * from "./components/USStateMap";
