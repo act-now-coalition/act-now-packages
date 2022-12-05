@@ -19,8 +19,8 @@ export interface JsonDataProviderOptions {
    * incoming data.
    */
   regionDb: RegionDB;
-  /** Name of column containing valid Region IDs. */
-  regionColumn: string;
+  /** Name of field containing valid Region IDs. */
+  regionField: string;
   /**
    * Name of the field containing valid ISO 8601 date-time values.
    * Required if the JSON file contains timeseries data, else it should not be specified.
@@ -53,7 +53,7 @@ export interface JsonDataProviderOptions {
  */
 export class JsonDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionDb: RegionDB;
-  private readonly regionColumn: string;
+  private readonly regionField: string;
   private readonly url?: string;
   private readonly dateField?: string;
   private dataRowsByRegionId:
@@ -67,7 +67,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     );
     super(providerId);
     this.regionDb = options.regionDb;
-    this.regionColumn = options.regionColumn;
+    this.regionField = options.regionField;
     this.url = options.url;
     this.dateField = options.dateField;
     if (options.jsonData) {
@@ -87,7 +87,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     const dataRowsByRegionId = groupAndValidateRowsByRegionId(
       jsonData,
       this.regionDb,
-      this.regionColumn,
+      this.regionField,
       this.url
     );
 

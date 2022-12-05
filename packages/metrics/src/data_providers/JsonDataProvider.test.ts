@@ -39,7 +39,7 @@ const testJsonTimeseries = [
 const newYork = states.findByRegionIdStrict("36");
 const testMetric = new Metric({
   id: "metric",
-  dataReference: { providerId: PROVIDER_ID, column: "cool_metric" },
+  dataReference: { providerId: PROVIDER_ID, field: "cool_metric" },
 });
 
 /**
@@ -47,7 +47,7 @@ const testMetric = new Metric({
  *
  * @param data JSON data to be imported.
  * @param includeTimeseries Whether to include timeseries.
- * @param dateField Name of date column.
+ * @param dateField Name of date field.
  * @param metric Metric to fetch data for.
  * @returns MetricData for test region and metric.
  */
@@ -60,7 +60,7 @@ const testFetchingJsonData = async (
   metric = metric ?? testMetric;
   const provider = new JsonDataProvider(PROVIDER_ID, {
     regionDb: states,
-    regionColumn: "region",
+    regionField: "region",
     dateField: dateField,
     jsonData: data,
   });
@@ -81,7 +81,7 @@ describe.only("JsonDataProvider", () => {
     const metricDataTs = await testFetchingJsonData(
       testJsonTimeseries,
       /*includeTimeseries=*/ true,
-      /*dateColumn=*/ "date"
+      /*dateField=*/ "date"
     );
     expect(metricDataNoTs.currentValue).toBe(150);
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
@@ -116,29 +116,29 @@ describe.only("JsonDataProvider", () => {
     ).rejects.toThrow("Failed to parse data: All region IDs were invalid.");
   });
 
-  test("fetchData() fails if metric is missing a 'column' property.", async () => {
+  test("fetchData() fails if metric is missing a 'field' property.", async () => {
     const badMetric = new Metric({
       id: "metric",
       dataReference: {
         providerId: PROVIDER_ID,
-        /* missing column specifier. */
+        /* missing field specifier. */
       },
     });
     expect(async () =>
       testFetchingJsonData(
         testJson,
         /*includeTimeseries=*/ true,
-        /*dateColumn=*/ "date",
+        /*dateField=*/ "date",
         badMetric
       )
-    ).rejects.toThrow("Missing or invalid metric column name.");
+    ).rejects.toThrow("Missing or invalid metric field name.");
   });
 
   test("Constructor fails if neither url or JSON data is provided.", () => {
     expect(() => {
       new JsonDataProvider("PROVIDER_ID", {
         regionDb: states,
-        regionColumn: "region",
+        regionField: "region",
       });
     }).toThrow("URL or JSON data must be provided");
   });
