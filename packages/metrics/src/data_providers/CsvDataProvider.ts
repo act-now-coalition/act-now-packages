@@ -1,17 +1,13 @@
-import groupBy from "lodash/groupBy";
-import isEmpty from "lodash/isEmpty";
-import truncate from "lodash/truncate";
-
 import { assert } from "@actnowcoalition/assert";
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { Metric } from "../Metric";
-import { MetricData } from "../data";
+import { MetricData } from "../data/MetricData";
 import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import {
   DataRow,
-  dataRowToMetricData,
-  dataRowsToMetricData,
+  getMetricDataFromDataRows,
+  groupAndValidateRowsByRegionId,
   parseCsv,
 } from "./data_provider_utils";
 import { fetchText } from "./utils";
@@ -31,7 +27,10 @@ export interface CsvDataProviderOptions {
    * Required if the CSV contains timeseries data, else it should not be specified.
    */
   dateColumn?: string;
-  /** CSV data to import in place of URL fetch, typically used for testing. */
+  /**
+   * CSV data to import in place of URL fetch, typically used for testing.
+   * If this is provided, the URL will be ignored.
+   * */
   csvText?: string;
 }
 
@@ -52,8 +51,9 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private readonly dateColumn?: string;
   private readonly url?: string;
   private fetchedText: Promise<string> | undefined;
-
-  private dataRowsByRegionId: { [regionId: string]: DataRow[] } = {};
+  private dataRowsByRegionId:
+    | Promise<{ [regionId: string]: DataRow[] }>
+    | undefined;
 
   /**
    * Constructs a new CsvDataProvider instance.
@@ -76,89 +76,49 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
     this.url = options.url;
-    this.fetchedText = options.csvText
-      ? Promise.resolve(options.csvText)
-      : undefined;
+    if (options.csvText) {
+      this.dataRowsByRegionId = this.getDataForCache(options.csvText);
+    }
   }
 
-  private async populateCache(): Promise<void> {
-    if (this.url) {
-      // We might already be fetching the CSV, in which case we can just wait on
-      // the existing promise.
-      this.fetchedText = this.fetchedText ?? this.fetchCsvText();
+  private async getDataForCache(
+    csvText?: string
+  ): Promise<{ [regionId: string]: DataRow[] }> {
+    if (!csvText) {
+      assert(this.url, "URL or csvText must be provided to populate cache.");
+      csvText = await this.fetchCsvText();
     }
-    assert(
-      this.fetchedText,
-      "We should have initialized fetchedText directly above or in the constructor"
-    );
-    const csvText = await this.fetchedText;
     const csv = parseCsv(csvText, [this.regionColumn]);
     assert(csv.length > 0, "CSV must not be empty.");
-    const dataRowsByRegionId = groupBy(csv, (row) => row[this.regionColumn]);
-    assert(
-      !dataRowsByRegionId["undefined"],
-      `One or more CSV rows were missing a region id value in column ${this.regionColumn}`
+    const dataRowsByRegionId = groupAndValidateRowsByRegionId(
+      csv,
+      this.regionDb,
+      this.regionColumn,
+      this.url
     );
-
-    const regionIds = Object.keys(dataRowsByRegionId);
-    const unknownRegionIds = regionIds.filter(
-      (regionId) => !this.regionDb.findByRegionId(regionId)
-    );
-    if (unknownRegionIds.length > 0) {
-      const url = this.url ?? "data";
-      console.warn(
-        `Unrecognized region IDs encountered while parsing CSV ${url}: ${truncate(
-          unknownRegionIds.join(", "),
-          { length: 200 }
-        )}`
-      );
-      if (unknownRegionIds.length === regionIds.length) {
-        throw new Error(
-          `Failed to parse CSV ${url}: All region IDs were invalid.`
-        );
-      }
-    }
-
-    this.dataRowsByRegionId = dataRowsByRegionId;
+    return dataRowsByRegionId;
   }
 
   async fetchDataForRegionAndMetric(
     region: Region,
-    metric: Metric,
-    includeTimeseries: boolean
+    metric: Metric
   ): Promise<MetricData<unknown>> {
-    if (isEmpty(this.dataRowsByRegionId)) {
-      await this.populateCache();
-    }
+    // Populate the cache if it hasn't been populated or isn't being populated yet.
+    this.dataRowsByRegionId = this.dataRowsByRegionId ?? this.getDataForCache();
+    const dataRowsByRegionId = await this.dataRowsByRegionId;
 
-    const metricKey = metric.dataReference?.column;
+    const metricColumn = metric.dataReference?.column;
     assert(
-      typeof metricKey === "string",
+      typeof metricColumn === "string",
       "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
     );
-    let metricData: MetricData;
-    if (this.dateColumn) {
-      metricData = dataRowsToMetricData(
-        this.dataRowsByRegionId,
-        region,
-        metric,
-        metricKey,
-        this.dateColumn,
-        /* strict= */ true
-      );
-    } else {
-      metricData = dataRowToMetricData(
-        this.dataRowsByRegionId,
-        region,
-        metric,
-        metricKey
-      );
-    }
-    if (includeTimeseries) {
-      return metricData;
-    } else {
-      return metricData.dropTimeseries();
-    }
+    return getMetricDataFromDataRows(
+      dataRowsByRegionId,
+      region,
+      metric,
+      metricColumn,
+      this.dateColumn
+    );
   }
 
   /**

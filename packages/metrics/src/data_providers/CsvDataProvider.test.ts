@@ -91,7 +91,7 @@ describe("CsvDataProvider", () => {
         `region,cool_metric\nNew York,1`,
         /*includeTimeseries=*/ true
       )
-    ).rejects.toThrow("Failed to parse CSV data: All region IDs were invalid.");
+    ).rejects.toThrow("Failed to parse data: All region IDs were invalid.");
   });
 
   test("fetchData() fails if metric is missing a 'column' property.", async () => {
@@ -106,7 +106,7 @@ describe("CsvDataProvider", () => {
       testFetchingCsvData(
         mockCsv,
         /*includeTimeseries=*/ true,
-        /*datColumn=*/ "date",
+        /*dateColumn=*/ "date",
         badMetric
       )
     ).rejects.toThrow("Missing or invalid metric column name.");
