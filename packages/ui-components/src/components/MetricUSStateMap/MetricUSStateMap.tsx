@@ -10,9 +10,21 @@ import { getCountiesOfState } from "../../common/utils/maps";
 import { USStateMap, USStateMapProps } from "../USStateMap";
 
 export interface MetricUSStateMapProps extends USStateMapProps {
+  /**
+   * Metric represented by the map's coloring.
+   */
   metric: Metric | string;
+  /**
+   * Region DB instance.
+   * Used for generating region links, coloring the map, etc.
+   */
   regionDB: RegionDB;
 }
+
+/**
+ * MetricUSStateMap is a US state map colored by the current values of a given metric.
+ * The region shapes are clickable and navigate to the respective region's location page.
+ */
 
 export const MetricUSStateMap = ({
   metric,

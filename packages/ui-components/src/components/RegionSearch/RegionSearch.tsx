@@ -34,11 +34,19 @@ export type CustomAutocompleteProps = AutocompleteProps<
 
 export interface RegionSearchProps
   extends Omit<CustomAutocompleteProps, "renderInput"> {
-  /** RegionDB instance for the application */
+  /**
+   * RegionDB instance to use.
+   */
   regionDB: RegionDB;
-  /** Placeholder text to show in the inner text field  */
+  /**
+   * Placeholder text displayed in the text field.
+   * @default "City, county, state, or district"
+   */
   inputLabel?: string;
-  /** Optional renderInput function. See https://mui.com/material-ui/api/autocomplete/ */
+  /**
+   * Function that renders the input.
+   * See https://mui.com/material-ui/api/autocomplete/#props
+   */
   renderInput?: CustomAutocompleteProps["renderInput"];
 }
 

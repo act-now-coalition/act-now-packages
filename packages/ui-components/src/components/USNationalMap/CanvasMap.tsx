@@ -8,11 +8,34 @@ import { StyledCanvas } from "../../styles/common/Maps.style";
 const borderColor = "white";
 
 export interface CanvasMapProps {
+  /**
+   * Width of the canvas.
+   */
   width: number;
+  /**
+   * Height of the canvas.
+   */
   height: number;
+  /**
+   * Function that returns the fill color for a shape,
+   * given the corresponding region's regionId.
+   *
+   * @param {string} regionId RegionId corresponding to the shape being colored.
+   */
   getFillColor: (regionId: string) => string;
+  /**
+   * Geometric projection used by the map.
+   */
   geoProjection: GeoProjection;
+  /**
+   * Geometric features to render.
+   */
   features: ExtendedFeature[];
+  /**
+   * Function that returns the geoId of a given feature.
+   *
+   * @param {ExtendedFeature} geo The feature of which we are getting the geoId.
+   */
   getGeoId: (geo: ExtendedFeature) => string;
 }
 

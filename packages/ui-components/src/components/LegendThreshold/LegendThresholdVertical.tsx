@@ -6,14 +6,14 @@ import { LegendThresholdProps } from "./LegendThreshold";
 import { LegendColor } from "./LegendThreshold.style";
 
 /**
- * `LegendThresholdVertical` represents a scale with thresholds that separate
- * a set of categories. By default, the labels between each category are shown.
+ * LegendThresholdVertical is the implementation of LegendThreshold with orientation "vertical".
  */
+
 export const LegendThresholdVertical = <T,>({
   height = 265,
   width = 12,
   borderRadius = 6,
-  showLabels = true,
+  showLabels,
   items,
   getItemColor,
   getItemLabel,

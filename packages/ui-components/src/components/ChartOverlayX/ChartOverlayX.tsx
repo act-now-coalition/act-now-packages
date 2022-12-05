@@ -4,60 +4,43 @@ import { localPoint } from "@visx/event";
 import { ScaleTime } from "d3-scale";
 
 export interface ChartOverlayXProps {
-  /** Width of the overlay area */
+  /**
+   * Width of the overlay area.
+   */
   width: number;
-  /** Height of the overlay area */
+  /**
+   * Height of the overlay area.
+   */
   height: number;
   /**
-   * Handler to be called when the cursor moves over the overlay. The handler
-   * will receive the date being hovered.
+   * Callback fired when the cursor moves over the overlay.
+   *
+   * @param {Date} date The date being hovered.
    */
   onMouseMove: ({ date }: { date: Date }) => void;
-  /** Handler to be called when the cursor leaves the overlay area. */
+  /**
+   * Callback fired when the cursor leaves the overlay area.
+   */
   onMouseLeave: () => void;
-  /** d3-scale to transform between date to pixel units. */
+  /**
+   * d3-scale to convert between date points and pixel positions.
+   */
   xScale: ScaleTime<number, number>;
-  /** Offset of the overlay relative to the containing SVG element. */
+  /**
+   * Offset of the overlay relative to the containing SVG element.
+   * @default 0
+   */
   offset?: number;
 }
 
 /**
- * The `ChartOverlayX` component is an invisible overlay that can be used to
- * track the cursor position on a chart, normally to add tooltips or
- * other annotations that depend only on the x-coordinate being hovered.
- *
- * The parent component can have a state variable to store the currently
- * hovered date, and update the date using the onMouseMove and onMouseLeave
- * handlers.
- *
- * @example
- * const Chart = () => {
- *   const [date, setDate] = useState<Date | null>(null);
- *
- *   const onMouseLeave = () => setDate(null);
- *   const onMouseMove = ({ date }: { date: Date }) => setDate(date);
- *
- *   return (
- *     <svg width={width} height={height}>
- *       <Group left={padding} top={padding}>
- *         {date && (
- *           <text x={xScale(date)} y={height / 2}>
- *             {formatUTCDateTime(date, DateFormat.YYYY_MM_DD)}
- *           </text>
- *         )}
- *         <ChartOverlayX
- *           xScale={xScale}
- *           width={innerWidth}
- *           height={innerHeight}
- *           onMouseMove={onMouseMove}
- *           onMouseLeave={onMouseLeave}
- *           offset={padding}
- *         />
- *       </Group>
- *     </svg>
- *   );
- * }
+ * ChartOverlayX is an invisible overlay that tracks the cursor
+ * position on a chart, often used to add tooltips or other annotations
+ * that depend only on the x-coordinate being hovered.
+ * The parent component can store the currently hovered date in a state variable,
+ * which will be updated using the `onMouseMove` and `onMouseLeave` callbacks.
  */
+
 export const ChartOverlayX = ({
   width,
   height,

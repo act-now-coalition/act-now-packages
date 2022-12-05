@@ -6,11 +6,20 @@ import { styled, theme } from "../../styles";
 import typography from "../../styles/theme/typography";
 
 export type AxisLeftProps = React.ComponentProps<typeof VxAxisLeft> & {
+  /**
+   * The className applied to the outermost axis group element.
+   */
   className?: string;
 };
 
 export type AxisBottomProps = React.ComponentProps<typeof VxAxisBottom> & {
+  /**
+   * The className applied to the outermost axis group element.
+   */
   className?: string;
+  /**
+   * Width of AxisBottom.
+   */
   width?: number;
 };
 

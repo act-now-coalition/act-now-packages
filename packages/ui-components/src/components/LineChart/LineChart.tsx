@@ -9,13 +9,17 @@ import { ScaleLinear, ScaleTime } from "d3-scale";
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
 export interface BaseLineChartProps {
-  /** Timeseries used to draw the line chart */
+  /**
+   * Timeseries used to draw the line chart.
+   */
   timeseries: Timeseries<number>;
-
-  /** d3-scale to transform point dates to pixel positions on the x-axis */
+  /**
+   * d3-scale to convert between date points and pixel positions.
+   */
   xScale: ScaleTime<number, number>;
-
-  /** d3-scale to transform point values to pixel positions on the y-axis */
+  /**
+   * d3-scale to convert between numerical points and pixel positions.
+   */
   yScale: ScaleLinear<number, number>;
 }
 
@@ -24,38 +28,14 @@ export type LineChartProps = BaseLineChartProps &
   LinePathProps<TimeseriesPoint<number>>;
 
 /**
- * LineChart is a chart building block that return an SVG path element, given
+ * LineChart is a chart building block that returns an SVG path element, given
  * a timeseries and x and y scales.
  *
- * The LineChart is intended to be used as building block of more complex
- * charts, so it doesn't include axes, tooltips or anything else. See
- * Storybook for a working example.
- *
- * @example
- * ```tsx
- * const xScale = scaleUtc({ domain: [minDate, maxDate], range: [0, 200] });
- * const yScale = scaleLinear({ domain: [minVal, maxVal], range: [100, 0] });
- *
- * return (
- *   <svg>
- *     <BarChart ... />
- *     <LineChart
- *       timeseries={timeseries}
- *       xScale={xScale}
- *       yScale={yScale}
- *       stroke="blue"
- *       strokeDasharray="4 4"
- *     />
- *   </svg>
- * );
- * ```
- *
- * @param timeseries Timeseries to represent as a line.
- * @param xScale d3-scale to transform point dates to pixel positions on the x-axis.
- * @param yScale d3-scale to transform point values to pixel positions on the y-axis.
- *
- * @returns SVG Path element
+ * LineChart is intended to be used as building block of more complex
+ * charts, so it doesn't include axes, tooltips or anything else.
+ * See Storybook for a working example.
  */
+
 export const LineChart = ({
   timeseries,
   xScale,

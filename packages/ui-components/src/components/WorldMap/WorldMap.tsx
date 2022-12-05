@@ -14,20 +14,46 @@ import {
 } from "./WorldMap.style";
 
 export interface WorldMapProps {
-  getTooltip: (regionId: string) => React.ReactNode;
-  getFillColor?: (regionId: string) => string;
-  getFillOpacity?: (geoId: string) => number;
+  /**
+   * Width of the SVG containing the map.
+   */
   width?: number;
+  /**
+   * Function that returns tooltip content for the region corresponding to a given regionId.
+   *
+   * @param {string} regionId RegionId of the region for which to get tooltip content.
+   */
+  getTooltip: (regionId: string) => React.ReactNode;
+  /**
+   * Function that returns the fill color for a region's shape, given the region's regionId.
+   * @default `#ddd`
+   *
+   * @param {string} regionId RegionId of the region for which to get the fill color.
+   */
+  getFillColor?: (regionId: string) => string;
+  /**
+   * Function that returns the fill opacity for a region's shape, given the region's geoId.
+   * @default 1
+   *
+   * @param {string} geoId GeoId of the region for which to get the fill opacity.
+   */
+  getFillOpacity?: (geoId: string) => number;
+  /**
+   * Function that returns the `regionUrl` for the region corresponding to a given regionId.
+   * @default undefined
+   *
+   * @param {string} regionId RegionId of the region for which to get the regionUrl.
+   */
   getRegionUrl?: (regionId: string) => string | undefined;
 }
 
 // This aspect ratio and re-centering the projection maximize the land area
-// shown in the map, leaving out the Arctic and Antarctica, but keeping most
+// shown on the map, leaving out the Arctic and Antarctica while keeping most
 // countries in the viewport.
 const mapAspectRatio = 380 / 800;
 
 // We adjust the geographic center of the projection 55°N 0°E to clip out
-// areas close to the Arctic
+// areas close to the Arctic.
 const projectionCenter: [number, number] = [0, -55]; // [longitude, latitude]
 
 const WorldMapInner = ({

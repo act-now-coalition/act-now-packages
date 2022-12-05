@@ -10,23 +10,48 @@ import { getMetricCategoryItems } from "./utils";
 import { CategoryItem } from "./utils";
 
 export interface MetricLegendThresholdProps {
-  /** Orientation of the bars. */
+  /**
+   * Orientation of the legend.
+   */
   orientation: "horizontal" | "vertical";
-  /** Metric to display thresholds for. */
+  /**
+   * Metric represented by the legend.
+   */
   metric: Metric | string;
-  /** Whether to show category labels. Does not affect start/endLabels */
+  /**
+   * Show the labels of each legend item.
+   * This does not affect the start/end labels.
+   * @default true
+   */
   showLabels?: boolean;
-  /** Optional label for the left or top side of the thermometer. */
+  /**
+   * Label rendered at the start of the thermometer.
+   * For vertical orientation, this renders above the thermometer.
+   * For horizontal orientation, this renders to the left of the thermometer.
+   */
   startLabel?: React.ReactNode;
-  /** Optional label for the right or bottom side of the thermometer. */
+  /**
+   * Label rendered at the end of the thermometer.
+   * For vertical orientation, this renders below the thermometer.
+   * For horizontal orientation, this renders to the right of the thermometer.
+   */
   endLabel?: React.ReactNode;
-  /** Whether or not to display metric name and info. If false, only thermometer is displayed. */
-  includeOverview?: boolean;
-  /** Border radius of the bars */
+  /**
+   * Show the metric name and information.
+   * @default true
+   */
+  showOverview?: boolean;
+  /**
+   * Border radius of the thermometer.
+   */
   borderRadius?: number;
-  /** Width of the bars */
+  /**
+   * Width of the thermometer.
+   */
   width?: number;
-  /** Height of the bars */
+  /**
+   * Height of the thermometer.
+   */
   height?: number;
 }
 
@@ -39,7 +64,8 @@ export const MetricLegendThreshold = ({
   metric,
   startLabel,
   endLabel,
-  includeOverview = true,
+  showOverview = true,
+  showLabels = true,
   ...legendThresholdProps
 }: MetricLegendThresholdProps) => {
   const metricCatalog = useMetricCatalog();
@@ -47,10 +73,15 @@ export const MetricLegendThreshold = ({
 
   const items = getMetricCategoryItems(metric);
 
-  // Common props regardless of horizontal / vertical orientation
-  const commonProps = { items, getItemColor, ...legendThresholdProps };
+  // Common props for both horizontal and vertical orientations
+  const commonProps = {
+    items,
+    getItemColor,
+    showLabels,
+    ...legendThresholdProps,
+  };
 
-  if (!includeOverview) {
+  if (!showOverview) {
     return <LegendThreshold {...commonProps} />;
   }
 

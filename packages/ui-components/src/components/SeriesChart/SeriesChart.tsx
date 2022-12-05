@@ -15,14 +15,24 @@ export enum SeriesType {
 }
 
 export interface SeriesBase {
+  /**
+   * Metric represented in the series.
+   */
   metric: Metric | string;
+  /**
+   * Region represented in the series.
+   */
   region: Region;
 }
 
 export interface SeriesLine extends SeriesBase {
-  /* The SeriesLine object is represented as a line chart */
+  /**
+   * SeriesLine is represented as a line chart.
+   */
   type: SeriesType.LINE;
-  /* Adds ability to customize the line */
+  /**
+   * Props allowing customization of the line's stroke, strokeDasharray, and strokeWidth.
+   */
   lineProps?: Pick<
     React.SVGProps<SVGPathElement>,
     "stroke" | "strokeDasharray" | "strokeWidth"
@@ -30,20 +40,30 @@ export interface SeriesLine extends SeriesBase {
 }
 
 export interface SeriesBar extends SeriesBase {
-  /* The SeriesBar object is represented as a bar chart */
+  /**
+   * SeriesBar is represented as a bar chart.
+   */
   type: SeriesType.BAR;
 }
 
 export type Series = SeriesLine | SeriesBar;
 
 export interface SeriesChartProps {
-  /** Series to render */
+  /**
+   * Series represented by the chart.
+   */
   series: Series;
-  /** Timeseries corresponding to the series */
+  /**
+   * Timeseries corresponding to the series.
+   */
   timeseries: Timeseries<number>;
-  /** d3-scale to transform point dates to pixel positions on the x-axis */
+  /**
+   * d3-scale to convert between date points and pixel positions.
+   */
   xScale: ScaleTime<number, number>;
-  /** d3-scale to transform point values to pixel positions on the y-axis */
+  /**
+   * d3-scale to convert between numerical points and pixel positions.
+   */
   yScale: ScaleLinear<number, number>;
 }
 

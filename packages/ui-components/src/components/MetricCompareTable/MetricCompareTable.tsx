@@ -17,15 +17,28 @@ import { Row, createLocationColumn, createMetricColumn } from "./utils";
 
 export interface MetricCompareTableProps
   extends Omit<CompareTableProps<Row>, "rows" | "columns"> {
-  /** Region DB instance to use  */
+  /**
+   * Region DB instance to use.
+   */
   regionDB: RegionDB;
-  /** List of regions (first column)  */
+  /**
+   * Array of regions (rendered as the first column).
+   */
   regions: Region[];
-  /** List of metrics or metricID - order of the columns will match */
+  /**
+   * Array of metrics or metricID's to render as columns.
+   * The order of the columns will match the order of the array.
+   */
   metrics: (Metric | string)[];
-  /** Initial sorting column. By default, it will use the location column. */
+  /**
+   * ID of the initial sorted column.
+   * @default 'location' (the first column)
+   */
   sortColumnId?: string;
-  /** Initial sort direction. Ascending by default. */
+  /**
+   * Initial sort direction.
+   * @default SortDirection.ASC
+   */
   sortDirection?: SortDirection;
 }
 

@@ -1,5 +1,11 @@
 import * as React from "react";
 
+/**
+ * DiagonalHatchPattern is a patterned line used to draw the
+ * borders of the disputed area Aksai Chin in the WorldMap component.
+ * See note in WorldMap.style.ts
+ */
+
 export const DiagonalHatchPattern = ({ lineColor }: { lineColor: string }) => (
   <pattern
     id="diagonalHatch"

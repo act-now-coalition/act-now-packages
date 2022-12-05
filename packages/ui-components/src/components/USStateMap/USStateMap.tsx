@@ -21,11 +21,23 @@ import {
 import { AutoWidth } from "../AutoWidth";
 
 export interface USStateMapProps extends BaseUSMapProps {
-  /** Region ID of the state being mapped */
+  /**
+   * RegionId of the state being mapped.
+   */
   stateRegionId: string;
-  /** Optional region to highlight on the map */
+  /**
+   * Region to highlight on the map by rendering the shape with an outline.
+   */
   highlightedRegion?: Region;
+  /**
+   * Show the county shapes.
+   * @default true
+   */
   showCounties?: boolean;
+  /**
+   * Show the shapes of the bordering states.
+   * @default true
+   */
   showBorderingStates?: boolean;
 }
 
@@ -53,10 +65,10 @@ const USStateMapInner = ({
   // The geoAlbersUsa projection is designed to show the entire US in a
   // rectangular area with aspect ratio 960x500. With this projection,
   // some states appear "rotated", so we use the Mercator projection to
-  // show a more familiar orientation.
+  // show a more familiar orientation instead.
   //
-  // We can't use the Mercator projection for Alaska, because Alaska extends
-  // beyond the west edge of the projection, so the math to calculate the
+  // We can't use the Mercator projection for Alaska, since Alaska extends
+  // beyond the west edge of the projection and so the math to calculate the
   // parameters to make it fit won't work. We fall back to geoAlbersUsa
   // in this case.
   //

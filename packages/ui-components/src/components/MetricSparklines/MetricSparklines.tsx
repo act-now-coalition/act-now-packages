@@ -10,15 +10,27 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
 
 export interface MetricSparklinesProps extends BaseSparkLineProps {
-  /** Region to generate sparkline for. */
+  /**
+   * Region represented by the sparkline.
+   */
   region: Region;
-  /** Metric to use for line element of sparkline. */
+  /**
+   * Metric represented by the sparkline's line chart.
+   */
   metricLineChart: Metric | string;
-  /** Metric to use for bar elements of sparkline. */
+  /**
+   * Metric represented by the sparkline's bar chart.
+   */
   metricBarChart: Metric | string;
-  /** Earliest date to be displayed. If not specified, earliest data point will be displayed. */
+  /**
+   * Earliest date to be displayed.
+   * If undefined, the earliest data point is displayed.
+   */
   dateFrom?: Date;
-  /** Latest date to be displayed. If not specified, latest data point will be displayed.  */
+  /**
+   * Last date to be displayed.
+   * If undefined, the last data point is displayed.
+   */
   dateTo?: Date;
 }
 
@@ -43,7 +55,7 @@ export const MetricSparklines = ({
   if (error) {
     throw error;
   } else if (!data) {
-    // Render loading placeholder.
+    // Render loading placeholder
     return (
       <Skeleton
         variant="rectangular"
@@ -52,7 +64,7 @@ export const MetricSparklines = ({
       />
     );
   } else {
-    // Render Sparkline.
+    // Render Sparkline
     const timeseriesLineChart = data
       .metricData(metricLineChart)
       ?.timeseries.assertFiniteNumbers()

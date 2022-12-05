@@ -15,6 +15,10 @@ import CountiesMap from "./CountiesMap";
 import StatesMap from "./StatesMap";
 
 export interface USNationalMapProps extends BaseUSMapProps {
+  /**
+   * Show the county shapes.
+   * @default false
+   */
   showCounties?: boolean;
 }
 

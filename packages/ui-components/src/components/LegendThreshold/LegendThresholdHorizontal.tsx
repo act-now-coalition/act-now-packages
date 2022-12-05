@@ -9,8 +9,7 @@ import { LegendThresholdProps } from "./LegendThreshold";
 import { TickLabel, TickMark } from "./LegendThreshold.style";
 
 /**
- * `LegendThresholdHorizontal` represents a scale with thresholds that separate
- * a set of categories. By default, the labels between each category are shown.
+ * LegendThresholdHorizontal is the implementation of LegendThreshold with orientation "horizontal".
  */
 
 export const LegendThresholdHorizontalInner = <T,>({
@@ -20,7 +19,7 @@ export const LegendThresholdHorizontalInner = <T,>({
   items,
   getItemColor,
   getItemLabel,
-  showLabels = true,
+  showLabels,
 }: LegendThresholdProps<T>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });

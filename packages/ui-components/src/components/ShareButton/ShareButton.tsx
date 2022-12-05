@@ -14,14 +14,45 @@ const noop = () => {
 };
 
 export interface ShareButtonProps {
+  /**
+   * URL to share with social share buttons and to copy with copy link button.
+   */
   url: string;
+  /**
+   * Share quote.
+   */
   quote: string;
+  /**
+   * Array of hashtags shared by Twitter share button.
+   * @default []
+   */
   hashtags?: string[];
+  /**
+   * Callback fired when copy link button is clicked.
+   */
   onCopyLink?: () => void;
+  /**
+   * Callback fired when Twitter share button is clicked.
+   */
   onShareTwitter?: () => void;
+  /**
+   * Callback fired when Facebook share button is clicked.
+   */
   onShareFacebook?: () => void;
+  /**
+   * Horizontal origin of the popover containing the share buttons.
+   * @default "left"
+   */
   menuOrigin?: PopoverOrigin["horizontal"];
+  /**
+   * MUI Button variant applied to the anchor button.
+   * @default "outlined"
+   */
   variant?: ButtonProps["variant"];
+  /**
+   * MUI Button size applied to the anchor button.
+   * @default "large"
+   */
   size?: ButtonProps["size"];
 }
 

@@ -9,7 +9,9 @@ import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricTooltipWithChildren extends MetricTooltipContentProps {
-  /** Children is the component that, when hovered, should open the tooltip */
+  /**
+   * ReactNode that, when hovered, triggers the tooltip to open.
+   */
   children: React.ReactNode;
 }
 
@@ -36,14 +38,17 @@ export const MetricTooltip = ({
 };
 
 export interface MetricTooltipContentProps {
-  /** Metric or MetricId to use to render the tooltip */
+  /**
+   * Metric represented by the content of the tooltip.
+   */
   metric: Metric | string;
-  /** Region to use to render the tooltip */
+  /**
+   * Region represented by the content of the tooltip.
+   */
   region: Region;
   /**
-   * Point with the date and value to show in the tooltip. The date and
-   * value of the point usually correspond to the point being hovered
-   * by the user. See `ChartOverlayX`, for example.
+   * Point with the date and value to render in the tooltip.
+   * The date and value of the point usually correspond to the point being hovered.
    */
   point: TimeseriesPoint<number>;
 }
