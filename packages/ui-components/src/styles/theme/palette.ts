@@ -87,7 +87,7 @@ const palette = {
   },
   footer: {
     background: colors.background.dark,
-    text: colors.text.light,
+    content: colors.text.light,
   },
 };
 

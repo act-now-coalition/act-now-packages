@@ -12,4 +12,5 @@ export interface ExtendedTypographyOptions extends TypographyOptions {
   dataEmphasizedSmall: React.CSSProperties;
   dataEmphasizedLarge: React.CSSProperties;
   dataTabular: React.CSSProperties;
+  footer: React.CSSProperties;
 }

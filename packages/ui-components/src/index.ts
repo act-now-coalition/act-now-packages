@@ -24,6 +24,7 @@ declare module "@mui/material/Typography" {
     dataEmphasizedSmall: true;
     dataEmphasizedLarge: true;
     dataTabular: true;
+    footer: true;
   }
 }
 
@@ -39,6 +40,7 @@ declare module "@mui/material/styles" {
     dataEmphasizedSmall: React.CSSProperties;
     dataEmphasizedLarge: React.CSSProperties;
     dataTabular: React.CSSProperties;
+    footer: React.CSSProperties;
   }
 
   interface TypographyVariantsOptions {
@@ -49,6 +51,7 @@ declare module "@mui/material/styles" {
     dataEmphasizedSmall?: React.CSSProperties;
     dataEmphasizedLarge?: React.CSSProperties;
     dataTabular?: React.CSSProperties;
+    footer?: React.CSSProperties;
   }
 
   interface Palette {
@@ -75,7 +78,7 @@ declare module "@mui/material/styles" {
     };
     footer: {
       background: string;
-      text: string;
+      content: string;
     };
   }
 }

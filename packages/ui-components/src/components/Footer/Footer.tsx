@@ -8,12 +8,10 @@ export interface FooterProps {
 export const Footer = ({ children }: FooterProps) => {
   const theme = useTheme();
   return (
-    <footer>
-      <Box bgcolor={theme.palette.footer.background} paddingX={3} paddingY={8}>
-        <Stack spacing={3} maxWidth="960px" margin="auto">
-          {children}
-        </Stack>
-      </Box>
-    </footer>
+    <Box bgcolor={theme.palette.footer.background} paddingX={3} paddingY={8}>
+      <Stack spacing={3} maxWidth="960px" margin="auto">
+        {children}
+      </Stack>
+    </Box>
   );
 };

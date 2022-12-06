@@ -145,6 +145,10 @@ const typography: ExtendedTypographyOptions = {
     color: palette.text.primary,
     textTransform: "uppercase",
   },
+
+  footer: {
+    color: palette.footer.content,
+  },
 };
 
 export { typographyConstants };
