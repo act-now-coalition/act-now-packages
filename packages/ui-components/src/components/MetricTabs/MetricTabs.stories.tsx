@@ -21,7 +21,8 @@ Example.args = {
   region: nations.findByRegionIdStrict("USA"),
   metrics: [
     MetricId.APPLE_STOCK,
+    MetricId.APPLE_STOCK_LOW_THRESHOLDS,
+    MetricId.NYC_TEMPERATURE,
     MetricId.MOCK_CASES,
-    MetricId.MOCK_CASES_DELAY_1S,
   ],
 };

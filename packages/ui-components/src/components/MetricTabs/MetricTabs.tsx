@@ -28,9 +28,11 @@ const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
       <MetricValue
         metric={metric}
         region={region}
-        variant="dataEmphasizedSmall"
+        variant="dataEmphasizedLarge"
       />
-      <Typography variant="paragraphSmall">{metric.extendedName}</Typography>
+      <Typography variant="paragraphSmall" align={"left"}>
+        {metric.extendedName}
+      </Typography>
     </Stack>
   );
 };
@@ -58,9 +60,19 @@ export const MetricTabs = ({
       ? MetricLineThresholdChart
       : MetricLineChart;
 
+  // TODO: configure breakpoints for mobile?
+  const numMetrics = resolvedMetrics.length;
+  const tabWidth = numMetrics < 3 ? 160 : 108;
+
   return (
-    <Stack spacing={3}>
-      <Tabs onChange={(e, v) => handleChange(v)} value={selectedTab}>
+    <Stack spacing={3} width={width}>
+      <Tabs
+        onChange={(e, v) => handleChange(v)}
+        value={selectedTab}
+        variant="scrollable"
+        scrollButtons={false}
+        sx={{ paddingLeft: 4 }}
+      >
         {resolvedMetrics.map((metric) => (
           <Tab
             key={`tab-${metric}`}
@@ -68,7 +80,7 @@ export const MetricTabs = ({
             label={<TabContent region={region} metric={metric} />}
             disableRipple={true}
             sx={{
-              width: width / resolvedMetrics.length,
+              width: tabWidth,
               alignItems: "flex-start",
             }}
           />
