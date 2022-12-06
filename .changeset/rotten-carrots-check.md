@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Implement SingleSelectDropdown component
+Implement `Select` component
