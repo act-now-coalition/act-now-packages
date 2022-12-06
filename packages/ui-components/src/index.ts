@@ -121,7 +121,7 @@ export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
 export * from "./components/SeriesChart";
 export * from "./components/ShareButton";
-export * from "./components/SingleSelectDropdown";
+export * from "./components/Select";
 export * from "./components/SparkLine";
 export * from "./components/USNationalMap";
 export * from "./components/USStateMap";
