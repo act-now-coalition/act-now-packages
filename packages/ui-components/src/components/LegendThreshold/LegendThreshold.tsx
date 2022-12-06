@@ -25,7 +25,7 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
   getItemLabel?: (item: T, itemIndex: number) => string;
   /** Function that returns the sublabel of each item */
   getItemSublabel?: (item: T, itemIndex: number) => string;
-  getItemShowIndicator?: (item: T, itemIndex: number) => boolean;
+  getItemShowIndicator?: (item: T, itemIndex: number) => boolean | undefined;
 }
 
 /**
