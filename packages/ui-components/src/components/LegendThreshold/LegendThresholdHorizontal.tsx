@@ -1,12 +1,12 @@
 import React from "react";
 
 import { Group } from "@visx/group";
-import { scaleBand } from "@visx/scale";
+import { scaleBand, scaleLinear } from "@visx/scale";
 
 import { AutoWidth } from "../AutoWidth";
 import { RectClipGroup } from "../RectClipGroup";
 import { LegendThresholdProps } from "./LegendThreshold";
-import { TickLabel, TickMark } from "./LegendThreshold.style";
+import { IndicatorPolygon, TickLabel, TickMark } from "./LegendThreshold.style";
 
 /**
  * `LegendThresholdHorizontal` represents a scale with thresholds that separate
@@ -21,10 +21,23 @@ export const LegendThresholdHorizontalInner = <T,>({
   getItemColor,
   getItemLabel,
   showLabels = true,
+  currentValue,
 }: LegendThresholdProps<T>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
+  console.log("indexList", indexList);
+  console.log("items", items);
+
+  const scaleForCurrentValue = scaleLinear({
+    domain: [0, 140],
+    range: [0, width],
+  });
+  const currentValueLocation =
+    currentValue && scaleForCurrentValue(currentValue);
+
+  console.log("currentValue:", currentValue);
+  console.log("currentValueLocation:", currentValueLocation);
 
   const labelTickHeight = 4;
   const tickLabelPadding = 2;
@@ -67,6 +80,19 @@ export const LegendThresholdHorizontalInner = <T,>({
             </Group>
           )
       )}
+      {/* <g style={{border: '1px solid red'}}> */}
+      {currentValueLocation && (
+        <Group
+          key={`item-${currentValue}`}
+          top={5}
+          left={currentValueLocation}
+          //   (scaleRect(getItemValue(item, index)) || 0) + bandWidth / 2 - 5
+          // }
+        >
+          <IndicatorPolygon points="0 0, 10 0, 5 7.5" />
+        </Group>
+      )}
+      {/* </g> */}
     </svg>
   );
 };

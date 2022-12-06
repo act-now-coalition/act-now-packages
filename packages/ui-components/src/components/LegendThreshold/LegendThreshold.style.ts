@@ -34,3 +34,9 @@ export const LegendColor = styled("div", { shouldForwardProp: isValidProp })<{
   ${(props) => getTopRadius(props.roundTop)}
   ${(props) => getBottomRadius(props.roundBottom)}
 `;
+
+export const IndicatorPolygon = styled("polygon")`
+  stroke: black;
+  fill: black;
+  stroke-width: 1px;
+`;

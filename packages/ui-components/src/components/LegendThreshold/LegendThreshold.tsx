@@ -14,6 +14,7 @@ export interface BaseLegendThresholdProps {
   borderRadius?: number;
   /** Whether to show the labels or not */
   showLabels?: boolean;
+  currentValue?: any;
 }
 
 export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
