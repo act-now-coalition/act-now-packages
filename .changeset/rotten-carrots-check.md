@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Implement `Select` component
+Implement `Select` and `MultiSelect` components
