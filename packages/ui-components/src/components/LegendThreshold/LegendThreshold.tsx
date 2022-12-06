@@ -14,7 +14,6 @@ export interface BaseLegendThresholdProps {
   borderRadius?: number;
   /** Whether to show the labels or not */
   showLabels?: boolean;
-  currentValue?: any;
 }
 
 export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
@@ -26,6 +25,7 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
   getItemLabel?: (item: T, itemIndex: number) => string;
   /** Function that returns the sublabel of each item */
   getItemSublabel?: (item: T, itemIndex: number) => string;
+  getItemShowIndicator?: (item: T, itemIndex: number) => boolean;
 }
 
 /**

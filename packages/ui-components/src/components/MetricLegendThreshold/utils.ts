@@ -1,5 +1,5 @@
 import { assert } from "@actnowcoalition/assert";
-import { Metric } from "@actnowcoalition/metrics";
+import { Category, Metric } from "@actnowcoalition/metrics";
 
 export interface CategoryItem {
   /** Category name (e.g. "High") */
@@ -10,9 +10,13 @@ export interface CategoryItem {
   description: string | undefined;
   /** Formatted value of the threshold at the end of the current category */
   endThreshold?: string;
+  showIndicator: boolean;
 }
 
-export function getMetricCategoryItems(metric: Metric): CategoryItem[] {
+export function getMetricCategoryItems(
+  metric: Metric,
+  currentCategory?: Category
+): CategoryItem[] {
   const metricCategories = metric.categorySet?.categories;
   const metricThresholds = metric.categoryThresholds;
 
@@ -24,5 +28,6 @@ export function getMetricCategoryItems(metric: Metric): CategoryItem[] {
     description: category.description,
     endThreshold:
       metricThresholds && metric.formatValue(metricThresholds[index]),
+    showIndicator: category === currentCategory,
   }));
 }

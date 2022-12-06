@@ -22,22 +22,25 @@ const Template: ComponentStory<typeof MetricLegendThreshold> = (args) => (
 
 const newYork = states.findByRegionIdStrict("36");
 
-const TemplateWithCurrentValueInner = () => {
-  const currentValue = useData(newYork, MetricId.MOCK_CASES).data?.currentValue;
+const TemplateWithCurrentCategoryInner = () => {
+  const currentCategory = useData(
+    newYork,
+    MetricId.MOCK_CASES
+  ).data?.getCategory();
   return (
     <Paper sx={{ p: 2 }}>
       <MetricLegendThreshold
         orientation="horizontal"
         metric={MetricId.MOCK_CASES}
-        currentValue={currentValue}
+        currentCategory={currentCategory}
       />
     </Paper>
   );
 };
 
-const TemplateWithCurrentValue: ComponentStory<
+const TemplateWithCurrentCategory: ComponentStory<
   typeof MetricLegendThreshold
-> = () => <TemplateWithCurrentValueInner />;
+> = () => <TemplateWithCurrentCategoryInner />;
 
 // Horizontal legend threshold props
 const horizontalBarHeight = 20;
@@ -49,7 +52,7 @@ HorizontalDefault.args = {
   metric: MetricId.MOCK_CASES,
 };
 
-export const HorizontalWithCurrentValue = TemplateWithCurrentValue.bind({});
+export const HorizontalWithIndicator = TemplateWithCurrentCategory.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
   height: horizontalBarHeight,

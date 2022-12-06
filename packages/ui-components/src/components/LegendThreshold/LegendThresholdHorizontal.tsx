@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Group } from "@visx/group";
-import { scaleBand, scaleLinear } from "@visx/scale";
+import { scaleBand } from "@visx/scale";
+import find from "lodash/find";
 
 import { AutoWidth } from "../AutoWidth";
 import { RectClipGroup } from "../RectClipGroup";
@@ -20,79 +21,83 @@ export const LegendThresholdHorizontalInner = <T,>({
   items,
   getItemColor,
   getItemLabel,
+  getItemShowIndicator,
   showLabels = true,
-  currentValue,
 }: LegendThresholdProps<T>) => {
   const indexList = items.map((item, itemIndex) => itemIndex);
   const scaleRect = scaleBand({ domain: indexList, range: [0, width] });
   const rectWidth = scaleRect.bandwidth();
-  console.log("indexList", indexList);
-  console.log("items", items);
-
-  const scaleForCurrentValue = scaleLinear({
-    domain: [0, 140],
-    range: [0, width],
-  });
-  const currentValueLocation =
-    currentValue && scaleForCurrentValue(currentValue);
-
-  console.log("currentValue:", currentValue);
-  console.log("currentValueLocation:", currentValueLocation);
 
   const labelTickHeight = 4;
   const tickLabelPadding = 2;
 
-  const heightWithLabels =
-    height + 20; /* An additional 20px accounts for the height of labels */
-  const totalHeight = showLabels ? heightWithLabels : height;
+  const showIndicator =
+    getItemShowIndicator &&
+    find(items, (item, index) => getItemShowIndicator(item, index));
+
+  const heightForIndicator = showIndicator
+    ? 10 /* Additional 10px accounts for height of indicator */
+    : 0;
+  const heightForLabels = showLabels
+    ? 20 /* Additional 20px accounts for height of labels */
+    : 0;
+  const totalHeight = height + heightForLabels + heightForIndicator;
 
   return (
     <svg width={width} height={totalHeight}>
-      <RectClipGroup
-        width={width}
-        height={height}
-        rx={borderRadius}
-        ry={borderRadius}
-      >
-        {items.map((item, itemIndex) => (
-          <rect
-            key={`item-${itemIndex}`}
-            x={scaleRect(itemIndex) ?? 0}
-            height={height}
-            width={rectWidth}
-            fill={getItemColor(item, itemIndex)}
-          />
-        ))}
-      </RectClipGroup>
-      {items.map(
-        (item, itemIndex) =>
-          showLabels &&
-          itemIndex !== items.length - 1 && (
-            <Group
-              key={`item-${itemIndex}`}
-              top={height}
-              left={(scaleRect(itemIndex) ?? 0) + rectWidth}
-            >
-              <TickMark y1={0} y2={labelTickHeight} />
-              <TickLabel y={labelTickHeight + tickLabelPadding}>
-                {getItemLabel && getItemLabel(item, itemIndex)}
-              </TickLabel>
-            </Group>
-          )
-      )}
-      {/* <g style={{border: '1px solid red'}}> */}
-      {currentValueLocation && (
-        <Group
-          key={`item-${currentValue}`}
-          top={5}
-          left={currentValueLocation}
-          //   (scaleRect(getItemValue(item, index)) || 0) + bandWidth / 2 - 5
-          // }
+      {/* Indicator */}
+      {getItemShowIndicator &&
+        items.map((item: T, itemIndex) => {
+          return (
+            getItemShowIndicator(item, itemIndex) && (
+              <Group
+                key={`indicator-item-${itemIndex}`}
+                top={0}
+                left={(scaleRect(itemIndex) || 0) + rectWidth / 2 - 5}
+              >
+                <IndicatorPolygon points="0 0, 10 0, 5 7.5" />
+              </Group>
+            )
+          );
+        })}
+
+      {/* Rectangles */}
+      <Group top={heightForIndicator}>
+        <RectClipGroup
+          width={width}
+          height={height}
+          rx={borderRadius}
+          ry={borderRadius}
         >
-          <IndicatorPolygon points="0 0, 10 0, 5 7.5" />
-        </Group>
-      )}
-      {/* </g> */}
+          {items.map((item, itemIndex) => (
+            <rect
+              key={`item-${itemIndex}`}
+              x={scaleRect(itemIndex) ?? 0}
+              height={height}
+              width={rectWidth}
+              fill={getItemColor(item, itemIndex)}
+            />
+          ))}
+        </RectClipGroup>
+
+        {/* Labels */}
+        {items.map(
+          (item, itemIndex) =>
+            showLabels &&
+            itemIndex !== items.length - 1 && (
+              <Group
+                key={`item-${itemIndex}`}
+                top={height}
+                left={(scaleRect(itemIndex) ?? 0) + rectWidth}
+              >
+                <TickMark y1={0} y2={labelTickHeight} />
+                <TickLabel y={labelTickHeight + tickLabelPadding}>
+                  {getItemLabel && getItemLabel(item, itemIndex)}
+                </TickLabel>
+              </Group>
+            )
+        )}
+      </Group>
     </svg>
   );
 };

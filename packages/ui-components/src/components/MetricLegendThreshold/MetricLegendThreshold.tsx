@@ -3,6 +3,7 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
+import { Category } from "@actnowcoalition/metrics";
 
 import { BaseLegendThresholdProps, LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -18,27 +19,35 @@ export interface MetricLegendThresholdProps extends BaseLegendThresholdProps {
   endLabel?: React.ReactNode;
   /** Whether or not to display metric name and info. If false, only thermometer is displayed. */
   showOverview?: boolean;
+  currentCategory?: Category;
 }
 
 const getItemColor = (item: CategoryItem) => item.color;
 const getItemLabelHorizontal = (item: CategoryItem) => item.endThreshold ?? "";
 const getItemLabelVertical = (item: CategoryItem) => item.name;
 const getItemSublabel = (item: CategoryItem) => item.description ?? "";
+const getItemShowIndicator = (item: CategoryItem) => item.showIndicator;
 
 export const MetricLegendThreshold = ({
   metric,
   startLabel,
   endLabel,
   showOverview = true,
+  currentCategory,
   ...legendThresholdProps
 }: MetricLegendThresholdProps) => {
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
 
-  const items = getMetricCategoryItems(metric);
+  const items = getMetricCategoryItems(metric, currentCategory);
 
-  // Common props regardless of horizontal / vertical orientation
-  const commonProps = { items, getItemColor, ...legendThresholdProps };
+  // Props common to both horizontal and vertical orientations
+  const commonProps = {
+    items,
+    getItemColor,
+    getItemShowIndicator,
+    ...legendThresholdProps,
+  };
 
   if (!showOverview) {
     return <LegendThreshold {...commonProps} />;
