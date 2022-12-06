@@ -14,9 +14,9 @@ const Template: ComponentStory<typeof SingleSelectDropdown> = (args) => (
   <SingleSelectDropdown {...args} />
 );
 
-const options = metricCatalog.metrics.map((metric) => ({
-  id: metric.id,
-  name: metric.name,
+const options = metricCatalog.metrics.map(({ id, name }) => ({
+  value: id,
+  name,
 }));
 
 export const Example = Template.bind({});

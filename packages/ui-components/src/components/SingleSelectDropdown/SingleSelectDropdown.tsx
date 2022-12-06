@@ -12,7 +12,7 @@ export interface SingleSelectDropdownProps {
   /** Label for the dropdown menu */
   label: string;
   /** Handler to call when the user selects an option */
-  onSelectOption: (optionId: DropdownOption["id"]) => void;
+  onSelectOption: (optionId: DropdownOption["value"]) => void;
 }
 
 /**
@@ -35,8 +35,8 @@ export const SingleSelectDropdown = ({
       onSelectOption(event.target.value)
     }
   >
-    {options.map(({ id, name }) => (
-      <MenuItem key={id} value={id}>
+    {options.map(({ value, name }) => (
+      <MenuItem key={value} value={value}>
         <Typography noWrap>{name}</Typography>
       </MenuItem>
     ))}
