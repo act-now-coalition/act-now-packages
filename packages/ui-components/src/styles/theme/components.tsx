@@ -21,7 +21,6 @@ const components: ThemeOptions["components"] = {
         "& .MuiInputBase-root": {
           paddingTop: theme.spacing(3),
           paddingBottom: theme.spacing(1),
-          disableUnderline: true,
         },
       }),
     },
@@ -119,9 +118,6 @@ const components: ThemeOptions["components"] = {
           "& p": {
             fontWeight: theme.typography.fontWeightBold,
           },
-          // "& .MuiSelect-icon": {
-          //   color: theme.palette.secondary.dark,
-          // },
           "&:hover": {
             backgroundColor: theme.palette.common.white,
             border: `1px solid ${theme.palette.primary.main}`,
