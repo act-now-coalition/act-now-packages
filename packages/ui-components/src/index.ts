@@ -73,6 +73,10 @@ declare module "@mui/material/styles" {
       main: string;
       axis: string;
     };
+    footer: {
+      background: string;
+      text: string;
+    };
   }
 }
 
@@ -124,3 +128,5 @@ export * from "./components/SparkLine";
 export * from "./components/USNationalMap";
 export * from "./components/USStateMap";
 export * from "./components/WorldMap";
+
+export * from "./components/Footer";

@@ -85,6 +85,10 @@ const palette = {
   action: {
     disabledBackground: colors.action.disabledBackground,
   },
+  footer: {
+    background: colors.background.dark,
+    text: colors.text.light,
+  },
 };
 
 export default palette;
