@@ -4,9 +4,6 @@ import { MenuItem, TextField, Typography } from "@mui/material";
 
 import { assert } from "@actnowcoalition/assert";
 
-/**
- * Interface to represent selection options
- */
 export interface SelectOption {
   /** Unique identifier for the option */
   value: string;
