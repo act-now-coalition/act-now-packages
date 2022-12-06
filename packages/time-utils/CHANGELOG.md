@@ -1,5 +1,11 @@
 # @actnowcoalition/time-utils
 
+## 0.1.1
+
+### Patch Changes
+
+- ecbedde: implement import sorting
+
 ## 0.1.0
 
 ### Minor Changes
