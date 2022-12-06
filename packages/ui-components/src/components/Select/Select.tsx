@@ -41,6 +41,10 @@ export const Select = ({
     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
       onSelectOption(event.target.value)
     }
+    SelectProps={{
+      disableUnderline: true,
+      MenuProps: { style: { maxHeight: 300 } },
+    }}
   >
     {options.map(({ value, label }) => (
       <MenuItem key={value} value={value}>

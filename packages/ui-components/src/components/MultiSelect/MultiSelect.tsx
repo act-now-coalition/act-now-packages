@@ -38,6 +38,7 @@ export const MultiSelect = ({
     value={selectedOptions}
     isOptionEqualToValue={isOptionEqualToValue}
     onChange={(e: React.SyntheticEvent, options) => onSelectOptions(options)}
+    ListboxProps={{ style: { maxHeight: 300 } }}
     renderInput={(params) => (
       <TextField
         {...params}

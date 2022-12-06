@@ -193,6 +193,7 @@ const components: ThemeOptions["components"] = {
       },
     },
   },
+
   MuiSkeleton: {
     styleOverrides: {
       root: ({ theme }) => ({

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import sortBy from "lodash/sortBy";
 
 import { states } from "@actnowcoalition/regions";
 
@@ -16,10 +17,13 @@ const Template: ComponentStory<typeof MultiSelect> = (args) => (
   <MultiSelect {...args} />
 );
 
-const options: SelectOption[] = states.all.map((state) => ({
-  value: state.regionId,
-  label: state.shortName,
-}));
+const options: SelectOption[] = sortBy(
+  states.all.map(({ regionId, shortName }) => ({
+    value: regionId,
+    label: shortName,
+  })),
+  (option) => option.label
+);
 
 const initiallySelectedOptions = options.slice(0, 4);
 
