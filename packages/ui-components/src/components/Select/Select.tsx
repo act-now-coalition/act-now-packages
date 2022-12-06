@@ -2,6 +2,8 @@ import React from "react";
 
 import { MenuItem, TextField, Typography } from "@mui/material";
 
+import { assert } from "@actnowcoalition/assert";
+
 /**
  * Interface to represent selection options
  */
@@ -50,3 +52,19 @@ export const Select = ({
     ))}
   </TextField>
 );
+
+/**
+ * Utility function to find the option by value. It throws an error if the
+ * option is not found.
+ * @param options List of SelectOptions
+ * @param value  value of the option that we want to find
+ * @returns The found option
+ */
+export function findOptionByValueStrict(
+  options: SelectOption[],
+  value: SelectOption["value"]
+): SelectOption {
+  const foundOption = options.find((option) => option.value === value);
+  assert(!!foundOption, `Option with value '${value}' not found.`);
+  return foundOption;
+}
