@@ -61,8 +61,8 @@ export const LegendThresholdHorizontalInner = <T,>({
           );
         })}
 
-      {/* Rectangles */}
       <Group top={heightForIndicator}>
+        {/* Rectangles */}
         <RectClipGroup
           width={width}
           height={height}

@@ -36,7 +36,7 @@ export const LegendColor = styled("div", { shouldForwardProp: isValidProp })<{
 `;
 
 export const IndicatorPolygon = styled("polygon")`
-  stroke: black;
-  fill: black;
+  stroke: ${({ theme }) => theme.palette.common.black};
+  fill: ${({ theme }) => theme.palette.common.black};
   stroke-width: 1px;
 `;
