@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { SingleSelectDropdown, SingleSelectDropdownProps } from ".";
+import { SingleSelectDropdown } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 
 export default {
@@ -25,30 +25,3 @@ Example.args = {
   options,
   selectedOptionId: MetricId.MOCK_CASES,
 };
-
-const ControlledSingleSelect = ({
-  label,
-  options,
-  selectedOptionId: initialSelectedOptionId,
-}: Omit<SingleSelectDropdownProps, "onSelectOption">) => {
-  const [selectedOptionId, setSelectedOptionId] = useState(
-    initialSelectedOptionId
-  );
-
-  return (
-    <SingleSelectDropdown
-      label={label}
-      options={options}
-      selectedOptionId={selectedOptionId}
-      onSelectOption={setSelectedOptionId}
-    />
-  );
-};
-
-export const WithState = () => (
-  <ControlledSingleSelect
-    label="Metric"
-    options={options}
-    selectedOptionId={MetricId.APPLE_STOCK}
-  />
-);
