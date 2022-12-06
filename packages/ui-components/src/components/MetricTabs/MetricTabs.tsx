@@ -12,17 +12,14 @@ import { MetricLineChart } from "../MetricLineChart";
 import { MetricLineThresholdChart } from "../MetricLineThresholdChart";
 import { MetricValue } from "../MetricValue";
 
-interface MetricTabsProps {
+export interface MetricTabsProps {
   region: Region;
   metrics: Array<Metric> | Array<string>;
   width?: number;
   height?: number;
 }
 
-const TabContent: React.FC<{ metric: Metric; region: Region }> = ({
-  metric,
-  region,
-}) => {
+const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
   return (
     <Stack spacing={1}>
       <Typography variant="labelLarge" textAlign="left">
@@ -38,12 +35,12 @@ const TabContent: React.FC<{ metric: Metric; region: Region }> = ({
   );
 };
 
-export const MetricTabs: React.FC<MetricTabsProps> = ({
+export const MetricTabs = ({
   region,
   metrics,
   width = 800,
   height = 450,
-}) => {
+}: MetricTabsProps) => {
   assert(metrics.length > 0, "Must have at least one metric to display");
   const metricCatalog = useMetricCatalog();
   const resolvedMetrics = metrics.map((metric) =>
