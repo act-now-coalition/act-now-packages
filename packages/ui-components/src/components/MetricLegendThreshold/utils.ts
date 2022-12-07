@@ -10,6 +10,7 @@ export interface CategoryItem {
   description: string | undefined;
   /** Formatted value of the threshold at the end of the current category */
   endThreshold?: string;
+  /** Show an arrow indicating the current category */
   showIndicator: boolean;
 }
 
