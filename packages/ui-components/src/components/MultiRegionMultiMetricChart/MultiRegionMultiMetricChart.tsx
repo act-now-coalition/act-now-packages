@@ -13,10 +13,22 @@ import { Select, SelectOption, useSelectedOption } from "../Select";
 import { getMetricSeries } from "./utils";
 
 export interface MultiRegionMultiMetricChartProps {
+  /* List of regions to show in the locations dropdown */
   regions: Region[];
+  /** List of metrics to show in the metrics dropdown */
   metrics: (Metric | string)[];
+  /* Initially selected metrics */
   initialMetric: Metric | string;
+  /* Initially selected regions */
   initialRegions: Region[];
+}
+
+function getMetricOption(metric: Metric): SelectOption {
+  return { value: metric.id, label: metric.name };
+}
+
+function getRegionOption(region: Region): SelectOption {
+  return { value: region.regionId, label: region.shortName };
 }
 
 export const MultiRegionMultiMetricChart = ({
@@ -70,11 +82,3 @@ export const MultiRegionMultiMetricChart = ({
     </Stack>
   );
 };
-
-function getMetricOption(metric: Metric): SelectOption {
-  return { value: metric.id, label: metric.name };
-}
-
-function getRegionOption(region: Region): SelectOption {
-  return { value: region.regionId, label: region.shortName };
-}
