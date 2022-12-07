@@ -16,13 +16,21 @@ const Template: ComponentStory<typeof MetricTabs> = (args) => (
   <MetricTabs {...args} />
 );
 
+const metricList = [
+  MetricId.APPLE_STOCK,
+  MetricId.NYC_TEMPERATURE,
+  MetricId.APPLE_STOCK_LOW_THRESHOLDS,
+];
+
 export const Example = Template.bind({});
 Example.args = {
   region: nations.findByRegionIdStrict("USA"),
-  metrics: [
-    MetricId.APPLE_STOCK,
-    MetricId.APPLE_STOCK_LOW_THRESHOLDS,
-    MetricId.NYC_TEMPERATURE,
-    MetricId.MOCK_CASES,
-  ],
+  metrics: metricList,
+};
+
+export const SmallExample = Template.bind({});
+SmallExample.args = {
+  region: nations.findByRegionIdStrict("USA"),
+  metrics: [...metricList, MetricId.MOCK_CASES_DELAY_1S],
+  width: 320,
 };

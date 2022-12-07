@@ -1,7 +1,7 @@
 import { useState } from "react";
 import React from "react";
 
-import { Stack, Tab, Tabs, Typography } from "@mui/material";
+import { Stack, Tabs, Typography } from "@mui/material";
 
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
@@ -11,6 +11,7 @@ import { useMetricCatalog } from "../../components/MetricCatalogContext";
 import { MetricLineChart } from "../MetricLineChart";
 import { MetricLineThresholdChart } from "../MetricLineThresholdChart";
 import { MetricValue } from "../MetricValue";
+import { MetricTab } from "./MetricTabs.style";
 
 export interface MetricTabsProps {
   region: Region;
@@ -43,7 +44,7 @@ export const MetricTabs = ({
   width = 800,
   height = 450,
 }: MetricTabsProps) => {
-  assert(metrics.length > 0, "Must have at least one metric to display");
+  assert(metrics.length > 1, "Must have at least 2 tabs to select from");
   const metricCatalog = useMetricCatalog();
   const resolvedMetrics = metrics.map((metric) =>
     metricCatalog.getMetric(metric)
@@ -60,10 +61,6 @@ export const MetricTabs = ({
       ? MetricLineThresholdChart
       : MetricLineChart;
 
-  // TODO: configure breakpoints for mobile?
-  const numMetrics = resolvedMetrics.length;
-  const tabWidth = numMetrics < 3 ? 160 : 108;
-
   return (
     <Stack spacing={3} width={width}>
       <Tabs
@@ -74,15 +71,11 @@ export const MetricTabs = ({
         sx={{ paddingLeft: 4 }}
       >
         {resolvedMetrics.map((metric) => (
-          <Tab
+          <MetricTab
             key={`tab-${metric}`}
             value={metric}
             label={<TabContent region={region} metric={metric} />}
             disableRipple={true}
-            sx={{
-              width: tabWidth,
-              alignItems: "flex-start",
-            }}
           />
         ))}
       </Tabs>
