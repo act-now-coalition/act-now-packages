@@ -3,7 +3,7 @@ import React from "react";
 import { LegendThresholdHorizontal } from "./LegendThresholdHorizontal";
 import { LegendThresholdVertical } from "./LegendThresholdVertical";
 
-export interface LegendThresholdProps<T> {
+export interface BaseLegendThresholdProps {
   /** Orientation of the bars */
   orientation: "horizontal" | "vertical";
   /** Height of the thermometer */
@@ -12,16 +12,20 @@ export interface LegendThresholdProps<T> {
   width?: number;
   /** Border radius of the thermometer bar */
   borderRadius?: number;
+  /** Whether to show the labels or not */
+  showLabels?: boolean;
+}
+
+export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
   /** List of items representing the labels */
   items: T[];
   /** Function that returns the color of each item */
   getItemColor: (item: T, itemIndex: number) => string;
-  /** Whether to show the labels or not */
-  showLabels?: boolean;
   /** Function that returns the label of each item */
   getItemLabel?: (item: T, itemIndex: number) => string;
   /** Function that returns the sublabel of each item */
   getItemSublabel?: (item: T, itemIndex: number) => string;
+  getItemShowIndicator?: (item: T, itemIndex: number) => boolean | undefined;
 }
 
 /**
