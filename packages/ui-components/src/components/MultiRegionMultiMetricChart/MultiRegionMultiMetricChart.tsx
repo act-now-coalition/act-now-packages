@@ -29,7 +29,6 @@ export const MultiRegionMultiMetricChart = ({
   const metrics = metricsOrIds.map((m) => metricCatalog.getMetric(m));
   const initialMetric = metricCatalog.getMetric(initialMetricOrId);
 
-  // Metrics
   const [metricOptions, selectedMetricOption, onSelectMetric, selectedMetric] =
     useSelectedOption(metrics, initialMetric, getMetricOption);
 
@@ -50,15 +49,13 @@ export const MultiRegionMultiMetricChart = ({
         selectedOption={selectedMetricOption}
         onSelectOption={onSelectMetric}
       />
-      {/*  */}
+      {/* Time Periods */}
       <MultiSelect
         label="Locations"
         options={regionOptions}
         selectedOptions={selectedRegionOptions}
         onSelectOptions={setSelectedRegions}
       />
-      {/* Chart */}
-
       <ParentSize>
         {({ width }) => (
           <MetricSeriesChart
