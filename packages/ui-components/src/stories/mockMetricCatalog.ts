@@ -22,6 +22,7 @@ export enum MetricId {
   PASS_FAIL = "pass_fail",
   PASS_FAIL_NO_EXTENDED_NAME = "pass_fail_no_extended_name",
   RANDOM_POINTS_BETWEEN_ZERO_AND_ONE = "random_points_between_zero_and_one",
+  MOCK_CASES_NO_LEVELS = "mock_cases_no_levels",
 }
 
 export enum ProviderId {
@@ -94,6 +95,16 @@ const testMetricDefs: MetricDefinition[] = [
     },
     categoryThresholds: [40, 100],
     categorySetId: "cases_mock",
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.MOCK_CASES_NO_LEVELS,
+    name: "Cases (mock) - no levels",
+    extendedName: "Cases per 100k population (using mock data)",
+    dataReference: {
+      providerId: ProviderId.MOCK,
+      startDate: "2020-01-01",
+    },
     formatOptions: defaultIntegerFormat,
   },
   {

@@ -65,7 +65,7 @@ export const MetricTabs = ({
     <Stack spacing={3} width={width}>
       <Tabs
         onChange={(e, v) => handleChange(v)}
-        value={selectedTab}
+        value={selectedMetric}
         variant="scrollable"
         scrollButtons={false}
         sx={{ paddingLeft: 4 }}

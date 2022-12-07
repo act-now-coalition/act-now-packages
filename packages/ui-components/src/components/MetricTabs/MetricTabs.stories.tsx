@@ -19,7 +19,7 @@ const Template: ComponentStory<typeof MetricTabs> = (args) => (
 const metricList = [
   MetricId.APPLE_STOCK,
   MetricId.NYC_TEMPERATURE,
-  MetricId.APPLE_STOCK_LOW_THRESHOLDS,
+  MetricId.MOCK_CASES_NO_LEVELS,
 ];
 
 export const Example = Template.bind({});
