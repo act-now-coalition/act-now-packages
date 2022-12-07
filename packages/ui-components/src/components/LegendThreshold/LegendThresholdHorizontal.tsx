@@ -35,13 +35,14 @@ export const LegendThresholdHorizontalInner = <T,>({
     getItemShowIndicator &&
     find(items, (item, index) => getItemShowIndicator(item, index));
 
-  const heightForIndicator = showIndicator
-    ? 10 /* Additional 10px accounts for height of indicator */
+  const indicatorWidth = 7.5;
+  const indicatorHeight = showIndicator
+    ? 10 /* 10px accounts for height of indicator */
     : 0;
-  const heightForLabels = showLabels
-    ? 20 /* Additional 20px accounts for height of labels */
+  const labelsHeight = showLabels
+    ? 20 /* 20px accounts for height of labels */
     : 0;
-  const totalHeight = height + heightForLabels + heightForIndicator;
+  const totalHeight = height + labelsHeight + indicatorHeight;
 
   return (
     <svg width={width} height={totalHeight}>
@@ -55,13 +56,17 @@ export const LegendThresholdHorizontalInner = <T,>({
                 top={0}
                 left={(scaleRect(itemIndex) || 0) + rectWidth / 2 - 5}
               >
-                <IndicatorPolygon points="0 0, 10 0, 5 7.5" />
+                <IndicatorPolygon
+                  points={`0 0, ${indicatorHeight} 0,${
+                    indicatorHeight / 2
+                  } ${indicatorWidth}`}
+                />
               </Group>
             )
           );
         })}
 
-      <Group top={heightForIndicator}>
+      <Group top={indicatorHeight}>
         {/* Rectangles */}
         <RectClipGroup
           width={width}
