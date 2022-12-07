@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Stack } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { ParentSize } from "@visx/responsive";
 
 import { Metric } from "@actnowcoalition/metrics";
@@ -70,15 +70,29 @@ export const MultiRegionMultiMetricChart = ({
       />
       <ParentSize>
         {({ width }) => (
-          <MetricSeriesChart
-            series={series}
-            width={width}
-            height={500}
-            marginRight={160}
-            showLabels
-          />
+          <>
+            {series.length > 0 ? (
+              <MetricSeriesChart
+                series={series}
+                width={width}
+                height={500}
+                marginRight={160}
+                showLabels
+              />
+            ) : (
+              <EmptyState width={width} height={500} />
+            )}
+          </>
         )}
       </ParentSize>
     </Stack>
   );
 };
+
+const EmptyState = ({ width, height }: { width: number; height: number }) => (
+  <Box sx={{ width, height, display: "grid", placeItems: "center" }}>
+    <Typography variant="labelSmall" component="div">
+      Please select at least one location
+    </Typography>
+  </Box>
+);
