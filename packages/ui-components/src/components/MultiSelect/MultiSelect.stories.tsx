@@ -5,7 +5,7 @@ import sortBy from "lodash/sortBy";
 
 import { states } from "@actnowcoalition/regions";
 
-import { MultiSelect } from ".";
+import { MultiSelect, MultiSelectProps } from ".";
 import { SelectOption } from "../Select";
 
 export default {
@@ -14,7 +14,7 @@ export default {
 } as ComponentMeta<typeof MultiSelect>;
 
 const Template: ComponentStory<typeof MultiSelect> = (args) => (
-  <MultiSelect {...args} />
+  <StatefulMultiSelect {...args} />
 );
 
 const options: SelectOption[] = sortBy(
@@ -34,14 +34,18 @@ Example.args = {
   selectedOptions: initiallySelectedOptions,
 };
 
-export const StatefulMultiSelect = () => {
+export const StatefulMultiSelect = ({
+  label,
+  options,
+  selectedOptions: initiallySelectedOptions,
+}: MultiSelectProps) => {
   const [selectedOptions, setSelectedOptions] = useState(
     initiallySelectedOptions
   );
 
   return (
     <MultiSelect
-      label="States"
+      label={label}
       options={options}
       selectedOptions={selectedOptions}
       onSelectOptions={setSelectedOptions}

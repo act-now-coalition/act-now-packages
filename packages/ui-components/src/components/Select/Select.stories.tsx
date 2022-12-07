@@ -10,20 +10,25 @@ export default {
   component: Select,
 } as ComponentMeta<typeof Select>;
 
-const Template: ComponentStory<typeof Select> = (args) => <Select {...args} />;
+const Template: ComponentStory<typeof StatefulSelect> = (args) => (
+  <StatefulSelect {...args} />
+);
 
 const options = metricCatalog.metrics.map(({ id, name }) => ({
   value: id,
   label: name,
 }));
 
-const selectedOption = findOptionByValueStrict(options, MetricId.APPLE_STOCK);
+const initiallySelectedOption = findOptionByValueStrict(
+  options,
+  MetricId.APPLE_STOCK
+);
 
 export const Example = Template.bind({});
 Example.args = {
   label: "Metric",
   options,
-  selectedOption,
+  initiallySelectedOption,
 };
 
 /**
@@ -56,11 +61,3 @@ const StatefulSelect = ({
     />
   );
 };
-
-export const WithState = () => (
-  <StatefulSelect
-    label="Metric"
-    options={options}
-    initiallySelectedOption={selectedOption}
-  />
-);
