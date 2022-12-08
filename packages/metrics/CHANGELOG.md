@@ -1,5 +1,19 @@
 # @actnowcoalition/metrics
 
+## 0.4.0
+
+### Minor Changes
+
+- d69f828: Add JSON record data provider
+
+### Patch Changes
+
+- ecbedde: implement import sorting
+- Updated dependencies [ecbedde]
+  - @actnowcoalition/number-format@0.1.2
+  - @actnowcoalition/regions@0.1.2
+  - @actnowcoalition/time-utils@0.1.1
+
 ## 0.3.4
 
 ### Patch Changes

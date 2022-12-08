@@ -12,6 +12,7 @@ import {
   TableSortState,
   sortTableRows,
 } from "../CompareTable";
+import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Row, createLocationColumn, createMetricColumn } from "./utils";
 
@@ -58,7 +59,10 @@ export const MetricCompareTable = ({
     /*includeTimeseries=*/ false
   );
 
-  if (!data || error) {
+  if (error) {
+    return <ErrorBox>Table could not be loaded.</ErrorBox>;
+  } else if (!data) {
+    // TODO(#473): Better loading state.
     return null;
   }
 

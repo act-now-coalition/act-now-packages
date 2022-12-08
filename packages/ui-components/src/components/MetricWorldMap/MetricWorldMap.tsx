@@ -6,6 +6,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { ErrorBox } from "../ErrorBox";
 import WorldMap, { WorldMapProps } from "../WorldMap";
 
 export interface MetricWorldMapProps extends WorldMapProps {
@@ -16,10 +17,23 @@ export interface MetricWorldMapProps extends WorldMapProps {
 export const MetricWorldMap = ({
   metric,
   regionDB,
+  width,
   ...otherProps
 }: MetricWorldMapProps) => {
   const theme = useTheme();
-  const { data } = useDataForRegionsAndMetrics(regionDB.all, [metric], false);
+  const { data, error } = useDataForRegionsAndMetrics(
+    regionDB.all,
+    [metric],
+    false
+  );
+
+  if (error) {
+    return (
+      <ErrorBox width={width} height={width && width / 2}>
+        Map could not be loaded.
+      </ErrorBox>
+    );
+  }
 
   return (
     <WorldMap

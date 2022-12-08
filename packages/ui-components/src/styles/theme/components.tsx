@@ -13,6 +13,17 @@ const components: ThemeOptions["components"] = {
       disableClearable: true,
       popupIcon: <KeyboardArrowDownIcon />,
     },
+    styleOverrides: {
+      root: ({ theme }) => ({
+        "& .MuiInputLabel-root": {
+          marginBottom: theme.spacing(1),
+        },
+        "& .MuiInputBase-root": {
+          paddingTop: theme.spacing(3),
+          paddingBottom: theme.spacing(1),
+        },
+      }),
+    },
   },
 
   MuiButton: {
@@ -107,9 +118,6 @@ const components: ThemeOptions["components"] = {
           "& p": {
             fontWeight: theme.typography.fontWeightBold,
           },
-          "& .MuiSelect-icon": {
-            color: theme.palette.secondary.dark,
-          },
           "&:hover": {
             backgroundColor: theme.palette.common.white,
             border: `1px solid ${theme.palette.primary.main}`,
@@ -185,6 +193,7 @@ const components: ThemeOptions["components"] = {
       },
     },
   },
+
   MuiSkeleton: {
     styleOverrides: {
       root: ({ theme }) => ({

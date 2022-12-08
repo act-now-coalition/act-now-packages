@@ -7,6 +7,7 @@ import { RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { getCountiesOfState } from "../../common/utils/maps";
+import { ErrorBox } from "../ErrorBox";
 import { USStateMap, USStateMapProps } from "../USStateMap";
 
 export interface MetricUSStateMapProps extends USStateMapProps {
@@ -18,6 +19,7 @@ export const MetricUSStateMap = ({
   metric,
   stateRegionId,
   regionDB,
+  width,
   ...otherProps
 }: MetricUSStateMapProps) => {
   const theme = useTheme();
@@ -25,7 +27,18 @@ export const MetricUSStateMap = ({
   const countiesOfState = getCountiesOfState(regionDB, stateRegionId);
   const mapRegions = [...countiesOfState, state];
 
-  const { data } = useDataForRegionsAndMetrics(mapRegions, [metric], false);
+  const { data, error } = useDataForRegionsAndMetrics(
+    mapRegions,
+    [metric],
+    false
+  );
+  if (error) {
+    return (
+      <ErrorBox width={width} height={width && width / 2}>
+        Map could not be loaded.
+      </ErrorBox>
+    );
+  }
 
   return (
     <USStateMap
