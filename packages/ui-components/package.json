@@ -57,7 +57,7 @@
     "@emotion/styled": "^11.9.3",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.111",
-    "@mui/material": "^5.10.17",
+    "@mui/material": "^5.9.1",
     "@types/d3-geo": "^2.0.2",
     "@types/d3-scale-chromatic": "^3.0.0",
     "@types/react-simple-maps": "^1.0.8",
