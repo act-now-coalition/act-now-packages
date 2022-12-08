@@ -7,15 +7,15 @@ import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
-import { useMetricCatalog } from "../../components/MetricCatalogContext";
+import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLineChart } from "../MetricLineChart";
 import { MetricLineThresholdChart } from "../MetricLineThresholdChart";
 import { MetricValue } from "../MetricValue";
-import { MetricTab } from "./MetricTabs.style";
+import { MetricTab } from "./MetricChartBlock.style";
 
-export interface MetricTabsProps {
+export interface MetricChartBlockProps {
   region: Region;
-  metrics: Array<Metric> | Array<string>;
+  metrics: Array<Metric | string>;
   width?: number;
   height?: number;
 }
@@ -26,11 +26,7 @@ const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
       <Typography variant="labelLarge" textAlign="left">
         {metric.name}
       </Typography>
-      <MetricValue
-        metric={metric}
-        region={region}
-        variant="dataEmphasizedLarge"
-      />
+      <MetricValue metric={metric} region={region} />
       <Typography variant="paragraphSmall" align={"left"}>
         {metric.extendedName}
       </Typography>
@@ -38,12 +34,12 @@ const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
   );
 };
 
-export const MetricTabs = ({
+export const MetricChartBlock = ({
   region,
   metrics,
   width = 800,
   height = 450,
-}: MetricTabsProps) => {
+}: MetricChartBlockProps) => {
   assert(metrics.length > 1, "Must have at least 2 tabs to select from");
   const metricCatalog = useMetricCatalog();
   const resolvedMetrics = metrics.map((metric) =>

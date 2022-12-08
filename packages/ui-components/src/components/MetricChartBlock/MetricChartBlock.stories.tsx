@@ -4,16 +4,16 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { nations } from "@actnowcoalition/regions";
 
-import { MetricTabs } from ".";
+import { MetricChartBlock } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Components/MetricTabs",
-  component: MetricTabs,
-} as ComponentMeta<typeof MetricTabs>;
+  title: "Components/MetricChartBlock",
+  component: MetricChartBlock,
+} as ComponentMeta<typeof MetricChartBlock>;
 
-const Template: ComponentStory<typeof MetricTabs> = (args) => (
-  <MetricTabs {...args} />
+const Template: ComponentStory<typeof MetricChartBlock> = (args) => (
+  <MetricChartBlock {...args} />
 );
 
 const metricList = [
