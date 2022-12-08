@@ -54,7 +54,7 @@ export const MetricLineChart = ({
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxDate, maxValue } = timeseries;
+  const { minDate, maxDate, minValue, maxValue } = timeseries;
 
   const xScale = scaleUtc({
     domain: [minDate, maxDate],
@@ -62,7 +62,7 @@ export const MetricLineChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [0, maxValue],
+    domain: [metric.minValue ?? minValue, maxValue],
     range: [chartHeight, 0],
   });
 

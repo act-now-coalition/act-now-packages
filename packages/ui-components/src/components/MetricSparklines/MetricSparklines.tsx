@@ -64,10 +64,18 @@ export const MetricSparklines = ({
       ?.timeseries.assertFiniteNumbers()
       .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
+    const minValue =
+      metricLineChart.minValue && metricBarChart.minValue
+        ? Math.min(metricLineChart.minValue, metricBarChart.minValue)
+        : timeseriesLineChart.minValue && timeseriesBarChart.minValue
+        ? Math.min(timeseriesLineChart.minValue, timeseriesBarChart.minValue)
+        : undefined;
+
     return (
       <SparkLine
         timeseriesLineChart={timeseriesLineChart}
         timeseriesBarChart={timeseriesBarChart}
+        minValue={minValue}
         {...optionalProps}
       />
     );

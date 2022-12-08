@@ -26,8 +26,6 @@ import { SeriesLabel } from "./MetricSeriesChart.style";
 export interface MetricSeriesChartProps extends BaseChartProps {
   /** List of series to be rendered */
   series: Series[];
-  /** Minimum value for the y-axis. It defaults to 0. */
-  minValue?: number;
   /**
    * Show labels for each series. The labels will be shown on the right side
    * of the chart, close to the last value of each series.
@@ -53,7 +51,6 @@ export const MetricSeriesChart = ({
   marginBottom = 40,
   marginLeft = 70,
   marginRight = 20,
-  minValue = 0,
   showLabels = true,
 }: MetricSeriesChartProps) => {
   const metricCatalog = useMetricCatalog();
@@ -107,10 +104,15 @@ export const MetricSeriesChart = ({
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxValue] = getValueRange(timeseriesList);
 
-  // Note: We use minValue if provided. If not, we default to start from zero,
-  // which is best in most cases, unless minDataValue is negative, in which
-  // case we use that value instead.
-  const minYValue = isNumber(minValue) ? minValue : Math.min(0, minDataValue);
+  // Out of all metrics to be included in the chart,
+  // get the lowest minimum value defined in the metric definition.
+  const metricDefinitionMin = min(metrics.map(({ minValue }) => minValue));
+
+  // If at least one of the metric definitions has a defined minimum value,
+  // use the the minimum value of that or the minimum data value.
+  const minYValue = metricDefinitionMin
+    ? Math.min(metricDefinitionMin, minDataValue)
+    : minDataValue;
 
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
