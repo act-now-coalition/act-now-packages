@@ -70,6 +70,7 @@ export const MetricChartBlock = ({
           {resolvedMetrics.map((metric) => {
             return (
               <MetricTab
+                disableRipple={true}
                 key={metric.id}
                 value={metric.id}
                 label={<TabContent metric={metric} region={region} />}
