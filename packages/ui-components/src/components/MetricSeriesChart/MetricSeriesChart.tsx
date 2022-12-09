@@ -104,20 +104,22 @@ export const MetricSeriesChart = ({
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxDataValue] = getValueRange(timeseriesList);
 
-  // Out of all metrics to be included in the chart,
-  // get the lowest minimum value and highest maximum value
-  // defined in the metric definition.
+  // Get the lowest minimum value (specified in metric definition) out of all metrics.
   const metricDefinitionMin = min(metrics.map(({ minValue }) => minValue));
+
+  // Get the highest maximum value (specified in metric definition) out of all metrics.
   const metricDefinitionMax = max(metrics.map(({ maxValue }) => maxValue));
 
-  // If at least one of the metric definitions has a defined minimum value,
-  // use the lower of that minimum value or the minimum data value.
+  // The lowest value of one metric may not be the lowest of another metric.
+  // So we use the lower of metricDefinitionMin (which accounts for all metric definitions)
+  // and data's minimum value.
   const minYValue = metricDefinitionMin
     ? Math.min(metricDefinitionMin, minDataValue)
     : minDataValue;
 
-  // If at least one of the metric definitions has a defined maximum value,
-  // use the higher of that maximum value or the maximum data value.
+  // The highest value of one metric may not be the highet of another metric.
+  // So we use the higher of metricDefinitionMax (which accounts for all metric definitions)
+  // and data's maximum value.
   const maxYValue = metricDefinitionMax
     ? Math.max(metricDefinitionMax, maxDataValue)
     : maxDataValue;

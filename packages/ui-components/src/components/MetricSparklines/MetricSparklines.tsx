@@ -64,17 +64,21 @@ export const MetricSparklines = ({
       ?.timeseries.assertFiniteNumbers()
       .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
+    // Use minValue from metric definitions.
+    // If unspecified, use minimum data value.
     const minValue =
       metricLineChart.minValue && metricBarChart.minValue
         ? Math.min(metricLineChart.minValue, metricBarChart.minValue)
-        : timeseriesLineChart.minValue && timeseriesBarChart.minValue
+        : timeseriesLineChart.hasData() && timeseriesBarChart.hasData()
         ? Math.min(timeseriesLineChart.minValue, timeseriesBarChart.minValue)
         : undefined;
 
+    // Use maxValue from metric definitions.
+    // If unspecified, use maximum data value.
     const maxValue =
       metricLineChart.maxValue && metricBarChart.maxValue
         ? Math.min(metricLineChart.maxValue, metricBarChart.maxValue)
-        : timeseriesLineChart.maxValue && timeseriesBarChart.maxValue
+        : timeseriesLineChart.hasData() && timeseriesBarChart.hasData()
         ? Math.min(timeseriesLineChart.maxValue, timeseriesBarChart.maxValue)
         : undefined;
 
