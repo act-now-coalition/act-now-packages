@@ -117,7 +117,7 @@ export const MetricSeriesChart = ({
     ? Math.min(metricDefinitionMin, minDataValue)
     : minDataValue;
 
-  // The highest value of one metric may not be the highet of another metric.
+  // The highest value of one metric may not be the highest of another metric.
   // So we use the higher of metricDefinitionMax (which accounts for all metric definitions)
   // and data's maximum value.
   const maxYValue = metricDefinitionMax
