@@ -29,6 +29,9 @@ export interface SparkLineProps extends BaseSparkLineProps {
 
   /** Minimum value on the y-axis */
   minValue?: number;
+
+  /** Maximum value on the y-axis */
+  maxValue?: number;
 }
 
 export const SparkLine = ({
@@ -38,6 +41,7 @@ export const SparkLine = ({
   height = 50,
   barWidth = 2,
   minValue,
+  maxValue,
 }: SparkLineProps) => {
   const theme = useTheme();
   const padding = 2;
@@ -52,7 +56,7 @@ export const SparkLine = ({
   });
 
   const yScaleBar = scaleLinear({
-    domain: [minValue ?? 0, timeseriesBarChart.maxValue],
+    domain: [minValue ?? 0, maxValue ?? timeseriesBarChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
@@ -62,7 +66,7 @@ export const SparkLine = ({
   });
 
   const yScaleLine = scaleLinear({
-    domain: [minValue ?? 0, timeseriesLineChart.maxValue],
+    domain: [minValue ?? 0, maxValue ?? timeseriesLineChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 

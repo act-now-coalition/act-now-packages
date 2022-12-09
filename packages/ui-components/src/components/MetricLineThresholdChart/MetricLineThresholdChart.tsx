@@ -88,13 +88,17 @@ export const MetricLineThresholdChart = ({
     range: [0, chartWidth],
   });
 
-  const maxChartValue = max(intervals.map(({ upper }) => upper)) ?? maxValue;
-
   // If the metric definition has a defined minimum value, use this value as the minimum value on the y-axis.
   // Otherwise, use the lower bound of the lowest threshold.
   // If neither are available, use the data's minimum value.
   const minChartValue =
     metric.minValue ?? min(intervals.map(({ lower }) => lower)) ?? minValue;
+
+  // If the metric definition has a defined maximum value, use this value as the maximum value on the y-axis.
+  // Otherwise, use the higher bound of the highest threshold.
+  // If neither are available, use the data's maximum value.
+  const maxChartValue =
+    metric.maxValue ?? max(intervals.map(({ upper }) => upper)) ?? maxValue;
 
   const yScale = scaleLinear({
     domain: [minChartValue, maxChartValue],

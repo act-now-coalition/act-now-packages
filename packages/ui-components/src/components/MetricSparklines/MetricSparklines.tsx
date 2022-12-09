@@ -71,11 +71,19 @@ export const MetricSparklines = ({
         ? Math.min(timeseriesLineChart.minValue, timeseriesBarChart.minValue)
         : undefined;
 
+    const maxValue =
+      metricLineChart.maxValue && metricBarChart.maxValue
+        ? Math.min(metricLineChart.maxValue, metricBarChart.maxValue)
+        : timeseriesLineChart.maxValue && timeseriesBarChart.maxValue
+        ? Math.min(timeseriesLineChart.maxValue, timeseriesBarChart.maxValue)
+        : undefined;
+
     return (
       <SparkLine
         timeseriesLineChart={timeseriesLineChart}
         timeseriesBarChart={timeseriesBarChart}
         minValue={minValue}
+        maxValue={maxValue}
         {...optionalProps}
       />
     );
