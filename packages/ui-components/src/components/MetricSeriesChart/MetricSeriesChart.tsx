@@ -20,6 +20,7 @@ import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
+import { RectClipGroup } from "../RectClipGroup";
 import { Series, SeriesChart, SeriesType } from "../SeriesChart";
 import { SeriesLabel } from "./MetricSeriesChart.style";
 
@@ -159,15 +160,17 @@ export const MetricSeriesChart = ({
           height={chartHeight}
           axisLeftProps={{ tickFormat: yAxisFormat }}
         />
-        {seriesList.map((item, itemIndex) => (
-          <SeriesChart
-            key={`series-${itemIndex}`}
-            series={item.series}
-            timeseries={item.timeseries}
-            xScale={xScale}
-            yScale={yScale}
-          />
-        ))}
+        <RectClipGroup width={chartWidth} height={chartHeight}>
+          {seriesList.map((item, itemIndex) => (
+            <SeriesChart
+              key={`series-${itemIndex}`}
+              series={item.series}
+              timeseries={item.timeseries}
+              xScale={xScale}
+              yScale={yScale}
+            />
+          ))}
+        </RectClipGroup>
         {showLabels && (
           <Group>
             {labelPositions.map((item, itemIndex) => (
