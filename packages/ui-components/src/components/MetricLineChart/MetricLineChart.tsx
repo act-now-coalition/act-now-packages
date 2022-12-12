@@ -62,6 +62,8 @@ export const MetricLineChart = ({
   });
 
   const yScale = scaleLinear({
+    // If available, use minValue and maxValue from the metric definition.
+    // Otherwise, use min and max value of the data.
     domain: [metric.minValue ?? minValue, metric.maxValue ?? maxValue],
     range: [chartHeight, 0],
   });

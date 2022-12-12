@@ -104,25 +104,11 @@ export const MetricSeriesChart = ({
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxDataValue] = getValueRange(timeseriesList);
 
-  // Get the lowest minimum value (specified in metric definition) out of all metrics.
+  // Get the lowest minValue from the metric definitions of included metrics.
   const metricDefinitionMin = min(metrics.map(({ minValue }) => minValue));
 
-  // Get the highest maximum value (specified in metric definition) out of all metrics.
+  // Get the highest maxValue from the metric definitions of included metrics.
   const metricDefinitionMax = max(metrics.map(({ maxValue }) => maxValue));
-
-  // The lowest value of one metric may not be the lowest of another metric.
-  // So we use the lower of metricDefinitionMin (which accounts for all metric definitions)
-  // and data's minimum value.
-  const minYValue = metricDefinitionMin
-    ? Math.min(metricDefinitionMin, minDataValue)
-    : minDataValue;
-
-  // The highest value of one metric may not be the highest of another metric.
-  // So we use the higher of metricDefinitionMax (which accounts for all metric definitions)
-  // and data's maximum value.
-  const maxYValue = metricDefinitionMax
-    ? Math.max(metricDefinitionMax, maxDataValue)
-    : maxDataValue;
 
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
@@ -133,7 +119,10 @@ export const MetricSeriesChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [minYValue, maxYValue],
+    domain: [
+      metricDefinitionMin ?? minDataValue,
+      metricDefinitionMax ?? maxDataValue,
+    ],
     range: [chartHeight, 0],
   });
 
