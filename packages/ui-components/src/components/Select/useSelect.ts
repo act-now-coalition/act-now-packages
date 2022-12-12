@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { assert } from "@actnowcoalition/assert";
 
-export function useSelectedOption<T>(
+export function useSelect<T>(
   items: T[],
   initialItem: T,
   getValue: (item: T) => string

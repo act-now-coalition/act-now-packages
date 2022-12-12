@@ -6,7 +6,7 @@ import { Metric } from "@actnowcoalition/metrics";
 
 import { Select } from ".";
 import { metricCatalog } from "../../stories/mockMetricCatalog";
-import { useSelectedOption } from "./useSelectedOption";
+import { useSelect } from "./useSelect";
 
 export default {
   title: "Components/Select",
@@ -42,7 +42,7 @@ const StatefulSelect = ({
   options,
   initiallySelectedOption,
 }: StatefulSelectProps) => {
-  const [selectedOption, onSelectOption] = useSelectedOption(
+  const [selectedOption, onSelectOption] = useSelect(
     options,
     initiallySelectedOption,
     (item: Metric) => item.id

@@ -9,7 +9,7 @@ import { Region } from "@actnowcoalition/regions";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricSeriesChart } from "../MetricSeriesChart";
 import { MultiSelect, useSelectedOptions } from "../MultiSelect";
-import { Select, SelectOption, useSelectedOption } from "../Select";
+import { Select, SelectOption, useSelect } from "../Select";
 import { getMetricSeries } from "./utils";
 
 export interface MultiRegionMultiMetricChartProps {
@@ -40,7 +40,7 @@ export const MultiRegionMultiMetricChart = ({
   const metrics = metricsOrIds.map((m) => metricCatalog.getMetric(m));
   const initialMetric = metricCatalog.getMetric(initialMetricOrId);
 
-  const [selectedMetric, setSelectedMetric] = useSelectedOption(
+  const [selectedMetric, setSelectedMetric] = useSelect(
     metrics,
     initialMetric,
     getMetricId
