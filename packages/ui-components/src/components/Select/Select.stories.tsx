@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { Select, SelectOption, findOptionByValueStrict } from ".";
-import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
+import { Metric } from "@actnowcoalition/metrics";
+
+import { Select } from ".";
+import { metricCatalog } from "../../stories/mockMetricCatalog";
+import { useSelect } from "./useSelect";
 
 export default {
   title: "Components/Select",
@@ -14,15 +17,9 @@ const Template: ComponentStory<typeof StatefulSelect> = (args) => (
   <StatefulSelect {...args} />
 );
 
-const options = metricCatalog.metrics.map(({ id, name }) => ({
-  value: id,
-  label: name,
-}));
+const options = metricCatalog.metrics;
 
-const initiallySelectedOption = findOptionByValueStrict(
-  options,
-  MetricId.APPLE_STOCK
-);
+const initiallySelectedOption = options[0];
 
 export const Example = Template.bind({});
 Example.args = {
@@ -36,8 +33,8 @@ Example.args = {
  */
 interface StatefulSelectProps {
   label: string;
-  options: SelectOption[];
-  initiallySelectedOption: SelectOption;
+  options: Metric[];
+  initiallySelectedOption: Metric;
 }
 
 const StatefulSelect = ({
@@ -45,12 +42,11 @@ const StatefulSelect = ({
   options,
   initiallySelectedOption,
 }: StatefulSelectProps) => {
-  const [selectedOption, setSelectedOption] = useState(initiallySelectedOption);
-
-  const onSelectOption = (optionValue: string) => {
-    const newSelectedOption = findOptionByValueStrict(options, optionValue);
-    setSelectedOption(newSelectedOption);
-  };
+  const [selectedOption, onSelectOption] = useSelect(
+    options,
+    initiallySelectedOption,
+    (item: Metric) => item.id
+  );
 
   return (
     <Select
@@ -58,6 +54,8 @@ const StatefulSelect = ({
       options={options}
       selectedOption={selectedOption}
       onSelectOption={onSelectOption}
+      getValue={(metric) => metric.id}
+      getLabel={(metric) => metric.name}
     />
   );
 };

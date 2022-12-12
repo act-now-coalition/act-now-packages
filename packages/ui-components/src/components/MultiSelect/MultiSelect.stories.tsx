@@ -1,44 +1,28 @@
 import React, { useState } from "react";
 
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { ComponentMeta } from "@storybook/react";
 import sortBy from "lodash/sortBy";
 
-import { states } from "@actnowcoalition/regions";
+import { Region, states } from "@actnowcoalition/regions";
 
 import { MultiSelect, MultiSelectProps } from ".";
-import { SelectOption } from "../Select";
 
 export default {
   title: "Components/MultiSelect",
   component: MultiSelect,
 } as ComponentMeta<typeof MultiSelect>;
 
-const Template: ComponentStory<typeof MultiSelect> = (args) => (
-  <StatefulMultiSelect {...args} />
-);
-
-const options: SelectOption[] = sortBy(
-  states.all.map(({ regionId, shortName }) => ({
-    value: regionId,
-    label: shortName,
-  })),
-  (option) => option.label
-);
+const options: Region[] = sortBy(states.all, (state) => state.shortName);
 
 const initiallySelectedOptions = options.slice(0, 4);
 
-export const Example = Template.bind({});
-Example.args = {
-  label: "States",
-  options,
-  selectedOptions: initiallySelectedOptions,
-};
-
-export const StatefulMultiSelect = ({
+const StatefulMultiSelect = ({
   label,
   options,
   selectedOptions: initiallySelectedOptions,
-}: MultiSelectProps) => {
+  getValue,
+  getLabel,
+}: Omit<MultiSelectProps<Region>, "onSelectOptions">) => {
   const [selectedOptions, setSelectedOptions] = useState(
     initiallySelectedOptions
   );
@@ -49,6 +33,18 @@ export const StatefulMultiSelect = ({
       options={options}
       selectedOptions={selectedOptions}
       onSelectOptions={setSelectedOptions}
+      getLabel={getLabel}
+      getValue={getValue}
     />
   );
 };
+
+export const Example = () => (
+  <StatefulMultiSelect
+    options={options}
+    selectedOptions={initiallySelectedOptions}
+    label="States"
+    getValue={(state) => state.regionId}
+    getLabel={(state) => state.shortName}
+  />
+);
