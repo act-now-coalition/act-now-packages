@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { ComponentMeta } from "@storybook/react";
 import sortBy from "lodash/sortBy";
 
 import { Region, states } from "@actnowcoalition/regions";
 
-import { MultiSelect, MultiSelectProps, useMultiSelect } from ".";
+import { MultiSelect, MultiSelectProps } from ".";
 
 export default {
   title: "Components/MultiSelect",
@@ -23,7 +23,7 @@ export const StatefulMultiSelect = ({
   getValue,
   getLabel,
 }: Omit<MultiSelectProps<Region>, "onSelectOptions">) => {
-  const [selectedOptions, setSelectedOptions] = useMultiSelect(
+  const [selectedOptions, setSelectedOptions] = useState(
     initiallySelectedOptions
   );
 

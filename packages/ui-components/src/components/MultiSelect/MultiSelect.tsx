@@ -11,7 +11,9 @@ export interface MultiSelectProps<T> {
   selectedOptions: T[];
   /** Handler to call when a user selects or removes an option */
   onSelectOptions: (selectedOptions: T[]) => void;
+  /** Function to get the label from an option */
   getLabel: (item: T) => string;
+  /** Function to get the value from an option */
   getValue: (item: T) => string;
 }
 

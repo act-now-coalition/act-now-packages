@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 import { ParentSize } from "@visx/responsive";
@@ -8,7 +8,7 @@ import { Region } from "@actnowcoalition/regions";
 
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricSeriesChart } from "../MetricSeriesChart";
-import { MultiSelect, useMultiSelect } from "../MultiSelect";
+import { MultiSelect } from "../MultiSelect";
 import { Select, useSelect } from "../Select";
 import { getMetricSeries } from "./utils";
 
@@ -45,7 +45,7 @@ export const MultiRegionMultiMetricChart = ({
     getMetricId
   );
 
-  const [selectedRegions, setSelectedRegions] = useMultiSelect(initialRegions);
+  const [selectedRegions, setSelectedRegions] = useState(initialRegions);
 
   const series = getMetricSeries(selectedMetric, selectedRegions);
 
