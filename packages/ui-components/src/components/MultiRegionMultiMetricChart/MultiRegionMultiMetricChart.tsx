@@ -23,9 +23,8 @@ export interface MultiRegionMultiMetricChartProps {
   initialRegions: Region[];
 }
 
-function getMetricOption(metric: Metric): SelectOption {
-  return { value: metric.id, label: metric.name };
-}
+const getMetricId = (metric: Metric) => metric.id;
+const getMetricLabel = (metric: Metric) => metric.name;
 
 function getRegionOption(region: Region): SelectOption {
   return { value: region.regionId, label: region.shortName };
@@ -41,12 +40,11 @@ export const MultiRegionMultiMetricChart = ({
   const metrics = metricsOrIds.map((m) => metricCatalog.getMetric(m));
   const initialMetric = metricCatalog.getMetric(initialMetricOrId);
 
-  const [
-    metricOptions,
-    selectedMetricOption,
-    onSelectMetricOption,
-    selectedMetric,
-  ] = useSelectedOption(metrics, initialMetric, getMetricOption);
+  const [selectedMetric, setSelectedMetric] = useSelectedOption(
+    metrics,
+    initialMetric,
+    getMetricId
+  );
 
   const [
     regionOptions,
@@ -61,9 +59,11 @@ export const MultiRegionMultiMetricChart = ({
     <Stack spacing={2}>
       <Select
         label="Metric"
-        options={metricOptions}
-        selectedOption={selectedMetricOption}
-        onSelectOption={onSelectMetricOption}
+        options={metrics}
+        selectedOption={selectedMetric}
+        onSelectOption={setSelectedMetric}
+        getValue={getMetricId}
+        getLabel={getMetricLabel}
       />
       {/* Time Periods */}
       <MultiSelect

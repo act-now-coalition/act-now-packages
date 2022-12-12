@@ -11,33 +11,38 @@ export interface SelectOption {
   label: string;
 }
 
-export interface SelectProps {
+export interface SelectProps<T> {
   /** List of dropdown options */
-  options: SelectOption[];
+  options: T[];
   /** Selected option */
-  selectedOption: SelectOption;
+  selectedOption: T;
   /** Label for the selection menu */
   label: string;
+
+  getValue: (item: T) => string;
+  getLabel: (item: T) => string;
   /** Handler to call when the user selects an option */
-  onSelectOption: (optionId: SelectOption["value"]) => void;
+  onSelectOption: (value: string) => void;
 }
 
 /**
  * Simple dropdown menu that allows to select a single option. The component
  * is uncontrolled, so the parent needs to manage the state.
  */
-export const Select = ({
+export const Select = <T,>({
   label,
   options,
   selectedOption,
   onSelectOption,
-}: SelectProps) => (
+  getValue,
+  getLabel,
+}: SelectProps<T>) => (
   <TextField
     select
     variant="filled"
     fullWidth
     label={<Typography variant="paragraphSmall">{label}</Typography>}
-    value={selectedOption.value}
+    value={getValue(selectedOption)}
     onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
       onSelectOption(event.target.value)
     }
@@ -46,9 +51,9 @@ export const Select = ({
       MenuProps: { style: { maxHeight: 300 } },
     }}
   >
-    {options.map(({ value, label }) => (
-      <MenuItem key={value} value={value}>
-        <Typography noWrap>{label}</Typography>
+    {options.map((option) => (
+      <MenuItem key={getValue(option)} value={getValue(option)}>
+        <Typography noWrap>{getLabel(option)}</Typography>
       </MenuItem>
     ))}
   </TextField>
