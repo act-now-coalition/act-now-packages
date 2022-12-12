@@ -1,7 +1,8 @@
 import { schemeCategory10 } from "d3-scale-chromatic";
 
-import { Metric } from "@actnowcoalition/metrics";
+import { DateRange, Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
+import { TimeUnit, subtractTime } from "@actnowcoalition/time-utils";
 
 import { Series, SeriesType } from "../SeriesChart";
 
@@ -15,4 +16,28 @@ export function getMetricSeries(metric: Metric, regions: Region[]): Series[] {
       stroke: schemeCategory10[index % schemeCategory10.length],
     },
   }));
+}
+
+export interface TimePeriod {
+  /** Label to show in the dropdown */
+  label: string;
+  /**
+   * Date range to filter the series by. If undefined, it doesn't
+   * filter the timeseries.
+   * */
+  dateRange?: DateRange;
+}
+
+export function getDefaultTimePeriods(date: Date): TimePeriod[] {
+  return [
+    {
+      label: "60",
+      dateRange: { startAt: subtractTime(date, 60, TimeUnit.DAYS) },
+    },
+    {
+      label: "180",
+      dateRange: { startAt: subtractTime(date, 180, TimeUnit.DAYS) },
+    },
+    { label: "All time", dateRange: undefined },
+  ];
 }
