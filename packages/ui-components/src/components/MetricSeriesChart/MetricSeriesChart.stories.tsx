@@ -80,6 +80,26 @@ TrendsSingleLocation.args = {
   ],
 };
 
+export const FilteredByDate = Template.bind({});
+FilteredByDate.args = {
+  width,
+  height,
+  dateRange: { startAt: new Date("2022-10-01"), endAt: new Date("2022-11-30") },
+  series: [
+    {
+      region: WA,
+      metric: MetricId.MOCK_CASES,
+      type: SeriesType.BAR,
+    },
+    {
+      region: WA,
+      metric: MetricId.MOCK_CASES,
+      type: SeriesType.LINE,
+      lineProps: { stroke: "black" },
+    },
+  ],
+};
+
 export const TrendsMultipleLocations = Template.bind({});
 TrendsMultipleLocations.args = {
   width,
