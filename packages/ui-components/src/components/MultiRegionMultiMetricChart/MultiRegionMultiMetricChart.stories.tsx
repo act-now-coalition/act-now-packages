@@ -34,15 +34,15 @@ const today = new Date();
 const customTimePeriods: TimePeriod[] = [
   {
     label: "Past week",
-    dateRange: { startAt: subtractTime(today, 7, TimeUnit.DAYS) },
+    dateRange: { startAt: subtractTime(today, 1, TimeUnit.WEEKS) },
   },
   {
     label: "Past 2 weeks",
-    dateRange: { startAt: subtractTime(today, 14, TimeUnit.DAYS) },
+    dateRange: { startAt: subtractTime(today, 2, TimeUnit.WEEKS) },
   },
   {
-    label: "Past 30 days",
-    dateRange: { startAt: subtractTime(today, 30, TimeUnit.DAYS) },
+    label: "Past month",
+    dateRange: { startAt: subtractTime(today, 1, TimeUnit.MONTHS) },
   },
   { label: "All time", dateRange: undefined },
 ];
