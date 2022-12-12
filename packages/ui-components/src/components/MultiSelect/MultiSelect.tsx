@@ -2,17 +2,17 @@ import React from "react";
 
 import { Autocomplete, Chip, TextField, Typography } from "@mui/material";
 
-import { SelectOption } from "../Select";
-
-export interface MultiSelectProps {
+export interface MultiSelectProps<T> {
   /** Label for the selection menu */
   label: string;
   /** List of dropdown options  */
-  options: SelectOption[];
+  options: T[];
   /** List of selected options */
-  selectedOptions: SelectOption[];
+  selectedOptions: T[];
   /** Handler to call when a user selects or removes an option */
-  onSelectOptions: (selectedOptions: SelectOption[]) => void;
+  onSelectOptions: (selectedOptions: T[]) => void;
+  getLabel: (item: T) => string;
+  getValue: (item: T) => string;
 }
 
 /**
@@ -20,23 +20,25 @@ export interface MultiSelectProps {
  * The component is uncontrolled, so the parent needs to
  * manage the state.
  */
-export const MultiSelect = ({
+export const MultiSelect = <T,>({
   label,
   options,
   selectedOptions,
   onSelectOptions,
-}: MultiSelectProps) => (
+  getLabel,
+  getValue,
+}: MultiSelectProps<T>) => (
   <Autocomplete<
-    SelectOption,
+    T,
     /*Multiple=*/ true,
     /*DisableClearable*/ false,
     /* FreeSolo*/ false
   >
     multiple
     options={options}
-    getOptionLabel={(item) => item.label}
+    getOptionLabel={getLabel}
     value={selectedOptions}
-    isOptionEqualToValue={isOptionEqualToValue}
+    isOptionEqualToValue={(a, b) => getValue(a) === getValue(b)}
     onChange={(e: React.SyntheticEvent, options) => onSelectOptions(options)}
     ListboxProps={{ style: { maxHeight: 300 } }}
     renderInput={(params) => (
@@ -53,15 +55,11 @@ export const MultiSelect = ({
       selectedOptions.map((option, index) => (
         <Chip
           {...getTagProps({ index })}
-          key={option.value}
+          key={getValue(option)}
           variant="outlined"
-          label={option.label}
+          label={getLabel(option)}
         />
       ))
     }
   />
 );
-
-function isOptionEqualToValue(optionA: SelectOption, optionB: SelectOption) {
-  return optionA.value === optionB.value;
-}

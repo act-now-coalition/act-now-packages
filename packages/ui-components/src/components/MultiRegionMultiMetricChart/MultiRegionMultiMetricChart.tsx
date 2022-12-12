@@ -8,8 +8,8 @@ import { Region } from "@actnowcoalition/regions";
 
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricSeriesChart } from "../MetricSeriesChart";
-import { MultiSelect, useSelectedOptions } from "../MultiSelect";
-import { Select, SelectOption, useSelect } from "../Select";
+import { MultiSelect, useMultiSelect } from "../MultiSelect";
+import { Select, useSelect } from "../Select";
 import { getMetricSeries } from "./utils";
 
 export interface MultiRegionMultiMetricChartProps {
@@ -26,9 +26,8 @@ export interface MultiRegionMultiMetricChartProps {
 const getMetricId = (metric: Metric) => metric.id;
 const getMetricLabel = (metric: Metric) => metric.name;
 
-function getRegionOption(region: Region): SelectOption {
-  return { value: region.regionId, label: region.shortName };
-}
+const getRegionLabel = (region: Region) => region.shortName;
+const getRegionValue = (region: Region) => region.regionId;
 
 export const MultiRegionMultiMetricChart = ({
   regions,
@@ -46,12 +45,7 @@ export const MultiRegionMultiMetricChart = ({
     getMetricId
   );
 
-  const [
-    regionOptions,
-    selectedRegionOptions,
-    setSelectedRegionOptions,
-    selectedRegions,
-  ] = useSelectedOptions(regions, initialRegions, getRegionOption);
+  const [selectedRegions, setSelectedRegions] = useMultiSelect(initialRegions);
 
   const series = getMetricSeries(selectedMetric, selectedRegions);
 
@@ -68,9 +62,11 @@ export const MultiRegionMultiMetricChart = ({
       {/* Time Periods */}
       <MultiSelect
         label="Locations"
-        options={regionOptions}
-        selectedOptions={selectedRegionOptions}
-        onSelectOptions={setSelectedRegionOptions}
+        options={regions}
+        selectedOptions={selectedRegions}
+        onSelectOptions={setSelectedRegions}
+        getLabel={getRegionLabel}
+        getValue={getRegionValue}
       />
       <ParentSize>
         {({ width }) => (

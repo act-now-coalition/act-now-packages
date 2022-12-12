@@ -4,13 +4,6 @@ import { MenuItem, TextField, Typography } from "@mui/material";
 
 import { assert } from "@actnowcoalition/assert";
 
-export interface SelectOption {
-  /** Unique identifier for the option */
-  value: string;
-  /** Option label */
-  label: string;
-}
-
 export interface SelectProps<T> {
   /** List of dropdown options */
   options: T[];

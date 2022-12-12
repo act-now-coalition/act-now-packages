@@ -1,2 +1,2 @@
 export * from "./MultiSelect";
-export * from "./useSelectedOptions";
+export * from "./useMultiSelect";
