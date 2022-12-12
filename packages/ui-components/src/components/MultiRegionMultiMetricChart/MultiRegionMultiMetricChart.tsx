@@ -41,7 +41,7 @@ export const MultiRegionMultiMetricChart = ({
   metrics: metricsOrIds,
   initialMetric: initialMetricOrId,
   initialRegions,
-  timePeriods,
+  timePeriods: customTimePeriods,
   initialTimePeriod,
   height = 500,
   marginRight = 160,
@@ -57,12 +57,15 @@ export const MultiRegionMultiMetricChart = ({
     getMetricId
   );
 
-  const periods = timePeriods ?? getDefaultTimePeriods(new Date());
-  const defaultPeriod = initialTimePeriod ?? periods[periods.length - 1];
+  const timePeriods = customTimePeriods ?? getDefaultTimePeriods(new Date());
+  const initialPeriod =
+    customTimePeriods && initialTimePeriod
+      ? initialTimePeriod
+      : timePeriods[timePeriods.length - 1];
 
   const [selectedPeriod, setSelectedPeriod] = useSelect(
-    periods,
-    defaultPeriod,
+    timePeriods,
+    initialPeriod,
     getPeriodLabel
   );
 
@@ -82,7 +85,7 @@ export const MultiRegionMultiMetricChart = ({
       />
       <Select
         label="Past number of days"
-        options={periods}
+        options={timePeriods}
         selectedOption={selectedPeriod}
         onSelectOption={setSelectedPeriod}
         getLabel={getPeriodLabel}
@@ -120,7 +123,16 @@ export const MultiRegionMultiMetricChart = ({
 };
 
 const EmptyState = ({ width, height }: { width: number; height: number }) => (
-  <Box sx={{ width, height, display: "grid", placeItems: "center" }}>
+  <Box
+    sx={{
+      width,
+      height,
+      display: "grid",
+      placeItems: "center",
+      backgroundColor: "action.disabledBackground",
+      borderRadius: 1,
+    }}
+  >
     <Typography variant="labelSmall" component="div">
       Please select at least one location
     </Typography>

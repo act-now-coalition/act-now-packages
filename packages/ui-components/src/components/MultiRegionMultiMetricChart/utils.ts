@@ -19,7 +19,12 @@ export function getMetricSeries(metric: Metric, regions: Region[]): Series[] {
 }
 
 export interface TimePeriod {
+  /** Label to show in the dropdown */
   label: string;
+  /**
+   * Date range to filter the series by. If undefined, it doesn't
+   * filter the timeseries.
+   * */
   dateRange?: DateRange;
 }
 
