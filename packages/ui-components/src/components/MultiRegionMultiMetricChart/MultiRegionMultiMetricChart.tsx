@@ -22,19 +22,11 @@ export interface MultiRegionMultiMetricChartProps extends BaseChartProps {
   initialMetric: Metric | string;
   /* Initially selected regions */
   initialRegions: Region[];
-  /** Time Periods */
+  /** List of time period options that the chart can be filtered by */
   timePeriods?: TimePeriod[];
-  /** default Time period */
+  /** Initially selected time period */
   initialTimePeriod?: TimePeriod;
 }
-
-const getMetricId = (metric: Metric) => metric.id;
-const getMetricLabel = (metric: Metric) => metric.name;
-
-const getRegionLabel = (region: Region) => region.shortName;
-const getRegionValue = (region: Region) => region.regionId;
-
-const getPeriodLabel = (period: TimePeriod) => period.label;
 
 export const MultiRegionMultiMetricChart = ({
   regions,
@@ -121,6 +113,12 @@ export const MultiRegionMultiMetricChart = ({
     </Stack>
   );
 };
+
+const getMetricId = (metric: Metric) => metric.id;
+const getMetricLabel = (metric: Metric) => metric.name;
+const getRegionLabel = (region: Region) => region.shortName;
+const getRegionValue = (region: Region) => region.regionId;
+const getPeriodLabel = (period: TimePeriod) => period.label;
 
 const EmptyState = ({ width, height }: { width: number; height: number }) => (
   <Box
