@@ -11,8 +11,9 @@ export interface SelectProps<T> {
   selectedOption: T;
   /** Label for the selection menu */
   label: string;
-
+  /** Function to access the option value */
   getValue: (item: T) => string;
+  /** Function to access the option label */
   getLabel: (item: T) => string;
   /** Handler to call when the user selects an option */
   onSelectOption: (value: string) => void;

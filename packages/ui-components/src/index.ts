@@ -116,6 +116,7 @@ export * from "./components/MetricValue";
 export * from "./components/MetricWorldMap";
 export * from "./components/MultiMetricUSStateMap";
 export * from "./components/MultiProgressBar";
+export * from "./components/MultiRegionMultiMetricChart";
 export * from "./components/MultiSelect";
 export * from "./components/PointMarker";
 export * from "./components/ProgressBar";
@@ -128,5 +129,3 @@ export * from "./components/SparkLine";
 export * from "./components/USNationalMap";
 export * from "./components/USStateMap";
 export * from "./components/WorldMap";
-
-export * from "./components/MultiRegionMultiMetricChart";
