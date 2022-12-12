@@ -10,7 +10,7 @@ import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
 
 import { assert } from "@actnowcoalition/assert";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { DateRange, Timeseries } from "@actnowcoalition/metrics";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
@@ -34,6 +34,8 @@ export interface MetricSeriesChartProps extends BaseChartProps {
    * of the chart, close to the last value of each series.
    */
   showLabels?: boolean;
+  /** Date range used to filter the series */
+  dateRange?: DateRange;
 }
 
 /**
@@ -56,6 +58,7 @@ export const MetricSeriesChart = ({
   marginRight = 20,
   minValue = 0,
   showLabels = true,
+  dateRange,
 }: MetricSeriesChartProps) => {
   const metricCatalog = useMetricCatalog();
   const theme = useTheme();
@@ -80,9 +83,15 @@ export const MetricSeriesChart = ({
 
   const timeseriesList =
     data &&
-    series.map(({ region, metric }) =>
-      data.metricData(region, metric).timeseries.assertFiniteNumbers()
-    );
+    series.map(({ region, metric }) => {
+      const fullTimeseries = data
+        .metricData(region, metric)
+        .timeseries.assertFiniteNumbers();
+
+      return dateRange
+        ? fullTimeseries.filterToDateRange(dateRange)
+        : fullTimeseries;
+    });
 
   const { pointInfo, onMouseMove, onMouseLeave } =
     useHoveredPoint(timeseriesList);
