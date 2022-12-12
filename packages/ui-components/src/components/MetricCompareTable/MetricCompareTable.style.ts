@@ -1,4 +1,5 @@
-import { Link as MuiLink } from "@mui/material";
+import { StyledComponent } from "@emotion/styled";
+import { LinkBaseProps, Link as MuiLink } from "@mui/material";
 
 import { styled } from "../../styles";
 import { TableCell } from "../CompareTable";
@@ -9,7 +10,9 @@ export const StyledTableCell = styled(TableCell)`
   padding: 0;
 `;
 
-export const StyledLink = styled(MuiLink)`
+export const StyledLink: StyledComponent<
+  Omit<LinkBaseProps, "classes">
+> = styled(MuiLink)`
   display: flex;
   padding: ${({ theme }) => theme.spacing(2)};
   text-decoration: none;
