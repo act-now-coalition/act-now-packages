@@ -16,7 +16,7 @@ const options: Region[] = sortBy(states.all, (state) => state.shortName);
 
 const initiallySelectedOptions = options.slice(0, 4);
 
-export const StatefulMultiSelect = ({
+const StatefulMultiSelect = ({
   label,
   options,
   selectedOptions: initiallySelectedOptions,
