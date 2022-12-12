@@ -70,7 +70,7 @@ export const SparkLine = ({
             timeseries={timeseriesBarChart}
             xScale={xScaleBar}
             yScale={yScaleBar}
-            fill={theme.palette.border.default}
+            fillOpacity={0.3}
           />
         </Group>
         <LineChart
