@@ -1,12 +1,15 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
-import { scaleLinear, scaleTime } from "@visx/scale";
-import { AxesTimeseries, AxesTimeseriesProps } from "./AxesTimeseries";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { formatPercent } from "@actnowcoalition/number-format";
 
+import { AxesTimeseries } from "./AxesTimeseries";
+
 export default {
-  title: "Charts/AxesTimeseries",
+  title: "Components/AxesTimeseries",
 } as ComponentMeta<typeof AxesTimeseries>;
 
 const width = 600;
@@ -15,8 +18,8 @@ const margin = 50;
 const chartWidth = width - 2 * margin;
 const chartHeight = height - 2 * margin;
 
-const dateScale = scaleTime({
-  domain: [new Date("2022-01-01"), new Date()],
+const xScale = scaleUtc({
+  domain: [new Date("2022-01-01"), new Date("2022-10-31")],
   range: [0, chartWidth],
 });
 
@@ -30,7 +33,7 @@ const yScalePercent = scaleLinear({
   range: [chartHeight, 0],
 });
 
-const Template: Story<AxesTimeseriesProps> = (args) => (
+const Template: ComponentStory<typeof AxesTimeseries> = (args) => (
   <svg width={width} height={height} style={{ border: "1px solid red" }}>
     <Group top={margin} left={margin}>
       <AxesTimeseries {...args} />
@@ -38,27 +41,27 @@ const Template: Story<AxesTimeseriesProps> = (args) => (
   </svg>
 );
 
-export const DefaultSettings = Template.bind({});
-DefaultSettings.args = {
+export const Default = Template.bind({});
+Default.args = {
   height: chartHeight,
-  dateScale,
+  xScale,
   yScale,
 };
 
 export const CustomNumYTicks = Template.bind({});
 CustomNumYTicks.args = {
   height: chartHeight,
-  dateScale,
+  xScale,
   yScale,
   axisLeftProps: {
     numTicks: 10,
   },
 };
 
-export const CustomTickFormat = Template.bind({});
-CustomTickFormat.args = {
+export const CustomYTickFormat = Template.bind({});
+CustomYTickFormat.args = {
   height: chartHeight,
-  dateScale,
+  xScale,
   yScale: yScalePercent,
   axisLeftProps: {
     tickFormat: (value: number) => formatPercent(value),

@@ -1,60 +1,68 @@
-import { Region } from "@actnowcoalition/regions";
 import React from "react";
-import { Metric } from "@actnowcoalition/metrics";
-import { SparkLine } from "../SparkLine";
-import { useMetricCatalog } from "../MetricCatalogContext";
-import { Skeleton } from "@mui/material";
-import { SparkLineProps } from "../SparkLine";
-import { useDataForMetrics } from "../../common/hooks";
 
-export interface MetricSparklinesProps
-  extends Omit<SparkLineProps, "timeseriesBarChart" | "timeseriesLineChart"> {
+import { Skeleton } from "@mui/material";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
+import { useDataForMetrics } from "../../common/hooks";
+import { ErrorBox } from "../ErrorBox";
+import { useMetricCatalog } from "../MetricCatalogContext";
+import { BaseSparkLineProps, SparkLine } from "../SparkLine";
+
+export interface MetricSparklinesProps extends BaseSparkLineProps {
   /** Region to generate sparkline for. */
   region: Region;
   /** Metric to use for line element of sparkline. */
   metricLineChart: Metric | string;
   /** Metric to use for bar elements of sparkline. */
   metricBarChart: Metric | string;
-  /** Number of days to show in sparkline, starting from the most recent date looking backwards. */
-  numDays: number;
+  /** Earliest date to be displayed. If not specified, earliest data point will be displayed. */
+  dateFrom?: Date;
+  /** Latest date to be displayed. If not specified, latest data point will be displayed.  */
+  dateTo?: Date;
 }
 
-export const MetricSparklines: React.FC<MetricSparklinesProps> = ({
+export const MetricSparklines = ({
   region,
   metricLineChart,
   metricBarChart,
-  numDays = 30,
+  dateFrom,
+  dateTo,
   ...optionalProps
-}) => {
+}: MetricSparklinesProps) => {
   const metricCatalog = useMetricCatalog();
   metricLineChart = metricCatalog.getMetric(metricLineChart);
   metricBarChart = metricCatalog.getMetric(metricBarChart);
+
   const { data, error } = useDataForMetrics(
     region,
     [metricLineChart, metricBarChart],
     /*includeTimeseries=*/ true
   );
+  const width = optionalProps.width ?? 150;
+  const height = optionalProps.height ?? 50;
+
   if (error) {
-    throw error;
+    return (
+      // Because the sparklines are too small for much text, we will just render a blank box.
+      <ErrorBox width={width} height={height}>
+        {""}
+      </ErrorBox>
+    );
   } else if (!data) {
     // Render loading placeholder.
-    return (
-      <Skeleton
-        variant="rectangular"
-        width={optionalProps.width ?? 150}
-        height={optionalProps.height ?? 50}
-      />
-    );
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   } else {
     // Render Sparkline.
     const timeseriesLineChart = data
       .metricData(metricLineChart)
       ?.timeseries.assertFiniteNumbers()
-      .slice(-numDays);
+      .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
     const timeseriesBarChart = data
       .metricData(metricBarChart)
       ?.timeseries.assertFiniteNumbers()
-      .slice(-numDays);
+      .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
     return (
       <SparkLine

@@ -1,5 +1,4 @@
 import { styled } from "../../styles";
-import { Box } from "@mui/material";
 
 export const colorDisputedAreas = "#aaa";
 export const colorWaterBodies = "rgb(248,248,248)";
@@ -165,10 +164,4 @@ export const DisputedBorderPath = styled("path")`
   &.Western_Sahara {
     ${styleSolid};
   }
-`;
-
-export const ErrorMessage = styled(Box)`
-  display: grid;
-  place-items: center;
-  background-color: #eee;
 `;

@@ -1,5 +1,72 @@
 # @actnowcoalition/ui-components
 
+## 0.9.0
+
+### Minor Changes
+
+- ecbedde: simplify various prop interfaces
+- 22cc5b8: Removing sortColumnId and sortDirection from CompareTable
+- a6fb51d: rename renderTooltip prop to getTooltip
+
+### Patch Changes
+
+- b26d872: Reorganize storybook
+- 043296b: Fix #421: Render placeholder text in MetricOverview while waiting for data to load to avoid layout shift.
+- 9a483b3: Fix #422: Make MetricMultiProgressBar render Skeleton while data is loading to avoid layout shift.
+- e2d92b8: Add default metric format options and decimal points mock data
+- fbc8a79: Add disabledBackground theme color and use for loading states.
+- 2da2dd6: Add support for labels on MetricSeriesChart
+- 564a844: Fixes #450: Adds theming selector to Storybook (and adds an initial dark theme).
+- e0fb6de: Fix #418,#419,#420: Better error states for charts, maps, and compare table.
+- 6a6cda5: Render Skeleton component in charts while data is loading to avoid layout shift.
+- a21eb05: Render map regions in grey while data is loading to avoid layout shifts.
+- ecbedde: implement import sorting
+- Updated dependencies [d69f828]
+- Updated dependencies [ecbedde]
+  - @actnowcoalition/metrics@0.4.0
+  - @actnowcoalition/number-format@0.1.2
+  - @actnowcoalition/regions@0.1.2
+
+## 0.8.2
+
+### Patch Changes
+
+- c771c22: Make sparkline y-axis start from 0 and use dateFrom and dateTo
+- 4591d4b: Export SeriesChart types again (got accidentally removed during recent refactoring).
+- Updated dependencies [65b7b91]
+  - @actnowcoalition/metrics@0.3.4
+
+## 0.8.1
+
+### Patch Changes
+
+- 55a51fb: Fix floating zero on y-axis
+- 638b514: Cleanup to syntax and some light file rearranging
+- 79ce3cb: Add ability to simulate data fetching errors and delays.
+- f48b6f8: CSVMetricDataProvider: Log warning if there are any unknown region IDs. Throw error if they're all unknown.
+- 69981bf: Enable chart to accommodate negative values
+- Updated dependencies [6b1f290]
+- Updated dependencies [2b7fbe9]
+- Updated dependencies [79ce3cb]
+- Updated dependencies [317d58e]
+- Updated dependencies [f48b6f8]
+  - @actnowcoalition/metrics@0.3.3
+
+## 0.8.0
+
+### Minor Changes
+
+- 8456ad7: - `MetricSeriesChart` takes `Metric` or `MetricId`
+  - The y-axis on `MetricSeriesChart` takes the format of the metrics in the series list
+  - The `SeriesLine.lineProps` attribute is now optional
+
+### Patch Changes
+
+- 1ab0527: Resolve unique key warning in World Map component
+- be296ed: Fix a timezone issue in charts with a time-based axis'
+- 9c50781: Improve implementations of theme colors
+- 9aab4e6: Default metric's extended name to empty string
+
 ## 0.7.3
 
 ### Patch Changes

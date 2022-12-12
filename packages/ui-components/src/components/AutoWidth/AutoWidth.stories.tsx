@@ -1,11 +1,14 @@
 import React from "react";
+
+import { Box, Grid, colors } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
-import { Grid, Box, colors } from "@mui/material";
+
 import { states } from "@actnowcoalition/regions";
-import { MetricId } from "../../stories/mockMetricCatalog";
-import { MetricSparklines } from "../MetricSparklines";
-import { styled } from "../../styles";
+
 import { AutoWidth } from ".";
+import { MetricId } from "../../stories/mockMetricCatalog";
+import { styled } from "../../styles";
+import { MetricSparklines } from "../MetricSparklines";
 
 export default {
   title: "Components/AutoWidth",
@@ -89,7 +92,7 @@ const region = states.findByRegionIdStrict("12");
 /**
  * Using a real chart this time, we create a Grid with 4 columns.
  */
-export const Sparklines = () => (
+export const WithSparklines = () => (
   <Grid container spacing={2}>
     {[1, 2, 3, 4].map((n) => (
       <StyledGridItem item xs={3} key={`grid-item-${n}`}>
@@ -99,7 +102,6 @@ export const Sparklines = () => (
             region={region}
             metricBarChart={MetricId.MOCK_CASES}
             metricLineChart={MetricId.MOCK_CASES}
-            numDays={30}
           />
         </AutoWidth>
       </StyledGridItem>

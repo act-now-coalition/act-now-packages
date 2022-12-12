@@ -1,16 +1,28 @@
 import React from "react";
-import { scaleLinear, scaleTime } from "@visx/scale";
+
+import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
 import { useData } from "../../common/hooks";
+import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { ErrorBox } from "../ErrorBox";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { MetricLineChartProps } from "./interfaces";
 import { PointMarker } from "../PointMarker";
 
-export const MetricLineChart: React.FC<MetricLineChartProps> = ({
+export interface MetricLineChartProps extends BaseChartProps {
+  metric: Metric | string;
+  region: Region;
+}
+
+export const MetricLineChart = ({
   metric: metricOrId,
   region,
   width,
@@ -19,18 +31,24 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   marginBottom = 30,
   marginLeft = 70,
   marginRight = 20,
-}) => {
+}: MetricLineChartProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 
-  const { data } = useData(region, metric, /*includeTimeseries=*/ true);
+  const { data, error } = useData(region, metric, /*includeTimeseries=*/ true);
   const timeseries = data && data?.timeseries.assertFiniteNumbers();
 
   const { hoveredPoint, onMouseMove, onMouseLeave } =
     useHoveredDate(timeseries);
 
-  if (!data || !timeseries?.hasData()) {
-    return null;
+  if (error) {
+    return (
+      <ErrorBox width={width} height={height}>
+        Chart could not be loaded.
+      </ErrorBox>
+    );
+  } else if (!data || !timeseries?.hasData()) {
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const chartHeight = height - marginTop - marginBottom;
@@ -38,7 +56,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
 
   const { minDate, maxDate, maxValue } = timeseries;
 
-  const dateScale = scaleTime({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
@@ -49,17 +67,17 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value: number) => metric.formatValue(value),
           }}
         />
-        <LineChart timeseries={timeseries} xScale={dateScale} yScale={yScale} />
+        <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
         {hoveredPoint && (
           <MetricTooltip
             metric={metric}
@@ -68,7 +86,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
             open
           >
             <PointMarker
-              x={dateScale(hoveredPoint.date)}
+              x={xScale(hoveredPoint.date)}
               y={yScale(hoveredPoint.value)}
             />
           </MetricTooltip>
@@ -76,7 +94,7 @@ export const MetricLineChart: React.FC<MetricLineChartProps> = ({
         <ChartOverlayX
           width={chartWidth}
           height={chartHeight}
-          xScale={dateScale}
+          xScale={xScale}
           offset={marginLeft}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}

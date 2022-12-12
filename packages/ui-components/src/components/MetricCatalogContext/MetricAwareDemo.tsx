@@ -1,14 +1,20 @@
 import React from "react";
+
 import { Stack, Typography } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import { useMetricCatalog } from "./MetricCatalogContext";
-import { useData } from "../../common/hooks";
 
-const MetricAwareDemo: React.FC<{
+import { useData } from "../../common/hooks";
+import { useMetricCatalog } from "./MetricCatalogContext";
+
+const MetricAwareDemo = ({
+  metric: metricOrId,
+  region,
+}: {
   metric: Metric | string;
   region: Region;
-}> = ({ metric: metricOrId, region }) => {
+}) => {
   // Access the metric catalog from the context
   const metricCatalog = useMetricCatalog();
 

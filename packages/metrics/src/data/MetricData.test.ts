@@ -1,4 +1,5 @@
 import { states } from "@actnowcoalition/regions";
+
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "./MetricData";

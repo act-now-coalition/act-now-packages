@@ -1,9 +1,11 @@
 import React from "react";
-import { Region } from "@actnowcoalition/regions";
+
 import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
+
+import { useData } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Dot, PlaceholderDot } from "./MetricDot.style";
-import { useData } from "../../common/hooks";
 
 export interface MetricDotProps {
   /** Region for which we want to represent the current category */
@@ -18,10 +20,7 @@ export interface MetricDotProps {
  * metrics that don't have categories to keep spacing and alignment consistent
  * across metrics.
  */
-export const MetricDot: React.FC<MetricDotProps> = ({
-  region,
-  metric: metricOrId,
-}) => {
+export const MetricDot = ({ region, metric: metricOrId }: MetricDotProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
   const { data, error } = useData(region, metric, /*includeTimeseries=*/ false);

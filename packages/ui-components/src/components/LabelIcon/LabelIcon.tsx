@@ -1,24 +1,27 @@
 import React from "react";
-import { Stack, Typography, TypographyProps } from "@mui/material";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Stack, Typography, TypographyProps } from "@mui/material";
 
-export interface LabelIconProps extends TypographyProps {
-  /** Icon to show at the end of the label (ArrowForward by default) */
+export type LabelIconProps = Pick<
+  TypographyProps,
+  "color" | "variant" | "children"
+> & {
   endIcon?: React.ReactNode;
-}
+};
 
-export const LabelIcon: React.FC<LabelIconProps> = ({
+export const LabelIcon = ({
   endIcon = <ArrowForwardIcon fontSize="small" color="inherit" />,
-  children,
   variant = "labelLarge",
-  ...otherTypographyProps
-}) => {
+  color,
+  children,
+}: LabelIconProps) => {
   return (
-    <Typography variant={variant} {...otherTypographyProps}>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <span>{children}</span>
-        {endIcon}
-      </Stack>
-    </Typography>
+    <Stack direction="row" spacing={1} alignItems="center">
+      <Typography variant={variant} color={color}>
+        {children}
+      </Typography>
+      {endIcon}
+    </Stack>
   );
 };

@@ -1,5 +1,11 @@
 # @actnowcoalition/regions
 
+## 0.1.2
+
+### Patch Changes
+
+- ecbedde: implement import sorting
+
 ## 0.1.1
 
 ### Patch Changes

@@ -1,11 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { MetricSparklines } from ".";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
+
+import { MetricSparklines } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricSparklines",
+  title: "Components/MetricSparklines",
   component: MetricSparklines,
 } as ComponentMeta<typeof MetricSparklines>;
 
@@ -18,16 +21,32 @@ const defaultArgs = {
   // TODO: Make this a rolling avg. metric once provider is implemented.
   metricLineChart: MetricId.APPLE_STOCK,
   metricBarChart: MetricId.APPLE_STOCK,
-  numDays: 5,
 };
 
 export const ExampleFiveDays = Template.bind({});
 ExampleFiveDays.args = {
   ...defaultArgs,
+  dateFrom: new Date("2012-01-01"),
+  dateTo: new Date("2012-01-05"),
 };
 
 export const ExampleSixtyDays = Template.bind({});
 ExampleSixtyDays.args = {
   ...defaultArgs,
-  numDays: 60,
+  dateFrom: new Date("2012-01-01"),
+  dateTo: new Date("2012-03-02"),
+};
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...defaultArgs,
+  metricLineChart: MetricId.MOCK_CASES_DELAY_1S,
+  metricBarChart: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...defaultArgs,
+  metricLineChart: MetricId.MOCK_CASES_ERROR,
+  metricBarChart: MetricId.MOCK_CASES_ERROR,
 };

@@ -1,11 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
+import { Region, RegionDB, counties, states } from "@actnowcoalition/regions";
+
 import { MultiMetricUSStateMap } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import { states, counties, Region, RegionDB } from "@actnowcoalition/regions";
 
 export default {
-  title: "Maps/MultiMetric US State Map",
+  title: "Components/MultiMetricUSStateMap",
   component: MultiMetricUSStateMap,
 } as ComponentMeta<typeof MultiMetricUSStateMap>;
 
@@ -45,4 +48,16 @@ TwoMetricsWithHighlightedCounty.args = {
   highlightedRegion: counties.findByRegionIdStrict("36043"),
   metrics: [MetricId.MOCK_CASES, MetricId.PASS_FAIL],
   regionDB,
+};
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...OneMetric.args,
+  metrics: [MetricId.MOCK_CASES_DELAY_1S],
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...OneMetric.args,
+  metrics: [MetricId.MOCK_CASES_ERROR],
 };

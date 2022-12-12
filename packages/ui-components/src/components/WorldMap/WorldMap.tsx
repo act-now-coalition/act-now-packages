@@ -1,17 +1,25 @@
 import * as React from "react";
-import { Tooltip, Link } from "@mui/material";
-import { geoMercator, geoPath as d3GeoPath } from "d3-geo";
+
+import { Link, Tooltip } from "@mui/material";
+import { geoPath as d3GeoPath, geoMercator } from "d3-geo";
+
+import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
+import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";
+import { AutoWidth } from "../AutoWidth";
+import { DiagonalHatchPattern } from "./DiagonalHatchPattern";
 import {
   DisputedAreaPath,
   DisputedBorderPath,
   colorDisputedAreas,
 } from "./WorldMap.style";
-import DiagonalHatchPattern from "./DiagonalHatchPattern";
-import { AutoWidth } from "../AutoWidth";
-import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
-import { MapContainer } from "../USMaps/Maps.style";
-import { WorldMapProps } from "./interfaces";
-import { RegionOverlay } from "../USMaps/Maps.style";
+
+export interface WorldMapProps {
+  getTooltip: (regionId: string) => React.ReactNode;
+  getFillColor?: (regionId: string) => string;
+  getFillOpacity?: (geoId: string) => number;
+  width?: number;
+  getRegionUrl?: (regionId: string) => string | undefined;
+}
 
 // This aspect ratio and re-centering the projection maximize the land area
 // shown in the map, leaving out the Arctic and Antarctica, but keeping most
@@ -22,13 +30,13 @@ const mapAspectRatio = 380 / 800;
 // areas close to the Arctic
 const projectionCenter: [number, number] = [0, -55]; // [longitude, latitude]
 
-const WorldMapInner: React.FC<WorldMapProps> = ({
+const WorldMapInner = ({
   width = defaultWidth,
-  renderTooltip,
+  getTooltip,
   getFillColor = () => `#ddd`,
   getFillOpacity = () => 1,
   getRegionUrl = () => undefined,
-}) => {
+}: WorldMapProps) => {
   const data = nationsGeographies;
   const height = mapAspectRatio * width;
 
@@ -59,7 +67,7 @@ const WorldMapInner: React.FC<WorldMapProps> = ({
 
         {/* Clickable region overlay */}
         {countries.features.map((geo) => (
-          <Tooltip key={geo.id} title={renderTooltip(`${geo.id}`) ?? ""}>
+          <Tooltip key={geo.id} title={getTooltip(`${geo.id}`) ?? ""}>
             <Link href={getRegionUrl(`${geo.id}`)}>
               <RegionOverlay d={geoPath(geo) ?? ""} />
             </Link>
@@ -108,7 +116,7 @@ const nameToClassName = (name: string) =>
     .replaceAll("(", "")
     .replaceAll(")", "");
 
-const WorldMap: React.FC<WorldMapProps> = (props) => (
+const WorldMap = (props: WorldMapProps) => (
   <AutoWidth>
     <WorldMapInner {...props} />
   </AutoWidth>
@@ -116,7 +124,7 @@ const WorldMap: React.FC<WorldMapProps> = (props) => (
 
 /**
  * We memoize the component to prevent it from rendering multiple times
- * with the same props. Note that `renderTooltip` and `getFillColor` need to
+ * with the same props. Note that `getTooltip` and `getFillColor` need to
  * be memoized in the parent component for `React.memo` to work.
  *
  * https://reactjs.org/docs/hooks-reference.html#usecallback

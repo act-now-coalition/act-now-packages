@@ -1,16 +1,17 @@
 import React, { HTMLAttributes } from "react";
+
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Autocomplete,
   AutocompleteProps,
   TextField,
   createFilterOptions,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { formatPopulation } from "../../common/utils";
-import { SearchItem } from "./SearchItem/SearchItem";
+import { SearchItem } from "../SearchItem";
 import { StyledLink } from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
@@ -41,13 +42,13 @@ export interface RegionSearchProps
   renderInput?: CustomAutocompleteProps["renderInput"];
 }
 
-export const RegionSearch: React.FC<RegionSearchProps> = ({
+export const RegionSearch = ({
   regionDB,
   options,
   inputLabel = "City, county, state, or district",
   renderInput: customRenderInput,
   ...otherAutocompleteProps
-}) => {
+}: RegionSearchProps) => {
   const defaultRenderInput: CustomAutocompleteProps["renderInput"] = (
     params
   ) => (

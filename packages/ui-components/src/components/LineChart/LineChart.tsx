@@ -1,12 +1,14 @@
 import React from "react";
-import { LinePath } from "@visx/shape";
-import { curveMonotoneX } from "@visx/curve";
-import { ScaleLinear, ScaleTime } from "d3-scale";
-import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
-import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
-import { useTheme } from "@mui/material";
 
-export interface LineChartOwnProps {
+import { useTheme } from "@mui/material";
+import { curveMonotoneX } from "@visx/curve";
+import { LinePath } from "@visx/shape";
+import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+
+import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+
+export interface BaseLineChartProps {
   /** Timeseries used to draw the line chart */
   timeseries: Timeseries<number>;
 
@@ -17,7 +19,7 @@ export interface LineChartOwnProps {
   yScale: ScaleLinear<number, number>;
 }
 
-export type LineChartProps = LineChartOwnProps &
+export type LineChartProps = BaseLineChartProps &
   React.SVGProps<SVGPathElement> &
   LinePathProps<TimeseriesPoint<number>>;
 
@@ -31,7 +33,7 @@ export type LineChartProps = LineChartOwnProps &
  *
  * @example
  * ```tsx
- * const xScale = scaleTime({ domain: [minDate, maxDate], range: [0, 200] });
+ * const xScale = scaleUtc({ domain: [minDate, maxDate], range: [0, 200] });
  * const yScale = scaleLinear({ domain: [minVal, maxVal], range: [100, 0] });
  *
  * return (
@@ -54,7 +56,7 @@ export type LineChartProps = LineChartOwnProps &
  *
  * @returns SVG Path element
  */
-export const LineChart: React.FC<LineChartProps> = ({
+export const LineChart = ({
   timeseries,
   xScale,
   yScale,
@@ -63,7 +65,7 @@ export const LineChart: React.FC<LineChartProps> = ({
   shapeRendering = "geometricPrecision",
   strokeLinejoin = "round",
   ...otherLineProps
-}) => {
+}: LineChartProps) => {
   const theme = useTheme();
   return (
     <LinePath

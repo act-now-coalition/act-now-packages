@@ -1,5 +1,6 @@
-import { Category } from "@actnowcoalition/metrics";
 import { assert } from "@actnowcoalition/assert";
+import { Category } from "@actnowcoalition/metrics";
+
 import { LineInterval } from "../LineIntervalChart";
 
 export interface ChartInterval extends LineInterval {
@@ -26,16 +27,18 @@ export interface ChartInterval extends LineInterval {
  *
  * In this situation, the first interval should be (-Infinity, T1], which
  * we can't really use for the chart, so we calculate a padding amount
- * and use that as the lower bound for the first interval
+ * and use that as the lower bound for the first interval.
+ * However, if minValue is higher than 0, then the lower bound
+ * for the first interval should not be lower than 0.
  *
  *                       T1      minValue        T2        maxValue
  *    ----------*-------|-----------|-----------|------------|--------
- *           T1 - padding
+ *           T1 - padding or 0
  *
  * In this case, the intervals will be
  *
  *   [
- *     { lower: T1 - padding, upper: T1, level: LOW},
+ *     { lower: T1 - padding or 0, upper: T1, level: LOW},
  *     { lower: T1, upper: T2, level: MEDIUM},
  *     { lower: T2, upper: maxValue, level: HIGH},
  *   ]
@@ -87,18 +90,19 @@ export function calculateChartIntervals(
       ? 0.2 * (lastThreshold - firstThreshold)
       : 0.2 * (maxVal - minVal);
 
+  // If minValue is higher than 0, don't pad below 0 on the y-axis.
+  const lowestBound = Math.min(minVal, firstThreshold);
+  const chartMin = lowestBound >= 0 ? 0 : lowestBound - padding;
+  const chartMax = Math.max(maxVal, lastThreshold + padding);
+
   // Build the intervals in the same order as the categories.
   return metricCategories.map((category, categoryIndex) => {
     const isFirstCategory = categoryIndex === 0;
     const isLastCategory = categoryIndex === metricCategories.length - 1;
     return {
       category,
-      lower: isFirstCategory
-        ? Math.min(minVal, firstThreshold - padding)
-        : thresholds[categoryIndex - 1],
-      upper: isLastCategory
-        ? Math.max(maxVal, lastThreshold + padding)
-        : thresholds[categoryIndex],
+      lower: isFirstCategory ? chartMin : thresholds[categoryIndex - 1],
+      upper: isLastCategory ? chartMax : thresholds[categoryIndex],
       color: category.color,
     };
   });

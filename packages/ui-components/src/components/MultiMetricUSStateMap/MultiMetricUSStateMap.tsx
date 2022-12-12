@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { RegionDB, Region } from "@actnowcoalition/regions";
-import { MetricUSStateMap } from "../MetricUSMaps";
-import { Typography, TextField, MenuItem } from "@mui/material";
-import { MetricLegendThreshold } from "../MetricLegendThreshold";
-import { useMetricCatalog } from "../MetricCatalogContext";
+
+import { MenuItem, TextField, Typography } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
-import { getStartLabel, getEndLabel } from "./utils";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
+import { useMetricCatalog } from "../MetricCatalogContext";
+import { MetricLegendThreshold } from "../MetricLegendThreshold";
+import { MetricUSStateMap } from "../MetricUSStateMap";
 import {
   BorderedContainer,
   BorderedContainerLast,
 } from "./MultiMetricUSStateMap.style";
+import { getEndLabel, getStartLabel } from "./utils";
 
 export interface MultiMetricUSStateMapProps {
   /** Region ID of the state being mapped */
@@ -21,16 +24,16 @@ export interface MultiMetricUSStateMapProps {
   /** Region DB instance (used for generating region links, coloring the map, etc.) */
   regionDB: RegionDB;
   /** Function returning the contents of the map tooltip, given a hovered region */
-  renderTooltip?: (regionId: string) => React.ReactNode;
+  getTooltip?: (regionId: string) => React.ReactNode;
 }
 
-export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
+export const MultiMetricUSStateMap = ({
   stateRegionId,
   highlightedRegion,
   metrics,
   regionDB,
-  renderTooltip,
-}) => {
+  getTooltip,
+}: MultiMetricUSStateMapProps) => {
   const metricCatalog = useMetricCatalog();
 
   const [metric, setMetric] = useState(metrics[0]);
@@ -43,7 +46,7 @@ export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
     metricCatalog.getMetric(metric)
   );
 
-  const defaultRenderTooltip = (regionId: string) => {
+  const defaultGetTooltip = (regionId: string) => {
     return regionDB.findByRegionIdStrict(regionId).fullName;
   };
 
@@ -80,7 +83,7 @@ export const MultiMetricUSStateMap: React.FC<MultiMetricUSStateMapProps> = ({
           highlightedRegion={highlightedRegion}
           metric={metric}
           regionDB={regionDB}
-          renderTooltip={renderTooltip ?? defaultRenderTooltip}
+          getTooltip={getTooltip ?? defaultGetTooltip}
         />
       </BorderedContainer>
       <BorderedContainerLast>

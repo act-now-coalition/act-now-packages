@@ -1,8 +1,8 @@
 import { states } from "@actnowcoalition/regions";
 
-import { MetricCatalog } from "./MetricCatalog";
 import { SnapshotJSON } from "../data";
 import { MockDataProvider, StaticValueDataProvider } from "../data_providers";
+import { MetricCatalog } from "./MetricCatalog";
 
 enum MetricId {
   PI = "pi",
@@ -171,7 +171,8 @@ describe("MetricCatalog", () => {
       await provider.fetchData(
         [testRegionCA],
         [metric],
-        /*includeTimeseries=*/ false
+        /*includeTimeseries=*/ false,
+        catalog
       )
     ).metricData(testRegionCA, metric);
     const catalogData = await catalog.fetchData(

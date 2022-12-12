@@ -1,11 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { assert } from "@actnowcoalition/assert";
-import { appleStockTimeseries } from "../../stories/mockData";
+
 import { SparkLine } from ".";
+import { appleStockTimeseries } from "../../stories/mockData";
 
 export default {
-  title: "Charts/SparkLine",
+  title: "Components/SparkLine",
   component: SparkLine,
 } as ComponentMeta<typeof SparkLine>;
 

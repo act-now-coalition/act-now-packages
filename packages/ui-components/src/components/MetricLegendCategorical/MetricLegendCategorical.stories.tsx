@@ -1,30 +1,41 @@
 import React from "react";
-import { ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { MetricId } from "../../stories/mockMetricCatalog";
-import MetricLegendCategorical, {
-  MetricLegendCategoricalProps,
-} from "./MetricLegendCategorical";
-import { Story } from "@storybook/react";
+import { MetricLegendCategorical } from "./MetricLegendCategorical";
 
 export default {
-  title: "Metrics/MetricLegendCategorical",
+  title: "Components/MetricLegendCategorical",
   component: MetricLegendCategorical,
 } as ComponentMeta<typeof MetricLegendCategorical>;
 
-const Template: Story<MetricLegendCategoricalProps> = (args) => (
+const Template: ComponentStory<typeof MetricLegendCategorical> = (args) => (
   <div style={{ width: 200, border: "1px solid #ddd" }}>
     <MetricLegendCategorical {...args} />
   </div>
 );
 
-export const Horizontal = Template.bind({});
-Horizontal.args = {
+export const HorizontalWithExtendedName = Template.bind({});
+HorizontalWithExtendedName.args = {
   metric: MetricId.PASS_FAIL,
   orientation: "horizontal",
 };
 
-export const Vertical = Template.bind({});
-Vertical.args = {
+export const VerticalWithExtendedName = Template.bind({});
+VerticalWithExtendedName.args = {
   metric: MetricId.PASS_FAIL,
+  orientation: "vertical",
+};
+
+export const HorizontalWithoutExtendedName = Template.bind({});
+HorizontalWithoutExtendedName.args = {
+  metric: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
+  orientation: "horizontal",
+};
+
+export const VerticalWithoutExtendedName = Template.bind({});
+VerticalWithoutExtendedName.args = {
+  metric: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
   orientation: "vertical",
 };

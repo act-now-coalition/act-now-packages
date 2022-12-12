@@ -1,17 +1,15 @@
 import React from "react";
+
+import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
+
 import { Timeseries } from "@actnowcoalition/metrics";
+
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
-import { scaleUtc, scaleLinear } from "@visx/scale";
 
-export interface SparkLineProps {
-  /** Timeseries used to draw the bar chart */
-  timeseriesBarChart: Timeseries<number>;
-
-  /** Timeseries used to draw the line chart */
-  timeseriesLineChart: Timeseries<number>;
-
+export interface BaseSparkLineProps {
   /** Width of the whole spark line component */
   width?: number;
 
@@ -22,13 +20,22 @@ export interface SparkLineProps {
   barWidth?: number;
 }
 
-export const SparkLine: React.FC<SparkLineProps> = ({
+export interface SparkLineProps extends BaseSparkLineProps {
+  /** Timeseries used to draw the bar chart */
+  timeseriesBarChart: Timeseries<number>;
+
+  /** Timeseries used to draw the line chart */
+  timeseriesLineChart: Timeseries<number>;
+}
+
+export const SparkLine = ({
   timeseriesBarChart,
   timeseriesLineChart,
   width = 150,
   height = 50,
   barWidth = 2,
-}) => {
+}: SparkLineProps) => {
+  const theme = useTheme();
   const padding = 2;
 
   if (!timeseriesBarChart.hasData() || !timeseriesLineChart.hasData()) {
@@ -41,7 +48,7 @@ export const SparkLine: React.FC<SparkLineProps> = ({
   });
 
   const yScaleBar = scaleLinear({
-    domain: [timeseriesBarChart.minValue, timeseriesBarChart.maxValue],
+    domain: [0, timeseriesBarChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
@@ -51,12 +58,12 @@ export const SparkLine: React.FC<SparkLineProps> = ({
   });
 
   const yScaleLine = scaleLinear({
-    domain: [timeseriesLineChart.minValue, timeseriesLineChart.maxValue],
+    domain: [0, timeseriesLineChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={padding} top={padding}>
         <Group left={-0.5 * barWidth}>
           <BarChart

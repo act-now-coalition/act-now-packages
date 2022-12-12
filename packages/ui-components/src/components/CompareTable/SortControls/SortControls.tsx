@@ -1,8 +1,10 @@
 import React from "react";
-import isNil from "lodash/isNil";
-import { ArrowUpIcon, ArrowDownIcon } from "./SortControls.style";
+
 import { IconButton, Stack } from "@mui/material";
+import isNil from "lodash/isNil";
+
 import { SortDirection } from "..";
+import { ArrowDownIcon, ArrowUpIcon } from "./SortControls.style";
 
 export interface SortControlsProps {
   /**
@@ -17,10 +19,7 @@ export interface SortControlsProps {
   onClick: (direction: SortDirection) => void;
 }
 
-export const SortControls: React.FC<SortControlsProps> = ({
-  sortDirection,
-  onClick,
-}) => {
+export const SortControls = ({ sortDirection, onClick }: SortControlsProps) => {
   const isSortActive = !isNil(sortDirection);
   return (
     <Stack direction="row" spacing={0}>

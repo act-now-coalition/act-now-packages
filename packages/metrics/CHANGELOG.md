@@ -1,5 +1,35 @@
 # @actnowcoalition/metrics
 
+## 0.4.0
+
+### Minor Changes
+
+- d69f828: Add JSON record data provider
+
+### Patch Changes
+
+- ecbedde: implement import sorting
+- Updated dependencies [ecbedde]
+  - @actnowcoalition/number-format@0.1.2
+  - @actnowcoalition/regions@0.1.2
+  - @actnowcoalition/time-utils@0.1.1
+
+## 0.3.4
+
+### Patch Changes
+
+- 65b7b91: Export DataRow type for use with parseCsv() and generateCsv().
+
+## 0.3.3
+
+### Patch Changes
+
+- 6b1f290: Give SimpleMetricDataProviderBase access to the MetricCatalog.
+- 2b7fbe9: Add parseCsv() and generateCsv() helpers to the metrics package.
+- 79ce3cb: Add ability to simulate data fetching errors and delays.
+- 317d58e: CSVDataProvider: Fix handling of missing values in CSV files.
+- f48b6f8: CSVMetricDataProvider: Log warning if there are any unknown region IDs. Throw error if they're all unknown.
+
 ## 0.3.2
 
 ### Patch Changes

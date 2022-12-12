@@ -1,8 +1,23 @@
 import { assert } from "@actnowcoalition/assert";
-import { Metric } from "@actnowcoalition/metrics";
-import { CategoryItem } from "./interfaces";
+import { Category, Metric } from "@actnowcoalition/metrics";
 
-export function getMetricCategoryItems(metric: Metric): CategoryItem[] {
+export interface CategoryItem {
+  /** Category name (e.g. "High") */
+  name: string;
+  /** Category color */
+  color: string;
+  /** Description of the category */
+  description: string | undefined;
+  /** Formatted value of the threshold at the end of the current category */
+  endThreshold?: string;
+  /** Show an arrow indicating the current category */
+  showIndicator: boolean;
+}
+
+export function getMetricCategoryItems(
+  metric: Metric,
+  currentCategory?: Category
+): CategoryItem[] {
   const metricCategories = metric.categorySet?.categories;
   const metricThresholds = metric.categoryThresholds;
 
@@ -14,5 +29,6 @@ export function getMetricCategoryItems(metric: Metric): CategoryItem[] {
     description: category.description,
     endThreshold:
       metricThresholds && metric.formatValue(metricThresholds[index]),
+    showIndicator: category === currentCategory,
   }));
 }

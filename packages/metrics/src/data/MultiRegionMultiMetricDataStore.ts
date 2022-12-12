@@ -2,12 +2,12 @@ import mapValues from "lodash/mapValues";
 
 import { assert } from "@actnowcoalition/assert";
 import { Region } from "@actnowcoalition/regions";
+import { isoDateOnlyString } from "@actnowcoalition/time-utils";
 
-import { MetricData } from "./MetricData";
-import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
 import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
-import { isoDateOnlyString } from "@actnowcoalition/time-utils";
+import { MetricData } from "./MetricData";
+import { MetricToDataMap, MultiMetricDataStore } from "./MultiMetricDataStore";
 
 /**
  * JSON format of a data snapshot representing the contents of a
@@ -95,13 +95,20 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
     dataFetcher: (region: Region, metric: Metric) => Promise<MetricData<T>>
   ): Promise<MultiRegionMultiMetricDataStore<T>> {
     const data: { [regionId: string]: MultiMetricDataStore<T> } = {};
-    for (const region of regions) {
-      const regionData: { [metricId: string]: MetricData<T> } = {};
-      for (const metric of metrics) {
-        regionData[metric.id] = await dataFetcher(region, metric);
-      }
-      data[region.regionId] = new MultiMetricDataStore<T>(region, regionData);
-    }
+    await Promise.all(
+      regions.map(async (region) => {
+        const regionData: { [metricId: string]: MetricData<T> } = {};
+        await Promise.all(
+          metrics.map(async (metric) => {
+            regionData[metric.id] = await dataFetcher(region, metric);
+          })
+        ),
+          (data[region.regionId] = new MultiMetricDataStore<T>(
+            region,
+            regionData
+          ));
+      })
+    );
 
     return new MultiRegionMultiMetricDataStore(data);
   }

@@ -1,8 +1,6 @@
 import * as React from "react";
 
-const DiagonalHatchPattern: React.FC<{ lineColor: string }> = ({
-  lineColor,
-}) => (
+export const DiagonalHatchPattern = ({ lineColor }: { lineColor: string }) => (
   <pattern
     id="diagonalHatch"
     patternUnits="userSpaceOnUse"
@@ -28,5 +26,3 @@ const DiagonalHatchPattern: React.FC<{ lineColor: string }> = ({
     />
   </pattern>
 );
-
-export default DiagonalHatchPattern;

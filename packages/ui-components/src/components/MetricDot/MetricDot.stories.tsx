@@ -1,11 +1,14 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { states } from "@actnowcoalition/regions";
-import { MetricId } from "../../stories/mockMetricCatalog";
+
 import { MetricDot } from ".";
+import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Metrics/MetricDot",
+  title: "Components/MetricDot",
   component: MetricDot,
 } as ComponentMeta<typeof MetricDot>;
 
@@ -25,4 +28,16 @@ export const MetricWithoutColors = Template.bind({});
 MetricWithoutColors.args = {
   metric: MetricId.PI,
   region: washingtonState,
+};
+
+export const LoadingDelay = Template.bind({});
+LoadingDelay.args = {
+  ...MetricWithColors.args,
+  metric: MetricId.MOCK_CASES_DELAY_1S,
+};
+
+export const LoadingError = Template.bind({});
+LoadingError.args = {
+  ...MetricWithColors.args,
+  metric: MetricId.MOCK_CASES_ERROR,
 };

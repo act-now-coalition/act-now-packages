@@ -1,9 +1,12 @@
 import React from "react";
+
 import { Stack, Typography } from "@mui/material";
-import { Metric, Category } from "@actnowcoalition/metrics";
+
 import { assert } from "@actnowcoalition/assert";
-import { useMetricCatalog } from "../MetricCatalogContext";
+import { Category, Metric } from "@actnowcoalition/metrics";
+
 import { LegendCategorical } from "../LegendCategorical";
+import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricLegendCategoricalProps {
   /** Metric which we want to display categories for. */
@@ -18,7 +21,7 @@ export interface MetricLegendCategoricalProps {
 const getItemColor = (item: Category) => item.color;
 const getItemLabel = (item: Category) => item.name ?? item.id;
 
-const MetricLegendCategorical = ({
+export const MetricLegendCategorical = ({
   metric,
   orientation,
 }: MetricLegendCategoricalProps) => {
@@ -30,12 +33,15 @@ const MetricLegendCategorical = ({
     "Metric must define categories in order to use MetricLegendCategorical. " +
       `No categories found for metric: ${metric}`
   );
-
   return (
     <Stack spacing={2}>
       <Stack spacing={0.5}>
         <Typography variant="labelLarge">{metric.name}</Typography>
-        <Typography variant="paragraphSmall">{metric.extendedName}</Typography>
+        {metric.extendedName && (
+          <Typography variant="paragraphSmall">
+            {metric.extendedName}
+          </Typography>
+        )}
       </Stack>
       <LegendCategorical
         items={items}
@@ -46,5 +52,3 @@ const MetricLegendCategorical = ({
     </Stack>
   );
 };
-
-export default MetricLegendCategorical;

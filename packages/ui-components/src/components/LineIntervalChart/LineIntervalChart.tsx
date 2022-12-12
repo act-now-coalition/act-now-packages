@@ -1,6 +1,8 @@
 import React from "react";
-import { ScaleLinear, ScaleTime } from "d3-scale";
+
 import { Group } from "@visx/group";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+
 import { Timeseries } from "@actnowcoalition/metrics";
 
 import { LineChart } from "../LineChart";
@@ -27,6 +29,10 @@ export interface LineIntervalChartProps {
   xScale: ScaleTime<number, number>;
   /** d3-scale to transform point dates to pixel positions on the y-axis */
   yScale: ScaleLinear<number, number>;
+  /** Optional offset (in pixels) on the y-axis to pad the highest point on the chart
+   * @defaultValue `5`
+   */
+  topIntervalOffset?: number;
 }
 
 /**
@@ -48,6 +54,7 @@ export interface LineIntervalChartProps {
  *       xScale={xScale}
  *       yScale={yScale}
  *       intervals={intervals}
+ *       topIntervalOffset={5}
  *     />
  *   </svg>
  * )
@@ -70,22 +77,32 @@ export const LineIntervalChart = ({
   xScale,
   yScale,
   intervals,
+  topIntervalOffset,
 }: LineIntervalChartProps) => {
   const [xMin, xMax] = xScale.range();
   const width = Math.abs(xMax - xMin);
-
+  // Find the lowest y-coordinate, regardless of how the intervals are ordered.
+  const topPoint = Math.min(
+    ...intervals.map((interval) =>
+      Math.min(yScale(interval.lower), yScale(interval.upper))
+    )
+  );
   return (
     <Group>
       {intervals.map((interval, intervalIndex) => {
         const yFrom = yScale(interval.lower);
         const yTo = yScale(interval.upper);
         const clipHeight = Math.abs(yFrom - yTo);
+        const topOffset =
+          topIntervalOffset && Math.min(yFrom, yTo) === topPoint
+            ? topIntervalOffset
+            : 0;
         return (
           <RectClipGroup
             key={`rect-clip-${intervalIndex}`}
-            y={Math.min(yFrom, yTo)}
+            y={Math.min(yFrom, yTo) - topOffset}
             width={width}
-            height={clipHeight}
+            height={clipHeight + topOffset}
           >
             <LineChart
               timeseries={timeseries}

@@ -1,29 +1,53 @@
 import React, { useState } from "react";
+
+import { Metric } from "@actnowcoalition/metrics";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
+import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import {
   ColumnDefinition,
   CompareTable,
+  CompareTableProps,
   SortDirection,
-  sortRows,
+  TableSortState,
+  sortTableRows,
 } from "../CompareTable";
+import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { useDataForRegionsAndMetrics } from "../../common/hooks";
-import { Row, MetricCompareTableProps } from "./interfaces";
-import { createMetricColumn, createLocationColumn } from "./utils";
+import { Row, createLocationColumn, createMetricColumn } from "./utils";
 
-export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
+export interface MetricCompareTableProps
+  extends Omit<CompareTableProps<Row>, "rows" | "columns"> {
+  /** Region DB instance to use  */
+  regionDB: RegionDB;
+  /** List of regions (first column)  */
+  regions: Region[];
+  /** List of metrics or metricID - order of the columns will match */
+  metrics: (Metric | string)[];
+  /** Initial sorting column. By default, it will use the location column. */
+  sortColumnId?: string;
+  /** Initial sort direction. Ascending by default. */
+  sortDirection?: SortDirection;
+}
+
+export const MetricCompareTable = ({
   regionDB,
   regions,
   metrics: metricOrIds,
+  sortColumnId: initialSortColumnId,
+  sortDirection: initialSortDirection,
   ...otherCompareTableProps
-}) => {
-  // TODO(Pablo): It might be better to define and set a context to control the
-  // state of the table if we need to control it from a parent component.
-  const [sortDirection, setSortDirection] = useState(SortDirection.DESC);
-  const [sortColumnId, setSortColumnId] = useState("location");
+}: MetricCompareTableProps) => {
+  const initialState = {
+    sortColumnId: initialSortColumnId ?? "location",
+    sortDirection: initialSortDirection ?? SortDirection.ASC,
+  };
+
+  const [sortState, setSortState] = useState<TableSortState>(initialState);
+  const { sortColumnId, sortDirection } = sortState;
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
-    setSortDirection(direction);
-    setSortColumnId(columnId);
+    setSortState({ sortDirection: direction, sortColumnId: columnId });
   };
 
   const metricCatalog = useMetricCatalog();
@@ -35,7 +59,10 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
     /*includeTimeseries=*/ false
   );
 
-  if (!data || error) {
+  if (error) {
+    return <ErrorBox>Table could not be loaded.</ErrorBox>;
+  } else if (!data) {
+    // TODO(#473): Better loading state.
     return null;
   }
 
@@ -58,8 +85,7 @@ export const MetricCompareTable: React.FC<MetricCompareTableProps> = ({
     ),
   ];
 
-  const sortColumn = columns.find((col) => col.columnId === sortColumnId);
-  const sortedRows = sortRows<Row>(rows, sortDirection, sortColumn?.sorterAsc);
+  const sortedRows = sortTableRows<Row>(rows, columns, sortState);
 
   return (
     <CompareTable

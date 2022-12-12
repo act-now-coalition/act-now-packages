@@ -1,17 +1,40 @@
 import React, { useId } from "react";
-import sortBy from "lodash/sortBy";
+
 import { useTheme } from "@mui/material";
-import { RectClipGroup } from "../RectClipGroup";
 import { scaleLinear } from "@visx/scale";
-import { MultiProgressBarProps } from "./interfaces";
+import sortBy from "lodash/sortBy";
+
+import { RectClipGroup } from "../RectClipGroup";
+
+export interface BaseMultiProgressBarProps {
+  maxValue: number;
+  /** Color of charted bars */
+  barColor?: string;
+  /** Background color of progress bar */
+  bgColor?: string;
+  /** For accessibility-purposes, a description of what the progress bar is displaying */
+  title?: string;
+  width?: number;
+  height?: number;
+  borderRadius?: number;
+}
+
+export interface MultiProgressBarProps<T> extends BaseMultiProgressBarProps {
+  items: [T, T];
+  getItemLabel: (item: T) => string;
+  getItemValue: (item: T) => number;
+}
+
+export const DEFAULT_WIDTH = 100;
+export const DEFAULT_HEIGHT = 16;
 
 export const MultiProgressBar = <T,>({
   items,
   getItemValue,
   getItemLabel,
   maxValue,
-  width = 100,
-  height = 16,
+  width = DEFAULT_WIDTH,
+  height = DEFAULT_HEIGHT,
   barColor = "#000000",
   bgColor,
   borderRadius = 4,
@@ -36,7 +59,13 @@ export const MultiProgressBar = <T,>({
   );
 
   return (
-    <svg width={width} height={height} aria-labelledby={titleId} role="meter">
+    <svg
+      width={width}
+      height={height}
+      aria-labelledby={titleId}
+      role="meter"
+      style={{ display: "block" }}
+    >
       <title id={titleId}>
         {title
           ? title

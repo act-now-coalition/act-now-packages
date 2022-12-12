@@ -1,7 +1,7 @@
-import { Metric } from "./Metric";
-import { CategorySet } from "./Category";
-import { MetricDefinition } from "./MetricDefinition";
 import { MetricCatalogOptions } from "../MetricCatalog";
+import { CategorySet } from "./Category";
+import { Metric } from "./Metric";
+import { MetricDefinition } from "./MetricDefinition";
 
 // Example of a typical metric with mostly default options.
 const testMetricDef: MetricDefinition = {
@@ -183,6 +183,30 @@ describe("Metric", () => {
   test("formatValue() with default options", () => {
     const metric = new Metric(testMetricDef, testCatalogOptions);
     expect(metric.formatValue(123.123)).toBe("123.1");
+  });
+
+  test("formatValue() as integer", () => {
+    const metric = new Metric(
+      {
+        ...testMetricDef,
+        formatOptions: { maximumFractionDigits: 0 },
+      },
+      testCatalogOptions
+    );
+    expect(metric.formatValue(123.123)).toBe("123");
+    expect(metric.formatValue(0.123)).toBe("0");
+  });
+
+  test("formatValue() with one decimal point", () => {
+    const metric = new Metric(
+      {
+        ...testMetricDef,
+        formatOptions: { minimumFractionDigits: 1, maximumFractionDigits: 1 },
+      },
+      testCatalogOptions
+    );
+    expect(metric.formatValue(123.123)).toBe("123.1");
+    expect(metric.formatValue(0.123)).toBe("0.1");
   });
 
   test("formatValue() with custom options", () => {

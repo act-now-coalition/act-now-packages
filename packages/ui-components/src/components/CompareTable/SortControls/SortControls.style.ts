@@ -1,6 +1,7 @@
 import isValidProp from "@emotion/is-prop-valid";
-import MuiArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import MuiArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MuiArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import { styled } from "../../../styles";
 
 export const ArrowUpIcon = styled(MuiArrowUpIcon, {

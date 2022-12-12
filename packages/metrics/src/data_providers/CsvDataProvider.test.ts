@@ -1,6 +1,8 @@
-import { CsvDataProvider } from "./CsvDataProvider";
-import { Metric } from "../Metric";
 import { states } from "@actnowcoalition/regions";
+
+import { Metric } from "../Metric";
+import { MetricCatalog } from "../MetricCatalog";
+import { CsvDataProvider } from "./CsvDataProvider";
 
 const PROVIDER_ID = "csv-provider";
 
@@ -10,6 +12,7 @@ const mockCsv = `region,cool_metric
 
 const csvTimeseries = `region,date,cool_metric
 36,2022-08-02,150
+36,2022-08-03,
 12,2022-08-02,`;
 
 const newYork = states.findByRegionIdStrict("36");
@@ -29,14 +32,20 @@ const testMetric = new Metric({
 const testFetchingCsvData = async (
   data: string,
   includeTimeseries: boolean,
-  dateCol?: string
+  dateCol?: string,
+  metric?: Metric
 ) => {
+  metric = metric ?? testMetric;
   const provider = new CsvDataProvider(PROVIDER_ID, {
+    regionDb: states,
     regionColumn: "region",
     dateColumn: dateCol,
     csvText: data,
   });
-  return (await provider.fetchData([newYork], [testMetric], includeTimeseries))
+  const catalog = new MetricCatalog([metric], [provider]);
+  return (
+    await provider.fetchData([newYork], [metric], includeTimeseries, catalog)
+  )
     .regionData(newYork)
     .metricData(testMetric);
 };
@@ -54,8 +63,11 @@ describe("CsvDataProvider", () => {
     );
     expect(metricDataNoTs.currentValue).toBe(150);
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
-    expect(metricDataTs.currentValue).toBe(150);
+
+    expect(metricDataTs.hasTimeseries()).toBe(true);
+    expect(metricDataTs.timeseries.length).toBe(1);
     expect(metricDataTs.timeseries.lastValue).toBe(150);
+    expect(metricDataTs.currentValue).toBe(150);
   });
 
   test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
@@ -73,9 +85,37 @@ describe("CsvDataProvider", () => {
     ).rejects.toThrow("CSV must not be empty.");
   });
 
+  test("fetchData() fails if csv does not have at least one valid region ID.", async () => {
+    expect(async () =>
+      testFetchingCsvData(
+        `region,cool_metric\nNew York,1`,
+        /*includeTimeseries=*/ true
+      )
+    ).rejects.toThrow("Failed to parse data: All region IDs were invalid.");
+  });
+
+  test("fetchData() fails if metric is missing a 'column' property.", async () => {
+    const badMetric = new Metric({
+      id: "metric",
+      dataReference: {
+        providerId: PROVIDER_ID,
+        /* missing column specifier. */
+      },
+    });
+    expect(async () =>
+      testFetchingCsvData(
+        mockCsv,
+        /*includeTimeseries=*/ true,
+        /*dateColumn=*/ "date",
+        badMetric
+      )
+    ).rejects.toThrow("Missing or invalid metric column name.");
+  });
+
   test("Constructor fails if neither url or csv data is provided.", () => {
     expect(() => {
       new CsvDataProvider("PROVIDER_ID", {
+        regionDb: states,
         regionColumn: "region",
       });
     }).toThrow("URL or CSV data must be provided");

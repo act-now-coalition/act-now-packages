@@ -1,17 +1,20 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { states } from "@actnowcoalition/regions";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { MetricCatalog, MetricDefinition } from "@actnowcoalition/metrics";
-import { MetricCatalogProvider } from "./MetricCatalogContext";
+import { states } from "@actnowcoalition/regions";
+
 import {
   MetricId,
-  dataProviders,
   ProviderId,
+  dataProviders,
 } from "../../stories/mockMetricCatalog";
 import MetricAwareDemo from "./MetricAwareDemo";
+import { MetricCatalogProvider } from "./MetricCatalogContext";
 
 export default {
-  title: "Metrics/MetricCatalogContext",
+  title: "Components/MetricCatalogContext",
   component: MetricCatalogProvider,
 } as ComponentMeta<typeof MetricCatalogProvider>;
 
@@ -65,6 +68,6 @@ Static.args = {
 // This story is not directly wrapped on MetricCatalogProvider, so is
 // using the MetricCatalogProvider setup as a decorator in
 // .storybook/preview.tsx
-export const UsingDecorator = () => (
+export const WithDecorator = () => (
   <MetricAwareDemo metric={MetricId.PI} region={washingtonState} />
 );

@@ -1,5 +1,5 @@
-import { styled } from "../../../styles";
 import { TableCell } from "..";
+import { styled } from "../../../styles";
 
 export const StyledTableCell = styled(TableCell, {
   shouldForwardProp: (name: string) =>

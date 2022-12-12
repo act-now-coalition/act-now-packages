@@ -1,13 +1,16 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import { colors } from "@mui/material";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { TimeseriesPoint } from "@actnowcoalition/metrics";
 import { states } from "@actnowcoalition/regions";
-import { colors } from "@mui/material";
-import { metricCatalog, MetricId } from "../../stories/mockMetricCatalog";
-import { MetricTooltip, MetricTooltipContent } from ".";
+
+import { MetricTooltip } from ".";
+import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 
 export default {
-  title: "Charts/MetricTooltip",
+  title: "Components/MetricTooltip",
   component: MetricTooltip,
 } as ComponentMeta<typeof MetricTooltip>;
 
@@ -44,7 +47,3 @@ Example.args = {
   point,
   placement: "top",
 };
-
-export const Content = () => (
-  <MetricTooltipContent region={region} metric={metric} point={point} />
-);

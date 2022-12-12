@@ -1,6 +1,7 @@
-import { styled } from "../../styles";
 import isValidProp from "@emotion/is-prop-valid";
 import { css } from "@emotion/react";
+
+import { styled } from "../../styles";
 
 export const TickLabel = styled("text")`
   text-anchor: middle;
@@ -32,4 +33,10 @@ export const LegendColor = styled("div", { shouldForwardProp: isValidProp })<{
 }>`
   ${(props) => getTopRadius(props.roundTop)}
   ${(props) => getBottomRadius(props.roundBottom)}
+`;
+
+export const IndicatorPolygon = styled("polygon")`
+  stroke: ${({ theme }) => theme.palette.common.black};
+  fill: ${({ theme }) => theme.palette.common.black};
+  stroke-width: 1px;
 `;

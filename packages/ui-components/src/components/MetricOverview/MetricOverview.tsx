@@ -1,9 +1,12 @@
 import React from "react";
+
 import { Stack, Typography } from "@mui/material";
-import { Region } from "@actnowcoalition/regions";
+
 import { Metric } from "@actnowcoalition/metrics";
-import { useMetricCatalog } from "../MetricCatalogContext";
+import { Region } from "@actnowcoalition/regions";
+
 import { LabelIcon } from "../LabelIcon";
+import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricValue } from "../MetricValue";
 
 export interface MetricOverviewProps {
@@ -20,12 +23,12 @@ export interface MetricOverviewProps {
   orientation?: "horizontal" | "vertical";
 }
 
-export const MetricOverview: React.FC<MetricOverviewProps> = ({
+export const MetricOverview = ({
   region,
   metric: metricOrId,
   metricChart,
   orientation = "vertical",
-}) => {
+}: MetricOverviewProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 

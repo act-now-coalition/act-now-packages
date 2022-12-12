@@ -1,6 +1,7 @@
-import { feature, mesh } from "topojson-client";
 import { FeatureCollection, Geometry, MultiLineString } from "geojson";
+import { feature, mesh } from "topojson-client";
 import { GeometryCollection } from "topojson-specification";
+
 import nationsJSON from "./nations.json";
 
 interface CountryGeoProps {

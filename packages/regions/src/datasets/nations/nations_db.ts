@@ -1,5 +1,5 @@
-import RegionDB from "../../RegionDB";
 import { Region } from "../../Region";
+import RegionDB from "../../RegionDB";
 import nationsJSON from "./nations.json";
 
 const nations = nationsJSON.map((country) => {

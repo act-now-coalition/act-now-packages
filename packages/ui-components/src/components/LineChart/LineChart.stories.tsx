@@ -1,13 +1,15 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import {
-  appleStockTimeseries as timeseries,
-  createTimeseriesScales,
-} from "../../stories/mockData";
+
+import { ComponentMeta, ComponentStory } from "@storybook/react";
+
 import { LineChart } from ".";
+import {
+  createTimeseriesScales,
+  appleStockTimeseries as timeseries,
+} from "../../stories/mockData";
 
 export default {
-  title: "Charts/LineChart",
+  title: "Components/LineChart",
   component: LineChart,
 } as ComponentMeta<typeof LineChart>;
 
@@ -21,8 +23,8 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
 
 const { xScale, yScale } = createTimeseriesScales(timeseries, width, height);
 
-export const SolidLine = Template.bind({});
-SolidLine.args = {
+export const DefaultSolidLine = Template.bind({});
+DefaultSolidLine.args = {
   timeseries,
   xScale,
   yScale,

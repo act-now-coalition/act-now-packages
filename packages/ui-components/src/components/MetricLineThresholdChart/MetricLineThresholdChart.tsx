@@ -1,20 +1,25 @@
 import React from "react";
-import { scaleLinear, scaleTime } from "@visx/scale";
+
+import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
+import { scaleLinear, scaleUtc } from "@visx/scale";
 import max from "lodash/max";
+import min from "lodash/min";
+
 import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
 import { Metric } from "@actnowcoalition/metrics";
+import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
+import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
-import { GridRows } from "../Grid";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { ErrorBox } from "../ErrorBox";
+import { GridRows } from "../Grid";
+import { LineIntervalChart } from "../LineIntervalChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
-import { BaseChartProps } from "../MetricLineChart";
 import { PointMarker } from "../PointMarker";
-import { LineIntervalChart } from "../LineIntervalChart";
 import { calculateChartIntervals } from "./utils";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
@@ -43,20 +48,26 @@ export const MetricLineThresholdChart = ({
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 
-  const { data } = useData(region, metric, /*includeTimeseries=*/ true);
+  const { data, error } = useData(region, metric, /*includeTimeseries=*/ true);
   const timeseries = data && data.timeseries.assertFiniteNumbers();
 
   const { hoveredPoint, onMouseMove, onMouseLeave } =
     useHoveredDate(timeseries);
 
-  if (!timeseries?.hasData?.()) {
-    return null;
+  if (error) {
+    return (
+      <ErrorBox width={width} height={height}>
+        Chart could not be loaded.
+      </ErrorBox>
+    );
+  } else if (!timeseries?.hasData?.()) {
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxDate, maxValue } = timeseries;
+  const { minDate, maxDate, minValue, maxValue } = timeseries;
 
   const thresholds = metric.categoryThresholds;
   const categories = metric.categorySet?.categories;
@@ -68,28 +79,29 @@ export const MetricLineThresholdChart = ({
   const intervals = calculateChartIntervals(
     categories,
     thresholds,
-    /*minValue=*/ 0,
+    minValue,
     maxValue
   );
 
-  const dateScale = scaleTime({
+  const xScale = scaleUtc({
     domain: [minDate, maxDate],
     range: [0, chartWidth],
   });
 
+  const minChartValue = min(intervals.map(({ lower }) => lower)) ?? minValue;
   const maxChartValue = max(intervals.map(({ upper }) => upper)) ?? maxValue;
 
   const yScale = scaleLinear({
-    domain: [0, maxChartValue],
+    domain: [minChartValue, maxChartValue],
     range: [chartHeight, 0],
   });
 
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{ display: "block" }}>
       <Group left={marginLeft} top={marginTop}>
         <AxesTimeseries
           height={chartHeight}
-          dateScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           axisLeftProps={{
             tickFormat: (value) => metric.formatValue(value),
@@ -99,9 +111,10 @@ export const MetricLineThresholdChart = ({
         <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
         <LineIntervalChart
           timeseries={timeseries}
-          xScale={dateScale}
+          xScale={xScale}
           yScale={yScale}
           intervals={intervals}
+          topIntervalOffset={5}
         />
         {hoveredPoint && (
           <MetricTooltip
@@ -111,7 +124,7 @@ export const MetricLineThresholdChart = ({
             open
           >
             <PointMarker
-              x={dateScale(hoveredPoint.date)}
+              x={xScale(hoveredPoint.date)}
               y={yScale(hoveredPoint.value)}
               fill={metric.getColor(hoveredPoint.value)}
             />
@@ -120,7 +133,7 @@ export const MetricLineThresholdChart = ({
         <ChartOverlayX
           width={chartWidth}
           height={chartHeight}
-          xScale={dateScale}
+          xScale={xScale}
           offset={marginLeft}
           onMouseMove={onMouseMove}
           onMouseLeave={onMouseLeave}

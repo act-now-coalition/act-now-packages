@@ -1,10 +1,12 @@
 import React from "react";
-import { ScaleLinear, ScaleTime } from "d3-scale";
-import { Group } from "@visx/group";
-import { Timeseries } from "@actnowcoalition/metrics";
-import { useTheme } from "@mui/material";
 
-export interface BarChartOwnProps {
+import { useTheme } from "@mui/material";
+import { Group } from "@visx/group";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+
+import { Timeseries } from "@actnowcoalition/metrics";
+
+export interface BaseBarChartProps {
   /** Timeseries used to draw the bar chart */
   timeseries: Timeseries<number>;
 
@@ -18,7 +20,7 @@ export interface BarChartOwnProps {
   barWidth?: number;
 }
 
-export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
+export type BarChartProps = BaseBarChartProps & React.SVGProps<SVGRectElement>;
 
 /**
  * BarChart is a chart to represent a Timeseries as a series of bars, one bar
@@ -50,13 +52,13 @@ export type BarChartProps = BarChartOwnProps & React.SVGProps<SVGRectElement>;
  *
  * @returns An SVG Group element
  */
-export const BarChart: React.FC<BarChartProps> = ({
+export const BarChart = ({
   timeseries,
   xScale,
   yScale,
   barWidth = 2,
   ...rectProps
-}) => {
+}: BarChartProps) => {
   const theme = useTheme();
   const [yStart] = yScale.range();
   return (

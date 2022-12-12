@@ -1,24 +1,28 @@
 import React, { useState } from "react";
-import { ComponentMeta } from "@storybook/react";
+
 import { Typography } from "@mui/material";
+import { ComponentMeta } from "@storybook/react";
+
 import { formatInteger } from "@actnowcoalition/number-format";
-import { states, Region } from "@actnowcoalition/regions";
+import { Region, states } from "@actnowcoalition/regions";
+
 import {
-  SortDirection,
-  TableCell,
-  CompareTable,
   ColumnDefinition,
   ColumnHeader,
-  compare,
+  CompareTable,
+  SortDirection,
+  TableCell,
   TableContainer,
+  compare,
+  sortTableRows,
 } from ".";
 
 export default {
-  title: "Table/CompareTable",
+  title: "Components/CompareTable",
   component: CompareTable,
 } as ComponentMeta<typeof CompareTable>;
 
-interface RowItem {
+export interface RowItem {
   rowId: string;
   region: Region;
 }
@@ -27,9 +31,7 @@ const rows: RowItem[] = states.all
   .sort((a, b) => compare(a.population, b.population))
   .map((region) => ({ region, rowId: region.regionId }));
 
-const StatefulCompareTable: React.FC<{
-  rows: RowItem[];
-}> = () => {
+const StatefulCompareTable = ({ rows }: { rows: RowItem[] }) => {
   const columns: ColumnDefinition<RowItem>[] = [
     {
       columnId: "name",
@@ -135,27 +137,23 @@ const StatefulCompareTable: React.FC<{
     },
   ];
 
-  const [sortColumnId, setSortColumnId] = useState(columns[0].columnId);
-  const [sortDirection, setSortDirection] = useState(SortDirection.ASC);
+  const [sortState, setSortState] = useState({
+    sortColumnId: columns[0].columnId,
+    sortDirection: SortDirection.ASC,
+  });
+  const { sortColumnId, sortDirection } = sortState;
 
   const onClickSort = (direction: SortDirection, columnId: string) => {
-    setSortColumnId(columnId);
-    setSortDirection(direction);
+    setSortState({ sortColumnId: columnId, sortDirection: direction });
   };
 
-  return (
-    <CompareTable
-      rows={rows}
-      columns={columns}
-      sortColumnId={sortColumnId}
-      sortDirection={sortDirection}
-    />
-  );
+  const sortedRows = sortTableRows(rows, columns, sortState);
+  return <CompareTable rows={sortedRows} columns={columns} />;
 };
 
 export const Example = () => {
   return (
-    <TableContainer sx={{ maxWidth: 400, height: 600 }}>
+    <TableContainer sx={{ maxWidth: 700, height: 600 }}>
       <StatefulCompareTable rows={rows} />
     </TableContainer>
   );

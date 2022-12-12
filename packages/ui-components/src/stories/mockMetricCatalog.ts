@@ -1,25 +1,45 @@
 import {
-  MetricDefinition,
   MetricCatalog,
+  MetricDefinition,
   MockDataProvider,
   StaticValueDataProvider,
 } from "@actnowcoalition/metrics";
+
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
+import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";
+import { RandomPointsBetweenZeroAndOneDataProvider } from "./RandomPointsBetweenZeroAndOneDataProvider";
 
 export enum MetricId {
   APPLE_STOCK = "apple_stock",
+  APPLE_STOCK_LOW_THRESHOLDS = "apple_stock_low_thresholds",
+  NYC_TEMPERATURE = "nyc_temperature",
   PI = "pi",
   MOCK_CASES = "mock_cases",
   MOCK_CASES_NO_EXTENDED_NAME = "mock_cases_no_extended_name",
+  MOCK_CASES_DELAY_1S = "mock_cases_delay_1s",
+  MOCK_CASES_ERROR = "mock_cases_error",
   PASS_FAIL = "pass_fail",
+  PASS_FAIL_NO_EXTENDED_NAME = "pass_fail_no_extended_name",
+  RANDOM_POINTS_BETWEEN_ZERO_AND_ONE = "random_points_between_zero_and_one",
 }
 
 export enum ProviderId {
   MOCK = "mock",
   STATIC = "static",
   APPLE_STOCK = "apple_stock",
+  NYC_TEMPERATURE = "nyc_temperature",
+  RANDOM_POINTS_BETWEEN_ZERO_AND_ONE = "random_points_between_zero_and_one",
 }
+
+const defaultIntegerFormat: Intl.NumberFormatOptions = {
+  maximumFractionDigits: 0,
+};
+
+const defaultDecimalFormat: Intl.NumberFormatOptions = {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 1,
+};
 
 const testMetricDefs: MetricDefinition[] = [
   {
@@ -31,6 +51,29 @@ const testMetricDefs: MetricDefinition[] = [
     },
     categoryThresholds: [100, 200, 400, 800],
     categorySetId: "5_risk_categories",
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.APPLE_STOCK_LOW_THRESHOLDS,
+    name: "AAPL (low thresholds)",
+    extendedName: "Apple Stock w/ low thresholds",
+    dataReference: {
+      providerId: ProviderId.APPLE_STOCK,
+    },
+    categoryThresholds: [0, 100, 200, 400],
+    categorySetId: "5_risk_categories",
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.NYC_TEMPERATURE,
+    name: "NYC Temperature",
+    extendedName: "Temperature of New York City",
+    dataReference: {
+      providerId: ProviderId.NYC_TEMPERATURE,
+    },
+    categoryThresholds: [-20, 0, 10, 30],
+    categorySetId: "5_risk_categories",
+    formatOptions: defaultIntegerFormat,
   },
   {
     id: MetricId.PI,
@@ -51,17 +94,44 @@ const testMetricDefs: MetricDefinition[] = [
     },
     categoryThresholds: [40, 100],
     categorySetId: "cases_mock",
+    formatOptions: defaultIntegerFormat,
   },
   {
     id: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
-    name: "Cases (mock)",
-    extendedName: "",
+    name: "Cases (mock) - without extended name",
     dataReference: {
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
     categoryThresholds: [10, 100],
     categorySetId: "cases_mock",
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.MOCK_CASES_DELAY_1S,
+    name: "Cases (mock - delay 1s)",
+    extendedName: "Cases per 100k population (using mock data w/ delay)",
+    dataReference: {
+      providerId: ProviderId.MOCK,
+      startDate: "2020-01-01",
+      delayMs: 1000,
+    },
+    categoryThresholds: [10, 100],
+    categorySetId: "cases_mock",
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.MOCK_CASES_ERROR,
+    name: "Cases (error)",
+    extendedName: "Cases per 100k population (error)",
+    dataReference: {
+      providerId: ProviderId.MOCK,
+      startDate: "2020-01-01",
+      error: "Simulated error fetching data",
+    },
+    categoryThresholds: [10, 100],
+    categorySetId: "cases_mock",
+    formatOptions: defaultIntegerFormat,
   },
   {
     id: MetricId.PASS_FAIL,
@@ -73,6 +143,29 @@ const testMetricDefs: MetricDefinition[] = [
     },
     categorySetId: "pass_fail",
     categoryValues: [0, 1],
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
+    name: "Pass or Fail - without extended name",
+    dataReference: {
+      providerId: ProviderId.STATIC,
+      value: 0,
+    },
+    categorySetId: "pass_fail",
+    categoryValues: [0, 1],
+    formatOptions: defaultIntegerFormat,
+  },
+  {
+    id: MetricId.RANDOM_POINTS_BETWEEN_ZERO_AND_ONE,
+    name: "Random decimal points",
+    extendedName: "Random decimal points between zero and one",
+    dataReference: {
+      providerId: ProviderId.RANDOM_POINTS_BETWEEN_ZERO_AND_ONE,
+    },
+    categoryThresholds: [0.2, 0.4, 0.6, 0.8],
+    categorySetId: "5_risk_categories",
+    formatOptions: defaultDecimalFormat,
   },
 ];
 
@@ -80,6 +173,10 @@ export const dataProviders = [
   new MockDataProvider(ProviderId.MOCK),
   new StaticValueDataProvider(ProviderId.STATIC),
   new AppleStockDataProvider(ProviderId.APPLE_STOCK),
+  new NycTemperatureDataProvider(ProviderId.NYC_TEMPERATURE),
+  new RandomPointsBetweenZeroAndOneDataProvider(
+    ProviderId.RANDOM_POINTS_BETWEEN_ZERO_AND_ONE
+  ),
 ];
 
 const metricCategorySets = [
@@ -168,6 +265,7 @@ const metricDefsB: MetricDefinition[] = [
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
     },
+    formatOptions: defaultIntegerFormat,
   },
 ];
 

@@ -1,7 +1,9 @@
 import React from "react";
+
+import { Stack, Typography } from "@mui/material";
 import isNil from "lodash/isNil";
-import { Typography, Stack } from "@mui/material";
-import { TableCellProps, SortDirection, SortControls } from "..";
+
+import { SortControls, SortDirection, TableCellProps } from "..";
 import { StyledTableCell } from "./ColumnHeader.style";
 
 export interface ColumnHeaderProps extends TableCellProps {
@@ -20,12 +22,12 @@ export interface ColumnHeaderProps extends TableCellProps {
   onClickSort?: (sortDirection: SortDirection) => void;
 }
 
-export const ColumnHeader: React.FC<ColumnHeaderProps> = ({
+export const ColumnHeader = ({
   label,
   sortDirection,
   onClickSort,
   ...tableCellProps
-}) => {
+}: ColumnHeaderProps) => {
   const isSortable = !isNil(onClickSort);
   const isSortActive = !isNil(sortDirection);
   return (

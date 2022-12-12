@@ -1,4 +1,11 @@
-import { RegionDB, Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
+
+export interface BaseUSMapProps {
+  getTooltip: (regionId: string) => React.ReactNode;
+  getFillColor?: (regionId: string) => string;
+  getRegionUrl?: (regionId: string) => string | undefined;
+  width?: number;
+}
 
 /** Checks if a county or congressional district belongs to a given state */
 export function belongsToState(

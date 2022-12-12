@@ -1,8 +1,10 @@
 import React, { useMemo } from "react";
-import concat from "lodash/concat";
-import { ScaleTime, ScaleLinear } from "d3-scale";
+
 import { Group } from "@visx/group";
-import { voronoi, VoronoiPolygon } from "@visx/voronoi";
+import { VoronoiPolygon, voronoi } from "@visx/voronoi";
+import { ScaleLinear, ScaleTime } from "d3-scale";
+import concat from "lodash/concat";
+
 import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
 export interface ChartOverlayXYProps {

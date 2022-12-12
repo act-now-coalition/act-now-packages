@@ -1,8 +1,8 @@
 import { Region } from "@actnowcoalition/regions";
 
 import { Metric } from "../Metric";
-import { MultiRegionMultiMetricDataStore } from "../data";
 import type { MetricCatalog } from "../MetricCatalog";
+import { MultiRegionMultiMetricDataStore } from "../data";
 
 /**
  * Interface that all metric data providers must implement.

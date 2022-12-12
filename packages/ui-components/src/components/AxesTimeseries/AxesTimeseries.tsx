@@ -1,31 +1,33 @@
 import React from "react";
+
+import { ScaleLinear, ScaleTime } from "d3-scale";
+
 import {
-  AxisLeft,
-  AxisLeftProps,
   AxisBottom,
   AxisBottomProps,
+  AxisLeft,
+  AxisLeftProps,
 } from "../Axis/Axis.style";
-import { ScaleTime, ScaleLinear } from "d3-scale";
 
 export interface AxesTimeseriesProps {
   height: number;
-  dateScale: ScaleTime<number, number>;
+  xScale: ScaleTime<number, number>;
   yScale: ScaleLinear<number, number>;
   axisLeftProps?: Omit<AxisLeftProps, "scale">;
   axisBottomProps?: Omit<AxisBottomProps, "scale">;
 }
 
-export const AxesTimeseries: React.FC<AxesTimeseriesProps> = ({
+export const AxesTimeseries = ({
   height,
-  dateScale,
+  xScale,
   yScale,
   axisLeftProps,
   axisBottomProps,
-}) => {
+}: AxesTimeseriesProps) => {
   return (
     <>
       <AxisLeft scale={yScale} {...axisLeftProps} />
-      <AxisBottom top={height} scale={dateScale} {...axisBottomProps} />
+      <AxisBottom top={height} scale={xScale} {...axisBottomProps} />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Theme } from "@mui/material/styles";
 
 /** Theme variables */
-export { themeConfig } from "./styles";
+export { themeConfig, darkThemeConfig } from "./styles";
 
 /**
  * Material UI Theme extensions
@@ -81,6 +81,7 @@ declare module "@mui/material/styles" {
 export * from "./common/hooks";
 
 /** UI Components and props */
+
 export * from "./components/AutoWidth";
 export * from "./components/AxesTimeseries";
 export * from "./components/Axis";
@@ -88,6 +89,7 @@ export * from "./components/BarChart";
 export * from "./components/ChartOverlayX";
 export * from "./components/ChartOverlayXY";
 export * from "./components/CompareTable";
+export * from "./components/ErrorBox";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
 export * from "./components/LabelIcon";
@@ -109,16 +111,22 @@ export * from "./components/MetricScoreOverview";
 export * from "./components/MetricSeriesChart";
 export * from "./components/MetricSparklines";
 export * from "./components/MetricTooltip";
-export * from "./components/MetricUSMaps";
+export * from "./components/MetricUSNationalMap";
+export * from "./components/MetricUSStateMap";
 export * from "./components/MetricValue";
 export * from "./components/MetricWorldMap";
 export * from "./components/MultiMetricUSStateMap";
 export * from "./components/MultiProgressBar";
+export * from "./components/MultiRegionMultiMetricChart";
+export * from "./components/MultiSelect";
 export * from "./components/PointMarker";
 export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
+export * from "./components/Select";
+export * from "./components/SeriesChart";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";
-export * from "./components/USMaps";
+export * from "./components/USNationalMap";
+export * from "./components/USStateMap";
 export * from "./components/WorldMap";

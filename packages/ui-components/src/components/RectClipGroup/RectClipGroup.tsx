@@ -1,10 +1,5 @@
 import React, { SVGProps, useId } from "react";
 
-export interface RectClipGroupProps extends SVGProps<SVGRectElement> {
-  /** Elements that will be clipped by RectClipGroup */
-  children: React.ReactNode;
-}
-
 /**
  * The RectClipGroup component hides the content of its children that is
  * outside the area defined by its properties.
@@ -18,10 +13,13 @@ export interface RectClipGroupProps extends SVGProps<SVGRectElement> {
  * </svg>
  * ```
  */
-export const RectClipGroup: React.FC<RectClipGroupProps> = ({
+
+export type RectClipGroupProps = SVGProps<SVGRectElement>;
+
+export const RectClipGroup = ({
   children,
   ...rectProps
-}) => {
+}: RectClipGroupProps) => {
   const clipPathId = useId();
   return (
     <>

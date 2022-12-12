@@ -1,7 +1,8 @@
 import React from "react";
-import { Story, ComponentMeta } from "@storybook/react";
-import { LegendThreshold } from ".";
-import { LegendThresholdProps } from "./interfaces";
+
+import { ComponentMeta, Story } from "@storybook/react";
+
+import { LegendThreshold, LegendThresholdProps } from "./LegendThreshold";
 
 export default {
   title: "Components/LegendThreshold",
@@ -12,6 +13,7 @@ interface Item {
   color: string;
   label: string;
   sublabel: string;
+  showIndicator?: boolean;
 }
 
 const Template: Story<LegendThresholdProps<Item>> = (args) => (
@@ -29,12 +31,36 @@ const items: Item[] = [
   { label: "50", sublabel: "Sublabel 5", color: "#A10003" },
 ];
 
+const itemsWithIndicator: Item[] = [
+  {
+    label: "10",
+    sublabel: "Sublabel 1",
+    color: "#90BE6D",
+    showIndicator: true,
+  },
+  {
+    label: "20",
+    sublabel: "Sublabel 2",
+    color: "#F9C74F",
+    showIndicator: false,
+  },
+  {
+    label: "30",
+    sublabel: "Sublabel 3",
+    color: "#F8961E",
+    showIndicator: false,
+  },
+];
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemColor = (item: Item, itemIndex: number) => item.color;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemLabel = (item: Item, itemIndex: number) => item.label;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getItemSublabel = (item: Item, itemIndex: number) => item.sublabel;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const getItemShowIndicator = (item: Item, itemIndex: number) =>
+  item.showIndicator;
 
 export const HorizontalDefault = Template.bind({});
 HorizontalDefault.args = {
@@ -52,12 +78,14 @@ HorizontalWithoutLabels.args = {
   showLabels: false,
 };
 
-export const HorizontalRounded = Template.bind({});
-HorizontalRounded.args = {
-  ...HorizontalDefault.args,
+export const HorizontalWithIndicator = Template.bind({});
+HorizontalWithIndicator.args = {
+  orientation: "horizontal",
   height: horizontalHeight,
-  borderRadius: horizontalHeight / 2,
-  showLabels: false,
+  items: itemsWithIndicator,
+  getItemColor,
+  getItemLabel,
+  getItemShowIndicator,
 };
 
 export const HorizontalSquared = Template.bind({});
@@ -75,22 +103,16 @@ VerticalDefault.args = {
   getItemSublabel,
 };
 
-export const VerticalRounded = Template.bind({});
-VerticalRounded.args = {
-  borderRadius: 8,
+export const VerticalWithoutLabels = Template.bind({});
+VerticalWithoutLabels.args = {
   ...VerticalDefault.args,
-};
-
-export const VerticalNoLabel = Template.bind({});
-VerticalNoLabel.args = {
   showLabels: false,
-  ...VerticalDefault.args,
 };
 
 export const VerticalSmall = Template.bind({});
 VerticalSmall.args = {
+  ...VerticalDefault.args,
   height: 72,
   borderRadius: 8,
   showLabels: false,
-  ...VerticalDefault.args,
 };

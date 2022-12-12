@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-import { Tooltip, TooltipProps as MuiTooltipProps } from "@mui/material";
+
+import { TooltipProps as MuiTooltipProps, Tooltip } from "@mui/material";
+
 import { CloseIcon } from "./InfoTooltip.style";
 
 export type InfoTooltipProps = MuiTooltipProps;
 
-export const InfoTooltip: React.FC<InfoTooltipProps> = ({
+export const InfoTooltip = ({
   children,
   title,
   ...otherProps
-}) => {
+}: InfoTooltipProps) => {
   /**
    * MUI Tooltip's 'open', 'onOpen', and 'onClose' props don't need to explicitly
    * be declared by default, but since we need access to a handleClose function
