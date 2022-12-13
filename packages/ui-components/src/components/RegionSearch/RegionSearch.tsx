@@ -61,7 +61,9 @@ export const RegionSearch = ({
       options={options}
       onChange={(e, region: Region | null, reason: string) => {
         if (region && reason === "selectOption") {
-          window.location.href = regionDB.getRegionUrl(region);
+          // Typescript doesn't allow to assign a string to window.location
+          // https://github.com/microsoft/TypeScript/issues/48949
+          (window as any).location = regionDB.getRegionUrl(region);
         }
       }}
       clearIcon={<></>}
