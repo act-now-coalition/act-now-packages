@@ -3,6 +3,7 @@ import React, { HTMLAttributes } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Autocomplete,
+  AutocompleteChangeReason,
   AutocompleteProps,
   TextField,
   createFilterOptions,
@@ -59,7 +60,11 @@ export const RegionSearch = ({
   return (
     <Autocomplete
       options={options}
-      onChange={(e, region: Region | null, reason: string) => {
+      onChange={(
+        e,
+        region: Region | null,
+        reason: AutocompleteChangeReason
+      ) => {
         if (region && reason === "selectOption") {
           // Typescript doesn't allow to assign a string to window.location
           // https://github.com/microsoft/TypeScript/issues/48949
