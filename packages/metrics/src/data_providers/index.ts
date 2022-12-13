@@ -10,6 +10,8 @@ export { StaticValueDataProvider } from "./StaticValueDataProvider";
 export { CsvDataProvider } from "./CsvDataProvider";
 export { CovidActNowDataProvider } from "./CovidActNowDataProvider";
 export type { CsvDataProviderOptions } from "./CsvDataProvider";
+export { JsonDataProvider } from "./JsonDataProvider";
+export type { JsonDataProviderOptions } from "./JsonDataProvider";
 
 export { TransformedMetricDataProvider } from "./TransformedMetricDataProvider";
 

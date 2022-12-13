@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
@@ -47,7 +46,6 @@ export const SparkLine = ({
   height = 50,
   barWidth = 2,
 }: SparkLineProps) => {
-  const theme = useTheme();
   const padding = 2;
 
   if (!timeseriesBarChart.hasData() || !timeseriesLineChart.hasData()) {
@@ -82,7 +80,7 @@ export const SparkLine = ({
             timeseries={timeseriesBarChart}
             xScale={xScaleBar}
             yScale={yScaleBar}
-            fill={theme.palette.border.default}
+            fillOpacity={0.3}
           />
         </Group>
         <LineChart

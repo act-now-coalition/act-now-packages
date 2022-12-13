@@ -14,6 +14,7 @@ import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { ErrorBox } from "../ErrorBox";
 import { GridRows } from "../Grid";
 import { LineIntervalChart } from "../LineIntervalChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -54,13 +55,19 @@ export const MetricLineThresholdChart = ({
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
 
-  const { data } = useData(region, metric, /*includeTimeseries=*/ true);
+  const { data, error } = useData(region, metric, /*includeTimeseries=*/ true);
   const timeseries = data && data.timeseries.assertFiniteNumbers();
 
   const { hoveredPoint, onMouseMove, onMouseLeave } =
     useHoveredDate(timeseries);
 
-  if (!timeseries?.hasData?.()) {
+  if (error) {
+    return (
+      <ErrorBox width={width} height={height}>
+        Chart could not be loaded.
+      </ErrorBox>
+    );
+  } else if (!timeseries?.hasData?.()) {
     return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 

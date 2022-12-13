@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Reorganize storybook
+Implement date filter on MetricSeriesChart

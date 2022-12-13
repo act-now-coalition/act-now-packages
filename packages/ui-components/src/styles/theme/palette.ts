@@ -81,6 +81,7 @@ const palette = {
   chart: {
     main: colors.common.black,
     axis: colors.border.default,
+    axisLabel: colors.text.deemphasized,
   },
   action: {
     disabledBackground: colors.action.disabledBackground,

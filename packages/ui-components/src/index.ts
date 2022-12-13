@@ -72,6 +72,7 @@ declare module "@mui/material/styles" {
     chart: {
       main: string;
       axis: string;
+      axisLabel: string;
     };
   }
 }
@@ -80,6 +81,7 @@ declare module "@mui/material/styles" {
 export * from "./common/hooks";
 
 /** UI Components and props */
+
 export * from "./components/AutoWidth";
 export * from "./components/AxesTimeseries";
 export * from "./components/Axis";
@@ -87,6 +89,7 @@ export * from "./components/BarChart";
 export * from "./components/ChartOverlayX";
 export * from "./components/ChartOverlayXY";
 export * from "./components/CompareTable";
+export * from "./components/ErrorBox";
 export * from "./components/Grid";
 export * from "./components/InfoTooltip";
 export * from "./components/LabelIcon";
@@ -114,10 +117,13 @@ export * from "./components/MetricValue";
 export * from "./components/MetricWorldMap";
 export * from "./components/MultiMetricUSStateMap";
 export * from "./components/MultiProgressBar";
+export * from "./components/MultiRegionMultiMetricChart";
+export * from "./components/MultiSelect";
 export * from "./components/PointMarker";
 export * from "./components/ProgressBar";
 export * from "./components/RectClipGroup";
 export * from "./components/RegionSearch";
+export * from "./components/Select";
 export * from "./components/SeriesChart";
 export * from "./components/ShareButton";
 export * from "./components/SparkLine";

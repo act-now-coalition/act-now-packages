@@ -98,7 +98,7 @@ const testMetricDefs: MetricDefinition[] = [
   },
   {
     id: MetricId.MOCK_CASES_NO_EXTENDED_NAME,
-    name: "Cases (mock)",
+    name: "Cases (mock) - without extended name",
     dataReference: {
       providerId: ProviderId.MOCK,
       startDate: "2020-01-01",
@@ -147,7 +147,7 @@ const testMetricDefs: MetricDefinition[] = [
   },
   {
     id: MetricId.PASS_FAIL_NO_EXTENDED_NAME,
-    name: "Pass or Fail",
+    name: "Pass or Fail - without extended name",
     dataReference: {
       providerId: ProviderId.STATIC,
       value: 0,

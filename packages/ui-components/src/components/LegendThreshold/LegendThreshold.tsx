@@ -3,7 +3,7 @@ import React from "react";
 import { LegendThresholdHorizontal } from "./LegendThresholdHorizontal";
 import { LegendThresholdVertical } from "./LegendThresholdVertical";
 
-export interface LegendThresholdProps<T> {
+export interface BaseLegendThresholdProps {
   /**
    * Orientation of the legend.
    */
@@ -27,14 +27,17 @@ export interface LegendThresholdProps<T> {
    */
   borderRadius?: number;
   /**
-   * Array of legend items, containing properties about each section of the legend.
-   */
-  items: T[];
-  /**
    * Show the labels of each legend item.
    * @default true
    */
   showLabels?: boolean;
+}
+
+export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
+  /**
+   * Array of legend items, containing properties about each section of the legend.
+   */
+  items: T[];
   /**
    * Function that returns the legend item's color.
    *
@@ -56,6 +59,13 @@ export interface LegendThresholdProps<T> {
    * @param {number} itemIndex Index of the legend item.
    */
   getItemSublabel?: (item: T, itemIndex: number) => string;
+  /**
+   * Function that returns whether or not to show an indicator of the current value.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
+  getItemShowIndicator?: (item: T, itemIndex: number) => boolean | undefined;
 }
 
 /**

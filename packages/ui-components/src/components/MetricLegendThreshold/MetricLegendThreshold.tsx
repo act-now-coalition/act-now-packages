@@ -3,27 +3,18 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
+import { Category } from "@actnowcoalition/metrics";
 
-import { LegendThreshold } from "../LegendThreshold";
+import { BaseLegendThresholdProps, LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { getMetricCategoryItems } from "./utils";
 import { CategoryItem } from "./utils";
 
-export interface MetricLegendThresholdProps {
-  /**
-   * Orientation of the legend.
-   */
-  orientation: "horizontal" | "vertical";
+export interface MetricLegendThresholdProps extends BaseLegendThresholdProps {
   /**
    * Metric represented by the legend.
    */
   metric: Metric | string;
-  /**
-   * Show the labels of each legend item.
-   * This does not affect the start/end labels.
-   * @default true
-   */
-  showLabels?: boolean;
   /**
    * Label rendered at the start of the thermometer.
    * For vertical orientation, this renders above the thermometer.
@@ -42,42 +33,35 @@ export interface MetricLegendThresholdProps {
    */
   showOverview?: boolean;
   /**
-   * Border radius of the thermometer.
+   * Category of the metric's current value.
    */
-  borderRadius?: number;
-  /**
-   * Width of the thermometer.
-   */
-  width?: number;
-  /**
-   * Height of the thermometer.
-   */
-  height?: number;
+  currentCategory?: Category;
 }
 
 const getItemColor = (item: CategoryItem) => item.color;
 const getItemLabelHorizontal = (item: CategoryItem) => item.endThreshold ?? "";
 const getItemLabelVertical = (item: CategoryItem) => item.name;
 const getItemSublabel = (item: CategoryItem) => item.description ?? "";
+const getItemShowIndicator = (item: CategoryItem) => item.showIndicator;
 
 export const MetricLegendThreshold = ({
   metric,
   startLabel,
   endLabel,
   showOverview = true,
-  showLabels = true,
+  currentCategory,
   ...legendThresholdProps
 }: MetricLegendThresholdProps) => {
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
 
-  const items = getMetricCategoryItems(metric);
+  const items = getMetricCategoryItems(metric, currentCategory);
 
-  // Common props for both horizontal and vertical orientations
+  // Props common to both horizontal and vertical orientations
   const commonProps = {
     items,
     getItemColor,
-    showLabels,
+    getItemShowIndicator,
     ...legendThresholdProps,
   };
 

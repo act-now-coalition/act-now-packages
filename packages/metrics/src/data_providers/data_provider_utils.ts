@@ -1,9 +1,11 @@
 import get from "lodash/get";
+import groupBy from "lodash/groupBy";
 import isNil from "lodash/isNil";
+import truncate from "lodash/truncate";
 import Papa from "papaparse";
 
 import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
@@ -209,4 +211,83 @@ function getAllColumnsFromRows(rows: DataRow[]): string[] {
     }
   }
   return [...columns];
+}
+
+/**
+ * Helper to group DataRows by region ID key and validate the region IDs against a regionDb.
+ *
+ * @param dataRows Data rows to group and validate regions for.
+ * @param regionDb RegionDB to validate against.
+ * @param regionKey Region column name to use for grouping and validation.
+ * @param url URL to use for error messages.
+ * @returns
+ */
+export function groupAndValidateRowsByRegionId(
+  dataRows: DataRow[],
+  regionDb: RegionDB,
+  regionKey: string,
+  url?: string
+): { [regionId: string]: DataRow[] } {
+  const dataRowsByRegionId = groupBy(dataRows, (row) => row[regionKey]);
+  assert(
+    !dataRowsByRegionId["undefined"],
+    `One or more data rows were missing a region id value in column ${regionKey}`
+  );
+
+  const regionIds = Object.keys(dataRowsByRegionId);
+  const unknownRegionIds = regionIds.filter(
+    (regionId) => !regionDb.findByRegionId(regionId)
+  );
+  if (unknownRegionIds.length > 0) {
+    const source = url ? `data source ${url}` : "data";
+    console.warn(
+      `Unrecognized region IDs encountered while parsing ${source}: ${truncate(
+        unknownRegionIds.join(", "),
+        { length: 200 }
+      )}`
+    );
+    if (unknownRegionIds.length === regionIds.length) {
+      throw new Error(
+        `Failed to parse ${source}: All region IDs were invalid.`
+      );
+    }
+  }
+  return dataRowsByRegionId;
+}
+
+/**
+ * Creates a MetricData object from a set of data rows grouped by region ID.
+ *
+ * @param dataRowsByRegionId Data to transform into MetricData.
+ * @param region Region to get MetricData for.
+ * @param metric Metric to get MetricData for.
+ * @param dateField Name of field containing date values.
+ * @returns MetricData for the provided region and metric.
+ */
+export async function getMetricDataFromDataRows(
+  dataRowsByRegionId: { [regionId: string]: DataRow[] },
+  region: Region,
+  metric: Metric,
+  metricField: string,
+  dateField?: string
+): Promise<MetricData<unknown>> {
+  let metricData: MetricData;
+  if (dateField) {
+    metricData = dataRowsToMetricData(
+      dataRowsByRegionId,
+      region,
+      metric,
+      metricField,
+      dateField,
+      /* strict= */ true
+    );
+  } else {
+    metricData = dataRowToMetricData(
+      dataRowsByRegionId,
+      region,
+      metric,
+      metricField
+    );
+  }
+  return metricData;
 }

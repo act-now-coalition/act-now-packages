@@ -23,6 +23,8 @@ export interface SeriesBase {
    * Region represented in the series.
    */
   region: Region;
+  /** Optional series label */
+  label?: string;
 }
 
 export interface SeriesLine extends SeriesBase {

@@ -3,6 +3,9 @@ import React from "react";
 import { Paper, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
+import { states } from "@actnowcoalition/regions";
+
+import { useData } from "../../common/hooks";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendThreshold } from "./MetricLegendThreshold";
 
@@ -17,10 +20,39 @@ const Template: ComponentStory<typeof MetricLegendThreshold> = (args) => (
   </Paper>
 );
 
+const newYork = states.findByRegionIdStrict("36");
+
+const TemplateWithCurrentCategoryInner = () => {
+  const currentCategory = useData(
+    newYork,
+    MetricId.MOCK_CASES
+  ).data?.getCategory();
+  return (
+    <Paper sx={{ p: 2 }}>
+      <MetricLegendThreshold
+        orientation="horizontal"
+        metric={MetricId.MOCK_CASES}
+        currentCategory={currentCategory}
+      />
+    </Paper>
+  );
+};
+
+const TemplateWithCurrentCategory: ComponentStory<
+  typeof MetricLegendThreshold
+> = () => <TemplateWithCurrentCategoryInner />;
+
 // Horizontal legend threshold props
 const horizontalBarHeight = 20;
 
 export const HorizontalDefault = Template.bind({});
+HorizontalDefault.args = {
+  orientation: "horizontal",
+  height: horizontalBarHeight,
+  metric: MetricId.MOCK_CASES,
+};
+
+export const HorizontalWithIndicator = TemplateWithCurrentCategory.bind({});
 HorizontalDefault.args = {
   orientation: "horizontal",
   height: horizontalBarHeight,

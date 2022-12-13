@@ -1,25 +1,28 @@
 import React from "react";
 
-import { Skeleton } from "@mui/material";
+import { Skeleton, useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 import isNumber from "lodash/isNumber";
 import max from "lodash/max";
 import min from "lodash/min";
+import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
 
 import { assert } from "@actnowcoalition/assert";
-import { Timeseries } from "@actnowcoalition/metrics";
+import { DateRange, Timeseries } from "@actnowcoalition/metrics";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
+import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
-import { Series, SeriesType } from "../SeriesChart";
-import { SeriesChart } from "../SeriesChart";
+import { RectClipGroup } from "../RectClipGroup";
+import { Series, SeriesChart, SeriesType } from "../SeriesChart";
+import { SeriesLabel } from "./MetricSeriesChart.style";
 
 export interface MetricSeriesChartProps extends BaseChartProps {
   /**
@@ -31,6 +34,15 @@ export interface MetricSeriesChartProps extends BaseChartProps {
    * @default 0
    */
   minValue?: number;
+  /**
+   * Show labels for each series.
+   * @default true
+   */
+  showLabels?: boolean;
+  /**
+   * Date range used to filter the series.
+   */
+  dateRange?: DateRange;
 }
 
 /**
@@ -51,8 +63,12 @@ export const MetricSeriesChart = ({
   marginLeft = 70,
   marginRight = 20,
   minValue = 0,
+  showLabels = true,
+  dateRange,
 }: MetricSeriesChartProps) => {
   const metricCatalog = useMetricCatalog();
+  const theme = useTheme();
+  const defaultTextColor = theme.palette.text.primary;
 
   // Make sure there are no duplicate regions or metrics
   const regions = uniq(series.map(({ region }) => region));
@@ -65,7 +81,7 @@ export const MetricSeriesChart = ({
     `The series should have at least one valid metric`
   );
 
-  const { data } = useDataForRegionsAndMetrics(
+  const { data, error } = useDataForRegionsAndMetrics(
     regions,
     metrics,
     /*includeTimeseries=*/ true
@@ -73,14 +89,26 @@ export const MetricSeriesChart = ({
 
   const timeseriesList =
     data &&
-    series.map(({ region, metric }) =>
-      data.metricData(region, metric).timeseries.assertFiniteNumbers()
-    );
+    series.map(({ region, metric }) => {
+      const fullTimeseries = data
+        .metricData(region, metric)
+        .timeseries.assertFiniteNumbers();
+
+      return dateRange
+        ? fullTimeseries.filterToDateRange(dateRange)
+        : fullTimeseries;
+    });
 
   const { pointInfo, onMouseMove, onMouseLeave } =
     useHoveredPoint(timeseriesList);
 
-  if (!data || !timeseriesList) {
+  if (error) {
+    return (
+      <ErrorBox width={width} height={height}>
+        Chart could not be loaded.
+      </ErrorBox>
+    );
+  } else if (!data || !timeseriesList) {
     return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
@@ -113,9 +141,30 @@ export const MetricSeriesChart = ({
     range: [chartHeight, 0],
   });
 
+  const initialLabelPositions = seriesList
+    .filter((item) => item.series.label)
+    .map(({ series, timeseries }): LabelInfo => {
+      // NOTE: We already filtered out timeseries without data and items
+      // without labels, this is for the benefit of TS.
+      assert(series.label, `The series should have a label`);
+      assert(timeseries.hasData(), `The timeseries should have data`);
+
+      return {
+        y: yScale(timeseries.lastValue),
+        label: series.label,
+        fill: getSeriesColor(series, defaultTextColor),
+      };
+    });
+
+  // TODO (Pablo): Can we obtain the line height in pixels from the theme?
+  const labelPositions = calculateLabelPositions(
+    initialLabelPositions,
+    /*labelLineHeight=*/ 14
+  );
+
   // All series in the chart should have compatible units, so we can
   // use any of them to format the values on the y-axis.
-  // In this case, we use the first metric in the array of series.
+  // Here we use the first metric in the array of series.
   const yAxisFormat = (value: number) => metrics[0].formatValue(value, "---");
 
   return (
@@ -127,15 +176,31 @@ export const MetricSeriesChart = ({
           height={chartHeight}
           axisLeftProps={{ tickFormat: yAxisFormat }}
         />
-        {seriesList.map((item, itemIndex) => (
-          <SeriesChart
-            key={`series-${itemIndex}`}
-            series={item.series}
-            timeseries={item.timeseries}
-            xScale={xScale}
-            yScale={yScale}
-          />
-        ))}
+        <RectClipGroup width={chartWidth} height={chartHeight}>
+          {seriesList.map((item, itemIndex) => (
+            <SeriesChart
+              key={`series-${itemIndex}`}
+              series={item.series}
+              timeseries={item.timeseries}
+              xScale={xScale}
+              yScale={yScale}
+            />
+          ))}
+        </RectClipGroup>
+        {showLabels && (
+          <Group>
+            {labelPositions.map((item, itemIndex) => (
+              <SeriesLabel
+                key={`label-${item.label}-${itemIndex}`}
+                x={chartWidth + 5}
+                y={item.y}
+                fill={item.fill}
+              >
+                {item.label}
+              </SeriesLabel>
+            ))}
+          </Group>
+        )}
         {pointInfo?.point && isNumber(pointInfo?.timeseriesIndex) && (
           <MetricTooltip
             metric={series[pointInfo.timeseriesIndex].metric}
@@ -146,7 +211,10 @@ export const MetricSeriesChart = ({
             <PointMarker
               x={xScale(pointInfo.point.date)}
               y={yScale(pointInfo.point.value)}
-              fill={getSeriesColor(series[pointInfo.timeseriesIndex])}
+              fill={getSeriesColor(
+                series[pointInfo.timeseriesIndex],
+                defaultTextColor
+              )}
             />
           </MetricTooltip>
         )}
@@ -202,10 +270,49 @@ function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
   return [minValue, maxValue];
 }
 
-function getSeriesColor(series: Series): string {
+function getSeriesColor(series: Series, defaultColor: string): string {
   if (series.type === SeriesType.LINE) {
-    return series?.lineProps?.stroke ?? "#000";
+    return series?.lineProps?.stroke ?? defaultColor;
   } else {
-    return "#000";
+    return defaultColor;
   }
+}
+
+interface LabelInfo {
+  /**
+   * The y-coordinate of the label.
+   */
+  y: number;
+  /**
+   * Text for the label.
+   */
+  label: string;
+  /**
+   * Fill color for the label.
+   */
+  fill: string;
+}
+
+/**
+ * `calculateLabelPositions` adjusts the y-coordinate of the labels to prevent them from overlapping.
+ */
+
+function calculateLabelPositions(
+  items: LabelInfo[],
+  labelLineHeight: number
+): LabelInfo[] {
+  // Sort the items by SVG y-coordinate, in ascending order.
+  const sortedItems = sortBy(items, (item) => item.y);
+
+  return sortedItems.reduce((adjusted: LabelInfo[], item: LabelInfo) => {
+    const dy = labelLineHeight;
+
+    // Take the maximum y-coordinate from the items that are already
+    // adjusted, and compare it with the y-coordinate of the current
+    // item. If the items will overlap, adjust the position of the
+    // current item.
+    const maxY = max(adjusted.map((p) => p.y)) ?? Number.NEGATIVE_INFINITY;
+    const adjustedY = maxY + dy > item.y ? maxY + dy : item.y;
+    return [...adjusted, { ...item, y: adjustedY }];
+  }, []);
 }
