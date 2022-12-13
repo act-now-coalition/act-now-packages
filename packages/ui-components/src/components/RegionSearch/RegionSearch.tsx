@@ -12,17 +12,11 @@ import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { formatPopulation } from "../../common/utils";
 import { SearchItem } from "../SearchItem";
-import { StyledLink } from "./RegionSearch.style";
+import { StyledListItem } from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
   return region.fullName;
 }
-
-const onChange = (item: Region | null) => {
-  if (item && item.relativeUrl) {
-    window.location.href = item.relativeUrl;
-  }
-};
 
 export type CustomAutocompleteProps = AutocompleteProps<
   Region,
@@ -65,17 +59,20 @@ export const RegionSearch = ({
   return (
     <Autocomplete
       options={options}
-      onChange={(e, item: Region | null) => onChange(item)}
+      onChange={(e, region: Region | null, reason: string) => {
+        if (region && reason === "selectOption") {
+          window.location.href = regionDB.getRegionUrl(region);
+        }
+      }}
       clearIcon={<></>}
       renderInput={customRenderInput ?? defaultRenderInput}
       renderOption={(props: HTMLAttributes<HTMLLIElement>, option: Region) => (
-        <StyledLink href={regionDB.getRegionUrl(option)}>
+        <StyledListItem {...props}>
           <SearchItem
             itemLabel={option.shortName}
             itemSublabel={`${formatPopulation(option.population)} population`}
-            {...props}
           />
-        </StyledLink>
+        </StyledListItem>
       )}
       getOptionLabel={stringifyOption}
       filterOptions={createFilterOptions({
