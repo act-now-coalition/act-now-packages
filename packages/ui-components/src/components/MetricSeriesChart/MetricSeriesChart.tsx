@@ -104,10 +104,12 @@ export const MetricSeriesChart = ({
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxDataValue] = getValueRange(timeseriesList);
 
-  // Get the lowest minValue from the metric definitions of included metrics.
+  // Given an array of metrics, select the metric with the lowest defined minimum value
+  // and use that minimum value.
   const metricDefinitionMin = min(metrics.map(({ minValue }) => minValue));
 
-  // Get the highest maxValue from the metric definitions of included metrics.
+  // Given an array of metrics, select the metric with the highest defined maximum value
+  // and use that maximum value.
   const metricDefinitionMax = max(metrics.map(({ maxValue }) => maxValue));
 
   const chartWidth = width - marginLeft - marginRight;

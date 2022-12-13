@@ -40,8 +40,8 @@ export const SparkLine = ({
   width = 150,
   height = 50,
   barWidth = 2,
-  minValue,
-  maxValue,
+  minValue: propMinValue,
+  maxValue: propMaxValue,
 }: SparkLineProps) => {
   const theme = useTheme();
   const padding = 2;
@@ -56,7 +56,7 @@ export const SparkLine = ({
   });
 
   const yScaleBar = scaleLinear({
-    domain: [minValue ?? 0, maxValue ?? timeseriesBarChart.maxValue],
+    domain: [propMinValue ?? 0, propMaxValue ?? timeseriesBarChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
@@ -66,7 +66,7 @@ export const SparkLine = ({
   });
 
   const yScaleLine = scaleLinear({
-    domain: [minValue ?? 0, maxValue ?? timeseriesLineChart.maxValue],
+    domain: [propMinValue ?? 0, propMaxValue ?? timeseriesLineChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 

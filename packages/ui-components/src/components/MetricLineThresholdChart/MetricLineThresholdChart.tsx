@@ -90,18 +90,19 @@ export const MetricLineThresholdChart = ({
 
   // If available, use minValue from the metric definition.
   // Otherwise, use the lower bound of the lowest threshold.
-  // If neither are available, use min value of the data.
-  const minChartValue =
-    metric.minValue ?? min(intervals.map(({ lower }) => lower)) ?? minValue;
+  const minValueMetric = metric.minValue;
+  const minValueIntervals = min(intervals.map(({ lower }) => lower));
+  const minChartValue = minValueMetric ?? minValueIntervals;
 
   // If available, use maxValue from the metric definition.
   // Otherwise, use the higher bound of the highest threshold.
-  // If neither are available, use max value of the data.
-  const maxChartValue =
-    metric.maxValue ?? max(intervals.map(({ upper }) => upper)) ?? maxValue;
+  const maxValueMetric = metric.maxValue;
+  const maxValueIntervals = max(intervals.map(({ upper }) => upper));
+  const maxChartValue = maxValueMetric ?? maxValueIntervals;
 
   const yScale = scaleLinear({
-    domain: [minChartValue, maxChartValue],
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    domain: [minChartValue!, maxChartValue!],
     range: [chartHeight, 0],
   });
 

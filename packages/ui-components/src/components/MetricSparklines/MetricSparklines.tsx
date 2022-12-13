@@ -9,6 +9,7 @@ import { useDataForMetrics } from "../../common/hooks";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
+import { getChartRange } from "../../common/utils/charts";
 
 export interface MetricSparklinesProps extends BaseSparkLineProps {
   /** Region to generate sparkline for. */
@@ -64,22 +65,19 @@ export const MetricSparklines = ({
       ?.timeseries.assertFiniteNumbers()
       .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
-    // Use minValue from metric definitions.
-    // If unspecified, use minimum data value.
-    const minValue =
-      metricLineChart.minValue && metricBarChart.minValue
-        ? Math.min(metricLineChart.minValue, metricBarChart.minValue)
-        : timeseriesLineChart.hasData() && timeseriesBarChart.hasData()
-        ? Math.min(timeseriesLineChart.minValue, timeseriesBarChart.minValue)
-        : undefined;
+    const { minValue: minValueLineChart, maxValue: maxValueLineChart } =
+      getChartRange(metricLineChart, timeseriesLineChart);
 
-    // Use maxValue from metric definitions.
-    // If unspecified, use maximum data value.
+    const { minValue: minValueBarChart, maxValue: maxValueBarChart } =
+      getChartRange(metricBarChart, timeseriesBarChart);
+
+    const minValue =
+      minValueLineChart && minValueBarChart
+        ? Math.min(minValueLineChart, minValueBarChart)
+        : undefined;
     const maxValue =
-      metricLineChart.maxValue && metricBarChart.maxValue
-        ? Math.min(metricLineChart.maxValue, metricBarChart.maxValue)
-        : timeseriesLineChart.hasData() && timeseriesBarChart.hasData()
-        ? Math.min(timeseriesLineChart.maxValue, timeseriesBarChart.maxValue)
+      maxValueLineChart && maxValueBarChart
+        ? Math.max(maxValueLineChart, maxValueBarChart)
         : undefined;
 
     return (
