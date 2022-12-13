@@ -23,11 +23,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "lodash"],
+  "plugins": ["react", "@typescript-eslint", "lodash", "eslint-plugin-tsdoc"],
   "rules": {
     "@typescript-eslint/no-explicit-any": "off",
     "lodash/import-scope": "warn",
     "react/jsx-key": "error",
+    "tsdoc/syntax": "warn",
     "no-restricted-imports": [
       "error",
       {
