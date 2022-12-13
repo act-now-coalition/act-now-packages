@@ -49,6 +49,7 @@ export const MetricLegendThreshold = ({
   startLabel,
   endLabel,
   showOverview = true,
+  showLabels = true,
   currentCategory,
   ...legendThresholdProps
 }: MetricLegendThresholdProps) => {
@@ -57,10 +58,11 @@ export const MetricLegendThreshold = ({
 
   const items = getMetricCategoryItems(metric, currentCategory);
 
-  // Props common to both horizontal and vertical orientations
+  // Common props for both horizontal and vertical orientations
   const commonProps = {
     items,
     getItemColor,
+    showLabels,
     getItemShowIndicator,
     ...legendThresholdProps,
   };
