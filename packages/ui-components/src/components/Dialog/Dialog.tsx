@@ -1,15 +1,53 @@
 import React from "react";
 
-import { Container } from "./Dialog.style";
+import { Close } from "@mui/icons-material";
+import {
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  Dialog as MuiDialog,
+  Stack,
+} from "@mui/material";
 
 export interface DialogProps {
   /**
-   * This is a prop example
+   * Dialog is open.
    */
-  example: string;
+  open: boolean;
+  /**
+   * Callback fired when the dialog requests to be closed.
+   */
+  onClose: () => void;
+  /**
+   * Content of the dialog title.
+   */
+  title?: React.ReactNode;
+  /**
+   * Main content of the dialog.
+   */
+  children: React.ReactNode;
 }
 
-export const Dialog = (props: DialogProps) => {
-  console.log("props", props);
-  return <Container>Dialog</Container>;
+export const Dialog = ({ open, onClose, title, children }: DialogProps) => {
+  return (
+    <MuiDialog open={open}>
+      <DialogTitle>
+        <Stack direction="row">
+          {title}
+          <IconButton
+            aria-label="close"
+            onClick={onClose}
+            sx={{
+              marginLeft: "auto",
+              display: "flex",
+              height: "fit-content",
+            }}
+          >
+            <Close />
+          </IconButton>
+        </Stack>
+      </DialogTitle>
+      <DialogContent>{children}</DialogContent>
+    </MuiDialog>
+  );
 };
