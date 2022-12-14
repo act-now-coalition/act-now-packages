@@ -4,6 +4,7 @@ import { Link, Tooltip } from "@mui/material";
 import { geoPath as d3GeoPath, geoMercator } from "d3-geo";
 
 import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
+import { BaseMapProps } from "../../common/utils/maps";
 import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";
 import { AutoWidth } from "../AutoWidth";
 import { DiagonalHatchPattern } from "./DiagonalHatchPattern";
@@ -13,24 +14,7 @@ import {
   colorDisputedAreas,
 } from "./WorldMap.style";
 
-export interface WorldMapProps {
-  /**
-   * Width of the SVG containing the map.
-   */
-  width?: number;
-  /**
-   * Function that returns tooltip content for the region corresponding to a given regionId.
-   *
-   * @param {string} regionId RegionId of the region for which to get tooltip content.
-   */
-  getTooltip: (regionId: string) => React.ReactNode;
-  /**
-   * Function that returns the fill color for a region's shape, given the region's regionId.
-   * @default `#ddd`
-   *
-   * @param {string} regionId RegionId of the region for which to get the fill color.
-   */
-  getFillColor?: (regionId: string) => string;
+export interface WorldMapProps extends BaseMapProps {
   /**
    * Function that returns the fill opacity for a region's shape, given the region's geoId.
    * @default 1
@@ -38,13 +22,6 @@ export interface WorldMapProps {
    * @param {string} geoId GeoId of the region for which to get the fill opacity.
    */
   getFillOpacity?: (geoId: string) => number;
-  /**
-   * Function that returns the `regionUrl` for the region corresponding to a given regionId.
-   * @default undefined
-   *
-   * @param {string} regionId RegionId of the region for which to get the regionUrl.
-   */
-  getRegionUrl?: (regionId: string) => string | undefined;
 }
 
 // This aspect ratio and re-centering the projection maximize the land area

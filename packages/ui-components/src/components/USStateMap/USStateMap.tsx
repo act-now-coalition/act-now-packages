@@ -11,7 +11,7 @@ import {
   defaultWidth,
   statesGeographies,
 } from "../../common/geo-shapes";
-import { BaseUSMapProps, belongsToState } from "../../common/utils/maps";
+import { BaseMapProps, belongsToState } from "../../common/utils/maps";
 import {
   BorderingRegion,
   HighlightableShape,
@@ -20,7 +20,7 @@ import {
 } from "../../styles/common/Maps.style";
 import { AutoWidth } from "../AutoWidth";
 
-export interface USStateMapProps extends BaseUSMapProps {
+export interface USStateMapProps extends BaseMapProps {
   /**
    * RegionId of the state being mapped.
    */

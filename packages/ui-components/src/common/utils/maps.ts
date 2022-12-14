@@ -1,6 +1,6 @@
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
-export interface BaseUSMapProps {
+export interface BaseMapProps {
   /**
    * Function that returns tooltip content for the region corresponding to a given regionId.
    *
