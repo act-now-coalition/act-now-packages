@@ -7,6 +7,9 @@ import { TwitterShareButton as ReactShareTwitterShareButton } from "react-share"
 export type TwitterShareButtonProps = React.ComponentProps<
   typeof ReactShareTwitterShareButton
 > & {
+  /**
+   * Callback fired when the Twitter share button is clicked.
+   */
   onClick: () => void;
 };
 

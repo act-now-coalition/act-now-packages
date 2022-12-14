@@ -1,6 +1,5 @@
 import React from "react";
 
-import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
@@ -10,21 +9,33 @@ import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 
 export interface BaseSparkLineProps {
-  /** Width of the whole spark line component */
+  /**
+   * Width of the sparkline component,
+   * which includes both the line and the bars.
+   * @default 150
+   */
   width?: number;
-
-  /** Height of the whole spark line component */
+  /**
+   * Height of the sparkline component,
+   * which includes both the line and the bars.
+   * @default 50
+   */
   height?: number;
-
-  /** Width of each bar, in pixels (2px by default) */
+  /**
+   * Width of each bar of the sparkline's bar chart.
+   * @default 2
+   */
   barWidth?: number;
 }
 
 export interface SparkLineProps extends BaseSparkLineProps {
-  /** Timeseries used to draw the bar chart */
+  /**
+   * Timeseries used to draw the bar chart.
+   */
   timeseriesBarChart: Timeseries<number>;
-
-  /** Timeseries used to draw the line chart */
+  /**
+   * Timeseries used to draw the line chart.
+   */
   timeseriesLineChart: Timeseries<number>;
 }
 
@@ -35,7 +46,6 @@ export const SparkLine = ({
   height = 50,
   barWidth = 2,
 }: SparkLineProps) => {
-  const theme = useTheme();
   const padding = 2;
 
   if (!timeseriesBarChart.hasData() || !timeseriesLineChart.hasData()) {

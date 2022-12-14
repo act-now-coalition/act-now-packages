@@ -13,7 +13,7 @@ export const InfoTooltip = ({
 }: InfoTooltipProps) => {
   /**
    * MUI Tooltip's 'open', 'onOpen', and 'onClose' props don't need to explicitly
-   * be declared by default, but since we need access to a handleClose function
+   * be declared by default, but since we need access to a `handleClose` function
    * for the mobile tooltip's CloseIcon, we need to explicitly declare all three props.
    */
 

@@ -10,9 +10,21 @@ import { ErrorBox } from "../ErrorBox";
 import WorldMap, { WorldMapProps } from "../WorldMap";
 
 export interface MetricWorldMapProps extends WorldMapProps {
+  /**
+   * Metric represented by the map's coloring.
+   */
   metric: Metric | string;
+  /**
+   * Region DB instance.
+   * Used for generating region links, coloring the map, etc.
+   */
   regionDB: RegionDB;
 }
+
+/**
+ * MetricWorldMap is a world map colored by the current values of a given metric.
+ * The region shapes are clickable and navigate to the respective region's location page.
+ */
 
 export const MetricWorldMap = ({
   metric,

@@ -9,11 +9,13 @@ import { LegendCategorical } from "../LegendCategorical";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricLegendCategoricalProps {
-  /** Metric which we want to display categories for. */
+  /**
+   * Metric represented by the legend.
+   */
   metric: Metric | string;
   /**
-   * Whether the legend items are oriented horizontally (in a row)
-   * or vertically (in a column) on desktop screens ('md' and wider).
+   * Orientation of the legend for screens sized 'md' and larger.
+   * @default "horizontal"
    */
   orientation?: "horizontal" | "vertical";
 }
@@ -23,7 +25,7 @@ const getItemLabel = (item: Category) => item.name ?? item.id;
 
 export const MetricLegendCategorical = ({
   metric,
-  orientation,
+  orientation = "horizontal",
 }: MetricLegendCategoricalProps) => {
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);

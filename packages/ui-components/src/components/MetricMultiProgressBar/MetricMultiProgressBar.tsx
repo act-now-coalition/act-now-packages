@@ -16,9 +16,13 @@ import {
 type MetricProp = Metric | string;
 
 export interface MetricMultiProgressBarProps extends BaseMultiProgressBarProps {
-  /* Region for which to chart */
+  /*
+   * Region represented by the progress bar.
+   */
   region: Region;
-  /* Metrics (2) of which the progress bar will chart current values */
+  /*
+   * Array of two metrics represented by the progress bar.
+   */
   metrics: [MetricProp, MetricProp];
 }
 
@@ -50,9 +54,24 @@ export const MetricMultiProgressBar = ({
 };
 
 export interface MetricProgressBarItem {
+  /**
+   * Current metric value for a given region, unformatted.
+   */
   currentValue: number;
+  /**
+   * Formatted metric value.
+   */
   label: string;
 }
+
+/**
+ * `getProgressBarItems` converts data for two metrics into an array of
+ * two items formatted to be passed into MultiProgressBar.
+ *
+ * @param {MultiMetricDataStore} data A metric data store containing data for multiple metrics for a given region.
+ * @param {[MetricProp, MetricProp]} metrics Two metrics to convert into MetricProgressBarItem
+ * @returns {[MetricProgressBarItem, MetricProgressBarItem]}
+ */
 
 function getProgressBarItems(
   data: MultiMetricDataStore,

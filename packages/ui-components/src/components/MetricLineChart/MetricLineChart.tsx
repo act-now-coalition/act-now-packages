@@ -18,7 +18,13 @@ import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
 
 export interface MetricLineChartProps extends BaseChartProps {
+  /**
+   * Metric represented by the line chart.
+   */
   metric: Metric | string;
+  /**
+   * Region represented by the line chart.
+   */
   region: Region;
 }
 

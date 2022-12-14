@@ -5,11 +5,18 @@ import { Stack, Typography } from "@mui/material";
 import { ArrowIcon, CircleIcon, Container } from "./SearchItem.style";
 
 export interface SearchItemProps {
-  /** Top label of the search item, in bold text. */
+  /**
+   * Label of the search item.
+   */
   itemLabel: string;
-  /** Secondary label of the search item, in grey deemphasized text. */
+  /**
+   * Sublabel of the search item.
+   */
   itemSublabel: string;
-  /** Circle icon color. If omitted, no circle icon will render. */
+  /**
+   * Color of the search item's circle icon.
+   * If undefined, a circle icon does not render.
+   */
   iconColor?: string;
 }
 

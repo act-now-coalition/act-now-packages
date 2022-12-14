@@ -8,13 +8,17 @@ import {
   defaultWidth,
   getCountyGeoId,
 } from "../../common/geo-shapes";
-import { BaseUSMapProps } from "../../common/utils/maps";
+import { BaseMapProps } from "../../common/utils/maps";
 import { MapContainer, PositionAbsolute } from "../../styles/common/Maps.style";
 import { AutoWidth } from "../AutoWidth";
 import CountiesMap from "./CountiesMap";
 import StatesMap from "./StatesMap";
 
-export interface USNationalMapProps extends BaseUSMapProps {
+export interface USNationalMapProps extends BaseMapProps {
+  /**
+   * Show the county shapes.
+   * @default false
+   */
   showCounties?: boolean;
 }
 
