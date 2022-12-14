@@ -18,10 +18,10 @@ export interface AutoWidthProps {
  * parent component and passes it down to the children.
  * Under the hood, it uses `ParentSize` from @visx/responsive.
  *
- * If the child element already has a `width` property, it will
- * be overwritten by the passed-down width. The child element
- * will only be rendered once the parent has a width greater than 0,
- * in order to prevent from rendering the component too early.
+ * Note: If the child element already has a `width` property,
+ * the `width` property passed down by AutoWidth will not be applied.
+ * The child element will only be rendered once the parent has a width greater
+ * than 0, in order to prevent from rendering the component too early.
  */
 
 export const AutoWidth = ({ children }: AutoWidthProps) => {
