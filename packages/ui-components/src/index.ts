@@ -72,6 +72,7 @@ declare module "@mui/material/styles" {
     chart: {
       main: string;
       axis: string;
+      axisLabel: string;
     };
   }
 }
@@ -116,6 +117,7 @@ export * from "./components/MetricValue";
 export * from "./components/MetricWorldMap";
 export * from "./components/MultiMetricUSStateMap";
 export * from "./components/MultiProgressBar";
+export * from "./components/MultiRegionMultiMetricChart";
 export * from "./components/MultiSelect";
 export * from "./components/PointMarker";
 export * from "./components/ProgressBar";

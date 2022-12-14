@@ -7,6 +7,9 @@ export type LabelIconProps = Pick<
   TypographyProps,
   "color" | "variant" | "children"
 > & {
+  /**
+   * Icon rendered at the end of the label text.
+   */
   endIcon?: React.ReactNode;
 };
 

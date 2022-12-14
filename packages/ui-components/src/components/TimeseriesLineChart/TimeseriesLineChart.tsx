@@ -10,6 +10,9 @@ import { AxesTimeseries } from "../AxesTimeseries";
 import { LineChart } from "../LineChart";
 
 export interface TimeseriesLineChartProps extends BaseChartProps {
+  /**
+   * Non-empty timeseries used to draw the line chart.
+   */
   timeseries: NonEmptyTimeseries<number>;
 }
 

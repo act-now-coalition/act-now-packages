@@ -15,15 +15,28 @@ import {
 import { getEndLabel, getStartLabel } from "./utils";
 
 export interface MultiMetricUSStateMapProps {
-  /** Region ID of the state being mapped */
+  /**
+   * RegionId of the state being mapped.
+   */
   stateRegionId: string;
-  /** Optional region to highlight on the map */
+  /**
+   * Region to highlight on the map by rendering the shape with an outline.
+   */
   highlightedRegion?: Region;
-  /** Array of metric options that can be used to color the map */
+  /**
+   * Array of metrics that can be used to color the map.
+   */
   metrics: (Metric | string)[];
-  /** Region DB instance (used for generating region links, coloring the map, etc.) */
+  /**
+   * Region DB instance.
+   * Used for generating region links, coloring the map, etc.
+   */
   regionDB: RegionDB;
-  /** Function returning the contents of the map tooltip, given a hovered region */
+  /**
+   * Function that returns tooltip content for the region corresponding to a given regionId.
+   *
+   * @param {string} regionId RegionId of the region for which to get tooltip content.
+   */
   getTooltip?: (regionId: string) => React.ReactNode;
 }
 
@@ -63,7 +76,7 @@ export const MultiMetricUSStateMap = ({
           sx={{
             margin: 0,
             "& .MuiFilledInput-root": {
-              /** transparent bottom border so the map doesn't shift by 1px when the hover border appears */
+              // transparent bottom border so the map doesn't shift by 1px when the hover border appears
               borderBottom: "1px solid transparent",
               borderBottomRightRadius: 0,
               borderBottomLeftRadius: 0,

@@ -10,14 +10,18 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricDot } from "../MetricDot";
 
 export interface MetricValueProps {
-  /** Region for which we want to show the metric value */
+  /**
+   * Region represented by the metric value.
+   */
   region: Region;
-  /** Metric for which we want to show the metric value  */
+  /**
+   * Metric represented by the metric value.
+   */
   metric: Metric | string;
   /**
-   * Typography variant used to render the metric value. We use
-   * dataEmphasizedLarge by default.
-   * */
+   * MUI Typography variant applied to the metric value text.
+   * @default "dataEmphasizedLarge"
+   */
   variant?: TypographyProps["variant"];
 }
 

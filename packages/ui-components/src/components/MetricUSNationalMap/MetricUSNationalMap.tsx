@@ -10,9 +10,21 @@ import { ErrorBox } from "../ErrorBox";
 import { USNationalMap, USNationalMapProps } from "../USNationalMap";
 
 export interface MetricUSNationalMapProps extends USNationalMapProps {
+  /**
+   * Metric represented by the map's coloring.
+   */
   metric: Metric | string;
+  /**
+   * Region DB instance.
+   * Used for generating region links, coloring the map, etc.
+   */
   regionDB: RegionDB;
 }
+
+/**
+ * MetricUSStateMap is a US national map colored by the current values of a given metric.
+ * The region shapes are clickable and navigate to the respective region's location page.
+ */
 
 export const MetricUSNationalMap = ({
   metric,

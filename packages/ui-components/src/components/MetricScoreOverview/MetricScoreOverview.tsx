@@ -13,11 +13,18 @@ import { MetricLegendThreshold } from "../MetricLegendThreshold";
 import { MetricValue } from "../MetricValue";
 
 export interface MetricScoreOverviewProps {
-  /** Region for which we want to show the metric overview */
+  /**
+   * Region represented by the MetricScoreOverview.
+   */
   region: Region;
-  /** Metric for which we want to show the metric overview */
+  /**
+   * Metric represented by the MetricScoreOverview.
+   */
   metric: Metric | string;
-  /** Optional text to fill tooltip. If undefined, info tooltip is not rendered. */
+  /**
+   * Content to render in the overview's tooltip.
+   * If undefined, a tooltip does not render.
+   */
   tooltipTitle?: React.ReactNode;
 }
 

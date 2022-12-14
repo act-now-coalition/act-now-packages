@@ -3,6 +3,7 @@ import React, { HTMLAttributes } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Autocomplete,
+  AutocompleteChangeReason,
   AutocompleteProps,
   TextField,
   createFilterOptions,
@@ -12,17 +13,11 @@ import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { formatPopulation } from "../../common/utils";
 import { SearchItem } from "../SearchItem";
-import { StyledLink } from "./RegionSearch.style";
+import { StyledListItem } from "./RegionSearch.style";
 
 function stringifyOption(region: Region) {
   return region.fullName;
 }
-
-const onChange = (item: Region | null) => {
-  if (item && item.relativeUrl) {
-    window.location.href = item.relativeUrl;
-  }
-};
 
 export type CustomAutocompleteProps = AutocompleteProps<
   Region,
@@ -34,11 +29,19 @@ export type CustomAutocompleteProps = AutocompleteProps<
 
 export interface RegionSearchProps
   extends Omit<CustomAutocompleteProps, "renderInput"> {
-  /** RegionDB instance for the application */
+  /**
+   * RegionDB instance to use.
+   */
   regionDB: RegionDB;
-  /** Placeholder text to show in the inner text field  */
+  /**
+   * Placeholder text displayed in the text field.
+   * @default "City, county, state, or district"
+   */
   inputLabel?: string;
-  /** Optional renderInput function. See https://mui.com/material-ui/api/autocomplete/ */
+  /**
+   * Function that renders the input.
+   * See https://mui.com/material-ui/api/autocomplete/#props
+   */
   renderInput?: CustomAutocompleteProps["renderInput"];
 }
 
@@ -65,17 +68,26 @@ export const RegionSearch = ({
   return (
     <Autocomplete
       options={options}
-      onChange={(e, item: Region | null) => onChange(item)}
+      onChange={(
+        e,
+        region: Region | null,
+        reason: AutocompleteChangeReason
+      ) => {
+        if (region && reason === "selectOption") {
+          // Typescript doesn't allow to assign a string to window.location
+          // https://github.com/microsoft/TypeScript/issues/48949
+          (window as any).location = regionDB.getRegionUrl(region);
+        }
+      }}
       clearIcon={<></>}
       renderInput={customRenderInput ?? defaultRenderInput}
       renderOption={(props: HTMLAttributes<HTMLLIElement>, option: Region) => (
-        <StyledLink href={regionDB.getRegionUrl(option)}>
+        <StyledListItem {...props}>
           <SearchItem
             itemLabel={option.shortName}
             itemSublabel={`${formatPopulation(option.population)} population`}
-            {...props}
           />
-        </StyledLink>
+        </StyledListItem>
       )}
       getOptionLabel={stringifyOption}
       filterOptions={createFilterOptions({

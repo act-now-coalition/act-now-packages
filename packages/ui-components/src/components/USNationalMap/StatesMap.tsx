@@ -8,12 +8,40 @@ import { RegionOverlay, RegionShapeBase } from "../../styles/common/Maps.style";
 
 // TODO: improve upon this interface/make less redundant with other map prop interfaces
 export interface StatesMapProps {
+  /**
+   * Width of the SVG containing the map.
+   */
   width: number;
+  /**
+   * Height of the SVG containing the map.
+   */
   height: number;
+  /**
+   * Function that renders the geo path.
+   */
   geoPath: GeoPath;
+  /**
+   * Function that returns tooltip content for the region corresponding to a given regionId.
+   *
+   * @param {string} regionId RegionId of the region for which to get tooltip content.
+   */
   getTooltip: (regionId: string) => React.ReactNode;
+  /**
+   * Show the county shapes.
+   */
   showCounties: boolean;
+  /**
+   * Function that returns the fill color for a region's shape, given the region's regionId.
+   *
+   * @param {string} regionId RegionId of the region for which to get the fill color.
+   */
   getFillColor: (regionId: string) => string;
+  /**
+   * Function that returns the `regionUrl` for the region corresponding to a given regionId.
+   * @default undefined
+   *
+   * @param {string} regionId RegionId of the region for which to get the regionUrl.
+   */
   getRegionUrl?: (regionId: string) => string | undefined;
 }
 

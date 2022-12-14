@@ -19,7 +19,13 @@ import { PointMarker } from "../PointMarker";
 import { getChartRange } from "../../common/utils/charts";
 
 export interface MetricLineChartProps extends BaseChartProps {
+  /**
+   * Metric represented by the line chart.
+   */
   metric: Metric | string;
+  /**
+   * Region represented by the line chart.
+   */
   region: Region;
 }
 

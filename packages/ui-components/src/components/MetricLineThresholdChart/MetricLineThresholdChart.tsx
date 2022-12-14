@@ -23,18 +23,25 @@ import { PointMarker } from "../PointMarker";
 import { calculateChartIntervals } from "./utils";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
+  /**
+   * Metric represented by the LineThresholdChart.
+   */
   metric: Metric | string;
+  /**
+   * Region represented by the LineThresholdChart.
+   */
   region: Region;
 }
 
 /**
- * MetricLineThresholdChart renders a line chart where line segments are
- * colored according to the metric categories and thresholds.
+ * MetricLineThresholdChart renders a line chart (specifically, a LineIntervalChart)
+ * where line segments are colored according to the metric categories and thresholds.
  *
- * For example, if we have a metric with two categories: High (red) and Low
+ * Example: for a metric with two categories, High (red) and Low
  * (green) separated by a threshold at the value 10, the line will be red when
  * above 10 and green below it.
  */
+
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
   region,
