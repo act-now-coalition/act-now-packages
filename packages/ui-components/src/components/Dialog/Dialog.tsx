@@ -41,6 +41,7 @@ export const Dialog = ({ open, onClose, title, children }: DialogProps) => {
               marginLeft: "auto",
               display: "flex",
               height: "fit-content",
+              color: (theme) => theme.palette.common.black,
             }}
           >
             <Close />
