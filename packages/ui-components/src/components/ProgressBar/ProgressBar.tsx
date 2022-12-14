@@ -5,32 +5,53 @@ import { scaleLinear } from "@visx/scale";
 import { RectClipGroup } from "../RectClipGroup";
 
 export interface ProgressBarProps {
-  /** Width of the progress bar */
+  /**
+   * Width of the progress bar.
+   * @default 300
+   */
   width?: number;
-  /** Height of the progress bar */
+  /**
+   * Height of the progress bar.
+   * @default 16
+   */
   height?: number;
-  /** Border radius of the progress bar */
+  /**
+   * Border radius of the progress bar.
+   * @default 4
+   */
   borderRadius?: number;
-  /** Minimum value in the range */
+  /**
+   * Minimum value of the progress bar's range.
+   * @default 0
+   */
   minValue?: number;
-  /** Maximum value in the range */
+  /**
+   * Maximum value of the progress bar's range.
+   */
   maxValue: number;
-  /** Current progress value */
+  /**
+   * Current progress value.
+   */
   value: number;
-  /** Bar color */
+  /**
+   * Color of the progress bar's charted bar.
+   */
   color: string;
-  /** Background color */
+  /**
+   * Background color of the progress bar.
+   * @default "rgba(95, 108, 114, 0.2)"
+   */
   backgroundColor?: string;
 }
 
 /**
- * Chart that shows a numeric value that varies within a defined range.
+ * ProgressBar is a chart that shows a numeric value that varies within a defined range.
  *
- * Note that minValue, maxValue and currentValue should be in user units in
- * order for assistive technologies to describe the values correctly. For
- * example, to represent 35%, we should set minValue=0, maxValue=100, and
- * currentValue=35.
+ * Note that `minValue`, `maxValue` and `currentValue` should be in user units in
+ * order for assistive technologies to describe the values correctly.
+ * Example: to represent 35%, set minValue=0, maxValue=100, and currentValue=35.
  */
+
 export const ProgressBar = ({
   width = 300,
   height = 16,

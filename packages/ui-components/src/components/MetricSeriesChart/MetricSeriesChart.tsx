@@ -25,29 +25,35 @@ import { Series, SeriesChart, SeriesType } from "../SeriesChart";
 import { SeriesLabel } from "./MetricSeriesChart.style";
 
 export interface MetricSeriesChartProps extends BaseChartProps {
-  /** List of series to be rendered */
+  /**
+   * Array of series rendered in the chart.
+   */
   series: Series[];
-  /** Minimum value for the y-axis. It defaults to 0. */
+  /**
+   * Minimum value for the y-axis.
+   * @default 0
+   */
   minValue?: number;
   /**
-   * Show labels for each series. The labels will be shown on the right side
-   * of the chart, close to the last value of each series.
+   * Show labels for each series.
+   * @default true
    */
   showLabels?: boolean;
-  /** Date range used to filter the series */
+  /**
+   * Date range used to filter the series.
+   */
   dateRange?: DateRange;
 }
 
 /**
- * Chart that represent multiple (region, metric) combinations in the same
- * chart. The timeseries will normally share the date span and the units
- * on the y-axis, they should be comparable. Examples.
+ * MetricSeriesChart is a chart that represents multiple region/metric combinations
+ * in a single chart. The timeseries share a date span/scale and units on the y-axis,
+ * so they should be comparable.
  *
  * The axis will be calculated from the data. The appearance of each series
  * depends on its type and other properties passed when creating the series.
- *
- * @returns SVG element with the chart.
  */
+
 export const MetricSeriesChart = ({
   series,
   width,
@@ -64,7 +70,7 @@ export const MetricSeriesChart = ({
   const theme = useTheme();
   const defaultTextColor = theme.palette.text.primary;
 
-  // Deduplicate the regions and metrics if necessary
+  // Make sure there are no duplicate regions or metrics
   const regions = uniq(series.map(({ region }) => region));
   const metrics = uniq(
     series.map(({ metric }) => metricCatalog.getMetric(metric))
@@ -117,9 +123,9 @@ export const MetricSeriesChart = ({
   const [minDate, maxDate] = getDateRange(timeseriesList);
   const [minDataValue, maxValue] = getValueRange(timeseriesList);
 
-  // Note: We use minValue if provided. If not, we default to start from zero,
-  // which is best in most cases, unless minDataValue is negative, in which
-  // case we use that value instead.
+  // For `minYValue`, we use `minValue` if provided.
+  // If no `minValue` is provided, we default to 0,
+  // unless `minDataValue` is negative, in which case we use that value.
   const minYValue = isNumber(minValue) ? minValue : Math.min(0, minDataValue);
 
   const chartWidth = width - marginLeft - marginRight;
@@ -156,8 +162,9 @@ export const MetricSeriesChart = ({
     /*labelLineHeight=*/ 14
   );
 
-  // All the series in the chart should have compatible units, so it makes
-  // sense to use any of them to format the values on the y-axis.
+  // All series in the chart should have compatible units, so we can
+  // use any of them to format the values on the y-axis.
+  // Here we use the first metric in the array of series.
   const yAxisFormat = (value: number) => metrics[0].formatValue(value, "---");
 
   return (
@@ -226,11 +233,12 @@ export const MetricSeriesChart = ({
 };
 
 /**
- * Returns the date range that covers the provided timeseries.
+ * `getDateRange` returns the date range that covers the provided timeseries.
  *
- * @param timeseriesList List of timeseries.
- * @returns [minDate, maxDate]
+ * @param {Timeseries<unknown>[]} timeseriesList Array of timeseries.
+ * @returns {[Date, Date]} [minDate, maxDate]
  */
+
 function getDateRange(timeseriesList: Timeseries<unknown>[]): [Date, Date] {
   const minDate = min(timeseriesList.map(({ minDate }) => minDate));
   const maxDate = max(timeseriesList.map(({ maxDate }) => maxDate));
@@ -244,11 +252,12 @@ function getDateRange(timeseriesList: Timeseries<unknown>[]): [Date, Date] {
 }
 
 /**
- * Returns the range of values that covers the provided timeseries.
+ * `getValueRange` returns the range of values that covers the provided timeseries.
  *
- * @param timeseriesList List of timeseries.
- * @returns [minValue, maxValue]
+ * @param {Timeseries<number>[]} timeseriesList Array of timeseries.
+ * @returns {[number, number]} [minValue, maxValue]
  */
+
 function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
   const minValue = min(timeseriesList.map(({ minValue }) => minValue));
   const maxValue = max(timeseriesList.map(({ maxValue }) => maxValue));
@@ -270,14 +279,24 @@ function getSeriesColor(series: Series, defaultColor: string): string {
 }
 
 interface LabelInfo {
+  /**
+   * The y-coordinate of the label.
+   */
   y: number;
+  /**
+   * Text for the label.
+   */
   label: string;
+  /**
+   * Fill color for the label.
+   */
   fill: string;
 }
 
 /**
- * Adjust the y coordinate of the labels to prevent them from overlapping.
+ * `calculateLabelPositions` adjusts the y-coordinate of the labels to prevent them from overlapping.
  */
+
 function calculateLabelPositions(
   items: LabelInfo[],
   labelLineHeight: number
@@ -290,7 +309,7 @@ function calculateLabelPositions(
 
     // Take the maximum y-coordinate from the items that are already
     // adjusted, and compare it with the y-coordinate of the current
-    // item. If the items will overlap, we adjust the position of the
+    // item. If the items will overlap, adjust the position of the
     // current item.
     const maxY = max(adjusted.map((p) => p.y)) ?? Number.NEGATIVE_INFINITY;
     const adjustedY = maxY + dy > item.y ? maxY + dy : item.y;

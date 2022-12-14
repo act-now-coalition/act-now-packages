@@ -8,35 +8,49 @@ import { Timeseries } from "@actnowcoalition/metrics";
 import { LineChart } from "../LineChart";
 import { RectClipGroup } from "../RectClipGroup";
 
-export interface LineInterval {
-  /** Upper bound of the interval, in data units. */
-  upper: number;
-  /** Lower bound of the interval, in data units. */
-  lower: number;
-  /** Color to use to render the line in the interval. */
-  color: string;
-}
-
 export interface LineIntervalChartProps {
   /**
-   * Array defining the intervals on the y-axis on which the line will
-   * be rendered with the color specified in the interval.
+   * Array of LineInterval items defining the intervals
+   * on the y-axis, on which the line is rendered with the
+   * specified color.
    */
   intervals: LineInterval[];
-  /** Timeseries to render as a line */
+  /**
+   * Timeseries used to draw the line chart.
+   */
   timeseries: Timeseries<number>;
-  /** d3-scale to transform point values to pixel positions on the x-axis */
+  /**
+   * d3-scale to convert between date points and pixel positions.
+   */
   xScale: ScaleTime<number, number>;
-  /** d3-scale to transform point dates to pixel positions on the y-axis */
+  /**
+   * d3-scale to convert between numerical points and pixel positions.
+   */
   yScale: ScaleLinear<number, number>;
-  /** Optional offset (in pixels) on the y-axis to pad the highest point on the chart
-   * @defaultValue `5`
+  /**
+   * Offset of the y-axis, to pad the highest point on the chart.
+   * @default 5
    */
   topIntervalOffset?: number;
 }
 
+export interface LineInterval {
+  /**
+   * Upper bound of the interval, in data units.
+   */
+  upper: number;
+  /**
+   * Lower bound of the interval, in data units.
+   */
+  lower: number;
+  /**
+   * Color to use to render the line in the interval.
+   */
+  color: string;
+}
+
 /**
- * The `LineIntervalChart` component is a chart building block that renders
+ * LineIntervalChart is a chart building block that renders
  * a timeseries as a line colored according to the value of the y-coordinate
  * of each point in the line, as defined in the `intervals`.
  *
@@ -64,14 +78,8 @@ export interface LineIntervalChartProps {
  * between 10 and 20, and in red where its y-coordinates are between 20 and 40.
  * If the timeseries has values outside these intervals, those line segments
  * won't be rendered.
- *
- * @param timeseries Timeseries to represent as a line.
- * @param xScale d3-scale to transform point dates to pixel positions on the x-axis.
- * @param yScale d3-scale to transform point values to pixel positions on the y-axis.
- * @param intervals intervals that define the color of the line for different segments.
- *
- * @returns An SVG group containing the line.
  */
+
 export const LineIntervalChart = ({
   timeseries,
   xScale,

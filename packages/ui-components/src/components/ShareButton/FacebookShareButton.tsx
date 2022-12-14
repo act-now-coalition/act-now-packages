@@ -7,6 +7,9 @@ import { FacebookShareButton as ReactShareFacebookShareButton } from "react-shar
 export type FacebookShareButtonProps = React.ComponentProps<
   typeof ReactShareFacebookShareButton
 > & {
+  /**
+   * Callback fired when the Facebook share button is clicked.
+   */
   onClick: () => void;
 };
 

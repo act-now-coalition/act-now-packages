@@ -5,10 +5,10 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 import { ChartOverlayXProps } from "./ChartOverlayX";
 
 /**
- * React hook that keeps track of the point being hovered in a chart. This
- * hook is normally used with ChartOverlayX. Given a timeseries, it returns
- * the handlers onMouseMove, onMouseLeave and hoveredPoint, the point in
- * the timeseries closest to the date being hovered.
+ * React hook that keeps track of the point being hovered in
+ * a chart, used in ChartOverlayX. Given a timeseries, it returns
+ * the component's `onMouseMove`, `onMouseLeave`, and `hoveredPoint` (the point
+ * in the timeseries closest to the date being hovered.
  *
  * @example
  * ```tsx
@@ -31,9 +31,10 @@ import { ChartOverlayXProps } from "./ChartOverlayX";
  * );
  * ```
  *
- * @param timeseries The timeseries with the points being hovered.
- * @returns The hovered point and the onMouseMove and onMouseLeave handlers.
+ * @param {Timeseries<T> | undefined} timeseries A timeseries of points that can be hovered, or undefined.
+ * @returns The hovered point information and the `onMouseMove` and `onMouseLeave` callbacks.
  */
+
 export function useHoveredDate<T>(timeseries: Timeseries<T> | undefined) {
   const [hoveredPoint, setHoveredPoint] = useState<TimeseriesPoint<T> | null>(
     null

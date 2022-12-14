@@ -10,15 +10,22 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricValue } from "../MetricValue";
 
 export interface MetricOverviewProps {
-  /** Region for which we want to show the metric overview */
+  /**
+   * Region represented by the metric overview.
+   */
   region: Region;
-  /** Metric for which we want to show the metric overview */
+  /**
+   * Metric represented by the metric overview.
+   */
   metric: Metric | string;
-  /** Optional metricChart. It only renders if orientation="vertical" */
+  /**
+   * A metric chart to render in the overview.
+   * Only renders if orientation="vertical".
+   */
   metricChart?: React.ReactNode;
   /**
-   * Orientation of the component. The metricChart only renders if
-   * orientation="vertical"
+   * Orientation of the component.
+   * @default "vertical"
    */
   orientation?: "horizontal" | "vertical";
 }

@@ -4,20 +4,24 @@ import { Category } from "@actnowcoalition/metrics";
 import { LineInterval } from "../LineIntervalChart";
 
 export interface ChartInterval extends LineInterval {
-  /** Category corresponding to the interval. */
+  /**
+   * Metric category corresponding to the interval
+   */
   category: Category;
 }
 
 /**
- * Given a set of metric categories, thresholds and a minValue, maxValue for
- * a metric, it returns a list of intervals that contain the thresholds and
- * both minValue and maxValue. Examples:
+ * calculateChartIntervals returns a list of intervals that contain the thresholds, the minValue,
+ * and the maxValue, given a set of metric categories, thresholds, a minValue, and a maxValue for
+ * a metric.
+ *
+ * Examples:
  *
  *
  *         minValue      T1                      T2        maxValue
  *    --------|---------|-----------------------|------------|--------
  *
- * In this case, we will have the following intervals:
+ * In this case, the intervals will be:
  *
  *   [
  *     { lower: minValue, upper: T1, level: LOW},
@@ -26,16 +30,16 @@ export interface ChartInterval extends LineInterval {
  *   ]
  *
  * In this situation, the first interval should be (-Infinity, T1], which
- * we can't really use for the chart, so we calculate a padding amount
- * and use that as the lower bound for the first interval.
- * However, if minValue is higher than 0, then the lower bound
- * for the first interval should not be lower than 0.
+ * we can't use for the chart, so we calculate an amount of padding
+ * and use it as the first interval's lower bound.
+ * However, if `minValue` is greater than 0, the first interval's lower bound
+ * should not be less than 0.
  *
  *                       T1      minValue        T2        maxValue
  *    ----------*-------|-----------|-----------|------------|--------
  *           T1 - padding or 0
  *
- * In this case, the intervals will be
+ * In this case, the intervals will be:
  *
  *   [
  *     { lower: T1 - padding or 0, upper: T1, level: LOW},
@@ -43,14 +47,16 @@ export interface ChartInterval extends LineInterval {
  *     { lower: T2, upper: maxValue, level: HIGH},
  *   ]
  *
- * We adjust the upper bound of the last interval in the same way if necessary.
+ * If necessary, we adjust the upper bound of the last interval in the same way as
+ * we do for the first interval.
  *
- * @param metricCategories List of metric categories.
- * @param thresholds List of thresholds.
- * @param minValue Minimum value to show in the chart.
- * @param maxValue Maximum value to show in the chart.
- * @returns List of chart intervals.
+ * @param {Category[]} metricCategories Array of metric categories.
+ * @param {number[]} thresholds Array of thresholds.
+ * @param {number} minValue Minimum value to show in the chart.
+ * @param {number} maxValue Maximum value to show in the chart.
+ * @returns {ChartInterval[]} List of chart intervals.
  */
+
 export function calculateChartIntervals(
   metricCategories: Category[],
   thresholds: number[],
@@ -66,7 +72,7 @@ export function calculateChartIntervals(
   const minVal = Math.min(minValue, maxValue);
   const maxVal = Math.max(minValue, maxValue);
 
-  // Reverse the metric categories and thresholds if the thresholds are descending
+  // If there are 2 or more thresholds and they are descending, reverse the metric categories and thresholds
   if (thresholds.length >= 2 && thresholds[1] < thresholds[0]) {
     return reverseList(
       calculateChartIntervals(
@@ -81,21 +87,21 @@ export function calculateChartIntervals(
   const firstThreshold = thresholds[0];
   const lastThreshold = thresholds[thresholds.length - 1];
 
-  // Calculate a padding to make sure that each category has room for a label
-  // to be rendered inside the category. Here, we use 20% of the distance
-  // between the first and last threshold, or if we have only one threshold,
-  // we use 20% of the distance between `minValue` and `maxValue`.
+  // Calculate padding to make sure each category has room for a label
+  // to be rendered inside the category.
+  // If there are multiple thresholds, we use 20% of the distance between the first and last threshold.
+  // If there is only one threshold, we use 20% of the distance between `minValue` and `maxValue`.
   const padding =
     thresholds.length > 1
       ? 0.2 * (lastThreshold - firstThreshold)
       : 0.2 * (maxVal - minVal);
 
-  // If minValue is higher than 0, don't pad below 0 on the y-axis.
+  // If minValue is greater than 0, don't pad below 0 on the y-axis
   const lowestBound = Math.min(minVal, firstThreshold);
   const chartMin = lowestBound >= 0 ? 0 : lowestBound - padding;
   const chartMax = Math.max(maxVal, lastThreshold + padding);
 
-  // Build the intervals in the same order as the categories.
+  // Build the intervals in the same order as the categories
   return metricCategories.map((category, categoryIndex) => {
     const isFirstCategory = categoryIndex === 0;
     const isLastCategory = categoryIndex === metricCategories.length - 1;
@@ -108,7 +114,7 @@ export function calculateChartIntervals(
   });
 }
 
-// Creates a copy of the input list and reverses its elements
+// Create a copy of the input list and reverse its elements
 function reverseList<T>(list: T[]): T[] {
   return [...list].reverse();
 }

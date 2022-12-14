@@ -5,7 +5,13 @@ import Button from "@mui/material/Button";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 
 interface CopyLinkButtonProps {
+  /**
+   * URL copied when the copy link button is clicked.
+   */
   url: string;
+  /**
+   * Callback fired when the copy link button is clicked.
+   */
   onClick: () => void;
 }
 

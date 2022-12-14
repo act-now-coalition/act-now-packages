@@ -9,37 +9,51 @@ import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
 
 export interface ChartOverlayXYProps {
   /**
-   * List of timeseries objects that contain the hoverable points. The component
+   * Array of timeseries objects that contain the hoverable points. The component
    * receives a list of timeseries to make it easier to know which series was
    * hovered (not only which point).
    **/
   timeseriesList: Timeseries<number>[];
-  /** Width of the hoverable area. */
+  /**
+   * Width of the overlay area.
+   */
   width: number;
-  /** Height of the hoverable area. */
+  /**
+   * Height of the overlay area.
+   */
   height: number;
-  /** d3-scale to convert between dates and pixel dimensions. */
+  /**
+   * d3-scale to convert between date points and pixel positions.
+   */
   xScale: ScaleTime<number, number>;
-  /** d3-scale to convert between data units on the y-axis and pixel dimensions. */
+  /**
+   * d3-scale to convert between numerical points and pixel positions.
+   */
   yScale: ScaleLinear<number, number>;
   /**
-   * Handler to call when a user hovers near a point. The point, timeseriesIndex
-   * and pointIndex are passed to the handler.
+   * Callback fired when the cursor moves over the overlay.
+   *
+   * @param {HoveredPointInfo} pointInfo Information about the point being hovered.
    **/
   onMouseMove?: (pointInfo: HoveredPointInfo) => void;
-  /** Handler to call when the user moves out of the hoverable area. */
+  /**
+   * Callback fired when the cursor leaves the overlay area.
+   */
   onMouseOut?: () => void;
 }
 
-/**
- * Information about the point being hovered.
- */
 export interface HoveredPointInfo {
-  /**  */
+  /**
+   * Timeseries point being hovered.
+   */
   point: TimeseriesPoint<number>;
-  /** Index of the hovered timeseries */
+  /**
+   * Index of the timeseries being hovered.
+   */
   timeseriesIndex: number;
-  /** Index of the hovered point */
+  /**
+   * Index of the point being hovered.
+   */
   pointIndex: number;
 }
 
@@ -48,14 +62,13 @@ const noop = () => {
 };
 
 /**
- * This component is an overlay that helps capture the information of the
- * point that is being hovered by the user. Given a list of timeseries,
- * the `onMouseMove` handler will be called with the point, index of the
- * timeseries (`timeseriesIndex`) and index of the point in the timeseries
- * (`pointIndex`), which can be stored in a state by the parent component.
- *
- * See `ChartOverlayXY.stories.tsx` for usage examples.
+ * ChartOverlayXY is an invisible overlay that captures the information
+ * of the point being hovered by the user. Given a list of timeseries,
+ * the `onMouseMove` callback will be called with the point, index of the
+ * timeseries (`timeseriesIndex`), and index of the point in the timeseries
+ * (`pointIndex`), which can be stored by the parent component in a state variable.
  */
+
 export const ChartOverlayXY = ({
   width,
   height,

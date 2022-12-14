@@ -8,18 +8,23 @@ import { useMetricCatalog } from "../MetricCatalogContext";
 import { Dot, PlaceholderDot } from "./MetricDot.style";
 
 export interface MetricDotProps {
-  /** Region for which we want to represent the current category */
+  /**
+   * Region represented by the dot.
+   */
   region: Region;
-  /** Metric for which we want to represent the current category */
+  /**
+   * Metric represented by the dot.
+   */
   metric: Metric | string;
 }
 
 /**
- * The MetricDot component shows a colored dot that represents the current
- * category for a given metric and region. The component is still rendered for
- * metrics that don't have categories to keep spacing and alignment consistent
+ * MetricDot is a colored dot that represents the current category for
+ * a given metric and region. A transparent PlaceholderDot is rendered for metrics
+ * that don't have categories in order to keep spacing and alignment consistent
  * across metrics.
  */
+
 export const MetricDot = ({ region, metric: metricOrId }: MetricDotProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);

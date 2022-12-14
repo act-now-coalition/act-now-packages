@@ -3,15 +3,24 @@ import React from "react";
 import { AxisBottom as VxAxisBottom, AxisLeft as VxAxisLeft } from "@visx/axis";
 
 import { styled, theme } from "../../styles";
-import typography from "../../styles/theme/typography";
 import palette from "../../styles/theme/palette";
+import typography from "../../styles/theme/typography";
 
 export type AxisLeftProps = React.ComponentProps<typeof VxAxisLeft> & {
+  /**
+   * The className applied to the outermost axis group element.
+   */
   className?: string;
 };
 
 export type AxisBottomProps = React.ComponentProps<typeof VxAxisBottom> & {
+  /**
+   * The className applied to the outermost axis group element.
+   */
   className?: string;
+  /**
+   * Width of AxisBottom.
+   */
   width?: number;
 };
 

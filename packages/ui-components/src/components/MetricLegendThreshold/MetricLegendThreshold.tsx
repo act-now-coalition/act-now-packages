@@ -11,14 +11,30 @@ import { getMetricCategoryItems } from "./utils";
 import { CategoryItem } from "./utils";
 
 export interface MetricLegendThresholdProps extends BaseLegendThresholdProps {
-  /** Metric to display thresholds for. */
+  /**
+   * Metric represented by the legend.
+   */
   metric: Metric | string;
-  /** Optional label for the left or top side of the thermometer. */
+  /**
+   * Label rendered at the start of the thermometer.
+   * For vertical orientation, this renders above the thermometer.
+   * For horizontal orientation, this renders to the left of the thermometer.
+   */
   startLabel?: React.ReactNode;
-  /** Optional label for the right or bottom side of the thermometer. */
+  /**
+   * Label rendered at the end of the thermometer.
+   * For vertical orientation, this renders below the thermometer.
+   * For horizontal orientation, this renders to the right of the thermometer.
+   */
   endLabel?: React.ReactNode;
-  /** Whether or not to display metric name and info. If false, only thermometer is displayed. */
+  /**
+   * Show the metric name and information.
+   * @default true
+   */
   showOverview?: boolean;
+  /**
+   * Category of the metric's current value.
+   */
   currentCategory?: Category;
 }
 
@@ -33,6 +49,7 @@ export const MetricLegendThreshold = ({
   startLabel,
   endLabel,
   showOverview = true,
+  showLabels = true,
   currentCategory,
   ...legendThresholdProps
 }: MetricLegendThresholdProps) => {
@@ -41,10 +58,11 @@ export const MetricLegendThreshold = ({
 
   const items = getMetricCategoryItems(metric, currentCategory);
 
-  // Props common to both horizontal and vertical orientations
+  // Common props for both horizontal and vertical orientations
   const commonProps = {
     items,
     getItemColor,
+    showLabels,
     getItemShowIndicator,
     ...legendThresholdProps,
   };
