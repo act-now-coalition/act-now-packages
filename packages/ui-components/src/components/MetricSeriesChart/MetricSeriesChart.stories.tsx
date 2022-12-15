@@ -47,20 +47,6 @@ Vaccination.args = {
   ],
 };
 
-export const WithNegativeYValues = Template.bind({});
-WithNegativeYValues.args = {
-  width,
-  height,
-  minValue: -10,
-  series: [
-    {
-      region: WY,
-      metric: MetricId.MOCK_CASES,
-      type: SeriesType.LINE,
-    },
-  ],
-};
-
 export const TrendsSingleLocation = Template.bind({});
 TrendsSingleLocation.args = {
   width,

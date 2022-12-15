@@ -16,6 +16,7 @@ import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
+import { getChartRange } from "../../common/utils/charts";
 
 export interface MetricLineChartProps extends BaseChartProps {
   /**
@@ -60,7 +61,8 @@ export const MetricLineChart = ({
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxDate, maxValue } = timeseries;
+  const { minDate, maxDate } = timeseries;
+  const [minValue, maxValue] = getChartRange(metric, timeseries);
 
   const xScale = scaleUtc({
     domain: [minDate, maxDate],
@@ -68,7 +70,7 @@ export const MetricLineChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [0, maxValue],
+    domain: [minValue, maxValue],
     range: [chartHeight, 0],
   });
 

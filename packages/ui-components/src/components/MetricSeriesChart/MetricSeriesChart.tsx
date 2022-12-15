@@ -30,11 +30,6 @@ export interface MetricSeriesChartProps extends BaseChartProps {
    */
   series: Series[];
   /**
-   * Minimum value for the y-axis.
-   * @default 0
-   */
-  minValue?: number;
-  /**
    * Show labels for each series.
    * @default true
    */
@@ -53,7 +48,6 @@ export interface MetricSeriesChartProps extends BaseChartProps {
  * The axis will be calculated from the data. The appearance of each series
  * depends on its type and other properties passed when creating the series.
  */
-
 export const MetricSeriesChart = ({
   series,
   width,
@@ -62,7 +56,6 @@ export const MetricSeriesChart = ({
   marginBottom = 40,
   marginLeft = 70,
   marginRight = 20,
-  minValue = 0,
   showLabels = true,
   dateRange,
 }: MetricSeriesChartProps) => {
@@ -121,12 +114,18 @@ export const MetricSeriesChart = ({
     .filter(({ timeseries }) => timeseries.hasData());
 
   const [minDate, maxDate] = getDateRange(timeseriesList);
-  const [minDataValue, maxValue] = getValueRange(timeseriesList);
+  const [minDataValue, maxDataValue] = getValueRange(timeseriesList);
 
-  // For `minYValue`, we use `minValue` if provided.
-  // If no `minValue` is provided, we default to 0,
-  // unless `minDataValue` is negative, in which case we use that value.
-  const minYValue = isNumber(minValue) ? minValue : Math.min(0, minDataValue);
+  // Given an array of metrics, select the metric with the lowest defined minimum value
+  // and use that minimum value.
+  const metricDefinitionMin = min(metrics.map(({ minValue }) => minValue));
+
+  // Given an array of metrics, select the metric with the highest defined maximum value
+  // and use that maximum value.
+  const metricDefinitionMax = max(metrics.map(({ maxValue }) => maxValue));
+
+  const minValue = metricDefinitionMin ?? minDataValue;
+  const maxValue = metricDefinitionMax ?? maxDataValue;
 
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
@@ -137,7 +136,7 @@ export const MetricSeriesChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [minYValue, maxValue],
+    domain: [minValue, maxValue],
     range: [chartHeight, 0],
   });
 

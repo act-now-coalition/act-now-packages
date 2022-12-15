@@ -9,6 +9,8 @@ import { useDataForMetrics } from "../../common/hooks";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
+import { getChartRange } from "../../common/utils/charts";
+import { assert } from "@actnowcoalition/assert";
 
 export interface MetricSparklinesProps extends BaseSparkLineProps {
   /**
@@ -76,10 +78,33 @@ export const MetricSparklines = ({
       ?.timeseries.assertFiniteNumbers()
       .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
+    assert(
+      timeseriesLineChart.hasData(),
+      `Timeseries line chart cannot be empty`
+    );
+    const [minValueLineChart, maxValueLineChart] = getChartRange(
+      metricLineChart,
+      timeseriesLineChart
+    );
+
+    assert(
+      timeseriesBarChart.hasData(),
+      `Timeseries bar chart cannot be empty`
+    );
+    const [minValueBarChart, maxValueBarChart] = getChartRange(
+      metricBarChart,
+      timeseriesBarChart
+    );
+
+    const minValue = Math.min(minValueLineChart, minValueBarChart);
+    const maxValue = Math.max(maxValueLineChart, maxValueBarChart);
+
     return (
       <SparkLine
         timeseriesLineChart={timeseriesLineChart}
         timeseriesBarChart={timeseriesBarChart}
+        minValue={minValue}
+        maxValue={maxValue}
         {...optionalProps}
       />
     );
