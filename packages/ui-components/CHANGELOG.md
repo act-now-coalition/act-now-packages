@@ -1,5 +1,26 @@
 # @actnowcoalition/ui-components
 
+## 0.10.0
+
+### Minor Changes
+
+- dc93e72: Improvements to LegendThreshold
+
+### Patch Changes
+
+- 0bd1e50: Adds dialog component
+- 3b23bc1: Fix RegionSearch keyboard navigation
+- a3e672d: Fixes bug that caused series to be visible outside the charting area'
+- 58f7b1b: Add MetricChartBlock component
+- 6da39e6: Add abiliity to filter MultiRegionMultiMetricChart by time period
+- 7c49294: Adjust minValue and maxValue calculation logic in charts
+- b676ad8: Clean up documentation
+- feece0f: More improvements to default chart colors
+- c9d7730: Implement date filter on MetricSeriesChart
+- a8149cd: Create palette story for dark theme and minor dark theme fixes
+- 377b405: Implement `Select` and `MultiSelect` components
+- 15db70d: Implement MultiRegionMultiMetricChart component
+
 ## 0.9.0
 
 ### Minor Changes
