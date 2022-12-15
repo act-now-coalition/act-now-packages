@@ -15,7 +15,7 @@ export interface ChartOverlayXProps {
   /**
    * Callback fired when the cursor moves over the overlay.
    *
-   * @param {Date} date The date being hovered.
+   * @param date - The date being hovered.
    */
   onMouseMove: ({ date }: { date: Date }) => void;
   /**

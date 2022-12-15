@@ -40,7 +40,7 @@ import { ChartOverlayXYProps, HoveredPointInfo } from "./ChartOverlayXY";
  * );
  * ```
  *
- * @param {Timeseries<T>[] | undefined} timeseriesList An array of timeseries of points that can be hovered, or undefined.
+ * @param timeseriesList - Array of timeseries of points that can be hovered, or undefined.
  * @returns The hovered point information and the `onMouseMove` and `onMouseLeave` callbacks.
  */
 export function useHoveredPoint<T>(

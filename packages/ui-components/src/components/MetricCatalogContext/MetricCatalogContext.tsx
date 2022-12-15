@@ -45,8 +45,8 @@ const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
  *   // ...render component
  * ```
  *
- * @param metricCatalog The MetricCatalog instance that we want to make available.
- * @param children The component tree that we want to have access to the metric catalog.
+ * @param metricCatalog - The MetricCatalog instance that we want to make available.
+ * @param children - The component tree that we want to have access to the metric catalog.
  * @returns React.ContextProvider with the given metricCatalog
  */
 

@@ -13,15 +13,16 @@ export interface LegendCategoricalProps<T> {
   /**
    * Function that returns the legend item's color.
    *
-   * @typeParam {T} item The legend item.
-   * @param {number} itemIndex Index of the legend item.
+   * @param T - item The legend item.
+   * @param itemIndex - Index of the legend item.
+   * @returns item color
    */
   getItemColor: (item: T, itemIndex: number) => string;
   /**
    * Function that returns the legend item's label.
    *
-   * @typeParam {T} item The legend item.
-   * @param {number} itemIndex Index of the legend item.
+   * @param item - The legend item.
+   * @param itemIndex - Index of the legend item.
    */
   getItemLabel: (item: T, itemIndex: number) => string;
   /**
