@@ -67,6 +67,8 @@ const noop = () => {
  * the `onMouseMove` callback will be called with the point, index of the
  * timeseries (`timeseriesIndex`), and index of the point in the timeseries
  * (`pointIndex`), which can be stored by the parent component in a state variable.
+ *
+ * See {@link useHoveredPoint} for a React hook used to keep track of the point being hovered.
  */
 
 export const ChartOverlayXY = ({
