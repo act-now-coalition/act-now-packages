@@ -43,6 +43,7 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
    *
    * @param item - The legend item.
    * @param itemIndex - Index of the legend item.
+   * @returns The item color.
    */
   getItemColor: (item: T, itemIndex: number) => string;
   /**
@@ -50,6 +51,7 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
    *
    * @param item - The legend item.
    * @param itemIndex - Index of the legend item.
+   * @returns The item label.
    */
   getItemLabel?: (item: T, itemIndex: number) => string;
   /**
@@ -57,6 +59,7 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
    *
    * @param item - The legend item.
    * @param itemIndex - Index of the legend item.
+   * @returns The item sublabel.
    */
   getItemSublabel?: (item: T, itemIndex: number) => string;
   /**
@@ -64,6 +67,7 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
    *
    * @param item - The legend item.
    * @param itemIndex - Index of the legend item.
+   * @returns Whether or not to show the indicator.
    */
   getItemShowIndicator?: (item: T, itemIndex: number) => boolean | undefined;
 }

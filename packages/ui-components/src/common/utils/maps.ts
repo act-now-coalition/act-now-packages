@@ -5,12 +5,14 @@ export interface BaseMapProps {
    * Function that returns tooltip content for the region corresponding to a given regionId.
    *
    * @param regionId - RegionId of the region for which to get tooltip content.
+   * @returns Tooltip content for the region.
    */
   getTooltip: (regionId: string) => React.ReactNode;
   /**
    * Function that returns the fill color for a region's shape, given the region's regionId.
    *
    * @param regionId - RegionId of the region for which to get the fill color.
+   * @returns Fill color for the region.
    */
   getFillColor?: (regionId: string) => string;
   /**
@@ -18,6 +20,7 @@ export interface BaseMapProps {
    * @default undefined
    *
    * @param regionId - RegionId of the region for which to get the regionUrl.
+   * @returns Region URL for the region.
    */
   getRegionUrl?: (regionId: string) => string | undefined;
   /**
