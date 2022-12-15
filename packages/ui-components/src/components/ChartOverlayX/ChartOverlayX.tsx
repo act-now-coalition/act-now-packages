@@ -37,8 +37,11 @@ export interface ChartOverlayXProps {
  * ChartOverlayX is an invisible overlay that tracks the cursor
  * position on a chart, often used to add tooltips or other annotations
  * that depend only on the x-coordinate being hovered.
+ *
  * The parent component can store the currently hovered date in a state variable,
  * which will be updated using the `onMouseMove` and `onMouseLeave` callbacks.
+ *
+ * See {@link useHoveredDate} for a React hook used to keep track of the point being hovered.
  */
 
 export const ChartOverlayX = ({

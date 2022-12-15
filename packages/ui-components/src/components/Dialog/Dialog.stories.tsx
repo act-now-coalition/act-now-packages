@@ -4,7 +4,7 @@ import { Button, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { Dialog } from ".";
-import { useDialog } from "../../common/hooks";
+import { useDialogState } from "../../common/hooks";
 
 export default {
   title: "Components/Dialog",
@@ -12,13 +12,13 @@ export default {
 } as ComponentMeta<typeof Dialog>;
 
 export const WithoutTitle: ComponentStory<typeof Dialog> = () => {
-  const [open, openDialog, closeDialog] = useDialog();
+  const [open, onOpenDialog, onCloseDialog] = useDialogState();
   return (
     <>
-      <Button variant="contained" onClick={openDialog}>
+      <Button variant="contained" onClick={onOpenDialog}>
         Open dialog
       </Button>
-      <Dialog open={open} onClose={closeDialog}>
+      <Dialog open={open} onClose={onCloseDialog}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. A vero nisi
         porro rem illum! Soluta officia aspernatur ipsam incidunt tempore quod
         magnam hic assumenda accusantium quo laborum, voluptatibus voluptatem
@@ -35,13 +35,13 @@ const Title = (
 );
 
 export const WithTitle: ComponentStory<typeof Dialog> = () => {
-  const [open, openDialog, closeDialog] = useDialog();
+  const [open, onOpenDialog, onCloseDialog] = useDialogState();
   return (
     <>
-      <Button variant="contained" onClick={openDialog}>
+      <Button variant="contained" onClick={onOpenDialog}>
         Open dialog
       </Button>
-      <Dialog open={open} onClose={closeDialog} title={Title}>
+      <Dialog open={open} onClose={onCloseDialog} title={Title}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. A vero nisi
         porro rem illum! Soluta officia aspernatur ipsam incidunt tempore quod
         magnam hic assumenda accusantium quo laborum, voluptatibus voluptatem
@@ -58,13 +58,13 @@ const LongTitle = (
 );
 
 export const WithLongTitle: ComponentStory<typeof Dialog> = () => {
-  const [open, openDialog, closeDialog] = useDialog();
+  const [open, onOpenDialog, onCloseDialog] = useDialogState();
   return (
     <>
-      <Button variant="contained" onClick={openDialog}>
+      <Button variant="contained" onClick={onOpenDialog}>
         Open dialog
       </Button>
-      <Dialog open={open} onClose={closeDialog} title={LongTitle}>
+      <Dialog open={open} onClose={onCloseDialog} title={LongTitle}>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. A vero nisi
         porro rem illum! Soluta officia aspernatur ipsam incidunt tempore quod
         magnam hic assumenda accusantium quo laborum, voluptatibus voluptatem

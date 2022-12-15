@@ -28,6 +28,12 @@ export interface DialogProps {
   children: React.ReactNode;
 }
 
+/**
+ * Dialog is a styled MUI Dialog component with a close button, a title, and body content.
+ *
+ * See {@link useDialogState} for a React hook used to manage the opening/closing of the Dialog.
+ */
+
 export const Dialog = ({ open, onClose, title, children }: DialogProps) => {
   return (
     <MuiDialog open={open}>
