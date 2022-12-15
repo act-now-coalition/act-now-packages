@@ -37,11 +37,14 @@ export interface SparkLineProps extends BaseSparkLineProps {
    * Timeseries used to draw the line chart.
    */
   timeseriesLineChart: Timeseries<number>;
-
-  /** Minimum value on the y-axis */
+  /**
+   * Minimum value on the y-axis.
+   * @default 0
+   */
   minValue?: number;
-
-  /** Maximum value on the y-axis */
+  /**
+   * Maximum value on the y-axis.
+   */
   maxValue?: number;
 }
 
@@ -51,7 +54,7 @@ export const SparkLine = ({
   width = 150,
   height = 50,
   barWidth = 2,
-  minValue: propMinValue,
+  minValue = 0,
   maxValue: propMaxValue,
 }: SparkLineProps) => {
   const padding = 2;
@@ -59,8 +62,6 @@ export const SparkLine = ({
   if (!timeseriesBarChart.hasData() || !timeseriesLineChart.hasData()) {
     return null;
   }
-
-  const minValue = propMinValue ?? 0;
 
   const xScaleBar = scaleUtc({
     domain: [timeseriesBarChart.minDate, timeseriesBarChart.maxDate],

@@ -30,11 +30,6 @@ export interface MetricSeriesChartProps extends BaseChartProps {
    */
   series: Series[];
   /**
-   * Minimum value for the y-axis.
-   * @default 0
-   */
-  minValue?: number;
-  /**
    * Show labels for each series.
    * @default true
    */
@@ -53,7 +48,6 @@ export interface MetricSeriesChartProps extends BaseChartProps {
  * The axis will be calculated from the data. The appearance of each series
  * depends on its type and other properties passed when creating the series.
  */
-
 export const MetricSeriesChart = ({
   series,
   width,
@@ -130,6 +124,9 @@ export const MetricSeriesChart = ({
   // and use that maximum value.
   const metricDefinitionMax = max(metrics.map(({ maxValue }) => maxValue));
 
+  const minValue = metricDefinitionMin ?? minDataValue;
+  const maxValue = metricDefinitionMax ?? maxDataValue;
+
   const chartWidth = width - marginLeft - marginRight;
   const chartHeight = height - marginTop - marginBottom;
 
@@ -139,10 +136,7 @@ export const MetricSeriesChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [
-      metricDefinitionMin ?? minDataValue,
-      metricDefinitionMax ?? maxDataValue,
-    ],
+    domain: [minValue, maxValue],
     range: [chartHeight, 0],
   });
 

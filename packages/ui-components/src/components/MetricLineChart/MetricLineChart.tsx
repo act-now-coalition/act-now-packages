@@ -62,7 +62,7 @@ export const MetricLineChart = ({
   const chartWidth = width - marginLeft - marginRight;
 
   const { minDate, maxDate } = timeseries;
-  const { minValue, maxValue } = getChartRange(metric, timeseries);
+  const [minValue, maxValue] = getChartRange(metric, timeseries);
 
   const xScale = scaleUtc({
     domain: [minDate, maxDate],

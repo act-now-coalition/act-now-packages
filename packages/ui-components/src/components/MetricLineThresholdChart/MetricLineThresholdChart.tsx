@@ -35,11 +35,10 @@ export interface MetricLineThresholdChartProps extends BaseChartProps {
  * MetricLineThresholdChart renders a line chart (specifically, a LineIntervalChart)
  * where line segments are colored according to the metric categories and thresholds.
  *
- * Example: for a metric with two categories, High (red) and Low
- * (green) separated by a threshold at the value 10, the line will be red when
- * above 10 and green below it.
+ * Example: for a metric with two categories,
+ * High (red) and Low (green) separated by a threshold value of 10,
+ * the line is red above 10 and green below 10.
  */
-
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
   region,

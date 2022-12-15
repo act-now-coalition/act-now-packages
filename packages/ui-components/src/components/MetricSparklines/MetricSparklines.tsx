@@ -82,15 +82,19 @@ export const MetricSparklines = ({
       timeseriesLineChart.hasData(),
       `Timeseries line chart cannot be empty`
     );
-    const { minValue: minValueLineChart, maxValue: maxValueLineChart } =
-      getChartRange(metricLineChart, timeseriesLineChart);
+    const [minValueLineChart, maxValueLineChart] = getChartRange(
+      metricLineChart,
+      timeseriesLineChart
+    );
 
     assert(
       timeseriesBarChart.hasData(),
       `Timeseries bar chart cannot be empty`
     );
-    const { minValue: minValueBarChart, maxValue: maxValueBarChart } =
-      getChartRange(metricBarChart, timeseriesBarChart);
+    const [minValueBarChart, maxValueBarChart] = getChartRange(
+      metricBarChart,
+      timeseriesBarChart
+    );
 
     const minValue = Math.min(minValueLineChart, minValueBarChart);
     const maxValue = Math.max(maxValueLineChart, maxValueBarChart);
