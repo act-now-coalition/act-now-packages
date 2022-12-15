@@ -1,8 +1,4 @@
-import {
-  Metric,
-  Timeseries,
-  NonEmptyTimeseries,
-} from "@actnowcoalition/metrics";
+import { Metric, NonEmptyTimeseries } from "@actnowcoalition/metrics";
 
 export interface BaseChartProps {
   /**
@@ -33,7 +29,7 @@ export interface BaseChartProps {
 
 export function getChartRange(
   metric: Metric,
-  timeseries: Timeseries<number> | NonEmptyTimeseries<number>
+  timeseries: NonEmptyTimeseries<number>
 ) {
   const { minValue: minValueTimeseries, maxValue: maxValueTimeseries } =
     timeseries;

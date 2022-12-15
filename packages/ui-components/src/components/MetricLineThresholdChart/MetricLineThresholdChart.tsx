@@ -3,8 +3,6 @@ import React from "react";
 import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import max from "lodash/max";
-import min from "lodash/min";
 
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
@@ -98,18 +96,17 @@ export const MetricLineThresholdChart = ({
   // If available, use minValue from the metric definition.
   // Otherwise, use the lower bound of the lowest threshold.
   const minValueMetric = metric.minValue;
-  const minValueIntervals = min(intervals.map(({ lower }) => lower));
+  const minValueIntervals = Math.min(...intervals.map(({ lower }) => lower));
   const minChartValue = minValueMetric ?? minValueIntervals;
 
   // If available, use maxValue from the metric definition.
   // Otherwise, use the higher bound of the highest threshold.
   const maxValueMetric = metric.maxValue;
-  const maxValueIntervals = max(intervals.map(({ upper }) => upper));
+  const maxValueIntervals = Math.max(...intervals.map(({ upper }) => upper));
   const maxChartValue = maxValueMetric ?? maxValueIntervals;
 
   const yScale = scaleLinear({
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    domain: [minChartValue!, maxChartValue!],
+    domain: [minChartValue, maxChartValue],
     range: [chartHeight, 0],
   });
 

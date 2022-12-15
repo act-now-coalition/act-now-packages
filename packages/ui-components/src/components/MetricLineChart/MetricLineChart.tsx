@@ -70,8 +70,7 @@ export const MetricLineChart = ({
   });
 
   const yScale = scaleLinear({
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    domain: [minValue!, maxValue!],
+    domain: [minValue, maxValue],
     range: [chartHeight, 0],
   });
 

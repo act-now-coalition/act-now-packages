@@ -60,13 +60,15 @@ export const SparkLine = ({
     return null;
   }
 
+  const minValue = propMinValue ?? 0;
+
   const xScaleBar = scaleUtc({
     domain: [timeseriesBarChart.minDate, timeseriesBarChart.maxDate],
     range: [0, width - 2 * padding],
   });
 
   const yScaleBar = scaleLinear({
-    domain: [propMinValue ?? 0, propMaxValue ?? timeseriesBarChart.maxValue],
+    domain: [minValue, propMaxValue ?? timeseriesBarChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
@@ -76,7 +78,7 @@ export const SparkLine = ({
   });
 
   const yScaleLine = scaleLinear({
-    domain: [propMinValue ?? 0, propMaxValue ?? timeseriesLineChart.maxValue],
+    domain: [minValue, propMaxValue ?? timeseriesLineChart.maxValue],
     range: [height - 2 * padding, 0],
   });
 
