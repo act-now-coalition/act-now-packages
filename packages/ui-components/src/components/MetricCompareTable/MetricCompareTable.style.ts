@@ -11,7 +11,7 @@ export const StyledTableCell = styled(TableCell)`
 `;
 
 // TODO: Issue with upgraded MUI/emotion requires an explicit type annotation
-// here. See https://github.com/covid-projections/act-now-packages/issues/486
+// here. See issue #486
 export const StyledLink: StyledComponent<
   Omit<LinkBaseProps, "classes">
 > = styled(MuiLink)`

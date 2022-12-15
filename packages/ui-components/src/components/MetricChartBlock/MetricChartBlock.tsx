@@ -15,9 +15,21 @@ import { MetricValue } from "../MetricValue";
 import { MetricTab } from "./MetricChartBlock.style";
 
 export interface MetricChartBlockProps {
+  /**
+   * Region to display metrics for.
+   */
   region: Region;
+  /**
+   * Metrics to display for tabs and charts.
+   */
   metrics: Array<Metric | string>;
+  /**
+   * Width of the chart block.
+   */
   width?: number;
+  /**
+   * Height of the chart block.
+   */
   height?: number;
 }
 
