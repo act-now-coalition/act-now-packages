@@ -9,6 +9,7 @@ import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
+import { getChartRange } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { ErrorBox } from "../ErrorBox";
@@ -18,7 +19,13 @@ import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
 
 export interface MetricLineChartProps extends BaseChartProps {
+  /**
+   * Metric represented by the line chart.
+   */
   metric: Metric | string;
+  /**
+   * Region represented by the line chart.
+   */
   region: Region;
 }
 
@@ -54,7 +61,8 @@ export const MetricLineChart = ({
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxDate, maxValue } = timeseries;
+  const { minDate, maxDate } = timeseries;
+  const [minValue, maxValue] = getChartRange(metric, timeseries);
 
   const xScale = scaleUtc({
     domain: [minDate, maxDate],
@@ -62,7 +70,7 @@ export const MetricLineChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [0, maxValue],
+    domain: [minValue, maxValue],
     range: [chartHeight, 0],
   });
 

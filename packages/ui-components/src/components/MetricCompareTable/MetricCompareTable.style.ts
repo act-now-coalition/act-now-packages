@@ -4,8 +4,8 @@ import { LinkBaseProps, Link as MuiLink } from "@mui/material";
 import { styled } from "../../styles";
 import { TableCell } from "../CompareTable";
 
-// We remove the padding on the table cells to ensure that the link they
-// contain covers the entire cell.
+// We remove the padding on the table cells to ensure that the
+// link they contain covers the entire cell.
 export const StyledTableCell = styled(TableCell)`
   padding: 0;
 `;

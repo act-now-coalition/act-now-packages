@@ -47,24 +47,30 @@ Vaccination.args = {
   ],
 };
 
-export const WithNegativeYValues = Template.bind({});
-WithNegativeYValues.args = {
-  width,
-  height,
-  minValue: -10,
-  series: [
-    {
-      region: WY,
-      metric: MetricId.MOCK_CASES,
-      type: SeriesType.LINE,
-    },
-  ],
-};
-
 export const TrendsSingleLocation = Template.bind({});
 TrendsSingleLocation.args = {
   width,
   height,
+  series: [
+    {
+      region: WA,
+      metric: MetricId.MOCK_CASES,
+      type: SeriesType.BAR,
+    },
+    {
+      region: WA,
+      metric: MetricId.MOCK_CASES,
+      type: SeriesType.LINE,
+      lineProps: { stroke: "black" },
+    },
+  ],
+};
+
+export const FilteredByDate = Template.bind({});
+FilteredByDate.args = {
+  width,
+  height,
+  dateRange: { startAt: new Date("2022-10-01"), endAt: new Date("2022-11-30") },
   series: [
     {
       region: WA,

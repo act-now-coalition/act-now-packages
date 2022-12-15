@@ -4,6 +4,7 @@ import { Link, Tooltip } from "@mui/material";
 import { geoPath as d3GeoPath, geoMercator } from "d3-geo";
 
 import { defaultWidth, nationsGeographies } from "../../common/geo-shapes";
+import { BaseMapProps } from "../../common/utils/maps";
 import { MapContainer, RegionOverlay } from "../../styles/common/Maps.style";
 import { AutoWidth } from "../AutoWidth";
 import { DiagonalHatchPattern } from "./DiagonalHatchPattern";
@@ -13,21 +14,23 @@ import {
   colorDisputedAreas,
 } from "./WorldMap.style";
 
-export interface WorldMapProps {
-  getTooltip: (regionId: string) => React.ReactNode;
-  getFillColor?: (regionId: string) => string;
+export interface WorldMapProps extends BaseMapProps {
+  /**
+   * Function that returns the fill opacity for a region's shape, given the region's geoId.
+   * @default 1
+   *
+   * @param {string} geoId GeoId of the region for which to get the fill opacity.
+   */
   getFillOpacity?: (geoId: string) => number;
-  width?: number;
-  getRegionUrl?: (regionId: string) => string | undefined;
 }
 
 // This aspect ratio and re-centering the projection maximize the land area
-// shown in the map, leaving out the Arctic and Antarctica, but keeping most
+// shown on the map, leaving out the Arctic and Antarctica while keeping most
 // countries in the viewport.
 const mapAspectRatio = 380 / 800;
 
 // We adjust the geographic center of the projection 55°N 0°E to clip out
-// areas close to the Arctic
+// areas close to the Arctic.
 const projectionCenter: [number, number] = [0, -55]; // [longitude, latitude]
 
 const WorldMapInner = ({

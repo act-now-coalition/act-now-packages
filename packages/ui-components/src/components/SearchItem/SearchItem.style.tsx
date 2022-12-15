@@ -21,12 +21,9 @@ export const ArrowIcon = styled(ArrowForwardIosIcon)`
 `;
 
 export const Container = styled(Box)`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: ${({ theme }) => theme.spacing(1, 1.5)};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.palette.action.hover};
-  }
+  padding: ${({ theme }) => theme.spacing(0.5, 0)};
 `;

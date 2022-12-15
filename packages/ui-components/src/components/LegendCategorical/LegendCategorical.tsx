@@ -6,22 +6,36 @@ import Typography from "@mui/material/Typography";
 import { Square } from "./LegendCategorical.style";
 
 export interface LegendCategoricalProps<T> {
-  /** Array of items representing legend items */
+  /**
+   * Array of legend items, containing properties about each section of the legend.
+   */
   items: T[];
-  /** Function that returns the color of each legend item */
+  /**
+   * Function that returns the legend item's color.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
   getItemColor: (item: T, itemIndex: number) => string;
-  /** Function that returns the label of each legend item */
+  /**
+   * Function that returns the legend item's label.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
   getItemLabel: (item: T, itemIndex: number) => string;
   /**
-   * Whether or not the legend items are oriented horizontally (in a row) on desktop screens ('md' and wider).
-   * Defaults to true. If false, the legend items will be oriented vertically/in a column.
+   * Orientation of the legend.
+   * @default "horizontal"
    */
   orientation?: "horizontal" | "vertical";
 }
 
 /**
- * LegendCategorical represents a legend of items, each with a color block and a corresponding label.
+ * LegendCategorical represents a legend of items,
+ * each with a color block and a corresponding label.
  */
+
 export const LegendCategorical = <T,>({
   items,
   getItemColor,

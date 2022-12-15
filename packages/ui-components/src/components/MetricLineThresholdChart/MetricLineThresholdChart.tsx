@@ -3,8 +3,6 @@ import React from "react";
 import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import max from "lodash/max";
-import min from "lodash/min";
 
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
@@ -23,17 +21,23 @@ import { PointMarker } from "../PointMarker";
 import { calculateChartIntervals } from "./utils";
 
 export interface MetricLineThresholdChartProps extends BaseChartProps {
+  /**
+   * Metric represented by the LineThresholdChart.
+   */
   metric: Metric | string;
+  /**
+   * Region represented by the LineThresholdChart.
+   */
   region: Region;
 }
 
 /**
- * MetricLineThresholdChart renders a line chart where line segments are
- * colored according to the metric categories and thresholds.
+ * MetricLineThresholdChart renders a line chart (specifically, a LineIntervalChart)
+ * where line segments are colored according to the metric categories and thresholds.
  *
- * For example, if we have a metric with two categories: High (red) and Low
- * (green) separated by a threshold at the value 10, the line will be red when
- * above 10 and green below it.
+ * Example: for a metric with two categories,
+ * High (red) and Low (green) separated by a threshold value of 10,
+ * the line is red above 10 and green below 10.
  */
 export const MetricLineThresholdChart = ({
   metric: metricOrId,
@@ -88,8 +92,17 @@ export const MetricLineThresholdChart = ({
     range: [0, chartWidth],
   });
 
-  const minChartValue = min(intervals.map(({ lower }) => lower)) ?? minValue;
-  const maxChartValue = max(intervals.map(({ upper }) => upper)) ?? maxValue;
+  // If available, use minValue from the metric definition.
+  // Otherwise, use the lower bound of the lowest threshold.
+  const minValueMetric = metric.minValue;
+  const minValueIntervals = Math.min(...intervals.map(({ lower }) => lower));
+  const minChartValue = minValueMetric ?? minValueIntervals;
+
+  // If available, use maxValue from the metric definition.
+  // Otherwise, use the higher bound of the highest threshold.
+  const maxValueMetric = metric.maxValue;
+  const maxValueIntervals = Math.max(...intervals.map(({ upper }) => upper));
+  const maxChartValue = maxValueMetric ?? maxValueIntervals;
 
   const yScale = scaleLinear({
     domain: [minChartValue, maxChartValue],

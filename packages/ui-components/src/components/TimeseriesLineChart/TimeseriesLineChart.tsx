@@ -10,6 +10,9 @@ import { AxesTimeseries } from "../AxesTimeseries";
 import { LineChart } from "../LineChart";
 
 export interface TimeseriesLineChartProps extends BaseChartProps {
+  /**
+   * Non-empty timeseries used to draw the line chart.
+   */
   timeseries: NonEmptyTimeseries<number>;
 }
 
@@ -25,7 +28,7 @@ export const TimeseriesLineChart = ({
   const chartHeight = height - marginTop - marginBottom;
   const chartWidth = width - marginLeft - marginRight;
 
-  const { minDate, maxDate, maxValue } = timeseries;
+  const { minDate, maxDate, minValue, maxValue } = timeseries;
 
   const xScale = scaleUtc({
     domain: [minDate, maxDate],
@@ -33,7 +36,7 @@ export const TimeseriesLineChart = ({
   });
 
   const yScale = scaleLinear({
-    domain: [0, maxValue],
+    domain: [minValue, maxValue],
     range: [chartHeight, 0],
   });
 

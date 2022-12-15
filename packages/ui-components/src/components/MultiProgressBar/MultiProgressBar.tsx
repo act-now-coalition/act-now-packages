@@ -7,21 +7,58 @@ import sortBy from "lodash/sortBy";
 import { RectClipGroup } from "../RectClipGroup";
 
 export interface BaseMultiProgressBarProps {
+  /**
+   * Maximum value of the progress bar's range.
+   */
   maxValue: number;
-  /** Color of charted bars */
+  /**
+   * Color of the progress bar charted bars.
+   * @default "#000000"
+   */
   barColor?: string;
-  /** Background color of progress bar */
+  /**
+   * Background color of the progress bar.
+   * If undefined, theme.palette.border.default is used.
+   */
   bgColor?: string;
-  /** For accessibility-purposes, a description of what the progress bar is displaying */
+  /**
+   * A text description of what the progress bar is displaying.
+   */
   title?: string;
+  /**
+   * Width of the progress bar.
+   * @default 100 (DEFAULT_WIDTH)
+   */
   width?: number;
+  /**
+   * Height of the progress bar.
+   * @default 16 (DEFAULT_HEIGHT)
+   */
   height?: number;
+  /**
+   * Border radius of the progress bar.
+   * @default 4
+   */
   borderRadius?: number;
 }
 
 export interface MultiProgressBarProps<T> extends BaseMultiProgressBarProps {
+  /**
+   * Array of two progress bar items, containing properties about each
+   * item rendered in the progress bar.
+   */
   items: [T, T];
+  /**
+   * Function that returns the progress bar item's label.
+   *
+   * @param {T} item The progress bar item.
+   */
   getItemLabel: (item: T) => string;
+  /**
+   * Function that returns the progress bar item's value.
+   *
+   * @param {T} item The progress bar item.
+   */
   getItemValue: (item: T) => number;
 }
 
@@ -49,10 +86,10 @@ export const MultiProgressBar = <T,>({
     range: [0, width],
   });
 
-  /**
-   * Items are sorted in descending order to ensure they are layered
-   * in the correct order in the progress bar.
-   * */
+  // Items are sorted in descending order to ensure they are layered
+  // in the correct order in the progress bar.
+  // The item with the greater value is rendered first, so that the item
+  // with the smaller value is layered on top.
   const [sortedFirstItem, sortedSecondItem] = sortBy(
     items,
     (item) => getItemValue(item) * -1

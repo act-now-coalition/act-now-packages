@@ -4,40 +4,83 @@ import { LegendThresholdHorizontal } from "./LegendThresholdHorizontal";
 import { LegendThresholdVertical } from "./LegendThresholdVertical";
 
 export interface BaseLegendThresholdProps {
-  /** Orientation of the bars */
+  /**
+   * Orientation of the legend.
+   */
   orientation: "horizontal" | "vertical";
-  /** Height of the thermometer */
+  /**
+   * Height of the thermometer.
+   * @default 265 (vertical orientation)
+   * @default 20 (horizontal orientation)
+   */
   height?: number;
-  /** Width of the thermometer */
+  /**
+   * Width of the thermometer.
+   * @default 12 (vertical orientation)
+   * @default 300 (horizontal orientation)
+   */
   width?: number;
-  /** Border radius of the thermometer bar */
+  /**
+   * Border radius of the thermometer.
+   * @default 6 (vertical orientation)
+   * @default 10 (horizontal orientation)
+   */
   borderRadius?: number;
-  /** Whether to show the labels or not */
+  /**
+   * Show the labels of each legend item.
+   * @default true
+   */
   showLabels?: boolean;
 }
 
 export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
-  /** List of items representing the labels */
+  /**
+   * Array of legend items, containing properties about each section of the legend.
+   */
   items: T[];
-  /** Function that returns the color of each item */
+  /**
+   * Function that returns the legend item's color.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
   getItemColor: (item: T, itemIndex: number) => string;
-  /** Function that returns the label of each item */
+  /**
+   * Function that returns the legend item's label.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
   getItemLabel?: (item: T, itemIndex: number) => string;
-  /** Function that returns the sublabel of each item */
+  /**
+   * Function that returns the legend item's sublabel.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
   getItemSublabel?: (item: T, itemIndex: number) => string;
+  /**
+   * Function that returns whether or not to show an indicator of the current value.
+   *
+   * @param {T} item The legend item.
+   * @param {number} itemIndex Index of the legend item.
+   */
   getItemShowIndicator?: (item: T, itemIndex: number) => boolean | undefined;
 }
 
 /**
- * `LegendThreshold` represents a scale with thresholds that separate
- * a set of categories. By default, the labels between each category are shown.
+ * LegendThreshold represents a scale with thresholds that separate a set
+ * of categories, each represented by a color and labels.
  */
 
-export const LegendThreshold = <T,>(props: LegendThresholdProps<T>) => {
+export const LegendThreshold = <T,>({
+  showLabels = true,
+  ...props
+}: LegendThresholdProps<T>) => {
   return props.orientation === "horizontal" ? (
-    <LegendThresholdHorizontal {...props} />
+    <LegendThresholdHorizontal showLabels={showLabels} {...props} />
   ) : (
-    <LegendThresholdVertical {...props} />
+    <LegendThresholdVertical showLabels={showLabels} {...props} />
   );
 };
 
