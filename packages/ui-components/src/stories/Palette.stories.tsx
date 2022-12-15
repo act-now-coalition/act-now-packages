@@ -51,6 +51,8 @@ const ColorBox = ({ color }: { color: string }) => (
   />
 );
 
+const NON_COLOR_PROPERTIES = ["mode", "getContrastText", "augmentColor"];
+
 // Filter out the palette attributes that don't correspond to colors,
 // such as functions or numeric constants. The `mode` attribute is
 // a string to name themes (dark, light, highContrast), but not a color,
@@ -58,7 +60,7 @@ const ColorBox = ({ color }: { color: string }) => (
 function getPaletteGroups(theme: Theme) {
   const paletteGroups = (Object.keys(theme.palette) as (keyof Palette)[])
     .filter((name) => isObject(theme.palette[name]))
-    .filter((name) => name !== "mode")
+    .filter((name) => !NON_COLOR_PROPERTIES.includes(name))
     .map((name) => {
       const colorGroup = theme.palette[name] as Record<string, string>;
       const colorGroupKeys = Object.keys(colorGroup);
