@@ -78,11 +78,7 @@ const components: ThemeOptions["components"] = {
         ":last-of-type": {
           marginRight: "0",
         },
-        ":not(&.Mui-selected)": {
-          span: {
-            color: theme.palette.text.secondary,
-          },
-        },
+        justifyContent: "flex-end",
       }),
     },
   },

@@ -9,6 +9,7 @@ import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
+import { getChartRange } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { ErrorBox } from "../ErrorBox";
@@ -16,7 +17,6 @@ import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricTooltip } from "../MetricTooltip";
 import { PointMarker } from "../PointMarker";
-import { getChartRange } from "../../common/utils/charts";
 
 export interface MetricLineChartProps extends BaseChartProps {
   /**

@@ -2,15 +2,15 @@ import React from "react";
 
 import { Skeleton } from "@mui/material";
 
+import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
+import { getChartRange } from "../../common/utils/charts";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
-import { getChartRange } from "../../common/utils/charts";
-import { assert } from "@actnowcoalition/assert";
 
 export interface MetricSparklinesProps extends BaseSparkLineProps {
   /**
