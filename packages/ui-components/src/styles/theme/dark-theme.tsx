@@ -53,6 +53,15 @@ const darkThemeConfig = {
     h3: {
       color: "#fff",
     },
+    h4: {
+      color: "#fff",
+    },
+    h5: {
+      color: "#fff",
+    },
+    h6: {
+      color: "#fff",
+    },
     dataEmphasizedSmall: {
       color: "#fff",
     },
@@ -68,11 +77,79 @@ const darkThemeConfig = {
     labelSmall: {
       color: "#fff",
     },
+    paragraphLarge: {
+      color: "#fff",
+    },
     paragraphSmall: {
+      color: "#fff",
+    },
+    overline: {
       color: "#fff",
     },
   },
   components: {
+    MuiButton: {
+      styleOverrides: {
+        containedPrimary: ({ theme }: { theme: Theme }) => ({
+          "&: hover": {
+            backgroundColor: theme.palette.grey[500],
+          },
+        }),
+      },
+    },
+    MuiChip: {
+      styleOverrides: {
+        label: ({ theme }: { theme: Theme }) => ({
+          ...theme.typography.labelSmall,
+          color: theme.palette.common.white,
+        }),
+      },
+    },
+    MuiTabs: {
+      styleOverrides: {
+        indicator: ({ theme }: { theme: Theme }) => ({
+          height: "2px",
+          backgroundColor: theme.palette.common.white,
+        }),
+      },
+    },
+    MuiToggleButtonGroup: {
+      styleOverrides: {
+        groupedHorizontal: ({ theme }: { theme: Theme }) => ({
+          border: "none",
+          color: theme.typography.paragraphSmall.color,
+          textTransform: "none",
+          borderBottom: `solid 2px transparent`,
+          ":not(:first-of-type)": {
+            borderLeft: "none",
+          },
+          "&.Mui-selected": {
+            ...theme.typography.labelSmall,
+            borderBottom: `solid 2px ${theme.palette.common.white}`,
+            backgroundColor: "transparent",
+          },
+        }),
+        groupedVertical: ({ theme }: { theme: Theme }) => ({
+          borderLeft: "none",
+          borderRight: "none",
+          borderTop: "none",
+          borderBottom: "none",
+          color: theme.typography.paragraphSmall.color,
+          textTransform: "none",
+          ":first-of-type": {
+            borderTop: "none",
+          },
+          ":last-of-type": {
+            borderBottom: "none",
+          },
+          "&.Mui-selected": {
+            ...theme.typography.labelSmall,
+            borderRight: `solid 2px ${theme.palette.common.white}`,
+            backgroundColor: "transparent",
+          },
+        }),
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: ({ theme }: { theme: Theme }) => ({
@@ -83,7 +160,6 @@ const darkThemeConfig = {
         }),
       },
     },
-
     MuiTable: {
       styleOverrides: {
         root: ({ theme }: { theme: Theme }) => ({

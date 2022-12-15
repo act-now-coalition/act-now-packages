@@ -1,49 +1,18 @@
 import React from "react";
-
 import { Box, Grid, Palette, Stack, Typography } from "@mui/material";
 import isObject from "lodash/isObject";
-
-import theme from "../styles/theme";
+import darkTheme from "../styles/theme/dark-theme";
+import lightTheme from "../styles/theme";
+import { Theme } from "@mui/material";
 
 export default {
   title: "Design System/Palette",
 };
 
-// Filter out the palette attributes that don't correspond to colors,
-// such as functions or numeric constants. The `mode` attribute is
-// a string to name themes (dark, light, highContrast), but not a color,
-// so we filter that out as well.
-const paletteGroups = (Object.keys(theme.palette) as (keyof Palette)[])
-  .filter((name) => isObject(theme.palette[name]))
-  .filter((name) => name !== "mode")
-  .map((name) => {
-    const colorGroup = theme.palette[name] as Record<string, string>;
-    const colorGroupKeys = Object.keys(colorGroup);
-    const colors = colorGroupKeys.map((key) => {
-      return {
-        name: `theme.palette.${name}.${key}`,
-        color: colorGroup[key],
-      };
-    });
-    return { name, colors };
-  });
-
 interface ColorInfo {
   name: string;
   color: string;
 }
-
-export const All = () => (
-  <>
-    {paletteGroups.map((group) => (
-      <ColorGroup
-        key={group.name}
-        colorGroupName={group.name}
-        colorInfoList={group.colors}
-      />
-    ))}
-  </>
-);
 
 const ColorGroup = ({
   colorGroupName,
@@ -75,9 +44,58 @@ const ColorBox = ({ color }: { color: string }) => (
     style={{
       width: 48,
       height: 48,
-      border: `solid 1px ${theme.palette.border.default}`,
-      borderRadius: theme.shape.borderRadius,
+      border: `solid 1px ${lightTheme.palette.border.default}`,
+      borderRadius: lightTheme.shape.borderRadius,
       backgroundColor: color,
     }}
   />
+);
+
+// Filter out the palette attributes that don't correspond to colors,
+// such as functions or numeric constants. The `mode` attribute is
+// a string to name themes (dark, light, highContrast), but not a color,
+// so we filter that out as well.
+function getPaletteGroups(theme: Theme) {
+  const paletteGroups = (Object.keys(theme.palette) as (keyof Palette)[])
+    .filter((name) => isObject(theme.palette[name]))
+    .filter((name) => name !== "mode")
+    .map((name) => {
+      const colorGroup = theme.palette[name] as Record<string, string>;
+      const colorGroupKeys = Object.keys(colorGroup);
+      const colors = colorGroupKeys.map((key) => {
+        return {
+          name: `theme.palette.${name}.${key}`,
+          color: colorGroup[key],
+        };
+      });
+      return { name, colors };
+    });
+  return paletteGroups;
+}
+
+const lightPaletteGroups = getPaletteGroups(lightTheme);
+const darkPaletteGroups = getPaletteGroups(darkTheme);
+
+export const LightMode = () => (
+  <>
+    {lightPaletteGroups.map((group) => (
+      <ColorGroup
+        key={group.name}
+        colorGroupName={group.name}
+        colorInfoList={group.colors}
+      />
+    ))}
+  </>
+);
+
+export const DarkMode = () => (
+  <>
+    {darkPaletteGroups.map((group) => (
+      <ColorGroup
+        key={group.name}
+        colorGroupName={group.name}
+        colorInfoList={group.colors}
+      />
+    ))}
+  </>
 );
