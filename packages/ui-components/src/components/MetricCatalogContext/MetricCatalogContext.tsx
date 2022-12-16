@@ -6,6 +6,17 @@ const defaultMetricCatalog = new MetricCatalog([], []);
 
 const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
 
+export interface MetricCatalogProviderProps {
+  /**
+   * The MetricCatalog passed to the MetricCatalogContext Provider.
+   */
+  metricCatalog: MetricCatalog;
+  /**
+   * The content wrapped by the MetricCatalogContext Provider.
+   */
+  children: React.ReactNode;
+}
+
 /**
  * The `MetricCatalogProvider` component and `useMetricCatalog` hook provide
  * convenient access to the app-level `metricCatalog` instance. It relies on
@@ -49,17 +60,6 @@ const MetricCatalogContext = createContext<MetricCatalog>(defaultMetricCatalog);
  * @param children - The component tree that we want to have access to the metric catalog.
  * @returns React.ContextProvider with the given metricCatalog
  */
-
-export interface MetricCatalogProviderProps {
-  /**
-   * The MetricCatalog passed to the MetricCatalogContext Provider.
-   */
-  metricCatalog: MetricCatalog;
-  /**
-   * The content wrapped by the MetricCatalogContext Provider.
-   */
-  children: React.ReactNode;
-}
 
 export const MetricCatalogProvider = ({
   metricCatalog,
