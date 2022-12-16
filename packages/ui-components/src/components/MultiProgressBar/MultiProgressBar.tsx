@@ -51,13 +51,15 @@ export interface MultiProgressBarProps<T> extends BaseMultiProgressBarProps {
   /**
    * Function that returns the progress bar item's label.
    *
-   * @param {T} item The progress bar item.
+   * @param item - The progress bar item.
+   * @returns The item label.
    */
   getItemLabel: (item: T) => string;
   /**
    * Function that returns the progress bar item's value.
    *
-   * @param {T} item The progress bar item.
+   * @param item - The progress bar item.
+   * @returns The item value.
    */
   getItemValue: (item: T) => number;
 }

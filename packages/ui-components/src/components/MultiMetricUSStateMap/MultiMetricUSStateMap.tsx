@@ -35,7 +35,8 @@ export interface MultiMetricUSStateMapProps {
   /**
    * Function that returns tooltip content for the region corresponding to a given regionId.
    *
-   * @param {string} regionId RegionId of the region for which to get tooltip content.
+   * @param regionId - RegionId of the region for which to get tooltip content.
+   * @returns Tooltip content for the region.
    */
   getTooltip?: (regionId: string) => React.ReactNode;
 }

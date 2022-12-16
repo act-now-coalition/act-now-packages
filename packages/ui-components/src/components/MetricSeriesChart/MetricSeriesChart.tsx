@@ -234,8 +234,8 @@ export const MetricSeriesChart = ({
 /**
  * `getDateRange` returns the date range that covers the provided timeseries.
  *
- * @param {Timeseries<unknown>[]} timeseriesList Array of timeseries.
- * @returns {[Date, Date]} [minDate, maxDate]
+ * @param timeseriesList - Array of timeseries.
+ * @returns [minDate, maxDate]
  */
 
 function getDateRange(timeseriesList: Timeseries<unknown>[]): [Date, Date] {
@@ -253,8 +253,8 @@ function getDateRange(timeseriesList: Timeseries<unknown>[]): [Date, Date] {
 /**
  * `getValueRange` returns the range of values that covers the provided timeseries.
  *
- * @param {Timeseries<number>[]} timeseriesList Array of timeseries.
- * @returns {[number, number]} [minValue, maxValue]
+ * @param timeseriesList - Array of timeseries.
+ * @returns [minValue, maxValue]
  */
 
 function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {

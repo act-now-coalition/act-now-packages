@@ -31,7 +31,7 @@ import { ChartOverlayXProps } from "./ChartOverlayX";
  * );
  * ```
  *
- * @param {Timeseries<T> | undefined} timeseries A timeseries of points that can be hovered, or undefined.
+ * @param timeseries - A timeseries of points that can be hovered, or undefined.
  * @returns The hovered point information and the `onMouseMove` and `onMouseLeave` callbacks.
  */
 

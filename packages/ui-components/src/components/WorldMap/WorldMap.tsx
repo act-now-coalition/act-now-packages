@@ -19,7 +19,8 @@ export interface WorldMapProps extends BaseMapProps {
    * Function that returns the fill opacity for a region's shape, given the region's geoId.
    * @default 1
    *
-   * @param {string} geoId GeoId of the region for which to get the fill opacity.
+   * @param geoId - GeoId of the region for which to get the fill opacity.
+   * @returns Fill opacity for the region.
    */
   getFillOpacity?: (geoId: string) => number;
 }

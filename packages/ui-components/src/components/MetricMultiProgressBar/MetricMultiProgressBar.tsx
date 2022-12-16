@@ -68,9 +68,9 @@ export interface MetricProgressBarItem {
  * `getProgressBarItems` converts data for two metrics into an array of
  * two items formatted to be passed into MultiProgressBar.
  *
- * @param {MultiMetricDataStore} data A metric data store containing data for multiple metrics for a given region.
- * @param {[MetricProp, MetricProp]} metrics Two metrics to convert into MetricProgressBarItem
- * @returns {[MetricProgressBarItem, MetricProgressBarItem]}
+ * @param data - A metric data store containing data for multiple metrics for a given region.
+ * @param metrics - Array of two metrics to convert into MetricProgressBarItem.
+ * @returns Array of two items of metric information formatted for the progress bar.
  */
 
 function getProgressBarItems(

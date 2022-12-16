@@ -50,11 +50,11 @@ export interface ChartInterval extends LineInterval {
  * If necessary, we adjust the upper bound of the last interval in the same way as
  * we do for the first interval.
  *
- * @param {Category[]} metricCategories Array of metric categories.
- * @param {number[]} thresholds Array of thresholds.
- * @param {number} minValue Minimum value to show in the chart.
- * @param {number} maxValue Maximum value to show in the chart.
- * @returns {ChartInterval[]} List of chart intervals.
+ * @param metricCategories - Array of metric categories.
+ * @param thresholds - Array of thresholds.
+ * @param minValue - Minimum value to show in the chart.
+ * @param maxValue - Maximum value to show in the chart.
+ * @returns List of chart intervals.
  */
 
 export function calculateChartIntervals(

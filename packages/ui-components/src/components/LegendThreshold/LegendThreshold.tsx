@@ -41,29 +41,33 @@ export interface LegendThresholdProps<T> extends BaseLegendThresholdProps {
   /**
    * Function that returns the legend item's color.
    *
-   * @param {T} item The legend item.
-   * @param {number} itemIndex Index of the legend item.
+   * @param item - The legend item.
+   * @param itemIndex - Index of the legend item.
+   * @returns The item color.
    */
   getItemColor: (item: T, itemIndex: number) => string;
   /**
    * Function that returns the legend item's label.
    *
-   * @param {T} item The legend item.
-   * @param {number} itemIndex Index of the legend item.
+   * @param item - The legend item.
+   * @param itemIndex - Index of the legend item.
+   * @returns The item label.
    */
   getItemLabel?: (item: T, itemIndex: number) => string;
   /**
    * Function that returns the legend item's sublabel.
    *
-   * @param {T} item The legend item.
-   * @param {number} itemIndex Index of the legend item.
+   * @param item - The legend item.
+   * @param itemIndex - Index of the legend item.
+   * @returns The item sublabel.
    */
   getItemSublabel?: (item: T, itemIndex: number) => string;
   /**
    * Function that returns whether or not to show an indicator of the current value.
    *
-   * @param {T} item The legend item.
-   * @param {number} itemIndex Index of the legend item.
+   * @param item - The legend item.
+   * @param itemIndex - Index of the legend item.
+   * @returns Whether or not to show the indicator.
    */
   getItemShowIndicator?: (item: T, itemIndex: number) => boolean | undefined;
 }

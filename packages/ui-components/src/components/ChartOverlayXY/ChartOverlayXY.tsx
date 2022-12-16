@@ -33,7 +33,7 @@ export interface ChartOverlayXYProps {
   /**
    * Callback fired when the cursor moves over the overlay.
    *
-   * @param {HoveredPointInfo} pointInfo Information about the point being hovered.
+   * @param pointInfo - Information about the point being hovered.
    **/
   onMouseMove?: (pointInfo: HoveredPointInfo) => void;
   /**

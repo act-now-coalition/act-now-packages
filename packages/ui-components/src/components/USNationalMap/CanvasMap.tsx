@@ -20,7 +20,8 @@ export interface CanvasMapProps {
    * Function that returns the fill color for a shape,
    * given the corresponding region's regionId.
    *
-   * @param {string} regionId RegionId corresponding to the shape being colored.
+   * @param regionId - RegionId corresponding to the shape being colored.
+   * @returns Fill color for the region.
    */
   getFillColor: (regionId: string) => string;
   /**
@@ -34,7 +35,8 @@ export interface CanvasMapProps {
   /**
    * Function that returns the geoId of a given feature.
    *
-   * @param {ExtendedFeature} geo The feature of which we are getting the geoId.
+   * @param geo - The feature of which we are getting the geoId.
+   * @returns GeoId of the feature.
    */
   getGeoId: (geo: ExtendedFeature) => string;
 }
