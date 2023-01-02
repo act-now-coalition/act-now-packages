@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
@@ -80,6 +80,9 @@ export const MetricChartBlock = ({
       ? MetricLineThresholdChart
       : MetricLineChart;
 
+  // TabPanel has 24px of padding on either side built into it, so we need to
+  // reduce the width passed for the chart.
+  const chartWidth = width - 48;
   return (
     <Stack spacing={2} width={width}>
       <TabContext value={selectedTab}>
@@ -87,7 +90,6 @@ export const MetricChartBlock = ({
           onChange={handleChange}
           variant="scrollable"
           scrollButtons={false}
-          sx={{ paddingLeft: 4 }}
         >
           {resolvedMetrics.map((metric) => {
             return (
@@ -103,15 +105,15 @@ export const MetricChartBlock = ({
         {resolvedMetrics.map((metric) => {
           return (
             <TabPanel key={metric.id} value={metric.id}>
-              <MetricChart
-                metric={metric}
-                region={region}
-                width={width}
-                height={height}
-              />
-              <Box width={width} mt={3}>
+              <Stack spacing={3}>
+                <MetricChart
+                  metric={metric}
+                  region={region}
+                  width={chartWidth}
+                  height={height}
+                />
                 {renderChartFooter(metric)}
-              </Box>
+              </Stack>
             </TabPanel>
           );
         })}
