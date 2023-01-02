@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { nations } from "@actnowcoalition/regions";
@@ -8,6 +8,7 @@ import { nations } from "@actnowcoalition/regions";
 import { MetricChartBlock } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { AutoWidth } from "../AutoWidth";
+import { ShareButton } from "../ShareButton";
 
 export default {
   title: "Components/MetricChartBlock",
@@ -32,4 +33,12 @@ export const Example = Template.bind({});
 Example.args = {
   region: nations.findByRegionIdStrict("USA"),
   metrics: metricList,
+  renderChartFooter: (metric) => (
+    <Stack direction="row" justifyContent="space-between">
+      <Typography variant="paragraphSmall">
+        Explanatory content for {metric.name} metric.
+      </Typography>
+      <ShareButton url={"https://www.google.com"} quote={"Lorem ipsum"} />
+    </Stack>
+  ),
 };

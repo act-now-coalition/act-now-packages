@@ -31,6 +31,15 @@ export interface MetricChartBlockProps {
    * Height of the chart block.
    */
   height?: number;
+
+  /**
+   * Function that returns footer content (e.g. explanatory text, share buttons,
+   * etc.) to be displayed under the chart for a given metric.
+   *
+   * @param metric - Metric for which to render footer content.
+   * @returns Footer content to render.
+   */
+  renderChartFooter?: (metric: Metric) => React.ReactNode;
 }
 
 const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
@@ -52,6 +61,7 @@ export const MetricChartBlock = ({
   metrics,
   width = 800,
   height = 450,
+  renderChartFooter = () => null,
 }: MetricChartBlockProps) => {
   assert(metrics.length > 1, "Must have at least 2 tabs to select from");
   const metricCatalog = useMetricCatalog();
@@ -70,6 +80,9 @@ export const MetricChartBlock = ({
       ? MetricLineThresholdChart
       : MetricLineChart;
 
+  // TabPanel has 24px of padding on either side built into it, so we need to
+  // reduce the width passed for the chart.
+  const chartWidth = width - 48;
   return (
     <Stack spacing={2} width={width}>
       <TabContext value={selectedTab}>
@@ -77,7 +90,6 @@ export const MetricChartBlock = ({
           onChange={handleChange}
           variant="scrollable"
           scrollButtons={false}
-          sx={{ paddingLeft: 4 }}
         >
           {resolvedMetrics.map((metric) => {
             return (
@@ -93,12 +105,15 @@ export const MetricChartBlock = ({
         {resolvedMetrics.map((metric) => {
           return (
             <TabPanel key={metric.id} value={metric.id}>
-              <MetricChart
-                metric={metric}
-                region={region}
-                width={width}
-                height={height}
-              />
+              <Stack spacing={3}>
+                <MetricChart
+                  metric={metric}
+                  region={region}
+                  width={chartWidth}
+                  height={height}
+                />
+                {renderChartFooter(metric)}
+              </Stack>
             </TabPanel>
           );
         })}
