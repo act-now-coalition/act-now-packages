@@ -36,7 +36,7 @@ export interface MetricChartBlockProps {
    * Function that returns footer content (e.g. explanatory text, share buttons,
    * etc.) to be displayed under the chart for a given metric.
    *
-   * @param metric Metric for which to render footer content.
+   * @param metric - Metric for which to render footer content.
    * @returns Footer content to render.
    */
   renderChartFooter?: (metric: Metric) => React.ReactNode;
