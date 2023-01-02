@@ -2,7 +2,7 @@ import { useState } from "react";
 import React from "react";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
@@ -31,6 +31,15 @@ export interface MetricChartBlockProps {
    * Height of the chart block.
    */
   height?: number;
+
+  /**
+   * Function that returns footer content (e.g. explanatory text, share buttons,
+   * etc.) to be displayed under the chart for a given metric.
+   *
+   * @param metric Metric for which to render footer content.
+   * @returns Footer content to render.
+   */
+  renderChartFooter?: (metric: Metric) => React.ReactNode;
 }
 
 const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
@@ -52,6 +61,7 @@ export const MetricChartBlock = ({
   metrics,
   width = 800,
   height = 450,
+  renderChartFooter = () => null,
 }: MetricChartBlockProps) => {
   assert(metrics.length > 1, "Must have at least 2 tabs to select from");
   const metricCatalog = useMetricCatalog();
@@ -99,6 +109,9 @@ export const MetricChartBlock = ({
                 width={width}
                 height={height}
               />
+              <Box width={width} mt={3}>
+                {renderChartFooter(metric)}
+              </Box>
             </TabPanel>
           );
         })}
