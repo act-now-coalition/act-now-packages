@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MenuItem, TextField, Typography } from "@mui/material";
+import { MenuItem, TextField, Typography, useTheme } from "@mui/material";
 
 export interface SelectProps<T> {
   /** List of dropdown options */
@@ -28,25 +28,29 @@ export const Select = <T,>({
   onSelectOption,
   getValue,
   getLabel,
-}: SelectProps<T>) => (
-  <TextField
-    select
-    variant="filled"
-    fullWidth
-    label={<Typography variant="paragraphSmall">{label}</Typography>}
-    value={getValue(selectedOption)}
-    onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-      onSelectOption(event.target.value)
-    }
-    SelectProps={{
-      disableUnderline: true,
-      MenuProps: { style: { maxHeight: 300 } },
-    }}
-  >
-    {options.map((option) => (
-      <MenuItem key={getValue(option)} value={getValue(option)}>
-        <Typography noWrap>{getLabel(option)}</Typography>
-      </MenuItem>
-    ))}
-  </TextField>
-);
+}: SelectProps<T>) => {
+  const theme = useTheme();
+  return (
+    <TextField
+      select
+      variant="filled"
+      fullWidth
+      label={<Typography variant="paragraphSmall">{label}</Typography>}
+      value={getValue(selectedOption)}
+      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+        onSelectOption(event.target.value)
+      }
+      SelectProps={{
+        // Make sure we include all SelectProps set at the theme-level
+        ...theme.components?.MuiTextField?.defaultProps?.SelectProps,
+        MenuProps: { style: { maxHeight: 300 } },
+      }}
+    >
+      {options.map((option) => (
+        <MenuItem key={getValue(option)} value={getValue(option)}>
+          <Typography noWrap>{getLabel(option)}</Typography>
+        </MenuItem>
+      ))}
+    </TextField>
+  );
+};
