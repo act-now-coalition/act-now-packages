@@ -29,7 +29,6 @@ const typographyConstants = {
   fontSizeH2: "2rem",
   fontSizeH3: "1.125rem",
 
-  lineHeightSmall: 1,
   lineHeightMedium: 1.25,
   lineHeightBase: 1.5,
 };
@@ -102,7 +101,7 @@ const typography: ExtendedTypographyOptions = {
   paragraphSmall: {
     fontFamily: typographyConstants.fontFamily,
     fontSize: typographyConstants.fontSizePSmall,
-    lineHeight: typographyConstants.lineHeightSmall,
+    lineHeight: typographyConstants.lineHeightMedium,
     color: palette.text.secondary,
   },
 
