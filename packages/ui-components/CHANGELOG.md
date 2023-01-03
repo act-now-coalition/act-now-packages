@@ -1,5 +1,12 @@
 # @actnowcoalition/ui-components
 
+## 0.10.2
+
+### Patch Changes
+
+- 5087883: Small styling fixes
+- dd1dead: Fix import of d3-scale-chromatic
+
 ## 0.10.1
 
 ### Patch Changes
