@@ -80,9 +80,6 @@ export const MetricChartBlock = ({
       ? MetricLineThresholdChart
       : MetricLineChart;
 
-  // TabPanel has 24px of padding on either side built into it, so we need to
-  // reduce the width passed for the chart.
-  const chartWidth = width - 48;
   return (
     <Stack spacing={2} width={width}>
       <TabContext value={selectedTab}>
@@ -104,12 +101,12 @@ export const MetricChartBlock = ({
         </TabList>
         {resolvedMetrics.map((metric) => {
           return (
-            <TabPanel key={metric.id} value={metric.id}>
+            <TabPanel key={metric.id} value={metric.id} sx={{ p: 0 }}>
               <Stack spacing={3}>
                 <MetricChart
                   metric={metric}
                   region={region}
-                  width={chartWidth}
+                  width={width}
                   height={height}
                 />
                 {renderChartFooter(metric)}
