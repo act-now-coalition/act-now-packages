@@ -28,7 +28,7 @@ export const AutoWidth = ({ children }: AutoWidthProps) => {
   const child = React.Children.only(children);
 
   // Return the child if it already has a numeric `width` prop.
-  if (isNumber(child.props.width)) {
+  if (isNumber(child.props.width) && child.props.width > 0) {
     return child;
   }
 

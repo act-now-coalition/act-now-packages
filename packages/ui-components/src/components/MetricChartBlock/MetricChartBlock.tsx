@@ -8,6 +8,7 @@ import { assert } from "@actnowcoalition/assert";
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
+import { AutoWidth } from "../AutoWidth";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLineChart } from "../MetricLineChart";
 import { MetricLineThresholdChart } from "../MetricLineThresholdChart";
@@ -23,10 +24,6 @@ export interface MetricChartBlockProps {
    * Metrics to display for tabs and charts.
    */
   metrics: Array<Metric | string>;
-  /**
-   * Width of the chart block.
-   */
-  width?: number;
   /**
    * Height of the chart block.
    */
@@ -59,7 +56,6 @@ const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
 export const MetricChartBlock = ({
   region,
   metrics,
-  width = 800,
   height = 450,
   renderChartFooter = () => null,
 }: MetricChartBlockProps) => {
@@ -81,7 +77,7 @@ export const MetricChartBlock = ({
       : MetricLineChart;
 
   return (
-    <Stack spacing={2} width={width}>
+    <Stack spacing={2}>
       <TabContext value={selectedTab}>
         <TabList
           onChange={handleChange}
@@ -103,12 +99,14 @@ export const MetricChartBlock = ({
           return (
             <TabPanel key={metric.id} value={metric.id} sx={{ p: 0 }}>
               <Stack spacing={3}>
-                <MetricChart
-                  metric={metric}
-                  region={region}
-                  width={width}
-                  height={height}
-                />
+                <AutoWidth>
+                  <MetricChart
+                    metric={metric}
+                    region={region}
+                    width={/*let auto-width set it*/ 0}
+                    height={height}
+                  />
+                </AutoWidth>
                 {renderChartFooter(metric)}
               </Stack>
             </TabPanel>
