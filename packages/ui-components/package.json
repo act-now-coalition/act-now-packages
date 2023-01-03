@@ -72,7 +72,6 @@
     "@visx/shape": "^2.12.2",
     "@visx/voronoi": "^2.10.0",
     "d3-geo": "^2.0.2",
-    "d3-scale-chromatic": "^3.0.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-markdown": "^8.0.3",
     "react-share": "^4.4.0",
