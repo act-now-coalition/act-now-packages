@@ -1,16 +1,24 @@
-import * as d3ScaleChromatic from "d3-scale-chromatic";
-
 import { DateRange, Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { TimeUnit, subtractTime } from "@actnowcoalition/time-utils";
 
 import { Series, SeriesType } from "../SeriesChart";
 
-// TODO (Pablo): Ideally we should be able to import just the scale we need
-// with `import { schemeCategory10 } from "d3-scale-chromatic"`, but Next
-// has a bug that doesn't allow to import modules that only export ES modules
-// (and not CommonJS modules).
-const { schemeCategory10 } = d3ScaleChromatic;
+// These colors come are from d3-scale-chromatic, but importing them directly
+// causes Next to crash because d3-scale-chromatic is a pure ES module.
+// See https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c#im-having-problems-with-esm-and-typescript
+const schemeCategory10 = [
+  "#1f77b4",
+  "#ff7f0e",
+  "#2ca02c",
+  "#d62728",
+  "#9467bd",
+  "#8c564b",
+  "#e377c2",
+  "#7f7f7f",
+  "#bcbd22",
+  "#17becf",
+];
 
 export function getMetricSeries(metric: Metric, regions: Region[]): Series[] {
   return regions.map((region, index) => ({
