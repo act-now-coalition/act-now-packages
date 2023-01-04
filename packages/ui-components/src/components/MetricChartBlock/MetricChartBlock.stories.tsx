@@ -1,13 +1,12 @@
 import React from "react";
 
-import { Box, Stack, Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { nations } from "@actnowcoalition/regions";
 
 import { MetricChartBlock } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
-import { AutoWidth } from "../AutoWidth";
 import { ShareButton } from "../ShareButton";
 
 export default {
@@ -16,11 +15,7 @@ export default {
 } as ComponentMeta<typeof MetricChartBlock>;
 
 const Template: ComponentStory<typeof MetricChartBlock> = (args) => (
-  <Box maxWidth={800}>
-    <AutoWidth>
-      <MetricChartBlock {...args} />
-    </AutoWidth>
-  </Box>
+  <MetricChartBlock {...args} />
 );
 
 const metricList = [

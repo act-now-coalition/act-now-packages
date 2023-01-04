@@ -18,7 +18,7 @@ export interface AutoWidthProps {
  * parent component and passes it down to the children.
  * Under the hood, it uses `ParentSize` from @visx/responsive.
  *
- * Note: If the child element already has a `width` property,
+ * Note: If the child element already has a non-zero `width` property,
  * the `width` property passed down by AutoWidth will not be applied.
  * The child element will only be rendered once the parent has a width greater
  * than 0, in order to prevent from rendering the component too early.
@@ -28,7 +28,7 @@ export const AutoWidth = ({ children }: AutoWidthProps) => {
   const child = React.Children.only(children);
 
   // Return the child if it already has a numeric `width` prop.
-  if (isNumber(child.props.width)) {
+  if (isNumber(child.props.width) && child.props.width > 0) {
     return child;
   }
 
