@@ -42,6 +42,11 @@ const darkThemeConfig = {
       400: colors.purple[200],
       500: colors.purple[400],
     },
+    chart: {
+      main: colors.common.white,
+      axis: colors.common.white,
+      axisLabel: colors.common.white,
+    },
   },
   typography: {
     h1: {

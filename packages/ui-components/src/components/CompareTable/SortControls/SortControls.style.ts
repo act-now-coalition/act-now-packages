@@ -8,12 +8,12 @@ export const ArrowUpIcon = styled(MuiArrowUpIcon, {
   shouldForwardProp: isValidProp,
 })<{ active: boolean }>`
   color: ${({ active, theme }) =>
-    active ? theme.palette.common.black : theme.palette.border.default};
+    active ? theme.palette.text.primary : theme.palette.border.default};
 `;
 
 export const ArrowDownIcon = styled(MuiArrowDownIcon, {
   shouldForwardProp: isValidProp,
 })<{ active: boolean }>`
   color: ${({ active, theme }) =>
-    active ? theme.palette.common.black : theme.palette.border.default};
+    active ? theme.palette.text.primary : theme.palette.border.default};
 `;
