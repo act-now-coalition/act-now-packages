@@ -108,6 +108,11 @@ const darkThemeConfig = {
           ...theme.typography.labelSmall,
           color: theme.palette.common.white,
         }),
+        deleteIcon: ({ theme }: { theme: Theme }) => ({
+          "&: hover": {
+            color: theme.palette.common.white,
+          },
+        }),
       },
     },
     MuiTabs: {
