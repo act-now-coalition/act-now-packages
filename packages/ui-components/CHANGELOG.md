@@ -1,5 +1,14 @@
 # @actnowcoalition/ui-components
 
+## 0.10.4
+
+### Patch Changes
+
+- 31489e8: Fix missing import for fail() in MultiMetricUSStateMap/utils.ts.
+- c848045: fix compare table style bug
+- bf7b01c: Dark theme styling improvements
+- c7e2418: Restore d3-scale-chromatic
+
 ## 0.10.3
 
 ### Patch Changes
