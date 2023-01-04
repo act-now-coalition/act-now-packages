@@ -36,6 +36,7 @@ export const TableRow = styled(MuiTableRow)(({ theme }) => ({
     backgroundColor: theme.palette.common.white,
   },
   "&:hover": {
+    backgroundColor: theme.palette.grey[200],
     [`.${linkClasses.root} .${typographyClasses.root}`]: {
       color: theme.palette.primary.dark,
     },
