@@ -9,7 +9,7 @@ export const StyledTableCell = styled(TableCell, {
     isSortable && `padding-bottom: ${theme.spacing(0.5)};`}
   border-bottom: ${({ theme, isSortActive }) =>
     isSortActive
-      ? `solid 2px ${theme.palette.common.black}`
+      ? `solid 2px ${theme.palette.text.primary}`
       : `solid 1px ${theme.palette.border.default}`};
   color: ${({ theme, isSortActive }) =>
     isSortActive ? theme.palette.common.black : theme.palette.secondary.light};
