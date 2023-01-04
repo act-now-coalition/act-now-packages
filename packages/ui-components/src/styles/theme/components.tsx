@@ -1,7 +1,7 @@
 /** MUI theme components */
 import React from "react";
 
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { ThemeOptions, createTheme } from "@mui/material";
 
 const referenceTheme = createTheme();
@@ -11,7 +11,7 @@ const components: ThemeOptions["components"] = {
     defaultProps: {
       filterSelectedOptions: true,
       disableClearable: true,
-      popupIcon: <KeyboardArrowDownIcon />,
+      popupIcon: <ExpandMoreIcon />,
     },
     styleOverrides: {
       root: ({ theme }) => ({
@@ -100,7 +100,7 @@ const components: ThemeOptions["components"] = {
     defaultProps: {
       SelectProps: {
         disableUnderline: true,
-        IconComponent: KeyboardArrowDownIcon,
+        IconComponent: ExpandMoreIcon,
       },
     },
     styleOverrides: {
