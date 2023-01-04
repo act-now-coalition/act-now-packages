@@ -1,5 +1,19 @@
 # @actnowcoalition/ui-components
 
+## 0.10.3
+
+### Patch Changes
+
+- 9192b1d: Remove d3-scale-chromatic dependency
+- ae8e167: Remove width prop from MetricChartBlock and instead size the contained chart automatically.
+
+## 0.10.2
+
+### Patch Changes
+
+- 5087883: Small styling fixes
+- dd1dead: Fix import of d3-scale-chromatic
+
 ## 0.10.1
 
 ### Patch Changes
