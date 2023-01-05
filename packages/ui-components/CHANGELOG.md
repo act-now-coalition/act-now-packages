@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.10.5
+
+### Patch Changes
+
+- 6e2d3af: Remove stories form the npm bundle
+
 ## 0.10.4
 
 ### Patch Changes
