@@ -20,7 +20,9 @@ export const ErrorBox = ({ width, height = 200, children }: ErrorBoxProps) => {
       bgcolor={theme.palette.action.disabledBackground}
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
-      <Box>{children ?? "An error occurred."}</Box>
+      <Box color={theme.palette.common.black}>
+        {children ?? "An error occurred."}
+      </Box>
     </Box>
   );
 };

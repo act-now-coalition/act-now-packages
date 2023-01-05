@@ -30,7 +30,7 @@ const MetricAwareDemo = ({
   }
 
   return (
-    <Stack sx={{ p: 2, backgroundColor: "#fafafa", borderRadius: 0.5 }}>
+    <Stack sx={{ p: 2, borderRadius: 0.5 }}>
       <Typography variant="labelLarge">{metric.name}</Typography>
       <Typography variant="dataEmphasizedLarge">
         {metric.formatValue(data.currentValue)}

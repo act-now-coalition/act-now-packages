@@ -42,6 +42,11 @@ const darkThemeConfig = {
       400: colors.purple[200],
       500: colors.purple[400],
     },
+    chart: {
+      main: colors.common.white,
+      axis: colors.common.white,
+      axisLabel: colors.common.white,
+    },
   },
   typography: {
     h1: {
@@ -102,6 +107,11 @@ const darkThemeConfig = {
         label: ({ theme }: { theme: Theme }) => ({
           ...theme.typography.labelSmall,
           color: theme.palette.common.white,
+        }),
+        deleteIcon: ({ theme }: { theme: Theme }) => ({
+          "&: hover": {
+            color: theme.palette.common.white,
+          },
         }),
       },
     },
