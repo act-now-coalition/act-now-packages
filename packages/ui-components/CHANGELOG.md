@@ -1,5 +1,11 @@
 # @actnowcoalition/ui-components
 
+## 0.10.6
+
+### Patch Changes
+
+- b9de1c9: Add @mui/material to peerDependencies
+
 ## 0.10.5
 
 ### Patch Changes
