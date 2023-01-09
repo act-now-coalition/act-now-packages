@@ -17,7 +17,7 @@ nvm install v16
 nvm use v16
 ```
 
-## Worflow
+## Workflow
 
 ### Creating a package
 
