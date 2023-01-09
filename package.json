@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "NPM Packages for Act Now Coalition",
   "main": "index.js",
-  "repository": "git@github.com:covid-projections/act-now-packages.git",
+  "repository": "git@github.com:act-now-coalition/act-now-packages.git",
   "author": "Act Now Coalition",
   "license": "MIT",
   "private": true,

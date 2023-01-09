@@ -4,7 +4,7 @@
   "description": "A package containing classes and datasets to represent geographic areas and administrative divisions with a uniform interface.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "url": "https://github.com/act-now-coalition/act-now-packages.git",
     "directory": "packages/regions"
   },
   "keywords": [

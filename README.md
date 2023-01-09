@@ -48,7 +48,7 @@ $ husky install
 husky - Git hooks installed
 ```
 
-This will create the initial directory structure and starter files, and install the initial package dependencies, see [`packages/assert`](https://github.com/covid-projections/act-now-packages/tree/develop/packages/assert) to see an example of a package.
+This will create the initial directory structure and starter files, and install the initial package dependencies, see [`packages/assert`](https://github.com/act-now-coalition/act-now-packages/tree/develop/packages/assert) to see an example of a package.
 
 You can now add more files, dependencies, and update the README file. Make sure to export the package functionality from the `index.ts` file in the package. We strongly recommend to include unit tests in your package before publishing.
 
@@ -57,8 +57,8 @@ You can now add more files, dependencies, and update the README file. Make sure 
 Once the code is merged to `develop`, we can publish the package by merging the `changeset-release/develop` branch to `develop`. To publish your package
 
 1. Go to the `changeset-release/develop` branch. This should be titled "Version Packages" and should be automatically generated when we ship updates with [changesets](https://github.com/changesets/changesets#readme) attached to their PRs. If there is no `changeset-release/develop` branch, then no changeset has been detected since the last package release.
-2. Once step one is complete, the updated package should be published on NPM. Check our [Github Actions](https://github.com/covid-projections/act-now-packages/actions/workflows/release.yml) page or [NPM](https://www.npmjs.com/search?q=keywords:actnowcoalition) to see if it published successfully.
-3. In most cases, it is good practice to also update [Act Now Template](https://github.com/covid-projections/act-now-template) to use the newly updated package. More information [here](https://github.com/covid-projections/act-now-template#readme).
+2. Once step one is complete, the updated package should be published on NPM. Check our [Github Actions](https://github.com/act-now-coalition/act-now-packages/actions/workflows/release.yml) page or [NPM](https://www.npmjs.com/search?q=keywords:actnowcoalition) to see if it published successfully.
+3. In most cases, it is good practice to also update [Act Now Template](https://github.com/act-now-coalition/act-now-template) to use the newly updated package. More information [here](https://github.com/act-now-coalition/act-now-template#readme).
 
 ### Installing the package
 

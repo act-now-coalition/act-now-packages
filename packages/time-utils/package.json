@@ -4,7 +4,7 @@
   "description": "Utility functions to handle and format time",
   "repository": {
     "type": "git",
-    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "url": "https://github.com/act-now-coalition/act-now-packages.git",
     "directory": "packages/time-utils"
   },
   "keywords": [

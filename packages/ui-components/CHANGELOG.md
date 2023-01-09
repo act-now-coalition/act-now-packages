@@ -39,7 +39,7 @@
 
 ### Patch Changes
 
-- 6dc06d9: Add ability to have footer content under metric charts in MetricChartBlock for https://github.com/covid-projections/act-now-template/issues/61.
+- 6dc06d9: Add ability to have footer content under metric charts in MetricChartBlock for https://github.com/act-now-coalition/act-now-template/issues/61.
 - 3d7f421: Clean up prop documentation cont.
 - 82d744d: Adjust padding / width on MetricChartBlock.
 
