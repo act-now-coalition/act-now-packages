@@ -84,6 +84,7 @@ export class Metric {
     this.categoryValues =
       (def.categoryValues ?? []).length > 0 ? def.categoryValues : undefined;
     this.formatOptions = def.formatOptions ?? DEFAULT_FORMAT_OPTIONS;
+    this.extra = def.extra;
     this.minValue = def.minValue;
     this.maxValue = def.maxValue;
 

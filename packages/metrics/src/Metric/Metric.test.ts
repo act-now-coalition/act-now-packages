@@ -301,4 +301,20 @@ describe("Metric", () => {
     expect(metric.getColor(5)).toBe(testCategorySet.categories[0].color);
     expect(metric.getColor(null)).toBe(testCategorySet.defaultCategory.color);
   });
+
+  test("extra fields are preserved", () => {
+    const extra = {
+      foo: 42,
+      bar: "hello",
+    };
+    const metric = new Metric(
+      {
+        ...testMetricDef,
+        extra,
+      },
+      testCatalogOptions
+    );
+
+    expect(metric.extra).toEqual(extra);
+  });
 });
