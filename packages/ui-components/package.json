@@ -26,9 +26,9 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
+    "@mui/material": "^5.10.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@mui/material": "^5.10.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
@@ -46,9 +46,9 @@
     "@visx/mock-data": "^2.1.2",
     "babel-loader": "^8.2.5",
     "d3-scale-chromatic": "^3.0.0",
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-test-renderer": "^18.2.0",
-    "react": "^18.2.0",
     "typescript": "^4.6.4"
   },
   "dependencies": {
@@ -74,6 +74,7 @@
     "@visx/shape": "^2.12.2",
     "@visx/voronoi": "^2.10.0",
     "d3-geo": "^2.0.2",
+    "encoding": "^0.1.13",
     "react-copy-to-clipboard": "^5.1.0",
     "react-markdown": "^8.0.3",
     "react-share": "^4.4.0",
