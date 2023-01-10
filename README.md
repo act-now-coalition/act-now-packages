@@ -48,7 +48,7 @@ $ husky install
 husky - Git hooks installed
 ```
 
-This will create the initial directory structure and starter files, and install the initial package dependencies, see [`packages/assert`](https://github.com/act-now-coalition/act-now-packages/tree/develop/packages/assert) to see an example of a package.
+This will create the initial directory structure and starter files, and install the initial package dependencies, see [`packages/assert`](./packages/assert) to see an example of a package.
 
 You can now add more files, dependencies, and update the README file. Make sure to export the package functionality from the `index.ts` file in the package. We strongly recommend to include unit tests in your package before publishing.
 
