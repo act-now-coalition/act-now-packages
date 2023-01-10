@@ -7,9 +7,7 @@ import { Dot } from "../MetricDot/MetricDot.style";
 
 export const CircleIcon = styled(Dot, {
   shouldForwardProp: isValidProp,
-})<{
-  iconColor: string;
-}>`
+})<{ iconColor: string }>`
   background-color: ${({ iconColor }) => iconColor};
   margin-top: ${({ theme }) => theme.spacing(1)};
   margin-right: ${({ theme }) => theme.spacing(1)};
@@ -26,4 +24,4 @@ export const Container = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing(0.5, 0)};
-`;
+` as typeof Box;
