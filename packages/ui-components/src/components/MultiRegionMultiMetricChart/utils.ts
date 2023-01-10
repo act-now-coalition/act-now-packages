@@ -1,9 +1,8 @@
-import { schemeCategory10 } from "d3-scale-chromatic";
-
 import { DateRange, Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 import { TimeUnit, subtractTime } from "@actnowcoalition/time-utils";
 
+import { schemeCategory10 } from "../../common/utils/charts";
 import { Series, SeriesType } from "../SeriesChart";
 
 export function getMetricSeries(metric: Metric, regions: Region[]): Series[] {

@@ -26,9 +26,9 @@
     "build-storybook": "build-storybook"
   },
   "peerDependencies": {
+    "@mui/material": "^5.10.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@mui/material": "^5.10.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.9",
@@ -58,7 +58,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.111",
-    "@mui/material": "^5.10.17",
+    "@mui/material": "5.11.4",
     "@types/d3-geo": "^2.0.2",
     "@types/d3-scale-chromatic": "^3.0.0",
     "@types/react-simple-maps": "^1.0.8",
@@ -74,6 +74,7 @@
     "@visx/voronoi": "^2.10.0",
     "d3-geo": "^2.0.2",
     "d3-scale-chromatic": "^3.0.0",
+    "encoding": "^0.1.13",
     "react-copy-to-clipboard": "^5.1.0",
     "react-markdown": "^8.0.3",
     "react-share": "^4.4.0",

@@ -26,4 +26,4 @@ export const Container = styled(Box)`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing(0.5, 0)};
-`;
+` as typeof Box;
