@@ -4,7 +4,7 @@
   "description": "UI components for Act Now",
   "repository": {
     "type": "git",
-    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "url": "https://github.com/act-now-coalition/act-now-packages.git",
     "directory": "packages/ui-components"
   },
   "keywords": [

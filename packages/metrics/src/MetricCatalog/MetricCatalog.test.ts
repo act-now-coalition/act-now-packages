@@ -148,7 +148,7 @@ describe("MetricCatalog", () => {
     expect(data.timeseries.hasData()).toEqual(true);
   });
 
-  // See https://github.com/covid-projections/act-now-packages/issues/242 for context.
+  // See https://github.com/act-now-coalition/act-now-packages/issues/242 for context.
   test("fetchData() drops timeseries if it's not asked for.", async () => {
     // This test sets up a catalog with a MockDataProvider manually so that we
     // can directly call the MockDataProvider and ensure it always includes

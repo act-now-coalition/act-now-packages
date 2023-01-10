@@ -3,9 +3,8 @@
  *
  * See https://plopjs.com/documentation/ for more details.
  */
-
-import _ from "lodash";
 import { exec } from "child_process";
+import _ from "lodash";
 
 const templateReadme = prepareTemplate(`
 # @actnowcoalition/{{dashCase name}}
@@ -30,7 +29,7 @@ const templatePackage = prepareTemplate(`
   "description": "{{sentenceCase description}}",
   "repository": {
     "type": "git",
-    "url": "https://github.com/covid-projections/act-now-packages.git",
+    "url": "https://github.com/act-now-coalition/act-now-packages.git",
     "directory": "packages/{{dashCase name}}"
   },
   "keywords": [
