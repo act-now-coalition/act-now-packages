@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@actnowcoalition/assert@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-1.0.1.tgz#a4c629a16279085abf7958f4a735a0c3b9aee848"
-  integrity sha512-i4k08njxovn3m1jy1mYvCJJv7fLvSpsVwaiocNGB+WC8x44TOxsQuX8iQM62IMKXtu+/5uBIEgn+3QcbT2QLuw==
+"@actnowcoalition/assert@^0.1.0":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-0.1.1.tgz#9552f6648405db8ed91cb0d8289bfe66e80e67ac"
+  integrity sha512-rY1hrrBsiWqtCjYBDB9SUTXWpezsQy9gjegR4wmgIblmOmeqNaihKex8FBtyhWWiqaBd4syLaBbO6GTjdy4LCQ==
 
 "@types/lodash@^4.14.182":
   version "4.14.182"
@@ -17,7 +17,7 @@ lodash@^4.17.21:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-typescript@^4.6.4:
-  version "4.7.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
-  integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
+typescript@^4.9.4:
+  version "4.9.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.4.tgz#a2a3d2756c079abda241d75f149df9d561091e78"
+  integrity sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==
