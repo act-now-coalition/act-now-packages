@@ -1,5 +1,11 @@
 # @actnowcoalition/number-format
 
+## 0.1.3
+
+### Patch Changes
+
+- 60986bf: Upgrade TypeScript and @mui/material
+
 ## 0.1.2
 
 ### Patch Changes

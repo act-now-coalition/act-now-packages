@@ -1,5 +1,17 @@
 # @actnowcoalition/metrics
 
+## 0.4.1
+
+### Patch Changes
+
+- fbe5c14: Preserve 'extra' fields from metric definitions on Metric class.
+- 60986bf: Upgrade TypeScript and @mui/material
+- Updated dependencies [60986bf]
+  - @actnowcoalition/assert@0.1.2
+  - @actnowcoalition/number-format@0.1.3
+  - @actnowcoalition/regions@0.1.3
+  - @actnowcoalition/time-utils@0.1.2
+
 ## 0.4.0
 
 ### Minor Changes
