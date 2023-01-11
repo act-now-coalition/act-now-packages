@@ -84,7 +84,9 @@ export const MetricLegendThreshold = ({
         </Stack>
         <Stack direction="row" spacing={1}>
           <Box>{startLabel}</Box>
-          <Box flex={1}>
+          {/* Min width specified to prevent thermometer from extending beyond container.
+          More info: https://github.com/airbnb/visx/issues/1014#issuecomment-1180677878 */}
+          <Box flex={1} minWidth={0}>
             <LegendThreshold<CategoryItem>
               {...commonProps}
               getItemLabel={getItemLabelHorizontal}
