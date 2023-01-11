@@ -81,6 +81,19 @@ HorizontalOnlySideLabels.args = {
   endLabel: <Typography variant="paragraphSmall">higher</Typography>,
 };
 
+export const HorizontalWithLongSideLabels = Template.bind({});
+HorizontalWithLongSideLabels.args = {
+  ...HorizontalDefault.args,
+  height: horizontalBarHeight,
+  showLabels: false,
+  startLabel: (
+    <Typography variant="paragraphSmall">I am a long start label</Typography>
+  ),
+  endLabel: (
+    <Typography variant="paragraphSmall">I am a long end label</Typography>
+  ),
+};
+
 export const HorizontalCategories = Template.bind({});
 HorizontalCategories.args = {
   orientation: "horizontal",
