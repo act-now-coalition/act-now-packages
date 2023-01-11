@@ -44,7 +44,7 @@ export const LegendThresholdHorizontalInner = <T,>({
   const totalHeight = height + labelsHeight + indicatorHeight;
 
   return (
-    <svg width={width} height={totalHeight}>
+    <svg width="100%" height={totalHeight}>
       {/* Indicator */}
       {getItemShowIndicator &&
         items.map((item: T, itemIndex) => {
