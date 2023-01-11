@@ -1,5 +1,4 @@
-import { StyledComponent } from "@emotion/styled";
-import { LinkBaseProps, Link as MuiLink } from "@mui/material";
+import { Link as MuiLink } from "@mui/material";
 
 import { styled } from "../../styles";
 import { TableCell } from "../CompareTable";
@@ -10,11 +9,7 @@ export const StyledTableCell = styled(TableCell)`
   padding: 0;
 `;
 
-// TODO: Issue with upgraded MUI/emotion requires an explicit type annotation
-// here. See issue #486
-export const StyledLink: StyledComponent<
-  Omit<LinkBaseProps, "classes">
-> = styled(MuiLink)`
+export const StyledLink = styled(MuiLink)`
   display: flex;
   padding: ${({ theme }) => theme.spacing(2)};
   text-decoration: none;
