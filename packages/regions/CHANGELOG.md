@@ -1,5 +1,13 @@
 # @actnowcoalition/regions
 
+## 0.1.3
+
+### Patch Changes
+
+- 60986bf: Upgrade TypeScript and @mui/material
+- Updated dependencies [60986bf]
+  - @actnowcoalition/assert@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes

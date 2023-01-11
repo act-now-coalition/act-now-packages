@@ -1,5 +1,17 @@
 # @actnowcoalition/ui-components
 
+## 0.10.7
+
+### Patch Changes
+
+- 60986bf: Upgrade TypeScript and @mui/material
+- Updated dependencies [fbe5c14]
+- Updated dependencies [60986bf]
+  - @actnowcoalition/metrics@0.4.1
+  - @actnowcoalition/assert@0.1.2
+  - @actnowcoalition/number-format@0.1.3
+  - @actnowcoalition/regions@0.1.3
+
 ## 0.10.6
 
 ### Patch Changes
