@@ -1,5 +1,4 @@
-import { useState } from "react";
-import React from "react";
+import React, { useState } from "react";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Stack, Typography } from "@mui/material";

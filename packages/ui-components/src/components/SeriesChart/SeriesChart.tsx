@@ -2,8 +2,7 @@ import React from "react";
 
 import { ScaleLinear, ScaleTime } from "d3-scale";
 
-import { Timeseries } from "@actnowcoalition/metrics";
-import { Metric } from "@actnowcoalition/metrics";
+import { Metric, Timeseries } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { BarChart } from "../BarChart";

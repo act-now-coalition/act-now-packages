@@ -1,8 +1,7 @@
 import React from "react";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
-import { Stack, Typography } from "@mui/material";
-import { IconButton } from "@mui/material";
+import { IconButton, Stack, Typography } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";

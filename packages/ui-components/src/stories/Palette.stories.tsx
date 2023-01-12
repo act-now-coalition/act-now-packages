@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Grid, Palette, Stack, Typography } from "@mui/material";
+
+import { Box, Grid, Palette, Stack, Theme, Typography } from "@mui/material";
 import isObject from "lodash/isObject";
-import darkTheme from "../styles/theme/dark-theme";
+
 import lightTheme from "../styles/theme";
-import { Theme } from "@mui/material";
+import darkTheme from "../styles/theme/dark-theme";
 
 export default {
   title: "Design System/Palette",
