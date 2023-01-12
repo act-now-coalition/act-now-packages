@@ -28,6 +28,7 @@
     "@typescript-eslint/no-explicit-any": "off",
     "lodash/import-scope": "warn",
     "react/jsx-key": "error",
+    "no-duplicate-imports": "error",
     "no-restricted-imports": [
       "error",
       {
