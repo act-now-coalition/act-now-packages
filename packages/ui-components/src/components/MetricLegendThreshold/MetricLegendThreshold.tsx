@@ -2,13 +2,11 @@ import React from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 
-import { Metric } from "@actnowcoalition/metrics";
-import { Category } from "@actnowcoalition/metrics";
+import { Category, Metric } from "@actnowcoalition/metrics";
 
 import { BaseLegendThresholdProps, LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { getMetricCategoryItems } from "./utils";
-import { CategoryItem } from "./utils";
+import { CategoryItem, getMetricCategoryItems } from "./utils";
 
 export interface MetricLegendThresholdProps extends BaseLegendThresholdProps {
   /**

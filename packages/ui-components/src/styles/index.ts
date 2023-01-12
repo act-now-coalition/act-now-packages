@@ -1,7 +1,6 @@
 import { createStyled } from "@mui/system";
 
-import theme, { themeConfig } from "./theme";
-import { darkTheme, darkThemeConfig } from "./theme";
+import theme, { darkTheme, darkThemeConfig, themeConfig } from "./theme";
 
 const styled = createStyled({ defaultTheme: theme });
 

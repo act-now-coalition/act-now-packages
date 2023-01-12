@@ -8,8 +8,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
-import { BaseChartProps } from "../../common/utils/charts";
-import { getChartRange } from "../../common/utils/charts";
+import { BaseChartProps, getChartRange } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { ErrorBox } from "../ErrorBox";

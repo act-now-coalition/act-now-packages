@@ -9,10 +9,10 @@ import { MultiRegionMultiMetricDataStore } from "../data";
 import { MetricData } from "../data/MetricData";
 import { MetricDataProvider } from "./MetricDataProvider";
 import {
+  DataRow,
   dataRowToMetricData,
   dataRowsToMetricData,
 } from "./data_provider_utils";
-import { DataRow } from "./data_provider_utils";
 import { fetchJson } from "./utils";
 
 // Limit having too many outstanding requests at once, to avoid timeouts, etc.

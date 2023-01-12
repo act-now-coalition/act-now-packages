@@ -4,8 +4,7 @@ import { Stack, Typography } from "@mui/material";
 import isNumber from "lodash/isNumber";
 
 import { Metric, MultiMetricDataStore } from "@actnowcoalition/metrics";
-import { RegionDB } from "@actnowcoalition/regions";
-import { Region } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { formatPopulation } from "../../common/utils";
 import {
