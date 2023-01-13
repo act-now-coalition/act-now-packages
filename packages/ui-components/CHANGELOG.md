@@ -1,5 +1,13 @@
 # @actnowcoalition/ui-components
 
+## 0.10.8
+
+### Patch Changes
+
+- a6249ef: Remove no-longer-needed type annotation on StyledLink.
+- a66b15d: Make metric legend threshold thermometer more responsive
+- 72097a5: Mark the package as side-effects free
+
 ## 0.10.7
 
 ### Patch Changes
