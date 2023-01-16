@@ -9,7 +9,8 @@ import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { ErrorBox } from "../ErrorBox";
 import WorldMap, { WorldMapProps } from "../WorldMap";
 
-export interface MetricWorldMapProps extends WorldMapProps {
+export interface MetricWorldMapProps
+  extends Omit<WorldMapProps, "getRegionUrl"> {
   /**
    * Metric represented by the map's coloring.
    */
