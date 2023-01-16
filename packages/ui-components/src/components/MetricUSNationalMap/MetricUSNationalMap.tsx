@@ -9,7 +9,8 @@ import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { ErrorBox } from "../ErrorBox";
 import { USNationalMap, USNationalMapProps } from "../USNationalMap";
 
-export interface MetricUSNationalMapProps extends USNationalMapProps {
+export interface MetricUSNationalMapProps
+  extends Omit<USNationalMapProps, "getRegionUrl"> {
   /**
    * Metric represented by the map's coloring.
    */

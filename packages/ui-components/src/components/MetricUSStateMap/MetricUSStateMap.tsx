@@ -10,7 +10,8 @@ import { getCountiesOfState } from "../../common/utils/maps";
 import { ErrorBox } from "../ErrorBox";
 import { USStateMap, USStateMapProps } from "../USStateMap";
 
-export interface MetricUSStateMapProps extends USStateMapProps {
+export interface MetricUSStateMapProps
+  extends Omit<USStateMapProps, "getRegionUrl"> {
   /**
    * Metric represented by the map's coloring.
    */
