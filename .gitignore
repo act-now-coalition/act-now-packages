@@ -108,3 +108,4 @@ dist
 # Generated docs / storybook to be published.
 public/docs/
 public/storybook/
+storybook-static

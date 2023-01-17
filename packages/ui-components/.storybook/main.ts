@@ -6,4 +6,9 @@ export default {
     "@storybook/addon-interactions",
   ],
   framework: "@storybook/react",
+  features: {
+    // This enables generating stories.json to allow Storybook composition
+    // https://storybook.js.org/docs/react/sharing/storybook-composition
+    buildStoriesJson: true,
+  },
 };
