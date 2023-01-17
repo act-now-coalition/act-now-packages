@@ -105,6 +105,17 @@ export const MetricSeriesChart = ({
     return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
+  try {
+    getDateRange(timeseriesList);
+    getValueRange(timeseriesList);
+  } catch (err) {
+    return (
+      <ErrorBox width={width} height={height}>
+        No data in the provided time range.
+      </ErrorBox>
+    );
+  }
+
   const seriesList = series
     .filter(({ metric, region }) => data.hasMetricData(region, metric))
     .map((seriesItem, seriesIndex) => ({
