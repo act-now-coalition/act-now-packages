@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { Skeleton } from "@mui/material";
+
 import { Metric } from "@actnowcoalition/metrics";
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
@@ -75,8 +77,7 @@ export const MetricCompareTable = ({
   if (error) {
     return <ErrorBox>Table could not be loaded.</ErrorBox>;
   } else if (!data) {
-    // TODO(#473): Better loading state.
-    return null;
+    return <Skeleton variant="rectangular" width="100%" height="100%" />;
   }
 
   const rows: Row[] = data.all.map((multiMetricDataStore) => ({
