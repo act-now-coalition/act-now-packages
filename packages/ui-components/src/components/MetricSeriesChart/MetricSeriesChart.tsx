@@ -3,10 +3,10 @@ import React from "react";
 import { Skeleton, useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import every from "lodash/every";
 import isNumber from "lodash/isNumber";
 import max from "lodash/max";
 import min from "lodash/min";
+import some from "lodash/some";
 import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
 
@@ -102,7 +102,7 @@ export const MetricSeriesChart = ({
         Chart could not be loaded.
       </ErrorBox>
     );
-  } else if (every(timeseriesList, (timeseries) => timeseries.length === 0)) {
+  } else if (!hasData(timeseriesList)) {
     return (
       <ErrorBox width={width} height={height}>
         No data in the provided time range.
@@ -237,6 +237,17 @@ export const MetricSeriesChart = ({
     </svg>
   );
 };
+
+/**
+ * `hasData` returns true if at least one timeseries in a timeseriesList has data.
+ *
+ * @param timeseriesList - Array of timeseries.
+ * @returns True if the timeseriesList has data.
+ */
+
+function hasData(timeseriesList: Timeseries<unknown>[] | undefined): boolean {
+  return some(timeseriesList, (timeseries) => timeseries.length > 0);
+}
 
 /**
  * `getDateRange` returns the date range that covers the provided timeseries.
