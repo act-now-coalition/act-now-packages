@@ -1,6 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import first from "lodash/first";
 import last from "lodash/last";
 import sortBy from "lodash/sortBy";
 
@@ -55,4 +56,12 @@ WithCustomPeriods.args = {
   initialRegions: sortedStates.slice(0, 5),
   timePeriods: customTimePeriods,
   initialTimePeriod: last(customTimePeriods),
+};
+
+export const WithNoData = Template.bind({});
+WithNoData.args = {
+  ...Example.args,
+  initialMetric: MetricId.PI,
+  timePeriods: customTimePeriods,
+  initialTimePeriod: first(customTimePeriods),
 };
