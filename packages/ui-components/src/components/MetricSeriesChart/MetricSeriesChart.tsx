@@ -3,6 +3,7 @@ import React from "react";
 import { Skeleton, useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
+import every from "lodash/every";
 import isNumber from "lodash/isNumber";
 import max from "lodash/max";
 import min from "lodash/min";
@@ -101,19 +102,17 @@ export const MetricSeriesChart = ({
         Chart could not be loaded.
       </ErrorBox>
     );
-  } else if (!data || !timeseriesList) {
-    return <Skeleton variant="rectangular" width={width} height={height} />;
-  }
-
-  try {
-    getDateRange(timeseriesList);
-    getValueRange(timeseriesList);
-  } catch (err) {
+  } else if (
+    timeseriesList &&
+    every(timeseriesList, (timeseries) => timeseries.length === 0)
+  ) {
     return (
       <ErrorBox width={width} height={height}>
         No data in the provided time range.
       </ErrorBox>
     );
+  } else if (!data || !timeseriesList) {
+    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const seriesList = series
