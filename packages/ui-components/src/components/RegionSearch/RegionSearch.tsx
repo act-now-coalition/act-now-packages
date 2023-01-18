@@ -80,6 +80,7 @@ export const RegionSearch = ({
         }
       }}
       clearIcon={<></>}
+      forcePopupIcon={false}
       renderInput={customRenderInput ?? defaultRenderInput}
       renderOption={(props: HTMLAttributes<HTMLLIElement>, option: Region) => (
         <StyledListItem {...props}>
