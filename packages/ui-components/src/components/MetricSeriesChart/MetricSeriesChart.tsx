@@ -102,10 +102,7 @@ export const MetricSeriesChart = ({
         Chart could not be loaded.
       </ErrorBox>
     );
-  } else if (
-    timeseriesList &&
-    every(timeseriesList, (timeseries) => timeseries.length === 0)
-  ) {
+  } else if (every(timeseriesList, (timeseries) => timeseries.length === 0)) {
     return (
       <ErrorBox width={width} height={height}>
         No data in the provided time range.
