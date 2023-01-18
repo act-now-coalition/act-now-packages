@@ -102,14 +102,16 @@ export const MetricSeriesChart = ({
         Chart could not be loaded.
       </ErrorBox>
     );
+    // Loading state
+  } else if (!data || !timeseriesList) {
+    return <Skeleton variant="rectangular" width={width} height={height} />;
+    // Loaded but no data
   } else if (!hasData(timeseriesList)) {
     return (
       <ErrorBox width={width} height={height}>
         No data in the provided time range.
       </ErrorBox>
     );
-  } else if (!data || !timeseriesList) {
-    return <Skeleton variant="rectangular" width={width} height={height} />;
   }
 
   const seriesList = series
