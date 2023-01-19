@@ -1,6 +1,10 @@
 import { DateRange, Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import { TimeUnit, subtractTime } from "@actnowcoalition/time-utils";
+import {
+  TimeUnit,
+  getTimeUnitLabel,
+  subtractTime,
+} from "@actnowcoalition/time-utils";
 
 import { schemeCategory10 } from "../../common/utils/charts";
 import { Series, SeriesType } from "../SeriesChart";
@@ -39,4 +43,11 @@ export function getDefaultTimePeriods(date: Date): TimePeriod[] {
     },
     { label: "All time", dateRange: undefined },
   ];
+}
+
+export function createTimePeriodOption(amount: number, unit: TimeUnit) {
+  return {
+    label: `${amount} ${getTimeUnitLabel(amount, unit)}`,
+    dateRange: { startAt: subtractTime(new Date(), amount, unit) },
+  };
 }
