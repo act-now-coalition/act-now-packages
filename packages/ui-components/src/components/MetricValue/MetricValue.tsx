@@ -23,12 +23,18 @@ export interface MetricValueProps {
    * @default "dataEmphasizedLarge"
    */
   variant?: TypographyProps["variant"];
+  /**
+   * MUI Typography color applied to the metric value text.
+   * @default "inherit"
+   */
+  color?: TypographyProps["color"];
 }
 
 export const MetricValue = ({
   region,
   metric: metricOrId,
   variant = "dataEmphasizedLarge",
+  color,
 }: MetricValueProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
@@ -50,7 +56,9 @@ export const MetricValue = ({
   return (
     <Stack direction="row" spacing={1} alignItems="center" width="fit-content">
       {showMetricDot && <MetricDot region={region} metric={metric} />}
-      <Typography variant={variant}>{formattedValue}</Typography>
+      <Typography variant={variant} color={color}>
+        {formattedValue}
+      </Typography>
     </Stack>
   );
 };
