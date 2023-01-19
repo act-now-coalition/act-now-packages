@@ -7,6 +7,7 @@ import {
   formatUTCDateTime,
   getStartOf,
   getTimeDiff,
+  getTimeUnitLabel,
   isoDateOnlyString,
   parseDateString,
   parseDateUnix,
@@ -311,5 +312,32 @@ describe("assertDateOnly", () => {
     expect(() => {
       assertDateOnly(new Date(2020, 3, 2, 10, 30));
     }).toThrow();
+  });
+});
+
+describe("getTimeUnitLabel", () => {
+  test("minutes are formatted correctly", () => {
+    expect(getTimeUnitLabel(1, TimeUnit.MINUTES)).toBe("minute");
+    expect(getTimeUnitLabel(5, TimeUnit.MINUTES)).toBe("minutes");
+  });
+  test("hours are formatted correctly", () => {
+    expect(getTimeUnitLabel(1, TimeUnit.HOURS)).toBe("hour");
+    expect(getTimeUnitLabel(5, TimeUnit.HOURS)).toBe("hours");
+  });
+  test("days are formatted correctly", () => {
+    expect(getTimeUnitLabel(1, TimeUnit.DAYS)).toBe("day");
+    expect(getTimeUnitLabel(5, TimeUnit.DAYS)).toBe("days");
+  });
+  test("weeks are formatted correctly", () => {
+    expect(getTimeUnitLabel(1, TimeUnit.WEEKS)).toBe("week");
+    expect(getTimeUnitLabel(5, TimeUnit.WEEKS)).toBe("weeks");
+  });
+  test("months are formatted correctly", () => {
+    expect(getTimeUnitLabel(1, TimeUnit.MONTHS)).toBe("month");
+    expect(getTimeUnitLabel(5, TimeUnit.MONTHS)).toBe("months");
+  });
+  test("years are formatted correctly", () => {
+    expect(getTimeUnitLabel(1, TimeUnit.YEARS)).toBe("year");
+    expect(getTimeUnitLabel(5, TimeUnit.YEARS)).toBe("years");
   });
 });
