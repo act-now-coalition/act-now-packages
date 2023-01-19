@@ -1,1 +1,2 @@
-export * from "./Axis.style";
+export * from "./AxisLeft";
+export * from "./AxisBottom";
