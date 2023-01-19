@@ -35,7 +35,6 @@ const customTimePeriods: TimePeriod[] = [
   createTimePeriodOption(1, TimeUnit.WEEKS),
   createTimePeriodOption(2, TimeUnit.WEEKS),
   createTimePeriodOption(1, TimeUnit.MONTHS),
-  { label: "All time", dateRange: undefined },
 ];
 
 export const WithCustomPeriods = Template.bind({});

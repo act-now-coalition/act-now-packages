@@ -35,7 +35,6 @@ export function getDefaultTimePeriods(): TimePeriod[] {
   return [
     createTimePeriodOption(60, TimeUnit.DAYS),
     createTimePeriodOption(180, TimeUnit.DAYS),
-    { label: "All time", dateRange: undefined },
   ];
 }
 

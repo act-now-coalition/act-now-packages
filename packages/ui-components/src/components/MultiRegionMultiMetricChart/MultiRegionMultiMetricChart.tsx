@@ -49,7 +49,12 @@ export const MultiRegionMultiMetricChart = ({
     getMetricId
   );
 
-  const timePeriods = customTimePeriods ?? getDefaultTimePeriods();
+  const fixedTimePeriods = customTimePeriods ?? getDefaultTimePeriods();
+  const timePeriods = [
+    ...fixedTimePeriods,
+    { label: "All time", dateRange: undefined },
+  ];
+
   const initialPeriod =
     customTimePeriods && initialTimePeriod
       ? initialTimePeriod
