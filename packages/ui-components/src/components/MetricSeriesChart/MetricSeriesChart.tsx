@@ -19,7 +19,7 @@ import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { MetricTooltip } from "../MetricTooltip";
+import { MetricChartTooltip } from "../MetricChartTooltip";
 import { PointMarker } from "../PointMarker";
 import { RectClipGroup } from "../RectClipGroup";
 import { Series, SeriesChart, SeriesType } from "../SeriesChart";
@@ -210,7 +210,7 @@ export const MetricSeriesChart = ({
           </Group>
         )}
         {pointInfo?.point && isNumber(pointInfo?.timeseriesIndex) && (
-          <MetricTooltip
+          <MetricChartTooltip
             metric={series[pointInfo.timeseriesIndex].metric}
             region={series[pointInfo.timeseriesIndex].region}
             point={pointInfo.point}
@@ -224,7 +224,7 @@ export const MetricSeriesChart = ({
                 defaultTextColor
               )}
             />
-          </MetricTooltip>
+          </MetricChartTooltip>
         )}
         <ChartOverlayXY
           timeseriesList={timeseriesList}

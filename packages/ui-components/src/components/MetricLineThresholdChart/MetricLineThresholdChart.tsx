@@ -16,7 +16,7 @@ import { ErrorBox } from "../ErrorBox";
 import { GridRows } from "../Grid";
 import { LineIntervalChart } from "../LineIntervalChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { MetricTooltip } from "../MetricTooltip";
+import { MetricChartTooltip } from "../MetricChartTooltip";
 import { PointMarker } from "../PointMarker";
 import { calculateChartIntervals } from "./utils";
 
@@ -130,7 +130,7 @@ export const MetricLineThresholdChart = ({
           topIntervalOffset={5}
         />
         {hoveredPoint && (
-          <MetricTooltip
+          <MetricChartTooltip
             metric={metric}
             region={region}
             point={hoveredPoint}
@@ -141,7 +141,7 @@ export const MetricLineThresholdChart = ({
               y={yScale(hoveredPoint.value)}
               fill={metric.getColor(hoveredPoint.value)}
             />
-          </MetricTooltip>
+          </MetricChartTooltip>
         )}
         <ChartOverlayX
           width={chartWidth}

@@ -111,7 +111,7 @@ export * from "./components/MetricOverview";
 export * from "./components/MetricScoreOverview";
 export * from "./components/MetricSeriesChart";
 export * from "./components/MetricSparklines";
-export * from "./components/MetricTooltip";
+export * from "./components/MetricChartTooltip";
 export * from "./components/MetricUSNationalMap";
 export * from "./components/MetricUSStateMap";
 export * from "./components/MetricValue";
