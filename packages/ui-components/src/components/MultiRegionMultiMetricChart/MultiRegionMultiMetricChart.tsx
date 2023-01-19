@@ -49,7 +49,7 @@ export const MultiRegionMultiMetricChart = ({
     getMetricId
   );
 
-  const timePeriods = customTimePeriods ?? getDefaultTimePeriods(new Date());
+  const timePeriods = customTimePeriods ?? getDefaultTimePeriods();
   const initialPeriod =
     customTimePeriods && initialTimePeriod
       ? initialTimePeriod
@@ -76,7 +76,7 @@ export const MultiRegionMultiMetricChart = ({
         getLabel={getMetricLabel}
       />
       <Select
-        label="Past number of days"
+        label="Time period"
         options={timePeriods}
         selectedOption={selectedPeriod}
         onSelectOption={setSelectedPeriod}

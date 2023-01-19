@@ -31,16 +31,10 @@ export interface TimePeriod {
   dateRange?: DateRange;
 }
 
-export function getDefaultTimePeriods(date: Date): TimePeriod[] {
+export function getDefaultTimePeriods(): TimePeriod[] {
   return [
-    {
-      label: "60",
-      dateRange: { startAt: subtractTime(date, 60, TimeUnit.DAYS) },
-    },
-    {
-      label: "180",
-      dateRange: { startAt: subtractTime(date, 180, TimeUnit.DAYS) },
-    },
+    createTimePeriodOption(60, TimeUnit.DAYS),
+    createTimePeriodOption(180, TimeUnit.DAYS),
     { label: "All time", dateRange: undefined },
   ];
 }
