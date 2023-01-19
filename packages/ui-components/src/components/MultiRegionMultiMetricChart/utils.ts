@@ -45,7 +45,17 @@ export function getDefaultTimePeriods(date: Date): TimePeriod[] {
   ];
 }
 
-export function createTimePeriodOption(amount: number, unit: TimeUnit) {
+/**
+ * Creates a custom time period option for the MultiRegionMultiMetricChart
+ * component.
+ *
+ * @param amount - Number of units of time.
+ * @param unit - Unit of time.
+ */
+export function createTimePeriodOption(
+  amount: number,
+  unit: TimeUnit
+): TimePeriod {
   return {
     label: `${amount} ${getTimeUnitLabel(amount, unit)}`,
     dateRange: { startAt: subtractTime(new Date(), amount, unit) },
