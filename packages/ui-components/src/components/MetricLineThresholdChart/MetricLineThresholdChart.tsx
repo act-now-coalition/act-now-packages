@@ -64,8 +64,16 @@ export const MetricLineThresholdChart = ({
         Chart could not be loaded.
       </ErrorBox>
     );
-  } else if (!timeseries?.hasData?.()) {
+    // Loading state
+  } else if (!timeseries) {
     return <Skeleton variant="rectangular" width={width} height={height} />;
+    // Loaded but no data
+  } else if (!timeseries?.hasData()) {
+    return (
+      <ErrorBox width={width} height={height}>
+        No data for {region.shortName}
+      </ErrorBox>
+    );
   }
 
   const chartHeight = height - marginTop - marginBottom;
