@@ -1,5 +1,11 @@
 # @actnowcoalition/regions
 
+## 0.1.4
+
+### Patch Changes
+
+- 2fc0d11: Fix #555: Remove relativeUrl from Region.
+
 ## 0.1.3
 
 ### Patch Changes

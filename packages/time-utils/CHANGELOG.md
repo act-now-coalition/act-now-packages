@@ -1,5 +1,11 @@
 # @actnowcoalition/time-utils
 
+## 0.1.3
+
+### Patch Changes
+
+- 9f9a8b6: Add `YEARS` to the `TimeUnit` enum and implement the `getTimeUnitLabel` function to get the name of time units (months, years, minutes) for each time unit.
+
 ## 0.1.2
 
 ### Patch Changes
