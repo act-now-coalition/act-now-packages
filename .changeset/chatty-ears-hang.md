@@ -1,6 +1,5 @@
 ---
 "@actnowcoalition/ui-components": patch
-"@actnowcoalition/time-utils": patch
 ---
 
-Better support for long time periods for MultiRegionMultiMetricChart
+Update `MultiRegionMultiMetricChart` to better support time intervals not based in a number of days.

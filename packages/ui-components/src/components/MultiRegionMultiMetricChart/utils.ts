@@ -33,8 +33,8 @@ export interface TimePeriod {
 
 export function getDefaultTimePeriods(): TimePeriod[] {
   return [
-    createTimePeriodOption(60, TimeUnit.DAYS),
-    createTimePeriodOption(180, TimeUnit.DAYS),
+    timePeriodOption(60, TimeUnit.DAYS),
+    timePeriodOption(180, TimeUnit.DAYS),
   ];
 }
 
@@ -45,10 +45,7 @@ export function getDefaultTimePeriods(): TimePeriod[] {
  * @param amount - Number of units of time.
  * @param unit - Unit of time.
  */
-export function createTimePeriodOption(
-  amount: number,
-  unit: TimeUnit
-): TimePeriod {
+export function timePeriodOption(amount: number, unit: TimeUnit): TimePeriod {
   return {
     label: `${amount} ${getTimeUnitLabel(amount, unit)}`,
     dateRange: { startAt: subtractTime(new Date(), amount, unit) },

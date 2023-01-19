@@ -1,6 +1,6 @@
 import { DateTime, Duration } from "luxon";
 
-import { assert } from "@actnowcoalition/assert";
+import { assert, fail } from "@actnowcoalition/assert";
 
 export * from "./PureDate";
 
@@ -249,9 +249,8 @@ export function getTimeUnitLabel(amount: number, unit: TimeUnit): string {
     case TimeUnit.YEARS:
       return pluralize(amount, "year", "years");
     default:
-      return `${amount} ${unit}`;
+      fail(`Unsupported unit: ${unit}`);
   }
-  return `${amount} ${unit}`;
 }
 
 /**

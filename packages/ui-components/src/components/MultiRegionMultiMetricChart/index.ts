@@ -1,2 +1,2 @@
 export * from "./MultiRegionMultiMetricChart";
-export { createTimePeriodOption } from "./utils";
+export { timePeriodOption as createTimePeriodOption } from "./utils";

@@ -10,7 +10,7 @@ import { TimeUnit } from "@actnowcoalition/time-utils";
 
 import { MultiRegionMultiMetricChart } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
-import { TimePeriod, createTimePeriodOption } from "./utils";
+import { TimePeriod, timePeriodOption } from "./utils";
 
 const sortedStates = sortBy(states.all, (state) => state.shortName);
 
@@ -32,9 +32,9 @@ Example.args = {
 };
 
 const customTimePeriods: TimePeriod[] = [
-  createTimePeriodOption(1, TimeUnit.WEEKS),
-  createTimePeriodOption(2, TimeUnit.WEEKS),
-  createTimePeriodOption(1, TimeUnit.MONTHS),
+  timePeriodOption(1, TimeUnit.WEEKS),
+  timePeriodOption(2, TimeUnit.WEEKS),
+  timePeriodOption(1, TimeUnit.MONTHS),
 ];
 
 export const WithCustomPeriods = Template.bind({});
