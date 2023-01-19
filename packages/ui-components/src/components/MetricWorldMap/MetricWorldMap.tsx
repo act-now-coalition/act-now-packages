@@ -3,14 +3,15 @@ import React from "react";
 import { useTheme } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
-import { RegionDB } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { ErrorBox } from "../ErrorBox";
+import { MetricMapTooltipContent } from "../MetricMapTooltipContent";
 import WorldMap, { WorldMapProps } from "../WorldMap";
 
 export interface MetricWorldMapProps
-  extends Omit<WorldMapProps, "getRegionUrl"> {
+  extends Omit<WorldMapProps, "getRegionUrl" | "getTooltip"> {
   /**
    * Metric represented by the map's coloring.
    */
@@ -20,6 +21,13 @@ export interface MetricWorldMapProps
    * Used for generating region links, coloring the map, etc.
    */
   regionDB: RegionDB;
+  /**
+   * Function that returns tooltip content for a given region.
+   *
+   * @param region - Region for which to get tooltip content.
+   * @returns Tooltip content for the region.
+   */
+  getTooltip?: (region: Region) => React.ReactNode;
 }
 
 /**
@@ -31,6 +39,7 @@ export const MetricWorldMap = ({
   metric,
   regionDB,
   width,
+  getTooltip,
   ...otherProps
 }: MetricWorldMapProps) => {
   const theme = useTheme();
@@ -48,6 +57,10 @@ export const MetricWorldMap = ({
     );
   }
 
+  const getTooltipInternal =
+    getTooltip ??
+    ((region) => <MetricMapTooltipContent region={region} metric={metric} />);
+
   return (
     <WorldMap
       getFillColor={(regionId: string) => {
@@ -60,6 +73,10 @@ export const MetricWorldMap = ({
         const region = regionDB.findByRegionId(regionId);
         const url = region ? regionDB.getRegionUrl(region) : undefined;
         return url;
+      }}
+      getTooltip={(regionId: string) => {
+        const region = regionDB.findByRegionId(regionId);
+        return region && getTooltipInternal(region);
       }}
       {...otherProps}
     />

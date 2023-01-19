@@ -20,20 +20,14 @@ const Template: ComponentStory<typeof MetricUSNationalMap> = (args) => (
   <MetricUSNationalMap {...args} />
 );
 
-const getTooltip = (regionId: string) => {
-  return regionDB.findByRegionIdStrict(regionId).fullName;
-};
-
 export const States = Template.bind({});
 States.args = {
-  getTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
 
 export const Counties = Template.bind({});
 Counties.args = {
-  getTooltip,
   metric: MetricId.MOCK_CASES,
   showCounties: true,
   regionDB,

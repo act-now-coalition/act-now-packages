@@ -21,14 +21,9 @@ const Template: ComponentStory<typeof MetricUSStateMap> = (args) => (
   <MetricUSStateMap {...args} />
 );
 
-const getTooltip = (regionId: string) => {
-  return regionDB.findByRegionIdStrict(regionId).fullName;
-};
-
 export const NewYork = Template.bind({});
 NewYork.args = {
   stateRegionId: "36",
-  getTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
@@ -36,7 +31,6 @@ NewYork.args = {
 export const Alaska = Template.bind({});
 Alaska.args = {
   stateRegionId: "02",
-  getTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };
@@ -45,7 +39,6 @@ export const NewYorkWithHighlightedCounty = Template.bind({});
 NewYorkWithHighlightedCounty.args = {
   stateRegionId: "36",
   highlightedRegion: herkimerCountyNewYorkRegion,
-  getTooltip,
   metric: MetricId.MOCK_CASES,
   regionDB,
 };

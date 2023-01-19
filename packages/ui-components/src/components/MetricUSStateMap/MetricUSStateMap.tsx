@@ -3,15 +3,16 @@ import React from "react";
 import { useTheme } from "@mui/material";
 
 import { Metric } from "@actnowcoalition/metrics";
-import { RegionDB } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { getCountiesOfState } from "../../common/utils/maps";
 import { ErrorBox } from "../ErrorBox";
+import { MetricMapTooltipContent } from "../MetricMapTooltipContent";
 import { USStateMap, USStateMapProps } from "../USStateMap";
 
 export interface MetricUSStateMapProps
-  extends Omit<USStateMapProps, "getRegionUrl"> {
+  extends Omit<USStateMapProps, "getRegionUrl" | "getTooltip"> {
   /**
    * Metric represented by the map's coloring.
    */
@@ -21,6 +22,13 @@ export interface MetricUSStateMapProps
    * Used for generating region links, coloring the map, etc.
    */
   regionDB: RegionDB;
+  /**
+   * Function that returns tooltip content for a given region.
+   *
+   * @param region - Region for which to get tooltip content.
+   * @returns Tooltip content for the region.
+   */
+  getTooltip?: (region: Region) => React.ReactNode;
 }
 
 /**
@@ -32,6 +40,7 @@ export const MetricUSStateMap = ({
   metric,
   stateRegionId,
   regionDB,
+  getTooltip,
   width,
   ...otherProps
 }: MetricUSStateMapProps) => {
@@ -53,6 +62,10 @@ export const MetricUSStateMap = ({
     );
   }
 
+  const getTooltipInternal =
+    getTooltip ??
+    ((region) => <MetricMapTooltipContent region={region} metric={metric} />);
+
   return (
     <USStateMap
       getFillColor={(regionId: string) => {
@@ -65,6 +78,10 @@ export const MetricUSStateMap = ({
         const region = regionDB.findByRegionId(regionId);
         const url = region ? regionDB.getRegionUrl(region) : undefined;
         return url;
+      }}
+      getTooltip={(regionId: string) => {
+        const region = regionDB.findByRegionId(regionId);
+        return region && getTooltipInternal(region);
       }}
       stateRegionId={stateRegionId}
       {...otherProps}

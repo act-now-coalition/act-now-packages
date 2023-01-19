@@ -33,12 +33,12 @@ export interface MultiMetricUSStateMapProps {
    */
   regionDB: RegionDB;
   /**
-   * Function that returns tooltip content for the region corresponding to a given regionId.
+   * Function that returns tooltip content for a given region.
    *
-   * @param regionId - RegionId of the region for which to get tooltip content.
+   * @param region - Region for which to get tooltip content.
    * @returns Tooltip content for the region.
    */
-  getTooltip?: (regionId: string) => React.ReactNode;
+  getTooltip?: (region: Region) => React.ReactNode;
 }
 
 export const MultiMetricUSStateMap = ({
@@ -59,10 +59,6 @@ export const MultiMetricUSStateMap = ({
   const resolvedMetrics = metrics.map((metric: Metric | string) =>
     metricCatalog.getMetric(metric)
   );
-
-  const defaultGetTooltip = (regionId: string) => {
-    return regionDB.findByRegionIdStrict(regionId).fullName;
-  };
 
   return (
     <>
@@ -97,7 +93,7 @@ export const MultiMetricUSStateMap = ({
           highlightedRegion={highlightedRegion}
           metric={metric}
           regionDB={regionDB}
-          getTooltip={getTooltip ?? defaultGetTooltip}
+          getTooltip={getTooltip}
         />
       </BorderedContainer>
       <BorderedContainerLast>
