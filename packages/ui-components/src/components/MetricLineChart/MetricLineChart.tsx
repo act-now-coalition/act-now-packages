@@ -14,7 +14,7 @@ import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
 import { ErrorBox } from "../ErrorBox";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
-import { MetricTooltip } from "../MetricTooltip";
+import { MetricChartTooltip } from "../MetricChartTooltip";
 import { PointMarker } from "../PointMarker";
 
 export interface MetricLineChartProps extends BaseChartProps {
@@ -86,7 +86,7 @@ export const MetricLineChart = ({
         />
         <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
         {hoveredPoint && (
-          <MetricTooltip
+          <MetricChartTooltip
             metric={metric}
             region={region}
             point={hoveredPoint}
@@ -96,7 +96,7 @@ export const MetricLineChart = ({
               x={xScale(hoveredPoint.date)}
               y={yScale(hoveredPoint.value)}
             />
-          </MetricTooltip>
+          </MetricChartTooltip>
         )}
         <ChartOverlayX
           width={chartWidth}

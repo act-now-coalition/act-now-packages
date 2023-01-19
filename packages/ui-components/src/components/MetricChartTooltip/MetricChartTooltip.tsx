@@ -8,36 +8,41 @@ import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
 
 import { useMetricCatalog } from "../MetricCatalogContext";
 
-export interface MetricTooltipWithChildren extends MetricTooltipContentProps {
+export interface MetricChartTooltipWithChildren
+  extends MetricChartTooltipContentProps {
   /**
    * ReactNode that, when hovered, triggers the tooltip to open.
    */
   children: React.ReactNode;
 }
 
-export type MetricTooltipProps = MetricTooltipWithChildren &
+export type MetricChartTooltipProps = MetricChartTooltipWithChildren &
   Omit<TooltipProps, "title">;
 
-export const MetricTooltip = ({
+export const MetricChartTooltip = ({
   metric,
   region,
   point,
   ...tooltipProps
-}: MetricTooltipProps) => {
+}: MetricChartTooltipProps) => {
   return (
     <Tooltip
       arrow
       placement="top"
       disableInteractive
       title={
-        <MetricTooltipContent metric={metric} region={region} point={point} />
+        <MetricChartTooltipContent
+          metric={metric}
+          region={region}
+          point={point}
+        />
       }
       {...tooltipProps}
     />
   );
 };
 
-export interface MetricTooltipContentProps {
+export interface MetricChartTooltipContentProps {
   /**
    * Metric represented by the content of the tooltip.
    */
@@ -53,11 +58,11 @@ export interface MetricTooltipContentProps {
   point: TimeseriesPoint<number>;
 }
 
-export const MetricTooltipContent = ({
+export const MetricChartTooltipContent = ({
   metric: metricOrId,
   region,
   point,
-}: MetricTooltipContentProps) => {
+}: MetricChartTooltipContentProps) => {
   const metricCatalog = useMetricCatalog();
   const metric = metricCatalog.getMetric(metricOrId);
   return (
