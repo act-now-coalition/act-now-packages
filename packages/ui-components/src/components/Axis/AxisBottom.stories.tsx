@@ -1,8 +1,15 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
+
+import {
+  TimeUnit,
+  getTimeUnitLabel,
+  subtractTime,
+} from "@actnowcoalition/time-utils";
 
 import { AxisBottom, AxisBottomProps } from ".";
 import { AutoWidth } from "../AutoWidth";
@@ -99,3 +106,77 @@ Time10Days.args = {
     domain: [new Date("2021-01-01"), new Date("2021-01-10")],
   }),
 };
+
+function createTimePeriodItem(date: Date, amount: number, unit: TimeUnit) {
+  return {
+    startDate: subtractTime(date, amount, unit),
+    endDate: date,
+    label: `${amount} ${getTimeUnitLabel(amount, unit)}`,
+  };
+}
+
+const date = new Date("2023-01-15");
+const timePeriods = [
+  createTimePeriodItem(date, 10, TimeUnit.YEARS),
+  createTimePeriodItem(date, 6, TimeUnit.YEARS),
+  createTimePeriodItem(date, 4, TimeUnit.YEARS),
+  createTimePeriodItem(date, 2, TimeUnit.YEARS),
+  createTimePeriodItem(date, 18, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 12, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 8, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 6, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 3, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 2, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 1, TimeUnit.MONTHS),
+  createTimePeriodItem(date, 2, TimeUnit.WEEKS),
+  createTimePeriodItem(date, 1, TimeUnit.WEEKS),
+];
+
+const TimeAxis = ({
+  width,
+  startDate,
+  endDate,
+  label,
+}: {
+  width: number;
+  startDate: Date;
+  endDate: Date;
+  label: string;
+}) => {
+  const padding = 20;
+  const timeScale = scaleUtc({
+    domain: [startDate, endDate],
+    range: [padding, width - 2 * padding],
+  });
+  return (
+    <div>
+      <Typography variant="overline" component="div">
+        {label}
+      </Typography>
+      <svg width={width} height={60} style={{ border: "solid 1px blue" }}>
+        <Group top={padding}>
+          <AxisBottom scale={timeScale} />
+        </Group>
+      </svg>
+    </div>
+  );
+};
+
+const AxisSample = ({ width }: { width: number }) => (
+  <>
+    {timePeriods.map(({ startDate, endDate, label }, i) => (
+      <TimeAxis
+        key={`key-${i}`}
+        label={label}
+        width={width}
+        startDate={startDate}
+        endDate={endDate}
+      />
+    ))}
+  </>
+);
+
+export const Long = () => <AxisSample width={900} />;
+export const Medium = () => <AxisSample width={600} />;
+export const Small = () => <AxisSample width={400} />;
+export const ExtraSmall = () => <AxisSample width={300} />;
