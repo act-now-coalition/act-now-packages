@@ -25,7 +25,7 @@
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "dist"],
   "ts-node": {
     "require": ["tsconfig-paths/register"],
     "compilerOptions": {
