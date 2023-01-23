@@ -7,7 +7,7 @@ export const MetricTab = styled(Tab)`
 
   width: 115px;
   margin: 0;
-  padding: ${({ theme }) => `0 ${theme.spacing(1)} ${theme.spacing(2)}`};
+  padding: ${({ theme }) => `0 ${theme.spacing(1)} ${theme.spacing(1.5)}`};
 
   ${({ theme }) => theme.breakpoints.up("sm")} {
     width: 160px;
