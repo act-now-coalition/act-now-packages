@@ -91,7 +91,6 @@ const components: ThemeOptions["components"] = {
       }),
       flexContainer: ({ theme }) => ({
         borderBottom: `1px solid ${theme.palette.border.default}`,
-        width: "fit-content",
       }),
     },
   },
