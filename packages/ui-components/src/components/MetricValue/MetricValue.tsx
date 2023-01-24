@@ -51,7 +51,8 @@ export const MetricValue = ({
     ? "\u00A0"
     : metric.formatValue(data.currentValue, "---");
 
-  const showMetricDot = data && data.currentValue !== null;
+  const showMetricDot =
+    metric.hasCategories && data && data.currentValue !== null;
 
   return (
     <Stack direction="row" spacing={1} alignItems="center" width="fit-content">

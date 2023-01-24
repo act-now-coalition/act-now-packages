@@ -40,8 +40,8 @@ export interface MetricChartBlockProps {
 
 const TabContent = ({ metric, region }: { metric: Metric; region: Region }) => {
   return (
-    <Stack spacing={1}>
-      <Typography variant="labelLarge" textAlign="left">
+    <Stack spacing={0.5}>
+      <Typography variant="labelSmall" textAlign="left">
         {metric.name}
       </Typography>
       <MetricValue metric={metric} region={region} />
