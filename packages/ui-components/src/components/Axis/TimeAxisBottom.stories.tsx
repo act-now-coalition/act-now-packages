@@ -102,8 +102,6 @@ const testMatrix: TestCase[] = timePeriods.flatMap(({ amount, timeUnit }) => {
   });
 });
 
-console.log(testMatrix);
-
 const TimeAxisChart = ({ startDate, endDate, label, width }: TestCase) => {
   const padding = 30;
   const scaleTime = scaleUtc({
