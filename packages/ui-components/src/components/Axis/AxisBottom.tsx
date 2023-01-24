@@ -24,7 +24,7 @@ export const AxisBottom = styled((props: AxisBottomProps) => {
       tickLength={4}
       tickStroke={theme.palette.chart.axis}
       tickLabelProps={() => ({
-        textAnchor: "middle", // Horizontal anchor
+        textAnchor: "middle",
         verticalAnchor: "start",
         fill: theme.palette.chart.axisLabel,
         fontFamily: theme.typography.paragraphSmall.fontFamily,
