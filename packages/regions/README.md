@@ -13,7 +13,6 @@ const washingtonState = new Region(
   "Washington", // shorName
   "WA", // abbreviation
   "washington-wa", // urlFragment
-  "/us/washington-wa", // relativeUrl
   null, // parent
   7614893 // population
 );

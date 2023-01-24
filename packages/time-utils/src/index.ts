@@ -1,6 +1,6 @@
 import { DateTime, Duration } from "luxon";
 
-import { assert } from "@actnowcoalition/assert";
+import { assert, fail } from "@actnowcoalition/assert";
 
 export * from "./PureDate";
 
@@ -27,6 +27,7 @@ export enum TimeUnit {
   DAYS = "day",
   WEEKS = "week",
   MONTHS = "month",
+  YEARS = "year",
 }
 
 /**
@@ -160,6 +161,8 @@ function getTimeUnitOption(amount: number, unit: TimeUnit): Duration {
       return Duration.fromObject({ weeks: amount });
     case TimeUnit.MONTHS:
       return Duration.fromObject({ months: amount });
+    case TimeUnit.YEARS:
+      return Duration.fromObject({ years: amount });
   }
 }
 
@@ -222,4 +225,49 @@ export function assertDateOnly(date: Date): void {
     onlyDate,
     `Date is expected to have a no time component (hours/minutes/seconds). Date found: ${date.toISOString()}`
   );
+}
+
+/**
+ * Returns a string with the name of the time units, using the plural form
+ * when necessary.
+ *
+ * @param amount - The number of units.
+ * @param unit - The time unit.
+ */
+export function getTimeUnitLabel(amount: number, unit: TimeUnit): string {
+  switch (unit) {
+    case TimeUnit.MINUTES:
+      return pluralize(amount, "minute", "minutes");
+    case TimeUnit.HOURS:
+      return pluralize(amount, "hour", "hours");
+    case TimeUnit.DAYS:
+      return pluralize(amount, "day", "days");
+    case TimeUnit.WEEKS:
+      return pluralize(amount, "week", "weeks");
+    case TimeUnit.MONTHS:
+      return pluralize(amount, "month", "months");
+    case TimeUnit.YEARS:
+      return pluralize(amount, "year", "years");
+    default:
+      fail(`Unsupported unit: ${unit}`);
+  }
+}
+
+/**
+ * Returns the singular or plural form of a word, depending on the
+ * amount.
+ *
+ * @example
+ *
+ * ```ts
+ * pluralize(1, 'goose', 'geese') → 'goose'
+ * pluralize(5, 'goose', 'geese') → 'geese'
+ *```
+ *
+ * @param amount - Number of things
+ * @param singular - Singular word
+ * @param plural - Plural word
+ */
+function pluralize(amount: number, singular: string, plural: string) {
+  return amount === 1 ? singular : plural;
 }

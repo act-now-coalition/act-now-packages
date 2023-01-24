@@ -6,11 +6,11 @@ import last from "lodash/last";
 import sortBy from "lodash/sortBy";
 
 import { states } from "@actnowcoalition/regions";
-import { TimeUnit, subtractTime } from "@actnowcoalition/time-utils";
+import { TimeUnit } from "@actnowcoalition/time-utils";
 
 import { MultiRegionMultiMetricChart } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
-import { TimePeriod } from "./utils";
+import { TimePeriod, timePeriodOption } from "./utils";
 
 const sortedStates = sortBy(states.all, (state) => state.shortName);
 
@@ -31,21 +31,10 @@ Example.args = {
   initialRegions: sortedStates.slice(0, 5),
 };
 
-const today = new Date();
 const customTimePeriods: TimePeriod[] = [
-  {
-    label: "Past week",
-    dateRange: { startAt: subtractTime(today, 1, TimeUnit.WEEKS) },
-  },
-  {
-    label: "Past 2 weeks",
-    dateRange: { startAt: subtractTime(today, 2, TimeUnit.WEEKS) },
-  },
-  {
-    label: "Past month",
-    dateRange: { startAt: subtractTime(today, 1, TimeUnit.MONTHS) },
-  },
-  { label: "All time", dateRange: undefined },
+  timePeriodOption(1, TimeUnit.WEEKS),
+  timePeriodOption(2, TimeUnit.WEEKS),
+  timePeriodOption(1, TimeUnit.MONTHS),
 ];
 
 export const WithCustomPeriods = Template.bind({});

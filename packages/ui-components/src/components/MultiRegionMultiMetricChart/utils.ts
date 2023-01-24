@@ -1,6 +1,10 @@
 import { DateRange, Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
-import { TimeUnit, subtractTime } from "@actnowcoalition/time-utils";
+import {
+  TimeUnit,
+  getTimeUnitLabel,
+  subtractTime,
+} from "@actnowcoalition/time-utils";
 
 import { schemeCategory10 } from "../../common/utils/charts";
 import { Series, SeriesType } from "../SeriesChart";
@@ -27,16 +31,23 @@ export interface TimePeriod {
   dateRange?: DateRange;
 }
 
-export function getDefaultTimePeriods(date: Date): TimePeriod[] {
+export function getDefaultTimePeriods(): TimePeriod[] {
   return [
-    {
-      label: "60",
-      dateRange: { startAt: subtractTime(date, 60, TimeUnit.DAYS) },
-    },
-    {
-      label: "180",
-      dateRange: { startAt: subtractTime(date, 180, TimeUnit.DAYS) },
-    },
-    { label: "All time", dateRange: undefined },
+    timePeriodOption(60, TimeUnit.DAYS),
+    timePeriodOption(180, TimeUnit.DAYS),
   ];
+}
+
+/**
+ * Creates a custom time period option for the MultiRegionMultiMetricChart
+ * component.
+ *
+ * @param amount - Number of units of time.
+ * @param unit - Unit of time.
+ */
+export function timePeriodOption(amount: number, unit: TimeUnit): TimePeriod {
+  return {
+    label: `${amount} ${getTimeUnitLabel(amount, unit)}`,
+    dateRange: { startAt: subtractTime(new Date(), amount, unit) },
+  };
 }

@@ -8,7 +8,6 @@ describe("nations_db", () => {
     abbreviation: "IRL",
     parent: null,
     slug: "ireland",
-    relativeUrl: "",
     population: 4964440,
   };
 
