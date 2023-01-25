@@ -1,5 +1,7 @@
 import React from "react";
 
+import { ScaleTime } from "d3-scale";
+
 import {
   DateFormat,
   TimeUnit,
@@ -9,14 +11,20 @@ import {
 
 import { AxisBottom, AxisBottomProps } from "./AxisBottom";
 
+type TimeAxisBottomProps = Omit<AxisBottomProps, "scale"> & {
+  /**
+   * d3-scale to convert between dates and pixel positions.
+   */
+  scale: ScaleTime<number, number>;
+};
+
 export const TimeAxisBottom = ({
   scale,
-  width,
   ...otherProps
-}: AxisBottomProps & {
-  width: number;
-}) => {
+}: TimeAxisBottomProps) => {
   const [startDate, endDate] = scale.domain();
+  const [x1, x2] = scale.range();
+  const width = Math.abs(x2 - x1);
 
   const { numTicks, tickFormat } = getAxisFormattingInfo(
     startDate,
@@ -39,6 +47,14 @@ interface AxisFormatInfo {
   tickFormat: (date: Date) => string;
 }
 
+/**
+ * Calculates the number of ticks and the date format to prevent the tick
+ * labels from overlapping, given the date range and width of the axis.
+ *
+ * @param startDate - Start date of the date range.
+ * @param endDate - End date of the date range.
+ * @param width - Width in pixels of the axis.
+ */
 function getAxisFormattingInfo(
   startDate: Date,
   endDate: Date,

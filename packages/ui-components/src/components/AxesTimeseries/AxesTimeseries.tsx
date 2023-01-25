@@ -2,7 +2,12 @@ import React from "react";
 
 import { ScaleLinear, ScaleTime } from "d3-scale";
 
-import { AxisBottom, AxisBottomProps, AxisLeft, AxisLeftProps } from "../Axis";
+import {
+  AxisBottomProps,
+  AxisLeft,
+  AxisLeftProps,
+  TimeAxisBottom,
+} from "../Axis";
 
 export interface AxesTimeseriesProps {
   /**
@@ -37,7 +42,7 @@ export const AxesTimeseries = ({
   return (
     <>
       <AxisLeft scale={yScale} {...axisLeftProps} />
-      <AxisBottom top={height} scale={xScale} {...axisBottomProps} />
+      <TimeAxisBottom top={height} scale={xScale} {...axisBottomProps} />
     </>
   );
 };

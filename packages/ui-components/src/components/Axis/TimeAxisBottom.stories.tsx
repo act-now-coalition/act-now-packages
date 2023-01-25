@@ -116,12 +116,7 @@ const TimeAxisChart = ({ startDate, endDate, label, width }: TestCase) => {
         component="div"
       >{`${label}, ${width}px`}</Typography>
       <svg width={width} height={40} style={{ border: "solid 1px #ddd" }}>
-        <TimeAxisBottom
-          left={padding}
-          top={5}
-          scale={scaleTime}
-          width={width}
-        />
+        <TimeAxisBottom left={padding} top={5} scale={scaleTime} />
       </svg>
     </Box>
   );

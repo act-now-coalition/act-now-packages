@@ -15,7 +15,7 @@ export default {
 const height = 400;
 const padding = 60;
 
-const ChartBottomAxis = ({ ...args }: AxisBottomProps) => {
+const ChartBottomAxis = ({ ...args }: AxisBottomProps & { width?: number }) => {
   const [start, end] = args.scale.domain();
   const isTimeSeries = start instanceof Date;
   return (

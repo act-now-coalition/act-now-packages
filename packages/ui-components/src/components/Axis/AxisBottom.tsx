@@ -10,10 +10,6 @@ export type AxisBottomProps = React.ComponentProps<typeof VxAxisBottom> & {
    * Class name applied to the outermost axis group element.
    */
   className?: string;
-  /**
-   * Width of AxisBottom.
-   */
-  width?: number;
 };
 
 export const AxisBottom = styled((props: AxisBottomProps) => {
