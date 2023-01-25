@@ -44,28 +44,31 @@ function getAxisFormattingInfo(
   endDate: Date,
   width: number
 ): AxisFormatInfo {
+  // We calculate what's the maximum number of tick labels that could fit
+  // given the axis width and the width of the labels (about 40px).
   const maxTickLabelWidth = 70;
   const maxNumTicks = Math.floor(width / maxTickLabelWidth);
 
   const numDays = getTimeDiff(endDate, startDate, TimeUnit.DAYS);
   const numWeeks = getTimeDiff(endDate, startDate, TimeUnit.WEEKS);
   const numMonths = getTimeDiff(endDate, startDate, TimeUnit.MONTHS);
-  const numYears = getTimeDiff(endDate, startDate, TimeUnit.YEARS);
 
-  if (getTimeDiff(endDate, startDate, TimeUnit.YEARS) >= 4) {
+  // We shouldn't have more ticks than years when using this format,
+  // otherwise more than one tick could have the same label.
+  if (getTimeDiff(endDate, startDate, TimeUnit.YEARS) >= 3) {
+    const numYears = getTimeDiff(endDate, startDate, TimeUnit.YEARS);
     return {
       numTicks: Math.min(maxNumTicks, numYears),
-      tickFormat: formatYear,
+      tickFormat: (date: Date) => formatUTCDateTime(date, DateFormat.YYYY),
     };
   }
 
   if (getTimeDiff(endDate, startDate, TimeUnit.MONTHS) >= 6) {
-    return {
-      numTicks: maxNumTicks,
-      tickFormat: formatMonth,
-    };
+    return { numTicks: maxNumTicks, tickFormat: formatMonth };
   }
 
+  // Depending on the width of the axis, we either show ticks weekly
+  // or monthly, depending on what's more likely to fit.
   if (getTimeDiff(endDate, startDate, TimeUnit.MONTHS) >= 1) {
     return {
       numTicks: width / numWeeks < maxTickLabelWidth ? numMonths : numWeeks,
@@ -73,6 +76,8 @@ function getAxisFormattingInfo(
     };
   }
 
+  // Show either weekly ticks or daily, depending on the how many ticks
+  // we can fit.
   if (getTimeDiff(endDate, startDate, TimeUnit.WEEKS) >= 1) {
     return {
       numTicks: maxNumTicks < numDays ? numWeeks : numDays,
@@ -80,10 +85,8 @@ function getAxisFormattingInfo(
     };
   }
 
-  return {
-    numTicks: maxNumTicks,
-    tickFormat: (date) => formatUTCDateTime(date, DateFormat.YYYY_MM_DD),
-  };
+  // If we only have a few days, just show the date.
+  return { numTicks: maxNumTicks, tickFormat: formatDay };
 }
 
 function formatMonth(date: Date): string {
@@ -94,12 +97,8 @@ function formatMonth(date: Date): string {
 
 function formatDay(date: Date): string {
   if (date.getUTCDate() === 1 && date.getUTCMonth() === 0) {
-    return formatMonth(date);
+    return formatUTCDateTime(date, DateFormat.MMM_D_YYYY);
   } else {
     return formatUTCDateTime(date, DateFormat.MMM_D);
   }
-}
-
-function formatYear(date: Date): string {
-  return formatUTCDateTime(date, DateFormat.YYYY);
 }

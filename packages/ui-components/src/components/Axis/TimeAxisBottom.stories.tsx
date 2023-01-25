@@ -16,7 +16,7 @@ export default {
   title: "Components/TimeAxisBottom",
 } as ComponentMeta<typeof TimeAxisBottom>;
 
-const endDate = new Date("2023-03-01");
+const endDate = new Date("2023-01-04");
 
 const timePeriods = [
   {
