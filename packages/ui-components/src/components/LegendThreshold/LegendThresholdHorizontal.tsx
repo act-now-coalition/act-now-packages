@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Box } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleBand } from "@visx/scale";
 import find from "lodash/find";
@@ -9,13 +10,15 @@ import { RectClipGroup } from "../RectClipGroup";
 import { LegendThresholdProps } from "./LegendThreshold";
 import { IndicatorPolygon, TickLabel, TickMark } from "./LegendThreshold.style";
 
+const defaultHeight = 20;
+const defaultWidth = 300;
 /**
  * LegendThresholdHorizontal is the implementation of LegendThreshold with orientation "horizontal".
  */
 
 export const LegendThresholdHorizontalInner = <T,>({
-  height = 20,
-  width = 300,
+  height = defaultHeight,
+  width = defaultWidth,
   borderRadius = 10,
   items,
   getItemColor,
@@ -107,11 +110,15 @@ export const LegendThresholdHorizontalInner = <T,>({
 };
 
 export const LegendThresholdHorizontal = <T,>({
+  height = defaultHeight,
+  width = defaultWidth,
   ...props
 }: LegendThresholdProps<T>) => {
   return (
-    <AutoWidth>
-      <LegendThresholdHorizontalInner {...props} />
-    </AutoWidth>
+    <Box height={height} maxWidth={width} width="100%">
+      <AutoWidth>
+        <LegendThresholdHorizontalInner {...props} />
+      </AutoWidth>
+    </Box>
   );
 };
