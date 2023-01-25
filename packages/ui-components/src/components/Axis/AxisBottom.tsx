@@ -1,34 +1,55 @@
 import React from "react";
 
-import { useTheme } from "@mui/material";
-import { AxisBottom as VxAxisBottom } from "@visx/axis";
+import { ScaleTime } from "d3-scale";
 
-import { styled } from "../../styles";
+import { AxisBottomBase, AxisBottomBaseProps } from "./AxisBottomBase";
+import { getAxisFormattingInfo } from "./utils";
 
-export type AxisBottomProps = React.ComponentProps<typeof VxAxisBottom> & {
+export type AxisBottomProps = AxisBottomBaseProps;
+
+type TimeAxisBottomProps = Omit<AxisBottomBaseProps, "scale"> & {
   /**
-   * Class name applied to the outermost axis group element.
+   * d3-scale to convert between dates and pixel positions.
    */
-  className?: string;
+  scale: ScaleTime<number, number>;
 };
 
-export const AxisBottom = styled((props: AxisBottomProps) => {
-  const theme = useTheme();
+export const TimeAxisBottom = ({
+  scale,
+  ...otherProps
+}: TimeAxisBottomProps) => {
+  const [startDate, endDate] = scale.domain();
+  const [x1, x2] = scale.range();
+  const width = Math.abs(x2 - x1);
+
+  const { numTicks, tickFormat } = getAxisFormattingInfo(
+    startDate,
+    endDate,
+    width
+  );
+
   return (
-    <VxAxisBottom
-      axisClassName={props.className ?? ""}
-      tickLength={4}
-      tickStroke={theme.palette.chart.axis}
-      tickLabelProps={() => ({
-        textAnchor: "middle",
-        verticalAnchor: "start",
-        fill: theme.palette.chart.axisLabel,
-        fontFamily: theme.typography.paragraphSmall.fontFamily,
-        fontSize: theme.typography.paragraphSmall.fontSize,
-        fontWeight: theme.typography.paragraphSmall.fontWeight,
-      })}
-      stroke={theme.palette.chart.axis}
-      {...props}
+    <AxisBottomBase
+      scale={scale}
+      numTicks={numTicks}
+      tickFormat={tickFormat}
+      {...otherProps}
     />
   );
-})``;
+};
+
+export const AxisBottom = ({
+  scale,
+  ...otherProps
+}: AxisBottomProps | TimeAxisBottomProps) => {
+  if (isTimeScale(scale)) {
+    return <TimeAxisBottom scale={scale} {...otherProps} />;
+  }
+
+  return <AxisBottomBase scale={scale} {...otherProps} />;
+};
+
+function isTimeScale(scale: any): scale is ScaleTime<number, number> {
+  const [start, end] = scale.domain();
+  return start instanceof Date && end instanceof Date;
+}
