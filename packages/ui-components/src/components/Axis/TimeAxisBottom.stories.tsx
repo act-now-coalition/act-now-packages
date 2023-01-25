@@ -16,69 +16,26 @@ export default {
   title: "Components/TimeAxisBottom",
 } as ComponentMeta<typeof TimeAxisBottom>;
 
+// This date ensures that there is a calendar year change
+// for every interval.
 const endDate = new Date("2023-01-04");
 
 const timePeriods = [
-  {
-    amount: 1,
-    timeUnit: TimeUnit.WEEKS,
-  },
-  {
-    amount: 2,
-    timeUnit: TimeUnit.WEEKS,
-  },
-  {
-    amount: 1,
-    timeUnit: TimeUnit.MONTHS,
-  },
-  {
-    amount: 2,
-    timeUnit: TimeUnit.MONTHS,
-  },
-  {
-    amount: 3,
-    timeUnit: TimeUnit.MONTHS,
-  },
-  {
-    amount: 4,
-    timeUnit: TimeUnit.MONTHS,
-  },
-  {
-    amount: 6,
-    timeUnit: TimeUnit.MONTHS,
-  },
-  {
-    amount: 1,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 2,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 3,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 4,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 6,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 9,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 11,
-    timeUnit: TimeUnit.YEARS,
-  },
-  {
-    amount: 50,
-    timeUnit: TimeUnit.YEARS,
-  },
+  { amount: 1, timeUnit: TimeUnit.WEEKS },
+  { amount: 2, timeUnit: TimeUnit.WEEKS },
+  { amount: 1, timeUnit: TimeUnit.MONTHS },
+  { amount: 2, timeUnit: TimeUnit.MONTHS },
+  { amount: 3, timeUnit: TimeUnit.MONTHS },
+  { amount: 4, timeUnit: TimeUnit.MONTHS },
+  { amount: 6, timeUnit: TimeUnit.MONTHS },
+  { amount: 1, timeUnit: TimeUnit.YEARS },
+  { amount: 2, timeUnit: TimeUnit.YEARS },
+  { amount: 3, timeUnit: TimeUnit.YEARS },
+  { amount: 4, timeUnit: TimeUnit.YEARS },
+  { amount: 6, timeUnit: TimeUnit.YEARS },
+  { amount: 9, timeUnit: TimeUnit.YEARS },
+  { amount: 11, timeUnit: TimeUnit.YEARS },
+  { amount: 50, timeUnit: TimeUnit.YEARS },
 ];
 
 const widthList = [900, 700, 600, 400, 300];
@@ -122,7 +79,7 @@ const TimeAxisChart = ({ startDate, endDate, label, width }: TestCase) => {
   );
 };
 
-export const Sample = () => {
+export const Default = () => {
   return (
     <Box>
       {testMatrix.map((test, i) => (
