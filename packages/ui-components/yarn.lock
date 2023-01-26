@@ -7,14 +7,14 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/assert/-/assert-0.1.2.tgz#87f8d5e6e18194340d0101a2406b2b80b7ad56eb"
   integrity sha512-qseONebB+hBZbu4kgLh9Cv8p9DUQsIONChd9t2J6QdNS2NLjuItK1pXmjODTE31gKzsPIW42DL3KvUD7PS4YFw==
 
-"@actnowcoalition/metrics@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.4.1.tgz#9b9893dd211b5adb16f20d3e55796cce535bf5b3"
-  integrity sha512-QMAle5zkl+CrRmoHPdZDYHHLd/v3HTTpbdhd8h/e1FqdhjNQ1nPv9lORTGzIIDmsWla61RCbBkT7U8LoueCSlA==
+"@actnowcoalition/metrics@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/metrics/-/metrics-0.4.2.tgz#450a62a97367787ae5be5940fc39f20d4680086d"
+  integrity sha512-yyIJ5RY/p5Z97t3mbzWzNxW0fOzg6KnlUfpE/Mq9lBBv+y0dQrlCg5Spc/js5Kk12ydSUrKeXH1Mkdf0omEHHQ==
   dependencies:
     "@actnowcoalition/assert" "^0.1.2"
     "@actnowcoalition/number-format" "^0.1.3"
-    "@actnowcoalition/regions" "^0.1.3"
+    "@actnowcoalition/regions" "^0.1.4"
     "@actnowcoalition/time-utils" "^0.1.2"
     "@types/papaparse" "^5.3.3"
     delay "^5.0.0"
@@ -29,10 +29,10 @@
   resolved "https://registry.yarnpkg.com/@actnowcoalition/number-format/-/number-format-0.1.3.tgz#6cffb3cda5c1d29228acd3a77d2bf28424ce0818"
   integrity sha512-FALygmT3/zV1TVG8c4tMVdj7GFjxUj2qMK2YbNjdvwPxPEvRHNwFyRtgB08NyQOduleL5MoxeDgju7pb8lz+ug==
 
-"@actnowcoalition/regions@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-0.1.3.tgz#542f6aa46790340f2cdc3d4223543ee22a73175b"
-  integrity sha512-ODQ1XCohrbEcQ9b+7ksivy9Tg+JEt/T/EIuuYfUlZBZRhNjGUkQs4IgAvYivMmRreN3CBXTBXHhCxr3Z+SCW1g==
+"@actnowcoalition/regions@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-0.1.4.tgz#ee91b49298c31f52e9eeccfcdd08689587747d5b"
+  integrity sha512-EayohEW8IN3GxHs7p8nuNDl0cMR9rFXbcEUO3ZXacERDQQmzAbygwpFAxMeMF/wNEXOrGIDVsj9vHPTP//bVhA==
   dependencies:
     "@actnowcoalition/assert" "^0.1.2"
     lodash "^4.17.21"
@@ -41,6 +41,15 @@
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-0.1.2.tgz#7b78c251c503be8a4d47a85d15f5aee60ba3918d"
   integrity sha512-l+HZvvyMBuuL9P56uZzygk/B6spQLi7eo906cEYGk7wuQaan5hBaYu7rmfd+Aqs4a5V8g7VwakTx5TjdNDblng==
+  dependencies:
+    "@actnowcoalition/assert" "^0.1.2"
+    "@types/luxon" "^2.3.2"
+    luxon "^2.4.0"
+
+"@actnowcoalition/time-utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-0.1.4.tgz#a63a0770596abf05819b5af47e359f22e7afcc60"
+  integrity sha512-Td0cVPQP9CnkkS2JOk4RNe8FMsllYJR/8Ivf0Y+pLWQrzSpZ36DS6lECHsfeaLH+sZ3WTVbBamBNI17iupPgsg==
   dependencies:
     "@actnowcoalition/assert" "^0.1.2"
     "@types/luxon" "^2.3.2"
