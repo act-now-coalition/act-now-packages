@@ -14,14 +14,14 @@ export function useMutationObserver(
   callback: MutationCallback,
   options?: MutationObserverInit
 ): void {
-  if (!options) {
-    options = {};
-  }
-
   const observer = useMemo(
     () => (isSSR ? null : new MutationObserver(callback)),
     [callback]
   );
+
+  if (!options) {
+    options = {};
+  }
 
   useEffect(() => {
     const target = ref?.current;

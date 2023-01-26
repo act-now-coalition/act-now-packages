@@ -46,6 +46,15 @@
     "@types/luxon" "^2.3.2"
     luxon "^2.4.0"
 
+"@actnowcoalition/time-utils@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-0.1.4.tgz#a63a0770596abf05819b5af47e359f22e7afcc60"
+  integrity sha512-Td0cVPQP9CnkkS2JOk4RNe8FMsllYJR/8Ivf0Y+pLWQrzSpZ36DS6lECHsfeaLH+sZ3WTVbBamBNI17iupPgsg==
+  dependencies:
+    "@actnowcoalition/assert" "^0.1.2"
+    "@types/luxon" "^2.3.2"
+    luxon "^2.4.0"
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
