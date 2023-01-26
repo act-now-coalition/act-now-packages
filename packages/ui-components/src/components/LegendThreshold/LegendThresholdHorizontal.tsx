@@ -110,12 +110,11 @@ export const LegendThresholdHorizontalInner = <T,>({
 };
 
 export const LegendThresholdHorizontal = <T,>({
-  height = defaultHeight,
   width = defaultWidth,
   ...props
 }: LegendThresholdProps<T>) => {
   return (
-    <Box height={height} maxWidth={width} width="100%">
+    <Box maxWidth={width} width="100%">
       <AutoWidth>
         <LegendThresholdHorizontalInner {...props} />
       </AutoWidth>
