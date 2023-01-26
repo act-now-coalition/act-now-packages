@@ -1,101 +1,116 @@
 import React from "react";
 
-import { Box } from "@mui/material";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { Box, Typography } from "@mui/material";
+import { ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
-import { AxisBottom, AxisBottomProps } from ".";
-import { AutoWidth } from "../AutoWidth";
-import { formatDateTick, getNumTicks, isOverTwoMonths } from "./utils";
+import {
+  TimeUnit,
+  getTimeUnitLabel,
+  subtractTime,
+} from "@actnowcoalition/time-utils";
+
+import { AxisBottom, TimeAxisBottom } from ".";
 
 export default {
   title: "Components/AxisBottom",
-} as ComponentMeta<typeof AxisBottom>;
+} as ComponentMeta<typeof TimeAxisBottom>;
 
-const height = 400;
-const padding = 60;
+// This date ensures that there is a calendar year change
+// for every interval.
+const endDate = new Date("2023-01-04");
 
-const ChartBottomAxis = ({ ...args }: AxisBottomProps) => {
-  const [start, end] = args.scale.domain();
-  const isTimeSeries = start instanceof Date;
+const timePeriods = [
+  { amount: 1, timeUnit: TimeUnit.WEEKS },
+  { amount: 2, timeUnit: TimeUnit.WEEKS },
+  { amount: 1, timeUnit: TimeUnit.MONTHS },
+  { amount: 2, timeUnit: TimeUnit.MONTHS },
+  { amount: 3, timeUnit: TimeUnit.MONTHS },
+  { amount: 4, timeUnit: TimeUnit.MONTHS },
+  { amount: 6, timeUnit: TimeUnit.MONTHS },
+  { amount: 1, timeUnit: TimeUnit.YEARS },
+  { amount: 2, timeUnit: TimeUnit.YEARS },
+  { amount: 3, timeUnit: TimeUnit.YEARS },
+  { amount: 4, timeUnit: TimeUnit.YEARS },
+  { amount: 6, timeUnit: TimeUnit.YEARS },
+  { amount: 9, timeUnit: TimeUnit.YEARS },
+  { amount: 11, timeUnit: TimeUnit.YEARS },
+  { amount: 50, timeUnit: TimeUnit.YEARS },
+];
+
+const widthList = [900, 700, 600, 400, 300];
+
+interface TestCase {
+  startDate: Date;
+  endDate: Date;
+  label: string;
+  width: number;
+}
+
+// Here we generate a list of "test cases" using the `widthList` and the
+// `timePeriods` from above. Each test case will have a date interval,
+// a label, and a width. Example:
+//
+// {
+//   startDate: new Date('2022-01-01'),
+//   endDate: new Date('2022-01-08'),
+//   label: "2 weeks, 600px",
+//   width: 600
+// },
+// ...
+const testMatrix: TestCase[] = timePeriods.flatMap(({ amount, timeUnit }) => {
+  return widthList.map((width) => {
+    const label = `${amount} ${getTimeUnitLabel(amount, timeUnit)}`;
+    return {
+      startDate: subtractTime(endDate, amount, timeUnit),
+      endDate,
+      label,
+      width,
+    };
+  });
+});
+
+const TimeAxisChart = ({ startDate, endDate, label, width }: TestCase) => {
+  const padding = 30;
+  const scaleTime = scaleUtc({
+    domain: [startDate, endDate],
+    range: [0, width - 2 * padding],
+  });
+
   return (
-    <>
-      {args.width && (
-        <svg width={args.width} height={height}>
-          <AxisBottom
-            {...args}
-            left={padding}
-            top={padding}
-            scale={
-              isTimeSeries
-                ? scaleUtc({
-                    domain: [start, end],
-                    range: [0, args.width - 2 * padding],
-                  })
-                : scaleLinear({
-                    domain: [start, end],
-                    range: [0, args.width - 2 * padding],
-                  })
-            }
-            tickFormat={
-              isTimeSeries
-                ? (date: Date) =>
-                    formatDateTick(date, isOverTwoMonths(start, end))
-                : undefined
-            }
-            numTicks={getNumTicks(args.width)}
-          />
-        </svg>
-      )}
-    </>
+    <Box sx={{ my: 2 }}>
+      <Typography
+        variant="overline"
+        component="div"
+      >{`${label}, ${width}px`}</Typography>
+      <svg width={width} height={40} style={{ border: "solid 1px #ddd" }}>
+        <TimeAxisBottom left={padding} top={5} scale={scaleTime} />
+      </svg>
+    </Box>
   );
 };
 
-/* A responsive template, in order to test responsiveness of numTicks and tickFormat */
-const Template: ComponentStory<typeof AxisBottom> = (args) => (
-  <Box>
-    <AutoWidth>
-      <ChartBottomAxis {...args} />
-    </AutoWidth>
-  </Box>
-);
-
-export const Numbers = Template.bind({});
-Numbers.args = {
-  scale: scaleLinear({ domain: [0, 10] }),
+export const Time = () => {
+  return (
+    <Box>
+      {testMatrix.map((test, i) => (
+        <TimeAxisChart key={`case-${i}`} {...test} />
+      ))}
+    </Box>
+  );
 };
 
-export const Time2Years = Template.bind({});
-Time2Years.args = {
-  scale: scaleUtc({
-    domain: [new Date("2021-01-01"), new Date("2022-12-31")],
-  }),
-};
+export const Numeric = () => {
+  const padding = 30;
+  const width = 600;
+  const scale = scaleLinear({
+    domain: [0, 1],
+    range: [0, width - 2 * padding],
+  });
 
-export const Time1Year = Template.bind({});
-Time1Year.args = {
-  scale: scaleUtc({
-    domain: [new Date("2021-01-01"), new Date("2021-12-31")],
-  }),
-};
-
-export const Time6Months = Template.bind({});
-Time6Months.args = {
-  scale: scaleUtc({
-    domain: [new Date("2021-01-01"), new Date("2021-06-30")],
-  }),
-};
-
-export const Time1Month = Template.bind({});
-Time1Month.args = {
-  scale: scaleUtc({
-    domain: [new Date("2021-01-01"), new Date("2021-01-31")],
-  }),
-};
-
-export const Time10Days = Template.bind({});
-Time10Days.args = {
-  scale: scaleUtc({
-    domain: [new Date("2021-01-01"), new Date("2021-01-10")],
-  }),
+  return (
+    <svg width={width} height={40} style={{ border: "solid 1px #ddd" }}>
+      <AxisBottom left={padding} top={5} scale={scale} />
+    </svg>
+  );
 };

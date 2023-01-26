@@ -5,31 +5,79 @@ import {
   getTimeDiff,
 } from "@actnowcoalition/time-utils";
 
+interface AxisFormatInfo {
+  numTicks: number;
+  tickFormat: (date: Date) => string;
+}
+
 /**
- * Number of ticks are approximate, since this is calculated by visx.
- * More info: https://airbnb.io/visx/docs/axis#Axis_numTicks
+ * Calculates the number of ticks and the date format to prevent the tick
+ * labels from overlapping, given the date range and width of the axis.
+ *
+ * @param startDate - Start date of the date range.
+ * @param endDate - End date of the date range.
+ * @param width - Width in pixels of the axis.
  */
-export function getNumTicks(width: number): number {
-  if (width <= 300) {
-    return 3;
-  } else if (width <= 600) {
-    return 5;
-  } else if (width <= 900) {
-    return 7;
+export function getAxisFormattingInfo(
+  startDate: Date,
+  endDate: Date,
+  width: number
+): AxisFormatInfo {
+  // We calculate what's the maximum number of tick labels that could fit
+  // given the axis width and the width of the labels (about 40px).
+  const maxTickLabelWidth = 70;
+  const maxNumTicks = Math.floor(width / maxTickLabelWidth);
+
+  const numDays = getTimeDiff(endDate, startDate, TimeUnit.DAYS);
+  const numWeeks = getTimeDiff(endDate, startDate, TimeUnit.WEEKS);
+  const numYears = getTimeDiff(endDate, startDate, TimeUnit.YEARS);
+  const numMonths = getTimeDiff(endDate, startDate, TimeUnit.MONTHS);
+
+  // We shouldn't have more ticks than years when using this format,
+  // otherwise more than one tick could have the same label.
+  if (getTimeDiff(endDate, startDate, TimeUnit.YEARS) >= 3) {
+    return {
+      numTicks: Math.min(maxNumTicks, numYears),
+      tickFormat: (date: Date) => formatUTCDateTime(date, DateFormat.YYYY),
+    };
   }
-  return 10;
+
+  if (getTimeDiff(endDate, startDate, TimeUnit.MONTHS) >= 6) {
+    return { numTicks: maxNumTicks, tickFormat: formatMonth };
+  }
+
+  // Depending on the width of the axis, we either show ticks weekly
+  // or monthly, depending on what's more likely to fit.
+  if (getTimeDiff(endDate, startDate, TimeUnit.MONTHS) >= 1) {
+    return {
+      numTicks: width / numWeeks < maxTickLabelWidth ? numMonths : numWeeks,
+      tickFormat: formatDay,
+    };
+  }
+
+  // Show either weekly ticks or daily, depending on the how many ticks
+  // we can fit.
+  if (getTimeDiff(endDate, startDate, TimeUnit.WEEKS) >= 1) {
+    return {
+      numTicks: maxNumTicks < numDays ? numWeeks : numDays,
+      tickFormat: formatDay,
+    };
+  }
+
+  // If we only have a few days, just show the date.
+  return { numTicks: maxNumTicks, tickFormat: formatDay };
 }
 
-export function isOverTwoMonths(startDate: Date, endDate: Date): boolean {
-  const dateRange = getTimeDiff(endDate, startDate, TimeUnit.MONTHS);
-  return dateRange > 2;
+function formatMonth(date: Date): string {
+  const MMM = formatUTCDateTime(date, DateFormat.MMM);
+  const YY = formatUTCDateTime(date, DateFormat.YY);
+  return date.getUTCMonth() === 0 ? `${MMM}'${YY}` : MMM;
 }
 
-export function formatDateTick(date: Date, isOverTwoMonths: boolean): string {
-  if (isOverTwoMonths) {
-    // TODO (#414) : Add month and year separated by apostrophe as a date format
-    return date.getMonth() === 0
-      ? formatUTCDateTime(date, DateFormat.MMM_YY)
-      : formatUTCDateTime(date, DateFormat.MMM);
-  } else return formatUTCDateTime(date, DateFormat.MMM_D);
+function formatDay(date: Date): string {
+  if (date.getUTCDate() === 1 && date.getUTCMonth() === 0) {
+    return formatUTCDateTime(date, DateFormat.MMM_D_YYYY);
+  } else {
+    return formatUTCDateTime(date, DateFormat.MMM_D);
+  }
 }
