@@ -1,5 +1,13 @@
 # @actnowcoalition/ui-components
 
+## 0.11.1
+
+### Patch Changes
+
+- b3ffafb: Improvement to tabs styling
+- Updated dependencies [fcf7830]
+  - @actnowcoalition/metrics@0.4.2
+
 ## 0.11.0
 
 ### Minor Changes
