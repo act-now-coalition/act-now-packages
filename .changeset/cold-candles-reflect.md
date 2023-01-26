@@ -2,4 +2,4 @@
 "@actnowcoalition/ui-components": patch
 ---
 
-Improve WorldMap to better handle regions without URLs
+Improve maps to better handle missing region URLs
