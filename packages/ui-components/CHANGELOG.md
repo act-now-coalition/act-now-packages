@@ -1,5 +1,13 @@
 # @actnowcoalition/ui-components
 
+## 0.11.2
+
+### Patch Changes
+
+- d84593a: Improve maps to better handle missing region URLs
+- 9cad116: - Improve the format of the tick labels for AxisBottom
+  - Remove the width prop from AxisBottom (it's not really necessary)
+
 ## 0.11.1
 
 ### Patch Changes
