@@ -37,6 +37,14 @@
     "@actnowcoalition/assert" "^0.1.2"
     lodash "^4.17.21"
 
+"@actnowcoalition/regions@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@actnowcoalition/regions/-/regions-0.1.4.tgz#ee91b49298c31f52e9eeccfcdd08689587747d5b"
+  integrity sha512-EayohEW8IN3GxHs7p8nuNDl0cMR9rFXbcEUO3ZXacERDQQmzAbygwpFAxMeMF/wNEXOrGIDVsj9vHPTP//bVhA==
+  dependencies:
+    "@actnowcoalition/assert" "^0.1.2"
+    lodash "^4.17.21"
+
 "@actnowcoalition/time-utils@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@actnowcoalition/time-utils/-/time-utils-0.1.2.tgz#7b78c251c503be8a4d47a85d15f5aee60ba3918d"
