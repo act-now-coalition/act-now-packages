@@ -115,13 +115,19 @@ const USStateMapInner = ({
         {showBorderingStates &&
           otherStates.map((geo) => {
             const stateFips = `${geo.id}`;
+            const regionUrl = getRegionUrl(stateFips);
+            const innerShape = (
+              <g>
+                <BorderingRegion d={geoPath(geo) ?? ""} />
+              </g>
+            );
             return (
               <Tooltip title={getTooltip(stateFips) ?? ""} key={stateFips}>
-                <Link href={getRegionUrl(stateFips)}>
-                  <g>
-                    <BorderingRegion d={geoPath(geo) ?? ""} />
-                  </g>
-                </Link>
+                {regionUrl ? (
+                  <Link href={regionUrl}>{innerShape}</Link>
+                ) : (
+                  innerShape
+                )}
               </Tooltip>
             );
           })}
@@ -129,13 +135,19 @@ const USStateMapInner = ({
         {/* Clickable region overlay */}
         {regionGeoToShow.map((geo) => {
           const geoId = `${geo.id}`;
+          const regionUrl = getRegionUrl(geoId);
+          const innerShape = (
+            <g>
+              <RegionOverlay d={geoPath(geo) ?? ""} />
+            </g>
+          );
           return (
             <Tooltip title={getTooltip(geoId) ?? ""} key={geoId}>
-              <Link href={getRegionUrl(geoId)}>
-                <g>
-                  <RegionOverlay d={geoPath(geo) ?? ""} />
-                </g>
-              </Link>
+              {regionUrl ? (
+                <Link href={regionUrl}>{innerShape}</Link>
+              ) : (
+                innerShape
+              )}
             </Tooltip>
           );
         })}
