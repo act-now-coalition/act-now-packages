@@ -70,13 +70,20 @@ const WorldMapInner = ({
         ))}
 
         {/* Clickable region overlay */}
-        {countries.features.map((geo) => (
-          <Tooltip key={geo.id} title={getTooltip(`${geo.id}`) ?? ""}>
-            <Link href={getRegionUrl(`${geo.id}`)}>
-              <RegionOverlay d={geoPath(geo) ?? ""} />
-            </Link>
-          </Tooltip>
-        ))}
+        {countries.features.map((geo) => {
+          const regionUrl = getRegionUrl(`${geo.id}`);
+          return (
+            <Tooltip key={geo.id} title={getTooltip(`${geo.id}`) ?? ""}>
+              {regionUrl ? (
+                <Link href={regionUrl}>
+                  <RegionOverlay d={geoPath(geo) ?? ""} />
+                </Link>
+              ) : (
+                <RegionOverlay d={geoPath(geo) ?? ""} />
+              )}
+            </Tooltip>
+          );
+        })}
 
         {/* Nation Borders */}
         <path
