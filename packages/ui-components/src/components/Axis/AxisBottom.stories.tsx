@@ -47,6 +47,17 @@ interface TestCase {
   width: number;
 }
 
+// Here we generate a list of "test cases" using the `widthList` and the
+// `timePeriods` from above. Each test case will have a date interval,
+// a label, and a width. Example:
+//
+// {
+//   startDate: new Date('2022-01-01'),
+//   endDate: new Date('2022-01-08'),
+//   label: "2 weeks, 600px",
+//   width: 600
+// },
+// ...
 const testMatrix: TestCase[] = timePeriods.flatMap(({ amount, timeUnit }) => {
   return widthList.map((width) => {
     const label = `${amount} ${getTimeUnitLabel(amount, timeUnit)}`;
