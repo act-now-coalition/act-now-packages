@@ -133,4 +133,4 @@ export * from "./components/USNationalMap";
 export * from "./components/USStateMap";
 export * from "./components/WorldMap";
 export * from "./components/MetricChartBlock";
-export * from "./components/LoadedSentinel";
+export * from "./components/ComponentLoaded";

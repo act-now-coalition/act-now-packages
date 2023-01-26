@@ -6,6 +6,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricDot } from "../MetricDot";
 
@@ -54,11 +55,19 @@ export const MetricValue = ({
   const showMetricDot = data && data.currentValue !== null;
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center" width="fit-content">
-      {showMetricDot && <MetricDot region={region} metric={metric} />}
-      <Typography variant={variant} color={color}>
-        {formattedValue}
-      </Typography>
-    </Stack>
+    <>
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        width="fit-content"
+      >
+        {showMetricDot && <MetricDot region={region} metric={metric} />}
+        <Typography variant={variant} color={color}>
+          {formattedValue}
+        </Typography>
+      </Stack>
+      {data && <ComponentLoaded />}
+    </>
   );
 };

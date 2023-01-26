@@ -7,8 +7,8 @@ import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { getCountiesOfState } from "../../common/utils/maps";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
-import { LoadedSentinel } from "../LoadedSentinel";
 import { MetricMapTooltipContent } from "../MetricMapTooltipContent";
 import { USStateMap, USStateMapProps } from "../USStateMap";
 
@@ -88,7 +88,7 @@ export const MetricUSStateMap = ({
         stateRegionId={stateRegionId}
         {...otherProps}
       />
-      {data && <LoadedSentinel />}
+      {data && <ComponentLoaded />}
     </>
   );
 };
