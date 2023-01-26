@@ -72,14 +72,13 @@ const WorldMapInner = ({
         {/* Clickable region overlay */}
         {countries.features.map((geo) => {
           const regionUrl = getRegionUrl(`${geo.id}`);
+          const innerShape = <RegionOverlay d={geoPath(geo) ?? ""} />;
           return (
             <Tooltip key={geo.id} title={getTooltip(`${geo.id}`) ?? ""}>
               {regionUrl ? (
-                <Link href={regionUrl}>
-                  <RegionOverlay d={geoPath(geo) ?? ""} />
-                </Link>
+                <Link href={regionUrl}>{innerShape}</Link>
               ) : (
-                <RegionOverlay d={geoPath(geo) ?? ""} />
+                innerShape
               )}
             </Tooltip>
           );
