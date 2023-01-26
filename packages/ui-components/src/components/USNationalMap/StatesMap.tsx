@@ -61,19 +61,25 @@ const StatesMap = ({
     <svg width={width} height={height}>
       {statesGeographies.features.map((geo) => {
         const stateFips = `${geo.id}`;
+        const regionUrl = getRegionUrl(stateFips);
+        const innerShape = (
+          <g>
+            {!showCounties && (
+              <RegionShapeBase
+                d={geoPath(geo) ?? ""}
+                fill={getFillColor(stateFips)}
+              />
+            )}
+            <RegionOverlay d={geoPath(geo) ?? ""} />
+          </g>
+        );
         return (
           <Tooltip key={stateFips} title={getTooltip(stateFips) ?? ""}>
-            <Link href={getRegionUrl(stateFips)}>
-              <g>
-                {!showCounties && (
-                  <RegionShapeBase
-                    d={geoPath(geo) ?? ""}
-                    fill={getFillColor(stateFips)}
-                  />
-                )}
-                <RegionOverlay d={geoPath(geo) ?? ""} />
-              </g>
-            </Link>
+            {regionUrl ? (
+              <Link href={regionUrl}>{innerShape}</Link>
+            ) : (
+              innerShape
+            )}
           </Tooltip>
         );
       })}

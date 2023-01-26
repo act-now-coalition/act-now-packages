@@ -5,6 +5,8 @@ import { assert, fail } from "@actnowcoalition/assert";
 export * from "./PureDate";
 
 export enum DateFormat {
+  YYYY = "yyyy", // 2020
+  YY = "yy", // 20
   YYYY_MM_DD = "yyyy-MM-dd", // 2020-03-01
   MM_DD_YYYY = "MM/dd/yyyy", // 03/01/2020
   MMM_DD_YYYY = "MMM dd, yyyy", // Mar 01, 2020

@@ -1,5 +1,39 @@
 # @actnowcoalition/ui-components
 
+## 0.11.2
+
+### Patch Changes
+
+- d84593a: Improve maps to better handle missing region URLs
+- 9cad116: - Improve the format of the tick labels for AxisBottom
+  - Remove the width prop from AxisBottom (it's not really necessary)
+
+## 0.11.1
+
+### Patch Changes
+
+- b3ffafb: Improvement to tabs styling
+- Updated dependencies [fcf7830]
+  - @actnowcoalition/metrics@0.4.2
+
+## 0.11.0
+
+### Minor Changes
+
+- 87e1693: Remove getRegionUrl prop from metric-aware maps
+
+### Patch Changes
+
+- 9f9a8b6: Update `MultiRegionMultiMetricChart` to better support time intervals not based in a number of days.
+- c5f5784: Handle no data in metric chart
+- 81eb40e: Add a loading state to MetricCompareTable
+- ff08c0f: Fix #538: Add a default tooltip for metric maps.
+- f3de936: Fix #536: Fix alignment of icon on RegionSearch
+- caf8141: Rename MetricTooltip => MetricChartTooltip.
+- 2288c51: Ensure metric line threshold chart doesn't hang
+- Updated dependencies [2fc0d11]
+  - @actnowcoalition/regions@0.1.4
+
 ## 0.10.8
 
 ### Patch Changes

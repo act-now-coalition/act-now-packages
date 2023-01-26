@@ -1,5 +1,11 @@
 # @actnowcoalition/metrics
 
+## 0.4.2
+
+### Patch Changes
+
+- fcf7830: Update metrics package to depend on latest regions.
+
 ## 0.4.1
 
 ### Patch Changes
