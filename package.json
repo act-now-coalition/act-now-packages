@@ -26,6 +26,7 @@
     "build:cjs": "tsc --project ./tsconfig.cjs.json",
     "build": "yarn build:esm && yarn build:cjs",
     "release": "yarn build && yarn changeset publish",
+    "storybook": "start-storybook -p 6006",
     "create-component": "yarn plop component",
     "generate-module-docs": "yarn typedoc --out public/docs --entryPointStrategy packages --name 'Act Now Packages' . # See #356",
     "generate-src-docs": "yarn typedoc --out public/docs packages/*/src/index.ts --name 'Act Now Packages' # See #356",

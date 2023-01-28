@@ -3,9 +3,9 @@ import React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 
-import { MetricCatalogProvider } from "../src/components/MetricCatalogContext";
-import { metricCatalog } from "../src/stories/mockMetricCatalog";
-import { darkTheme, theme } from "../src/styles";
+import { metricCatalog } from "../src/ui-components/stories/mockMetricCatalog";
+import { darkTheme, theme } from "../src/ui-components/styles";
+import { MetricCatalogProvider } from "../src/ui-componentscomponents/MetricCatalogContext";
 
 enum Theme {
   LIGHT = "light",
