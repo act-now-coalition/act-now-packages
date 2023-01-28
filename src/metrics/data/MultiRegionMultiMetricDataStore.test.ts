@@ -1,5 +1,5 @@
-import { states } from "@actnowcoalition/regions";
-import { isoDateOnlyString } from "@actnowcoalition/time-utils";
+import { states } from "src/regions";
+import { isoDateOnlyString } from "src/time-utils";
 
 import { Metric } from "../Metric";
 import { MetricCatalog } from "../MetricCatalog";

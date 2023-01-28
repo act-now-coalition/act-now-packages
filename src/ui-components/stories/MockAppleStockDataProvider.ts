@@ -1,10 +1,6 @@
-import { assert } from "@actnowcoalition/assert";
-import {
-  Metric,
-  MetricData,
-  SimpleMetricDataProviderBase,
-} from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Metric, MetricData, SimpleMetricDataProviderBase } from "src/metrics";
+import { Region } from "src/regions";
 
 import { appleStockTimeseries } from "./mockData";
 

@@ -1,5 +1,5 @@
-import { assert } from "@actnowcoalition/assert";
-import { Category, Metric } from "@actnowcoalition/metrics";
+import { assert } from "src/assert";
+import { Category, Metric } from "src/metrics";
 
 export interface CategoryItem {
   /**

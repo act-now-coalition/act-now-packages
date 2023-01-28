@@ -1,12 +1,8 @@
 import React, { ReactNode } from "react";
 
 import { renderHook, waitFor } from "@testing-library/react";
-
-import {
-  MetricCatalog,
-  StaticValueDataProvider,
-} from "@actnowcoalition/metrics";
-import { states } from "@actnowcoalition/regions";
+import { MetricCatalog, StaticValueDataProvider } from "src/metrics";
+import { states } from "src/regions";
 
 import { MetricCatalogProvider } from "../../components/MetricCatalogContext";
 import {

@@ -8,8 +8,7 @@ import {
   TextField,
   createFilterOptions,
 } from "@mui/material";
-
-import { Region, RegionDB } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "src/regions";
 
 import { formatPopulation } from "../../common/utils";
 import { SearchItem } from "../SearchItem";

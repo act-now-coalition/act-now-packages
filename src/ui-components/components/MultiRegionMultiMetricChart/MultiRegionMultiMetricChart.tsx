@@ -2,9 +2,8 @@ import React, { useState } from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
 import { ParentSize } from "@visx/responsive";
-
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { Metric } from "src/metrics";
+import { Region } from "src/regions";
 
 import { BaseChartProps } from "../../common/utils/charts";
 import { useMetricCatalog } from "../MetricCatalogContext";

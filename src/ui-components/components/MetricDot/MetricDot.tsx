@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { Metric } from "src/metrics";
+import { Region } from "src/regions";
 
 import { useData } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";

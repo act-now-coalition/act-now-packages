@@ -1,4 +1,4 @@
-import { Region, states } from "@actnowcoalition/regions";
+import { Region, states } from "src/regions";
 
 import { Metric } from "../Metric";
 import { MetricCatalog } from "../MetricCatalog";

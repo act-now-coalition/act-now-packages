@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleUtc } from "@visx/scale";
-
-import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
+import { DateFormat, formatUTCDateTime } from "src/time-utils";
 
 import { ChartOverlayX } from ".";
 import { AxisBottom } from "../Axis";

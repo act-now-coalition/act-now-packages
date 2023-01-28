@@ -1,8 +1,7 @@
 import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
-
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Region } from "src/regions";
 
 import { Metric, MetricDefinition } from "../Metric";
 import {

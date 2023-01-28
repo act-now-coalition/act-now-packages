@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 import isNumber from "lodash/isNumber";
-
-import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { Timeseries, TimeseriesPoint } from "src/metrics";
 
 import { ChartOverlayXYProps, HoveredPointInfo } from "./ChartOverlayXY";
 

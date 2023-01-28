@@ -1,4 +1,4 @@
-import { counties, metros, nations, states } from "@actnowcoalition/regions";
+import { counties, metros, nations, states } from "src/regions";
 
 import { MetricCatalog } from "../MetricCatalog";
 import { CovidActNowDataProvider } from "./CovidActNowDataProvider";

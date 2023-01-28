@@ -1,4 +1,4 @@
-import { formatInteger } from "@actnowcoalition/number-format";
+import { formatInteger } from "src/number-format";
 
 export { default as importJson } from "./importJson";
 

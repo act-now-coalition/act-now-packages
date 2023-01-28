@@ -1,10 +1,9 @@
 import React from "react";
 
 import { Skeleton } from "@mui/material";
-
-import { assert } from "@actnowcoalition/assert";
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Metric } from "src/metrics";
+import { Region } from "src/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
 import { getChartRange } from "../../common/utils/charts";

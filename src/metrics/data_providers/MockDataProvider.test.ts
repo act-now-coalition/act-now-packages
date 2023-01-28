@@ -1,5 +1,5 @@
-import { assert } from "@actnowcoalition/assert";
-import { states } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { states } from "src/regions";
 
 import { Metric } from "../Metric";
 import { MockDataProvider } from "./MockDataProvider";

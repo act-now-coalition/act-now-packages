@@ -1,4 +1,4 @@
-import { Category } from "@actnowcoalition/metrics";
+import { Category } from "src/metrics";
 
 import { calculateChartIntervals } from "./utils";
 

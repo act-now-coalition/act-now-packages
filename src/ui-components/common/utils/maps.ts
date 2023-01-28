@@ -1,4 +1,4 @@
-import { Region, RegionDB } from "@actnowcoalition/regions";
+import { Region, RegionDB } from "src/regions";
 
 export interface BaseMapProps {
   /**

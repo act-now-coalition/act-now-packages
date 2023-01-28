@@ -3,7 +3,7 @@ import {
   MetricDefinition,
   MockDataProvider,
   StaticValueDataProvider,
-} from "@actnowcoalition/metrics";
+} from "src/metrics";
 
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";

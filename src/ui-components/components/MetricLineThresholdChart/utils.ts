@@ -1,5 +1,5 @@
-import { assert } from "@actnowcoalition/assert";
-import { Category } from "@actnowcoalition/metrics";
+import { assert } from "src/assert";
+import { Category } from "src/metrics";
 
 import { LineInterval } from "../LineIntervalChart";
 

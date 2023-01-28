@@ -1,9 +1,8 @@
 import React from "react";
 
 import { Stack, Typography } from "@mui/material";
-
-import { assert } from "@actnowcoalition/assert";
-import { Category, Metric } from "@actnowcoalition/metrics";
+import { assert } from "src/assert";
+import { Category, Metric } from "src/metrics";
 
 import { LegendCategorical } from "../LegendCategorical";
 import { useMetricCatalog } from "../MetricCatalogContext";

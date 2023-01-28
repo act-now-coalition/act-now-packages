@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { assert } from "@actnowcoalition/assert";
+import { assert } from "src/assert";
 
 import { SparkLine } from ".";
 import { appleStockTimeseries } from "../../stories/mockData";

@@ -3,12 +3,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-
-import {
-  TimeUnit,
-  getTimeUnitLabel,
-  subtractTime,
-} from "@actnowcoalition/time-utils";
+import { TimeUnit, getTimeUnitLabel, subtractTime } from "src/time-utils";
 
 import { AxisBottom, TimeAxisBottom } from ".";
 

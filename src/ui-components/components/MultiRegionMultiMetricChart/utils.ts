@@ -1,10 +1,6 @@
-import { DateRange, Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
-import {
-  TimeUnit,
-  getTimeUnitLabel,
-  subtractTime,
-} from "@actnowcoalition/time-utils";
+import { DateRange, Metric } from "src/metrics";
+import { Region } from "src/regions";
+import { TimeUnit, getTimeUnitLabel, subtractTime } from "src/time-utils";
 
 import { schemeCategory10 } from "../../common/utils/charts";
 import { Series, SeriesType } from "../SeriesChart";

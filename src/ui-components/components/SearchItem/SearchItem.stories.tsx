@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { counties, states } from "@actnowcoalition/regions";
+import { counties, states } from "src/regions";
 
 import { SearchItem } from "./SearchItem";
 

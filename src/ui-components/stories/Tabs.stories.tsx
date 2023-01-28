@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
 import { Stack, Tab, Tabs, Typography } from "@mui/material";
-
-import { states } from "@actnowcoalition/regions";
+import { states } from "src/regions";
 
 import { MetricValue } from "../components/MetricValue";
 import { MetricId, metricCatalog } from "./mockMetricCatalog";

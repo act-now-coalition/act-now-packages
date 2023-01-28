@@ -2,9 +2,8 @@ import React from "react";
 
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { IconButton, Stack, Typography } from "@mui/material";
-
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { Metric } from "src/metrics";
+import { Region } from "src/regions";
 
 import { InfoTooltip } from "../InfoTooltip";
 import { useMetricCatalog } from "../MetricCatalogContext";

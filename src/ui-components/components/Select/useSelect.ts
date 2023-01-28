@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { assert } from "@actnowcoalition/assert";
+import { assert } from "src/assert";
 
 export function useSelect<T>(
   items: T[],

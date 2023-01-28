@@ -5,8 +5,7 @@ import { curveMonotoneX } from "@visx/curve";
 import { LinePath } from "@visx/shape";
 import { LinePathProps } from "@visx/shape/lib/shapes/LinePath";
 import { ScaleLinear, ScaleTime } from "d3-scale";
-
-import { Timeseries, TimeseriesPoint } from "@actnowcoalition/metrics";
+import { Timeseries, TimeseriesPoint } from "src/metrics";
 
 export interface BaseLineChartProps {
   /**

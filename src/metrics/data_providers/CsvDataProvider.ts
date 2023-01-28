@@ -1,5 +1,5 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region, RegionDB } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Region, RegionDB } from "src/regions";
 
 import { Metric } from "../Metric";
 import { MetricData } from "../data/MetricData";

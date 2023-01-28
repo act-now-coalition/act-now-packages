@@ -1,7 +1,6 @@
 import fromPairs from "lodash/fromPairs";
-
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Region } from "src/regions";
 
 import { Metric } from "../Metric";
 import type { MetricCatalog } from "../MetricCatalog";

@@ -1,4 +1,4 @@
-import { Metric, NonEmptyTimeseries } from "@actnowcoalition/metrics";
+import { Metric, NonEmptyTimeseries } from "src/metrics";
 
 export interface BaseChartProps {
   /**

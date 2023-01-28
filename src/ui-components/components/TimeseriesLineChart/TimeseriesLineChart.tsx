@@ -2,8 +2,7 @@ import React from "react";
 
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-
-import { NonEmptyTimeseries } from "@actnowcoalition/metrics";
+import { NonEmptyTimeseries } from "src/metrics";
 
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";

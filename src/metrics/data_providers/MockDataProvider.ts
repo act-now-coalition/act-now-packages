@@ -1,8 +1,7 @@
 import delay from "delay";
-
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
-import { TimeUnit, getTimeDiff } from "@actnowcoalition/time-utils";
+import { assert } from "src/assert";
+import { Region } from "src/regions";
+import { TimeUnit, getTimeDiff } from "src/time-utils";
 
 import { Metric } from "../Metric";
 import { mockTimeseries } from "../Timeseries";

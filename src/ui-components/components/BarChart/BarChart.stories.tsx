@@ -3,8 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-
-import { assert } from "@actnowcoalition/assert";
+import { assert } from "src/assert";
 
 import { BarChart } from ".";
 import { appleStockTimeseries } from "../../stories/mockData";

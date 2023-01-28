@@ -3,8 +3,7 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-
-import { formatPercent } from "@actnowcoalition/number-format";
+import { formatPercent } from "src/number-format";
 
 import { AxesTimeseries } from "./AxesTimeseries";
 

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { Metric } from "@actnowcoalition/metrics";
+import { Metric } from "src/metrics";
 
 import { Select } from ".";
 import { metricCatalog } from "../../stories/mockMetricCatalog";

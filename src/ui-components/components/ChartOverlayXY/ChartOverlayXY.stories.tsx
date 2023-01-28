@@ -3,8 +3,7 @@ import React from "react";
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-
-import { Timeseries } from "@actnowcoalition/metrics";
+import { Timeseries } from "src/metrics";
 
 import { ChartOverlayXY, useHoveredPoint } from ".";
 import { AxisBottom, AxisLeft } from "../Axis";

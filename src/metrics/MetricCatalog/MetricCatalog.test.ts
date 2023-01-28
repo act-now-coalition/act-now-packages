@@ -1,4 +1,4 @@
-import { states } from "@actnowcoalition/regions";
+import { states } from "src/regions";
 
 import { SnapshotJSON } from "../data";
 import { MockDataProvider, StaticValueDataProvider } from "../data_providers";

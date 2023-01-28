@@ -3,9 +3,8 @@ import groupBy from "lodash/groupBy";
 import isNil from "lodash/isNil";
 import truncate from "lodash/truncate";
 import Papa from "papaparse";
-
-import { assert } from "@actnowcoalition/assert";
-import { Region, RegionDB } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Region, RegionDB } from "src/regions";
 
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";

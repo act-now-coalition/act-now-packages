@@ -47,7 +47,7 @@ See [`src/datasets/us/states.json`](src/datasets/us/states.json), [`src/datasets
 ##### Using states, counties, and metropolitan areas
 
 ```tsx
-import { counties, metros, states } from "@actnowcoalition/regions";
+import { counties, metros, states } from "src/regions";
 
 const ny = states.findByRegionId("36");
 console.log(ny.fullName); // New York
@@ -67,7 +67,7 @@ This dataset contains countries and territories that the WHO uses. We use [ISO3 
 ##### Using nations
 
 ```tsx
-import { nations } from "@actnowcoalition/regions";
+import { nations } from "src/regions";
 
 const irl = nations.findByRegionId("IRL");
 console.log(irl.fullName); // Ireland

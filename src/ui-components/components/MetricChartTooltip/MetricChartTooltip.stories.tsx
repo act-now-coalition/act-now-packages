@@ -2,9 +2,8 @@ import React from "react";
 
 import { colors } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { TimeseriesPoint } from "@actnowcoalition/metrics";
-import { states } from "@actnowcoalition/regions";
+import { TimeseriesPoint } from "src/metrics";
+import { states } from "src/regions";
 
 import { MetricChartTooltip } from ".";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";

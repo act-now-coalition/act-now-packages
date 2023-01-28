@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { Region, RegionDB, nations } from "@actnowcoalition/regions";
+import { Region, RegionDB, nations } from "src/regions";
 
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricWorldMap } from "./MetricWorldMap";

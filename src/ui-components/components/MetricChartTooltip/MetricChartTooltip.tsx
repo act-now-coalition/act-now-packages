@@ -1,10 +1,9 @@
 import React from "react";
 
 import { Stack, Tooltip, TooltipProps, Typography } from "@mui/material";
-
-import { Metric, TimeseriesPoint } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
-import { DateFormat, formatUTCDateTime } from "@actnowcoalition/time-utils";
+import { Metric, TimeseriesPoint } from "src/metrics";
+import { Region } from "src/regions";
+import { DateFormat, formatUTCDateTime } from "src/time-utils";
 
 import { useMetricCatalog } from "../MetricCatalogContext";
 

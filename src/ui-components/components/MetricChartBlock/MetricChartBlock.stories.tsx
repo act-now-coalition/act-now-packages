@@ -2,8 +2,7 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { nations } from "@actnowcoalition/regions";
+import { nations } from "src/regions";
 
 import { MetricChartBlock } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";

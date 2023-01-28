@@ -1,4 +1,4 @@
-import { assert } from "@actnowcoalition/assert";
+import { assert } from "src/assert";
 
 /**
  * Represents a pure date (with no time component).  Useful for e.g.

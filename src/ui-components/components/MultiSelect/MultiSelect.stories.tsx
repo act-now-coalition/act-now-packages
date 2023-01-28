@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 import { ComponentMeta } from "@storybook/react";
 import sortBy from "lodash/sortBy";
-
-import { Region, states } from "@actnowcoalition/regions";
+import { Region, states } from "src/regions";
 
 import { MultiSelect, MultiSelectProps } from ".";
 

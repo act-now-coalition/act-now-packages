@@ -3,7 +3,7 @@ import {
   TimeUnit,
   formatUTCDateTime,
   getTimeDiff,
-} from "@actnowcoalition/time-utils";
+} from "src/time-utils";
 
 interface AxisFormatInfo {
   numTicks: number;

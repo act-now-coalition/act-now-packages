@@ -3,10 +3,9 @@ import React from "react";
 import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-
-import { assert } from "@actnowcoalition/assert";
-import { Metric } from "@actnowcoalition/metrics";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Metric } from "src/metrics";
+import { Region } from "src/regions";
 
 import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";

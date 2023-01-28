@@ -9,9 +9,8 @@ import min from "lodash/min";
 import some from "lodash/some";
 import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
-
-import { assert } from "@actnowcoalition/assert";
-import { DateRange, Timeseries } from "@actnowcoalition/metrics";
+import { assert } from "src/assert";
+import { DateRange, Timeseries } from "src/metrics";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";

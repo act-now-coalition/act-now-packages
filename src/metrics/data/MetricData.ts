@@ -1,5 +1,5 @@
-import { assert } from "@actnowcoalition/assert";
-import { Region } from "@actnowcoalition/regions";
+import { assert } from "src/assert";
+import { Region } from "src/regions";
 
 import { Category, Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";

@@ -1,8 +1,7 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-
-import { Region, RegionDB, states } from "@actnowcoalition/regions";
+import { Region, RegionDB, states } from "src/regions";
 
 import { MetricCompareTable } from ".";
 import { MetricId } from "../../stories/mockMetricCatalog";
