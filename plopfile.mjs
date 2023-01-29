@@ -64,7 +64,7 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
     });
   });
 
-  const componentBasePath = "packages/ui-components/src/components";
+  const componentBasePath = "src/ui-components/components";
   plop.setGenerator("component", {
     description: "Creates a component module with stories, styles and index.",
     prompts: [
@@ -97,7 +97,7 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
       },
       {
         type: "append",
-        path: `packages/ui-components/src/index.ts`,
+        path: `src/ui-components/index.ts`,
         template: 'export * from "./components/{{pascalCase name}}";',
         unique: true,
       },
