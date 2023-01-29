@@ -29,8 +29,8 @@
     "storybook": "start-storybook -p 6006",
     "create-component": "yarn plop component",
     "generate-module-docs": "yarn typedoc --out public/docs --entryPointStrategy packages --name 'Act Now Packages' . # See #356",
-    "generate-src-docs": "yarn typedoc --out public/docs packages/*/src/index.ts --name 'Act Now Packages' # See #356",
-    "generate-storybook": "yarn build-storybook -c packages/ui-components/.storybook/ -o public/storybook",
+    "generate-src-docs": "yarn typedoc --out public/docs src/*/index.ts --name 'Act Now Packages' # See #356",
+    "generate-storybook": "yarn build-storybook -o public/storybook",
     "build-public": "yarn build && yarn generate-storybook && yarn generate-src-docs"
   },
   "lint-staged": {
