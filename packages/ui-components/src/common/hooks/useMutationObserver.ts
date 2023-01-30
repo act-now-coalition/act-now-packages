@@ -1,6 +1,13 @@
 import { RefObject, useEffect, useMemo } from "react";
 
 /**
+ * Flag to indicate if the current environment is server-side rendered.
+ */
+const isSSR = !(
+  typeof window !== "undefined" && window.document?.createElement
+);
+
+/**
  * Hook to observe for mutations on a DOM element.
  *
  * Interpolated from https://tobbelindstrom.com/blog/useMutationObserver/
@@ -15,24 +22,17 @@ export function useMutationObserver(
   options?: MutationObserverInit
 ): void {
   const observer = useMemo(
+    // Ensure the content has been rendered client-side before creating the observer.
     () => (isSSR ? null : new MutationObserver(callback)),
     [callback]
   );
 
-  if (!options) {
-    options = {};
-  }
-
   useEffect(() => {
     const target = ref?.current;
     if (observer && target) {
-      observer.observe(target, options);
+      observer.observe(target, options ?? {});
       // Disconnect/shutdown observer on hook cleanup.
       return () => observer.disconnect();
     }
   }, [ref, observer, options]);
 }
-
-export const isSSR = !(
-  typeof window !== "undefined" && window.document?.createElement
-);

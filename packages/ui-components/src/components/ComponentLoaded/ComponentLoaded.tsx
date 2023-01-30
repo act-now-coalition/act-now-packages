@@ -9,5 +9,7 @@ import { Box } from "@mui/material";
  * before capturing the image.
  */
 export const ComponentLoaded = () => {
-  return <Box className="component-loaded" style={{ display: "none" }}></Box>;
+  return (
+    <Box className="act-now-component-loaded" style={{ display: "none" }}></Box>
+  );
 };

@@ -109,9 +109,7 @@ export const MetricSparklines = ({
           maxValue={maxValue}
           {...optionalProps}
         />
-        {timeseriesBarChart.hasData() && timeseriesLineChart.hasData() && (
-          <ComponentLoaded />
-        )}
+        {data && <ComponentLoaded />}
       </>
     );
   }
