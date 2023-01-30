@@ -1,5 +1,12 @@
 # @actnowcoalition/ui-components
 
+## 0.11.3
+
+### Patch Changes
+
+- 2bd31e0: Improve styling for LegendThresholdHorizontal
+- a79075f: update share image screenshot logic
+
 ## 0.11.2
 
 ### Patch Changes
