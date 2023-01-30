@@ -8,6 +8,7 @@ import { Region } from "@actnowcoalition/regions";
 
 import { useDataForMetrics } from "../../common/hooks";
 import { getChartRange } from "../../common/utils/charts";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
@@ -100,13 +101,16 @@ export const MetricSparklines = ({
     const maxValue = Math.max(maxValueLineChart, maxValueBarChart);
 
     return (
-      <SparkLine
-        timeseriesLineChart={timeseriesLineChart}
-        timeseriesBarChart={timeseriesBarChart}
-        minValue={minValue}
-        maxValue={maxValue}
-        {...optionalProps}
-      />
+      <>
+        <SparkLine
+          timeseriesLineChart={timeseriesLineChart}
+          timeseriesBarChart={timeseriesBarChart}
+          minValue={minValue}
+          maxValue={maxValue}
+          {...optionalProps}
+        />
+        {data && <ComponentLoaded />}
+      </>
     );
   }
 };

@@ -4,6 +4,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region } from "@actnowcoalition/regions";
 
 import { useData } from "../../common/hooks";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Dot, PlaceholderDot } from "./MetricDot.style";
 
@@ -36,5 +37,10 @@ export const MetricDot = ({ region, metric: metricOrId }: MetricDotProps) => {
 
   // TODO: Find out accessibility best practices for this component
   const backgroundColor = metric.getColor(data.currentValue);
-  return <Dot style={{ backgroundColor }} />;
+  return (
+    <>
+      <Dot style={{ backgroundColor }} />
+      {data && <ComponentLoaded />}
+    </>
+  );
 };

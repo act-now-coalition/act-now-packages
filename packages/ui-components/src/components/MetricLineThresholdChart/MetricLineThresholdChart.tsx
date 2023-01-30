@@ -12,6 +12,7 @@ import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
 import { GridRows } from "../Grid";
 import { LineIntervalChart } from "../LineIntervalChart";
@@ -118,48 +119,51 @@ export const MetricLineThresholdChart = ({
   });
 
   return (
-    <svg width={width} height={height} style={{ display: "block" }}>
-      <Group left={marginLeft} top={marginTop}>
-        <AxesTimeseries
-          height={chartHeight}
-          xScale={xScale}
-          yScale={yScale}
-          axisLeftProps={{
-            tickFormat: (value) => metric.formatValue(value),
-            tickValues: thresholds,
-          }}
-        />
-        <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
-        <LineIntervalChart
-          timeseries={timeseries}
-          xScale={xScale}
-          yScale={yScale}
-          intervals={intervals}
-          topIntervalOffset={5}
-        />
-        {hoveredPoint && (
-          <MetricChartTooltip
-            metric={metric}
-            region={region}
-            point={hoveredPoint}
-            open
-          >
-            <PointMarker
-              x={xScale(hoveredPoint.date)}
-              y={yScale(hoveredPoint.value)}
-              fill={metric.getColor(hoveredPoint.value)}
-            />
-          </MetricChartTooltip>
-        )}
-        <ChartOverlayX
-          width={chartWidth}
-          height={chartHeight}
-          xScale={xScale}
-          offset={marginLeft}
-          onMouseMove={onMouseMove}
-          onMouseLeave={onMouseLeave}
-        />
-      </Group>
-    </svg>
+    <>
+      <svg width={width} height={height} style={{ display: "block" }}>
+        <Group left={marginLeft} top={marginTop}>
+          <AxesTimeseries
+            height={chartHeight}
+            xScale={xScale}
+            yScale={yScale}
+            axisLeftProps={{
+              tickFormat: (value) => metric.formatValue(value),
+              tickValues: thresholds,
+            }}
+          />
+          <GridRows scale={yScale} width={chartWidth} tickValues={thresholds} />
+          <LineIntervalChart
+            timeseries={timeseries}
+            xScale={xScale}
+            yScale={yScale}
+            intervals={intervals}
+            topIntervalOffset={5}
+          />
+          {hoveredPoint && (
+            <MetricChartTooltip
+              metric={metric}
+              region={region}
+              point={hoveredPoint}
+              open
+            >
+              <PointMarker
+                x={xScale(hoveredPoint.date)}
+                y={yScale(hoveredPoint.value)}
+                fill={metric.getColor(hoveredPoint.value)}
+              />
+            </MetricChartTooltip>
+          )}
+          <ChartOverlayX
+            width={chartWidth}
+            height={chartHeight}
+            xScale={xScale}
+            offset={marginLeft}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+          />
+        </Group>
+      </svg>
+      {data && data.timeseries.hasData() && <ComponentLoaded />}
+    </>
   );
 };

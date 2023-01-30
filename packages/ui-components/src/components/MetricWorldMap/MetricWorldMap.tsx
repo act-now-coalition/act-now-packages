@@ -6,6 +6,7 @@ import { Metric } from "@actnowcoalition/metrics";
 import { Region, RegionDB } from "@actnowcoalition/regions";
 
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
 import { MetricMapTooltipContent } from "../MetricMapTooltipContent";
 import WorldMap, { WorldMapProps } from "../WorldMap";
@@ -62,23 +63,26 @@ export const MetricWorldMap = ({
     ((region) => <MetricMapTooltipContent region={region} metric={metric} />);
 
   return (
-    <WorldMap
-      getFillColor={(regionId: string) => {
-        const region = regionDB.findByRegionId(regionId);
-        return region && data
-          ? data.metricData(region, metric).getColor()
-          : theme.palette.action.disabledBackground;
-      }}
-      getRegionUrl={(regionId: string) => {
-        const region = regionDB.findByRegionId(regionId);
-        const url = region ? regionDB.getRegionUrl(region) : undefined;
-        return url;
-      }}
-      getTooltip={(regionId: string) => {
-        const region = regionDB.findByRegionId(regionId);
-        return region && getTooltipInternal(region);
-      }}
-      {...otherProps}
-    />
+    <>
+      <WorldMap
+        getFillColor={(regionId: string) => {
+          const region = regionDB.findByRegionId(regionId);
+          return region && data
+            ? data.metricData(region, metric).getColor()
+            : theme.palette.action.disabledBackground;
+        }}
+        getRegionUrl={(regionId: string) => {
+          const region = regionDB.findByRegionId(regionId);
+          const url = region ? regionDB.getRegionUrl(region) : undefined;
+          return url;
+        }}
+        getTooltip={(regionId: string) => {
+          const region = regionDB.findByRegionId(regionId);
+          return region && getTooltipInternal(region);
+        }}
+        {...otherProps}
+      />
+      {data && <ComponentLoaded />}
+    </>
   );
 };
