@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Stack, Tooltip, TooltipProps, Typography } from "@mui/material";
-import { Metric, TimeseriesPoint } from "src/metrics";
-import { Region } from "src/regions";
-import { DateFormat, formatUTCDateTime } from "src/time-utils";
 
+import { Metric, TimeseriesPoint } from "../../../metrics";
+import { Region } from "../../../regions";
+import { DateFormat, formatUTCDateTime } from "../../../time-utils";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
 export interface MetricChartTooltipWithChildren

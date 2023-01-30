@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Region, RegionDB, states } from "src/regions";
 
 import { MetricCompareTable } from ".";
+import { Region, RegionDB, states } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { SortDirection, TableContainer } from "../CompareTable";
 

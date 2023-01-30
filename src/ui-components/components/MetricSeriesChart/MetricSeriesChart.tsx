@@ -9,9 +9,9 @@ import min from "lodash/min";
 import some from "lodash/some";
 import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
-import { assert } from "src/assert";
-import { DateRange, Timeseries } from "src/metrics";
 
+import { assert } from "../../../assert";
+import { DateRange, Timeseries } from "../../../metrics";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";

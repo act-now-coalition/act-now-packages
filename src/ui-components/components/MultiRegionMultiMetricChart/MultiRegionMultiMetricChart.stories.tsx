@@ -4,10 +4,10 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import first from "lodash/first";
 import last from "lodash/last";
 import sortBy from "lodash/sortBy";
-import { states } from "src/regions";
-import { TimeUnit } from "src/time-utils";
 
 import { MultiRegionMultiMetricChart } from ".";
+import { states } from "../../../regions";
+import { TimeUnit } from "../../../time-utils";
 import { MetricId, metricCatalog } from "../../stories/mockMetricCatalog";
 import { TimePeriod, timePeriodOption } from "./utils";
 

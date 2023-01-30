@@ -1,10 +1,10 @@
 import React from "react";
 
 import { Skeleton } from "@mui/material";
-import { assert } from "src/assert";
-import { Metric } from "src/metrics";
-import { Region } from "src/regions";
 
+import { assert } from "../../../assert";
+import { Metric } from "../../../metrics";
+import { Region } from "../../../regions";
 import { useDataForMetrics } from "../../common/hooks";
 import { getChartRange } from "../../common/utils/charts";
 import { ErrorBox } from "../ErrorBox";

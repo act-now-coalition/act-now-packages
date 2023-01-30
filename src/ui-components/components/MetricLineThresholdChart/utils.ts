@@ -1,6 +1,5 @@
-import { assert } from "src/assert";
-import { Category } from "src/metrics";
-
+import { assert } from "../../../assert";
+import { Category } from "../../../metrics";
 import { LineInterval } from "../LineIntervalChart";
 
 export interface ChartInterval extends LineInterval {

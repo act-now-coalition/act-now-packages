@@ -3,7 +3,8 @@ import React from "react";
 import { useTheme } from "@mui/material";
 import { Group } from "@visx/group";
 import { ScaleLinear, ScaleTime } from "d3-scale";
-import { Timeseries } from "src/metrics";
+
+import { Timeseries } from "../../../metrics";
 
 export interface BaseBarChartProps {
   /**

@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Metric } from "src/metrics";
 
 import { Select } from ".";
+import { Metric } from "../../../metrics";
 import { metricCatalog } from "../../stories/mockMetricCatalog";
 import { useSelect } from "./useSelect";
 

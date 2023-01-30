@@ -2,9 +2,9 @@ import React from "react";
 
 import { Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { states } from "src/regions";
 
 import { MetricOverview } from ".";
+import { states } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {

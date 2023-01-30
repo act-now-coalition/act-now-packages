@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { states } from "src/regions";
 
 import { MetricSparklines } from ".";
+import { states } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {

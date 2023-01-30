@@ -1,5 +1,4 @@
-import { Category } from "src/metrics";
-
+import { Category } from "../../../metrics";
 import { calculateChartIntervals } from "./utils";
 
 const LOW = { id: "low", color: "green" };

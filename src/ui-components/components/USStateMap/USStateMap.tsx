@@ -2,8 +2,8 @@ import React from "react";
 
 import { Link, Tooltip } from "@mui/material";
 import { geoPath as d3GeoPath, geoAlbersUsa, geoMercator } from "d3-geo";
-import { Region } from "src/regions";
 
+import { Region } from "../../../regions";
 import {
   countiesGeographies,
   defaultHeight,

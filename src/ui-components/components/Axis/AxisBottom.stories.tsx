@@ -3,9 +3,9 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { TimeUnit, getTimeUnitLabel, subtractTime } from "src/time-utils";
 
 import { AxisBottom, TimeAxisBottom } from ".";
+import { TimeUnit, getTimeUnitLabel, subtractTime } from "../../../time-utils";
 
 export default {
   title: "Components/AxisBottom",

@@ -1,5 +1,4 @@
-import { states } from "src/regions";
-
+import { states } from "../../regions";
 import { Metric } from "../Metric";
 import { MetricCatalog } from "../MetricCatalog";
 import { JsonDataProvider } from "./JsonDataProvider";

@@ -1,13 +1,13 @@
 import truncate from "lodash/truncate";
+import useSWR, { Fetcher, Key, SWRResponse } from "swr";
+
 import {
   Metric,
   MetricData,
   MultiMetricDataStore,
   MultiRegionMultiMetricDataStore,
-} from "src/metrics";
-import { Region } from "src/regions";
-import useSWR, { Fetcher, Key, SWRResponse } from "swr";
-
+} from "../../../metrics";
+import { Region } from "../../../regions";
 import { useMetricCatalog } from "../../components/MetricCatalogContext";
 
 /**

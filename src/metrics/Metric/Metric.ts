@@ -1,8 +1,8 @@
 import isEqual from "lodash/isEqual";
 import last from "lodash/last";
-import { assert, fail } from "src/assert";
-import { isFinite } from "src/number-format";
 
+import { assert, fail } from "../../assert";
+import { isFinite } from "../../number-format";
 import { MetricCatalogOptions } from "../MetricCatalog";
 import { Category, CategorySet } from "./Category";
 import { MetricDataReference } from "./MetricDataReference";

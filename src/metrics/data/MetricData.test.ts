@@ -1,5 +1,4 @@
-import { states } from "src/regions";
-
+import { states } from "../../regions";
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "./MetricData";

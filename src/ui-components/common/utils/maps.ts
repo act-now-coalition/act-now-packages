@@ -1,4 +1,4 @@
-import { Region, RegionDB } from "src/regions";
+import { Region, RegionDB } from "../../../regions";
 
 export interface BaseMapProps {
   /**

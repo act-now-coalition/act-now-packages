@@ -1,5 +1,4 @@
-import { states } from "src/regions";
-
+import { states } from "../../regions";
 import { SnapshotJSON } from "../data";
 import { MockDataProvider, StaticValueDataProvider } from "../data_providers";
 import { MetricCatalog } from "./MetricCatalog";

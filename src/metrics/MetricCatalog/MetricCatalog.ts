@@ -1,8 +1,8 @@
 import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
-import { assert } from "src/assert";
-import { Region } from "src/regions";
 
+import { assert } from "../../assert";
+import { Region } from "../../regions";
 import { Metric, MetricDefinition } from "../Metric";
 import {
   MetricData,

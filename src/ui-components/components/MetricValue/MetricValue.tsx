@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Stack, Typography, TypographyProps } from "@mui/material";
-import { Metric } from "src/metrics";
-import { Region } from "src/regions";
 
+import { Metric } from "../../../metrics";
+import { Region } from "../../../regions";
 import { useData } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricDot } from "../MetricDot";

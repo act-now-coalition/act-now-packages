@@ -2,8 +2,8 @@ import React from "react";
 
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { Timeseries } from "src/metrics";
 
+import { Timeseries } from "../../../metrics";
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 

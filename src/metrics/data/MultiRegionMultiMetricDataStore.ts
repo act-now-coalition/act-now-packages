@@ -1,8 +1,8 @@
 import mapValues from "lodash/mapValues";
-import { assert } from "src/assert";
-import { Region } from "src/regions";
-import { isoDateOnlyString } from "src/time-utils";
 
+import { assert } from "../../assert";
+import { Region } from "../../regions";
+import { isoDateOnlyString } from "../../time-utils";
 import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
 import { MetricData } from "./MetricData";

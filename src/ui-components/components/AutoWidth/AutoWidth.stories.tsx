@@ -2,9 +2,9 @@ import React from "react";
 
 import { Box, Grid, colors } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
-import { states } from "src/regions";
 
 import { AutoWidth } from ".";
+import { states } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { styled } from "../../styles";
 import { MetricSparklines } from "../MetricSparklines";

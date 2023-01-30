@@ -1,7 +1,8 @@
 import { appleStock, cityTemperature } from "@visx/mock-data";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { assert } from "src/assert";
-import { Timeseries, TimeseriesPoint } from "src/metrics";
+
+import { assert } from "../../assert";
+import { Timeseries, TimeseriesPoint } from "../../metrics";
 
 // We generate random decimal points in TimeseriesPoint<number>
 // format so we can use them to initialize Timeseries.

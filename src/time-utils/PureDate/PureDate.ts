@@ -1,4 +1,4 @@
-import { assert } from "src/assert";
+import { assert } from "../../assert";
 
 /**
  * Represents a pure date (with no time component).  Useful for e.g.

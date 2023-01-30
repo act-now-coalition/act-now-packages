@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import { Typography } from "@mui/material";
 import { ComponentMeta } from "@storybook/react";
-import { formatInteger } from "src/number-format";
-import { Region, states } from "src/regions";
 
 import {
   ColumnDefinition,
@@ -15,6 +13,8 @@ import {
   compare,
   sortTableRows,
 } from ".";
+import { formatInteger } from "../../../number-format";
+import { Region, states } from "../../../regions";
 
 export default {
   title: "Components/CompareTable",

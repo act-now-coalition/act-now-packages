@@ -3,7 +3,7 @@ import {
   TimeUnit,
   formatUTCDateTime,
   getTimeDiff,
-} from "src/time-utils";
+} from "../../../time-utils";
 
 interface AxisFormatInfo {
   numTicks: number;

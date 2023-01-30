@@ -1,6 +1,5 @@
-import { states } from "src/regions";
-import { isoDateOnlyString } from "src/time-utils";
-
+import { states } from "../../regions";
+import { isoDateOnlyString } from "../../time-utils";
 import { Metric } from "../Metric";
 import { MetricCatalog } from "../MetricCatalog";
 import { StaticValueDataProvider } from "../data_providers";

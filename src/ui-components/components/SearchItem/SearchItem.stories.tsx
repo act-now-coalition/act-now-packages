@@ -1,8 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { counties, states } from "src/regions";
 
+import { counties, states } from "../../../regions";
 import { SearchItem } from "./SearchItem";
 
 export default {

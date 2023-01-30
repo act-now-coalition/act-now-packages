@@ -1,8 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Region, RegionDB, counties, states } from "src/regions";
 
+import { Region, RegionDB, counties, states } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricUSStateMap } from "./MetricUSStateMap";
 

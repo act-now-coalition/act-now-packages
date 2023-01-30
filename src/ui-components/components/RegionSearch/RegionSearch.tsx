@@ -8,8 +8,8 @@ import {
   TextField,
   createFilterOptions,
 } from "@mui/material";
-import { Region, RegionDB } from "src/regions";
 
+import { Region, RegionDB } from "../../../regions";
 import { formatPopulation } from "../../common/utils";
 import { SearchItem } from "../SearchItem";
 import { StyledListItem } from "./RegionSearch.style";

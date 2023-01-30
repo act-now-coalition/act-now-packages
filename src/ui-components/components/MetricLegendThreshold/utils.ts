@@ -1,5 +1,5 @@
-import { assert } from "src/assert";
-import { Category, Metric } from "src/metrics";
+import { assert } from "../../../assert";
+import { Category, Metric } from "../../../metrics";
 
 export interface CategoryItem {
   /**

@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Metric } from "src/metrics";
-import { Region } from "src/regions";
-
+import { Metric } from "../../../metrics";
+import { Region } from "../../../regions";
 import { useData } from "../../common/hooks";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Dot, PlaceholderDot } from "./MetricDot.style";

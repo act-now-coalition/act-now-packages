@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ScaleLinear, ScaleTime } from "d3-scale";
-import { Metric, Timeseries } from "src/metrics";
-import { Region } from "src/regions";
 
+import { Metric, Timeseries } from "../../../metrics";
+import { Region } from "../../../regions";
 import { BarChart } from "../BarChart";
 import { LineChart } from "../LineChart";
 

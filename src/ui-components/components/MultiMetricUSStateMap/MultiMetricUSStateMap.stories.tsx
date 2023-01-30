@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { Region, RegionDB, counties, states } from "src/regions";
 
 import { MultiMetricUSStateMap } from ".";
+import { Region, RegionDB, counties, states } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 
 export default {

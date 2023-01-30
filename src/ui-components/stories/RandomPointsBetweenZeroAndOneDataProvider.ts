@@ -1,7 +1,10 @@
-import { assert } from "src/assert";
-import { Metric, MetricData, SimpleMetricDataProviderBase } from "src/metrics";
-import { Region } from "src/regions";
-
+import { assert } from "../../assert";
+import {
+  Metric,
+  MetricData,
+  SimpleMetricDataProviderBase,
+} from "../../metrics";
+import { Region } from "../../regions";
 import { randomPointsBetweenZeroAndOneTimeseries } from "./mockData";
 
 /**

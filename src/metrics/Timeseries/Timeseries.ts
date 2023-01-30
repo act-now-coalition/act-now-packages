@@ -4,9 +4,10 @@ import last from "lodash/last";
 import maxBy from "lodash/maxBy";
 import minBy from "lodash/minBy";
 import sumBy from "lodash/sumBy";
-import { assert } from "src/assert";
-import { isFinite } from "src/number-format";
-import { PureDate, isoDateOnlyString } from "src/time-utils";
+
+import { assert } from "../../assert";
+import { isFinite } from "../../number-format";
+import { PureDate, isoDateOnlyString } from "../../time-utils";
 
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {

@@ -1,7 +1,7 @@
 import mapValues from "lodash/mapValues";
-import { assert } from "src/assert";
-import { Region } from "src/regions";
 
+import { assert } from "../../assert";
+import { Region } from "../../regions";
 import { Metric } from "../Metric";
 import { MetricData } from "./MetricData";
 

@@ -1,8 +1,8 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { assert } from "src/assert";
 
+import { assert } from "../../../assert";
 import { appleStockTimeseries } from "../../stories/mockData";
 import { TimeseriesLineChart } from "./TimeseriesLineChart";
 

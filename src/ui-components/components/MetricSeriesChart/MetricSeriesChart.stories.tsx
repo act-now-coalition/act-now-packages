@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { states } from "src/regions";
 
 import { MetricSeriesChart } from ".";
+import { states } from "../../../regions";
 import { schemeCategory10 } from "../../common/utils/charts";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { theme } from "../../styles";

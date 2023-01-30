@@ -1,7 +1,7 @@
 import fromPairs from "lodash/fromPairs";
-import { assert } from "src/assert";
-import { Region } from "src/regions";
 
+import { assert } from "../../assert";
+import { Region } from "../../regions";
 import { Metric } from "../Metric";
 import type { MetricCatalog } from "../MetricCatalog";
 import { MetricData, MultiRegionMultiMetricDataStore } from "../data";

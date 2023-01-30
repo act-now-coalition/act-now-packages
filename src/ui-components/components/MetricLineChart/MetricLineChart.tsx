@@ -3,9 +3,9 @@ import React from "react";
 import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { Metric } from "src/metrics";
-import { Region } from "src/regions";
 
+import { Metric } from "../../../metrics";
+import { Region } from "../../../regions";
 import { useData } from "../../common/hooks";
 import { BaseChartProps, getChartRange } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";

@@ -1,4 +1,4 @@
-import { Metric, NonEmptyTimeseries } from "src/metrics";
+import { Metric, NonEmptyTimeseries } from "../../../metrics";
 
 export interface BaseChartProps {
   /**

@@ -1,9 +1,9 @@
 import React from "react";
 
 import { useTheme } from "@mui/material";
-import { Metric } from "src/metrics";
-import { Region, RegionDB } from "src/regions";
 
+import { Metric } from "../../../metrics";
+import { Region, RegionDB } from "../../../regions";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { getCountiesOfState } from "../../common/utils/maps";
 import { ErrorBox } from "../ErrorBox";

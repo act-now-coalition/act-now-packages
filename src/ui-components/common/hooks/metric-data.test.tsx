@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 
 import { renderHook, waitFor } from "@testing-library/react";
-import { MetricCatalog, StaticValueDataProvider } from "src/metrics";
-import { states } from "src/regions";
 
+import { MetricCatalog, StaticValueDataProvider } from "../../../metrics";
+import { states } from "../../../regions";
 import { MetricCatalogProvider } from "../../components/MetricCatalogContext";
 import {
   useData,

@@ -1,5 +1,3 @@
-import { resolve } from "path";
-
 export default {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx|mdx)"],
   addons: [
@@ -22,20 +20,5 @@ export default {
     // version of babel we don't need all of those plugins.
     options["plugins"] = [];
     return options;
-  },
-  webpackFinal: async (config: any) => {
-    // Add "src" alias so we can resolve imports like "src/assert" For
-    // TypeScript this is handled by setting baseUrl to "." but Storybook /
-    // webpack doesn't respect this by default.
-    return {
-      ...config,
-      resolve: {
-        ...config?.resolve,
-        alias: {
-          ...config?.resolve?.alias,
-          src: resolve(__dirname, "../src"),
-        },
-      },
-    };
   },
 };

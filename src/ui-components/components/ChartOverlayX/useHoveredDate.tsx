@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { Timeseries, TimeseriesPoint } from "src/metrics";
-
+import { Timeseries, TimeseriesPoint } from "../../../metrics";
 import { ChartOverlayXProps } from "./ChartOverlayX";
 
 /**

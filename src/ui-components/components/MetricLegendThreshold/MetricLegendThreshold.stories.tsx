@@ -2,8 +2,8 @@ import React from "react";
 
 import { Paper, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { states } from "src/regions";
 
+import { states } from "../../../regions";
 import { useData } from "../../common/hooks";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { MetricLegendThreshold } from "./MetricLegendThreshold";

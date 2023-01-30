@@ -1,6 +1,7 @@
 import startCase from "lodash/startCase";
-import { fail } from "src/assert";
-import { Metric } from "src/metrics";
+
+import { fail } from "../../../assert";
+import { Metric } from "../../../metrics";
 
 // TODO(#325) - move these to MetricLegendThreshold (or somewhere more central than here)
 

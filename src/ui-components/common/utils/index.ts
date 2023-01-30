@@ -1,4 +1,4 @@
-import { formatInteger } from "src/number-format";
+import { formatInteger } from "../../../number-format";
 
 export { default as importJson } from "./importJson";
 

@@ -1,6 +1,5 @@
-import { assert } from "src/assert";
-import { Region, RegionDB } from "src/regions";
-
+import { assert } from "../../assert";
+import { Region, RegionDB } from "../../regions";
 import { Metric } from "../Metric";
 import { MetricData } from "../data/MetricData";
 import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Stack, Typography } from "@mui/material";
-import { assert } from "src/assert";
-import { Metric } from "src/metrics";
-import { Region } from "src/regions";
 
+import { assert } from "../../../assert";
+import { Metric } from "../../../metrics";
+import { Region } from "../../../regions";
 import { AutoWidth } from "../AutoWidth";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLineChart } from "../MetricLineChart";

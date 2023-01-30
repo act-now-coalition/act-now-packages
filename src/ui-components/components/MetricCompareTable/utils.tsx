@@ -2,9 +2,9 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 import isNumber from "lodash/isNumber";
-import { Metric, MultiMetricDataStore } from "src/metrics";
-import { Region, RegionDB } from "src/regions";
 
+import { Metric, MultiMetricDataStore } from "../../../metrics";
+import { Region, RegionDB } from "../../../regions";
 import { formatPopulation } from "../../common/utils";
 import {
   ColumnDefinition,

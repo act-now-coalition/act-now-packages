@@ -1,5 +1,6 @@
 import { DateTime, Duration } from "luxon";
-import { assert, fail } from "src/assert";
+
+import { assert, fail } from "../assert";
 
 export * from "./PureDate";
 

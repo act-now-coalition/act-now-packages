@@ -1,8 +1,8 @@
 import delay from "delay";
-import { assert } from "src/assert";
-import { Region } from "src/regions";
-import { TimeUnit, getTimeDiff } from "src/time-utils";
 
+import { assert } from "../../assert";
+import { Region } from "../../regions";
+import { TimeUnit, getTimeDiff } from "../../time-utils";
 import { Metric } from "../Metric";
 import { mockTimeseries } from "../Timeseries";
 import { MetricData } from "../data";

@@ -2,9 +2,9 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { nations } from "src/regions";
 
 import { MetricChartBlock } from ".";
+import { nations } from "../../../regions";
 import { MetricId } from "../../stories/mockMetricCatalog";
 import { ShareButton } from "../ShareButton";
 

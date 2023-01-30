@@ -1,8 +1,8 @@
 // eslint-disable-next-line lodash/import-scope
 import { Dictionary } from "lodash";
 import groupBy from "lodash/groupBy";
-import { states } from "src/regions";
 
+import { states } from "../../regions";
 import { Metric } from "../Metric";
 import {
   DataRow,

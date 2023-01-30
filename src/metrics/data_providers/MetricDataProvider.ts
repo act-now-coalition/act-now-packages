@@ -1,5 +1,4 @@
-import { Region } from "src/regions";
-
+import { Region } from "../../regions";
 import { Metric } from "../Metric";
 import type { MetricCatalog } from "../MetricCatalog";
 import { MultiRegionMultiMetricDataStore } from "../data";

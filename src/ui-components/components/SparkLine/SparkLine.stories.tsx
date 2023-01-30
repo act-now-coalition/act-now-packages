@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { assert } from "src/assert";
 
 import { SparkLine } from ".";
+import { assert } from "../../../assert";
 import { appleStockTimeseries } from "../../stories/mockData";
 
 export default {

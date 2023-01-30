@@ -3,8 +3,7 @@ import {
   MetricDefinition,
   MockDataProvider,
   StaticValueDataProvider,
-} from "src/metrics";
-
+} from "../../metrics";
 import { theme } from "../styles";
 import { AppleStockDataProvider } from "./MockAppleStockDataProvider";
 import { NycTemperatureDataProvider } from "./NycTemperatureDataProvider";

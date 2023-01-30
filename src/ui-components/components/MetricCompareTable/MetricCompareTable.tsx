@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { Skeleton } from "@mui/material";
-import { Metric } from "src/metrics";
-import { Region, RegionDB } from "src/regions";
 
+import { Metric } from "../../../metrics";
+import { Region, RegionDB } from "../../../regions";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import {
   ColumnDefinition,

@@ -1,6 +1,5 @@
-import { assert } from "src/assert";
-import { states } from "src/regions";
-
+import { assert } from "../../assert";
+import { states } from "../../regions";
 import { Metric } from "../Metric";
 import { MockDataProvider } from "./MockDataProvider";
 

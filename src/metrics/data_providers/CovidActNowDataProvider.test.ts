@@ -1,5 +1,4 @@
-import { counties, metros, nations, states } from "src/regions";
-
+import { counties, metros, nations, states } from "../../regions";
 import { MetricCatalog } from "../MetricCatalog";
 import { CovidActNowDataProvider } from "./CovidActNowDataProvider";
 

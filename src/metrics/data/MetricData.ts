@@ -1,6 +1,5 @@
-import { assert } from "src/assert";
-import { Region } from "src/regions";
-
+import { assert } from "../../assert";
+import { Region } from "../../regions";
 import { Category, Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { parseBoolean } from "./data_utils";

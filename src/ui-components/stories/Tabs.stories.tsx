@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import { Stack, Tab, Tabs, Typography } from "@mui/material";
-import { states } from "src/regions";
 
+import { states } from "../../regions";
 import { MetricValue } from "../components/MetricValue";
 import { MetricId, metricCatalog } from "./mockMetricCatalog";
 

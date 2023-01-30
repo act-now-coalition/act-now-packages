@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
 
-import { MetricCatalog } from "src/metrics";
+import { MetricCatalog } from "../../../metrics";
 
 const defaultMetricCatalog = new MetricCatalog([], []);
 
@@ -29,7 +29,7 @@ export interface MetricCatalogProviderProps {
  * @example
  * ```tsx
  * // _app.tsx
- * import { metricCatalog } from "src/common/metrics"
+ * import { metricCatalog } from "../../../common/metrics"
  *
  * // ...
  * <ThemeProvider theme={theme}>

@@ -1,9 +1,9 @@
 import React from "react";
 
 import { Skeleton } from "@mui/material";
-import { Metric, MultiMetricDataStore } from "src/metrics";
-import { Region } from "src/regions";
 
+import { Metric, MultiMetricDataStore } from "../../../metrics";
+import { Region } from "../../../regions";
 import { useDataForMetrics } from "../../common/hooks";
 import {
   BaseMultiProgressBarProps,

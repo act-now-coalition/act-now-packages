@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import { ComponentMeta } from "@storybook/react";
 import sortBy from "lodash/sortBy";
-import { Region, states } from "src/regions";
 
 import { MultiSelect, MultiSelectProps } from ".";
+import { Region, states } from "../../../regions";
 
 export default {
   title: "Components/MultiSelect",

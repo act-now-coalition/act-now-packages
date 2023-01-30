@@ -3,9 +3,9 @@ import React from "react";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
-import { assert } from "src/assert";
 
 import { BarChart } from ".";
+import { assert } from "../../../assert";
 import { appleStockTimeseries } from "../../stories/mockData";
 import { LineChart } from "../LineChart";
 

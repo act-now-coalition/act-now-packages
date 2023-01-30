@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Box, Stack, Typography } from "@mui/material";
-import { Category, Metric } from "src/metrics";
 
+import { Category, Metric } from "../../../metrics";
 import { BaseLegendThresholdProps, LegendThreshold } from "../LegendThreshold";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { CategoryItem, getMetricCategoryItems } from "./utils";

@@ -4,9 +4,9 @@ import MapIcon from "@mui/icons-material/Map";
 import { InputAdornment, TextField } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import sortBy from "lodash/sortBy";
-import { Region, RegionDB, counties, metros, states } from "src/regions";
 
 import { RegionSearch } from ".";
+import { Region, RegionDB, counties, metros, states } from "../../../regions";
 
 export default {
   title: "Components/RegionSearch",

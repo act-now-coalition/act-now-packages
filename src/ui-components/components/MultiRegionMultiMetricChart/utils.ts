@@ -1,7 +1,6 @@
-import { DateRange, Metric } from "src/metrics";
-import { Region } from "src/regions";
-import { TimeUnit, getTimeUnitLabel, subtractTime } from "src/time-utils";
-
+import { DateRange, Metric } from "../../../metrics";
+import { Region } from "../../../regions";
+import { TimeUnit, getTimeUnitLabel, subtractTime } from "../../../time-utils";
 import { schemeCategory10 } from "../../common/utils/charts";
 import { Series, SeriesType } from "../SeriesChart";
 

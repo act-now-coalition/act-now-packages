@@ -1,6 +1,6 @@
 import keyBy from "lodash/keyBy";
-import { assert } from "src/assert";
 
+import { assert } from "../assert";
 import { Region } from "./Region";
 
 export interface RegionDBOptions {

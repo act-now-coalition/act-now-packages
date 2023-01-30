@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { assert } from "src/assert";
-import { Region, RegionDB, counties, states } from "src/regions";
 
+import { assert } from "../../../assert";
+import { Region, RegionDB, counties, states } from "../../../regions";
 import { USStateMap } from "./USStateMap";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {

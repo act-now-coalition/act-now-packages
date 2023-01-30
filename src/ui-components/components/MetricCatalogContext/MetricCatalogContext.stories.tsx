@@ -1,9 +1,9 @@
 import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { MetricCatalog, MetricDefinition } from "src/metrics";
-import { states } from "src/regions";
 
+import { MetricCatalog, MetricDefinition } from "../../../metrics";
+import { states } from "../../../regions";
 import {
   MetricId,
   ProviderId,

@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { ComponentMeta } from "@storybook/react";
 import { Group } from "@visx/group";
 import { scaleUtc } from "@visx/scale";
-import { DateFormat, formatUTCDateTime } from "src/time-utils";
 
 import { ChartOverlayX } from ".";
+import { DateFormat, formatUTCDateTime } from "../../../time-utils";
 import { AxisBottom } from "../Axis";
 
 export default {

@@ -1,8 +1,8 @@
 import mapValues from "lodash/mapValues";
 import pLimit from "p-limit";
-import { assert } from "src/assert";
-import { Region } from "src/regions";
 
+import { assert } from "../../assert";
+import { Region } from "../../regions";
 import { Metric } from "../Metric";
 import { MultiRegionMultiMetricDataStore } from "../data";
 import { MetricData } from "../data/MetricData";
