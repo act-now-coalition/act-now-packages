@@ -13,6 +13,7 @@ import {
   TableSortState,
   sortTableRows,
 } from "../CompareTable";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Row, createLocationColumn, createMetricColumn } from "./utils";
@@ -101,10 +102,13 @@ export const MetricCompareTable = ({
   const sortedRows = sortTableRows<Row>(rows, columns, sortState);
 
   return (
-    <CompareTable
-      rows={sortedRows}
-      columns={columns}
-      {...otherCompareTableProps}
-    />
+    <>
+      <CompareTable
+        rows={sortedRows}
+        columns={columns}
+        {...otherCompareTableProps}
+      />
+      {data && <ComponentLoaded />}
+    </>
   );
 };

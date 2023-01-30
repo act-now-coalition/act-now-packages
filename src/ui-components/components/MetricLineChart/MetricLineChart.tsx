@@ -10,6 +10,7 @@ import { useData } from "../../common/hooks";
 import { BaseChartProps, getChartRange } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayX, useHoveredDate } from "../ChartOverlayX";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
 import { LineChart } from "../LineChart";
 import { useMetricCatalog } from "../MetricCatalogContext";
@@ -73,39 +74,42 @@ export const MetricLineChart = ({
   });
 
   return (
-    <svg width={width} height={height} style={{ display: "block" }}>
-      <Group left={marginLeft} top={marginTop}>
-        <AxesTimeseries
-          height={chartHeight}
-          xScale={xScale}
-          yScale={yScale}
-          axisLeftProps={{
-            tickFormat: (value: number) => metric.formatValue(value),
-          }}
-        />
-        <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
-        {hoveredPoint && (
-          <MetricChartTooltip
-            metric={metric}
-            region={region}
-            point={hoveredPoint}
-            open
-          >
-            <PointMarker
-              x={xScale(hoveredPoint.date)}
-              y={yScale(hoveredPoint.value)}
-            />
-          </MetricChartTooltip>
-        )}
-        <ChartOverlayX
-          width={chartWidth}
-          height={chartHeight}
-          xScale={xScale}
-          offset={marginLeft}
-          onMouseMove={onMouseMove}
-          onMouseLeave={onMouseLeave}
-        />
-      </Group>
-    </svg>
+    <>
+      <svg width={width} height={height} style={{ display: "block" }}>
+        <Group left={marginLeft} top={marginTop}>
+          <AxesTimeseries
+            height={chartHeight}
+            xScale={xScale}
+            yScale={yScale}
+            axisLeftProps={{
+              tickFormat: (value: number) => metric.formatValue(value),
+            }}
+          />
+          <LineChart timeseries={timeseries} xScale={xScale} yScale={yScale} />
+          {hoveredPoint && (
+            <MetricChartTooltip
+              metric={metric}
+              region={region}
+              point={hoveredPoint}
+              open
+            >
+              <PointMarker
+                x={xScale(hoveredPoint.date)}
+                y={yScale(hoveredPoint.value)}
+              />
+            </MetricChartTooltip>
+          )}
+          <ChartOverlayX
+            width={chartWidth}
+            height={chartHeight}
+            xScale={xScale}
+            offset={marginLeft}
+            onMouseMove={onMouseMove}
+            onMouseLeave={onMouseLeave}
+          />
+        </Group>
+      </svg>
+      {data && timeseries.hasData() && <ComponentLoaded />}
+    </>
   );
 };

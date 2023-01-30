@@ -16,6 +16,7 @@ import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
 import { ChartOverlayXY, useHoveredPoint } from "../ChartOverlayXY";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricChartTooltip } from "../MetricChartTooltip";
@@ -175,67 +176,70 @@ export const MetricSeriesChart = ({
   const yAxisFormat = (value: number) => metrics[0].formatValue(value, "---");
 
   return (
-    <svg width={width} height={height} style={{ display: "block" }}>
-      <Group top={marginTop} left={marginLeft}>
-        <AxesTimeseries
-          yScale={yScale}
-          xScale={xScale}
-          height={chartHeight}
-          axisLeftProps={{ tickFormat: yAxisFormat }}
-        />
-        <RectClipGroup width={chartWidth} height={chartHeight}>
-          {seriesList.map((item, itemIndex) => (
-            <SeriesChart
-              key={`series-${itemIndex}`}
-              series={item.series}
-              timeseries={item.timeseries}
-              xScale={xScale}
-              yScale={yScale}
-            />
-          ))}
-        </RectClipGroup>
-        {showLabels && (
-          <Group>
-            {labelPositions.map((item, itemIndex) => (
-              <SeriesLabel
-                key={`label-${item.label}-${itemIndex}`}
-                x={chartWidth + 5}
-                y={item.y}
-                fill={item.fill}
-              >
-                {item.label}
-              </SeriesLabel>
+    <>
+      <svg width={width} height={height} style={{ display: "block" }}>
+        <Group top={marginTop} left={marginLeft}>
+          <AxesTimeseries
+            yScale={yScale}
+            xScale={xScale}
+            height={chartHeight}
+            axisLeftProps={{ tickFormat: yAxisFormat }}
+          />
+          <RectClipGroup width={chartWidth} height={chartHeight}>
+            {seriesList.map((item, itemIndex) => (
+              <SeriesChart
+                key={`series-${itemIndex}`}
+                series={item.series}
+                timeseries={item.timeseries}
+                xScale={xScale}
+                yScale={yScale}
+              />
             ))}
-          </Group>
-        )}
-        {pointInfo?.point && isNumber(pointInfo?.timeseriesIndex) && (
-          <MetricChartTooltip
-            metric={series[pointInfo.timeseriesIndex].metric}
-            region={series[pointInfo.timeseriesIndex].region}
-            point={pointInfo.point}
-            open
-          >
-            <PointMarker
-              x={xScale(pointInfo.point.date)}
-              y={yScale(pointInfo.point.value)}
-              fill={getSeriesColor(
-                series[pointInfo.timeseriesIndex],
-                defaultTextColor
-              )}
-            />
-          </MetricChartTooltip>
-        )}
-        <ChartOverlayXY
-          timeseriesList={timeseriesList}
-          width={chartWidth}
-          height={chartHeight}
-          xScale={xScale}
-          yScale={yScale}
-          onMouseMove={onMouseMove}
-          onMouseOut={onMouseLeave}
-        />
-      </Group>
-    </svg>
+          </RectClipGroup>
+          {showLabels && (
+            <Group>
+              {labelPositions.map((item, itemIndex) => (
+                <SeriesLabel
+                  key={`label-${item.label}-${itemIndex}`}
+                  x={chartWidth + 5}
+                  y={item.y}
+                  fill={item.fill}
+                >
+                  {item.label}
+                </SeriesLabel>
+              ))}
+            </Group>
+          )}
+          {pointInfo?.point && isNumber(pointInfo?.timeseriesIndex) && (
+            <MetricChartTooltip
+              metric={series[pointInfo.timeseriesIndex].metric}
+              region={series[pointInfo.timeseriesIndex].region}
+              point={pointInfo.point}
+              open
+            >
+              <PointMarker
+                x={xScale(pointInfo.point.date)}
+                y={yScale(pointInfo.point.value)}
+                fill={getSeriesColor(
+                  series[pointInfo.timeseriesIndex],
+                  defaultTextColor
+                )}
+              />
+            </MetricChartTooltip>
+          )}
+          <ChartOverlayXY
+            timeseriesList={timeseriesList}
+            width={chartWidth}
+            height={chartHeight}
+            xScale={xScale}
+            yScale={yScale}
+            onMouseMove={onMouseMove}
+            onMouseOut={onMouseLeave}
+          />
+        </Group>
+      </svg>
+      {data && timeseriesList && <ComponentLoaded />}
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import { Skeleton } from "@mui/material";
 import { Metric, MultiMetricDataStore } from "../../../metrics";
 import { Region } from "../../../regions";
 import { useDataForMetrics } from "../../common/hooks";
+import { ComponentLoaded } from "../ComponentLoaded";
 import {
   BaseMultiProgressBarProps,
   DEFAULT_HEIGHT,
@@ -41,14 +42,17 @@ export const MetricMultiProgressBar = ({
   const [firstItem, secondItem] = getProgressBarItems(data, metrics);
 
   return (
-    <MultiProgressBar
-      items={[firstItem, secondItem]}
-      getItemValue={(item) => item.currentValue}
-      getItemLabel={(item) => item.label}
-      width={width}
-      height={height}
-      {...otherProgressBarProps}
-    />
+    <>
+      <MultiProgressBar
+        items={[firstItem, secondItem]}
+        getItemValue={(item) => item.currentValue}
+        getItemLabel={(item) => item.label}
+        width={width}
+        height={height}
+        {...otherProgressBarProps}
+      />
+      {data && <ComponentLoaded />}
+    </>
   );
 };
 

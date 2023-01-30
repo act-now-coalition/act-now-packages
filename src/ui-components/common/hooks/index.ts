@@ -1,5 +1,5 @@
 export { default as usePromise } from "./usePromise";
 export * from "./metric-data";
-export * from "./useResizeObserver";
+export * from "./useMutationObserver";
 export * from "./useSvgBBox";
 export * from "./useDialogState";

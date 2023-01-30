@@ -5,6 +5,7 @@ import { Stack, Typography, TypographyProps } from "@mui/material";
 import { Metric } from "../../../metrics";
 import { Region } from "../../../regions";
 import { useData } from "../../common/hooks";
+import { ComponentLoaded } from "../ComponentLoaded";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricDot } from "../MetricDot";
 
@@ -54,11 +55,19 @@ export const MetricValue = ({
     metric.hasCategories && data && data.currentValue !== null;
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center" width="fit-content">
-      {showMetricDot && <MetricDot region={region} metric={metric} />}
-      <Typography variant={variant} color={color}>
-        {formattedValue}
-      </Typography>
-    </Stack>
+    <>
+      <Stack
+        direction="row"
+        spacing={1}
+        alignItems="center"
+        width="fit-content"
+      >
+        {showMetricDot && <MetricDot region={region} metric={metric} />}
+        <Typography variant={variant} color={color}>
+          {formattedValue}
+        </Typography>
+      </Stack>
+      {data && <ComponentLoaded />}
+    </>
   );
 };
