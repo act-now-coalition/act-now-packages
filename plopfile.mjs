@@ -6,89 +6,6 @@
 import { exec } from "child_process";
 import _ from "lodash";
 
-const templateReadme = prepareTemplate(`
-# @actnowcoalition/{{dashCase name}}
-
-> {{sentenceCase description}}
-
-## Installing
-
-\`\`\`sh
-yarn add @actnowcoalition/{{dashCase name}}
-\`\`\`
-
-## License
-
-[MIT](./LICENSE)
-`);
-
-const templatePackage = prepareTemplate(`
-{
-  "name": "@actnowcoalition/{{dashCase name}}",
-  "version": "0.1.0",
-  "description": "{{sentenceCase description}}",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/act-now-coalition/act-now-packages.git",
-    "directory": "packages/{{dashCase name}}"
-  },
-  "keywords": [
-    "actnowcoalition"
-  ],
-  "author": "Act Now Coalition",
-  "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build:esm": "tsc --project ./tsconfig.esm.json",
-    "build:cjs": "tsc --project ./tsconfig.cjs.json",
-    "build": "yarn build:esm && yarn build:cjs"
-  },
-  "devDependencies": {
-    "typescript": "^4.6.4"
-  },
-  "sideEffects": false
-}`);
-
-const templateTSConfigBase = prepareTemplate(`
-{
-  "extends": "../../tsconfig",
-  "compilerOptions": {
-    "baseUrl": "src",
-    "declaration": true,
-    "declarationDir": "./dist",
-    "noEmit": false,
-    "rootDir": "src"
-  },
-  "include": ["src/**/*.ts", "src/**/*.json"],
-  "exclude": ["node_modules", "**/*.test.*"]
-}
-`);
-
-const templateTSConfigCJS = prepareTemplate(`
-{
-  "extends": "./tsconfig.base",
-  "compilerOptions": {
-    "module": "CommonJS",
-    "outDir": "./dist/cjs/"
-  }
-}
-`);
-
-const templateTSConfigESM = prepareTemplate(`
-{
-  "extends": "./tsconfig.base",
-  "compilerOptions": {
-    "module": "ESNext",
-    "outDir": "./dist/esm/"
-  }
-}
-`);
-
 const templateComponentMain = prepareTemplate(`
 import React from "react";
 import { Container } from "./{{pascalCase name}}.style";
@@ -147,55 +64,7 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
     });
   });
 
-  plop.setGenerator("package", {
-    description: "",
-    prompts: [
-      { type: "input", name: "name" },
-      { type: "input", name: "description" },
-    ],
-    actions: [
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/README.md`,
-        template: templateReadme,
-      },
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/src/index.ts`,
-        template: "",
-      },
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/package.json`,
-        template: templatePackage,
-      },
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/LICENSE`,
-        templateFile: "./LICENSE",
-      },
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/tsconfig.base.json`,
-        template: templateTSConfigBase,
-      },
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/tsconfig.cjs.json`,
-        template: templateTSConfigCJS,
-      },
-      {
-        type: "add",
-        path: `packages/{{dashCase name}}/tsconfig.esm.json`,
-        template: templateTSConfigESM,
-      },
-      {
-        type: "yarn",
-      },
-    ],
-  });
-
-  const componentBasePath = "packages/ui-components/src/components";
+  const componentBasePath = "src/ui-components/components";
   plop.setGenerator("component", {
     description: "Creates a component module with stories, styles and index.",
     prompts: [
@@ -228,7 +97,7 @@ export default function (/** @type {import('plop').NodePlopAPI} */ plop) {
       },
       {
         type: "append",
-        path: `packages/ui-components/src/index.ts`,
+        path: `src/ui-components/index.ts`,
         template: 'export * from "./components/{{pascalCase name}}";',
         unique: true,
       },

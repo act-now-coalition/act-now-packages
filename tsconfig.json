@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "rootDir": "src",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
@@ -19,12 +19,9 @@
     "incremental": true,
     "downlevelIteration": true,
     "sourceMap": true,
-    "jsx": "react",
-    "paths": {
-      "@actnowcoalition/*": ["./packages/*/src"]
-    }
+    "jsx": "react"
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.json"],
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.json"],
   "exclude": ["node_modules"],
   "ts-node": {
     "require": ["tsconfig-paths/register"],

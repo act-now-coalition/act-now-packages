@@ -19,39 +19,6 @@ nvm use v16
 
 ## Workflow
 
-### Creating a package
-
-In order to keep packages consistent with each other, we implemented the yarn command `create-package` to scaffold the initial package structure. To create a package, run:
-
-```sh
-yarn create-package
-```
-
-The command will prompt for the package name and description. Package names should be short and descriptive (see [npm package.json#name](https://docs.npmjs.com/cli/v8/configuring-npm/package-json#name) for more details). The `create-package` command will normalize the package name and description for you.
-
-```
-yarn create-package
-yarn run v1.22.17
-$ yarn plop package
-? name: date format
-? description: utility functions to format dates
-✔  ++ /packages/date-format/README.md
-✔  ++ /packages/date-format/src/index.ts
-✔  ++ /packages/date-format/package.json
-✔  ++ /packages/date-format/LICENSE
-✔  yarn
-[1/4] Resolving packages...
-[2/4] Fetching packages...
-[3/4] Linking dependencies...
-[4/4] Building fresh packages...
-$ husky install
-husky - Git hooks installed
-```
-
-This will create the initial directory structure and starter files, and install the initial package dependencies, see [`packages/assert`](./packages/assert) to see an example of a package.
-
-You can now add more files, dependencies, and update the README file. Make sure to export the package functionality from the `index.ts` file in the package. We strongly recommend to include unit tests in your package before publishing.
-
 ### Publishing
 
 Once the code is merged to `develop`, we can publish the package by merging the `changeset-release/develop` branch to `develop`. To publish your package
