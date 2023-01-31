@@ -55,6 +55,7 @@ export const RegionSearch = ({
     params
   ) => (
     <TextField
+      sx={{ borderRadius: 1 }}
       {...params}
       label={inputLabel}
       variant="outlined"
