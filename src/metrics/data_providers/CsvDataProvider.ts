@@ -6,6 +6,7 @@ import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import {
   DataRow,
   getMetricDataFromDataRows,
+  getMetricDataFromLongDataRow,
   groupAndValidateRowsByRegionId,
   parseCsv,
 } from "./data_provider_utils";
@@ -26,6 +27,9 @@ export interface CsvDataProviderOptions {
    * Required if the CSV contains timeseries data, else it should not be specified.
    */
   dateColumn?: string;
+
+  /** Format of the CSV file. */
+  format?: "wide" | "long";
   /**
    * CSV data to import in place of URL fetch, typically used for testing.
    * If this is provided, the URL will be ignored.
@@ -49,6 +53,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionColumn: string;
   private readonly dateColumn?: string;
   private readonly url?: string;
+  private readonly format: "wide" | "long";
   private fetchedText: Promise<string> | undefined;
   private dataRowsByRegionId:
     | Promise<{ [regionId: string]: DataRow[] }>
@@ -74,6 +79,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     this.regionDb = options.regionDb;
     this.regionColumn = options.regionColumn;
     this.dateColumn = options.dateColumn;
+    this.format = options.format ?? "wide";
     this.url = options.url;
     if (options.csvText) {
       this.dataRowsByRegionId = this.getDataForCache(options.csvText);
@@ -111,11 +117,26 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       typeof metricColumn === "string",
       "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
     );
-    return getMetricDataFromDataRows(
+
+    // TODO: cleanup and separate this logic out better
+    if (this.format === "wide") {
+      return getMetricDataFromDataRows(
+        dataRowsByRegionId,
+        region,
+        metric,
+        metricColumn,
+        this.dateColumn
+      );
+    }
+
+    const valueColumn = metric.dataReference?.valueColumn;
+    assert(typeof valueColumn === "string", "Missing valueColumn for long csv");
+    return getMetricDataFromLongDataRow(
       dataRowsByRegionId,
       region,
       metric,
       metricColumn,
+      valueColumn,
       this.dateColumn
     );
   }

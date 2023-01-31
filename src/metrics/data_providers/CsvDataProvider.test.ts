@@ -9,6 +9,11 @@ const mockCsv = `region,cool_metric
 36,150
 12,`;
 
+const longCsv = `region,metric,Score
+12,cool_metric,1.2
+36,cool_metric,1.6
+25,cool_metric,1.7`;
+
 const csvTimeseries = `region,date,cool_metric
 36,2022-08-02,150
 36,2022-08-03,
@@ -118,5 +123,27 @@ describe("CsvDataProvider", () => {
         regionColumn: "region",
       });
     }).toThrow("URL or CSV data must be provided");
+  });
+
+  test("fetch long csv", async () => {
+    const provider = new CsvDataProvider(PROVIDER_ID, {
+      regionDb: states,
+      regionColumn: "region",
+      format: "long",
+      csvText: longCsv,
+    });
+
+    // TODO: need to separate metric lookup from relying on metric id
+    const metric = new Metric({
+      id: "cool_metric",
+      dataReference: {
+        providerId: PROVIDER_ID,
+        valueColumn: "Score",
+        column: "metric",
+      },
+    });
+    const data = await provider.fetchDataForRegionAndMetric(newYork, metric);
+    console.log(data);
+    expect(data).toBeDefined();
   });
 });
