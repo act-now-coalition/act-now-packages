@@ -1,0 +1,902 @@
+[
+  {
+    "regionId": "1600000US3901000",
+    "shortName": "Akron",
+    "state": "OH",
+    "population": 189347,
+    "coordinates": [41.08, -81.52],
+    "fullName": "Akron, OH",
+    "abbreviation": "Akron"
+  },
+  {
+    "regionId": "1600000US3502000",
+    "shortName": "Albuquerque",
+    "state": "NM",
+    "population": 562599,
+    "coordinates": [35.1, -106.64],
+    "fullName": "Albuquerque, NM",
+    "abbreviation": "Albuquerque"
+  },
+  {
+    "regionId": "1600000US4202000",
+    "shortName": "Allentown",
+    "state": "PA",
+    "population": 125944,
+    "coordinates": [40.59, -75.47],
+    "fullName": "Allentown, PA",
+    "abbreviation": "Allentown"
+  },
+  {
+    "regionId": "1600000US1304000",
+    "shortName": "Atlanta",
+    "state": "GA",
+    "population": 496461,
+    "coordinates": [33.76, -84.42],
+    "fullName": "Atlanta, GA",
+    "abbreviation": "Atlanta"
+  },
+  {
+    "regionId": "1600000US1304204",
+    "shortName": "Augusta",
+    "state": "GA",
+    "population": 201196,
+    "coordinates": [33.36, -82.07],
+    "fullName": "Augusta, GA",
+    "abbreviation": "Augusta"
+  },
+  {
+    "regionId": "1600000US0804000",
+    "shortName": "Aurora",
+    "state": "CO",
+    "population": 389347,
+    "coordinates": [39.68, -104.68],
+    "fullName": "Aurora, CO",
+    "abbreviation": "Aurora"
+  },
+  {
+    "regionId": "1600000US4805000",
+    "shortName": "Austin",
+    "state": "TX",
+    "population": 964177,
+    "coordinates": [30.3, -97.75],
+    "fullName": "Austin, TX",
+    "abbreviation": "Austin"
+  },
+  {
+    "regionId": "1600000US0603526",
+    "shortName": "Bakersfield",
+    "state": "CA",
+    "population": 407615,
+    "coordinates": [35.32, -119.01],
+    "fullName": "Bakersfield, CA",
+    "abbreviation": "Bakersfield"
+  },
+  {
+    "regionId": "1600000US2404000",
+    "shortName": "Baltimore",
+    "state": "MD",
+    "population": 576498,
+    "coordinates": [39.3, -76.61],
+    "fullName": "Baltimore, MD",
+    "abbreviation": "Baltimore"
+  },
+  {
+    "regionId": "1600000US2205000",
+    "shortName": "Baton Rouge",
+    "state": "LA",
+    "population": 222185,
+    "coordinates": [30.44, -91.13],
+    "fullName": "Baton Rouge, LA",
+    "abbreviation": "Baton Rouge"
+  },
+  {
+    "regionId": "1600000US0107000",
+    "shortName": "Birmingham",
+    "state": "AL",
+    "population": 197575,
+    "coordinates": [33.52, -86.79],
+    "fullName": "Birmingham, AL",
+    "abbreviation": "Birmingham"
+  },
+  {
+    "regionId": "1600000US1608830",
+    "shortName": "Boise",
+    "state": "ID",
+    "population": 237446,
+    "coordinates": [43.6, -116.23],
+    "fullName": "Boise, ID",
+    "abbreviation": "Boise"
+  },
+  {
+    "regionId": "1600000US2507000",
+    "shortName": "Boston",
+    "state": "MA",
+    "population": 654776,
+    "coordinates": [42.33, -71.02],
+    "fullName": "Boston, MA",
+    "abbreviation": "Boston"
+  },
+  {
+    "regionId": "1600000US0908000",
+    "shortName": "Bridgeport",
+    "state": "CT",
+    "population": 148333,
+    "coordinates": [41.18, -73.19],
+    "fullName": "Bridgeport, CT",
+    "abbreviation": "Bridgeport"
+  },
+  {
+    "regionId": "1600000US3611000",
+    "shortName": "Buffalo",
+    "state": "NY",
+    "population": 276807,
+    "coordinates": [42.89, -78.85],
+    "fullName": "Buffalo, NY",
+    "abbreviation": "Buffalo"
+  },
+  {
+    "regionId": "1600000US1210275",
+    "shortName": "Cape Coral",
+    "state": "FL",
+    "population": 204510,
+    "coordinates": [26.64, -81.99],
+    "fullName": "Cape Coral, FL",
+    "abbreviation": "Cape Coral"
+  },
+  {
+    "regionId": "1600000US4513330",
+    "shortName": "Charleston",
+    "state": "SC",
+    "population": 151612,
+    "coordinates": [32.81, -79.95],
+    "fullName": "Charleston, SC",
+    "abbreviation": "Charleston"
+  },
+  {
+    "regionId": "1600000US3712000",
+    "shortName": "Charlotte",
+    "state": "NC",
+    "population": 879709,
+    "coordinates": [35.2, -80.83],
+    "fullName": "Charlotte, NC",
+    "abbreviation": "Charlotte"
+  },
+  {
+    "regionId": "1600000US1714000",
+    "shortName": "Chicago",
+    "state": "IL",
+    "population": 2696555,
+    "coordinates": [41.83, -87.68],
+    "fullName": "Chicago, IL",
+    "abbreviation": "Chicago"
+  },
+  {
+    "regionId": "1600000US0613392",
+    "shortName": "Chula Vista",
+    "state": "CA",
+    "population": 277220,
+    "coordinates": [32.62, -117.01],
+    "fullName": "Chula Vista, CA",
+    "abbreviation": "Chula Vista"
+  },
+  {
+    "regionId": "1600000US3915000",
+    "shortName": "Cincinnati",
+    "state": "OH",
+    "population": 308935,
+    "coordinates": [39.14, -84.5],
+    "fullName": "Cincinnati, OH",
+    "abbreviation": "Cincinnati"
+  },
+  {
+    "regionId": "1600000US3916000",
+    "shortName": "Cleveland",
+    "state": "OH",
+    "population": 367991,
+    "coordinates": [41.47, -81.67],
+    "fullName": "Cleveland, OH",
+    "abbreviation": "Cleveland"
+  },
+  {
+    "regionId": "1600000US0816000",
+    "shortName": "Colorado Springs",
+    "state": "CO",
+    "population": 483956,
+    "coordinates": [38.86, -104.76],
+    "fullName": "Colorado Springs, CO",
+    "abbreviation": "Colorado Springs"
+  },
+  {
+    "regionId": "1600000US4516000",
+    "shortName": "Columbia",
+    "state": "SC",
+    "population": 137541,
+    "coordinates": [34.02, -80.89],
+    "fullName": "Columbia, SC",
+    "abbreviation": "Columbia"
+  },
+  {
+    "regionId": "1600000US3918000",
+    "shortName": "Columbus",
+    "state": "OH",
+    "population": 906528,
+    "coordinates": [39.98, -82.98],
+    "fullName": "Columbus, OH",
+    "abbreviation": "Columbus"
+  },
+  {
+    "regionId": "1600000US4819000",
+    "shortName": "Dallas",
+    "state": "TX",
+    "population": 1288457,
+    "coordinates": [32.79, -96.76],
+    "fullName": "Dallas, TX",
+    "abbreviation": "Dallas"
+  },
+  {
+    "regionId": "1600000US3921000",
+    "shortName": "Dayton",
+    "state": "OH",
+    "population": 137571,
+    "coordinates": [39.77, -84.19],
+    "fullName": "Dayton, OH",
+    "abbreviation": "Dayton"
+  },
+  {
+    "regionId": "1600000US0820000",
+    "shortName": "Denver",
+    "state": "CO",
+    "population": 711463,
+    "coordinates": [39.76, -104.88],
+    "fullName": "Denver, CO",
+    "abbreviation": "Denver"
+  },
+  {
+    "regionId": "1600000US1921000",
+    "shortName": "Des Moines",
+    "state": "IA",
+    "population": 212031,
+    "coordinates": [41.57, -93.61],
+    "fullName": "Des Moines, IA",
+    "abbreviation": "Des Moines"
+  },
+  {
+    "regionId": "1600000US2622000",
+    "shortName": "Detroit",
+    "state": "MI",
+    "population": 632464,
+    "coordinates": [42.38, -83.1],
+    "fullName": "Detroit, MI",
+    "abbreviation": "Detroit"
+  },
+  {
+    "regionId": "1600000US4824000",
+    "shortName": "El Paso",
+    "state": "TX",
+    "population": 678415,
+    "coordinates": [31.84, -106.42],
+    "fullName": "El Paso, TX",
+    "abbreviation": "El Paso"
+  },
+  {
+    "regionId": "1600000US4827000",
+    "shortName": "Fort Worth",
+    "state": "TX",
+    "population": 935508,
+    "coordinates": [32.78, -97.34],
+    "fullName": "Fort Worth, TX",
+    "abbreviation": "Fort Worth"
+  },
+  {
+    "regionId": "1600000US0627000",
+    "shortName": "Fresno",
+    "state": "CA",
+    "population": 544510,
+    "coordinates": [36.78, -119.79],
+    "fullName": "Fresno, CA",
+    "abbreviation": "Fresno"
+  },
+  {
+    "regionId": "1600000US2634000",
+    "shortName": "Grand Rapids",
+    "state": "MI",
+    "population": 197416,
+    "coordinates": [42.96, -85.65],
+    "fullName": "Grand Rapids, MI",
+    "abbreviation": "Grand Rapids"
+  },
+  {
+    "regionId": "1600000US3728000",
+    "shortName": "Greensboro",
+    "state": "NC",
+    "population": 298263,
+    "coordinates": [36.09, -79.82],
+    "fullName": "Greensboro, NC",
+    "abbreviation": "Greensboro"
+  },
+  {
+    "regionId": "1600000US0937000",
+    "shortName": "Hartford",
+    "state": "CT",
+    "population": 120576,
+    "coordinates": [41.76, -72.68],
+    "fullName": "Hartford, CT",
+    "abbreviation": "Hartford"
+  },
+  {
+    "regionId": "1600000US3231900",
+    "shortName": "Henderson",
+    "state": "NV",
+    "population": 322178,
+    "coordinates": [36, -115.03],
+    "fullName": "Henderson, NV",
+    "abbreviation": "Henderson"
+  },
+  {
+    "regionId": "1600000US1571550",
+    "shortName": "Honolulu",
+    "state": "HI",
+    "population": 345510,
+    "coordinates": [21.32, -157.84],
+    "fullName": "Honolulu, HI",
+    "abbreviation": "Honolulu"
+  },
+  {
+    "regionId": "1600000US4835000",
+    "shortName": "Houston",
+    "state": "TX",
+    "population": 2288250,
+    "coordinates": [29.78, -95.39],
+    "fullName": "Houston, TX",
+    "abbreviation": "Houston"
+  },
+  {
+    "regionId": "1600000US1836003",
+    "shortName": "Indianapolis",
+    "state": "IN",
+    "population": 882039,
+    "coordinates": [39.77, -86.14],
+    "fullName": "Indianapolis, IN",
+    "abbreviation": "Indianapolis"
+  },
+  {
+    "regionId": "1600000US1235000",
+    "shortName": "Jacksonville",
+    "state": "FL",
+    "population": 954614,
+    "coordinates": [30.33, -81.66],
+    "fullName": "Jacksonville, FL",
+    "abbreviation": "Jacksonville"
+  },
+  {
+    "regionId": "1600000US2938000",
+    "shortName": "Kansas City",
+    "state": "MO",
+    "population": 508394,
+    "coordinates": [39.12, -94.55],
+    "fullName": "Kansas City, MO",
+    "abbreviation": "Kansas City"
+  },
+  {
+    "regionId": "1600000US4740000",
+    "shortName": "Knoxville",
+    "state": "TN",
+    "population": 192648,
+    "coordinates": [35.97, -83.94],
+    "fullName": "Knoxville, TN",
+    "abbreviation": "Knoxville"
+  },
+  {
+    "regionId": "1600000US1238250",
+    "shortName": "Lakeland",
+    "state": "FL",
+    "population": 115425,
+    "coordinates": [28.05, -81.95],
+    "fullName": "Lakeland, FL",
+    "abbreviation": "Lakeland"
+  },
+  {
+    "regionId": "1600000US3240000",
+    "shortName": "Las Vegas",
+    "state": "NV",
+    "population": 646790,
+    "coordinates": [36.22, -115.26],
+    "fullName": "Las Vegas, NV",
+    "abbreviation": "Las Vegas"
+  },
+  {
+    "regionId": "1600000US0541000",
+    "shortName": "Little Rock",
+    "state": "AR",
+    "population": 201998,
+    "coordinates": [34.72, -92.35],
+    "fullName": "Little Rock, AR",
+    "abbreviation": "Little Rock"
+  },
+  {
+    "regionId": "1600000US0643000",
+    "shortName": "Long Beach",
+    "state": "CA",
+    "population": 456062,
+    "coordinates": [33.8, -118.15],
+    "fullName": "Long Beach, CA",
+    "abbreviation": "Long Beach"
+  },
+  {
+    "regionId": "1600000US0644000",
+    "shortName": "Los Angeles",
+    "state": "CA",
+    "population": 3849297,
+    "coordinates": [34.01, -118.41],
+    "fullName": "Los Angeles, CA",
+    "abbreviation": "Los Angeles"
+  },
+  {
+    "regionId": "1600000US2148006",
+    "shortName": "Louisville",
+    "state": "KY",
+    "population": 628594,
+    "coordinates": [38.16, -85.64],
+    "fullName": "Louisville, KY",
+    "abbreviation": "Louisville"
+  },
+  {
+    "regionId": "1600000US5548000",
+    "shortName": "Madison",
+    "state": "WI",
+    "population": 269196,
+    "coordinates": [43.08, -89.42],
+    "fullName": "Madison, WI",
+    "abbreviation": "Madison"
+  },
+  {
+    "regionId": "1600000US4845384",
+    "shortName": "McAllen",
+    "state": "TX",
+    "population": 143920,
+    "coordinates": [26.23, -98.24],
+    "fullName": "McAllen, TX",
+    "abbreviation": "McAllen"
+  },
+  {
+    "regionId": "1600000US4748000",
+    "shortName": "Memphis",
+    "state": "TN",
+    "population": 628127,
+    "coordinates": [35.1, -89.97],
+    "fullName": "Memphis, TN",
+    "abbreviation": "Memphis"
+  },
+  {
+    "regionId": "1600000US0446000",
+    "shortName": "Mesa",
+    "state": "AZ",
+    "population": 509475,
+    "coordinates": [33.4, -111.71],
+    "fullName": "Mesa, AZ",
+    "abbreviation": "Mesa"
+  },
+  {
+    "regionId": "1600000US1245000",
+    "shortName": "Miami",
+    "state": "FL",
+    "population": 439890,
+    "coordinates": [25.77, -80.2],
+    "fullName": "Miami, FL",
+    "abbreviation": "Miami"
+  },
+  {
+    "regionId": "1600000US5553000",
+    "shortName": "Milwaukee",
+    "state": "WI",
+    "population": 569330,
+    "coordinates": [43.06, -87.96],
+    "fullName": "Milwaukee, WI",
+    "abbreviation": "Milwaukee"
+  },
+  {
+    "regionId": "1600000US2743000",
+    "shortName": "Minneapolis",
+    "state": "MN",
+    "population": 425336,
+    "coordinates": [44.96, -93.26],
+    "fullName": "Minneapolis, MN",
+    "abbreviation": "Minneapolis"
+  },
+  {
+    "regionId": "1600000US4752006",
+    "shortName": "Nashville",
+    "state": "TN",
+    "population": 678851,
+    "coordinates": [36.17, -86.78],
+    "fullName": "Nashville, TN",
+    "abbreviation": "Nashville"
+  },
+  {
+    "regionId": "1600000US0952000",
+    "shortName": "New Haven",
+    "state": "CT",
+    "population": 135081,
+    "coordinates": [41.31, -72.92],
+    "fullName": "New Haven, CT",
+    "abbreviation": "New Haven"
+  },
+  {
+    "regionId": "1600000US2255000",
+    "shortName": "New Orleans",
+    "state": "LA",
+    "population": 376971,
+    "coordinates": [30.05, -89.93],
+    "fullName": "New Orleans, LA",
+    "abbreviation": "New Orleans"
+  },
+  {
+    "regionId": "1600000US3651000",
+    "shortName": "New York",
+    "state": "NY",
+    "population": 8467513,
+    "coordinates": [40.66, -73.93],
+    "fullName": "New York, NY",
+    "abbreviation": "New York"
+  },
+  {
+    "regionId": "1600000US3451000",
+    "shortName": "Newark",
+    "state": "NJ",
+    "population": 307220,
+    "coordinates": [40.72, -74.17],
+    "fullName": "Newark, NJ",
+    "abbreviation": "Newark"
+  },
+  {
+    "regionId": "1600000US0653000",
+    "shortName": "Oakland",
+    "state": "CA",
+    "population": 433823,
+    "coordinates": [37.76, -122.22],
+    "fullName": "Oakland, CA",
+    "abbreviation": "Oakland"
+  },
+  {
+    "regionId": "1600000US4055000",
+    "shortName": "Oklahoma City",
+    "state": "OK",
+    "population": 687725,
+    "coordinates": [35.46, -97.51],
+    "fullName": "Oklahoma City, OK",
+    "abbreviation": "Oklahoma City"
+  },
+  {
+    "regionId": "1600000US3137000",
+    "shortName": "Omaha",
+    "state": "NE",
+    "population": 487300,
+    "coordinates": [41.26, -96.04],
+    "fullName": "Omaha, NE",
+    "abbreviation": "Omaha"
+  },
+  {
+    "regionId": "1600000US1253000",
+    "shortName": "Orlando",
+    "state": "FL",
+    "population": 309154,
+    "coordinates": [28.41, -81.27],
+    "fullName": "Orlando, FL",
+    "abbreviation": "Orlando"
+  },
+  {
+    "regionId": "1600000US0654652",
+    "shortName": "Oxnard",
+    "state": "CA",
+    "population": 201879,
+    "coordinates": [34.2, -119.2],
+    "fullName": "Oxnard, CA",
+    "abbreviation": "Oxnard"
+  },
+  {
+    "regionId": "1600000US4260000",
+    "shortName": "Philadelphia",
+    "state": "PA",
+    "population": 1576251,
+    "coordinates": [40, -75.13],
+    "fullName": "Philadelphia, PA",
+    "abbreviation": "Philadelphia"
+  },
+  {
+    "regionId": "1600000US0455000",
+    "shortName": "Phoenix",
+    "state": "AZ",
+    "population": 1624569,
+    "coordinates": [33.57, -112.09],
+    "fullName": "Phoenix, AZ",
+    "abbreviation": "Phoenix"
+  },
+  {
+    "regionId": "1600000US4261000",
+    "shortName": "Pittsburgh",
+    "state": "PA",
+    "population": 300431,
+    "coordinates": [40.43, -79.97],
+    "fullName": "Pittsburgh, PA",
+    "abbreviation": "Pittsburgh"
+  },
+  {
+    "regionId": "1600000US4159000",
+    "shortName": "Portland",
+    "state": "OR",
+    "population": 641162,
+    "coordinates": [45.53, -122.65],
+    "fullName": "Portland, OR",
+    "abbreviation": "Portland"
+  },
+  {
+    "regionId": "1600000US4459000",
+    "shortName": "Providence",
+    "state": "RI",
+    "population": 189692,
+    "coordinates": [41.82, -71.41],
+    "fullName": "Providence, RI",
+    "abbreviation": "Providence"
+  },
+  {
+    "regionId": "1600000US4962470",
+    "shortName": "Provo",
+    "state": "UT",
+    "population": 114084,
+    "coordinates": [40.24, -111.64],
+    "fullName": "Provo, UT",
+    "abbreviation": "Provo"
+  },
+  {
+    "regionId": "1600000US3755000",
+    "shortName": "Raleigh",
+    "state": "NC",
+    "population": 469124,
+    "coordinates": [35.83, -78.64],
+    "fullName": "Raleigh, NC",
+    "abbreviation": "Raleigh"
+  },
+  {
+    "regionId": "1600000US3260600",
+    "shortName": "Reno",
+    "state": "NV",
+    "population": 268851,
+    "coordinates": [39.54, -119.84],
+    "fullName": "Reno, NV",
+    "abbreviation": "Reno"
+  },
+  {
+    "regionId": "1600000US5167000",
+    "shortName": "Richmond",
+    "state": "VA",
+    "population": 226604,
+    "coordinates": [37.53, -77.47],
+    "fullName": "Richmond, VA",
+    "abbreviation": "Richmond"
+  },
+  {
+    "regionId": "1600000US0662000",
+    "shortName": "Riverside",
+    "state": "CA",
+    "population": 317261,
+    "coordinates": [33.93, -117.39],
+    "fullName": "Riverside, CA",
+    "abbreviation": "Riverside"
+  },
+  {
+    "regionId": "1600000US3663000",
+    "shortName": "Rochester",
+    "state": "NY",
+    "population": 210606,
+    "coordinates": [43.16, -77.61],
+    "fullName": "Rochester, NY",
+    "abbreviation": "Rochester"
+  },
+  {
+    "regionId": "1600000US0664000",
+    "shortName": "Sacramento",
+    "state": "CA",
+    "population": 525041,
+    "coordinates": [38.56, -121.46],
+    "fullName": "Sacramento, CA",
+    "abbreviation": "Sacramento"
+  },
+  {
+    "regionId": "1600000US2758000",
+    "shortName": "Saint Paul",
+    "state": "MN",
+    "population": 307193,
+    "coordinates": [44.94, -93.1],
+    "fullName": "Saint Paul, MN",
+    "abbreviation": "Saint Paul"
+  },
+  {
+    "regionId": "1600000US4967000",
+    "shortName": "Salt Lake City",
+    "state": "UT",
+    "population": 200478,
+    "coordinates": [40.77, -111.93],
+    "fullName": "Salt Lake City, UT",
+    "abbreviation": "Salt Lake City"
+  },
+  {
+    "regionId": "1600000US4865000",
+    "shortName": "San Antonio",
+    "state": "TX",
+    "population": 1451853,
+    "coordinates": [29.47, -98.52],
+    "fullName": "San Antonio, TX",
+    "abbreviation": "San Antonio"
+  },
+  {
+    "regionId": "1600000US0666000",
+    "shortName": "San Diego",
+    "state": "CA",
+    "population": 1381611,
+    "coordinates": [32.81, -117.13],
+    "fullName": "San Diego, CA",
+    "abbreviation": "San Diego"
+  },
+  {
+    "regionId": "1600000US0667000",
+    "shortName": "San Francisco",
+    "state": "CA",
+    "population": 815201,
+    "coordinates": [37.72, -123.03],
+    "fullName": "San Francisco, CA",
+    "abbreviation": "San Francisco"
+  },
+  {
+    "regionId": "1600000US0667001",
+    "shortName": "San Jose",
+    "state": "CA",
+    "population": 983489,
+    "coordinates": [37.29, -121.81],
+    "fullName": "San Jose, CA",
+    "abbreviation": "San Jose"
+  },
+  {
+    "regionId": "1600000US7276770",
+    "shortName": "San Juan",
+    "state": "PR",
+    "population": 342259,
+    "coordinates": [18.4, -66.06],
+    "fullName": "San Juan, PR",
+    "abbreviation": "San Juan"
+  },
+  {
+    "regionId": "1600000US5363000",
+    "shortName": "Seattle",
+    "state": "WA",
+    "population": 733919,
+    "coordinates": [47.62, -122.35],
+    "fullName": "Seattle, WA",
+    "abbreviation": "Seattle"
+  },
+  {
+    "regionId": "1600000US2567000",
+    "shortName": "Springfield",
+    "state": "MA",
+    "population": 154789,
+    "coordinates": [42.11, -72.54],
+    "fullName": "Springfield, MA",
+    "abbreviation": "Springfield"
+  },
+  {
+    "regionId": "1600000US2965000",
+    "shortName": "St. Louis",
+    "state": "MO",
+    "population": 293310,
+    "coordinates": [38.63, -90.24],
+    "fullName": "St. Louis, MO",
+    "abbreviation": "St. Louis"
+  },
+  {
+    "regionId": "1600000US1263000",
+    "shortName": "St. Petersburg",
+    "state": "FL",
+    "population": 258201,
+    "coordinates": [27.76, -82.64],
+    "fullName": "St. Petersburg, FL",
+    "abbreviation": "St. Petersburg"
+  },
+  {
+    "regionId": "1600000US0675000",
+    "shortName": "Stockton",
+    "state": "CA",
+    "population": 322120,
+    "coordinates": [37.97, -121.31],
+    "fullName": "Stockton, CA",
+    "abbreviation": "Stockton"
+  },
+  {
+    "regionId": "1600000US3673000",
+    "shortName": "Syracuse",
+    "state": "NY",
+    "population": 146103,
+    "coordinates": [43.04, -76.14],
+    "fullName": "Syracuse, NY",
+    "abbreviation": "Syracuse"
+  },
+  {
+    "regionId": "1600000US1271000",
+    "shortName": "Tampa",
+    "state": "FL",
+    "population": 387050,
+    "coordinates": [27.97, -82.47],
+    "fullName": "Tampa, FL",
+    "abbreviation": "Tampa"
+  },
+  {
+    "regionId": "1600000US3977000",
+    "shortName": "Toledo",
+    "state": "OH",
+    "population": 268508,
+    "coordinates": [41.66, -83.58],
+    "fullName": "Toledo, OH",
+    "abbreviation": "Toledo"
+  },
+  {
+    "regionId": "1600000US0477000",
+    "shortName": "Tucson",
+    "state": "AZ",
+    "population": 543242,
+    "coordinates": [32.15, -110.87],
+    "fullName": "Tucson, AZ",
+    "abbreviation": "Tucson"
+  },
+  {
+    "regionId": "1600000US4075000",
+    "shortName": "Tulsa",
+    "state": "OK",
+    "population": 411401,
+    "coordinates": [36.12, -95.9],
+    "fullName": "Tulsa, OK",
+    "abbreviation": "Tulsa"
+  },
+  {
+    "regionId": "1600000US5182000",
+    "shortName": "Virginia Beach",
+    "state": "VA",
+    "population": 457672,
+    "coordinates": [36.78, -76.02],
+    "fullName": "Virginia Beach, VA",
+    "abbreviation": "Virginia Beach"
+  },
+  {
+    "regionId": "1600000US1150000",
+    "shortName": "Washington",
+    "state": "DC",
+    "population": 670050,
+    "coordinates": [38.9, -77.01],
+    "fullName": "Washington, DC",
+    "abbreviation": "Washington"
+  },
+  {
+    "regionId": "1600000US2079000",
+    "shortName": "Wichita",
+    "state": "KS",
+    "population": 395699,
+    "coordinates": [37.69, -97.34],
+    "fullName": "Wichita, KS",
+    "abbreviation": "Wichita"
+  },
+  {
+    "regionId": "1600000US3775000",
+    "shortName": "Winston-Salem",
+    "state": "NC",
+    "population": 250320,
+    "coordinates": [36.1, -80.26],
+    "fullName": "Winston-Salem, NC",
+    "abbreviation": "Winston-Salem"
+  },
+  {
+    "regionId": "1600000US2582000",
+    "shortName": "Worcester",
+    "state": "MA",
+    "population": 205918,
+    "coordinates": [42.26, -71.8],
+    "fullName": "Worcester, MA",
+    "abbreviation": "Worcester"
+  }
+]
