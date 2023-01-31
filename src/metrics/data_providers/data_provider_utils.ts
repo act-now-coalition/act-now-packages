@@ -290,3 +290,22 @@ export async function getMetricDataFromDataRows(
   }
   return metricData;
 }
+
+export async function getMetricDataFromLongDataRow(
+  dataRowsByRegionId: { [regionId: string]: DataRow[] },
+  region: Region,
+  metric: Metric,
+  metricField: string,
+  valueField: string,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  dateField?: string
+) {
+  const regionData = dataRowsByRegionId[region.regionId];
+  if (regionData.length <= 1) {
+    const metricData = regionData.find((row) => row[metricField] === metric.id);
+    const value = metricData ? metricData[valueField] : null;
+    return new MetricData(metric, region, value);
+  } else {
+    throw new Error("Long-form not implemented for multiple data rows.");
+  }
+}
