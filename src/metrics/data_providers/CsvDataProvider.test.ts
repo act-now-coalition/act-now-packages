@@ -9,10 +9,12 @@ const mockCsv = `region,cool_metric
 36,150
 12,`;
 
-const longCsv = `region,metric,Score
-12,cool_metric,1.2
-36,cool_metric,1.6
-25,cool_metric,1.7`;
+const longCsv = `region,metric,value,another_factor
+12,cool_metric,1.2,a
+12,another,1.3,b
+36,another,1.4,c
+36,cool_metric,1.6,d
+06,cooler_metric,1.7,d`;
 
 const csvTimeseries = `region,date,cool_metric
 36,2022-08-02,150
@@ -126,23 +128,28 @@ describe("CsvDataProvider", () => {
   });
 
   test("fetch long csv", async () => {
-    const provider = new CsvDataProvider(PROVIDER_ID, {
+    const longCsvProvider = new CsvDataProvider("long-csv", {
       regionDb: states,
       regionColumn: "region",
       format: "long",
+      longDataMetricColumn: "metric",
+      longDataValueColumn: "value",
+      // dateColumn: "date",
       csvText: longCsv,
     });
 
     // TODO: need to separate metric lookup from relying on metric id
     const metric = new Metric({
-      id: "cool_metric",
+      id: "metric",
       dataReference: {
-        providerId: PROVIDER_ID,
-        valueColumn: "Score",
-        column: "metric",
+        providerId: "long-csv",
+        column: "cool_metric",
       },
     });
-    const data = await provider.fetchDataForRegionAndMetric(newYork, metric);
+    const data = await longCsvProvider.fetchDataForRegionAndMetric(
+      newYork,
+      metric
+    );
     console.log(data);
     expect(data).toBeDefined();
   });

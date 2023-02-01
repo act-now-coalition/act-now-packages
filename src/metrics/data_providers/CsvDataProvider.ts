@@ -6,7 +6,7 @@ import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
 import {
   DataRow,
   getMetricDataFromDataRows,
-  getMetricDataFromLongDataRow,
+  getMetricDataFromLongDataRows,
   groupAndValidateRowsByRegionId,
   parseCsv,
 } from "./data_provider_utils";
@@ -27,9 +27,41 @@ export interface CsvDataProviderOptions {
    * Required if the CSV contains timeseries data, else it should not be specified.
    */
   dateColumn?: string;
-
-  /** Format of the CSV file. */
+  /** Format of the CSV file.
+   *
+   * - "wide" (default): Variables are columns, indexed by region and date columns (if timeseries data).
+   * - "long": Variables are rows, indexed by region and date columns (if timeseries data).
+   *
+   * Example wide-format CSV:
+   * ```
+   * |region |date       |var1 |var2 |
+   * |TX     |2022-02-01 |12   |45   |
+   * |CA     |2022-02-01 |31   |66   |
+   * ```
+   *
+   * Example long-format CSV:
+   * ```
+   * |region |date       |metric|value|
+   * |TX     |2022-02-01 |var1  |12   |
+   * |TX     |2022-02-01 |var2  |45   |
+   * |CA     |2022-02-01 |var1  |31   |
+   * |CA     |2022-02-01 |var2  |66   |
+   * ```
+   *
+   */
   format?: "wide" | "long";
+  /**
+   * For long-format CSVs, the name of the column containing the metric names
+   * (meaning, the values for Metric.dataReference.column). This does not need to be
+   * set for wide-format CSVs.
+   * */
+  longDataMetricColumn?: string;
+  /**
+   * For long-format CSVs, the name of the column containing the observation values.
+   * This does not need to be set for wide-format CSVs.
+   * */
+  longDataValueColumn?: string;
+
   /**
    * CSV data to import in place of URL fetch, typically used for testing.
    * If this is provided, the URL will be ignored.
@@ -38,22 +70,17 @@ export interface CsvDataProviderOptions {
 }
 
 /**
- * Data Provider for importing data from wide-format CSV files.
- *
- * Assumes data is in wide form (variables as columns, indexed by region and date columns.)
- * E.g:
- * ```
- * |region |date       |var1 |var2 |
- * |TX     |2022-02-01 |12   |45   |
- * |CA     |2022-02-01 |31   |66   |
- * ```
+ * Data Provider for importing data from wide- or long-format CSV files.
  */
 export class CsvDataProvider extends SimpleMetricDataProviderBase {
   private readonly regionDb: RegionDB;
   private readonly regionColumn: string;
   private readonly dateColumn?: string;
-  private readonly url?: string;
   private readonly format: "wide" | "long";
+  private readonly url?: string;
+  private readonly longDataMetricColumn?: string;
+  private readonly longDataValueColumn?: string;
+
   private fetchedText: Promise<string> | undefined;
   private dataRowsByRegionId:
     | Promise<{ [regionId: string]: DataRow[] }>
@@ -81,6 +108,9 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     this.dateColumn = options.dateColumn;
     this.format = options.format ?? "wide";
     this.url = options.url;
+    this.longDataMetricColumn = options.longDataMetricColumn;
+    this.longDataValueColumn = options.longDataValueColumn;
+
     if (options.csvText) {
       this.dataRowsByRegionId = this.getDataForCache(options.csvText);
     }
@@ -108,37 +138,38 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     region: Region,
     metric: Metric
   ): Promise<MetricData<unknown>> {
+    const metricName = metric.dataReference?.column;
+    assert(
+      typeof metricName === "string",
+      "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
+    );
     // Populate the cache if it hasn't been populated or isn't being populated yet.
     this.dataRowsByRegionId = this.dataRowsByRegionId ?? this.getDataForCache();
     const dataRowsByRegionId = await this.dataRowsByRegionId;
 
-    const metricColumn = metric.dataReference?.column;
-    assert(
-      typeof metricColumn === "string",
-      "Missing or invalid metric column name. Ensure 'column' is included in metric's MetricDataReference"
-    );
-
-    // TODO: cleanup and separate this logic out better
     if (this.format === "wide") {
       return getMetricDataFromDataRows(
         dataRowsByRegionId,
         region,
         metric,
-        metricColumn,
+        metricName,
+        this.dateColumn
+      );
+    } else {
+      assert(
+        this.longDataMetricColumn && this.longDataValueColumn,
+        "longDataMetricColumn and longDataValueColumn options must be provided for long-format CSVs."
+      );
+      return getMetricDataFromLongDataRows(
+        dataRowsByRegionId,
+        region,
+        metric,
+        metricName,
+        this.longDataMetricColumn,
+        this.longDataValueColumn,
         this.dateColumn
       );
     }
-
-    const valueColumn = metric.dataReference?.valueColumn;
-    assert(typeof valueColumn === "string", "Missing valueColumn for long csv");
-    return getMetricDataFromLongDataRow(
-      dataRowsByRegionId,
-      region,
-      metric,
-      metricColumn,
-      valueColumn,
-      this.dateColumn
-    );
   }
 
   /**

@@ -291,21 +291,52 @@ export async function getMetricDataFromDataRows(
   return metricData;
 }
 
-export async function getMetricDataFromLongDataRow(
+export async function getMetricDataFromLongDataRows(
   dataRowsByRegionId: { [regionId: string]: DataRow[] },
   region: Region,
   metric: Metric,
-  metricField: string,
+  metricName: string,
+  metricColumn: string,
   valueField: string,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   dateField?: string
 ) {
-  const regionData = dataRowsByRegionId[region.regionId];
-  if (regionData.length <= 1) {
-    const metricData = regionData.find((row) => row[metricField] === metric.id);
-    const value = metricData ? metricData[valueField] : null;
-    return new MetricData(metric, region, value);
+  const regionRows = dataRowsByRegionId[region.regionId];
+  assert(
+    regionRows,
+    `No data found for region ${region.regionId}.` +
+      `Please check the region ID and that the expected data exists.`
+  );
+  const metricDataRows = regionRows.filter(
+    (row) => row[metricColumn] === metricName
+  );
+
+  if (!dateField) {
+    assert(
+      metricDataRows.length <= 1,
+      `Expected no more than 1 entry for region ${region.regionId} and metric ` +
+        `${metric.id} but found: ${metricDataRows.length}. If this is timeseries data, ` +
+        `specify a date field when creating the data provider.`
+    );
+    return new MetricData(
+      metric,
+      region,
+      metricDataRows?.[0]?.[valueField] ?? null
+    );
   } else {
-    throw new Error("Long-form not implemented for multiple data rows.");
+    const timeseries: Timeseries<unknown> = new Timeseries(
+      metricDataRows.map((row) => {
+        const date = row[dateField] as string;
+        return {
+          date: new Date(date),
+          value: row[valueField] ?? null,
+        };
+      })
+    );
+    return new MetricData(
+      metric,
+      region,
+      timeseries.last ?? null,
+      timeseries.hasData() ? timeseries : undefined
+    );
   }
 }
