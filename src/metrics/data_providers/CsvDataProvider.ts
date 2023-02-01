@@ -155,7 +155,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
         metricName,
         this.dateColumn
       );
-    } else {
+    } else if (this.format === "long") {
       assert(
         this.longDataMetricColumn && this.longDataValueColumn,
         "longDataMetricColumn and longDataValueColumn options must be provided for long-format CSVs."
@@ -169,6 +169,8 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
         this.longDataValueColumn,
         this.dateColumn
       );
+    } else {
+      throw new Error(`CsvDataProvider format '${this.format}' not supported.`);
     }
   }
 

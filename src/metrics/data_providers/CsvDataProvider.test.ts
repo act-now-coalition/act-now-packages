@@ -17,8 +17,8 @@ const csvTimeseries = `region,date,cool_metric
 const longCsv = `region,metric,value,another_column
 12,cool_metric,100,a
 12,another_metric,110,b
-36,cool_metric,120,d
-36,another_metric,130,c`;
+36,another_metric,130,c
+36,cool_metric,120,d`;
 
 const longCsvTimeseries = `region,date,metric,value,another_column
 12,2022-08-02,cool_metric,70,a
@@ -184,6 +184,18 @@ describe("CsvDataProvider with long-format CSV", () => {
     expect(metricData.hasTimeseries()).toBe(false);
   });
 
+  test("fetchData() fails if dateColumn is provided for non-timeseries data.", async () => {
+    expect(async () =>
+      testFetchingCsvData(
+        longCsv,
+        /*includeTimeseries=*/ false,
+        /*dateColumn=*/ "date",
+        /*metric=*/ undefined,
+        longCsvProviderOptions
+      )
+    ).rejects.toThrow("Missing date field");
+  });
+
   test("fetchData() fails if no data exists for the region", async () => {
     expect(async () =>
       testFetchingCsvData(
@@ -196,15 +208,15 @@ describe("CsvDataProvider with long-format CSV", () => {
     ).rejects.toThrow("No data found for region");
   });
 
-  test("fetchData() fails if dateColumn is provided for non-timeseries data.", async () => {
-    expect(async () =>
-      testFetchingCsvData(
-        longCsv,
-        /*includeTimeseries=*/ false,
-        /*dateColumn=*/ "date",
-        /*metric=*/ undefined,
-        longCsvProviderOptions
-      )
-    ).rejects.toThrow("Missing date field");
+  test("fetchData() returns null metric if the metric data for region is not found.", async () => {
+    const metricData = await testFetchingCsvData(
+      longCsv.replace(/\n.*$/, ""), // Remove last line so there's no data for the expected metric for NY.
+      /*includeTimeseries=*/ true,
+      /*dateColumn=*/ "date",
+      /*metric=*/ undefined,
+      longCsvProviderOptions
+    );
+    expect(metricData.currentValue).toBe(null);
+    expect(metricData.hasTimeseries()).toBe(false);
   });
 });
