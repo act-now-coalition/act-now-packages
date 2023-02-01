@@ -255,7 +255,8 @@ export function groupAndValidateRowsByRegionId(
 }
 
 /**
- * Creates a MetricData object from a set of data rows grouped by region ID.
+ * Creates a MetricData object from a set of data rows grouped by region ID,
+ * where metricField is the name of the field containing the metric value.
  *
  * @param dataRowsByRegionId Data to transform into MetricData.
  * @param region Region to get MetricData for.
@@ -291,12 +292,26 @@ export async function getMetricDataFromDataRows(
   return metricData;
 }
 
+/**
+ * Creates a MetricData object from a set of long-format data rows grouped by region ID,
+ * where metricName is the name of the metric and metricField is the name of the field containing
+ * the metric names.
+ *
+ * @param dataRowsByRegionId Data to transform into MetricData.
+ * @param region Region to get MetricData for.
+ * @param metric Metric to get MetricData for.
+ * @param metricName Name of the metric to get data for.
+ * @param metricField Name of field containing metric names.
+ * @param valueField Name of field containing metric values.
+ * @param dateField Name of field containing date values.
+ * @returns MetricData for the provided region and metric.
+ */
 export async function getMetricDataFromLongDataRows(
   dataRowsByRegionId: { [regionId: string]: DataRow[] },
   region: Region,
   metric: Metric,
   metricName: string,
-  metricColumn: string,
+  metricField: string,
   valueField: string,
   dateField?: string
 ) {
@@ -307,22 +322,10 @@ export async function getMetricDataFromLongDataRows(
       `Please check the region ID and that the expected data exists.`
   );
   const metricDataRows = regionRows.filter(
-    (row) => row[metricColumn] === metricName
+    (row) => row[metricField] === metricName
   );
 
-  if (!dateField) {
-    assert(
-      metricDataRows.length <= 1,
-      `Expected no more than 1 entry for region ${region.regionId} and metric ` +
-        `${metric.id} but found: ${metricDataRows.length}. If this is timeseries data, ` +
-        `specify a date field when creating the data provider.`
-    );
-    return new MetricData(
-      metric,
-      region,
-      metricDataRows?.[0]?.[valueField] ?? null
-    );
-  } else {
+  if (dateField) {
     const timeseries: Timeseries<unknown> = new Timeseries(
       metricDataRows.map((row) => {
         const date = row[dateField];
@@ -342,6 +345,18 @@ export async function getMetricDataFromLongDataRows(
       region,
       timeseries.last?.value ?? null,
       timeseries.hasData() ? timeseries : undefined
+    );
+  } else {
+    assert(
+      metricDataRows.length <= 1,
+      `Expected no more than 1 entry for region ${region.regionId} and metric ` +
+        `${metric.id} but found: ${metricDataRows.length}. If this is timeseries data, ` +
+        `specify a date field when creating the data provider.`
+    );
+    return new MetricData(
+      metric,
+      region,
+      metricDataRows?.[0]?.[valueField] ?? null
     );
   }
 }

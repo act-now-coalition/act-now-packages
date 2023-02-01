@@ -52,13 +52,13 @@ export interface CsvDataProviderOptions {
   format?: "wide" | "long";
   /**
    * For long-format CSVs, the name of the column containing the metric names
-   * (meaning, the values for Metric.dataReference.column). This does not need to be
+   * (meaning, the values for Metric.dataReference.column). This should not be
    * set for wide-format CSVs.
    * */
   longDataMetricColumn?: string;
   /**
    * For long-format CSVs, the name of the column containing the observation values.
-   * This does not need to be set for wide-format CSVs.
+   * This should not be set for wide-format CSVs.
    * */
   longDataValueColumn?: string;
 
