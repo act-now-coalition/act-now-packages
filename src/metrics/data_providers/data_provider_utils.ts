@@ -325,9 +325,14 @@ export async function getMetricDataFromLongDataRows(
   } else {
     const timeseries: Timeseries<unknown> = new Timeseries(
       metricDataRows.map((row) => {
-        const date = row[dateField] as string;
+        const date = row[dateField];
+        assert(
+          date,
+          `Missing date field '${dateField}' in data row. ` +
+            "If this is not timeseries data, do not specify a date field."
+        );
         return {
-          date: new Date(date),
+          date: new Date(date as string),
           value: row[valueField] ?? null,
         };
       })
@@ -335,7 +340,7 @@ export async function getMetricDataFromLongDataRows(
     return new MetricData(
       metric,
       region,
-      timeseries.last ?? null,
+      timeseries.last?.value ?? null,
       timeseries.hasData() ? timeseries : undefined
     );
   }
