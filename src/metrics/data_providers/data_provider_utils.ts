@@ -269,7 +269,8 @@ export async function getMetricDataFromDataRows(
   region: Region,
   metric: Metric,
   metricField: string,
-  dateField?: string
+  dateField?: string,
+  strict = true
 ): Promise<MetricData<unknown>> {
   let metricData: MetricData;
   if (dateField) {
@@ -279,7 +280,7 @@ export async function getMetricDataFromDataRows(
       metric,
       metricField,
       dateField,
-      /* strict= */ true
+      /* strict= */ strict
     );
   } else {
     metricData = dataRowToMetricData(

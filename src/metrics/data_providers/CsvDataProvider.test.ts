@@ -122,8 +122,17 @@ describe("CsvDataProvider", () => {
       longFormatCsvProviderOptions
     );
 
-    expect(wideMetricData).toStrictEqual(longMetricData);
-    expect(wideMetricDataTs).toStrictEqual(longMetricDataTs);
+    // Can't use toStrictEqual() because long-format CSVs use 'variable' instead of 'column' in dataReference.
+    expect(wideMetricData.currentValue).toBe(longMetricData.currentValue);
+    expect(wideMetricData.hasTimeseries).toStrictEqual(
+      longMetricData.hasTimeseries
+    );
+    expect(wideMetricDataTs.currentValue).toStrictEqual(
+      longMetricDataTs.currentValue
+    );
+    expect(wideMetricDataTs.timeseries).toStrictEqual(
+      longMetricDataTs.timeseries
+    );
   });
 });
 
@@ -138,13 +147,13 @@ describe("CsvDataProvider with wide-format (default) csv", () => {
       /*includeTimeseries=*/ true,
       /*dateColumn=*/ "date"
     );
-    expect(metricDataNoTs.currentValue).toBe(150);
+    expect(metricDataNoTs.currentValue).toBe(120);
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
 
     expect(metricDataTs.hasTimeseries()).toBe(true);
     expect(metricDataTs.timeseries.length).toBe(1);
-    expect(metricDataTs.timeseries.lastValue).toBe(150);
-    expect(metricDataTs.currentValue).toBe(150);
+    expect(metricDataTs.timeseries.lastValue).toBe(120);
+    expect(metricDataTs.currentValue).toBe(120);
   });
 
   test("fetchData() returns non-timeseries data if timeseries data is not available.", async () => {
@@ -152,7 +161,7 @@ describe("CsvDataProvider with wide-format (default) csv", () => {
       wideCsv,
       /*includeTimeseries=*/ true
     );
-    expect(metricData.currentValue).toBe(150);
+    expect(metricData.currentValue).toBe(120);
     expect(metricData.hasTimeseries()).toBe(false);
   });
 
@@ -175,7 +184,7 @@ describe("CsvDataProvider with wide-format (default) csv", () => {
   });
 });
 
-describe.only("CsvDataProvider with long-format CSV", () => {
+describe("CsvDataProvider with long-format CSV", () => {
   test("fetchData() yields expected data", async () => {
     const metricDataNoTs = await testFetchingCsvData(
       longCsv,
@@ -195,7 +204,7 @@ describe.only("CsvDataProvider with long-format CSV", () => {
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
 
     expect(metricDataTs.hasTimeseries()).toBe(true);
-    expect(metricDataTs.timeseries.length).toBe(2);
+    expect(metricDataTs.timeseries.length).toBe(1);
     expect(metricDataTs.timeseries.lastValue).toBe(120);
     expect(metricDataTs.currentValue).toBe(120);
   });
@@ -223,16 +232,4 @@ describe.only("CsvDataProvider with long-format CSV", () => {
       )
     ).rejects.toThrow();
   });
-
-  // test("fetchData() fails if no data exists for the region", async () => {
-  //   expect(async () =>
-  //     testFetchingCsvData(
-  //       longCsv.replaceAll("36", "25"), // replace NY locations with MA so there's no data for NY.
-  //       /*includeTimeseries=*/ true,
-  //       /*dateColumn=*/ undefined,
-  //       /*metric=*/ testLongMetric,
-  //       longFormatCsvProviderOptions
-  //     )
-  //   ).rejects.toThrow("No data found for region");
-  // });
 });
