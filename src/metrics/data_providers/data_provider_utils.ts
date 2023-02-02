@@ -1,6 +1,7 @@
 import get from "lodash/get";
 import groupBy from "lodash/groupBy";
 import isNil from "lodash/isNil";
+import mapValues from "lodash/mapValues";
 import truncate from "lodash/truncate";
 import Papa from "papaparse";
 
@@ -91,7 +92,7 @@ export function dataRowsToMetricData(
     metric,
     region,
     timeseries.lastValue ?? null,
-    timeseries
+    timeseries.length === 0 ? undefined : timeseries
   );
 }
 
@@ -255,7 +256,8 @@ export function groupAndValidateRowsByRegionId(
 }
 
 /**
- * Creates a MetricData object from a set of data rows grouped by region ID.
+ * Creates a MetricData object from a set of data rows grouped by region ID,
+ * where metricField is the name of the field containing the metric value.
  *
  * @param dataRowsByRegionId Data to transform into MetricData.
  * @param region Region to get MetricData for.
@@ -268,7 +270,8 @@ export async function getMetricDataFromDataRows(
   region: Region,
   metric: Metric,
   metricField: string,
-  dateField?: string
+  dateField?: string,
+  strict = true
 ): Promise<MetricData<unknown>> {
   let metricData: MetricData;
   if (dateField) {
@@ -278,7 +281,7 @@ export async function getMetricDataFromDataRows(
       metric,
       metricField,
       dateField,
-      /* strict= */ true
+      /* strict= */ strict
     );
   } else {
     metricData = dataRowToMetricData(
@@ -289,4 +292,43 @@ export async function getMetricDataFromDataRows(
     );
   }
   return metricData;
+}
+
+/**
+ * Transforms data from long-format to wide-format.
+ *
+ * @param long Data in long-format, grouped by region ID.
+ * @param variableField Name of field containing variable names.
+ * @param valueField Name of field containing variable values.
+ * @param dateField Name of field containing date values.
+ * @returns Data transformed to wide-format, grouped by region ID.
+ */
+export function pivotLongToWide(
+  long: { [regionId: string]: DataRow[] },
+  variableField: string,
+  valueField: string,
+  dateField?: string
+): { [regionId: string]: DataRow[] } {
+  const regionToWideRows = mapValues(long, (longRows) => {
+    if (dateField) {
+      const dateToLongRows = groupBy(longRows, (row) => row[dateField]);
+      const wideRows = Object.entries(dateToLongRows).map(
+        ([date, longRowsForDate]) => {
+          const wideRow: DataRow = { [dateField]: date };
+          for (const row of longRowsForDate) {
+            wideRow[row[variableField] as string] = row[valueField];
+          }
+          return wideRow;
+        }
+      );
+      return wideRows;
+    } else {
+      const wideRow: DataRow = {};
+      for (const row of longRows) {
+        wideRow[row[variableField] as string] = row[valueField];
+      }
+      return [wideRow];
+    }
+  });
+  return regionToWideRows;
 }
