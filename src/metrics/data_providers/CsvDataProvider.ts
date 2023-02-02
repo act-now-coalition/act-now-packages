@@ -14,9 +14,9 @@ import { fetchText } from "./utils";
 
 /** Options for long-format CsvDataProviders. */
 export interface LongFormatCsvOptions {
-  /** The name of the column containing the variable names (meaning, the values for Metric.dataReference.column). */
+  /** The name of the column containing the variable names. */
   variableColumn: string;
-  /** For long-format CSVs, the name of the column containing the observation values. */
+  /** The name of the column containing the observation values. */
   valueColumn: string;
 }
 
@@ -52,8 +52,8 @@ export interface CsvDataProviderOptions {
  * For wide-format CSVs, metrics should specify {@link Metric.dataReference.column} with the name
  * of the column containing the metric's data.
  *
- * For long-format CSVs, metrics should specify {@link Metric.dataReference.variable} with the
- * name of the value of variableColumn that corresponds to the metric's data.
+ * For long-format CSVs, metrics should specify {@link Metric.dataReference.variable}. This value
+ * should match values in the CSV's variableColumn.
  *
  * Example wide-format CSV:
  * ```
