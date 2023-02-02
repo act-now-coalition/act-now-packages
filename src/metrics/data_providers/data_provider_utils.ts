@@ -308,55 +308,29 @@ export function pivotLongToWide(
   valueField: string,
   dateField?: string
 ) {
-  // TBH these individual functions were mainly created by Github Copilot and I
-  // haven't really looked at them closely. I imagine we could combine these
-  // into a single function, but I just wanted a quick proof of concept.
-  return dateField
-    ? pivotLongToWideTimeseries(long, variableField, valueField, dateField)
-    : pivotLongToWideNoTimeseries(long, variableField, valueField);
-}
-
-function pivotLongToWideTimeseries(
-  long: { [regionId: string]: DataRow[] },
-  variableField: string,
-  valueField: string,
-  dateField: string
-) {
   const wide: { [regionId: string]: DataRow[] } = {};
   for (const regionId of Object.keys(long)) {
     wide[regionId] = [];
     const regionData = long[regionId];
-    const dates = new Set(regionData.map((row) => row[dateField]));
-    for (const date of dates) {
-      const dateData = regionData.filter((row) => row[dateField] === date);
-      const wideRow = { region: regionId, date } as DataRow;
-      for (const row of dateData) {
+    if (dateField) {
+      const dates = new Set(regionData.map((row) => row[dateField]));
+      for (const date of dates) {
+        const dateData = regionData.filter((row) => row[dateField] === date);
+        const wideRow = { region: regionId, [dateField]: date } as DataRow;
+        for (const row of dateData) {
+          const key = row[variableField] as string;
+          wideRow[key] = row[valueField];
+        }
+        wide[regionId].push(wideRow);
+      }
+    } else {
+      const wideRow = { region: regionId } as DataRow;
+      for (const row of regionData) {
         const key = row[variableField] as string;
         wideRow[key] = row[valueField];
       }
       wide[regionId].push(wideRow);
     }
-  }
-  return wide;
-}
-
-function pivotLongToWideNoTimeseries(
-  long: { [regionId: string]: DataRow[] },
-  variableField: string,
-  valueField: string
-) {
-  const wide: { [regionId: string]: DataRow[] } = {};
-  for (const regionId in long) {
-    wide[regionId] = long[regionId].reduce((acc, row) => {
-      const existingRow = acc.find((r) => r.date === row.date);
-      const key = row[variableField] as string;
-      if (existingRow) {
-        existingRow[key] = row[valueField];
-      } else {
-        acc.push({ region: regionId, [key]: row[valueField] });
-      }
-      return acc;
-    }, [] as DataRow[]);
   }
   return wide;
 }

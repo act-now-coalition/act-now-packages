@@ -53,7 +53,7 @@ export interface CsvDataProviderOptions {
  * of the column containing the metric's data.
  *
  * For long-format CSVs, metrics should specify {@link Metric.dataReference.variable}. This value
- * should match values in the CSV's variableColumn.
+ * should be present in the CSV's variableColumn.
  *
  * Example wide-format CSV:
  * ```
