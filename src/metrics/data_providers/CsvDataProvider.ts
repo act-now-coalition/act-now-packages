@@ -161,7 +161,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       metric,
       variableName,
       this.dateColumn,
-      /**strict=*/ false
+      /*strict=*/ false
     );
   }
 

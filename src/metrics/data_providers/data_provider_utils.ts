@@ -1,6 +1,7 @@
 import get from "lodash/get";
 import groupBy from "lodash/groupBy";
 import isNil from "lodash/isNil";
+import mapValues from "lodash/mapValues";
 import truncate from "lodash/truncate";
 import Papa from "papaparse";
 
@@ -307,30 +308,27 @@ export function pivotLongToWide(
   variableField: string,
   valueField: string,
   dateField?: string
-) {
-  const wide: { [regionId: string]: DataRow[] } = {};
-  for (const regionId of Object.keys(long)) {
-    wide[regionId] = [];
-    const regionData = long[regionId];
+): { [regionId: string]: DataRow[] } {
+  const regionToWideRows = mapValues(long, (longRows) => {
     if (dateField) {
-      const dates = new Set(regionData.map((row) => row[dateField]));
-      for (const date of dates) {
-        const dateData = regionData.filter((row) => row[dateField] === date);
-        const wideRow = { region: regionId, [dateField]: date } as DataRow;
-        for (const row of dateData) {
-          const key = row[variableField] as string;
-          wideRow[key] = row[valueField];
+      const dateToLongRows = groupBy(longRows, (row) => row[dateField]);
+      const wideRows = Object.entries(dateToLongRows).map(
+        ([date, longRowsForDate]) => {
+          const wideRow: DataRow = { [dateField]: date };
+          for (const row of longRowsForDate) {
+            wideRow[row[variableField] as string] = row[valueField];
+          }
+          return wideRow;
         }
-        wide[regionId].push(wideRow);
-      }
+      );
+      return wideRows;
     } else {
-      const wideRow = { region: regionId } as DataRow;
-      for (const row of regionData) {
-        const key = row[variableField] as string;
-        wideRow[key] = row[valueField];
+      const wideRow: DataRow = {};
+      for (const row of longRows) {
+        wideRow[row[variableField] as string] = row[valueField];
       }
-      wide[regionId].push(wideRow);
+      return [wideRow];
     }
-  }
-  return wide;
+  });
+  return regionToWideRows;
 }
