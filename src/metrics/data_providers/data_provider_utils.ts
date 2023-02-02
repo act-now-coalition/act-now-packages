@@ -91,7 +91,7 @@ export function dataRowsToMetricData(
     metric,
     region,
     timeseries.lastValue ?? null,
-    timeseries
+    timeseries.length === 0 ? undefined : timeseries
   );
 }
 
@@ -293,70 +293,69 @@ export async function getMetricDataFromDataRows(
 }
 
 /**
- * Creates a MetricData object from a set of long-format data rows grouped by region ID,
- * where metricName is the name of the metric and metricField is the name of the field containing
- * the metric names.
+ * Transforms data from long-format to wide-format.
  *
- * @param dataRowsByRegionId Data to transform into MetricData.
- * @param region Region to get MetricData for.
- * @param metric Metric to get MetricData for.
- * @param metricName Name of the metric to get data for.
- * @param metricField Name of field containing metric names.
- * @param valueField Name of field containing metric values.
+ * @param long Data in long-format, grouped by region ID.
+ * @param variableField Name of field containing variable names.
+ * @param valueField Name of field containing variable values.
  * @param dateField Name of field containing date values.
- * @returns MetricData for the provided region and metric.
+ * @returns Data transformed to wide-format, grouped by region ID.
  */
-export async function getMetricDataFromLongDataRows(
-  dataRowsByRegionId: { [regionId: string]: DataRow[] },
-  region: Region,
-  metric: Metric,
-  metricName: string,
-  metricField: string,
+export function pivotLongToWide(
+  long: { [regionId: string]: DataRow[] },
+  variableField: string,
   valueField: string,
   dateField?: string
 ) {
-  const regionRows = dataRowsByRegionId[region.regionId];
-  assert(
-    regionRows,
-    `No data found for region ${region.regionId}.` +
-      `Please check the region ID and that the expected data exists.`
-  );
-  const metricDataRows = regionRows.filter(
-    (row) => row[metricField] === metricName
-  );
+  // TBH these individual functions were mainly created by Github Copilot and I
+  // haven't really looked at them closely. I imagine we could combine these
+  // into a single function, but I just wanted a quick proof of concept.
+  return dateField
+    ? pivotLongToWideTimeseries(long, variableField, valueField, dateField)
+    : pivotLongToWideNoTimeseries(long, variableField, valueField);
+}
 
-  if (dateField) {
-    const timeseries: Timeseries<unknown> = new Timeseries(
-      metricDataRows.map((row) => {
-        const date = row[dateField];
-        assert(
-          date,
-          `Missing date field '${dateField}' in data row. ` +
-            "If this is not timeseries data, do not specify a date field."
-        );
-        return {
-          date: new Date(date as string),
-          value: row[valueField] ?? null,
-        };
-      })
-    );
-    return new MetricData(
-      metric,
-      region,
-      timeseries.last?.value ?? null,
-      timeseries.hasData() ? timeseries : undefined
-    );
-  } else {
-    assert(
-      metricDataRows.length <= 1,
-      `Expected no more than 1 entry for region ${region.regionId} and metric ` +
-        `${metric.id} but found: ${metricDataRows.length}. If this is timeseries data, ` +
-        `specify a date field when creating the data provider.`
-    );
-    return new MetricData(
-      metric,
-      region,
-      metricDataRows?.[0]?.[valueField] ?? null
-    );
+function pivotLongToWideTimeseries(
+  long: { [regionId: string]: DataRow[] },
+  variableField: string,
+  valueField: string,
+  dateField: string
+) {
+  const wide: { [regionId: string]: DataRow[] } = {};
+  for (const regionId of Object.keys(long)) {
+    wide[regionId] = [];
+    const regionData = long[regionId];
+    const dates = new Set(regionData.map((row) => row[dateField]));
+    for (const date of dates) {
+      const dateData = regionData.filter((row) => row[dateField] === date);
+      const wideRow = { region: regionId, date } as DataRow;
+      for (const row of dateData) {
+        const key = row[variableField] as string;
+        wideRow[key] = row[valueField];
+      }
+      wide[regionId].push(wideRow);
+    }
   }
+  return wide;
+}
+
+function pivotLongToWideNoTimeseries(
+  long: { [regionId: string]: DataRow[] },
+  variableField: string,
+  valueField: string
+) {
+  const wide: { [regionId: string]: DataRow[] } = {};
+  for (const regionId in long) {
+    wide[regionId] = long[regionId].reduce((acc, row) => {
+      const existingRow = acc.find((r) => r.date === row.date);
+      const key = row[variableField] as string;
+      if (existingRow) {
+        existingRow[key] = row[valueField];
+      } else {
+        acc.push({ region: regionId, [key]: row[valueField] });
+      }
+      return acc;
+    }, [] as DataRow[]);
+  }
+  return wide;
 }
