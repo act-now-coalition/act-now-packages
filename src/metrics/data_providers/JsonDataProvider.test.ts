@@ -20,6 +20,11 @@ const testJson = [
 const testJsonTimeseries = [
   {
     region: "36",
+    date: "2022",
+    cool_metric: 50,
+  },
+  {
+    region: "36",
     date: "2022-08-02",
     cool_metric: 150,
   },
@@ -86,7 +91,8 @@ describe.only("JsonDataProvider", () => {
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
 
     expect(metricDataTs.hasTimeseries()).toBe(true);
-    expect(metricDataTs.timeseries.length).toBe(1);
+    expect(metricDataTs.timeseries.length).toBe(2);
+    expect(metricDataTs.timeseries.minDate).toEqual(new Date("2022"));
     expect(metricDataTs.timeseries.lastValue).toBe(150);
     expect(metricDataTs.currentValue).toBe(150);
   });
