@@ -77,12 +77,13 @@ export function dataRowsToMetricData(
         if (strict) {
           assert(value !== undefined, `Metric key ${metricKey} missing.`);
         }
+        const date = row[dateKey];
         assert(
-          typeof row[dateKey] === "string",
-          `Date column must be a string. ${typeof row[dateKey]} found.`
+          typeof date === "string",
+          "Date column must be an  ISO 8601 date string."
         );
         return {
-          date: new Date(row[dateKey] as string),
+          date: new Date(date),
           value: value as unknown,
         };
       })

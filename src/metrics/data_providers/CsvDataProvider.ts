@@ -118,7 +118,11 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       assert(this.url, "URL or csvText must be provided to populate cache.");
       csvText = await this.fetchCsvText();
     }
-    const csv = parseCsv(csvText, [this.regionColumn]);
+    const stringColumns = [
+      this.regionColumn,
+      ...(this.dateColumn ? [this.dateColumn] : []),
+    ];
+    const csv = parseCsv(csvText, stringColumns);
     assert(csv.length > 0, "CSV must not be empty.");
     let dataRowsByRegionId = groupAndValidateRowsByRegionId(
       csv,

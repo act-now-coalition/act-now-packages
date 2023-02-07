@@ -10,6 +10,7 @@ const wideCsv = `region,cool_metric,another_metric
 36,120,200`;
 
 const wideCsvTimeseries = `region,date,cool_metric,another_metric
+36,2022,50,
 36,2022-08-02,120,200
 36,2022-08-03,,210
 12,2022-08-02,,100`;
@@ -20,6 +21,7 @@ const longCsv = `region,variable,value
 36,cool_metric,120`;
 
 const longCsvTimeseries = `region,date,variable,value
+36,2022,cool_metric,50
 36,2022-08-02,cool_metric,120
 36,2022-08-02,another_metric,200
 36,2022-08-03,another_metric,210
@@ -151,7 +153,8 @@ describe("CsvDataProvider with wide-format (default) csv", () => {
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
 
     expect(metricDataTs.hasTimeseries()).toBe(true);
-    expect(metricDataTs.timeseries.length).toBe(1);
+    expect(metricDataTs.timeseries.length).toBe(2);
+    expect(metricDataTs.timeseries.minDate).toEqual(new Date("2022"));
     expect(metricDataTs.timeseries.lastValue).toBe(120);
     expect(metricDataTs.currentValue).toBe(120);
   });
@@ -204,7 +207,8 @@ describe("CsvDataProvider with long-format CSV", () => {
     expect(metricDataNoTs.hasTimeseries()).toBe(false);
 
     expect(metricDataTs.hasTimeseries()).toBe(true);
-    expect(metricDataTs.timeseries.length).toBe(1);
+    expect(metricDataTs.timeseries.length).toBe(2);
+    expect(metricDataTs.timeseries.minDate).toEqual(new Date("2022"));
     expect(metricDataTs.timeseries.lastValue).toBe(120);
     expect(metricDataTs.currentValue).toBe(120);
   });
