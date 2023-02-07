@@ -57,7 +57,7 @@ export interface ShareButtonProps {
   /**
    * MUI Button className applied to the anchor button.
    */
-  className?: string;
+  className?: ButtonProps["className"];
 }
 
 export const ShareButton = ({
