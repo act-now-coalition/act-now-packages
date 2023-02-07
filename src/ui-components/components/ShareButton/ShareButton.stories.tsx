@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box } from "@mui/material";
+import { Box, styled } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { ShareButton, ShareButtonProps } from ".";
@@ -45,3 +45,17 @@ WithRightMenuOrigin.args = {
   ...args,
   menuOrigin: "right",
 };
+
+const StyledButton = styled(ShareButton)`
+  color: white;
+  border-color: white;
+  &:hover {
+    border-color: white;
+  }
+`;
+
+export const StyledAnchor = () => (
+  <Box sx={{ padding: 4, backgroundColor: "#2c387e" }}>
+    <StyledButton {...args} />
+  </Box>
+);
