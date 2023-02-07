@@ -58,6 +58,10 @@ export interface ShareButtonProps {
    * MUI Button className applied to the anchor button.
    */
   className?: ButtonProps["className"];
+  /**
+   *
+   */
+  anchor?: React.ReactElement<ButtonProps, typeof Button>;
 }
 
 export const ShareButton = ({
@@ -71,6 +75,7 @@ export const ShareButton = ({
   variant = "outlined",
   size = "large",
   className = "",
+  anchor,
 }: ShareButtonProps) => {
   const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -80,17 +85,30 @@ export const ShareButton = ({
     const timer = setTimeout(() => setAnchorButton(null), 1000);
     () => clearTimeout(timer);
   };
+
+  const anchorBtn = anchor ? (
+    React.cloneElement(anchor, {
+      ...anchor.props,
+      onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+        handleClick(event);
+        anchor?.props?.onClick && anchor.props.onClick(event);
+      },
+    })
+  ) : (
+    <Button
+      className={className}
+      variant={variant}
+      size={size}
+      endIcon={<ShareIcon />}
+      onClick={handleClick}
+    >
+      Share
+    </Button>
+  );
+
   return (
     <>
-      <Button
-        className={className}
-        variant={variant}
-        size={size}
-        endIcon={<ShareIcon />}
-        onClick={handleClick}
-      >
-        Share
-      </Button>
+      {anchorBtn}
       <Menu
         anchorEl={anchorButton}
         open={!isNull(anchorButton)}
