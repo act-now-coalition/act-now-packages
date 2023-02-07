@@ -54,6 +54,10 @@ export interface ShareButtonProps {
    * @default "large"
    */
   size?: ButtonProps["size"];
+  /**
+   * MUI Button className applied to the anchor button.
+   */
+  className?: ButtonProps["className"];
 }
 
 export const ShareButton = ({
@@ -66,6 +70,7 @@ export const ShareButton = ({
   menuOrigin = "left",
   variant = "outlined",
   size = "large",
+  className = "",
 }: ShareButtonProps) => {
   const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,6 +83,7 @@ export const ShareButton = ({
   return (
     <>
       <Button
+        className={className}
         variant={variant}
         size={size}
         endIcon={<ShareIcon />}
@@ -89,14 +95,8 @@ export const ShareButton = ({
         anchorEl={anchorButton}
         open={!isNull(anchorButton)}
         onClose={() => setAnchorButton(null)}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: menuOrigin,
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: menuOrigin,
-        }}
+        anchorOrigin={{ vertical: "bottom", horizontal: menuOrigin }}
+        transformOrigin={{ vertical: "top", horizontal: menuOrigin }}
       >
         <MenuItem>
           <CopyLinkButton
