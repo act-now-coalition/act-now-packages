@@ -2,8 +2,8 @@ import React from "react";
 
 import { Stack, Typography } from "@mui/material";
 
-import { assert } from "../../../assert";
 import { Category, Metric } from "../../../metrics";
+import { validate } from "../../../validate";
 import { LegendCategorical } from "../LegendCategorical";
 import { useMetricCatalog } from "../MetricCatalogContext";
 
@@ -29,7 +29,7 @@ export const MetricLegendCategorical = ({
   const metricCatalog = useMetricCatalog();
   metric = metricCatalog.getMetric(metric);
   const items = metric.categorySet?.categories;
-  assert(
+  validate(
     items,
     "Metric must define categories in order to use MetricLegendCategorical. " +
       `No categories found for metric: ${metric}`
