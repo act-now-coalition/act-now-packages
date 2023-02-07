@@ -64,7 +64,7 @@ export const StyledAnchor = () => (
 export const CustomButton = () => (
   <ShareButton
     {...args}
-    anchor={
+    anchorButton={
       <Button
         variant="contained"
         startIcon={<ShareLocationIcon />}
