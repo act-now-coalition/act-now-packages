@@ -79,15 +79,11 @@ export function dataRowsToMetricData(
         }
         const date = row[dateKey];
         assert(
-          typeof date === "string" ||
-            (typeof date === "number" &&
-              Math.floor(date) === date &&
-              date >= 0 &&
-              date <= 9999),
-          `Date column must be an ISO 8601 date string or 4-digit year. Found: ${date}`
+          typeof date === "string",
+          "Date column must be an  ISO 8601 date string."
         );
         return {
-          date: new Date(`${date}`),
+          date: new Date(date),
           value: value as unknown,
         };
       })
