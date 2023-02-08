@@ -7,6 +7,7 @@ import { Region, RegionDB } from "../../../regions";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { getCountiesOfState } from "../../common/utils/maps";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import { ErrorBox } from "../ErrorBox";
 import { MetricMapTooltipContent } from "../MetricMapTooltipContent";
 import { USStateMap, USStateMapProps } from "../USStateMap";
@@ -87,7 +88,7 @@ export const MetricUSStateMap = ({
         stateRegionId={stateRegionId}
         {...otherProps}
       />
-      {data && <ComponentLoaded />}
+      {data ? <ComponentLoaded /> : <ComponentLoading />}
     </>
   );
 };

@@ -4,6 +4,7 @@ import { Metric } from "../../../metrics";
 import { Region } from "../../../regions";
 import { useData } from "../../common/hooks";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Dot, PlaceholderDot } from "./MetricDot.style";
 
@@ -39,7 +40,7 @@ export const MetricDot = ({ region, metric: metricOrId }: MetricDotProps) => {
   return (
     <>
       <Dot style={{ backgroundColor }} />
-      {data && <ComponentLoaded />}
+      {data ? <ComponentLoaded /> : <ComponentLoading />}
     </>
   );
 };

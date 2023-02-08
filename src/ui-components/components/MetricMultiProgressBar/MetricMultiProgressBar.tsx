@@ -6,6 +6,7 @@ import { Metric, MultiMetricDataStore } from "../../../metrics";
 import { Region } from "../../../regions";
 import { useDataForMetrics } from "../../common/hooks";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import {
   BaseMultiProgressBarProps,
   DEFAULT_HEIGHT,
@@ -51,7 +52,7 @@ export const MetricMultiProgressBar = ({
         height={height}
         {...otherProgressBarProps}
       />
-      {data && <ComponentLoaded />}
+      {data ? <ComponentLoaded /> : <ComponentLoading />}
     </>
   );
 };

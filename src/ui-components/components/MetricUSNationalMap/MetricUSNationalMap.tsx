@@ -6,6 +6,7 @@ import { Metric } from "../../../metrics";
 import { Region, RegionDB } from "../../../regions";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import { ErrorBox } from "../ErrorBox";
 import { MetricMapTooltipContent } from "../MetricMapTooltipContent";
 import { USNationalMap, USNationalMapProps } from "../USNationalMap";
@@ -82,7 +83,7 @@ export const MetricUSNationalMap = ({
         showCounties={showCounties}
         {...otherProps}
       />
-      {data && <ComponentLoaded />}
+      {data ? <ComponentLoaded /> : <ComponentLoading />}
     </>
   );
 };
