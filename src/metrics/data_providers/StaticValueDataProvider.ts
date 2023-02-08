@@ -1,5 +1,5 @@
-import { assert } from "../../assert";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "../data";
@@ -35,7 +35,7 @@ export class StaticValueDataProvider extends SimpleMetricDataProviderBase {
     includeTimeseries: boolean
   ): Promise<MetricData<unknown>> {
     const value = metric.dataReference?.value;
-    assert(
+    validate(
       value !== undefined,
       `${metric} is missing a "value" in its "static-data" data reference.`
     );

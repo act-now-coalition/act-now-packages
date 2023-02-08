@@ -2,9 +2,9 @@ import React from "react";
 
 import { Skeleton } from "@mui/material";
 
-import { assert } from "../../../assert";
 import { Metric } from "../../../metrics";
 import { Region } from "../../../regions";
+import { validate } from "../../../validate";
 import { useDataForMetrics } from "../../common/hooks";
 import { getChartRange } from "../../common/utils/charts";
 import { ComponentLoaded } from "../ComponentLoaded";
@@ -78,7 +78,7 @@ export const MetricSparklines = ({
       ?.timeseries.assertFiniteNumbers()
       .filterToDateRange({ startAt: dateFrom, endAt: dateTo });
 
-    assert(
+    validate(
       timeseriesLineChart.hasData(),
       `Timeseries line chart cannot be empty`
     );
@@ -87,7 +87,7 @@ export const MetricSparklines = ({
       timeseriesLineChart
     );
 
-    assert(
+    validate(
       timeseriesBarChart.hasData(),
       `Timeseries bar chart cannot be empty`
     );

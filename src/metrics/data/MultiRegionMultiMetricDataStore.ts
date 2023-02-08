@@ -1,8 +1,8 @@
 import mapValues from "lodash/mapValues";
 
-import { assert } from "../../assert";
 import { Region } from "../../regions";
 import { isoDateOnlyString } from "../../time-utils";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { Timeseries, TimeseriesPointJSON } from "../Timeseries";
 import { MetricData } from "./MetricData";
@@ -133,7 +133,7 @@ export class MultiRegionMultiMetricDataStore<T = unknown> {
   regionData(region: Region): MultiMetricDataStore<T> {
     const regionId = region.regionId;
     const multiMetricDataStore = this.data[regionId];
-    assert(
+    validate(
       multiMetricDataStore,
       `No data for region ${regionId}. Did you forget to include it when you created the MultiRegionMetricDataStore?`
     );

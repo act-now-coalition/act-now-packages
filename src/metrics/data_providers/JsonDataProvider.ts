@@ -1,5 +1,5 @@
-import { assert } from "../../assert";
 import { Region, RegionDB } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { MetricData } from "../data/MetricData";
 import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
@@ -60,7 +60,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     | undefined;
 
   constructor(providerId: string, options: JsonDataProviderOptions) {
-    assert(
+    validate(
       options.url || options.jsonData,
       "Either a URL or JSON data must be provided to create an instance of JsonDataProvider."
     );
@@ -78,11 +78,11 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     jsonData?: DataRow[]
   ): Promise<{ [regionId: string]: DataRow[] }> {
     if (!jsonData) {
-      assert(this.url, "URL or jsonData must be provided to populate cache.");
+      validate(this.url, "URL or jsonData must be provided to populate cache.");
       jsonData = await fetchJson(this.url);
     }
 
-    assert(jsonData && jsonData.length > 0, "JSON array must not be empty.");
+    validate(jsonData && jsonData.length > 0, "JSON array must not be empty.");
     const dataRowsByRegionId = groupAndValidateRowsByRegionId(
       jsonData,
       this.regionDb,
@@ -101,7 +101,7 @@ export class JsonDataProvider extends SimpleMetricDataProviderBase {
     this.dataRowsByRegionId = this.dataRowsByRegionId ?? this.getDataForCache();
     const dataRowsByRegionId = await this.dataRowsByRegionId;
     const metricField = metric.dataReference?.field;
-    assert(
+    validate(
       typeof metricField === "string",
       "Missing or invalid metric field name. Ensure 'field' is included in metric's MetricDataReference"
     );

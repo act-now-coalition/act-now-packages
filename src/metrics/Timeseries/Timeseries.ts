@@ -8,6 +8,7 @@ import sumBy from "lodash/sumBy";
 import { assert } from "../../assert";
 import { isFinite } from "../../number-format";
 import { PureDate, isoDateOnlyString } from "../../time-utils";
+import { validate } from "../../validate";
 
 /** A single, serialized point in a timeseries containing a date-string and a value. */
 export interface TimeseriesPointJSON {
@@ -240,7 +241,7 @@ export class Timeseries<T = NonNullable<unknown>> {
    */
   assertFiniteNumbers(): Timeseries<number> {
     this.points.forEach((p) => {
-      assert(
+      validate(
         isFinite(p.value),
         `Found non-numeric (or non-finite) value in timeseries. date=${isoDateOnlyString(
           p.date
@@ -258,7 +259,7 @@ export class Timeseries<T = NonNullable<unknown>> {
    */
   assertBoolean(): Timeseries<boolean> {
     this.points.forEach((p) => {
-      assert(
+      validate(
         typeof p.value === "boolean",
         `Found non-boolean value in timeseries. date=${isoDateOnlyString(
           p.date
@@ -276,7 +277,7 @@ export class Timeseries<T = NonNullable<unknown>> {
    */
   assertStrings(): Timeseries<string> {
     this.points.forEach((p) => {
-      assert(
+      validate(
         typeof p.value === "string",
         `Found non-string value in timeseries. date=${isoDateOnlyString(
           p.date

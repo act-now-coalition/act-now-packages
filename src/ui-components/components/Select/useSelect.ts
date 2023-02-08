@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { assert } from "../../../assert";
+import { validate } from "../../../validate";
 
 export function useSelect<T>(
   items: T[],
@@ -11,7 +11,7 @@ export function useSelect<T>(
 
   function onSelectOption(value: string) {
     const foundOption = items.find((item) => getValue(item) === value);
-    assert(foundOption, "Option not found");
+    validate(foundOption, "Option not found");
     setSelectedOption(foundOption);
   }
 

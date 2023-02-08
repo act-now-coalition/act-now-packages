@@ -2,8 +2,8 @@ import React from "react";
 
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
-import { assert } from "../../../assert";
 import { Region, RegionDB, counties, states } from "../../../regions";
+import { validate } from "../../../validate";
 import { USStateMap } from "./USStateMap";
 
 const regionDB = new RegionDB([...states.all, ...counties.all], {
@@ -28,7 +28,7 @@ const getTooltip = (regionId: string) => {
 const getRegionUrl = (regionId: string): string => {
   const region = regionDB.findByRegionIdStrict(regionId);
   const url = regionDB.getRegionUrl(region);
-  assert(typeof url === "string", "RegionDB.getRegionUrl must be configured");
+  validate(typeof url === "string", "RegionDB.getRegionUrl must be configured");
   return url;
 };
 

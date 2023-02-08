@@ -1,5 +1,5 @@
-import { assert } from "../../../assert";
 import { Category } from "../../../metrics";
+import { validate } from "../../../validate";
 import { LineInterval } from "../LineIntervalChart";
 
 export interface ChartInterval extends LineInterval {
@@ -62,8 +62,8 @@ export function calculateChartIntervals(
   minValue: number,
   maxValue: number
 ): ChartInterval[] {
-  assert(thresholds.length > 0, `There should be at least one threshold`);
-  assert(
+  validate(thresholds.length > 0, `There should be at least one threshold`);
+  validate(
     metricCategories.length === thresholds.length + 1,
     `There should be one fewer threshold than categories`
   );

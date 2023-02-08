@@ -5,7 +5,7 @@ import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
 import { BarChart } from ".";
-import { assert } from "../../../assert";
+import { validate } from "../../../validate";
 import { appleStockTimeseries } from "../../stories/mockData";
 import { LineChart } from "../LineChart";
 
@@ -33,7 +33,7 @@ const timeseries = appleStockTimeseries.filterToDateRange({
   startAt: new Date("2008-01-01"),
   endAt: new Date("2008-01-31"),
 });
-assert(timeseries.hasData(), `Timeseries cannot be empty`);
+validate(timeseries.hasData(), `Timeseries cannot be empty`);
 
 const { minDate, maxDate, minValue, maxValue } = timeseries;
 

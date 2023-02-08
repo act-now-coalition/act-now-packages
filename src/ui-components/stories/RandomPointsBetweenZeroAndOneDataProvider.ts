@@ -1,10 +1,10 @@
-import { assert } from "../../assert";
 import {
   Metric,
   MetricData,
   SimpleMetricDataProviderBase,
 } from "../../metrics";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { randomPointsBetweenZeroAndOneTimeseries } from "./mockData";
 
 /**
@@ -30,7 +30,7 @@ export class RandomPointsBetweenZeroAndOneDataProvider extends SimpleMetricDataP
     const timeseries = randomPointsBetweenZeroAndOneTimeseries;
 
     // Use last value of timeseries as current value.
-    assert(timeseries.hasData());
+    validate(timeseries.hasData());
     const currentValue = timeseries.last.value;
 
     return new MetricData(metric, region, currentValue, timeseries);

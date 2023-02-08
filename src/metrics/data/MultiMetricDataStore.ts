@@ -1,7 +1,7 @@
 import mapValues from "lodash/mapValues";
 
-import { assert } from "../../assert";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { MetricData } from "./MetricData";
 
@@ -43,7 +43,7 @@ export class MultiMetricDataStore<T = unknown> {
   metricData(metric: string | Metric): MetricData<T> {
     const metricId = metric instanceof Metric ? metric.id : metric;
     const data = this.data[metricId];
-    assert(
+    validate(
       data,
       `No data for metric ${metricId}. Did you forget to specify it when you created the MetricDataStore?`
     );
