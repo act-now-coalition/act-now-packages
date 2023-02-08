@@ -1,12 +1,6 @@
-# @actnowcoalition/time-utils
+## Usage
 
 > Utility functions to handle and format time
-
-## Installing
-
-```sh
-yarn add @actnowcoalition/time-utils
-```
 
 ## License
 

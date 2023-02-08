@@ -1,8 +1,6 @@
-# @actnowcoalition/regions
+## Usage
 
 > A package containing classes and datasets to represent geographic areas and administrative divisions with a uniform interface.
-
-## Usage
 
 The `Region` class defines the main elements that represent an administrative division.
 
@@ -71,12 +69,6 @@ import { nations } from "@actnowcoalition/actnow.js";
 
 const irl = nations.findByRegionId("IRL");
 console.log(irl.fullName); // Ireland
-```
-
-## Installing
-
-```sh
-yarn add @actnowcoalition/regions
 ```
 
 ## License

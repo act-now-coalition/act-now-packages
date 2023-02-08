@@ -1,12 +1,6 @@
-# @actnowcoalition/assert
+## Usage
 
-Assertion functions
-
-## Installing
-
-```sh
-yarn add @actnowcoalition/assert
-```
+> Assertion functions
 
 ## License
 

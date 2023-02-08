@@ -1,6 +1,6 @@
 ## Usage
 
-> UI components for Act Now
+> Validation functions
 
 ## License
 
