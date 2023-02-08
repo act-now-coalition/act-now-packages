@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Box, styled } from "@mui/material";
+import ShareLocationIcon from "@mui/icons-material/ShareLocation";
+import { Box, Button, styled } from "@mui/material";
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 
 import { ShareButton, ShareButtonProps } from ".";
@@ -58,4 +59,19 @@ export const StyledAnchor = () => (
   <Box sx={{ padding: 4, backgroundColor: "#2c387e" }}>
     <StyledButton {...args} />
   </Box>
+);
+
+export const CustomButton = () => (
+  <ShareButton
+    {...args}
+    anchorButton={
+      <Button
+        variant="contained"
+        startIcon={<ShareLocationIcon />}
+        onClick={() => console.log("custom onClick")}
+      >
+        Share Location
+      </Button>
+    }
+  />
 );

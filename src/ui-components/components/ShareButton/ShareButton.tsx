@@ -56,8 +56,13 @@ export interface ShareButtonProps {
   size?: ButtonProps["size"];
   /**
    * MUI Button className applied to the anchor button.
+   * @default ""
    */
   className?: ButtonProps["className"];
+  /**
+   * MUI Button instance to use as anchor button.
+   */
+  anchorButton?: React.ReactElement<ButtonProps, typeof Button>;
 }
 
 export const ShareButton = ({
@@ -71,30 +76,48 @@ export const ShareButton = ({
   variant = "outlined",
   size = "large",
   className = "",
+  anchorButton,
 }: ShareButtonProps) => {
-  const [anchorButton, setAnchorButton] = useState<null | HTMLElement>(null);
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorButton(event.currentTarget);
+    setAnchorElement(event.currentTarget);
   };
+
   const handleClose = () => {
-    const timer = setTimeout(() => setAnchorButton(null), 1000);
+    const timer = setTimeout(() => setAnchorElement(null), 1000);
     () => clearTimeout(timer);
   };
+
+  // We need to clone the anchorButton to modify the onClick handler, so we
+  // can call the original onClick property and the handleClick function.
+  const modifiedAnchorButton = anchorButton ? (
+    React.cloneElement(anchorButton, {
+      ...anchorButton.props,
+      onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+        handleClick(event);
+        anchorButton?.props?.onClick && anchorButton.props.onClick(event);
+      },
+    })
+  ) : (
+    <Button
+      className={className}
+      variant={variant}
+      size={size}
+      endIcon={<ShareIcon />}
+      onClick={handleClick}
+    >
+      Share
+    </Button>
+  );
+
   return (
     <>
-      <Button
-        className={className}
-        variant={variant}
-        size={size}
-        endIcon={<ShareIcon />}
-        onClick={handleClick}
-      >
-        Share
-      </Button>
+      {modifiedAnchorButton}
       <Menu
-        anchorEl={anchorButton}
-        open={!isNull(anchorButton)}
-        onClose={() => setAnchorButton(null)}
+        anchorEl={anchorElement}
+        open={!isNull(anchorElement)}
+        onClose={() => setAnchorElement(null)}
         anchorOrigin={{ vertical: "bottom", horizontal: menuOrigin }}
         transformOrigin={{ vertical: "top", horizontal: menuOrigin }}
       >
