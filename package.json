@@ -1,6 +1,6 @@
 {
   "name": "@actnowcoalition/actnow.js",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "ActNow.js - Build location-based dashboards in React",
   "repository": "git@github.com:act-now-coalition/act-now-packages.git",
   "keywords": [
