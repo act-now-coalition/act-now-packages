@@ -15,7 +15,7 @@ export function validate(
 /**
  * Throws an Error with the (optionally) provided error message.
  */
-export function throwError(errorMessage?: string): never {
+export function throwValidationError(errorMessage?: string): never {
   throw new ActNowJsError(errorMessage);
 }
 

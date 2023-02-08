@@ -1,4 +1,4 @@
-import { throwError, validate } from "./index";
+import { throwValidationError, validate } from "./index";
 
 describe("validate", () => {
   test("throws an error if condition is falsy", () => {
@@ -20,7 +20,7 @@ describe("validate", () => {
 describe("throwActNowJsError", () => {
   const errorMsg = "Error message";
   test("throws an error with the given message", () => {
-    expect(() => throwError()).toThrow();
-    expect(() => throwError(errorMsg)).toThrowError(errorMsg);
+    expect(() => throwValidationError()).toThrow();
+    expect(() => throwValidationError(errorMsg)).toThrowError(errorMsg);
   });
 });

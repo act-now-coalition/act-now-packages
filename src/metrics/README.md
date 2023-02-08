@@ -1,14 +1,6 @@
-# @actnowcoalition/metrics
+## Design Overview / Usage
 
 > Classes for representing metrics and loading metric data
-
-## Installing
-
-```sh
-yarn add @actnowcoalition/metrics
-```
-
-## Design Overview / Usage
 
 ### Main classes
 

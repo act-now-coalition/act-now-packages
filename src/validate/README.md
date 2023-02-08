@@ -1,12 +1,6 @@
-# @actnowcoalition/validate
+## Usage
 
-Validation functions
-
-## Installing
-
-```sh
-yarn add @actnowcoalition/validate
-```
+> Validation functions
 
 ## License
 

@@ -1,12 +1,6 @@
-# @actnowcoalition/ui-components
+## Usage
 
 > UI components for Act Now
-
-## Installing
-
-```sh
-yarn add @actnowcoalition/ui-components
-```
 
 ## License
 
