@@ -8,6 +8,7 @@ import { Region } from "../../../regions";
 import { useDataForMetrics } from "../../common/hooks";
 import { getChartRange } from "../../common/utils/charts";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { BaseSparkLineProps, SparkLine } from "../SparkLine";
@@ -108,7 +109,7 @@ export const MetricSparklines = ({
           maxValue={maxValue}
           {...optionalProps}
         />
-        {data && <ComponentLoaded />}
+        {data ? <ComponentLoaded /> : <ComponentLoading />}
       </>
     );
   }

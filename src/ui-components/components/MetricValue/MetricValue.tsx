@@ -6,6 +6,7 @@ import { Metric } from "../../../metrics";
 import { Region } from "../../../regions";
 import { useData } from "../../common/hooks";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricDot } from "../MetricDot";
 
@@ -67,7 +68,7 @@ export const MetricValue = ({
           {formattedValue}
         </Typography>
       </Stack>
-      {data && <ComponentLoaded />}
+      {data ? <ComponentLoaded /> : <ComponentLoading />}
     </>
   );
 };

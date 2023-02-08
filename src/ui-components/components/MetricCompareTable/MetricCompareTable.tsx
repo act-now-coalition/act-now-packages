@@ -14,6 +14,7 @@ import {
   sortTableRows,
 } from "../CompareTable";
 import { ComponentLoaded } from "../ComponentLoaded";
+import { ComponentLoading } from "../ComponentLoading";
 import { ErrorBox } from "../ErrorBox";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { Row, createLocationColumn, createMetricColumn } from "./utils";
@@ -108,7 +109,7 @@ export const MetricCompareTable = ({
         columns={columns}
         {...otherCompareTableProps}
       />
-      {data && <ComponentLoaded />}
+      {data ? <ComponentLoaded /> : <ComponentLoading />}
     </>
   );
 };
