@@ -1,7 +1,6 @@
 import { DateTime, Duration } from "luxon";
 
-import { fail } from "../assert";
-import { validate } from "../validate";
+import { throwValidationError, validate } from "../validate";
 
 export * from "./PureDate";
 
@@ -252,7 +251,7 @@ export function getTimeUnitLabel(amount: number, unit: TimeUnit): string {
     case TimeUnit.YEARS:
       return pluralize(amount, "year", "years");
     default:
-      fail(`Unsupported unit: ${unit}`);
+      throwValidationError(`Unsupported unit: ${unit}`);
   }
 }
 

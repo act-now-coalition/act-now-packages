@@ -1,9 +1,8 @@
 import isEqual from "lodash/isEqual";
 import last from "lodash/last";
 
-import { fail } from "../../assert";
 import { isFinite } from "../../number-format";
-import { validate } from "../../validate";
+import { throwValidationError, validate } from "../../validate";
 import { MetricCatalogOptions } from "../MetricCatalog";
 import { Category, CategorySet } from "./Category";
 import { MetricDataReference } from "./MetricDataReference";
@@ -182,7 +181,7 @@ export class Metric {
         value
       );
     } else {
-      fail(
+      throwValidationError(
         `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
       );
     }
@@ -282,7 +281,7 @@ export class Metric {
     if (this.hasCategories) {
       return this.getCategory(value).color;
     } else {
-      fail(
+      throwValidationError(
         `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
       );
     }
