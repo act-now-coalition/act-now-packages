@@ -1,6 +1,6 @@
 import keyBy from "lodash/keyBy";
 
-import { assert } from "../assert";
+import { validate } from "../validate";
 import { Region } from "./Region";
 
 export interface RegionDBOptions {
@@ -24,12 +24,12 @@ export class RegionDB {
 
   findByRegionIdStrict(regionId: string): Region {
     const region = this.findByRegionId(regionId);
-    assert(region, `Region unexpectedly not found for ${regionId}`);
+    validate(region, `Region unexpectedly not found for ${regionId}`);
     return region;
   }
 
   getRegionUrl(region: Region) {
-    assert(
+    validate(
       this?.options?.getRegionUrl,
       `This RegionDB doesn't have a getRegionUrl configured`
     );

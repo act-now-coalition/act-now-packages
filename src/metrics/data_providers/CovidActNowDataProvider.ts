@@ -1,8 +1,8 @@
 import mapValues from "lodash/mapValues";
 import pLimit from "p-limit";
 
-import { assert } from "../../assert";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { MultiRegionMultiMetricDataStore } from "../data";
 import { MetricData } from "../data/MetricData";
@@ -99,7 +99,7 @@ export class CovidActNowDataProvider implements MetricDataProvider {
     includeTimeseries: boolean
   ): Promise<MetricData> {
     const metricKey = metric.dataReference?.column;
-    assert(
+    validate(
       typeof metricKey === "string",
       `Metrics using ${this.id} data provider must specify the` +
         `CAN API field to access via the dataReference.column property.`

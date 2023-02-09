@@ -1,5 +1,5 @@
-import { assert } from "../../assert";
 import { Region, RegionDB } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { MetricData } from "../data/MetricData";
 import { SimpleMetricDataProviderBase } from "./SimpleMetricDataProviderBase";
@@ -94,7 +94,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
    * So data for a nation must have ISO 3 code as its identifier.)
    */
   constructor(providerId: string, options: CsvDataProviderOptions) {
-    assert(
+    validate(
       options.url || options.csvText,
       "Either a URL or CSV data must be provided to create an instance of CsvDataProvider."
     );
@@ -115,7 +115,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     csvText?: string
   ): Promise<{ [regionId: string]: DataRow[] }> {
     if (!csvText) {
-      assert(this.url, "URL or csvText must be provided to populate cache.");
+      validate(this.url, "URL or csvText must be provided to populate cache.");
       csvText = await this.fetchCsvText();
     }
     const stringColumns = [
@@ -123,7 +123,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
       ...(this.dateColumn ? [this.dateColumn] : []),
     ];
     const csv = parseCsv(csvText, stringColumns);
-    assert(csv.length > 0, "CSV must not be empty.");
+    validate(csv.length > 0, "CSV must not be empty.");
     let dataRowsByRegionId = groupAndValidateRowsByRegionId(
       csv,
       this.regionDb,
@@ -149,7 +149,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
     const variableName = this.longFormatCsvOptions
       ? metric.dataReference?.variable
       : metric.dataReference?.column;
-    assert(
+    validate(
       typeof variableName === "string",
       "Missing or invalid metric column name. " +
         "For wide-format CSVs, ensure 'column' is included in metric's MetricDataReference." +
@@ -175,7 +175,7 @@ export class CsvDataProvider extends SimpleMetricDataProviderBase {
    * @returns fetched CSV data.
    */
   private async fetchCsvText(): Promise<string> {
-    assert(this.url, "URL must be specified in order to use fetchCsvText()");
+    validate(this.url, "URL must be specified in order to use fetchCsvText()");
     return fetchText(this.url);
   }
 }

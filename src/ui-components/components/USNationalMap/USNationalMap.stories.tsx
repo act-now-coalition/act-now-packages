@@ -4,8 +4,8 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { scaleLinear, scaleOrdinal } from "@visx/scale";
 import { interpolatePiYG } from "d3-scale-chromatic";
 
-import { assert } from "../../../assert";
 import { Region, RegionDB, counties, states } from "../../../regions";
+import { validate } from "../../../validate";
 import { USNationalMap } from "./USNationalMap";
 
 export default {
@@ -28,7 +28,7 @@ const getTooltip = (regionId: string) => {
 const getRegionUrl = (regionId: string): string => {
   const region = regionDB.findByRegionIdStrict(regionId);
   const url = regionDB.getRegionUrl(region);
-  assert(typeof url === "string", "RegionDB.getRegionUrl must be configured");
+  validate(typeof url === "string", "RegionDB.getRegionUrl must be configured");
   return url;
 };
 

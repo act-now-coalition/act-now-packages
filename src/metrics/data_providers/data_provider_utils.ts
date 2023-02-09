@@ -5,8 +5,8 @@ import mapValues from "lodash/mapValues";
 import truncate from "lodash/truncate";
 import Papa from "papaparse";
 
-import { assert } from "../../assert";
 import { Region, RegionDB } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { MetricData } from "../data";
@@ -38,14 +38,14 @@ export function dataRowToMetricData(
   if (rows.length === 0) {
     return new MetricData(metric, region, /*currentValue=*/ null);
   } else {
-    assert(
+    validate(
       rows.length === 1,
       `Expected no more than 1 entry for region ${region.regionId} and metric ` +
         `${metric.id} but found: ${rows.length}. If this is timeseries data, ` +
         `specify a dateColumn when creating the CsvDataProvider.`
     );
     const value = get(rows[0], metricKey);
-    assert(value !== undefined, `Metric key ${metricKey} missing.`);
+    validate(value !== undefined, `Metric key ${metricKey} missing.`);
     return new MetricData(metric, region, value);
   }
 }
@@ -75,10 +75,10 @@ export function dataRowsToMetricData(
       .map((row) => {
         const value = get(row, metricKey);
         if (strict) {
-          assert(value !== undefined, `Metric key ${metricKey} missing.`);
+          validate(value !== undefined, `Metric key ${metricKey} missing.`);
         }
         const date = row[dateKey];
-        assert(
+        validate(
           typeof date === "string",
           "Date column must be an  ISO 8601 date string."
         );
@@ -193,7 +193,7 @@ function generateCsvValue(value: unknown): string {
     // then wrap the entire string in " chars. https://stackoverflow.com/a/769820
     return `"${value.replace(/"/g, '""')}"`;
   } else {
-    assert(
+    validate(
       ["number", "boolean", "string"].includes(typeof value),
       `Unexpected value found while generating CSV text: ${JSON.stringify(
         value
@@ -230,7 +230,7 @@ export function groupAndValidateRowsByRegionId(
   url?: string
 ): { [regionId: string]: DataRow[] } {
   const dataRowsByRegionId = groupBy(dataRows, (row) => row[regionKey]);
-  assert(
+  validate(
     !dataRowsByRegionId["undefined"],
     `One or more data rows were missing a region id value in column ${regionKey}`
   );

@@ -29,16 +29,16 @@ Once the code is merged to `develop`, we can publish the package by merging the 
 
 ### Installing the package
 
-If you want to use the package on a different project, you can install it as you would normally do with any other package. For example, to install `assert` on a different repository, just go to that project and run:
+If you want to use the package on a different project, you can install it as you would normally do with any other package. For example, to install the package on a different repository, just go to that project and run:
 
 ```sh
-yarn add @actnowcoalition/assert
+yarn add @actnowcoalition/actnow.js
 ```
 
 If you need a specific version, you can install
 
 ```sh
-yarn add @actnowcoalition/assert@1.0.1
+yarn add @actnowcoalition/actnow.js@1.0.1
 ```
 
 ### Updating a package

@@ -1,6 +1,6 @@
 import { DateTime, Duration } from "luxon";
 
-import { assert, fail } from "../assert";
+import { throwValidationError, validate } from "../validate";
 
 export * from "./PureDate";
 
@@ -46,7 +46,7 @@ export enum TimeUnit {
  */
 export function parseDateString(dateString: string): Date {
   const parsedDate = DateTime.fromISO(dateString);
-  assert(parsedDate.isValid, `Invalid input date string: ${dateString}`);
+  validate(parsedDate.isValid, `Invalid input date string: ${dateString}`);
   return parsedDate.toJSDate();
 }
 
@@ -223,7 +223,7 @@ export function isoDateOnlyString(date: Date): string {
  */
 export function assertDateOnly(date: Date): void {
   const onlyDate = date.toISOString().endsWith("T00:00:00.000Z");
-  assert(
+  validate(
     onlyDate,
     `Date is expected to have a no time component (hours/minutes/seconds). Date found: ${date.toISOString()}`
   );
@@ -251,7 +251,7 @@ export function getTimeUnitLabel(amount: number, unit: TimeUnit): string {
     case TimeUnit.YEARS:
       return pluralize(amount, "year", "years");
     default:
-      fail(`Unsupported unit: ${unit}`);
+      throwValidationError(`Unsupported unit: ${unit}`);
   }
 }
 

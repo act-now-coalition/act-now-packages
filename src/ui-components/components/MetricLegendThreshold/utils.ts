@@ -1,5 +1,5 @@
-import { assert } from "../../../assert";
 import { Category, Metric } from "../../../metrics";
+import { validate } from "../../../validate";
 
 export interface CategoryItem {
   /**
@@ -35,7 +35,7 @@ export function getMetricCategoryItems(
   const metricCategories = metric.categorySet?.categories;
   const metricThresholds = metric.categoryThresholds;
 
-  assert(metricCategories, `The metric needs to have categories`);
+  validate(metricCategories, `The metric needs to have categories`);
 
   return metricCategories.map((category, index) => ({
     name: category.name ?? category.id,

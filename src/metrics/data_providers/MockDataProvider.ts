@@ -1,8 +1,8 @@
 import delay from "delay";
 
-import { assert } from "../../assert";
 import { Region } from "../../regions";
 import { TimeUnit, getTimeDiff } from "../../time-utils";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { mockTimeseries } from "../Timeseries";
 import { MetricData } from "../data";
@@ -76,7 +76,7 @@ export class MockDataProvider extends SimpleMetricDataProviderBase {
         ? new Date(fields.endDate)
         : new Date(new Date().toISOString().replace(/T.*/, ""));
       const dataLength = getTimeDiff(endDate, startDate, TimeUnit.DAYS) + 1;
-      assert(dataLength >= 0, "endDate must be >= startDate.");
+      validate(dataLength >= 0, "endDate must be >= startDate.");
 
       // NOTE: We always include the timeseries even if not asked so that we end up
       // with it in the cache in case they want timeseries later.
@@ -89,7 +89,7 @@ export class MockDataProvider extends SimpleMetricDataProviderBase {
       );
 
       // Use last value of timeseries as current value.
-      assert(timeseries.hasData());
+      validate(timeseries.hasData());
       const currentValue = timeseries.last.value;
 
       this.cachedData[cacheKey] = new MetricData(

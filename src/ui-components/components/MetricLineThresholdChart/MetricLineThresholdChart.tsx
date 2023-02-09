@@ -4,9 +4,9 @@ import { Skeleton } from "@mui/material";
 import { Group } from "@visx/group";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
-import { assert } from "../../../assert";
 import { Metric } from "../../../metrics";
 import { Region } from "../../../regions";
+import { validate } from "../../../validate";
 import { useData } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
@@ -83,7 +83,7 @@ export const MetricLineThresholdChart = ({
 
   const thresholds = metric.categoryThresholds;
   const categories = metric.categorySet?.categories;
-  assert(
+  validate(
     thresholds?.length && categories,
     `MetricLineThresholdChart can only be used with metrics that have thresholds and categories. ${metric} does not.`
   );

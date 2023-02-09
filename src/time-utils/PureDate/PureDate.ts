@@ -1,4 +1,4 @@
-import { assert } from "../../assert";
+import { validate } from "../../validate";
 
 /**
  * Represents a pure date (with no time component).  Useful for e.g.
@@ -23,7 +23,7 @@ export class PureDate {
   constructor(date: Date | string) {
     // TODO(michael): Perhaps we should be more strict on validating the string format.
     const jsDate = typeof date === "string" ? new Date(date) : date;
-    assert(
+    validate(
       PureDate.isValid(jsDate),
       `Invalid PureDate contains nonzero timestamp: ${date}`
     );

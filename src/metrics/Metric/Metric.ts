@@ -1,8 +1,8 @@
 import isEqual from "lodash/isEqual";
 import last from "lodash/last";
 
-import { assert, fail } from "../../assert";
 import { isFinite } from "../../number-format";
+import { throwValidationError, validate } from "../../validate";
 import { MetricCatalogOptions } from "../MetricCatalog";
 import { Category, CategorySet } from "./Category";
 import { MetricDataReference } from "./MetricDataReference";
@@ -91,14 +91,14 @@ export class Metric {
       this.categorySet = categorySets.find(
         (cs) => cs.id === this.categorySetId
       );
-      assert(
+      validate(
         this.categorySet,
         `Metric ${this.id} specified categorySetId ${this.categorySetId} but it does not exist. You need to include an appropriate CategorySet in MetricCatalogOptions.categorySets when constructing the MetricCatalog.`
       );
     }
 
     if (this.minValue && this.maxValue) {
-      assert(
+      validate(
         this.minValue <= this.maxValue,
         `Minimum value must be less than maximum value. ` +
           `Got min: ${this.minValue}, max: ${this.maxValue}`
@@ -106,18 +106,18 @@ export class Metric {
     }
 
     // Validate we don't have categoryThresholds and categoryValues.
-    assert(
+    validate(
       !(this.categoryValues && this.categoryThresholds),
       `${this} defines both categoryValues and categoryThresholds which is invalid. Remove one or the other depending on whether this metric should be categorized via thresholds or via discrete values.`
     );
 
     // Validate categoryThresholds.
     if (this.categoryThresholds) {
-      assert(
+      validate(
         this.categorySet,
         `${this} defines categoryThresholds but does not specify the categorySetId of the categories to use the thresholds with. Add a categorySetId to your metric definition.`
       );
-      assert(
+      validate(
         this.categoryThresholds.length ===
           this.categorySet.categories.length - 1,
         `${this} defines ${this.categoryThresholds.length} thresholds in categoryThresholds but the referenced ${this.categorySetId} category set has ${this.categorySet.categories.length} categories. There should be 1 fewer thresholds than there are categories. Add or remove thresholds as necessary.`
@@ -127,7 +127,7 @@ export class Metric {
       // otherwise the values are converted to string before sorting.
       const sorted = this.categoryThresholds.slice().sort((a, b) => a - b);
       const sortedReverse = sorted.slice().reverse();
-      assert(
+      validate(
         isEqual(sorted, this.categoryThresholds) ||
           isEqual(this.categoryThresholds, sortedReverse),
         `${this} has thresholds ${this.categoryThresholds} which are not in order. Reorder the thresholds so they are strictly ascending or descending.`
@@ -136,11 +136,11 @@ export class Metric {
 
     // Validate categoryValues.
     if (this.categoryValues) {
-      assert(
+      validate(
         this.categorySet,
         `${this} defines categoryValues but does not specify the categorySetId of the categories to use the values with. Add a categorySetId to your metric definition.`
       );
-      assert(
+      validate(
         this.categoryValues.length === this.categorySet.categories.length,
         `${this} defines ${this.categoryValues.length} values in categoryValues but the referenced ${this.categorySetId} category set has ${this.categorySet.categories.length} categories. There should be the same number of categoryValues as there are categories. Add or remove values as necessary.`
       );
@@ -167,21 +167,21 @@ export class Metric {
    */
   getCategory(value: unknown): Category {
     if (this.categoryThresholds) {
-      assert(this.categorySet); // validated in constructor.
+      validate(this.categorySet); // validated in constructor.
       return this.getCategoryByThresholds(
         this.categorySet,
         this.categoryThresholds,
         value
       );
     } else if (this.categoryValues) {
-      assert(this.categorySet); // validated in constructor.
+      validate(this.categorySet); // validated in constructor.
       return this.getCategoryByValues(
         this.categorySet,
         this.categoryValues,
         value
       );
     } else {
-      fail(
+      throwValidationError(
         `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
       );
     }
@@ -212,7 +212,7 @@ export class Metric {
     }
 
     const lastCategory = last(categorySet.categories);
-    assert(lastCategory);
+    validate(lastCategory);
     return lastCategory;
   }
 
@@ -281,7 +281,7 @@ export class Metric {
     if (this.hasCategories) {
       return this.getCategory(value).color;
     } else {
-      fail(
+      throwValidationError(
         `${this} does not have categoryThresholds or categoryValues defined in its MetricDefinition so getCategory() cannot be used with it.`
       );
     }

@@ -1,8 +1,8 @@
 import groupBy from "lodash/groupBy";
 import keyBy from "lodash/keyBy";
 
-import { assert } from "../../assert";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { Metric, MetricDefinition } from "../Metric";
 import {
   MetricData,
@@ -57,7 +57,7 @@ export class MetricCatalog {
 
     for (const metric of this.metrics) {
       const providerId = metric.dataReference?.providerId;
-      assert(
+      validate(
         !providerId || this.dataProvidersById[providerId],
         `${metric} has a dataReference.providerId of "${providerId}" which was not included in the provided dataProviders list: ${dataProviders.map(
           (p) => p.id
@@ -80,14 +80,14 @@ export class MetricCatalog {
   getMetric(metricOrId: Metric | string): Metric {
     if (metricOrId instanceof Metric) {
       // As a sanity-check, make sure it's a metric from this catalog.
-      assert(
+      validate(
         metricOrId === this.metricsById[metricOrId.id],
         "getMetric() called with unrecognized metric"
       );
       return metricOrId;
     } else {
       const metric = this.metricsById[metricOrId];
-      assert(metric, `No metric found with id ${metricOrId}`);
+      validate(metric, `No metric found with id ${metricOrId}`);
       return metric;
     }
   }
@@ -184,7 +184,7 @@ export class MetricCatalog {
     // it into result.
     for (const [providerId, metrics] of Object.entries(metricsByProvider)) {
       const provider = this.dataProvidersById[providerId];
-      assert(provider, `No data provider found for id ${providerId}`);
+      validate(provider, `No data provider found for id ${providerId}`);
       const fetchedData = await provider.fetchData(
         regions,
         metrics,

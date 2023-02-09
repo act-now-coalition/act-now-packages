@@ -10,8 +10,8 @@ import some from "lodash/some";
 import sortBy from "lodash/sortBy";
 import uniq from "lodash/uniq";
 
-import { assert } from "../../../assert";
 import { DateRange, Timeseries } from "../../../metrics";
+import { validate } from "../../../validate";
 import { useDataForRegionsAndMetrics } from "../../common/hooks";
 import { BaseChartProps } from "../../common/utils/charts";
 import { AxesTimeseries } from "../AxesTimeseries";
@@ -70,7 +70,7 @@ export const MetricSeriesChart = ({
     series.map(({ metric }) => metricCatalog.getMetric(metric))
   );
 
-  assert(
+  validate(
     metrics.length > 0,
     `The series should have at least one valid metric`
   );
@@ -154,8 +154,8 @@ export const MetricSeriesChart = ({
     .map(({ series, timeseries }): LabelInfo => {
       // NOTE: We already filtered out timeseries without data and items
       // without labels, this is for the benefit of TS.
-      assert(series.label, `The series should have a label`);
-      assert(timeseries.hasData(), `The timeseries should have data`);
+      validate(series.label, `The series should have a label`);
+      validate(timeseries.hasData(), `The timeseries should have data`);
 
       return {
         y: yScale(timeseries.lastValue),
@@ -265,7 +265,7 @@ function getDateRange(timeseriesList: Timeseries<unknown>[]): [Date, Date] {
   const minDate = min(timeseriesList.map(({ minDate }) => minDate));
   const maxDate = max(timeseriesList.map(({ maxDate }) => maxDate));
 
-  assert(
+  validate(
     minDate instanceof Date && maxDate instanceof Date,
     "At least one of the provided timeseries shouldn't be empty"
   );
@@ -284,7 +284,7 @@ function getValueRange(timeseriesList: Timeseries<number>[]): [number, number] {
   const minValue = min(timeseriesList.map(({ minValue }) => minValue));
   const maxValue = max(timeseriesList.map(({ maxValue }) => maxValue));
 
-  assert(
+  validate(
     typeof minValue === "number" && typeof maxValue === "number",
     "At least one of the provided timeseries shouldn't be empty"
   );

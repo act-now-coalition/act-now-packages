@@ -1,8 +1,8 @@
 import { appleStock, cityTemperature } from "@visx/mock-data";
 import { scaleLinear, scaleUtc } from "@visx/scale";
 
-import { assert } from "../../assert";
 import { Timeseries, TimeseriesPoint } from "../../metrics";
+import { validate } from "../../validate";
 
 // We generate random decimal points in TimeseriesPoint<number>
 // format so we can use them to initialize Timeseries.
@@ -56,7 +56,7 @@ export function createTimeseriesScales(
   width: number,
   height: number
 ) {
-  assert(timeseries.hasData(), "Timeseries cannot be empty");
+  validate(timeseries.hasData(), "Timeseries cannot be empty");
   const { minDate, maxDate, minValue, maxValue } = timeseries;
 
   const xScale = scaleUtc({

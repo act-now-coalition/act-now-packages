@@ -1,7 +1,7 @@
 import fromPairs from "lodash/fromPairs";
 
-import { assert } from "../../assert";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import type { MetricCatalog } from "../MetricCatalog";
 import { MetricData, MultiRegionMultiMetricDataStore } from "../data";
@@ -69,7 +69,7 @@ export abstract class TransformedMetricDataProvider
     const metricToSourceMetricMap = fromPairs(
       metrics.map((metric) => {
         const sourceMetric = metric.dataReference?.sourceMetric as string;
-        assert(
+        validate(
           typeof sourceMetric === "string",
           `Metric ${metric.id} is using ${this.id} data provider but does not have a sourceMetric.`
         );

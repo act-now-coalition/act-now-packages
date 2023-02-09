@@ -1,5 +1,5 @@
-import { assert } from "../../assert";
 import { states } from "../../regions";
+import { validate } from "../../validate";
 import { Metric } from "../Metric";
 import { MockDataProvider } from "./MockDataProvider";
 
@@ -49,7 +49,7 @@ describe("MockDataProvider", () => {
       testRegion,
       metric
     );
-    assert(data.hasTimeseries);
+    validate(data.hasTimeseries);
     const dates = data.timeseries.dates;
     expect(dates[0]).toEqual(new Date("2022-01-01"));
     const today = new Date(new Date().toISOString().replace(/T.*/, ""));

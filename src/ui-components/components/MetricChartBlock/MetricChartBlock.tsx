@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Stack, Typography } from "@mui/material";
 
-import { assert } from "../../../assert";
 import { Metric } from "../../../metrics";
 import { Region } from "../../../regions";
+import { validate } from "../../../validate";
 import { AutoWidth } from "../AutoWidth";
 import { useMetricCatalog } from "../MetricCatalogContext";
 import { MetricLineChart } from "../MetricLineChart";
@@ -57,7 +57,7 @@ export const MetricChartBlock = ({
   height = 450,
   renderChartFooter = () => null,
 }: MetricChartBlockProps) => {
-  assert(metrics.length > 1, "Must have at least 2 tabs to select from");
+  validate(metrics.length > 1, "Must have at least 2 tabs to select from");
   const metricCatalog = useMetricCatalog();
   const resolvedMetrics = metrics.map((metric) =>
     metricCatalog.getMetric(metric)

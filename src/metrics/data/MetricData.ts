@@ -1,5 +1,5 @@
-import { assert } from "../../assert";
 import { Region } from "../../regions";
+import { validate } from "../../validate";
 import { Category, Metric } from "../Metric";
 import { Timeseries } from "../Timeseries";
 import { parseBoolean } from "./data_utils";
@@ -44,7 +44,7 @@ export class MetricData<T = unknown> {
    * Throws if timeseries data was not fetched for this metric. See {@link hasTimeseries}.
    */
   get timeseries(): Timeseries<T> {
-    assert(
+    validate(
       this._timeseries,
       "Timeseries is not available. Either this metric is not timeseries-enabled or " +
         "includeTimeseries was set to false when fetching the metric data."
@@ -56,7 +56,7 @@ export class MetricData<T = unknown> {
    * Returns the current value, but throws an error if it is null.
    */
   get currentValueStrict(): T {
-    assert(
+    validate(
       this.currentValue !== null,
       "currentValueString called when currentValue is null."
     );
@@ -81,7 +81,7 @@ export class MetricData<T = unknown> {
    * @returns This `MetricData` cast to `MetricData<number>`.
    */
   assertFiniteNumbers(): MetricData<number> {
-    assert(
+    validate(
       this.currentValue === null ||
         (typeof this.currentValue === "number" && isFinite(this.currentValue)),
       `Value is not numeric: ${this.currentValue}`
@@ -106,7 +106,7 @@ export class MetricData<T = unknown> {
    * @returns This `MetricData` cast to `MetricData<boolean>`.
    */
   assertBoolean(): MetricData<boolean> {
-    assert(
+    validate(
       this.currentValue === null || typeof this.currentValue === "boolean",
       `Value is not boolean: ${this.currentValue}`
     );
@@ -145,7 +145,7 @@ export class MetricData<T = unknown> {
    * @returns This `MetricData` cast to `MetricData<string>`.
    */
   assertStrings(): MetricData<string> {
-    assert(
+    validate(
       this.currentValue === null || typeof this.currentValue === "string",
       `Value is not a string: ${this.currentValue}`
     );
