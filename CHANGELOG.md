@@ -1,5 +1,12 @@
 # @actnowcoalition/actnow.js
 
+## 0.2.1
+
+### Patch Changes
+
+- afb2e0d: Update screenshot detection components
+- 1f90872: Improve error messages
+
 ## 0.2.0
 
 ### Minor Changes
